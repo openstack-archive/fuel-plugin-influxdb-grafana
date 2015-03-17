@@ -13,3 +13,23 @@ attributes:
     description: 'Comma-separated list of disk devices used to store Elasticsearch data (for instance "sda,sdb"). Keep it empty means using "/"'
     weight: 20
     type: "text"
+
+  influxdb_user:
+    value: ''
+    label: 'InfluxDB username'
+    description: 'Name of InfluxDB user'
+    weight: 30
+    type: "text"
+    regex:
+      source: '\S'
+      error: "You must provide a username"
+
+  influxdb_pass:
+    value: ''
+    label: 'InfluxDB password'
+    description: 'Password of InfluxDB user'
+    weight: 40
+    type: "text"
+    regex:
+      source: '\S'
+      error: "You must provide a password"
