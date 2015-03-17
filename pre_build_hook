@@ -10,6 +10,9 @@ DEB_REPO="${ROOT}"/repositories/ubuntu/
 INFLUXDB_TARBALL_URL="https://forgeapi.puppetlabs.com/v3/files/jdowning-influxdb-0.3.0.tar.gz"
 STAGING_TARBALL_URL="https://forgeapi.puppetlabs.com/v3/files/nanliu-staging-1.0.3.tar.gz"
 
+# Puppet manifests required for grafana
+NGINX_TARBALL_URL="https://forgeapi.puppetlabs.com/v3/files/jfryman-nginx-0.2.2.tar.gz"
+
 # Puppet manifests from fuel-lib
 FUEL_LIB_VERSION="6.0"
 FUEL_LIB_TARBALL_URL="https://github.com/stackforge/fuel-library/archive/${FUEL_LIB_VERSION}.tar.gz"
@@ -34,14 +37,21 @@ download rpm http://get.influxdb.org/influxdb-0.8.8-1.x86_64.rpm
 
 # Install puppet manifests
 # Clean-up first
-rm -rf ${MODULES}/{influxdb,staging,stdlib,inifile}
-mkdir -p ${MODULES}/{influxdb,staging}
+rm -rf ${MODULES}/{influxdb,nginx,staging,stdlib,concat,inifile}
+mkdir -p ${MODULES}/{influxdb,nginx,staging}
 
-# Include influxdb manifest from puppetlabs
+# Include influxdb manifests, its dependendy and nginx.
 wget -qO- "${INFLUXDB_TARBALL_URL}" | tar -C "${MODULES}/influxdb" --strip-components=1 -xz
 wget -qO- "${STAGING_TARBALL_URL}" | tar -C "${MODULES}/staging" --strip-components=1 -xz
+wget -qO- "${NGINX_TARBALL_URL}" | tar -C "${MODULES}/nginx" --strip-components=1 -xz
 
 # Include dependent manifests from fuel-library
 wget -qO- "${FUEL_LIB_TARBALL_URL}" | \
     tar -C "${MODULES}" --strip-components=3 -zxvf - \
-    fuel-library-${FUEL_LIB_VERSION}/deployment/puppet/{stdlib,inifile}
+    fuel-library-${FUEL_LIB_VERSION}/deployment/puppet/{stdlib,concat,inifile}
+
+# We need to embed grafana sources into the lma_monitoring_analytics module.
+GRAFANA_TARBALL_URL="http://grafanarel.s3.amazonaws.com/grafana-1.9.1.tar.gz"
+GRAFANA_FOLDER="${MODULES}/lma_monitoring_analytics/files/grafana/sources"
+mkdir -p ${GRAFANA_FOLDER}
+wget -qO- "${GRAFANA_TARBALL_URL}" | tar -C "${GRAFANA_FOLDER}" --strip-components=1 -xz
