@@ -1,0 +1,22 @@
+#!/bin/bash
+
+set -eux
+
+INFLUXDB_URL="http://127.0.0.1:8086"
+
+# Setup the new root password
+curl -X POST "${INFLUXDB_URL}/cluster_admins/root?u=root&p=root" \
+    -d '{"password": "<%= @influxdb_rootpass %>"}'
+
+# Create the lma DB with a user
+curl -X POST "${INFLUXDB_URL}/db?u=root&p=<%= @influxdb_rootpass %>" \
+    -d '{"name": "<%= @influxdb_dbname %>"}'
+curl -X POST "${INFLUXDB_URL}/db/<%= @influxdb_dbname %>/users?u=root&p=<%= @influxdb_rootpass %>" \
+    -d '{"name": "<%= @influxdb_username %>", "password": "<%= @influxdb_userpass %>"}'
+
+# Create the grafana DB with a user
+curl -X POST "${INFLUXDB_URL}/db?u=root&p=<%= @influxdb_rootpass %>" \
+    -d '{"name": "<%= @influxdb_grafanadb %>"}'
+curl -X POST "${INFLUXDB_URL}/db/<%= @influxdb_grafanadb %>/users?u=root&p=<%= @influxdb_rootpass %>" \
+    -d '{"name": "<%= @influxdb_username %>", "password": "<%= @influxdb_userpass %>"}'
+
