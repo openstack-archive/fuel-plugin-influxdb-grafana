@@ -1,0 +1,8 @@
+attributes:
+
+  node_name:
+    value: 'influxdb'
+    label: 'Node name'
+    description: 'The name of the node where the plugin will be deployed'
+    weight: 10
+    type: "text"
