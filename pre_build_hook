@@ -1,5 +1,47 @@
 #!/bin/bash
+set -eux
 
-# Add here any the actions which are required before plugin build
-# like packages building, packages downloading from mirrors and so on.
-# The script should return 0 if there were no errors.
+ROOT="$(dirname `readlink -f $0`)"
+MODULES="${ROOT}"/deployment_scripts/puppet/modules
+RPM_REPO="${ROOT}"/repositories/centos/
+DEB_REPO="${ROOT}"/repositories/ubuntu/
+
+# Puppet manifests for influx
+INFLUXDB_TARBALL_URL="https://forgeapi.puppetlabs.com/v3/files/jdowning-influxdb-0.3.0.tar.gz"
+STAGING_TARBALL_URL="https://forgeapi.puppetlabs.com/v3/files/nanliu-staging-1.0.3.tar.gz"
+
+# Puppet manifests from fuel-lib
+FUEL_LIB_VERSION="6.0"
+FUEL_LIB_TARBALL_URL="https://github.com/stackforge/fuel-library/archive/${FUEL_LIB_VERSION}.tar.gz"
+
+# Downloads needed RPM or DEB packages
+function download {
+    case "$1" in
+        deb) REPO=$DEB_REPO;;
+        rpm) REPO=$RPM_REPO;;
+    esac
+    shift
+
+    while [ $# -gt 0 ]; do
+        FILE=$(basename $1)
+        wget -qO - $1 > $REPO/$FILE
+        shift
+    done
+}
+
+download deb http://get.influxdb.org/influxdb_0.9.0-rc12_amd64.deb
+download rpm http://get.influxdb.org/influxdb-0.9.0_rc12-1.x86_64.rpm
+
+# Install puppet manifests
+# Clean-up first
+rm -rf ${MODULES}/{stdlib,influxdb,staging}
+mkdir -p ${MODULES}/{influxdb,staging}
+
+# Include influxdb manifest from puppetlabs
+wget -qO- "${INFLUXDB_TARBALL_URL}" | tar -C "${MODULES}/influxdb" --strip-components=1 -xz
+wget -qO- "${STAGING_TARBALL_URL}" | tar -C "${MODULES}/staging" --strip-components=1 -xz
+
+# Include dependent manifests from fuel-library
+wget -qO- "${FUEL_LIB_TARBALL_URL}" | \
+    tar -C "${MODULES}" --strip-components=3 -zxvf - \
+    fuel-library-${FUEL_LIB_VERSION}/deployment/puppet/stdlib
