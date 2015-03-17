@@ -1,6 +1,6 @@
 # This tasks will be applied on base-os nodes.
 - role: ['base-os']
-  stage: pre_deployment
+  stage: post_deployment
   type: puppet
   parameters:
     puppet_manifest: /etc/puppet/modules/osnailyfacter/modular/netconfig/netconfig.pp
@@ -24,4 +24,10 @@
     puppet_modules: puppet/modules
     timeout: 600
 
-# TODO: install grafana
+- role: ['base-os']
+  stage: post_deployment
+  type: puppet
+  parameters:
+    puppet_manifest: puppet/manifests/grafana.pp
+    puppet_modules: puppet/modules
+    timeout: 600
