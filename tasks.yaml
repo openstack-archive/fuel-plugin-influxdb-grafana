@@ -8,7 +8,7 @@
     timeout: 720
 
 # TODO: Configure disks
-
+#
 # "reboot" task reboots the nodes and waits until they get back online
 # - role: 'base-os'
 #   stage: pre_deployment
@@ -16,6 +16,12 @@
 #   parameters:
 #     timeout: 600
 
-# TODO: install influxdb
+- role: ['base-os']
+  stage: post_deployment
+  type: puppet
+  parameters:
+    puppet_manifest: puppet/manifests/influxdb.pp
+    puppet_modules: puppet/modules
+    timeout: 600
 
 # TODO: install grafana
