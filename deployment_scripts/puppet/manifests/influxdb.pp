@@ -4,6 +4,7 @@ if $fuel_settings['influxdb_grafana']['node_name'] == $fuel_settings['user_node_
 
   class { 'influxdb':
     install_from_repository => true,
+    storage_dir             => $fuel_settings['influxdb_grafana']['storage_dir'],
   }
 
 }
