@@ -78,7 +78,6 @@ User Guide
    and fill-in the required fields.
     - The name of the node where the plugin is deployed.
     - The password for the root user.
-    - The directory used to store metrics.
     - The name of the database where you want to store your metrics.
     - The username and the password for this specific database.
 
