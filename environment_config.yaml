@@ -10,10 +10,10 @@ attributes:
       source: '\S'
       error: "You must provide a name"
 
-  dedicated_disks:
-    value: ''
-    label: 'Dedicated disks'
-    description: 'A comma-separated list of disk devices used to store Elasticsearch data (for instance "sda,sdb"). Keep it empty means using "/"'
+  storage_dir:
+    value: '/opt/influxdb/shared/data/db'
+    label: 'Storage dir'
+    description: 'The directory used by InfluxDB to store metrics'
     weight: 20
     type: "text"
 
