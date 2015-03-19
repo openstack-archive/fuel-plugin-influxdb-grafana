@@ -10,13 +10,6 @@ attributes:
       source: '\S'
       error: "You must provide a name"
 
-  dedicated_disks:
-    value: ''
-    label: 'Dedicated disks'
-    description: 'A comma-separated list of disk devices used to store Elasticsearch data (for instance "sda,sdb"). Keep it empty means using "/"'
-    weight: 20
-    type: "text"
-
   influxdb_rootpass:
     value: ''
     label: 'root password'
