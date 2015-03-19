@@ -10,17 +10,17 @@ attributes:
       source: '\S'
       error: "You must provide a name"
 
-  dedicated_disks:
-    value: ''
-    label: 'Dedicated disks'
-    description: 'Comma-separated list of disk devices used to store InfluxDB data (for instance "sda,sdb"). Keep it empty means using "/"'
+  storage_dir:
+    value: '/opt/influxdb/shared/data/db'
+    label: 'Storage dir'
+    description: 'Directory used by InfluxDB to store metrics'
     weight: 20
     type: "text"
 
   influxdb_rootpass:
     value: ''
     label: 'root password'
-    description: 'Password of InfluxDB root'
+    description: 'Password for the root user'
     weight: 30
     type: "password"
     regex:
@@ -50,7 +50,7 @@ attributes:
   influxdb_userpass:
     value: ''
     label: 'user password'
-    description: 'Password of InfluxDB user'
+    description: 'Password for the user'
     weight: 60
     type: "password"
     regex:
