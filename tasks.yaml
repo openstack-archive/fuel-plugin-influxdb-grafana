@@ -7,15 +7,6 @@
     puppet_modules: /etc/puppet/modules
     timeout: 720
 
-# TODO: Configure disks
-#
-# "reboot" task reboots the nodes and waits until they get back online
-# - role: 'base-os'
-#   stage: pre_deployment
-#   type: reboot
-#   parameters:
-#     timeout: 600
-
 - role: ['base-os']
   stage: post_deployment
   type: puppet
