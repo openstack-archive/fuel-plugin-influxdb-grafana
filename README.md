@@ -44,13 +44,13 @@ To install the InfluxDB-Grafana plugin, follow these steps:
    Fuel Master node yet.
 
    ```
-   scp influxdb_grafana-6.1-6.1.0-0.noarch.rpm root@<the Fuel Master node IP address>:
+   scp influxdb_grafana-1.0-1.0.0-0.noarch.rpm root@<the Fuel Master node IP address>:
    ```
 
 3. Install the plugin using the `fuel` command line:
 
    ```
-   fuel plugins --install influxdb_grafana-6.1-6.1.0-0.noarch.rpm
+   fuel plugins --install influxdb_grafana-1.0-1.0.0-0.noarch.rpm
    ```
 
 4. Verify that the plugin is installed correctly:
@@ -114,7 +114,7 @@ None.
 Release Notes
 -------------
 
-**6.1.0**
+**1.0.0**
 
 * Initial release of the plugin
 
