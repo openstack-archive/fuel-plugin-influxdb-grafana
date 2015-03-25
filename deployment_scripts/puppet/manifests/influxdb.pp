@@ -1,9 +1,8 @@
-$fuel_settings = parseyaml(file('/etc/astute.yaml'))
+$influxdb_grafana = hiera('influxdb_grafana')
 
-if $fuel_settings['influxdb_grafana']['node_name'] == $fuel_settings['user_node_name'] {
+if $influxdb_grafana['node_name'] == hiera('user_node_name') {
 
   class { 'influxdb':
     install_from_repository => true,
   }
-
 }
