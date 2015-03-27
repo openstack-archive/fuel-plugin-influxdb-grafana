@@ -12,8 +12,8 @@ attributes:
 
   influxdb_rootpass:
     value: ''
-    label: 'root password'
-    description: 'The password of the InfluxDB root'
+    label: 'Root password'
+    description: 'The password of the InfluxDB root user'
     weight: 30
     type: "password"
     regex:
@@ -22,8 +22,8 @@ attributes:
 
   influxdb_dbname:
     value: 'lma'
-    label: 'db name'
-    description: 'The name of the database used to store metrics'
+    label: 'Database name'
+    description: 'The name of the database used to store the metrics'
     weight: 40
     type: "text"
     regex:
@@ -32,7 +32,7 @@ attributes:
 
   influxdb_username:
     value: 'lma'
-    label: 'user name'
+    label: 'User name'
     description: 'The name of the InfluxDB user'
     weight: 50
     type: "text"
@@ -42,7 +42,7 @@ attributes:
 
   influxdb_userpass:
     value: ''
-    label: 'user password'
+    label: 'User password'
     description: 'The password of the InfluxDB user'
     weight: 60
     type: "password"
