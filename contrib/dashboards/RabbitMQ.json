@@ -1,0 +1,520 @@
+{
+  "id": null,
+  "title": "RabbitMQ",
+  "originalTitle": "RabbitMQ",
+  "tags": [],
+  "style": "dark",
+  "timezone": "browser",
+  "editable": true,
+  "hideControls": false,
+  "sharedCrosshair": false,
+  "rows": [
+    {
+      "title": "RabbitMQ",
+      "height": "250px",
+      "editable": true,
+      "collapse": false,
+      "panels": [
+        {
+          "title": "Connections",
+          "error": false,
+          "span": 2,
+          "editable": true,
+          "type": "singlestat",
+          "id": 31,
+          "links": [],
+          "maxDataPoints": 100,
+          "interval": "> 60s",
+          "targets": [
+            {
+              "function": "last",
+              "column": "value",
+              "series": "$server.rabbitmq.connections",
+              "query": "select last(value) from \"$server.rabbitmq.connections\" where $timeFilter group by time($interval) order asc",
+              "alias": "connections"
+            }
+          ],
+          "cacheTimeout": null,
+          "format": "none",
+          "prefix": "",
+          "postfix": "",
+          "nullText": null,
+          "valueMaps": [
+            {
+              "value": "null",
+              "op": "=",
+              "text": "N/A"
+            }
+          ],
+          "nullPointMode": "connected",
+          "valueName": "current",
+          "prefixFontSize": "50%",
+          "valueFontSize": "80%",
+          "postfixFontSize": "50%",
+          "thresholds": "",
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "sparkline": {
+            "show": true,
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "fillColor": "rgba(31, 118, 189, 0.18)"
+          }
+        },
+        {
+          "title": "Nodes",
+          "error": false,
+          "span": 2,
+          "editable": true,
+          "type": "singlestat",
+          "id": 26,
+          "links": [],
+          "maxDataPoints": 100,
+          "interval": "> 60s",
+          "targets": [
+            {
+              "function": "last",
+              "column": "value",
+              "series": "$server.rabbitmq.total_nodes",
+              "query": "select last(value) from \"$server.rabbitmq.total_nodes\" where $timeFilter group by time($interval) order asc",
+              "alias": "Total nodes"
+            }
+          ],
+          "cacheTimeout": null,
+          "format": "none",
+          "prefix": "",
+          "postfix": "",
+          "nullText": null,
+          "valueMaps": [
+            {
+              "value": "null",
+              "op": "=",
+              "text": "N/A"
+            }
+          ],
+          "nullPointMode": "connected",
+          "valueName": "current",
+          "prefixFontSize": "50%",
+          "valueFontSize": "80%",
+          "postfixFontSize": "50%",
+          "thresholds": "",
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "rgba(71, 212, 59, 0.4)",
+            "rgba(245, 150, 40, 0.73)",
+            "rgba(225, 40, 40, 0.59)"
+          ],
+          "sparkline": {
+            "show": true,
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "fillColor": "rgba(31, 118, 189, 0.18)"
+          }
+        },
+        {
+          "title": "Running nodes",
+          "error": false,
+          "span": 2,
+          "editable": true,
+          "type": "singlestat",
+          "id": 27,
+          "links": [],
+          "maxDataPoints": 100,
+          "interval": "> 60s",
+          "targets": [
+            {
+              "function": "last",
+              "column": "value",
+              "series": "$server.rabbitmq.running_nodes",
+              "query": "select last(value) from \"$server.rabbitmq.running_nodes\" where $timeFilter group by time($interval) order asc",
+              "alias": "Running nodes"
+            }
+          ],
+          "cacheTimeout": null,
+          "format": "none",
+          "prefix": "",
+          "postfix": "",
+          "nullText": null,
+          "valueMaps": [
+            {
+              "value": "null",
+              "op": "=",
+              "text": "N/A"
+            }
+          ],
+          "nullPointMode": "connected",
+          "valueName": "current",
+          "prefixFontSize": "50%",
+          "valueFontSize": "80%",
+          "postfixFontSize": "50%",
+          "thresholds": "",
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "sparkline": {
+            "show": true,
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "fillColor": "rgba(31, 118, 189, 0.18)"
+          }
+        },
+        {
+          "title": "Queues",
+          "error": false,
+          "span": 2,
+          "editable": true,
+          "type": "singlestat",
+          "id": 30,
+          "links": [],
+          "maxDataPoints": 100,
+          "interval": "> 60s",
+          "targets": [
+            {
+              "function": "last",
+              "column": "value",
+              "series": "$server.rabbitmq.queues",
+              "query": "select last(value) from \"$server.rabbitmq.queues\" where $timeFilter group by time($interval) order asc",
+              "alias": "queues"
+            }
+          ],
+          "cacheTimeout": null,
+          "format": "none",
+          "prefix": "",
+          "postfix": "",
+          "nullText": null,
+          "valueMaps": [
+            {
+              "value": "null",
+              "op": "=",
+              "text": "N/A"
+            }
+          ],
+          "nullPointMode": "connected",
+          "valueName": "current",
+          "prefixFontSize": "50%",
+          "valueFontSize": "80%",
+          "postfixFontSize": "50%",
+          "thresholds": "",
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "sparkline": {
+            "show": true,
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "fillColor": "rgba(31, 118, 189, 0.18)"
+          }
+        },
+        {
+          "title": "Consumers",
+          "error": false,
+          "span": 2,
+          "editable": true,
+          "type": "singlestat",
+          "id": 32,
+          "links": [],
+          "maxDataPoints": 100,
+          "interval": "> 60s",
+          "targets": [
+            {
+              "function": "last",
+              "column": "value",
+              "series": "$server.rabbitmq.consumers",
+              "query": "select last(value) from \"$server.rabbitmq.consumers\" where $timeFilter group by time($interval) order asc"
+            }
+          ],
+          "cacheTimeout": null,
+          "format": "none",
+          "prefix": "",
+          "postfix": "",
+          "nullText": null,
+          "valueMaps": [
+            {
+              "value": "null",
+              "op": "=",
+              "text": "N/A"
+            }
+          ],
+          "nullPointMode": "connected",
+          "valueName": "current",
+          "prefixFontSize": "50%",
+          "valueFontSize": "80%",
+          "postfixFontSize": "50%",
+          "thresholds": "",
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "rgba(71, 212, 59, 0.4)",
+            "rgba(245, 150, 40, 0.73)",
+            "rgba(225, 40, 40, 0.59)"
+          ],
+          "sparkline": {
+            "show": true,
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "fillColor": "rgba(31, 118, 189, 0.18)"
+          }
+        },
+        {
+          "title": "Exchanges",
+          "error": false,
+          "span": 2,
+          "editable": true,
+          "type": "singlestat",
+          "id": 33,
+          "links": [],
+          "maxDataPoints": 100,
+          "interval": "> 60s",
+          "targets": [
+            {
+              "function": "last",
+              "column": "value",
+              "series": "$server.rabbitmq.exchanges",
+              "query": "select last(value) from \"$server.rabbitmq.exchanges\" where $timeFilter group by time($interval) order asc"
+            }
+          ],
+          "cacheTimeout": null,
+          "format": "none",
+          "prefix": "",
+          "postfix": "",
+          "nullText": null,
+          "valueMaps": [
+            {
+              "value": "null",
+              "op": "=",
+              "text": "N/A"
+            }
+          ],
+          "nullPointMode": "connected",
+          "valueName": "current",
+          "prefixFontSize": "50%",
+          "valueFontSize": "80%",
+          "postfixFontSize": "50%",
+          "thresholds": "",
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "sparkline": {
+            "show": true,
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "fillColor": "rgba(31, 118, 189, 0.18)"
+          }
+        },
+        {
+          "title": "Memory",
+          "error": false,
+          "span": 6,
+          "editable": true,
+          "type": "graph",
+          "id": 25,
+          "datasource": null,
+          "renderer": "flot",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "bytes",
+            "short"
+          ],
+          "grid": {
+            "leftMax": null,
+            "rightMax": null,
+            "leftMin": 0,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold2": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "lines": true,
+          "fill": 1,
+          "linewidth": 1,
+          "points": false,
+          "pointradius": 5,
+          "bars": false,
+          "stack": false,
+          "percentage": false,
+          "legend": {
+            "show": true,
+            "values": false,
+            "min": false,
+            "max": false,
+            "current": false,
+            "total": false,
+            "avg": false
+          },
+          "nullPointMode": "connected",
+          "steppedLine": false,
+          "tooltip": {
+            "value_type": "cumulative",
+            "shared": true
+          },
+          "targets": [
+            {
+              "function": "mean",
+              "column": "value",
+              "series": "$server.rabbitmq.memory",
+              "query": "select mean(value) from \"$server.rabbitmq.memory\" where $timeFilter group by time($interval) order asc",
+              "alias": "total (all processes)",
+              "rawQuery": false
+            },
+            {
+              "function": "mean",
+              "column": "value",
+              "series": "/$server.rabbitmq.pmap/",
+              "query": "select mean(value) from /$server.rabbitmq.pmap/ where $timeFilter group by time($interval) order asc",
+              "alias": "$2 (main process)",
+              "rawQuery": false
+            }
+          ],
+          "aliasColors": {},
+          "seriesOverrides": [],
+          "links": [],
+          "interval": "> 60s"
+        },
+        {
+          "title": "Ready/Unacknowledged messages",
+          "error": false,
+          "span": 6,
+          "editable": true,
+          "type": "graph",
+          "id": 29,
+          "datasource": null,
+          "renderer": "flot",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "short"
+          ],
+          "grid": {
+            "leftMax": null,
+            "rightMax": null,
+            "leftMin": 0,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold2": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "lines": true,
+          "fill": 1,
+          "linewidth": 1,
+          "points": false,
+          "pointradius": 5,
+          "bars": false,
+          "stack": false,
+          "percentage": false,
+          "legend": {
+            "show": true,
+            "values": false,
+            "min": false,
+            "max": false,
+            "current": false,
+            "total": false,
+            "avg": false
+          },
+          "nullPointMode": "connected",
+          "steppedLine": false,
+          "tooltip": {
+            "value_type": "cumulative",
+            "shared": true
+          },
+          "targets": [
+            {
+              "function": "mean",
+              "column": "value",
+              "series": "$server.rabbitmq.messages",
+              "query": "select mean(value) from \"$server.rabbitmq.messages\" where $timeFilter group by time($interval) order asc",
+              "alias": "ready and unack messages"
+            }
+          ],
+          "aliasColors": {},
+          "seriesOverrides": [],
+          "interval": "> 60s",
+          "links": [],
+          "leftYAxisLabel": ""
+        }
+      ]
+    }
+  ],
+  "nav": [
+    {
+      "type": "timepicker",
+      "collapse": false,
+      "enable": true,
+      "status": "Stable",
+      "time_options": [
+        "5m",
+        "15m",
+        "1h",
+        "6h",
+        "12h",
+        "24h",
+        "2d",
+        "7d",
+        "30d"
+      ],
+      "refresh_intervals": [
+        "5s",
+        "10s",
+        "30s",
+        "1m",
+        "5m",
+        "15m",
+        "30m",
+        "1h",
+        "2h",
+        "1d"
+      ],
+      "now": true,
+      "notice": false
+    }
+  ],
+  "time": {
+    "from": "now-15m",
+    "to": "now"
+  },
+  "templating": {
+    "list": [
+      {
+        "type": "query",
+        "datasource": null,
+        "refresh_on_load": false,
+        "name": "server",
+        "options": [],
+        "includeAll": false,
+        "allFormat": "glob",
+        "query": "list series /openstack.keystone.check_api/",
+        "current": {},
+        "regex": "/^([^.]+)/",
+        "refresh": false
+      }
+    ],
+    "enable": true
+  },
+  "annotations": {
+    "list": []
+  },
+  "refresh": "1m",
+  "version": 6,
+  "hideAllLegends": false
+}
