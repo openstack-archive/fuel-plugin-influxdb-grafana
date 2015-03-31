@@ -24,10 +24,10 @@ class lma_monitoring_analytics (
 
   $grafana_dir        = $lma_monitoring_analytics::params::grafana_dir
   $grafana_conf       = $lma_monitoring_analytics::params::grafana_conf
-  $grafana_dash       = $lma_monitoring_analytics::params::grafana_dash
   $influxdb_host      = $lma_monitoring_analytics::params::influxdb_host
   $configure_influxdb = $lma_monitoring_analytics::params::influxdb_script
-  $influxdb_grafanadb = $lma_monitoring_analytics::params::influxdb_grafanadb
+  $grafana_dbname     = $lma_monitoring_analytics::params::grafana_dbname
+  $grafana_home_dashboard = $lma_monitoring_analytics::params::grafana_home_dashboard
 
   # Configure InfluxDB:
   #   - update root password
@@ -60,9 +60,13 @@ class lma_monitoring_analytics (
   }
 
   # Install the dashboard
-  file { $grafana_dash:
-    source  => 'puppet:///modules/lma_monitoring_analytics/grafana/dashboards/lma.json',
-    require => File[$grafana_dir],
+  grafana_dashboard { 'Logging, Monitoring and Alerting':
+    ensure           => present,
+    content          => template('lma_monitoring_analytics/grafana/main_dashboard.json'),
+    storage_url      => "http://localhost:8086/db/${grafana_dbname}",
+    storage_user     => $influxdb_username,
+    storage_password => $influxdb_userpass,
+    require          => Exec['configure_influxdb_script'],
   }
 
   # And now install nginx
