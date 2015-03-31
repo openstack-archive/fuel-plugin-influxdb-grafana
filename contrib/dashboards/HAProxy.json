@@ -1,0 +1,1156 @@
+{
+  "id": null,
+  "title": "HAProxy",
+  "originalTitle": "HAProxy",
+  "tags": [],
+  "style": "dark",
+  "timezone": "browser",
+  "editable": true,
+  "hideControls": false,
+  "sharedCrosshair": false,
+  "rows": [
+    {
+      "title": "Service",
+      "height": "250px",
+      "editable": true,
+      "collapse": false,
+      "panels": [
+        {
+          "title": "status $service backend",
+          "error": false,
+          "span": 1,
+          "editable": true,
+          "type": "singlestat",
+          "id": 1,
+          "links": [],
+          "maxDataPoints": 100,
+          "interval": ">60s",
+          "targets": [
+            {
+              "function": "last",
+              "column": "value",
+              "series": "/$controller.haproxy.backend.$service.status/",
+              "query": "select last(value) from /$controller.haproxy.backend.$service.status/ where $timeFilter group by time($interval) order asc",
+              "rawQuery": false
+            }
+          ],
+          "cacheTimeout": null,
+          "format": "none",
+          "prefix": "",
+          "postfix": "",
+          "nullText": null,
+          "valueMaps": [
+            {
+              "value": "null",
+              "op": "=",
+              "text": "N/A"
+            },
+            {
+              "value": "1",
+              "op": "=",
+              "text": "Healthy"
+            },
+            {
+              "value": "0",
+              "op": "=",
+              "text": "Down"
+            }
+          ],
+          "nullPointMode": "null as zero",
+          "valueName": "current",
+          "prefixFontSize": "50%",
+          "valueFontSize": "80%",
+          "postfixFontSize": "50%",
+          "thresholds": "0,0.5,0.9",
+          "colorBackground": true,
+          "colorValue": false,
+          "colors": [
+            "rgba(71, 212, 59, 0.4)",
+            "rgba(245, 150, 40, 0.73)",
+            "rgba(225, 40, 40, 0.59)"
+          ],
+          "sparkline": {
+            "show": false,
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "fillColor": "rgba(31, 118, 189, 0.18)"
+          }
+        },
+        {
+          "title": "$frontback $service sessions",
+          "error": false,
+          "span": 5,
+          "editable": true,
+          "type": "graph",
+          "id": 4,
+          "datasource": null,
+          "renderer": "flot",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "short"
+          ],
+          "grid": {
+            "leftMax": null,
+            "rightMax": null,
+            "leftMin": 0,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold2": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "lines": true,
+          "fill": 0,
+          "linewidth": 1,
+          "points": false,
+          "pointradius": 5,
+          "bars": false,
+          "stack": false,
+          "percentage": false,
+          "legend": {
+            "show": true,
+            "values": false,
+            "min": false,
+            "max": false,
+            "current": false,
+            "total": false,
+            "avg": false
+          },
+          "nullPointMode": "connected",
+          "steppedLine": false,
+          "tooltip": {
+            "value_type": "individual",
+            "shared": true
+          },
+          "targets": [
+            {
+              "function": "mean",
+              "column": "value",
+              "series": "/$controller.haproxy.$frontback.$service.session_current/",
+              "query": "select mean(value) from /$controller.haproxy.$frontback.$service.session_current/ where $timeFilter group by time($interval) order asc",
+              "alias": "$0.$3"
+            },
+            {
+              "function": "max",
+              "column": "value",
+              "series": "/$controller.haproxy.$frontback.$service.session_current/",
+              "query": "select max(value) from /$controller.haproxy.$frontback.$service.session_current/ where $timeFilter group by time($interval) order asc",
+              "alias": "max"
+            },
+            {
+              "function": "min",
+              "column": "value",
+              "series": "/$controller.haproxy.$frontback.$service.session_current/",
+              "query": "select min(value) from /$controller.haproxy.$frontback.$service.session_current/ where $timeFilter group by time($interval) order asc",
+              "alias": "min"
+            }
+          ],
+          "aliasColors": {},
+          "seriesOverrides": [
+            {
+              "alias": "max",
+              "fillBelowTo": "min",
+              "lines": false
+            },
+            {
+              "alias": "min",
+              "lines": false
+            }
+          ],
+          "links": [],
+          "interval": "30s",
+          "leftYAxisLabel": "sessions"
+        },
+        {
+          "title": "current queue $service",
+          "error": false,
+          "span": 1,
+          "editable": true,
+          "type": "singlestat",
+          "id": 7,
+          "links": [],
+          "maxDataPoints": 100,
+          "interval": "20s",
+          "targets": [
+            {
+              "function": "sum",
+              "column": "value",
+              "series": "/haproxy.backend.$service.queue_current/",
+              "query": "select sum(value) from /haproxy.backend.$service.queue_current/ where $timeFilter group by time($interval) order asc"
+            }
+          ],
+          "cacheTimeout": null,
+          "format": "none",
+          "prefix": "",
+          "postfix": "",
+          "nullText": null,
+          "valueMaps": [
+            {
+              "value": "null",
+              "op": "=",
+              "text": "N/A"
+            }
+          ],
+          "nullPointMode": "connected",
+          "valueName": "avg",
+          "prefixFontSize": "50%",
+          "valueFontSize": "80%",
+          "postfixFontSize": "50%",
+          "thresholds": "",
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "sparkline": {
+            "show": false,
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "fillColor": "rgba(31, 118, 189, 0.18)"
+          }
+        },
+        {
+          "title": "Current queue $service",
+          "error": false,
+          "span": 5,
+          "editable": true,
+          "type": "graph",
+          "id": 8,
+          "datasource": null,
+          "renderer": "flot",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "short"
+          ],
+          "grid": {
+            "leftMax": null,
+            "rightMax": null,
+            "leftMin": 0,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold2": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "lines": true,
+          "fill": 0,
+          "linewidth": 1,
+          "points": false,
+          "pointradius": 5,
+          "bars": false,
+          "stack": false,
+          "percentage": false,
+          "legend": {
+            "show": true,
+            "values": false,
+            "min": false,
+            "max": false,
+            "current": false,
+            "total": false,
+            "avg": false
+          },
+          "nullPointMode": "connected",
+          "steppedLine": false,
+          "tooltip": {
+            "value_type": "cumulative",
+            "shared": false
+          },
+          "targets": [
+            {
+              "function": "sum",
+              "column": "value",
+              "series": "/$controller.haproxy.backend.$service.queue_current/",
+              "query": "select sum(value) from /$controller.haproxy.backend.$service.queue_current/ where $timeFilter group by time($interval) order asc",
+              "alias": "$0.$4"
+            }
+          ],
+          "aliasColors": {},
+          "seriesOverrides": [],
+          "links": []
+        }
+      ],
+      "showTitle": true
+    },
+    {
+      "title": "Service",
+      "height": "250px",
+      "editable": true,
+      "collapse": false,
+      "panels": [
+        {
+          "title": "HTTP response rate $service",
+          "error": false,
+          "span": 6,
+          "editable": true,
+          "type": "graph",
+          "id": 9,
+          "datasource": null,
+          "renderer": "flot",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "none",
+            "bps"
+          ],
+          "grid": {
+            "leftMax": null,
+            "rightMax": null,
+            "leftMin": 0,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold2": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "lines": true,
+          "fill": 0,
+          "linewidth": 1,
+          "points": false,
+          "pointradius": 5,
+          "bars": false,
+          "stack": false,
+          "percentage": false,
+          "legend": {
+            "show": true,
+            "values": false,
+            "min": false,
+            "max": false,
+            "current": false,
+            "total": false,
+            "avg": false
+          },
+          "nullPointMode": "connected",
+          "steppedLine": false,
+          "tooltip": {
+            "value_type": "cumulative",
+            "shared": true
+          },
+          "targets": [
+            {
+              "function": "derivative",
+              "column": "value",
+              "series": "/$controller.haproxy.$frontback.$service.response_1xx/",
+              "query": "select derivative(value) from /$controller.haproxy.$frontback.$service.response_1xx/ where $timeFilter group by time($interval) fill(0) order asc",
+              "alias": "1xx",
+              "rawQuery": false,
+              "interval": "",
+              "fill": "0"
+            },
+            {
+              "function": "derivative",
+              "column": "value",
+              "series": "/$controller.haproxy.$frontback.$service.response_2xx/",
+              "query": "select derivative(value) from /$controller.haproxy.$frontback.$service.response_2xx/ where $timeFilter group by time($interval) fill(0) order asc",
+              "alias": "2xx",
+              "rawQuery": false,
+              "fill": "0"
+            },
+            {
+              "function": "derivative",
+              "column": "value",
+              "series": "/$controller.haproxy.$frontback.$service.response_3xx/",
+              "query": "select derivative(value) from /$controller.haproxy.$frontback.$service.response_3xx/ where $timeFilter group by time($interval) fill(0) order asc",
+              "alias": "3xx",
+              "rawQuery": false,
+              "fill": "0"
+            },
+            {
+              "function": "derivative",
+              "column": "value",
+              "series": "/$controller.haproxy.$frontback.$service.response_4xx/",
+              "query": "select derivative(value) from /$controller.haproxy.$frontback.$service.response_4xx/ where $timeFilter group by time($interval) fill(0) order asc",
+              "alias": "4xx",
+              "rawQuery": false,
+              "fill": "0"
+            },
+            {
+              "function": "derivative",
+              "column": "value",
+              "series": "/$controller.haproxy.$frontback.$service.response_5xx/",
+              "query": "select derivative(value) from /$controller.haproxy.$frontback.$service.response_5xx/ where $timeFilter group by time($interval) fill(0) order asc",
+              "alias": "5xx",
+              "rawQuery": false,
+              "fill": "0"
+            },
+            {
+              "function": "derivative",
+              "column": "value",
+              "series": "/$controller.haproxy.$frontback.$service.response_other/",
+              "query": "select derivative(value) from /$controller.haproxy.$frontback.$service.response_other/ where $timeFilter group by time($interval) fill(0) order asc",
+              "alias": "other",
+              "rawQuery": false,
+              "fill": "0"
+            }
+          ],
+          "aliasColors": {},
+          "seriesOverrides": [],
+          "links": [],
+          "interval": ">60s",
+          "leftYAxisLabel": "per second"
+        },
+        {
+          "title": "Error $service",
+          "error": false,
+          "span": 6,
+          "editable": true,
+          "type": "graph",
+          "id": 6,
+          "datasource": null,
+          "renderer": "flot",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "short"
+          ],
+          "grid": {
+            "leftMax": null,
+            "rightMax": null,
+            "leftMin": 0,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold2": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "lines": true,
+          "fill": 0,
+          "linewidth": 1,
+          "points": false,
+          "pointradius": 5,
+          "bars": false,
+          "stack": false,
+          "percentage": false,
+          "legend": {
+            "show": true,
+            "values": false,
+            "min": false,
+            "max": false,
+            "current": false,
+            "total": false,
+            "avg": false
+          },
+          "nullPointMode": "connected",
+          "steppedLine": false,
+          "tooltip": {
+            "value_type": "cumulative",
+            "shared": false
+          },
+          "targets": [
+            {
+              "function": "derivative",
+              "column": "value",
+              "series": "/$controller.haproxy.$frontback.$service.error_/",
+              "query": "select derivative(value) from /$controller.haproxy.$frontback.$service.error_/ where $timeFilter group by time($interval) fill(0) order asc",
+              "alias": "$0.$4",
+              "fill": "0"
+            },
+            {
+              "target": "",
+              "function": "derivative",
+              "column": "value",
+              "series": "/$controller.haproxy.$frontback.$service.denied_/",
+              "query": "select derivative(value) from /$controller.haproxy.$frontback.$service.denied_/ where $timeFilter group by time($interval) fill(0) order asc",
+              "alias": "$0.$4",
+              "fill": "0"
+            }
+          ],
+          "aliasColors": {},
+          "seriesOverrides": [],
+          "links": []
+        },
+        {
+          "title": "Network $service $frontback",
+          "error": false,
+          "span": 6,
+          "editable": true,
+          "type": "graph",
+          "id": 10,
+          "datasource": null,
+          "renderer": "flot",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "bytes",
+            "bytes"
+          ],
+          "grid": {
+            "leftMax": null,
+            "rightMax": null,
+            "leftMin": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold2": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "lines": true,
+          "fill": 0,
+          "linewidth": 1,
+          "points": false,
+          "pointradius": 5,
+          "bars": false,
+          "stack": false,
+          "percentage": false,
+          "legend": {
+            "show": true,
+            "values": false,
+            "min": false,
+            "max": false,
+            "current": false,
+            "total": false,
+            "avg": false
+          },
+          "nullPointMode": "connected",
+          "steppedLine": false,
+          "tooltip": {
+            "value_type": "cumulative",
+            "shared": true
+          },
+          "targets": [
+            {
+              "function": "derivative",
+              "column": "value",
+              "series": "merge(/haproxy.$frontback.$service.bytes_in/)",
+              "query": "select derivative(value) from merge(/haproxy.$frontback.$service.bytes_in/) where $timeFilter group by time($interval) fill(null) order asc",
+              "alias": "in",
+              "rawQuery": false,
+              "interval": "",
+              "fill": "null"
+            },
+            {
+              "function": "sum",
+              "column": "value",
+              "series": "merge(/haproxy.$frontback.$service.bytes_out/)",
+              "query": "select sum(value) from merge(/haproxy.$frontback.$service.bytes_out/) where $timeFilter group by time($interval) fill(null) order asc",
+              "alias": "out",
+              "rawQuery": false,
+              "hide": false,
+              "interval": "",
+              "fill": "null"
+            }
+          ],
+          "aliasColors": {
+            "bytes_out.max": "#6ED0E0"
+          },
+          "seriesOverrides": [],
+          "links": [],
+          "interval": ">60s"
+        },
+        {
+          "title": "Backend retries $service",
+          "error": false,
+          "span": 6,
+          "editable": true,
+          "type": "graph",
+          "id": 12,
+          "datasource": null,
+          "renderer": "flot",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "short"
+          ],
+          "grid": {
+            "leftMax": null,
+            "rightMax": null,
+            "leftMin": 0,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold2": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "lines": true,
+          "fill": 0,
+          "linewidth": 1,
+          "points": false,
+          "pointradius": 5,
+          "bars": false,
+          "stack": false,
+          "percentage": false,
+          "legend": {
+            "show": true,
+            "values": false,
+            "min": false,
+            "max": false,
+            "current": false,
+            "total": false,
+            "avg": false
+          },
+          "nullPointMode": "connected",
+          "steppedLine": false,
+          "tooltip": {
+            "value_type": "cumulative",
+            "shared": false
+          },
+          "targets": [
+            {
+              "function": "max",
+              "column": "value",
+              "series": "/$controller.haproxy.backend.$service.retries/",
+              "query": "select max(value) from /$controller.haproxy.backend.$service.retries/ where $timeFilter group by time($interval) order asc",
+              "alias": "$3.retries"
+            }
+          ],
+          "aliasColors": {},
+          "seriesOverrides": [],
+          "links": []
+        }
+      ],
+      "showTitle": true
+    },
+    {
+      "title": "Server",
+      "height": "250px",
+      "editable": true,
+      "collapse": false,
+      "panels": [
+        {
+          "title": "Uptime",
+          "error": false,
+          "span": 1,
+          "editable": true,
+          "type": "singlestat",
+          "id": 11,
+          "links": [],
+          "maxDataPoints": 100,
+          "interval": "30s",
+          "targets": [
+            {
+              "function": "mean",
+              "column": "value",
+              "series": "/haproxy.uptime_seconds/",
+              "query": "select max(value/3600/24.0) from /haproxy.uptime$/ where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "interval": "30s"
+            }
+          ],
+          "cacheTimeout": null,
+          "format": "short",
+          "prefix": "",
+          "postfix": "days",
+          "nullText": null,
+          "valueMaps": [
+            {
+              "value": "null",
+              "op": "=",
+              "text": "N/A"
+            }
+          ],
+          "nullPointMode": "connected",
+          "valueName": "current",
+          "prefixFontSize": "50%",
+          "valueFontSize": "80%",
+          "postfixFontSize": "50%",
+          "thresholds": "",
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "sparkline": {
+            "show": false,
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "fillColor": "rgba(31, 118, 189, 0.18)"
+          }
+        },
+        {
+          "title": "HAproxy server",
+          "error": false,
+          "span": 5,
+          "editable": true,
+          "type": "graph",
+          "id": 5,
+          "datasource": null,
+          "renderer": "flot",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "short"
+          ],
+          "grid": {
+            "leftMax": null,
+            "rightMax": null,
+            "leftMin": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold2": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "lines": true,
+          "fill": 0,
+          "linewidth": 1,
+          "points": false,
+          "pointradius": 5,
+          "bars": false,
+          "stack": false,
+          "percentage": false,
+          "legend": {
+            "show": true,
+            "values": false,
+            "min": false,
+            "max": false,
+            "current": false,
+            "total": false,
+            "avg": false
+          },
+          "nullPointMode": "connected",
+          "steppedLine": false,
+          "tooltip": {
+            "value_type": "cumulative",
+            "shared": true
+          },
+          "targets": [
+            {
+              "function": "sum",
+              "column": "value",
+              "series": "merge(/haproxy.*.connection/)",
+              "query": "select sum(value) from merge(/haproxy.connection/) where $timeFilter group by time($interval) order asc",
+              "alias": "connections",
+              "rawQuery": true
+            },
+            {
+              "target": "",
+              "function": "mean",
+              "column": "value",
+              "series": "/haproxy.pipes_free/",
+              "query": "select mean(value) from /haproxy.pipes_free/ where $timeFilter group by time($interval) fill(null) order asc",
+              "alias": "$0.$2",
+              "hide": false,
+              "fill": "null"
+            },
+            {
+              "target": "",
+              "function": "mean",
+              "column": "value",
+              "series": "/haproxy.pipes_used/",
+              "query": "select mean(value) from /haproxy.pipes_used/ where $timeFilter group by time($interval) fill(null) order asc",
+              "hide": false,
+              "alias": "$0.$2",
+              "fill": "null",
+              "interval": ""
+            },
+            {
+              "target": "",
+              "function": "mean",
+              "column": "value",
+              "series": "/haproxy.tasks/",
+              "query": "select mean(value) from /haproxy.tasks/ where $timeFilter group by time($interval) fill(null) order asc",
+              "alias": "$0.$2",
+              "fill": "null",
+              "interval": ""
+            }
+          ],
+          "aliasColors": {},
+          "seriesOverrides": [],
+          "links": [],
+          "interval": "60s"
+        },
+        {
+          "title": "ALL backend retries",
+          "error": false,
+          "span": 6,
+          "editable": true,
+          "type": "graph",
+          "id": 13,
+          "datasource": null,
+          "renderer": "flot",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "short"
+          ],
+          "grid": {
+            "leftMax": null,
+            "rightMax": null,
+            "leftMin": 0,
+            "rightMin": null,
+            "threshold1": 10,
+            "threshold2": 20,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "lines": true,
+          "fill": 0,
+          "linewidth": 1,
+          "points": false,
+          "pointradius": 5,
+          "bars": false,
+          "stack": false,
+          "percentage": false,
+          "legend": {
+            "show": true,
+            "values": true,
+            "min": false,
+            "max": false,
+            "current": false,
+            "total": false,
+            "avg": false
+          },
+          "nullPointMode": "connected",
+          "steppedLine": false,
+          "tooltip": {
+            "value_type": "cumulative",
+            "shared": false
+          },
+          "targets": [
+            {
+              "function": "max",
+              "column": "value",
+              "series": "/$controller.haproxy.backend.*.retries/",
+              "query": "select max(value) from /$controller.haproxy.backend.*.retries/ where $timeFilter group by time($interval) fill(0) order asc",
+              "alias": "$0.$3",
+              "rawQuery": false,
+              "fill": "0"
+            }
+          ],
+          "aliasColors": {},
+          "seriesOverrides": [],
+          "links": [],
+          "leftYAxisLabel": "retries",
+          "interval": "30s"
+        },
+        {
+          "title": "Network $frontback (all Services)",
+          "error": false,
+          "span": 6,
+          "editable": true,
+          "type": "graph",
+          "id": 15,
+          "datasource": null,
+          "renderer": "flot",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "bytes",
+            "bytes"
+          ],
+          "grid": {
+            "leftMax": null,
+            "rightMax": null,
+            "leftMin": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold2": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "lines": true,
+          "fill": 0,
+          "linewidth": 1,
+          "points": false,
+          "pointradius": 5,
+          "bars": false,
+          "stack": true,
+          "percentage": false,
+          "legend": {
+            "show": true,
+            "values": false,
+            "min": false,
+            "max": false,
+            "current": false,
+            "total": false,
+            "avg": false
+          },
+          "nullPointMode": "connected",
+          "steppedLine": false,
+          "tooltip": {
+            "value_type": "individual",
+            "shared": true
+          },
+          "targets": [
+            {
+              "function": "derivative",
+              "column": "value",
+              "series": "/$controller.haproxy.$frontback.*.bytes_in/",
+              "query": "select derivative(value) from /$controller.haproxy.$frontback.*.bytes_in/ where $timeFilter group by time($interval) order asc",
+              "alias": "$3.in",
+              "rawQuery": false,
+              "hide": false,
+              "interval": ""
+            },
+            {
+              "function": "derivative",
+              "column": "value",
+              "series": "/haproxy.$frontback.*.bytes_out/",
+              "query": "select derivative(value*-1) from /$controller.haproxy.$frontback.*.bytes_out/ where $timeFilter group by time($interval) order asc",
+              "alias": "$3.out",
+              "rawQuery": true,
+              "hide": false
+            }
+          ],
+          "aliasColors": {
+            "bytes_out.max": "#6ED0E0"
+          },
+          "seriesOverrides": [
+            {}
+          ],
+          "links": [],
+          "interval": ">30s"
+        },
+        {
+          "title": "Backend error rate - all services",
+          "error": false,
+          "span": 6,
+          "editable": true,
+          "type": "graph",
+          "id": 14,
+          "datasource": null,
+          "renderer": "flot",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "short"
+          ],
+          "grid": {
+            "leftMax": null,
+            "rightMax": null,
+            "leftMin": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold2": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "lines": true,
+          "fill": 0,
+          "linewidth": 1,
+          "points": false,
+          "pointradius": 5,
+          "bars": false,
+          "stack": false,
+          "percentage": false,
+          "legend": {
+            "show": false,
+            "values": false,
+            "min": false,
+            "max": false,
+            "current": false,
+            "total": false,
+            "avg": false
+          },
+          "nullPointMode": "connected",
+          "steppedLine": true,
+          "tooltip": {
+            "value_type": "cumulative",
+            "shared": false
+          },
+          "targets": [
+            {
+              "function": "sum",
+              "column": "value",
+              "series": "/haproxy.$frontback.*.error_/",
+              "query": "select derivative(value) from /$controller.haproxy.backend.*.error_/ where $timeFilter  group by time($interval) fill(null) order asc",
+              "alias": "$0.$3.$4",
+              "fill": "0",
+              "rawQuery": true,
+              "interval": ""
+            },
+            {
+              "target": "",
+              "function": "difference",
+              "column": "value",
+              "series": "/$controller.haproxy.backend.*.denied_/",
+              "query": "select difference(value) from /$controller.haproxy.backend.*.denied_/ where $timeFilter group by time($interval) fill(0) order asc",
+              "alias": "$0.$3.$4",
+              "fill": "0",
+              "interval": ""
+            }
+          ],
+          "aliasColors": {},
+          "seriesOverrides": [],
+          "links": [],
+          "interval": ">60s"
+        }
+      ],
+      "showTitle": true
+    }
+  ],
+  "nav": [
+    {
+      "type": "timepicker",
+      "enable": true,
+      "status": "Stable",
+      "time_options": [
+        "5m",
+        "15m",
+        "1h",
+        "6h",
+        "12h",
+        "24h",
+        "2d",
+        "7d",
+        "30d"
+      ],
+      "refresh_intervals": [
+        "5s",
+        "10s",
+        "30s",
+        "1m",
+        "5m",
+        "15m",
+        "30m",
+        "1h",
+        "2h",
+        "1d"
+      ],
+      "now": true,
+      "collapse": false,
+      "notice": false
+    }
+  ],
+  "time": {
+    "from": "now-15m",
+    "to": "now"
+  },
+  "templating": {
+    "list": [
+      {
+        "type": "query",
+        "datasource": null,
+        "refresh_on_load": false,
+        "name": "controller",
+        "options": [
+        ],
+        "includeAll": false,
+        "allFormat": "regex values",
+        "query": "list series /openstack.keystone.check_api/",
+        "regex": "/^([^.]+)/",
+        "refresh": true,
+        "current": {
+        }
+      },
+      {
+        "type": "query",
+        "datasource": null,
+        "refresh_on_load": false,
+        "name": "service",
+        "options": [
+          {
+            "text": "cinder-api",
+            "value": "cinder-api"
+          },
+          {
+            "text": "glance-api",
+            "value": "glance-api"
+          },
+          {
+            "text": "glance-registry",
+            "value": "glance-registry"
+          },
+          {
+            "text": "heat-api-cfn",
+            "value": "heat-api-cfn"
+          },
+          {
+            "text": "heat-api-cloudwatch",
+            "value": "heat-api-cloudwatch"
+          },
+          {
+            "text": "heat-api",
+            "value": "heat-api"
+          },
+          {
+            "text": "horizon",
+            "value": "horizon"
+          },
+          {
+            "text": "keystone-1",
+            "value": "keystone-1"
+          },
+          {
+            "text": "keystone-2",
+            "value": "keystone-2"
+          },
+          {
+            "text": "mysqld",
+            "value": "mysqld"
+          },
+          {
+            "text": "neutron",
+            "value": "neutron"
+          },
+          {
+            "text": "nova-api-1",
+            "value": "nova-api-1"
+          },
+          {
+            "text": "nova-api-2",
+            "value": "nova-api-2"
+          },
+          {
+            "text": "nova-metadata-api",
+            "value": "nova-metadata-api"
+          },
+          {
+            "text": "nova-novncproxy",
+            "value": "nova-novncproxy"
+          },
+          {
+            "text": "stats",
+            "value": "stats"
+          },
+          {
+            "text": "swift",
+            "value": "swift"
+          }
+        ],
+        "includeAll": false,
+        "allFormat": "glob",
+        "query": "list series /haproxy.backend.*downtime/",
+        "regex": "/^[^.]+.haproxy\\.backend\\.([^.]+)/",
+        "refresh": true,
+        "current": {
+          "text": "cinder-api",
+          "value": "cinder-api"
+        }
+      },
+      {
+        "type": "custom",
+        "datasource": null,
+        "refresh_on_load": false,
+        "name": "frontback",
+        "options": [
+          {
+            "text": "frontend",
+            "value": "frontend"
+          },
+          {
+            "text": "backend",
+            "value": "backend"
+          }
+        ],
+        "includeAll": false,
+        "allFormat": "glob",
+        "query": "frontend,backend",
+        "current": {
+          "text": "backend",
+          "value": "backend"
+        }
+      }
+    ],
+    "enable": true
+  },
+  "annotations": {
+    "list": [],
+    "enable": false
+  },
+  "refresh": false,
+  "version": 6,
+  "hideAllLegends": false
+}
