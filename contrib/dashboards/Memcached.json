@@ -1,0 +1,845 @@
+{
+  "id": null,
+  "title": "Memcached",
+  "originalTitle": "Memcached",
+  "tags": [],
+  "style": "dark",
+  "timezone": "browser",
+  "editable": true,
+  "hideControls": false,
+  "sharedCrosshair": false,
+  "rows": [
+    {
+      "title": "Row1",
+      "height": "250px",
+      "editable": true,
+      "collapse": false,
+      "panels": [
+        {
+          "title": "Items",
+          "error": false,
+          "span": 5,
+          "editable": true,
+          "type": "graph",
+          "id": 1,
+          "datasource": null,
+          "renderer": "flot",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "short"
+          ],
+          "grid": {
+            "leftMax": null,
+            "rightMax": null,
+            "leftMin": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold2": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "lines": true,
+          "fill": 0,
+          "linewidth": 1,
+          "points": false,
+          "pointradius": 5,
+          "bars": false,
+          "stack": true,
+          "percentage": false,
+          "legend": {
+            "show": true,
+            "values": false,
+            "min": false,
+            "max": false,
+            "current": false,
+            "total": false,
+            "avg": false
+          },
+          "nullPointMode": "connected",
+          "steppedLine": false,
+          "tooltip": {
+            "value_type": "individual",
+            "shared": true
+          },
+          "targets": [
+            {
+              "function": "median",
+              "column": "value",
+              "series": "/memcached.items.current/",
+              "query": "select median(value) from /memcached.items.current/ where $timeFilter group by time($interval) fill(0) order asc",
+              "alias": "$0.$2",
+              "fill": "0"
+            }
+          ],
+          "aliasColors": {},
+          "seriesOverrides": [
+            {
+              "alias": "/items/"
+            }
+          ],
+          "links": [],
+          "interval": "1m",
+          "leftYAxisLabel": ""
+        },
+        {
+          "title": "Commands/sec",
+          "error": false,
+          "span": 6,
+          "editable": true,
+          "type": "graph",
+          "id": 3,
+          "datasource": null,
+          "renderer": "flot",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "short"
+          ],
+          "grid": {
+            "leftMax": null,
+            "rightMax": null,
+            "leftMin": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold2": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "lines": true,
+          "fill": 0,
+          "linewidth": 1,
+          "points": false,
+          "pointradius": 5,
+          "bars": false,
+          "stack": false,
+          "percentage": false,
+          "legend": {
+            "show": true,
+            "values": false,
+            "min": false,
+            "max": false,
+            "current": false,
+            "total": false,
+            "avg": false
+          },
+          "nullPointMode": "connected",
+          "steppedLine": false,
+          "tooltip": {
+            "value_type": "cumulative",
+            "shared": true
+          },
+          "targets": [
+            {
+              "function": "max",
+              "column": "value",
+              "series": "merge(/memcached.command.get/)",
+              "query": "select max(value) from merge(/memcached.command.get/) where $timeFilter group by time($interval) order asc",
+              "alias": "get.max",
+              "hide": false
+            },
+            {
+              "function": "mean",
+              "column": "value",
+              "series": "merge(/memcached.command.get/)",
+              "query": "select mean(value) from merge(/memcached.command.get/) where $timeFilter group by time($interval) order asc",
+              "alias": "get.mean"
+            },
+            {
+              "function": "min",
+              "column": "value",
+              "series": "merge(/memcached.command.get/)",
+              "query": "select min(value) from merge(/memcached.command.get/) where $timeFilter group by time($interval) order asc",
+              "alias": "get.min"
+            },
+            {
+              "function": "min",
+              "column": "value",
+              "series": "merge(/memcached.command.set/)",
+              "query": "select min(value*-1) from merge(/memcached.command.set/) where $timeFilter group by time($interval) order asc",
+              "alias": "set.min",
+              "rawQuery": true
+            },
+            {
+              "function": "max",
+              "column": "value",
+              "series": "merge(/memcached.command.set/)",
+              "query": "select max(value*-1) from merge(/memcached.command.set/) where $timeFilter group by time($interval) order asc",
+              "alias": "set.max",
+              "rawQuery": true,
+              "interval": ""
+            },
+            {
+              "function": "mean",
+              "column": "value",
+              "series": "merge(/memcached.command.set/)",
+              "query": "select mean(value*-1) from merge(/memcached.command.set/) where $timeFilter group by time($interval) order asc",
+              "alias": "set.mean",
+              "rawQuery": true,
+              "hide": false
+            }
+          ],
+          "aliasColors": {},
+          "seriesOverrides": [
+            {
+              "alias": "get.mean",
+              "zindex": 3
+            },
+            {
+              "alias": "get.max",
+              "lines": false,
+              "fillBelowTo": "get.min"
+            },
+            {
+              "alias": "get.min",
+              "lines": false
+            },
+            {
+              "alias": "set.mean",
+              "zindex": 3
+            },
+            {
+              "alias": "set.max",
+              "lines": false,
+              "fillBelowTo": "set.min"
+            },
+            {
+              "alias": "set.min",
+              "lines": false
+            }
+          ],
+          "links": [],
+          "interval": "1m",
+          "leftYAxisLabel": "cmd/sec"
+        }
+      ]
+    },
+    {
+      "title": "New row",
+      "height": "250px",
+      "editable": true,
+      "collapse": false,
+      "panels": [
+        {
+          "title": "Cache used",
+          "error": false,
+          "span": 5,
+          "editable": true,
+          "type": "graph",
+          "id": 2,
+          "datasource": null,
+          "renderer": "flot",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "bytes"
+          ],
+          "grid": {
+            "leftMax": null,
+            "rightMax": null,
+            "leftMin": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold2": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "lines": true,
+          "fill": 0,
+          "linewidth": 1,
+          "points": false,
+          "pointradius": 5,
+          "bars": false,
+          "stack": false,
+          "percentage": false,
+          "legend": {
+            "show": true,
+            "values": true,
+            "min": false,
+            "max": false,
+            "current": false,
+            "total": false,
+            "avg": false
+          },
+          "nullPointMode": "connected",
+          "steppedLine": false,
+          "tooltip": {
+            "value_type": "cumulative",
+            "shared": false
+          },
+          "targets": [
+            {
+              "function": "mean",
+              "column": "value",
+              "series": "/memcached.df.cache.used/",
+              "query": "select mean(value) from /memcached.df.cache.used/ where $timeFilter group by time($interval) order asc",
+              "alias": "$0.$4"
+            }
+          ],
+          "aliasColors": {},
+          "seriesOverrides": [],
+          "interval": "1m",
+          "links": []
+        },
+        {
+          "title": "Cache free",
+          "error": false,
+          "span": 6,
+          "editable": true,
+          "type": "graph",
+          "id": 8,
+          "datasource": null,
+          "renderer": "flot",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "bits",
+            "bytes"
+          ],
+          "grid": {
+            "leftMax": null,
+            "rightMax": null,
+            "leftMin": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold2": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "lines": true,
+          "fill": 0,
+          "linewidth": 1,
+          "points": false,
+          "pointradius": 5,
+          "bars": false,
+          "stack": false,
+          "percentage": false,
+          "legend": {
+            "show": true,
+            "values": true,
+            "min": false,
+            "max": false,
+            "current": false,
+            "total": false,
+            "avg": false
+          },
+          "nullPointMode": "connected",
+          "steppedLine": false,
+          "tooltip": {
+            "value_type": "cumulative",
+            "shared": false
+          },
+          "targets": [
+            {
+              "function": "mean",
+              "column": "value",
+              "series": "/memcached.df.cache.free/",
+              "query": "select mean(value) from /memcached.df.cache.free/ where $timeFilter group by time($interval) order asc",
+              "alias": "$0.$4"
+            }
+          ],
+          "aliasColors": {},
+          "seriesOverrides": [],
+          "interval": "1m",
+          "links": []
+        }
+      ]
+    },
+    {
+      "title": "New row",
+      "height": "250px",
+      "editable": true,
+      "collapse": false,
+      "panels": [
+        {
+          "title": "Hitratio",
+          "error": false,
+          "span": 5,
+          "editable": true,
+          "type": "graph",
+          "id": 6,
+          "datasource": null,
+          "renderer": "flot",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "percent"
+          ],
+          "grid": {
+            "leftMax": null,
+            "rightMax": null,
+            "leftMin": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold2": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "lines": true,
+          "fill": 0,
+          "linewidth": 1,
+          "points": false,
+          "pointradius": 5,
+          "bars": false,
+          "stack": false,
+          "percentage": false,
+          "legend": {
+            "show": true,
+            "values": false,
+            "min": false,
+            "max": false,
+            "current": false,
+            "total": false,
+            "avg": false
+          },
+          "nullPointMode": "connected",
+          "steppedLine": false,
+          "tooltip": {
+            "value_type": "cumulative",
+            "shared": false
+          },
+          "targets": [
+            {
+              "target": "",
+              "function": "mean",
+              "column": "value",
+              "alias": "hitratio.mean",
+              "series": "merge(/memcached.percent.hitratio/)",
+              "query": "select mean(value) from merge(/memcached.percent.hitratio/) where $timeFilter group by time($interval) order asc",
+              "interval": "1m"
+            },
+            {
+              "target": "",
+              "function": "max",
+              "column": "value",
+              "alias": "hitratio.max",
+              "series": "merge(/memcached.percent.hitratio/)",
+              "query": "select max(value) from merge(/memcached.percent.hitratio/) where $timeFilter group by time($interval) order asc",
+              "interval": "1m"
+            },
+            {
+              "target": "",
+              "function": "min",
+              "column": "value",
+              "alias": "hitratio.min",
+              "series": "merge(/memcached.percent.hitratio/)",
+              "query": "select min(value) from merge(/memcached.percent.hitratio/) where $timeFilter group by time($interval) order asc",
+              "interval": "1m"
+            }
+          ],
+          "aliasColors": {
+            "hitratio.max": "#F2C96D",
+            "hitratio.mean": "#1F78C1"
+          },
+          "seriesOverrides": [
+            {
+              "alias": "hitratio.mean",
+              "linewidth": 2
+            },
+            {
+              "alias": "hitratio.max",
+              "fillBelowTo": "hitratio.min",
+              "lines": false
+            },
+            {
+              "alias": "hitratio.min",
+              "lines": false
+            }
+          ],
+          "links": []
+        },
+        {
+          "title": "Hits - Miss",
+          "error": false,
+          "span": 5,
+          "editable": true,
+          "type": "graph",
+          "id": 5,
+          "datasource": null,
+          "renderer": "flot",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "short"
+          ],
+          "grid": {
+            "leftMax": null,
+            "rightMax": null,
+            "leftMin": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold2": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "lines": true,
+          "fill": 0,
+          "linewidth": 1,
+          "points": false,
+          "pointradius": 5,
+          "bars": false,
+          "stack": false,
+          "percentage": false,
+          "legend": {
+            "show": true,
+            "values": false,
+            "min": false,
+            "max": false,
+            "current": false,
+            "total": false,
+            "avg": false
+          },
+          "nullPointMode": "connected",
+          "steppedLine": false,
+          "tooltip": {
+            "value_type": "cumulative",
+            "shared": false
+          },
+          "targets": [
+            {
+              "function": "mean",
+              "column": "value",
+              "series": "/memcached.ops.hits/",
+              "query": "select mean(value) from merge(/memcached.ops.hits/) where $timeFilter group by time($interval) order asc",
+              "alias": "hits",
+              "interval": "",
+              "rawQuery": true
+            },
+            {
+              "function": "mean",
+              "column": "value",
+              "series": "/memcached.ops.misses/",
+              "query": "select mean(value*-1) from merge(/memcached.ops.misses/) where $timeFilter group by time($interval) order asc",
+              "alias": "misses",
+              "rawQuery": true,
+              "interval": ""
+            },
+            {
+              "function": "mean",
+              "column": "value",
+              "series": "/memcached.ops.misses/",
+              "query": "select mean(value*-1) from merge(/memcached.ops.incr_misses/) where $timeFilter group by time($interval) order asc",
+              "alias": "incr_misses",
+              "rawQuery": true,
+              "interval": ""
+            },
+            {
+              "function": "mean",
+              "column": "value",
+              "series": "/memcached.ops.hits/",
+              "query": "select mean(value) from merge(/memcached.ops.incr_hits/) where $timeFilter group by time($interval) order asc",
+              "alias": "incr_hits",
+              "interval": "",
+              "rawQuery": true
+            },
+            {
+              "function": "mean",
+              "column": "value",
+              "series": "/memcached.ops.hits/",
+              "query": "select mean(value) from merge(/memcached.ops.decr_hits/) where $timeFilter group by time($interval) order asc",
+              "alias": "decr_hits",
+              "interval": "",
+              "rawQuery": true
+            },
+            {
+              "function": "mean",
+              "column": "value",
+              "series": "/memcached.ops.hits/",
+              "query": "select mean(value*-1) from merge(/memcached.ops.decr_misses/) where $timeFilter group by time($interval) order asc",
+              "alias": "decr_misses",
+              "interval": "",
+              "rawQuery": true
+            },
+            {
+              "target": "",
+              "function": "mean",
+              "column": "value",
+              "series": "merge(/memcached.ops.evictions/)",
+              "query": "select mean(value) from merge(/memcached.ops.evictions/) where $timeFilter group by time($interval) order asc",
+              "alias": "evictions"
+            }
+          ],
+          "aliasColors": {
+            "eviction": "#BF1B00",
+            "evictions": "#BF1B00"
+          },
+          "seriesOverrides": [
+            {
+              "alias": "evictions",
+              "yaxis": 2,
+              "zindex": 3,
+              "stack": 5
+            }
+          ],
+          "links": [],
+          "interval": "1m"
+        }
+      ]
+    },
+    {
+      "title": "New row",
+      "height": "450px",
+      "editable": true,
+      "collapse": false,
+      "panels": [
+        {
+          "title": "Network",
+          "error": false,
+          "span": 12,
+          "editable": true,
+          "type": "graph",
+          "id": 7,
+          "datasource": null,
+          "renderer": "flot",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "bytes",
+            "short"
+          ],
+          "grid": {
+            "leftMax": null,
+            "rightMax": null,
+            "leftMin": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold2": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "lines": true,
+          "fill": 0,
+          "linewidth": 1,
+          "points": false,
+          "pointradius": 5,
+          "bars": false,
+          "stack": false,
+          "percentage": false,
+          "legend": {
+            "show": true,
+            "values": false,
+            "min": false,
+            "max": false,
+            "current": false,
+            "total": false,
+            "avg": false
+          },
+          "nullPointMode": "connected",
+          "steppedLine": false,
+          "tooltip": {
+            "value_type": "cumulative",
+            "shared": true
+          },
+          "targets": [
+            {
+              "function": "mean",
+              "column": "value",
+              "series": "/memcached.octets.rx/",
+              "query": "select mean(value) from merge(/memcached.octets.tx/) where $timeFilter group by time($interval) order asc",
+              "alias": "$0.$3",
+              "rawQuery": true,
+              "interval": ""
+            },
+            {
+              "function": "mean",
+              "column": "value",
+              "series": "/memcached.octets.rx/",
+              "query": "select mean(value*-1) from merge(/memcached.octets.rx/) where $timeFilter group by time($interval) order asc",
+              "alias": "$0.$3",
+              "rawQuery": true,
+              "interval": ""
+            },
+            {
+              "function": "mean",
+              "column": "value",
+              "series": "/memcached.octets.rx/",
+              "query": "select percentile(value,95) from merge(/memcached.octets.tx/) where $timeFilter group by time($interval) order asc",
+              "alias": "max.tx",
+              "rawQuery": true,
+              "interval": "",
+              "hide": false
+            },
+            {
+              "function": "mean",
+              "column": "value",
+              "series": "/memcached.octets.rx/",
+              "query": "select mean(value) from merge(/memcached.octets.tx/) where $timeFilter group by time($interval) order asc",
+              "alias": "mean.tx",
+              "rawQuery": true,
+              "interval": ""
+            },
+            {
+              "function": "mean",
+              "column": "value",
+              "series": "/memcached.octets.rx/",
+              "query": "select max(value*-1) from merge(/memcached.octets.rx/) where $timeFilter group by time($interval) order asc",
+              "alias": "max.rx",
+              "rawQuery": true,
+              "interval": "",
+              "hide": false
+            },
+            {
+              "function": "mean",
+              "column": "value",
+              "series": "/memcached.octets.rx/",
+              "query": "select mean(value*-1) from merge(/memcached.octets.rx/) where $timeFilter group by time($interval) order asc",
+              "alias": "mean.rx",
+              "rawQuery": true,
+              "interval": ""
+            }
+          ],
+          "aliasColors": {},
+          "seriesOverrides": [
+            {
+              "alias": "max.tx",
+              "fillBelowTo": "mean.tx",
+              "lines": false
+            },
+            {
+              "alias": "mean.tx",
+              "lines": false
+            },
+            {
+              "alias": "max.rx",
+              "fillBelowTo": "mean.rx",
+              "lines": false
+            },
+            {
+              "alias": "mean.rx",
+              "lines": false
+            }
+          ],
+          "links": [],
+          "interval": ">60s"
+        }
+      ]
+    },
+    {
+      "title": "New row",
+      "height": "250px",
+      "editable": true,
+      "collapse": false,
+      "panels": [
+        {
+          "title": "Connections",
+          "error": false,
+          "span": 12,
+          "editable": true,
+          "type": "graph",
+          "id": 4,
+          "datasource": null,
+          "renderer": "flot",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "short"
+          ],
+          "grid": {
+            "leftMax": null,
+            "rightMax": null,
+            "leftMin": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold2": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "lines": true,
+          "fill": 0,
+          "linewidth": 1,
+          "points": false,
+          "pointradius": 5,
+          "bars": false,
+          "stack": true,
+          "percentage": false,
+          "legend": {
+            "show": true,
+            "values": false,
+            "min": false,
+            "max": false,
+            "current": false,
+            "total": false,
+            "avg": false
+          },
+          "nullPointMode": "null as zero",
+          "steppedLine": true,
+          "tooltip": {
+            "value_type": "individual",
+            "shared": true
+          },
+          "targets": [
+            {
+              "function": "mean",
+              "column": "value",
+              "series": "/memcached.connections/",
+              "query": "select mean(value) from /memcached.connections/ where $timeFilter group by time($interval) fill(0) order asc",
+              "alias": "$0.$2",
+              "interval": "",
+              "fill": "0"
+            }
+          ],
+          "aliasColors": {
+            "merged.$2": "#E24D42",
+            "min": "#1F78C1",
+            "max": "#F9E2D2"
+          },
+          "seriesOverrides": [],
+          "links": [],
+          "interval": "1m"
+        }
+      ]
+    }
+  ],
+  "nav": [
+    {
+      "type": "timepicker",
+      "enable": true,
+      "status": "Stable",
+      "time_options": [
+        "5m",
+        "15m",
+        "1h",
+        "6h",
+        "12h",
+        "24h",
+        "2d",
+        "7d",
+        "30d"
+      ],
+      "refresh_intervals": [
+        "5s",
+        "10s",
+        "30s",
+        "1m",
+        "5m",
+        "15m",
+        "30m",
+        "1h",
+        "2h",
+        "1d"
+      ],
+      "now": false,
+      "collapse": false,
+      "notice": false
+    }
+  ],
+  "time": {
+    "from": "2015-03-23T11:03:34.457Z",
+    "to": "2015-03-23T16:49:34.692Z"
+  },
+  "templating": {
+    "list": []
+  },
+  "annotations": {
+    "list": []
+  },
+  "refresh": false,
+  "version": 6,
+  "hideAllLegends": false
+}
