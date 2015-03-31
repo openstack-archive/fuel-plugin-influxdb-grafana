@@ -22,4 +22,6 @@ curl -X POST "${INFLUXDB_URL}/db?u=root&p=<%= @influxdb_rootpass %>" \
     -d '{"name": "<%= @influxdb_grafanadb %>"}'
 curl -X POST "${INFLUXDB_URL}/db/<%= @influxdb_grafanadb %>/users?u=root&p=<%= @influxdb_rootpass %>" \
     -d '{"name": "<%= @influxdb_username %>", "password": "<%= @influxdb_userpass %>"}'
-
+# add admin privilege to this user
+curl -X POST "${INFLUXDB_URL}/db/<%= @influxdb_grafanadb %>/users/<%= @influxdb_username %>?u=root&p=<%= @influxdb_rootpass %>" \
+    -d '{"admin": true}'
