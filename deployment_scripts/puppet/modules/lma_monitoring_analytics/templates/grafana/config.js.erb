@@ -6,17 +6,21 @@ define(['settings'], function(Settings) {
       datasources: {
         influxdb: {
           type: 'influxdb',
-          <% if @influxdb_host %>
-            url: "http://<%= @influxdb_host %>:8086/db/<%= @influxdb_dbname %>",
-          <% else %>
-            url: "http://" + window.location.hostname + ":8086/db/<%= @influxdb_dbname %>",
-          <% end %>
+<% if @influxdb_host -%>
+          url: "http://<%= @influxdb_host %>:8086/db/<%= @influxdb_dbname %>",
+<% else -%>
+          url: "http://" + window.location.hostname + ":8086/db/<%= @influxdb_dbname %>",
+<% end -%>
           username: "<%= @influxdb_username %>",
           password: "<%= @influxdb_userpass %>",
         },
         grafana: {
           type: 'influxdb',
-          url: "http://" + <%= @influxdb_host %> + ":8086/db/grafana",
+<% if @influxdb_host -%>
+          url: "http://<%= @influxdb_host %>:8086/db/<%= @grafana_dbname %>",
+<% else -%>
+          url: "http://" + window.location.hostname + ":8086/db/<%= @grafana_dbname %>",
+<% end -%>
           username: "<%= @influxdb_username %>",
           password: "<%= @influxdb_userpass %>",
           grafanaDB: true
@@ -27,7 +31,7 @@ define(['settings'], function(Settings) {
         max_results: 100
       },
 
-      default_route: '/dashboard/file/lma.json',
+      default_route: '<%= @grafana_home_dashboard %>',
 
       unsaved_changes_warning: true,
 

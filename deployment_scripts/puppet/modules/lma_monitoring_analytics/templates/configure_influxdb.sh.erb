@@ -19,9 +19,9 @@ curl -X POST "${INFLUXDB_URL}/db/<%= @influxdb_dbname %>/users/<%= @influxdb_use
 
 # Create the grafana DB with a user
 curl -X POST "${INFLUXDB_URL}/db?u=root&p=<%= @influxdb_rootpass %>" \
-    -d '{"name": "<%= @influxdb_grafanadb %>"}'
+    -d '{"name": "<%= @grafana_dbname %>"}'
 curl -X POST "${INFLUXDB_URL}/db/<%= @influxdb_grafanadb %>/users?u=root&p=<%= @influxdb_rootpass %>" \
-    -d '{"name": "<%= @influxdb_username %>", "password": "<%= @influxdb_userpass %>"}'
+    -d '{"name": "<%= @grafana_dbname %>", "password": "<%= @influxdb_userpass %>"}'
 # add admin privilege to this user
-curl -X POST "${INFLUXDB_URL}/db/<%= @influxdb_grafanadb %>/users/<%= @influxdb_username %>?u=root&p=<%= @influxdb_rootpass %>" \
+curl -X POST "${INFLUXDB_URL}/db/<%= @grafana_dbname %>/users/<%= @influxdb_username %>?u=root&p=<%= @influxdb_rootpass %>" \
     -d '{"admin": true}'
