@@ -1,0 +1,1697 @@
+{
+  "id": null,
+  "title": "Ceph",
+  "originalTitle": "Ceph",
+  "tags": [],
+  "style": "dark",
+  "timezone": "browser",
+  "editable": true,
+  "hideControls": false,
+  "sharedCrosshair": false,
+  "rows": [
+    {
+      "title": "Cluster",
+      "height": "250px",
+      "editable": true,
+      "collapse": false,
+      "panels": [
+        {
+          "title": "Health",
+          "error": false,
+          "span": 1,
+          "editable": true,
+          "type": "singlestat",
+          "id": 8,
+          "links": [],
+          "maxDataPoints": 100,
+          "interval": null,
+          "targets": [
+            {
+              "function": "last",
+              "column": "value",
+              "series": "/$controller.ceph.cluster-$cluster.health/",
+              "query": "select last(value) from /$controller.ceph.cluster-$cluster.health/ where $timeFilter group by time($interval) order asc"
+            }
+          ],
+          "cacheTimeout": null,
+          "format": "none",
+          "prefix": "",
+          "postfix": "",
+          "nullText": null,
+          "valueMaps": [
+            {
+              "value": "null",
+              "op": "=",
+              "text": "N/A"
+            },
+            {
+              "value": "1",
+              "op": "=",
+              "text": "OK"
+            },
+            {
+              "value": "2",
+              "op": "=",
+              "text": "WARN"
+            },
+            {
+              "value": "3",
+              "op": "=",
+              "text": "ERROR"
+            }
+          ],
+          "nullPointMode": "connected",
+          "valueName": "current",
+          "prefixFontSize": "50%",
+          "valueFontSize": "80%",
+          "postfixFontSize": "50%",
+          "thresholds": "1,2,3",
+          "colorBackground": true,
+          "colorValue": false,
+          "colors": [
+            "rgba(71, 212, 59, 0.4)",
+            "rgba(245, 150, 40, 0.73)",
+            "rgba(225, 40, 40, 0.59)"
+          ],
+          "sparkline": {
+            "show": false,
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "fillColor": "rgba(31, 118, 189, 0.18)"
+          }
+        },
+        {
+          "title": "Storage Free",
+          "error": false,
+          "span": 1,
+          "editable": true,
+          "type": "singlestat",
+          "id": 24,
+          "links": [],
+          "maxDataPoints": 100,
+          "interval": null,
+          "targets": [
+            {
+              "function": "mean",
+              "column": "value",
+              "series": "",
+              "rawQuery": true,
+              "query": "select last((avail.value * 1.0) / (total.value) * 100) from \"$controller.ceph.cluster-$cluster.pool.total_avail_bytes\" as avail inner join \"$controller.ceph.cluster-$cluster.pool.total_bytes\" as total  where $timeFilter group by time($interval) order asc",
+              "alias": "",
+              "interval": "60"
+            }
+          ],
+          "cacheTimeout": null,
+          "format": "none",
+          "prefix": "",
+          "postfix": "%",
+          "nullText": null,
+          "valueMaps": [
+            {
+              "value": "null",
+              "op": "=",
+              "text": "N/A"
+            }
+          ],
+          "nullPointMode": "connected",
+          "valueName": "current",
+          "prefixFontSize": "50%",
+          "valueFontSize": "80%",
+          "postfixFontSize": "50%",
+          "thresholds": "",
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "sparkline": {
+            "show": true,
+            "full": true,
+            "lineColor": "rgb(31, 120, 193)",
+            "fillColor": "rgba(31, 118, 189, 0.18)"
+          }
+        },
+        {
+          "title": "Quorum members",
+          "error": false,
+          "span": 1,
+          "editable": true,
+          "type": "singlestat",
+          "id": 10,
+          "links": [],
+          "maxDataPoints": 100,
+          "interval": null,
+          "targets": [
+            {
+              "function": "last",
+              "column": "value",
+              "series": "/$controller.ceph.cluster-$cluster.quorum/",
+              "query": "select last(value) from /$controller.ceph.cluster-$cluster.quorum/ where $timeFilter group by time($interval) order asc"
+            }
+          ],
+          "cacheTimeout": null,
+          "format": "none",
+          "prefix": "",
+          "postfix": "",
+          "nullText": null,
+          "valueMaps": [
+            {
+              "value": "null",
+              "op": "=",
+              "text": "N/A"
+            }
+          ],
+          "nullPointMode": "connected",
+          "valueName": "current",
+          "prefixFontSize": "50%",
+          "valueFontSize": "80%",
+          "postfixFontSize": "50%",
+          "thresholds": "0,1,3",
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "sparkline": {
+            "show": true,
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "fillColor": "rgba(31, 118, 189, 0.18)"
+          }
+        },
+        {
+          "title": "Monitor nodes",
+          "error": false,
+          "span": 1,
+          "editable": true,
+          "type": "singlestat",
+          "id": 9,
+          "links": [],
+          "maxDataPoints": 100,
+          "interval": null,
+          "targets": [
+            {
+              "function": "last",
+              "column": "value",
+              "series": "/$controller.ceph.cluster-$cluster.monitor/",
+              "query": "select last(value) from /$controller.ceph.cluster-$cluster.monitor/ where $timeFilter group by time($interval) order asc"
+            }
+          ],
+          "cacheTimeout": null,
+          "format": "none",
+          "prefix": "",
+          "postfix": "",
+          "nullText": null,
+          "valueMaps": [
+            {
+              "value": "null",
+              "op": "=",
+              "text": "N/A"
+            }
+          ],
+          "nullPointMode": "connected",
+          "valueName": "current",
+          "prefixFontSize": "50%",
+          "valueFontSize": "80%",
+          "postfixFontSize": "50%",
+          "thresholds": "0,1,3",
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "sparkline": {
+            "show": true,
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "fillColor": "rgba(31, 118, 189, 0.18)"
+          }
+        },
+        {
+          "title": "Storage Pool (total)",
+          "error": false,
+          "span": 6,
+          "editable": true,
+          "type": "graph",
+          "id": 1,
+          "datasource": null,
+          "renderer": "flot",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "bytes",
+            "short"
+          ],
+          "grid": {
+            "leftMax": null,
+            "rightMax": null,
+            "leftMin": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold2": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "lines": true,
+          "fill": 0,
+          "linewidth": 1,
+          "points": false,
+          "pointradius": 5,
+          "bars": false,
+          "stack": false,
+          "percentage": false,
+          "legend": {
+            "show": true,
+            "values": false,
+            "min": false,
+            "max": false,
+            "current": false,
+            "total": false,
+            "avg": false
+          },
+          "nullPointMode": "connected",
+          "steppedLine": false,
+          "tooltip": {
+            "value_type": "cumulative",
+            "shared": true
+          },
+          "targets": [
+            {
+              "function": "mean",
+              "column": "value",
+              "series": "/ceph.*.pool.total_bytes/",
+              "query": "select mean(value) from /$controller.ceph.*.pool.total_bytes/ where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "alias": "total"
+            },
+            {
+              "function": "mean",
+              "column": "value",
+              "series": "/ceph.*.pool.total_bytes/",
+              "query": "select mean(value) from /$controller.ceph.*.pool.total_used_bytes/ where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "alias": "used"
+            },
+            {
+              "function": "mean",
+              "column": "value",
+              "series": "/ceph.*.pool.total_bytes/",
+              "query": "select mean(value) from /$controller.ceph.*.pool.total_avail_bytes/ where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "alias": "available"
+            }
+          ],
+          "aliasColors": {},
+          "seriesOverrides": [],
+          "links": [],
+          "leftYAxisLabel": ""
+        },
+        {
+          "title": "",
+          "error": false,
+          "span": 4,
+          "editable": true,
+          "type": "text",
+          "id": 28,
+          "mode": "markdown",
+          "content": "",
+          "style": {},
+          "links": []
+        },
+        {
+          "title": "Free Storage",
+          "error": false,
+          "span": 6,
+          "editable": true,
+          "type": "graph",
+          "id": 22,
+          "datasource": null,
+          "renderer": "flot",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "percent",
+            "short"
+          ],
+          "grid": {
+            "leftMax": 100,
+            "rightMax": null,
+            "leftMin": 0,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold2": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "lines": true,
+          "fill": 0,
+          "linewidth": 1,
+          "points": false,
+          "pointradius": 5,
+          "bars": false,
+          "stack": false,
+          "percentage": false,
+          "legend": {
+            "show": true,
+            "values": true,
+            "min": false,
+            "max": false,
+            "current": true,
+            "total": false,
+            "avg": false
+          },
+          "nullPointMode": "connected",
+          "steppedLine": false,
+          "tooltip": {
+            "value_type": "cumulative",
+            "shared": false
+          },
+          "targets": [
+            {
+              "function": "mean",
+              "column": "value",
+              "series": "/ceph.*.pool.total_bytes/",
+              "query": "select mean(value) from /$controller.ceph.*.pool.total_bytes/ where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "alias": "total",
+              "interval": "",
+              "hide": true
+            },
+            {
+              "function": "mean",
+              "column": "value",
+              "series": "/ceph.*.pool.total_bytes/",
+              "query": "select mean(value) from /$controller.ceph.*.pool.total_used_bytes/ where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "alias": "used",
+              "interval": "",
+              "hide": true
+            },
+            {
+              "function": "mean",
+              "column": "value",
+              "series": "/ceph.*.pool.total_bytes/",
+              "query": "select mean((avail.value * 1.0) / (total.value) * 100) from \"$controller.ceph.cluster-$cluster.pool.total_avail_bytes\" as avail inner join \"$controller.ceph.cluster-$cluster.pool.total_bytes\" as total  where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "alias": "%",
+              "interval": "10s",
+              "hide": false
+            },
+            {
+              "function": "mean",
+              "column": "value",
+              "series": "/ceph.*.pool.total_bytes/",
+              "query": "select mean(value) from /$controller.ceph.*.pool.total_avail_bytes/ where $timeFilter group by time($interval) order asc",
+              "rawQuery": true,
+              "alias": "avail",
+              "interval": "",
+              "hide": true
+            }
+          ],
+          "aliasColors": {},
+          "seriesOverrides": [],
+          "links": [],
+          "leftYAxisLabel": "",
+          "interval": ">60s"
+        }
+      ],
+      "showTitle": true
+    },
+    {
+      "title": "Pools",
+      "height": "250px",
+      "editable": true,
+      "collapse": true,
+      "panels": [
+        {
+          "title": "",
+          "error": false,
+          "span": 1,
+          "editable": true,
+          "type": "singlestat",
+          "id": 4,
+          "links": [],
+          "maxDataPoints": 100,
+          "interval": null,
+          "targets": [
+            {
+              "function": "last",
+              "column": "value",
+              "series": "/ceph.*.pool.total_number/",
+              "query": "select last(value) from /ceph.*.pool.total_number/ where $timeFilter group by time($interval) order asc"
+            }
+          ],
+          "cacheTimeout": null,
+          "format": "short",
+          "prefix": "",
+          "postfix": " pools",
+          "nullText": null,
+          "valueMaps": [
+            {
+              "value": "null",
+              "op": "=",
+              "text": "N/A"
+            }
+          ],
+          "nullPointMode": "connected",
+          "valueName": "max",
+          "prefixFontSize": "50%",
+          "valueFontSize": "80%",
+          "postfixFontSize": "50%",
+          "thresholds": "",
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "sparkline": {
+            "show": false,
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "fillColor": "rgba(31, 118, 189, 0.18)"
+          }
+        },
+        {
+          "title": "Storage ($pool)",
+          "error": false,
+          "span": 5,
+          "editable": true,
+          "type": "graph",
+          "id": 3,
+          "datasource": null,
+          "renderer": "flot",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "bytes",
+            "short"
+          ],
+          "grid": {
+            "leftMax": null,
+            "rightMax": null,
+            "leftMin": 0,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold2": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2Color": "rgba(234, 112, 112, 0.22)",
+            "thresholdLine": false
+          },
+          "lines": true,
+          "fill": 0,
+          "linewidth": 1,
+          "points": false,
+          "pointradius": 5,
+          "bars": false,
+          "stack": false,
+          "percentage": false,
+          "legend": {
+            "show": true,
+            "values": false,
+            "min": false,
+            "max": false,
+            "current": true,
+            "total": false,
+            "avg": false,
+            "rightSide": false,
+            "hideEmpty": true,
+            "alignAsTable": false
+          },
+          "nullPointMode": "connected",
+          "steppedLine": false,
+          "tooltip": {
+            "value_type": "cumulative",
+            "shared": true
+          },
+          "targets": [
+            {
+              "function": "mean",
+              "column": "value",
+              "series": "/$controller.ceph.cluster-$cluster.*\\.pool.$pool.bytes_used/",
+              "query": "select mean(value) from /$controller.ceph.cluster-$cluster.*\\.pool.$pool.bytes_used/ where $timeFilter group by time($interval) fill(null) order asc",
+              "alias": "used",
+              "fill": "null"
+            },
+            {
+              "function": "mean",
+              "column": "value",
+              "series": "/$controller.ceph.cluster-$cluster.*.pool.$pool.max_avail/",
+              "query": "select mean(value) from /$controller.ceph.cluster-$cluster.*.pool.$pool.max_avail/ where $timeFilter group by time($interval) fill(null) order asc",
+              "alias": "available",
+              "fill": "null"
+            }
+          ],
+          "aliasColors": {},
+          "seriesOverrides": [],
+          "links": [],
+          "interval": ">1m"
+        },
+        {
+          "title": "Operations ($pool)",
+          "error": false,
+          "span": 6,
+          "editable": true,
+          "type": "graph",
+          "id": 6,
+          "datasource": null,
+          "renderer": "flot",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "short"
+          ],
+          "grid": {
+            "leftMax": null,
+            "rightMax": null,
+            "leftMin": 0,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold2": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "lines": true,
+          "fill": 0,
+          "linewidth": 1,
+          "points": false,
+          "pointradius": 5,
+          "bars": false,
+          "stack": false,
+          "percentage": false,
+          "legend": {
+            "show": false,
+            "values": false,
+            "min": false,
+            "max": false,
+            "current": false,
+            "total": false,
+            "avg": false
+          },
+          "nullPointMode": "connected",
+          "steppedLine": false,
+          "tooltip": {
+            "value_type": "cumulative",
+            "shared": true
+          },
+          "targets": [
+            {
+              "function": "mean",
+              "column": "value",
+              "series": "/$controller.ceph.cluster-$cluster.pool.$pool.op_per_sec/",
+              "query": "select mean(value) from /$controller.ceph.cluster-$cluster.pool.$pool.op_per_sec/ where $timeFilter group by time($interval) order asc",
+              "alias": "ops",
+              "rawQuery": false
+            },
+            {
+              "function": "max",
+              "column": "value",
+              "series": "/$controller.ceph.cluster-$cluster.pool.$pool.op_per_sec/",
+              "query": "select max(value) from /$controller.ceph.cluster-$cluster.pool.$pool.op_per_sec/ where $timeFilter group by time($interval) order asc",
+              "alias": "max",
+              "rawQuery": false,
+              "hide": true
+            }
+          ],
+          "aliasColors": {},
+          "seriesOverrides": [],
+          "links": [],
+          "leftYAxisLabel": "per second",
+          "interval": ">60s"
+        },
+        {
+          "title": "$pool",
+          "error": false,
+          "span": 1,
+          "editable": true,
+          "type": "singlestat",
+          "id": 15,
+          "links": [],
+          "maxDataPoints": 100,
+          "interval": "60s",
+          "targets": [
+            {
+              "function": "sum",
+              "column": "value",
+              "series": "/$controller.ceph.cluster-$cluster.pool.$pool.objects/",
+              "query": "select sum(value) from merge(/$controller.ceph.cluster-$cluster.pool.$pool.objects/) where $timeFilter group by time($interval) order asc",
+              "rawQuery": true
+            }
+          ],
+          "cacheTimeout": null,
+          "format": "short",
+          "prefix": "",
+          "postfix": " objects",
+          "nullText": null,
+          "valueMaps": [
+            {
+              "value": "null",
+              "op": "=",
+              "text": "N/A"
+            }
+          ],
+          "nullPointMode": "connected",
+          "valueName": "current",
+          "prefixFontSize": "50%",
+          "valueFontSize": "80%",
+          "postfixFontSize": "50%",
+          "thresholds": "",
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "sparkline": {
+            "show": false,
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "fillColor": "rgba(31, 118, 189, 0.18)"
+          }
+        },
+        {
+          "title": "Objects ($pool)",
+          "error": false,
+          "span": 5,
+          "editable": true,
+          "type": "graph",
+          "id": 7,
+          "datasource": null,
+          "renderer": "flot",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "none"
+          ],
+          "grid": {
+            "leftMax": null,
+            "rightMax": null,
+            "leftMin": 0,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold2": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "lines": true,
+          "fill": 0,
+          "linewidth": 1,
+          "points": false,
+          "pointradius": 5,
+          "bars": false,
+          "stack": false,
+          "percentage": false,
+          "legend": {
+            "show": false,
+            "values": false,
+            "min": false,
+            "max": false,
+            "current": false,
+            "total": false,
+            "avg": false
+          },
+          "nullPointMode": "connected",
+          "steppedLine": false,
+          "tooltip": {
+            "value_type": "cumulative",
+            "shared": true
+          },
+          "targets": [
+            {
+              "function": "mean",
+              "column": "value",
+              "series": "/$controller.ceph.cluster-$cluster.pool.$pool.objects/",
+              "query": "select mean(value) from /$controller.ceph.cluster-$cluster.pool.$pool.objects/ where $timeFilter group by time($interval) order asc",
+              "alias": "$4"
+            }
+          ],
+          "aliasColors": {},
+          "seriesOverrides": [],
+          "links": [],
+          "leftYAxisLabel": ""
+        },
+        {
+          "title": "I/O ($pool)",
+          "error": false,
+          "span": 6,
+          "editable": true,
+          "type": "graph",
+          "id": 5,
+          "datasource": null,
+          "renderer": "flot",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "bytes",
+            "short"
+          ],
+          "grid": {
+            "leftMax": null,
+            "rightMax": null,
+            "leftMin": 0,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold2": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "lines": true,
+          "fill": 0,
+          "linewidth": 1,
+          "points": false,
+          "pointradius": 5,
+          "bars": false,
+          "stack": false,
+          "percentage": false,
+          "legend": {
+            "show": true,
+            "values": false,
+            "min": false,
+            "max": false,
+            "current": false,
+            "total": false,
+            "avg": false
+          },
+          "nullPointMode": "connected",
+          "steppedLine": false,
+          "tooltip": {
+            "value_type": "cumulative",
+            "shared": true
+          },
+          "targets": [
+            {
+              "function": "mean",
+              "column": "value",
+              "series": "/$controller.ceph.cluster-$cluster.pool.$pool.read_bytes_sec/",
+              "query": "select mean(value) from /$controller.ceph.cluster-$cluster.pool.$pool.read_bytes_sec/ where $timeFilter group by time($interval) order asc",
+              "alias": "$4.read",
+              "rawQuery": false
+            },
+            {
+              "function": "mean",
+              "column": "value",
+              "series": "/$controller.ceph.cluster-$cluster.pool.$pool.write_bytes_sec/",
+              "query": "select mean(value) from /$controller.ceph.cluster-$cluster.pool.$pool.write_bytes_sec/ where $timeFilter group by time($interval) order asc",
+              "alias": "$4.write",
+              "rawQuery": false
+            },
+            {
+              "function": "max",
+              "column": "value",
+              "series": "/$controller.ceph.cluster-$cluster.pool.$pool.write_bytes_sec/",
+              "query": "select max(value) from /$controller.ceph.cluster-$cluster.pool.$pool.write_bytes_sec/ where $timeFilter group by time($interval) order asc",
+              "alias": "$4.write.max",
+              "rawQuery": false
+            }
+          ],
+          "aliasColors": {},
+          "seriesOverrides": [
+            {
+              "alias": "data.write.max",
+              "fillBelowTo": "data.write",
+              "lines": false
+            },
+            {
+              "alias": "data.write"
+            }
+          ],
+          "links": [],
+          "leftYAxisLabel": "bytes/sec"
+        },
+        {
+          "title": "Replication factor ($pool)",
+          "error": false,
+          "span": 1,
+          "editable": true,
+          "type": "singlestat",
+          "id": 17,
+          "links": [],
+          "maxDataPoints": 100,
+          "interval": null,
+          "targets": [
+            {
+              "function": "mean",
+              "column": "value",
+              "series": "/$controller.ceph.cluster-$cluster.pool.$pool.size/",
+              "query": "select mean(value) from /$controller.ceph.cluster-$cluster.pool.$pool.size/ where $timeFilter group by time($interval) order asc"
+            }
+          ],
+          "cacheTimeout": null,
+          "format": "none",
+          "prefix": "",
+          "postfix": "",
+          "nullText": null,
+          "valueMaps": [
+            {
+              "value": "null",
+              "op": "=",
+              "text": "N/A"
+            }
+          ],
+          "nullPointMode": "connected",
+          "valueName": "avg",
+          "prefixFontSize": "50%",
+          "valueFontSize": "80%",
+          "postfixFontSize": "50%",
+          "thresholds": "",
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "sparkline": {
+            "show": false,
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "fillColor": "rgba(31, 118, 189, 0.18)"
+          }
+        },
+        {
+          "title": "Placement Groups ($pool)",
+          "error": false,
+          "span": 5,
+          "editable": true,
+          "type": "graph",
+          "id": 18,
+          "datasource": null,
+          "renderer": "flot",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "short"
+          ],
+          "grid": {
+            "leftMax": null,
+            "rightMax": null,
+            "leftMin": 0,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold2": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "lines": true,
+          "fill": 0,
+          "linewidth": 1,
+          "points": false,
+          "pointradius": 5,
+          "bars": false,
+          "stack": false,
+          "percentage": false,
+          "legend": {
+            "show": true,
+            "values": false,
+            "min": false,
+            "max": false,
+            "current": false,
+            "total": false,
+            "avg": false
+          },
+          "nullPointMode": "connected",
+          "steppedLine": false,
+          "tooltip": {
+            "value_type": "cumulative",
+            "shared": true
+          },
+          "targets": [
+            {
+              "function": "max",
+              "column": "value",
+              "series": "/$controller.ceph.cluster-$cluster.pool.$pool.pg_num/",
+              "query": "select max(value) from /$controller.ceph.cluster-$cluster.pool.$pool.pg_num/ where $timeFilter group by time($interval) order asc",
+              "alias": "$4.pg_num"
+            }
+          ],
+          "aliasColors": {},
+          "seriesOverrides": [],
+          "links": [],
+          "interval": ">60s"
+        }
+      ],
+      "showTitle": true
+    },
+    {
+      "title": "Placement Groups",
+      "height": "250px",
+      "editable": true,
+      "collapse": true,
+      "panels": [
+        {
+          "title": "Placement Groups",
+          "error": false,
+          "span": 1,
+          "editable": true,
+          "type": "singlestat",
+          "id": 16,
+          "links": [],
+          "maxDataPoints": 100,
+          "interval": null,
+          "targets": [
+            {
+              "function": "last",
+              "column": "value",
+              "series": "/$controller.ceph.cluster-$cluster*.pg.total/",
+              "query": "select last(value) from /$controller.ceph.cluster-$cluster*.pg.total/ where $timeFilter group by time($interval) order asc"
+            }
+          ],
+          "cacheTimeout": null,
+          "format": "none",
+          "prefix": "",
+          "postfix": "",
+          "nullText": null,
+          "valueMaps": [
+            {
+              "value": "null",
+              "op": "=",
+              "text": "N/A"
+            }
+          ],
+          "nullPointMode": "connected",
+          "valueName": "max",
+          "prefixFontSize": "50%",
+          "valueFontSize": "80%",
+          "postfixFontSize": "50%",
+          "thresholds": "",
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "sparkline": {
+            "show": false,
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "fillColor": "rgba(31, 118, 189, 0.18)"
+          }
+        },
+        {
+          "title": "Placement Groups by state",
+          "error": false,
+          "span": 5,
+          "editable": true,
+          "type": "graph",
+          "id": 12,
+          "datasource": null,
+          "renderer": "flot",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "short"
+          ],
+          "grid": {
+            "leftMax": null,
+            "rightMax": null,
+            "leftMin": 0,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold2": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "lines": true,
+          "fill": 0,
+          "linewidth": 1,
+          "points": false,
+          "pointradius": 5,
+          "bars": false,
+          "stack": false,
+          "percentage": false,
+          "legend": {
+            "show": true,
+            "values": false,
+            "min": false,
+            "max": false,
+            "current": false,
+            "total": false,
+            "avg": false
+          },
+          "nullPointMode": "connected",
+          "steppedLine": false,
+          "tooltip": {
+            "value_type": "cumulative",
+            "shared": true
+          },
+          "targets": [
+            {
+              "function": "max",
+              "column": "value",
+              "series": "/$controller.ceph.cluster-$cluster.pg.state/",
+              "query": "select max(value) from /$controller.ceph.cluster-$cluster.pg.state/ where $timeFilter group by time($interval) order asc",
+              "alias": "$5",
+              "hide": false
+            },
+            {
+              "function": "max",
+              "column": "value",
+              "series": "/$controller.ceph.cluster-$cluster.pg.total/",
+              "query": "select max(value) from /$controller.ceph.cluster-$cluster.pg.total/ where $timeFilter group by time($interval) order asc",
+              "alias": "total"
+            }
+          ],
+          "aliasColors": {},
+          "seriesOverrides": [],
+          "links": [],
+          "interval": "60s",
+          "leftYAxisLabel": "pg"
+        },
+        {
+          "title": "Storage",
+          "error": false,
+          "span": 6,
+          "editable": true,
+          "type": "graph",
+          "id": 2,
+          "datasource": null,
+          "renderer": "flot",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "bytes",
+            "short"
+          ],
+          "grid": {
+            "leftMax": null,
+            "rightMax": null,
+            "leftMin": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold2": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "lines": true,
+          "fill": 0,
+          "linewidth": 1,
+          "points": false,
+          "pointradius": 5,
+          "bars": false,
+          "stack": false,
+          "percentage": false,
+          "legend": {
+            "show": true,
+            "values": false,
+            "min": false,
+            "max": false,
+            "current": false,
+            "total": false,
+            "avg": false
+          },
+          "nullPointMode": "connected",
+          "steppedLine": false,
+          "tooltip": {
+            "value_type": "cumulative",
+            "shared": true
+          },
+          "targets": [
+            {
+              "function": "mean",
+              "column": "value",
+              "series": "/$controller.ceph.cluster-$cluster.pg.bytes_avail/",
+              "query": "select mean(value) from /$controller.ceph.cluster-$cluster.pg.bytes_avail/ where $timeFilter group by time($interval) order asc",
+              "alias": "available"
+            },
+            {
+              "function": "mean",
+              "column": "value",
+              "series": "/$controller.ceph.cluster-$cluster.pg.bytes_total/",
+              "query": "select mean(value) from /$controller.ceph.cluster-$cluster.pg.bytes_total/ where $timeFilter group by time($interval) order asc",
+              "alias": "total"
+            },
+            {
+              "function": "mean",
+              "column": "value",
+              "series": "/$controller.ceph.cluster-$cluster.pg.bytes_used/",
+              "query": "select mean(value) from /$controller.ceph.cluster-$cluster.pg.bytes_used/ where $timeFilter group by time($interval) order asc",
+              "alias": "used"
+            },
+            {
+              "function": "mean",
+              "column": "value",
+              "series": "/$controller.ceph.cluster-$cluster.pg.data_bytes/",
+              "query": "select mean(value) from /$controller.ceph.cluster-$cluster.pg.data_bytes/ where $timeFilter group by time($interval) order asc",
+              "alias": "data",
+              "hide": false
+            }
+          ],
+          "aliasColors": {},
+          "seriesOverrides": [],
+          "links": []
+        }
+      ],
+      "showTitle": true
+    },
+    {
+      "title": "OSD Daemons",
+      "height": "250px",
+      "editable": true,
+      "collapse": true,
+      "panels": [
+        {
+          "title": "OSDs up",
+          "error": false,
+          "span": 1,
+          "editable": true,
+          "type": "singlestat",
+          "id": 13,
+          "links": [],
+          "maxDataPoints": 100,
+          "interval": null,
+          "targets": [
+            {
+              "function": "last",
+              "column": "value",
+              "series": "/$controller.ceph.cluster-$cluster.osd.up/",
+              "query": "select last(value) from /$controller.ceph.cluster-$cluster.osd.up/ where $timeFilter group by time($interval) order asc"
+            }
+          ],
+          "cacheTimeout": null,
+          "format": "none",
+          "prefix": "",
+          "postfix": "",
+          "nullText": null,
+          "valueMaps": [
+            {
+              "value": "null",
+              "op": "=",
+              "text": "N/A"
+            }
+          ],
+          "nullPointMode": "connected",
+          "valueName": "current",
+          "prefixFontSize": "50%",
+          "valueFontSize": "80%",
+          "postfixFontSize": "50%",
+          "thresholds": "",
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "sparkline": {
+            "show": true,
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "fillColor": "rgba(31, 118, 189, 0.18)"
+          }
+        },
+        {
+          "title": "OSDs down",
+          "error": false,
+          "span": 1,
+          "editable": true,
+          "type": "singlestat",
+          "id": 14,
+          "links": [],
+          "maxDataPoints": 100,
+          "interval": null,
+          "targets": [
+            {
+              "function": "last",
+              "column": "value",
+              "series": "/$controller.ceph.cluster-$cluster.osd.down/",
+              "query": "select last(value) from /$controller.ceph.cluster-$cluster.osd.down/ where $timeFilter group by time($interval) order asc"
+            }
+          ],
+          "cacheTimeout": null,
+          "format": "none",
+          "prefix": "",
+          "postfix": "",
+          "nullText": null,
+          "valueMaps": [
+            {
+              "value": "null",
+              "op": "=",
+              "text": "N/A"
+            }
+          ],
+          "nullPointMode": "connected",
+          "valueName": "current",
+          "prefixFontSize": "50%",
+          "valueFontSize": "80%",
+          "postfixFontSize": "50%",
+          "thresholds": "",
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "sparkline": {
+            "show": true,
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "fillColor": "rgba(31, 118, 189, 0.18)"
+          }
+        },
+        {
+          "title": "OSD Daemons states",
+          "error": false,
+          "span": 5,
+          "editable": true,
+          "type": "graph",
+          "id": 11,
+          "datasource": null,
+          "renderer": "flot",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "short"
+          ],
+          "grid": {
+            "leftMax": null,
+            "rightMax": null,
+            "leftMin": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold2": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "lines": true,
+          "fill": 0,
+          "linewidth": 1,
+          "points": false,
+          "pointradius": 5,
+          "bars": false,
+          "stack": false,
+          "percentage": false,
+          "legend": {
+            "show": true,
+            "values": true,
+            "min": false,
+            "max": false,
+            "current": true,
+            "total": false,
+            "avg": false
+          },
+          "nullPointMode": "connected",
+          "steppedLine": false,
+          "tooltip": {
+            "value_type": "individual",
+            "shared": true
+          },
+          "targets": [
+            {
+              "function": "mean",
+              "column": "value",
+              "series": "/$controller.ceph.cluster-$cluster.osd.up/",
+              "query": "select mean(value) from /$controller.ceph.cluster-$cluster.osd.up/ where $timeFilter group by time($interval) order asc",
+              "alias": "up"
+            },
+            {
+              "function": "mean",
+              "column": "value",
+              "series": "/$controller.ceph.cluster-$cluster.osd.in/",
+              "query": "select mean(value) from /$controller.ceph.cluster-$cluster.osd.in/ where $timeFilter group by time($interval) order asc",
+              "alias": "in"
+            },
+            {
+              "function": "mean",
+              "column": "value",
+              "series": "/$controller.ceph.cluster-$cluster.osd.down/",
+              "query": "select mean(value) from /$controller.ceph.cluster-$cluster.osd.down/ where $timeFilter group by time($interval) order asc",
+              "alias": "down"
+            },
+            {
+              "function": "mean",
+              "column": "value",
+              "series": "/$controller.ceph.cluster-$cluster.osd.out/",
+              "query": "select mean(value) from /$controller.ceph.cluster-$cluster.osd.out/ where $timeFilter group by time($interval) order asc",
+              "alias": "out"
+            }
+          ],
+          "aliasColors": {},
+          "seriesOverrides": [],
+          "links": []
+        },
+        {
+          "title": "Storage osd-$osd",
+          "error": false,
+          "span": 5,
+          "editable": true,
+          "type": "graph",
+          "id": 27,
+          "datasource": null,
+          "renderer": "flot",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "bytes",
+            "short"
+          ],
+          "grid": {
+            "leftMax": null,
+            "rightMax": null,
+            "leftMin": 0,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold2": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "lines": true,
+          "fill": 0,
+          "linewidth": 1,
+          "points": false,
+          "pointradius": 5,
+          "bars": false,
+          "stack": false,
+          "percentage": false,
+          "legend": {
+            "show": true,
+            "values": false,
+            "min": false,
+            "max": false,
+            "current": false,
+            "total": false,
+            "avg": false
+          },
+          "nullPointMode": "connected",
+          "steppedLine": false,
+          "tooltip": {
+            "value_type": "cumulative",
+            "shared": true
+          },
+          "targets": [
+            {
+              "function": "mean",
+              "column": "value",
+              "series": "/ceph.cluster-$cluster.osd.$osd.used/",
+              "query": "select mean(value) from /ceph.cluster-$cluster.osd.$osd.used/ where $timeFilter group by time($interval) fill(null) order asc",
+              "alias": "osd-$4.used",
+              "fill": "null"
+            },
+            {
+              "function": "mean",
+              "column": "value",
+              "series": "/ceph.cluster-$cluster.osd.$osd.total/",
+              "query": "select mean(value) from /ceph.cluster-$cluster.osd.$osd.total/ where $timeFilter group by time($interval) fill(null) order asc",
+              "alias": "osd-$4.total",
+              "fill": "null"
+            }
+          ],
+          "aliasColors": {},
+          "seriesOverrides": [],
+          "links": [],
+          "interval": "60s"
+        },
+        {
+          "title": "Apply Latency osd-$osd",
+          "error": false,
+          "span": 6,
+          "editable": true,
+          "type": "graph",
+          "id": 25,
+          "datasource": null,
+          "renderer": "flot",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "ms",
+            "short"
+          ],
+          "grid": {
+            "leftMax": null,
+            "rightMax": null,
+            "leftMin": 0,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold2": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "lines": true,
+          "fill": 0,
+          "linewidth": 1,
+          "points": false,
+          "pointradius": 5,
+          "bars": false,
+          "stack": false,
+          "percentage": false,
+          "legend": {
+            "show": true,
+            "values": false,
+            "min": false,
+            "max": false,
+            "current": false,
+            "total": false,
+            "avg": false
+          },
+          "nullPointMode": "connected",
+          "steppedLine": false,
+          "tooltip": {
+            "value_type": "cumulative",
+            "shared": true
+          },
+          "targets": [
+            {
+              "function": "mean",
+              "column": "value",
+              "series": "/ceph.cluster-$cluster.osd.$osd.apply_latency/",
+              "query": "select mean(value) from /ceph.cluster-$cluster.osd.$osd.apply_latency/ where $timeFilter group by time($interval) order asc",
+              "alias": "osd-$4.$5"
+            }
+          ],
+          "aliasColors": {},
+          "seriesOverrides": [],
+          "links": []
+        },
+        {
+          "title": "Commit Latency osd-$osd",
+          "error": false,
+          "span": 6,
+          "editable": true,
+          "type": "graph",
+          "id": 26,
+          "datasource": null,
+          "renderer": "flot",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "ms",
+            "short"
+          ],
+          "grid": {
+            "leftMax": null,
+            "rightMax": null,
+            "leftMin": 0,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold2": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "lines": true,
+          "fill": 0,
+          "linewidth": 1,
+          "points": false,
+          "pointradius": 5,
+          "bars": false,
+          "stack": false,
+          "percentage": false,
+          "legend": {
+            "show": true,
+            "values": false,
+            "min": false,
+            "max": false,
+            "current": false,
+            "total": false,
+            "avg": false
+          },
+          "nullPointMode": "connected",
+          "steppedLine": false,
+          "tooltip": {
+            "value_type": "cumulative",
+            "shared": true
+          },
+          "targets": [
+            {
+              "function": "mean",
+              "column": "value",
+              "series": "/ceph.cluster-$cluster.osd.$osd.commit_latency/",
+              "query": "select mean(value) from /ceph.cluster-$cluster.osd.$osd.commit_latency/ where $timeFilter group by time($interval) order asc",
+              "alias": "$3-$4.$5"
+            }
+          ],
+          "aliasColors": {},
+          "seriesOverrides": [],
+          "links": []
+        }
+      ],
+      "showTitle": true
+    },
+    {
+      "title": "New row",
+      "height": "250px",
+      "editable": true,
+      "collapse": false,
+      "panels": []
+    }
+  ],
+  "nav": [
+    {
+      "type": "timepicker",
+      "enable": true,
+      "status": "Stable",
+      "time_options": [
+        "5m",
+        "15m",
+        "1h",
+        "6h",
+        "12h",
+        "24h",
+        "2d",
+        "7d",
+        "30d"
+      ],
+      "refresh_intervals": [
+        "5s",
+        "10s",
+        "30s",
+        "1m",
+        "5m",
+        "15m",
+        "30m",
+        "1h",
+        "2h",
+        "1d"
+      ],
+      "now": true,
+      "collapse": false,
+      "notice": false
+    }
+  ],
+  "time": {
+    "from": "now-15m",
+    "to": "now"
+  },
+  "templating": {
+    "list": [
+      {
+        "type": "query",
+        "datasource": null,
+        "refresh_on_load": false,
+        "name": "controller",
+        "options": [
+        ],
+        "includeAll": false,
+        "allFormat": "glob",
+        "query": "list series /ceph.cluster.*.health/",
+        "regex": "/^([^.]+)/",
+        "current": {
+          "text": "node-1",
+          "value": "node-1"
+        },
+        "refresh": true
+      },
+      {
+        "type": "query",
+        "datasource": null,
+        "refresh_on_load": false,
+        "name": "cluster",
+        "options": [
+          {
+            "text": "ceph",
+            "value": "ceph"
+          }
+        ],
+        "includeAll": false,
+        "allFormat": "glob",
+        "query": "list series /ceph.cluster.*.monitor/",
+        "regex": "/cluster\\-([^.]+)/",
+        "current": {
+          "text": "ceph",
+          "value": "ceph"
+        },
+        "refresh": true
+      },
+      {
+        "type": "query",
+        "datasource": null,
+        "refresh_on_load": false,
+        "name": "pool",
+        "options": [
+          {
+            "text": "All",
+            "value": "(compute|data|images|metadata|rbd|volumes)"
+          },
+          {
+            "text": "compute",
+            "value": "compute"
+          },
+          {
+            "text": "data",
+            "value": "data"
+          },
+          {
+            "text": "images",
+            "value": "images"
+          },
+          {
+            "text": "metadata",
+            "value": "metadata"
+          },
+          {
+            "text": "rbd",
+            "value": "rbd"
+          },
+          {
+            "text": "volumes",
+            "value": "volumes"
+          }
+        ],
+        "includeAll": true,
+        "allFormat": "regex values",
+        "query": "list series /ceph.*.pool.*.objects/",
+        "regex": "/.*pool\\.(\\w+)\\.objects/",
+        "current": {
+          "text": "images",
+          "value": "images"
+        },
+        "refresh": true
+      },
+      {
+        "type": "query",
+        "datasource": null,
+        "refresh_on_load": false,
+        "name": "osd",
+        "options": [
+        ],
+        "includeAll": true,
+        "allFormat": "regex values",
+        "query": "list series /ceph.cluster.*osd\\.\\d+/",
+        "current": {
+        },
+        "regex": "/\\.osd\\.(\\d+)/",
+        "refresh": true
+      }
+    ],
+    "enable": true
+  },
+  "annotations": {
+    "list": []
+  },
+  "refresh": false,
+  "version": 6,
+  "hideAllLegends": false
+}
