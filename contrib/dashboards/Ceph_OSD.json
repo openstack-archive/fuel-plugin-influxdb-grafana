@@ -1,0 +1,988 @@
+{
+  "id": null,
+  "title": "Ceph OSD",
+  "originalTitle": "Ceph OSD",
+  "tags": [
+    "ceph",
+    "osd"
+  ],
+  "style": "dark",
+  "timezone": "browser",
+  "editable": true,
+  "hideControls": false,
+  "sharedCrosshair": false,
+  "rows": [
+    {
+      "title": "New row",
+      "height": "250px",
+      "editable": true,
+      "collapse": false,
+      "panels": [
+        {
+          "title": "Recovery Operations",
+          "error": false,
+          "span": 4,
+          "editable": true,
+          "type": "graph",
+          "id": 2,
+          "datasource": null,
+          "renderer": "flot",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "short"
+          ],
+          "grid": {
+            "leftMax": null,
+            "rightMax": null,
+            "leftMin": 0,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold2": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "lines": true,
+          "fill": 0,
+          "linewidth": 1,
+          "points": false,
+          "pointradius": 5,
+          "bars": false,
+          "stack": false,
+          "percentage": false,
+          "legend": {
+            "show": true,
+            "values": false,
+            "min": false,
+            "max": false,
+            "current": false,
+            "total": false,
+            "avg": false
+          },
+          "nullPointMode": "connected",
+          "steppedLine": false,
+          "tooltip": {
+            "value_type": "cumulative",
+            "shared": true
+          },
+          "targets": [
+            {
+              "function": "mean",
+              "column": "value",
+              "series": "/$osd.*osd.recovery_ops/",
+              "query": "select mean(value) from /$osd.*osd.recovery_ops/ where $timeFilter group by time($interval) order asc"
+            }
+          ],
+          "aliasColors": {},
+          "seriesOverrides": [],
+          "links": [],
+          "interval": "60",
+          "leftYAxisLabel": "operation"
+        },
+        {
+          "title": "Commit",
+          "error": false,
+          "span": 4,
+          "editable": true,
+          "type": "graph",
+          "id": 14,
+          "datasource": null,
+          "renderer": "flot",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "none"
+          ],
+          "grid": {
+            "leftMax": null,
+            "rightMax": null,
+            "leftMin": 0,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold2": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "lines": true,
+          "fill": 0,
+          "linewidth": 1,
+          "points": false,
+          "pointradius": 5,
+          "bars": false,
+          "stack": false,
+          "percentage": false,
+          "legend": {
+            "show": true,
+            "values": false,
+            "min": false,
+            "max": false,
+            "current": false,
+            "total": false,
+            "avg": false
+          },
+          "nullPointMode": "connected",
+          "steppedLine": false,
+          "tooltip": {
+            "value_type": "cumulative",
+            "shared": false
+          },
+          "targets": [
+            {
+              "function": "mean",
+              "column": "value",
+              "series": "/$osd.objecter.op_commit/",
+              "query": "select mean(value) from /$osd.objecter.op_commit/ where $timeFilter group by time($interval) fill(null) order asc",
+              "alias": "commit",
+              "fill": "null"
+            }
+          ],
+          "aliasColors": {},
+          "seriesOverrides": [
+            {
+              "alias": "latency",
+              "yaxis": 2
+            }
+          ],
+          "links": [],
+          "leftYAxisLabel": "commit"
+        }
+      ]
+    },
+    {
+      "title": "New row",
+      "height": "250px",
+      "editable": true,
+      "collapse": false,
+      "panels": [
+        {
+          "title": "Operations WIP",
+          "error": false,
+          "span": 6,
+          "editable": true,
+          "type": "graph",
+          "id": 3,
+          "datasource": null,
+          "renderer": "flot",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "short"
+          ],
+          "grid": {
+            "leftMax": null,
+            "rightMax": null,
+            "leftMin": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold2": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "lines": true,
+          "fill": 0,
+          "linewidth": 1,
+          "points": false,
+          "pointradius": 5,
+          "bars": false,
+          "stack": false,
+          "percentage": false,
+          "legend": {
+            "show": true,
+            "values": false,
+            "min": false,
+            "max": false,
+            "current": false,
+            "total": false,
+            "avg": false
+          },
+          "nullPointMode": "connected",
+          "steppedLine": false,
+          "tooltip": {
+            "value_type": "cumulative",
+            "shared": false
+          },
+          "targets": [
+            {
+              "function": "mean",
+              "column": "value",
+              "series": "/$osd.osd.op_wip/",
+              "query": "select mean(value) from /$osd.osd.op_wip/ where $timeFilter group by time($interval) order asc"
+            }
+          ],
+          "aliasColors": {},
+          "seriesOverrides": [],
+          "links": [],
+          "leftYAxisLabel": "operations"
+        },
+        {
+          "title": "Client Operations",
+          "error": false,
+          "span": 6,
+          "editable": true,
+          "type": "graph",
+          "id": 4,
+          "datasource": null,
+          "renderer": "flot",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "short"
+          ],
+          "grid": {
+            "leftMax": null,
+            "rightMax": null,
+            "leftMin": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold2": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "lines": true,
+          "fill": 0,
+          "linewidth": 1,
+          "points": false,
+          "pointradius": 5,
+          "bars": false,
+          "stack": false,
+          "percentage": false,
+          "legend": {
+            "show": true,
+            "values": false,
+            "min": false,
+            "max": false,
+            "current": false,
+            "total": false,
+            "avg": false
+          },
+          "nullPointMode": "connected",
+          "steppedLine": false,
+          "tooltip": {
+            "value_type": "cumulative",
+            "shared": true
+          },
+          "targets": [
+            {
+              "function": "derivative",
+              "column": "value",
+              "series": "/$osd.osd.op$/",
+              "query": "select derivative(value) from /$osd.osd.op$/ where $timeFilter group by time($interval) fill(0) order asc",
+              "alias": "op",
+              "fill": "0"
+            }
+          ],
+          "aliasColors": {},
+          "seriesOverrides": [],
+          "links": [],
+          "interval": "120s",
+          "leftYAxisLabel": "operations"
+        },
+        {
+          "title": "Operation Throughput",
+          "error": false,
+          "span": 6,
+          "editable": true,
+          "type": "graph",
+          "id": 5,
+          "datasource": null,
+          "renderer": "flot",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "bytes",
+            "short"
+          ],
+          "grid": {
+            "leftMax": null,
+            "rightMax": null,
+            "leftMin": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold2": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "lines": true,
+          "fill": 0,
+          "linewidth": 1,
+          "points": false,
+          "pointradius": 5,
+          "bars": false,
+          "stack": false,
+          "percentage": false,
+          "legend": {
+            "show": true,
+            "values": false,
+            "min": false,
+            "max": false,
+            "current": false,
+            "total": false,
+            "avg": false
+          },
+          "nullPointMode": "connected",
+          "steppedLine": false,
+          "tooltip": {
+            "value_type": "cumulative",
+            "shared": true
+          },
+          "targets": [
+            {
+              "function": "derivative",
+              "column": "value",
+              "series": "/$osd.osd.op_in_bytes/",
+              "query": "select derivative(value) from /$osd.osd.op_in_bytes/ where $timeFilter group by time($interval) order asc",
+              "alias": "write",
+              "hide": false
+            },
+            {
+              "function": "mean",
+              "column": "value",
+              "series": "/$osd.osd.op_out_bytes/",
+              "query": "select derivative(value) from /$osd.osd.op_out_bytes/ where $timeFilter group by time($interval) order asc",
+              "alias": "read",
+              "rawQuery": true
+            },
+            {
+              "function": "max",
+              "column": "value",
+              "series": "/$osd.osd.op_in_bytes/",
+              "query": "select max(value) from /$osd.osd.op_in_bytes/ where $timeFilter group by time($interval) order asc",
+              "alias": "max",
+              "hide": false
+            }
+          ],
+          "aliasColors": {},
+          "seriesOverrides": [],
+          "links": [],
+          "interval": "120s",
+          "leftYAxisLabel": "operations"
+        },
+        {
+          "title": "Operation Latency",
+          "error": false,
+          "span": 6,
+          "editable": true,
+          "type": "graph",
+          "id": 6,
+          "datasource": null,
+          "renderer": "flot",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "short"
+          ],
+          "grid": {
+            "leftMax": null,
+            "rightMax": null,
+            "leftMin": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold2": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "lines": true,
+          "fill": 0,
+          "linewidth": 1,
+          "points": false,
+          "pointradius": 5,
+          "bars": false,
+          "stack": false,
+          "percentage": false,
+          "legend": {
+            "show": true,
+            "values": false,
+            "min": false,
+            "max": false,
+            "current": false,
+            "total": false,
+            "avg": false
+          },
+          "nullPointMode": "connected",
+          "steppedLine": false,
+          "tooltip": {
+            "value_type": "cumulative",
+            "shared": true
+          },
+          "targets": [
+            {
+              "function": "mean",
+              "column": "value",
+              "series": "/$osd.osd.op_latency$/",
+              "query": "select mean(value) from /$osd.osd.op_latency$/ where $timeFilter group by time($interval) fill(null) order asc",
+              "alias": "latency",
+              "fill": "null"
+            },
+            {
+              "function": "mean",
+              "column": "value",
+              "series": "/$osd.osd.op_process_latency$/",
+              "query": "select mean(value) from /$osd.osd.op_process_latency$/ where $timeFilter group by time($interval) fill(null) order asc",
+              "alias": "process_latency",
+              "fill": "null"
+            }
+          ],
+          "aliasColors": {},
+          "seriesOverrides": [],
+          "links": [],
+          "interval": "60s",
+          "leftYAxisLabel": "operations"
+        }
+      ]
+    },
+    {
+      "title": "Client Read",
+      "height": "250px",
+      "editable": true,
+      "collapse": false,
+      "panels": [
+        {
+          "title": "Client Read",
+          "error": false,
+          "span": 6,
+          "editable": true,
+          "type": "graph",
+          "id": 7,
+          "datasource": null,
+          "renderer": "flot",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "bytes"
+          ],
+          "grid": {
+            "leftMax": null,
+            "rightMax": null,
+            "leftMin": 0,
+            "rightMin": 0,
+            "threshold1": null,
+            "threshold2": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "lines": true,
+          "fill": 0,
+          "linewidth": 1,
+          "points": false,
+          "pointradius": 5,
+          "bars": false,
+          "stack": false,
+          "percentage": false,
+          "legend": {
+            "show": true,
+            "values": false,
+            "min": false,
+            "max": false,
+            "current": false,
+            "total": false,
+            "avg": false
+          },
+          "nullPointMode": "connected",
+          "steppedLine": false,
+          "tooltip": {
+            "value_type": "cumulative",
+            "shared": true
+          },
+          "targets": [
+            {
+              "function": "derivative",
+              "column": "value",
+              "series": "/$osd.osd.op_r_out_bytes$/",
+              "query": "select derivative(value) from /$osd.osd.op_r_out_bytes$/ where $timeFilter group by time($interval) order asc",
+              "alias": "throughput",
+              "interval": "100s"
+            },
+            {
+              "function": "derivative",
+              "column": "value",
+              "series": "/$osd.osd.op_r$/",
+              "query": "select derivative(value) from /$osd.osd.op_r$/ where $timeFilter group by time($interval) order asc",
+              "alias": "operation",
+              "interval": "100s"
+            }
+          ],
+          "aliasColors": {},
+          "seriesOverrides": [
+            {
+              "alias": "throughput",
+              "yaxis": 2
+            }
+          ],
+          "links": [],
+          "interval": "60s",
+          "leftYAxisLabel": "op/sec"
+        },
+        {
+          "title": "Client Read Latency",
+          "error": false,
+          "span": 6,
+          "editable": true,
+          "type": "graph",
+          "id": 8,
+          "datasource": null,
+          "renderer": "flot",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "ms",
+            "bytes"
+          ],
+          "grid": {
+            "leftMax": null,
+            "rightMax": null,
+            "leftMin": 0,
+            "rightMin": 0,
+            "threshold1": null,
+            "threshold2": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "lines": true,
+          "fill": 0,
+          "linewidth": 1,
+          "points": false,
+          "pointradius": 5,
+          "bars": false,
+          "stack": false,
+          "percentage": false,
+          "legend": {
+            "show": true,
+            "values": false,
+            "min": false,
+            "max": false,
+            "current": false,
+            "total": false,
+            "avg": false
+          },
+          "nullPointMode": "connected",
+          "steppedLine": false,
+          "tooltip": {
+            "value_type": "cumulative",
+            "shared": true
+          },
+          "targets": [
+            {
+              "function": "mean",
+              "column": "value",
+              "series": "/$osd.osd.op_r_latency$/",
+              "query": "select mean(value) from /$osd.osd.op_r_latency$/ where $timeFilter group by time($interval) order asc",
+              "alias": "latency"
+            },
+            {
+              "function": "mean",
+              "column": "value",
+              "series": "/$osd.osd.op_r_process_latency$/",
+              "query": "select mean(value) from /$osd.osd.op_r_process_latency$/ where $timeFilter group by time($interval) order asc",
+              "alias": "process_latency"
+            }
+          ],
+          "aliasColors": {},
+          "seriesOverrides": [],
+          "links": [],
+          "interval": "60s",
+          "leftYAxisLabel": ""
+        }
+      ]
+    },
+    {
+      "title": "New row",
+      "height": "250px",
+      "editable": true,
+      "collapse": false,
+      "panels": [
+        {
+          "title": "Client Write",
+          "error": false,
+          "span": 6,
+          "editable": true,
+          "type": "graph",
+          "id": 9,
+          "datasource": null,
+          "renderer": "flot",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "bytes"
+          ],
+          "grid": {
+            "leftMax": null,
+            "rightMax": null,
+            "leftMin": 0,
+            "rightMin": 0,
+            "threshold1": null,
+            "threshold2": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "lines": true,
+          "fill": 0,
+          "linewidth": 1,
+          "points": false,
+          "pointradius": 5,
+          "bars": false,
+          "stack": false,
+          "percentage": false,
+          "legend": {
+            "show": true,
+            "values": false,
+            "min": false,
+            "max": false,
+            "current": false,
+            "total": false,
+            "avg": false
+          },
+          "nullPointMode": "connected",
+          "steppedLine": false,
+          "tooltip": {
+            "value_type": "cumulative",
+            "shared": true
+          },
+          "targets": [
+            {
+              "function": "derivative",
+              "column": "value",
+              "series": "/$osd.osd.op_w_in_bytes$/",
+              "query": "select derivative(value) from /$osd.osd.op_w_in_bytes$/ where $timeFilter group by time($interval) order asc",
+              "alias": "throughput"
+            },
+            {
+              "function": "derivative",
+              "column": "value",
+              "series": "/$osd.osd.op_w$/",
+              "query": "select derivative(value) from /$osd.osd.op_w$/ where $timeFilter group by time($interval) order asc",
+              "alias": "operation"
+            },
+            {
+              "function": "derivative",
+              "column": "value",
+              "series": "/$osd.osd.op_w_rlat$/",
+              "query": "select derivative(value) from /$osd.osd.op_w_rlat$/ where $timeFilter group by time($interval) order asc",
+              "alias": "operation rlat"
+            }
+          ],
+          "aliasColors": {},
+          "seriesOverrides": [
+            {
+              "alias": "throughput",
+              "yaxis": 2
+            }
+          ],
+          "links": [],
+          "interval": "120s",
+          "leftYAxisLabel": "operations"
+        },
+        {
+          "title": "Client Write Latency",
+          "error": false,
+          "span": 6,
+          "editable": true,
+          "type": "graph",
+          "id": 10,
+          "datasource": null,
+          "renderer": "flot",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "ms",
+            "bytes"
+          ],
+          "grid": {
+            "leftMax": null,
+            "rightMax": null,
+            "leftMin": 0,
+            "rightMin": 0,
+            "threshold1": null,
+            "threshold2": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "lines": true,
+          "fill": 0,
+          "linewidth": 1,
+          "points": false,
+          "pointradius": 5,
+          "bars": false,
+          "stack": false,
+          "percentage": false,
+          "legend": {
+            "show": true,
+            "values": false,
+            "min": false,
+            "max": false,
+            "current": false,
+            "total": false,
+            "avg": false
+          },
+          "nullPointMode": "connected",
+          "steppedLine": false,
+          "tooltip": {
+            "value_type": "cumulative",
+            "shared": true
+          },
+          "targets": [
+            {
+              "function": "mean",
+              "column": "value",
+              "series": "/$osd.osd.op_w_latency$/",
+              "query": "select mean(value) from /$osd.osd.op_w_latency$/ where $timeFilter group by time($interval) fill(null) order asc",
+              "alias": "latency",
+              "fill": "null"
+            },
+            {
+              "function": "mean",
+              "column": "value",
+              "series": "/$osd.osd.op_w_process_latency$/",
+              "query": "select mean(value) from /$osd.osd.op_w_process_latency$/ where $timeFilter group by time($interval) fill(null) order asc",
+              "alias": "process_latency",
+              "fill": "null"
+            }
+          ],
+          "aliasColors": {},
+          "seriesOverrides": [],
+          "links": [],
+          "interval": "60s",
+          "leftYAxisLabel": ""
+        }
+      ]
+    },
+    {
+      "title": "New row",
+      "height": "250px",
+      "editable": true,
+      "collapse": false,
+      "panels": [
+        {
+          "title": "Client Read/Write",
+          "error": false,
+          "span": 6,
+          "editable": true,
+          "type": "graph",
+          "id": 11,
+          "datasource": null,
+          "renderer": "flot",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "bytes"
+          ],
+          "grid": {
+            "leftMax": null,
+            "rightMax": null,
+            "leftMin": 0,
+            "rightMin": 0,
+            "threshold1": null,
+            "threshold2": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "lines": true,
+          "fill": 0,
+          "linewidth": 1,
+          "points": false,
+          "pointradius": 5,
+          "bars": false,
+          "stack": false,
+          "percentage": false,
+          "legend": {
+            "show": true,
+            "values": false,
+            "min": false,
+            "max": false,
+            "current": false,
+            "total": false,
+            "avg": false
+          },
+          "nullPointMode": "connected",
+          "steppedLine": false,
+          "tooltip": {
+            "value_type": "cumulative",
+            "shared": true
+          },
+          "targets": [
+            {
+              "function": "derivative",
+              "column": "value",
+              "series": "/$osd.osd.op_rw_in_bytes$/",
+              "query": "select derivative(value) from /$osd.osd.op_rw_in_bytes$/ where $timeFilter group by time($interval) order asc",
+              "alias": "throughput"
+            },
+            {
+              "function": "derivative",
+              "column": "value",
+              "series": "/$osd.osd.op_rw$/",
+              "query": "select derivative(value) from /$osd.osd.op_rw$/ where $timeFilter group by time($interval) order asc",
+              "alias": "operation"
+            },
+            {
+              "function": "derivative",
+              "column": "value",
+              "series": "/$osd.osd.op_rw_rlat$/",
+              "query": "select derivative(value) from /$osd.osd.op_rw_rlat$/ where $timeFilter group by time($interval) order asc",
+              "alias": "operation rlat"
+            }
+          ],
+          "aliasColors": {},
+          "seriesOverrides": [
+            {
+              "alias": "throughput",
+              "yaxis": 2
+            }
+          ],
+          "links": [],
+          "interval": "120s",
+          "leftYAxisLabel": "op/s"
+        },
+        {
+          "title": "Client Read/Write Latency",
+          "error": false,
+          "span": 6,
+          "editable": true,
+          "type": "graph",
+          "id": 12,
+          "datasource": null,
+          "renderer": "flot",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "ms",
+            "bytes"
+          ],
+          "grid": {
+            "leftMax": null,
+            "rightMax": null,
+            "leftMin": 0,
+            "rightMin": 0,
+            "threshold1": null,
+            "threshold2": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "lines": true,
+          "fill": 0,
+          "linewidth": 1,
+          "points": false,
+          "pointradius": 5,
+          "bars": false,
+          "stack": false,
+          "percentage": false,
+          "legend": {
+            "show": true,
+            "values": false,
+            "min": false,
+            "max": false,
+            "current": false,
+            "total": false,
+            "avg": false
+          },
+          "nullPointMode": "connected",
+          "steppedLine": false,
+          "tooltip": {
+            "value_type": "cumulative",
+            "shared": true
+          },
+          "targets": [
+            {
+              "function": "mean",
+              "column": "value",
+              "series": "/$osd.osd.op_rw_latency$/",
+              "query": "select mean(value) from /$osd.osd.op_rw_latency$/ where $timeFilter group by time($interval) order asc",
+              "alias": "latency"
+            },
+            {
+              "function": "mean",
+              "column": "value",
+              "series": "/$osd.osd.op_rw_process_latency$/",
+              "query": "select mean(value) from /$osd.osd.op_rw_process_latency$/ where $timeFilter group by time($interval) order asc",
+              "alias": "process_latency"
+            }
+          ],
+          "aliasColors": {},
+          "seriesOverrides": [],
+          "links": [],
+          "interval": "60s",
+          "leftYAxisLabel": ""
+        }
+      ]
+    }
+  ],
+  "nav": [
+    {
+      "type": "timepicker",
+      "enable": true,
+      "status": "Stable",
+      "time_options": [
+        "5m",
+        "15m",
+        "1h",
+        "6h",
+        "12h",
+        "24h",
+        "2d",
+        "7d",
+        "30d"
+      ],
+      "refresh_intervals": [
+        "5s",
+        "10s",
+        "30s",
+        "1m",
+        "5m",
+        "15m",
+        "30m",
+        "1h",
+        "2h",
+        "1d"
+      ],
+      "now": true,
+      "collapse": false,
+      "notice": false
+    }
+  ],
+  "time": {
+    "from": "now-1h",
+    "to": "now"
+  },
+  "templating": {
+    "list": [
+      {
+        "type": "query",
+        "datasource": null,
+        "refresh_on_load": false,
+        "name": "cluster",
+        "options": [],
+        "includeAll": false,
+        "allFormat": "glob",
+        "query": "list series /ceph.cluster.*.monitor/",
+        "regex": "/cluster\\-([^.]+)/",
+        "current": {}
+      },
+      {
+        "type": "query",
+        "datasource": null,
+        "refresh_on_load": false,
+        "name": "osd",
+        "options": [],
+        "includeAll": false,
+        "allFormat": "regex values",
+        "query": "list series /ceph.cluster\\-$cluster\\.osd\\-/",
+        "regex": "/^(([^.]+).*ceph\\.cluster-$cluster.*\\.osd\\-(\\d+))/",
+        "refresh": true
+      }
+    ],
+    "enable": true
+  },
+  "annotations": {
+    "list": []
+  },
+  "refresh": false,
+  "version": 6,
+  "hideAllLegends": false
+}
