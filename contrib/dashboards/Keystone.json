@@ -1,0 +1,568 @@
+{
+  "id": null,
+  "title": "Keystone",
+  "originalTitle": "Keystone",
+  "tags": [],
+  "style": "dark",
+  "timezone": "browser",
+  "editable": true,
+  "hideControls": false,
+  "sharedCrosshair": false,
+  "rows": [
+    {
+      "title": "API Status",
+      "height": "250px",
+      "editable": true,
+      "collapse": false,
+      "panels": [
+        {
+          "title": "Current status",
+          "error": false,
+          "span": 2,
+          "editable": true,
+          "type": "singlestat",
+          "id": 6,
+          "links": [],
+          "maxDataPoints": 100,
+          "interval": "> 60s",
+          "targets": [
+            {
+              "function": "last",
+              "column": "value",
+              "series": "$server.openstack.keystone.check_api",
+              "query": "select last(value) from \"$server.openstack.keystone.check_api\" where $timeFilter group by time($interval) fill(null) order asc",
+              "rawQuery": false,
+              "interval": "",
+              "groupby_field": "",
+              "condition": "",
+              "fill": "null"
+            }
+          ],
+          "cacheTimeout": null,
+          "format": "none",
+          "prefix": "",
+          "postfix": "",
+          "nullText": null,
+          "valueMaps": [
+            {
+              "value": "null",
+              "op": "=",
+              "text": "Unknown"
+            },
+            {
+              "value": "0",
+              "op": "=",
+              "text": "Down"
+            },
+            {
+              "value": "1",
+              "op": "=",
+              "text": "Healthy"
+            }
+          ],
+          "nullPointMode": "connected",
+          "valueName": "current",
+          "prefixFontSize": "50%",
+          "valueFontSize": "80%",
+          "postfixFontSize": "50%",
+          "thresholds": "0,0,1",
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 40, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "sparkline": {
+            "show": false,
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "fillColor": "rgba(31, 118, 189, 0.18)"
+          }
+        },
+        {
+          "title": "API Status",
+          "error": false,
+          "span": 10,
+          "editable": true,
+          "type": "graph",
+          "id": 9,
+          "datasource": null,
+          "renderer": "flot",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "short"
+          ],
+          "grid": {
+            "leftMax": null,
+            "rightMax": null,
+            "leftMin": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold2": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "lines": true,
+          "fill": 1,
+          "linewidth": 2,
+          "points": false,
+          "pointradius": 5,
+          "bars": false,
+          "stack": false,
+          "percentage": false,
+          "legend": {
+            "show": false,
+            "values": false,
+            "min": false,
+            "max": false,
+            "current": false,
+            "total": false,
+            "avg": false
+          },
+          "nullPointMode": "connected",
+          "steppedLine": true,
+          "tooltip": {
+            "value_type": "cumulative",
+            "shared": false
+          },
+          "targets": [
+            {
+              "function": "min",
+              "column": "value",
+              "series": "$server.openstack.keystone.check_api",
+              "query": "select min(value) from \"$server.openstack.keystone.check_api\" where $timeFilter group by time($interval) fill(0) order asc",
+              "fill": "0"
+            }
+          ],
+          "aliasColors": {},
+          "seriesOverrides": [],
+          "interval": "> 60s",
+          "links": []
+        }
+      ],
+      "showTitle": false
+    },
+    {
+      "title": "HTTP Status",
+      "height": "250px",
+      "editable": true,
+      "collapse": false,
+      "panels": [
+        {
+          "title": "HTTP response time",
+          "error": false,
+          "span": 6,
+          "editable": true,
+          "type": "graph",
+          "id": 7,
+          "datasource": null,
+          "renderer": "flot",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "s",
+            "short"
+          ],
+          "grid": {
+            "leftMax": null,
+            "rightMax": null,
+            "leftMin": 0,
+            "rightMin": 0,
+            "threshold1": null,
+            "threshold2": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "lines": true,
+          "fill": 0,
+          "linewidth": 1,
+          "points": false,
+          "pointradius": 5,
+          "bars": false,
+          "stack": false,
+          "percentage": false,
+          "legend": {
+            "show": true,
+            "values": false,
+            "min": false,
+            "max": false,
+            "current": false,
+            "total": false,
+            "avg": false
+          },
+          "nullPointMode": "connected",
+          "steppedLine": false,
+          "tooltip": {
+            "value_type": "cumulative",
+            "shared": true
+          },
+          "targets": [
+            {
+              "function": "mean",
+              "column": "value",
+              "series": "merge(/$server.openstack.keystone.http.GET.*/)",
+              "query": "select mean(value) from merge(/$server.openstack.keystone.http.GET.*/) where $timeFilter group by time($interval) fill(0) order asc",
+              "interval": "",
+              "fill": "0",
+              "alias": "GET"
+            },
+            {
+              "function": "mean",
+              "column": "value",
+              "series": "merge(/$server.openstack.keystone.http.POST.*/)",
+              "query": "select mean(value) from merge(/$server.openstack.keystone.http.POST.*/) where $timeFilter group by time($interval) fill(0) order asc",
+              "interval": "",
+              "fill": "0",
+              "alias": "POST"
+            },
+            {
+              "function": "mean",
+              "column": "value",
+              "series": "merge(/$server.openstack.keystone.http.PUT.*/)",
+              "query": "select mean(value) from merge(/$server.openstack.keystone.http.PUT.*/) where $timeFilter group by time($interval) fill(0) order asc",
+              "interval": "",
+              "fill": "0",
+              "alias": "PUT"
+            },
+            {
+              "function": "mean",
+              "column": "value",
+              "series": "merge(/$server.openstack.keystone.http.DELETE.*/)",
+              "query": "select mean(value) from merge(/$server.openstack.keystone.http.DELETE.*/) where $timeFilter group by time($interval) fill(0) order asc",
+              "interval": "",
+              "fill": "0",
+              "alias": "DELETE"
+            }
+          ],
+          "aliasColors": {},
+          "seriesOverrides": [],
+          "interval": ">60s",
+          "links": []
+        },
+        {
+          "title": "Number of HTTP requests",
+          "error": false,
+          "span": 6,
+          "editable": true,
+          "type": "graph",
+          "id": 8,
+          "datasource": null,
+          "renderer": "flot",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "short"
+          ],
+          "grid": {
+            "leftMax": null,
+            "rightMax": null,
+            "leftMin": 0,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold2": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "lines": true,
+          "fill": 0,
+          "linewidth": 1,
+          "points": false,
+          "pointradius": 5,
+          "bars": false,
+          "stack": false,
+          "percentage": false,
+          "legend": {
+            "show": true,
+            "values": false,
+            "min": false,
+            "max": false,
+            "current": false,
+            "total": false,
+            "avg": false
+          },
+          "nullPointMode": "connected",
+          "steppedLine": false,
+          "tooltip": {
+            "value_type": "cumulative",
+            "shared": true
+          },
+          "targets": [
+            {
+              "function": "count",
+              "column": "value",
+              "series": "merge(/$server.openstack.keystone.http.*.1\\d\\d/)",
+              "query": "select count(value) from merge(/$server.openstack.keystone.http.*.1\\d\\d/) where $timeFilter group by time($interval) fill(0) order asc",
+              "fill": "0",
+              "interval": "",
+              "alias": "1xx"
+            },
+            {
+              "function": "count",
+              "column": "value",
+              "series": "merge(/$server.openstack.keystone.http.*.2\\d\\d/)",
+              "query": "select count(value) from merge(/$server.openstack.keystone.http.*.2\\d\\d/) where $timeFilter group by time($interval) fill(0) order asc",
+              "fill": "0",
+              "interval": "",
+              "alias": "2xx"
+            },
+            {
+              "function": "count",
+              "column": "value",
+              "series": "merge(/$server.openstack.keystone.http.*.3\\d\\d/)",
+              "query": "select count(value) from merge(/$server.openstack.keystone.http.*.3\\d\\d/) where $timeFilter group by time($interval) fill(0) order asc",
+              "fill": "0",
+              "interval": "",
+              "alias": "3xx"
+            },
+            {
+              "function": "count",
+              "column": "value",
+              "series": "merge(/$server.openstack.keystone.http.*.4\\d\\d/)",
+              "query": "select count(value) from merge(/$server.openstack.keystone.http.*.4\\d\\d/) where $timeFilter group by time($interval) fill(0) order asc",
+              "fill": "0",
+              "interval": "",
+              "alias": "4xx"
+            },
+            {
+              "function": "count",
+              "column": "value",
+              "series": "merge(/$server.openstack.keystone.http.*.5\\d\\d/)",
+              "query": "select count(value) from merge(/$server.openstack.keystone.http.*.5\\d\\d/) where $timeFilter group by time($interval) fill(0) order asc",
+              "fill": "0",
+              "interval": "",
+              "alias": "5xx"
+            }
+          ],
+          "aliasColors": {},
+          "seriesOverrides": [],
+          "links": [],
+          "interval": ">60s"
+        }
+      ],
+      "showTitle": false
+    },
+    {
+      "title": "New row",
+      "height": "250px",
+      "editable": true,
+      "collapse": false,
+      "panels": [
+        {
+          "title": "Users",
+          "error": false,
+          "span": 4,
+          "editable": true,
+          "type": "singlestat",
+          "id": 12,
+          "links": [],
+          "maxDataPoints": 100,
+          "interval": "> 60s",
+          "targets": [
+            {
+              "function": "last",
+              "column": "value",
+              "series": "$server.openstack.keystone.users.enabled",
+              "query": "select last(value) from \"$server.openstack.keystone.users.enabled\" where $timeFilter group by time($interval) order asc"
+            }
+          ],
+          "cacheTimeout": null,
+          "format": "none",
+          "prefix": "",
+          "postfix": "",
+          "nullText": null,
+          "valueMaps": [
+            {
+              "value": "null",
+              "op": "=",
+              "text": "N/A"
+            }
+          ],
+          "nullPointMode": "connected",
+          "valueName": "current",
+          "prefixFontSize": "50%",
+          "valueFontSize": "80%",
+          "postfixFontSize": "50%",
+          "thresholds": "",
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "sparkline": {
+            "show": true,
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "fillColor": "rgba(31, 118, 189, 0.18)"
+          }
+        },
+        {
+          "title": "Tenants",
+          "error": false,
+          "span": 4,
+          "editable": true,
+          "type": "singlestat",
+          "id": 11,
+          "links": [],
+          "maxDataPoints": 100,
+          "interval": "> 60s",
+          "targets": [
+            {
+              "function": "last",
+              "column": "value",
+              "series": "$server.openstack.keystone.tenants.enabled",
+              "query": "select last(value) from \"$server.openstack.keystone.tenants.enabled\" where $timeFilter group by time($interval) order asc"
+            }
+          ],
+          "cacheTimeout": null,
+          "format": "none",
+          "prefix": "",
+          "postfix": "",
+          "nullText": null,
+          "valueMaps": [
+            {
+              "value": "null",
+              "op": "=",
+              "text": "N/A"
+            }
+          ],
+          "nullPointMode": "connected",
+          "valueName": "current",
+          "prefixFontSize": "50%",
+          "valueFontSize": "80%",
+          "postfixFontSize": "50%",
+          "thresholds": "",
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "sparkline": {
+            "show": true,
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "fillColor": "rgba(31, 118, 189, 0.18)"
+          }
+        },
+        {
+          "title": "Roles",
+          "error": false,
+          "span": 4,
+          "editable": true,
+          "type": "singlestat",
+          "id": 10,
+          "links": [],
+          "maxDataPoints": 100,
+          "interval": "> 60s",
+          "targets": [
+            {
+              "function": "last",
+              "column": "value",
+              "series": "$server.openstack.keystone.roles",
+              "query": "select last(value) from \"$server.openstack.keystone.roles\" where $timeFilter group by time($interval) order asc"
+            }
+          ],
+          "cacheTimeout": null,
+          "format": "none",
+          "prefix": "",
+          "postfix": "",
+          "nullText": null,
+          "valueMaps": [
+            {
+              "value": "null",
+              "op": "=",
+              "text": "N/A"
+            }
+          ],
+          "nullPointMode": "connected",
+          "valueName": "current",
+          "prefixFontSize": "50%",
+          "valueFontSize": "80%",
+          "postfixFontSize": "50%",
+          "thresholds": "",
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "sparkline": {
+            "show": true,
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "fillColor": "rgba(31, 118, 189, 0.18)"
+          }
+        }
+      ]
+    }
+  ],
+  "nav": [
+    {
+      "type": "timepicker",
+      "collapse": false,
+      "enable": true,
+      "status": "Stable",
+      "time_options": [
+        "5m",
+        "15m",
+        "1h",
+        "6h",
+        "12h",
+        "24h",
+        "2d",
+        "7d",
+        "30d"
+      ],
+      "refresh_intervals": [
+        "5s",
+        "10s",
+        "30s",
+        "1m",
+        "5m",
+        "15m",
+        "30m",
+        "1h",
+        "2h",
+        "1d"
+      ],
+      "now": true,
+      "notice": false
+    }
+  ],
+  "time": {
+    "from": "now-15m",
+    "to": "now"
+  },
+  "templating": {
+    "list": [
+      {
+        "type": "query",
+        "datasource": null,
+        "refresh_on_load": false,
+        "name": "server",
+        "options": [],
+        "includeAll": false,
+        "allFormat": "glob",
+        "query": "list series /openstack.keystone.check_api/",
+        "current": {},
+        "regex": "/^([^.]+)/",
+        "refresh": false
+      }
+    ],
+    "enable": true
+  },
+  "annotations": {
+    "list": []
+  },
+  "refresh": false,
+  "version": 6,
+  "hideAllLegends": false
+}
