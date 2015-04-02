@@ -29,9 +29,10 @@
             {
               "function": "last",
               "column": "value",
-              "series": "$server.rabbitmq.total_nodes",
-              "query": "select last(value) from \"$server.rabbitmq.total_nodes\" where $timeFilter group by time($interval) order asc",
-              "alias": "Total nodes"
+              "series": "merge(/rabbitmq.total_nodes/)",
+              "query": "select last(value) from merge(/rabbitmq.total_nodes/) where $timeFilter group by time($interval) fill(0) order asc",
+              "alias": "Total nodes",
+              "fill": "0"
             }
           ],
           "cacheTimeout": null,
@@ -51,13 +52,13 @@
           "prefixFontSize": "50%",
           "valueFontSize": "80%",
           "postfixFontSize": "50%",
-          "thresholds": "",
+          "thresholds": "0,1,1",
           "colorBackground": false,
-          "colorValue": false,
+          "colorValue": true,
           "colors": [
-            "rgba(71, 212, 59, 0.4)",
-            "rgba(245, 150, 40, 0.73)",
-            "rgba(225, 40, 40, 0.59)"
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(255, 255, 255, 0.89)",
+            "rgba(255, 255, 255, 0.97)"
           ],
           "sparkline": {
             "show": true,
@@ -80,9 +81,10 @@
             {
               "function": "last",
               "column": "value",
-              "series": "$server.rabbitmq.running_nodes",
-              "query": "select last(value) from \"$server.rabbitmq.running_nodes\" where $timeFilter group by time($interval) order asc",
-              "alias": "Running nodes"
+              "series": "merge(/rabbitmq.running_nodes/)",
+              "query": "select last(value) from merge(/rabbitmq.running_nodes/) where $timeFilter group by time($interval) fill(0) order asc",
+              "alias": "Running nodes",
+              "fill": "0"
             }
           ],
           "cacheTimeout": null,
@@ -102,13 +104,13 @@
           "prefixFontSize": "50%",
           "valueFontSize": "80%",
           "postfixFontSize": "50%",
-          "thresholds": "",
+          "thresholds": "0,1,1",
           "colorBackground": false,
-          "colorValue": false,
+          "colorValue": true,
           "colors": [
             "rgba(245, 54, 54, 0.9)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(50, 172, 45, 0.97)"
+            "rgba(255, 255, 255, 0.89)",
+            "rgba(255, 255, 255, 0.97)"
           ],
           "sparkline": {
             "show": true,
@@ -131,8 +133,9 @@
             {
               "function": "last",
               "column": "value",
-              "series": "$server.rabbitmq.consumers",
-              "query": "select last(value) from \"$server.rabbitmq.consumers\" where $timeFilter group by time($interval) order asc"
+              "series": "merge(/rabbitmq.consumers/)",
+              "query": "select last(value) from merge(/rabbitmq.consumers/) where $timeFilter group by time($interval) fill(0) order asc",
+              "fill": "0"
             }
           ],
           "cacheTimeout": null,
@@ -152,13 +155,13 @@
           "prefixFontSize": "50%",
           "valueFontSize": "80%",
           "postfixFontSize": "50%",
-          "thresholds": "",
+          "thresholds": "0,0,1",
           "colorBackground": false,
           "colorValue": false,
           "colors": [
-            "rgba(71, 212, 59, 0.4)",
-            "rgba(245, 150, 40, 0.73)",
-            "rgba(225, 40, 40, 0.59)"
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
           ],
           "sparkline": {
             "show": true,
@@ -181,9 +184,10 @@
             {
               "function": "last",
               "column": "value",
-              "series": "$server.rabbitmq.queues",
-              "query": "select last(value) from \"$server.rabbitmq.queues\" where $timeFilter group by time($interval) order asc",
-              "alias": "queues"
+              "series": "merge(/rabbitmq.queues/)",
+              "query": "select last(value) from merge(/rabbitmq.queues/) where $timeFilter group by time($interval) fill(0) order asc",
+              "alias": "queues",
+              "fill": "0"
             }
           ],
           "cacheTimeout": null,
@@ -232,9 +236,10 @@
             {
               "function": "last",
               "column": "value",
-              "series": "$server.rabbitmq.connections",
-              "query": "select last(value) from \"$server.rabbitmq.connections\" where $timeFilter group by time($interval) order asc",
-              "alias": "connections"
+              "series": "merge(/rabbitmq.connections/)",
+              "query": "select last(value) from merge(/rabbitmq.connections/) where $timeFilter group by time($interval) fill(0) order asc",
+              "alias": "connections",
+              "fill": "0"
             }
           ],
           "cacheTimeout": null,
@@ -283,8 +288,9 @@
             {
               "function": "last",
               "column": "value",
-              "series": "$server.rabbitmq.exchanges",
-              "query": "select last(value) from \"$server.rabbitmq.exchanges\" where $timeFilter group by time($interval) order asc"
+              "series": "merge(/rabbitmq.exchanges/)",
+              "query": "select last(value) from merge(/rabbitmq.exchanges/) where $timeFilter group by time($interval) fill(0) order asc",
+              "fill": "0"
             }
           ],
           "cacheTimeout": null,
@@ -320,7 +326,7 @@
           }
         },
         {
-          "title": "Memory",
+          "title": "Memory consumed by all queues",
           "error": false,
           "span": 6,
           "editable": true,
@@ -354,12 +360,13 @@
           "percentage": false,
           "legend": {
             "show": true,
-            "values": false,
-            "min": false,
-            "max": false,
+            "values": true,
+            "min": true,
+            "max": true,
             "current": false,
             "total": false,
-            "avg": false
+            "avg": true,
+            "alignAsTable": true
           },
           "nullPointMode": "connected",
           "steppedLine": false,
@@ -371,17 +378,9 @@
             {
               "function": "mean",
               "column": "value",
-              "series": "$server.rabbitmq.memory",
-              "query": "select mean(value) from \"$server.rabbitmq.memory\" where $timeFilter group by time($interval) order asc",
-              "alias": "total (all processes)",
-              "rawQuery": false
-            },
-            {
-              "function": "mean",
-              "column": "value",
-              "series": "/$server.rabbitmq.pmap/",
-              "query": "select mean(value) from /$server.rabbitmq.pmap/ where $timeFilter group by time($interval) order asc",
-              "alias": "$2 (main process)",
+              "series": "merge(/rabbitmq.memory/)",
+              "query": "select mean(value) from merge(/rabbitmq.memory/) where $timeFilter group by time($interval) order asc",
+              "alias": "Memory",
               "rawQuery": false
             }
           ],
@@ -424,13 +423,14 @@
           "stack": false,
           "percentage": false,
           "legend": {
-            "show": false,
-            "values": false,
-            "min": false,
-            "max": false,
+            "show": true,
+            "values": true,
+            "min": true,
+            "max": true,
             "current": false,
             "total": false,
-            "avg": false
+            "avg": false,
+            "alignAsTable": true
           },
           "nullPointMode": "connected",
           "steppedLine": false,
@@ -442,9 +442,10 @@
             {
               "function": "mean",
               "column": "value",
-              "series": "$server.rabbitmq.messages",
-              "query": "select mean(value) from \"$server.rabbitmq.messages\" where $timeFilter group by time($interval) order asc",
-              "alias": ""
+              "series": "merge(/rabbitmq.messages/)",
+              "query": "select mean(value) from merge(/rabbitmq.messages/) where $timeFilter group by time($interval) fill(0) order asc",
+              "alias": "R/U msg",
+              "fill": "0"
             }
           ],
           "aliasColors": {},
@@ -490,26 +491,12 @@
     }
   ],
   "time": {
-    "from": "now-15m",
+    "from": "now-1h",
     "to": "now"
   },
   "templating": {
-    "list": [
-      {
-        "type": "query",
-        "datasource": null,
-        "refresh_on_load": false,
-        "name": "server",
-        "options": [],
-        "includeAll": false,
-        "allFormat": "glob",
-        "query": "list series /openstack.keystone.check_api/",
-        "current": {},
-        "regex": "/^([^.]+)/",
-        "refresh": false
-      }
-    ],
-    "enable": true
+    "list": [],
+    "enable": false
   },
   "annotations": {
     "list": []
