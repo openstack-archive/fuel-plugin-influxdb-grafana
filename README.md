@@ -88,6 +88,8 @@ Here is a screenshot of the fields
 Testing
 -------
 
+### InfluxDB
+
 Once installed, you can check that InfluxDB is working using `curl`:
 
 ```
@@ -103,8 +105,16 @@ The curl command should return a valid JSON object similar to:
 [{"name":"list_series_result","columns":["time","sequence_number","name"],"points":[...]}]
 ```
 
+### Grafana
+
 To check that Grafana is running, you need to make sure that *nginx* is listening
-on port 80.
+on port 80. The user interface is available at:
+
+http://$HOST/
+
+**Note**: If you deploy this plugin on a machine that is also runngin the
+[Elasticsearch-Kibana plugin](https://github.com/stackforge/fuel-plugin-elasticsearch-kibana)
+then *nginx* will use the port 8000 instead of 80.
 
 Known issues
 ------------
