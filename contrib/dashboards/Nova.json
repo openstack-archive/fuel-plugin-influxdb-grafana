@@ -95,12 +95,12 @@
               "function": "count",
               "column": "value",
               "series": "merge(/$server.openstack.nova.http.*.5\\d\\d/)",
-              "query": "select count(value) from merge(/$server.openstack.nova.http.*.5\\d\\d/) where $timeFilter group by time($interval) fill(0) order asc",
+              "query": "select count(value) from merge(/$server.openstack.nova.http.*.5\\d\\d/) where $timeFilter group by time($interval) fill(null) order asc",
               "rawQuery": false,
               "interval": "",
               "groupby_field": "",
               "condition": "",
-              "fill": "0"
+              "fill": "null"
             }
           ],
           "cacheTimeout": null,
@@ -189,36 +189,36 @@
               "function": "mean",
               "column": "value",
               "series": "merge(/$server.openstack.nova.http.GET.*/)",
-              "query": "select mean(value) from merge(/$server.openstack.nova.http.GET.*/) where $timeFilter group by time($interval) fill(0) order asc",
+              "query": "select mean(value) from merge(/$server.openstack.nova.http.GET.*/) where $timeFilter group by time($interval) fill(null) order asc",
               "interval": "",
-              "fill": "0",
+              "fill": "null",
               "alias": "GET"
             },
             {
               "function": "mean",
               "column": "value",
               "series": "merge(/$server.openstack.nova.http.POST.*/)",
-              "query": "select mean(value) from merge(/$server.openstack.nova.http.POST.*/) where $timeFilter group by time($interval) fill(0) order asc",
+              "query": "select mean(value) from merge(/$server.openstack.nova.http.POST.*/) where $timeFilter group by time($interval) fill(null) order asc",
               "interval": "",
-              "fill": "0",
+              "fill": "null",
               "alias": "POST"
             },
             {
               "function": "mean",
               "column": "value",
               "series": "merge(/$server.openstack.nova.http.PUT.*/)",
-              "query": "select mean(value) from merge(/$server.openstack.nova.http.PUT.*/) where $timeFilter group by time($interval) fill(0) order asc",
+              "query": "select mean(value) from merge(/$server.openstack.nova.http.PUT.*/) where $timeFilter group by time($interval) fill(null) order asc",
               "interval": "",
-              "fill": "0",
+              "fill": "null",
               "alias": "PUT"
             },
             {
               "function": "mean",
               "column": "value",
               "series": "merge(/$server.openstack.nova.http.DELETE.*/)",
-              "query": "select mean(value) from merge(/$server.openstack.nova.http.DELETE.*/) where $timeFilter group by time($interval) fill(0) order asc",
+              "query": "select mean(value) from merge(/$server.openstack.nova.http.DELETE.*/) where $timeFilter group by time($interval) fill(null) order asc",
               "interval": "",
-              "fill": "0",
+              "fill": "null",
               "alias": "DELETE"
             }
           ],
@@ -281,8 +281,8 @@
               "function": "last",
               "column": "value",
               "series": "merge(/openstack.nova.check_api/)",
-              "query": "select last(value) from merge(/openstack.nova.check_api/) where $timeFilter group by time($interval) fill(0) order asc",
-              "fill": "0",
+              "query": "select last(value) from merge(/openstack.nova.check_api/) where $timeFilter group by time($interval) fill(null) order asc",
+              "fill": "null",
               "alias": "healthy"
             }
           ],
@@ -349,8 +349,8 @@
               "function": "count",
               "column": "value",
               "series": "merge(/$server.openstack.nova.http.*.1\\d\\d/)",
-              "query": "select count(value) from merge(/$server.openstack.nova.http.*.1\\d\\d/) where $timeFilter group by time($interval) fill(0) order asc",
-              "fill": "0",
+              "query": "select count(value) from merge(/$server.openstack.nova.http.*.1\\d\\d/) where $timeFilter group by time($interval) fill(null) order asc",
+              "fill": "null",
               "interval": "1m",
               "alias": "1xx"
             },
@@ -358,8 +358,8 @@
               "function": "count",
               "column": "value",
               "series": "merge(/$server.openstack.nova.http.*.2\\d\\d/)",
-              "query": "select count(value) from merge(/$server.openstack.nova.http.*.2\\d\\d/) where $timeFilter group by time($interval) fill(0) order asc",
-              "fill": "0",
+              "query": "select count(value) from merge(/$server.openstack.nova.http.*.2\\d\\d/) where $timeFilter group by time($interval) fill(null) order asc",
+              "fill": "null",
               "interval": "1m",
               "alias": "2xx"
             },
@@ -367,8 +367,8 @@
               "function": "count",
               "column": "value",
               "series": "merge(/$server.openstack.nova.http.*.3\\d\\d/)",
-              "query": "select count(value) from merge(/$server.openstack.nova.http.*.3\\d\\d/) where $timeFilter group by time($interval) fill(0) order asc",
-              "fill": "0",
+              "query": "select count(value) from merge(/$server.openstack.nova.http.*.3\\d\\d/) where $timeFilter group by time($interval) fill(null) order asc",
+              "fill": "null",
               "interval": "1m",
               "alias": "3xx"
             },
@@ -376,8 +376,8 @@
               "function": "count",
               "column": "value",
               "series": "merge(/$server.openstack.nova.http.*.4\\d\\d/)",
-              "query": "select count(value) from merge(/$server.openstack.nova.http.*.4\\d\\d/) where $timeFilter group by time($interval) fill(0) order asc",
-              "fill": "0",
+              "query": "select count(value) from merge(/$server.openstack.nova.http.*.4\\d\\d/) where $timeFilter group by time($interval) fill(null) order asc",
+              "fill": "null",
               "interval": "1m",
               "alias": "4xx"
             },
@@ -385,8 +385,8 @@
               "function": "count",
               "column": "value",
               "series": "merge(/$server.openstack.nova.http.*.5\\d\\d/)",
-              "query": "select count(value) from merge(/$server.openstack.nova.http.*.5\\d\\d/) where $timeFilter group by time($interval) fill(0) order asc",
-              "fill": "0",
+              "query": "select count(value) from merge(/$server.openstack.nova.http.*.5\\d\\d/) where $timeFilter group by time($interval) fill(null) order asc",
+              "fill": "null",
               "interval": "1m",
               "alias": "5xx"
             }
@@ -432,8 +432,8 @@
               "function": "last",
               "column": "value",
               "series": "merge(/openstack.nova.services.nova-compute.enabled/)",
-              "query": "select last(value) from merge(/openstack.nova.services.nova-compute.enabled/) where $timeFilter group by time($interval) fill(0) order asc",
-              "fill": "0"
+              "query": "select last(value) from merge(/openstack.nova.services.nova-compute.enabled/) where $timeFilter group by time($interval) fill(null) order asc",
+              "fill": "null"
             }
           ],
           "cacheTimeout": null,
@@ -483,8 +483,8 @@
               "function": "last",
               "column": "value",
               "series": "merge(/openstack.nova.services.nova-scheduler.enabled/)",
-              "query": "select last(value) from merge(/openstack.nova.services.nova-scheduler.enabled/) where $timeFilter group by time($interval) fill(0) order asc",
-              "fill": "0"
+              "query": "select last(value) from merge(/openstack.nova.services.nova-scheduler.enabled/) where $timeFilter group by time($interval) fill(null) order asc",
+              "fill": "null"
             }
           ],
           "cacheTimeout": null,
@@ -534,8 +534,8 @@
               "function": "last",
               "column": "value",
               "series": "merge(/openstack.nova.services.nova-conductor.enabled/)",
-              "query": "select last(value) from merge(/openstack.nova.services.nova-conductor.enabled/) where $timeFilter group by time($interval) fill(0) order asc",
-              "fill": "0"
+              "query": "select last(value) from merge(/openstack.nova.services.nova-conductor.enabled/) where $timeFilter group by time($interval) fill(null) order asc",
+              "fill": "null"
             }
           ],
           "cacheTimeout": null,
@@ -585,8 +585,8 @@
               "function": "last",
               "column": "value",
               "series": "merge(/openstack.nova.services.nova-cert.enabled/)",
-              "query": "select last(value) from merge(/openstack.nova.services.nova-cert.enabled/) where $timeFilter group by time($interval) fill(0) order asc",
-              "fill": "0"
+              "query": "select last(value) from merge(/openstack.nova.services.nova-cert.enabled/) where $timeFilter group by time($interval) fill(null) order asc",
+              "fill": "null"
             }
           ],
           "cacheTimeout": null,
@@ -636,8 +636,8 @@
               "function": "last",
               "column": "value",
               "series": "merge(/openstack.nova.services.nova-consoleauth.enabled/)",
-              "query": "select last(value) from merge(/openstack.nova.services.nova-consoleauth.enabled/) where $timeFilter group by time($interval) fill(0) order asc",
-              "fill": "0"
+              "query": "select last(value) from merge(/openstack.nova.services.nova-consoleauth.enabled/) where $timeFilter group by time($interval) fill(null) order asc",
+              "fill": "null"
             }
           ],
           "cacheTimeout": null,
@@ -699,8 +699,8 @@
               "function": "last",
               "column": "value",
               "series": "merge(/openstack.nova.services.nova-compute.disabled/)",
-              "query": "select last(value) from merge(/openstack.nova.services.nova-compute.disabled/) where $timeFilter group by time($interval) fill(0) order asc",
-              "fill": "0"
+              "query": "select last(value) from merge(/openstack.nova.services.nova-compute.disabled/) where $timeFilter group by time($interval) fill(null) order asc",
+              "fill": "null"
             }
           ],
           "cacheTimeout": null,
@@ -750,8 +750,8 @@
               "function": "last",
               "column": "value",
               "series": "merge(/openstack.nova.services.nova-scheduler.disabled/)",
-              "query": "select last(value) from merge(/openstack.nova.services.nova-scheduler.disabled/) where $timeFilter group by time($interval) fill(0) order asc",
-              "fill": "0"
+              "query": "select last(value) from merge(/openstack.nova.services.nova-scheduler.disabled/) where $timeFilter group by time($interval) fill(null) order asc",
+              "fill": "null"
             }
           ],
           "cacheTimeout": null,
@@ -801,8 +801,8 @@
               "function": "last",
               "column": "value",
               "series": "merge(/openstack.nova.services.nova-conductor.disabled/)",
-              "query": "select last(value) from merge(/openstack.nova.services.nova-conductor.disabled/) where $timeFilter group by time($interval) fill(0) order asc",
-              "fill": "0"
+              "query": "select last(value) from merge(/openstack.nova.services.nova-conductor.disabled/) where $timeFilter group by time($interval) fill(null) order asc",
+              "fill": "null"
             }
           ],
           "cacheTimeout": null,
@@ -852,8 +852,8 @@
               "function": "last",
               "column": "value",
               "series": "merge(/openstack.nova.services.nova-cert.disabled/)",
-              "query": "select last(value) from merge(/openstack.nova.services.nova-cert.disabled/) where $timeFilter group by time($interval) fill(0) order asc",
-              "fill": "0"
+              "query": "select last(value) from merge(/openstack.nova.services.nova-cert.disabled/) where $timeFilter group by time($interval) fill(null) order asc",
+              "fill": "null"
             }
           ],
           "cacheTimeout": null,
@@ -903,8 +903,8 @@
               "function": "last",
               "column": "value",
               "series": "merge(/openstack.nova.services.nova-consoleauth.disabled/)",
-              "query": "select last(value) from merge(/openstack.nova.services.nova-consoleauth.disabled/) where $timeFilter group by time($interval) fill(0) order asc",
-              "fill": "0"
+              "query": "select last(value) from merge(/openstack.nova.services.nova-consoleauth.disabled/) where $timeFilter group by time($interval) fill(null) order asc",
+              "fill": "null"
             }
           ],
           "cacheTimeout": null,
@@ -963,8 +963,8 @@
               "function": "last",
               "column": "value",
               "series": "merge(/openstack.nova.instances.active/)",
-              "query": "select last(value) from merge(/openstack.nova.instances.active/) where $timeFilter group by time($interval) fill(0) order asc",
-              "fill": "0"
+              "query": "select last(value) from merge(/openstack.nova.instances.active/) where $timeFilter group by time($interval) fill(null) order asc",
+              "fill": "null"
             }
           ],
           "cacheTimeout": null,
@@ -1014,8 +1014,8 @@
               "function": "last",
               "column": "value",
               "series": "merge(/openstack.nova.instances.error/)",
-              "query": "select last(value) from merge(/openstack.nova.instances.error/) where $timeFilter group by time($interval) fill(0) order asc",
-              "fill": "0"
+              "query": "select last(value) from merge(/openstack.nova.instances.error/) where $timeFilter group by time($interval) fill(null) order asc",
+              "fill": "null"
             }
           ],
           "cacheTimeout": null,
@@ -1105,8 +1105,8 @@
               "function": "mean",
               "column": "value",
               "series": "/openstack.nova.instance_creation_time/",
-              "query": "select mean(value) from /openstack.nova.instance_creation_time/ where $timeFilter group by time($interval) fill(0) order asc",
-              "fill": "0",
+              "query": "select mean(value) from /openstack.nova.instance_creation_time/ where $timeFilter group by time($interval) fill(null) order asc",
+              "fill": "null",
               "alias": "$0",
               "rawQuery": false
             }
@@ -1143,8 +1143,8 @@
               "function": "last",
               "column": "value",
               "series": "merge(/openstack.nova.used_vcpus/)",
-              "query": "select last(value) from merge(/openstack.nova.used_vcpus/) where $timeFilter group by time($interval) fill(0) order asc",
-              "fill": "0"
+              "query": "select last(value) from merge(/openstack.nova.used_vcpus/) where $timeFilter group by time($interval) fill(null) order asc",
+              "fill": "null"
             }
           ],
           "cacheTimeout": null,
@@ -1194,8 +1194,8 @@
               "function": "last",
               "column": "value",
               "series": "merge(/openstack.nova.used_disk/)",
-              "query": "select last(value) from merge(/openstack.nova.used_disk/) where $timeFilter group by time($interval) fill(0) order asc",
-              "fill": "0"
+              "query": "select last(value) from merge(/openstack.nova.used_disk/) where $timeFilter group by time($interval) fill(null) order asc",
+              "fill": "null"
             }
           ],
           "cacheTimeout": null,
@@ -1245,8 +1245,8 @@
               "function": "last",
               "column": "value",
               "series": "merge(/openstack.nova.used_ram/)",
-              "query": "select last(value) from merge(/openstack.nova.used_ram/) where $timeFilter group by time($interval) fill(0) order asc",
-              "fill": "0"
+              "query": "select last(value) from merge(/openstack.nova.used_ram/) where $timeFilter group by time($interval) fill(null) order asc",
+              "fill": "null"
             }
           ],
           "cacheTimeout": null,
@@ -1308,8 +1308,8 @@
               "function": "last",
               "column": "value",
               "series": "merge(/openstack.nova.free_vcpus/)",
-              "query": "select last(value) from merge(/openstack.nova.free_vcpus/) where $timeFilter group by time($interval) fill(0) order asc",
-              "fill": "0"
+              "query": "select last(value) from merge(/openstack.nova.free_vcpus/) where $timeFilter group by time($interval) fill(null) order asc",
+              "fill": "null"
             }
           ],
           "cacheTimeout": null,
@@ -1359,8 +1359,8 @@
               "function": "last",
               "column": "value",
               "series": "merge(/openstack.nova.free_disk/)",
-              "query": "select last(value) from merge(/openstack.nova.free_disk/) where $timeFilter group by time($interval) fill(0) order asc",
-              "fill": "0"
+              "query": "select last(value) from merge(/openstack.nova.free_disk/) where $timeFilter group by time($interval) fill(null) order asc",
+              "fill": "null"
             }
           ],
           "cacheTimeout": null,
@@ -1410,8 +1410,8 @@
               "function": "last",
               "column": "value",
               "series": "merge(/openstack.nova.free_ram/)",
-              "query": "select last(value) from merge(/openstack.nova.free_ram/) where $timeFilter group by time($interval) fill(0) order asc",
-              "fill": "0"
+              "query": "select last(value) from merge(/openstack.nova.free_ram/) where $timeFilter group by time($interval) fill(null) order asc",
+              "fill": "null"
             }
           ],
           "cacheTimeout": null,
