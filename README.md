@@ -44,13 +44,13 @@ To install the InfluxDB-Grafana plugin, follow these steps:
    Fuel Master node yet.
 
    ```
-   scp influxdb_grafana-1.0-1.0.0-0.noarch.rpm root@<the Fuel Master node IP address>:
+   scp influxdb_grafana-0.7-0.7.0-0.noarch.rpm root@<the Fuel Master node IP address>:
    ```
 
 3. Install the plugin using the `fuel` command line:
 
    ```
-   fuel plugins --install influxdb_grafana-1.0-1.0.0-0.noarch.rpm
+   fuel plugins --install influxdb_grafana-0.7-0.7.0-0.noarch.rpm
    ```
 
 4. Verify that the plugin is installed correctly:
@@ -110,14 +110,18 @@ The curl command should return a valid JSON object similar to:
 To check that Grafana is running, you need to make sure that *nginx* is listening
 on port 80. The user interface is available at:
 
+```
 http://$HOST/
+```
 
 **Note**: if you deploy this plugin on a node that is also running the
 [Elasticsearch-Kibana plugin](https://github.com/stackforge/fuel-plugin-elasticsearch-kibana)
 then *nginx* will use the port 8000 instead of 80. So in that case the user interface
 is available at:
 
+```
 http://$HOST:8000/
+```
 
 Known issues
 ------------
@@ -127,9 +131,9 @@ None.
 Release Notes
 -------------
 
-**1.0.0**
+**0.7.0**
 
-* Initial release of the plugin
+* Initial release of the plugin. This is a beta version.
 
 Contributors
 ------------
