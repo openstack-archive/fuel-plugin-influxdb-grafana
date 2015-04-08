@@ -83,7 +83,7 @@
         {
           "title": "Storage Free",
           "error": false,
-          "span": 1,
+          "span": 3,
           "editable": true,
           "type": "singlestat",
           "id": 24,
@@ -136,7 +136,7 @@
         {
           "title": "Quorum members",
           "error": false,
-          "span": 1,
+          "span": 3,
           "editable": true,
           "type": "singlestat",
           "id": 10,
@@ -186,7 +186,7 @@
         {
           "title": "Monitor nodes",
           "error": false,
-          "span": 1,
+          "span": 3,
           "editable": true,
           "type": "singlestat",
           "id": 9,
@@ -310,19 +310,8 @@
           "aliasColors": {},
           "seriesOverrides": [],
           "links": [],
-          "leftYAxisLabel": ""
-        },
-        {
-          "title": "",
-          "error": false,
-          "span": 4,
-          "editable": true,
-          "type": "text",
-          "id": 28,
-          "mode": "markdown",
-          "content": "",
-          "style": {},
-          "links": []
+          "leftYAxisLabel": "",
+          "interval": "60s"
         },
         {
           "title": "Free Storage",
@@ -427,7 +416,7 @@
       "title": "Pools",
       "height": "250px",
       "editable": true,
-      "collapse": true,
+      "collapse": false,
       "panels": [
         {
           "title": "",
@@ -537,7 +526,7 @@
               "column": "value",
               "series": "/$controller.ceph.cluster-$cluster.*\\.pool.$pool.bytes_used/",
               "query": "select mean(value) from /$controller.ceph.cluster-$cluster.*\\.pool.$pool.bytes_used/ where $timeFilter group by time($interval) fill(null) order asc",
-              "alias": "used",
+              "alias": "$4 used",
               "fill": "null"
             },
             {
@@ -545,14 +534,15 @@
               "column": "value",
               "series": "/$controller.ceph.cluster-$cluster.*.pool.$pool.max_avail/",
               "query": "select mean(value) from /$controller.ceph.cluster-$cluster.*.pool.$pool.max_avail/ where $timeFilter group by time($interval) fill(null) order asc",
-              "alias": "available",
+              "alias": "$4 available",
               "fill": "null"
             }
           ],
           "aliasColors": {},
           "seriesOverrides": [],
           "links": [],
-          "interval": ">1m"
+          "interval": ">1m",
+          "leftYAxisLabel": ""
         },
         {
           "title": "Operations ($pool)",
@@ -609,7 +599,9 @@
               "series": "/$controller.ceph.cluster-$cluster.pool.$pool.op_per_sec/",
               "query": "select mean(value) from /$controller.ceph.cluster-$cluster.pool.$pool.op_per_sec/ where $timeFilter group by time($interval) order asc",
               "alias": "ops",
-              "rawQuery": false
+              "rawQuery": false,
+              "interval": "",
+              "groupby_field": ""
             },
             {
               "function": "max",
@@ -947,7 +939,7 @@
       "title": "Placement Groups",
       "height": "250px",
       "editable": true,
-      "collapse": true,
+      "collapse": false,
       "panels": [
         {
           "title": "Placement Groups",
@@ -1160,7 +1152,7 @@
       "title": "OSD Daemons",
       "height": "250px",
       "editable": true,
-      "collapse": true,
+      "collapse": false,
       "panels": [
         {
           "title": "OSDs up",
@@ -1576,14 +1568,14 @@
         "2h",
         "1d"
       ],
-      "now": true,
+      "now": false,
       "collapse": false,
       "notice": false
     }
   ],
   "time": {
-    "from": "now-15m",
-    "to": "now"
+    "from": "2015-04-01T11:36:31.936Z",
+    "to": "2015-04-01T15:36:31.936Z"
   },
   "templating": {
     "list": [
@@ -1599,8 +1591,6 @@
         "query": "list series /ceph.cluster.*.health/",
         "regex": "/^([^.]+)/",
         "current": {
-          "text": "node-1",
-          "value": "node-1"
         },
         "refresh": true
       },
@@ -1631,42 +1621,14 @@
         "refresh_on_load": false,
         "name": "pool",
         "options": [
-          {
-            "text": "All",
-            "value": "(compute|data|images|metadata|rbd|volumes)"
-          },
-          {
-            "text": "compute",
-            "value": "compute"
-          },
-          {
-            "text": "data",
-            "value": "data"
-          },
-          {
-            "text": "images",
-            "value": "images"
-          },
-          {
-            "text": "metadata",
-            "value": "metadata"
-          },
-          {
-            "text": "rbd",
-            "value": "rbd"
-          },
-          {
-            "text": "volumes",
-            "value": "volumes"
-          }
         ],
         "includeAll": true,
         "allFormat": "regex values",
         "query": "list series /ceph.*.pool.*.objects/",
         "regex": "/.*pool\\.(\\w+)\\.objects/",
         "current": {
-          "text": "images",
-          "value": "images"
+          "text": "All",
+          "value": "(compute|data|images|metadata|rbd|volumes)"
         },
         "refresh": true
       },

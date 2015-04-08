@@ -1498,7 +1498,7 @@
     }
   ],
   "time": {
-    "from": "now-1h",
+    "from": "now-15m",
     "to": "now"
   },
   "templating": {
@@ -1515,7 +1515,8 @@
         "query": "list series /.cpu.0.idle/",
         "regex": "/^([^.]+)/",
         "current": {
-        }
+        },
+        "refresh": true
       },
       {
         "type": "query",
@@ -1523,27 +1524,14 @@
         "refresh_on_load": false,
         "name": "disk",
         "options": [
-          {
-            "text": "sda",
-            "value": "sda"
-          },
-          {
-            "text": "sdb",
-            "value": "sdb"
-          },
-          {
-            "text": "sdc",
-            "value": "sdc"
-          }
         ],
         "includeAll": false,
         "allFormat": "glob",
         "query": "list series /disk_merged.read/",
         "current": {
-          "text": "sda",
-          "value": "sda"
         },
-        "regex": "/$server.disk.([a-z]+)/"
+        "regex": "/$server.disk.([a-z]+)/",
+        "refresh": true
       },
       {
         "type": "query",
@@ -1551,23 +1539,14 @@
         "refresh_on_load": false,
         "name": "mount",
         "options": [
-          {
-            "text": "boot",
-            "value": "boot"
-          },
-          {
-            "text": "root",
-            "value": "root"
-          }
         ],
         "includeAll": false,
         "allFormat": "glob",
         "query": "list series /inodes.free/",
         "current": {
-          "text": "root",
-          "value": "root"
         },
-        "regex": "/fs.([^.]+)/"
+        "regex": "/fs.([^.]+)/",
+        "refresh": true
       },
       {
         "type": "query",
@@ -1575,31 +1554,14 @@
         "refresh_on_load": false,
         "name": "interface",
         "options": [
-          {
-            "text": "All",
-            "value": "(eth0|eth1|eth2)"
-          },
-          {
-            "text": "eth0",
-            "value": "eth0"
-          },
-          {
-            "text": "eth1",
-            "value": "eth1"
-          },
-          {
-            "text": "eth2",
-            "value": "eth2"
-          }
         ],
         "includeAll": true,
         "allFormat": "regex values",
         "query": "list series /if_octets/",
         "current": {
-          "text": "All",
-          "value": "(eth0|eth1|eth2)"
         },
-        "regex": "/([^.]+).if_octets/"
+        "regex": "/([^.]+).if_octets/",
+        "refresh": true
       }
     ],
     "enable": true

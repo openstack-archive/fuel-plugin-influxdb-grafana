@@ -702,7 +702,7 @@
     }
   ],
   "time": {
-    "from": "now-1h",
+    "from": "now-15m",
     "to": "now"
   },
   "templating": {
@@ -712,13 +712,15 @@
         "datasource": null,
         "refresh_on_load": false,
         "name": "server",
-        "options": [],
+        "options": [
+        ],
         "includeAll": true,
         "allFormat": "regex values",
         "query": "list series /openstack.neutron.check_api/",
-        "current": {},
+        "current": {
+        },
         "regex": "/^([^.]+)/",
-        "refresh": false
+        "refresh": true
       }
     ],
     "enable": true

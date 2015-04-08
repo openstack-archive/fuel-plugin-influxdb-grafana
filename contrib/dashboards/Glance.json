@@ -871,7 +871,7 @@
     }
   ],
   "time": {
-    "from": "now-1h",
+    "from": "now-15m",
     "to": "now"
   },
   "templating": {
@@ -889,7 +889,7 @@
         "current": {
         },
         "regex": "/^([^.]+)/",
-        "refresh": false
+        "refresh": true
       }
     ],
     "enable": true

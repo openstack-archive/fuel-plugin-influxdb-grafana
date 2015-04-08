@@ -1147,7 +1147,7 @@
   "annotations": {
     "list": []
   },
-  "refresh": "1m",
+  "refresh": false,
   "version": 6,
   "hideAllLegends": false
 }

@@ -409,12 +409,15 @@
         "datasource": null,
         "refresh_on_load": false,
         "name": "server",
-        "options": [],
+        "options": [
+        ],
         "includeAll": false,
         "allFormat": "glob",
         "query": "list series /openstack.keystone.check_api/",
-        "current": {},
-        "regex": "/^([^.]+)/"
+        "current": {
+        },
+        "regex": "/^([^.]+)/",
+        "refresh": true
       }
     ],
     "enable": true

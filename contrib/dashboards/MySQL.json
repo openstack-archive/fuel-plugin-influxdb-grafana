@@ -173,7 +173,7 @@
           "aliasColors": {},
           "seriesOverrides": [],
           "links": [],
-          "leftYAxisLabel": "",
+          "leftYAxisLabel": "Thread Count",
           "interval": ">60s"
         },
         {
@@ -362,7 +362,8 @@
           "aliasColors": {},
           "seriesOverrides": [],
           "links": [],
-          "interval": "> 60s"
+          "interval": "> 60s",
+          "leftYAxisLabel": "Count"
         }
       ]
     }
@@ -411,13 +412,15 @@
         "datasource": null,
         "refresh_on_load": false,
         "name": "server",
-        "options": [],
+        "options": [
+        ],
         "includeAll": false,
         "allFormat": "glob",
         "query": "list series /openstack.keystone.check_api/",
-        "current": {},
+        "current": {
+        },
         "regex": "/^([^.]+)/",
-        "refresh": false
+        "refresh": true
       }
     ],
     "enable": true
