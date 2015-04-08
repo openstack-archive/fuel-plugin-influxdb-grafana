@@ -1132,11 +1132,29 @@
         "refresh_on_load": true,
         "name": "server",
         "options": [
+          {
+            "text": "All",
+            "value": "(node-2|node-3|node-5)"
+          },
+          {
+            "text": "node-2",
+            "value": "node-2"
+          },
+          {
+            "text": "node-3",
+            "value": "node-3"
+          },
+          {
+            "text": "node-5",
+            "value": "node-5"
+          }
         ],
         "includeAll": true,
         "allFormat": "regex values",
         "query": "list series /openstack.keystone.check_api/",
         "current": {
+          "text": "All",
+          "value": "(node-2|node-3|node-5)"
         },
         "regex": "/^([^.]+)/",
         "refresh": true
@@ -1147,7 +1165,7 @@
   "annotations": {
     "list": []
   },
-  "refresh": "1m",
+  "refresh": false,
   "version": 6,
   "hideAllLegends": false
 }

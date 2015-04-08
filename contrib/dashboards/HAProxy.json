@@ -16,9 +16,9 @@
       "collapse": false,
       "panels": [
         {
-          "title": "Current $service status",
+          "title": "$controller status",
           "error": false,
-          "span": 1,
+          "span": 2,
           "editable": true,
           "type": "singlestat",
           "id": 1,
@@ -29,8 +29,8 @@
             {
               "function": "last",
               "column": "value",
-              "series": "/$controller.haproxy.backend.$service.status/",
-              "query": "select last(value) from /$controller.haproxy.backend.$service.status/ where $timeFilter group by time($interval) order asc",
+              "series": "/$controller.pacemaker.resource.*haproxy.*active$/",
+              "query": "select last(value) from /$controller.pacemaker.resource.*haproxy.*active$/ where $timeFilter group by time($interval) order asc",
               "rawQuery": false,
               "fill": ""
             }
@@ -49,25 +49,25 @@
             {
               "value": "1",
               "op": "=",
-              "text": "Healthy"
+              "text": "active"
             },
             {
               "value": "0",
               "op": "=",
-              "text": "Down"
+              "text": "inactive"
             }
           ],
           "nullPointMode": "null as zero",
           "valueName": "current",
           "prefixFontSize": "50%",
-          "valueFontSize": "80%",
+          "valueFontSize": "50%",
           "postfixFontSize": "50%",
           "thresholds": "0,0,1",
           "colorBackground": true,
           "colorValue": false,
           "colors": [
             "rgba(211, 12, 12, 0.75)",
-            "rgba(246, 23, 23, 0.73)",
+            "rgba(9, 40, 239, 0.73)",
             "rgba(71, 212, 59, 0.44)"
           ],
           "sparkline": {
@@ -165,56 +165,6 @@
           "leftYAxisLabel": "sessions"
         },
         {
-          "title": "current queue $service",
-          "error": false,
-          "span": 1,
-          "editable": true,
-          "type": "singlestat",
-          "id": 7,
-          "links": [],
-          "maxDataPoints": 100,
-          "interval": "20s",
-          "targets": [
-            {
-              "function": "sum",
-              "column": "value",
-              "series": "/haproxy.backend.$service.queue_current/",
-              "query": "select sum(value) from /haproxy.backend.$service.queue_current/ where $timeFilter group by time($interval) order asc"
-            }
-          ],
-          "cacheTimeout": null,
-          "format": "none",
-          "prefix": "",
-          "postfix": "",
-          "nullText": null,
-          "valueMaps": [
-            {
-              "value": "null",
-              "op": "=",
-              "text": "N/A"
-            }
-          ],
-          "nullPointMode": "connected",
-          "valueName": "avg",
-          "prefixFontSize": "50%",
-          "valueFontSize": "80%",
-          "postfixFontSize": "50%",
-          "thresholds": "",
-          "colorBackground": false,
-          "colorValue": false,
-          "colors": [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(50, 172, 45, 0.97)"
-          ],
-          "sparkline": {
-            "show": false,
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "fillColor": "rgba(31, 118, 189, 0.18)"
-          }
-        },
-        {
           "title": "Current queue $service",
           "error": false,
           "span": 5,
@@ -274,23 +224,76 @@
           "aliasColors": {},
           "seriesOverrides": [],
           "links": []
-        }
-      ],
-      "showTitle": true
-    },
-    {
-      "title": "Service",
-      "height": "250px",
-      "editable": true,
-      "collapse": false,
-      "panels": [
+        },
+        {
+          "title": "$service status",
+          "error": false,
+          "span": 2,
+          "editable": true,
+          "type": "singlestat",
+          "id": 16,
+          "links": [],
+          "maxDataPoints": 100,
+          "interval": ">60s",
+          "targets": [
+            {
+              "function": "last",
+              "column": "value",
+              "series": "/$controller.haproxy.backend.$service.status/",
+              "query": "select last(value) from /$controller.haproxy.backend.$service.status/ where $timeFilter group by time($interval) order asc",
+              "rawQuery": false,
+              "fill": ""
+            }
+          ],
+          "cacheTimeout": null,
+          "format": "none",
+          "prefix": "",
+          "postfix": "",
+          "nullText": null,
+          "valueMaps": [
+            {
+              "value": "null",
+              "op": "=",
+              "text": "N/A"
+            },
+            {
+              "value": "1",
+              "op": "=",
+              "text": "Healthy"
+            },
+            {
+              "value": "0",
+              "op": "=",
+              "text": "Down"
+            }
+          ],
+          "nullPointMode": "null as zero",
+          "valueName": "current",
+          "prefixFontSize": "50%",
+          "valueFontSize": "50%",
+          "postfixFontSize": "50%",
+          "thresholds": "0,0,1",
+          "colorBackground": true,
+          "colorValue": false,
+          "colors": [
+            "rgba(211, 12, 12, 0.75)",
+            "rgba(246, 23, 23, 0.73)",
+            "rgba(71, 212, 59, 0.44)"
+          ],
+          "sparkline": {
+            "show": false,
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "fillColor": "rgba(31, 118, 189, 0.18)"
+          }
+        },
         {
           "title": "HTTP response rate $service",
           "error": false,
-          "span": 6,
+          "span": 5,
           "editable": true,
           "type": "graph",
-          "id": 9,
+          "id": 17,
           "datasource": null,
           "renderer": "flot",
           "x-axis": true,
@@ -324,7 +327,8 @@
             "max": false,
             "current": false,
             "total": false,
-            "avg": false
+            "avg": false,
+            "alignAsTable": false
           },
           "nullPointMode": "connected",
           "steppedLine": false,
@@ -338,7 +342,7 @@
               "column": "value",
               "series": "/$controller.haproxy.$frontback.$service.response_1xx/",
               "query": "select derivative(value) from /$controller.haproxy.$frontback.$service.response_1xx/ where $timeFilter group by time($interval) fill(0) order asc",
-              "alias": "1xx",
+              "alias": "$0.1xx",
               "rawQuery": false,
               "interval": "",
               "fill": "0"
@@ -348,7 +352,7 @@
               "column": "value",
               "series": "/$controller.haproxy.$frontback.$service.response_2xx/",
               "query": "select derivative(value) from /$controller.haproxy.$frontback.$service.response_2xx/ where $timeFilter group by time($interval) fill(0) order asc",
-              "alias": "2xx",
+              "alias": "$0.2xx",
               "rawQuery": false,
               "fill": "0"
             },
@@ -357,7 +361,7 @@
               "column": "value",
               "series": "/$controller.haproxy.$frontback.$service.response_3xx/",
               "query": "select derivative(value) from /$controller.haproxy.$frontback.$service.response_3xx/ where $timeFilter group by time($interval) fill(0) order asc",
-              "alias": "3xx",
+              "alias": "$0.3xx",
               "rawQuery": false,
               "fill": "0"
             },
@@ -366,7 +370,7 @@
               "column": "value",
               "series": "/$controller.haproxy.$frontback.$service.response_4xx/",
               "query": "select derivative(value) from /$controller.haproxy.$frontback.$service.response_4xx/ where $timeFilter group by time($interval) fill(0) order asc",
-              "alias": "4xx",
+              "alias": "$0.4xx",
               "rawQuery": false,
               "fill": "0"
             },
@@ -375,7 +379,7 @@
               "column": "value",
               "series": "/$controller.haproxy.$frontback.$service.response_5xx/",
               "query": "select derivative(value) from /$controller.haproxy.$frontback.$service.response_5xx/ where $timeFilter group by time($interval) fill(0) order asc",
-              "alias": "5xx",
+              "alias": "$0.5xx",
               "rawQuery": false,
               "fill": "0"
             },
@@ -384,7 +388,7 @@
               "column": "value",
               "series": "/$controller.haproxy.$frontback.$service.response_other/",
               "query": "select derivative(value) from /$controller.haproxy.$frontback.$service.response_other/ where $timeFilter group by time($interval) fill(0) order asc",
-              "alias": "other",
+              "alias": "$0.other",
               "rawQuery": false,
               "fill": "0"
             }
@@ -398,10 +402,10 @@
         {
           "title": "Error $service",
           "error": false,
-          "span": 6,
+          "span": 5,
           "editable": true,
           "type": "graph",
-          "id": 6,
+          "id": 18,
           "datasource": null,
           "renderer": "flot",
           "x-axis": true,
@@ -465,9 +469,18 @@
           "aliasColors": {},
           "seriesOverrides": [],
           "links": []
-        },
+        }
+      ],
+      "showTitle": true
+    },
+    {
+      "title": "Service",
+      "height": "250px",
+      "editable": true,
+      "collapse": false,
+      "panels": [
         {
-          "title": "Network $service $frontback",
+          "title": "Network throughput $service $frontback",
           "error": false,
           "span": 6,
           "editable": true,
@@ -545,7 +558,7 @@
           "interval": ">60s"
         },
         {
-          "title": "Backend retries $service",
+          "title": "Backend retries count for $service",
           "error": false,
           "span": 6,
           "editable": true,
@@ -598,12 +611,13 @@
               "column": "value",
               "series": "/$controller.haproxy.backend.$service.retries/",
               "query": "select max(value) from /$controller.haproxy.backend.$service.retries/ where $timeFilter group by time($interval) order asc",
-              "alias": "$3.retries"
+              "alias": "$0.$3.retries"
             }
           ],
           "aliasColors": {},
           "seriesOverrides": [],
-          "links": []
+          "links": [],
+          "interval": ">60s"
         }
       ],
       "showTitle": true
@@ -612,7 +626,7 @@
       "title": "Server",
       "height": "250px",
       "editable": true,
-      "collapse": true,
+      "collapse": false,
       "panels": [
         {
           "title": "Uptime",
@@ -667,7 +681,7 @@
           }
         },
         {
-          "title": "HAproxy server",
+          "title": "HAproxy server stats",
           "error": false,
           "span": 5,
           "editable": true,
@@ -826,7 +840,7 @@
           "interval": "30s"
         },
         {
-          "title": "Network $frontback (all Services)",
+          "title": "Global network throughput $frontback (all Services)",
           "error": false,
           "span": 6,
           "editable": true,
@@ -843,7 +857,7 @@
           "grid": {
             "leftMax": null,
             "rightMax": null,
-            "leftMin": null,
+            "leftMin": 0,
             "rightMin": null,
             "threshold1": null,
             "threshold2": null,
@@ -877,21 +891,23 @@
             {
               "function": "derivative",
               "column": "value",
-              "series": "/$controller.haproxy.$frontback.*.bytes_in/",
-              "query": "select derivative(value) from /$controller.haproxy.$frontback.*.bytes_in/ where $timeFilter group by time($interval) order asc",
-              "alias": "$3.in",
-              "rawQuery": false,
+              "series": "/$controller.haproxy.$frontback.+.bytes_in/",
+              "query": "select derivative(value) from /$controller.haproxy.$frontback.bytes_in/ where $timeFilter  group by time($interval) fill(null) order asc",
+              "alias": "in",
+              "rawQuery": true,
               "hide": false,
-              "interval": ""
+              "interval": "",
+              "fill": "null"
             },
             {
               "function": "derivative",
               "column": "value",
-              "series": "/haproxy.$frontback.*.bytes_out/",
-              "query": "select derivative(value*-1) from /$controller.haproxy.$frontback.*.bytes_out/ where $timeFilter group by time($interval) order asc",
-              "alias": "$3.out",
-              "rawQuery": true,
-              "hide": false
+              "series": "/$controller.haproxy.$frontback.bytes_out/",
+              "query": "select derivative(value) from /$controller.haproxy.$frontback.bytes_out/ where $timeFilter group by time($interval) fill(null) order asc",
+              "alias": "out",
+              "rawQuery": false,
+              "hide": false,
+              "fill": "null"
             }
           ],
           "aliasColors": {
@@ -901,10 +917,11 @@
             {}
           ],
           "links": [],
-          "interval": ">30s"
+          "interval": ">60s",
+          "leftYAxisLabel": ""
         },
         {
-          "title": "Backend error rate - all services",
+          "title": "Global error rate (all services)",
           "error": false,
           "span": 6,
           "editable": true,
@@ -921,7 +938,7 @@
           "grid": {
             "leftMax": null,
             "rightMax": null,
-            "leftMin": null,
+            "leftMin": 0,
             "rightMin": null,
             "threshold1": null,
             "threshold2": null,
@@ -956,7 +973,7 @@
               "function": "sum",
               "column": "value",
               "series": "/haproxy.$frontback.*.error_/",
-              "query": "select derivative(value) from /$controller.haproxy.backend.*.error_/ where $timeFilter  group by time($interval) fill(null) order asc",
+              "query": "select derivative(value) from /$controller.haproxy.backend.+.error_/ where $timeFilter  group by time($interval) fill(0) order asc",
               "alias": "$0.$3.$4",
               "fill": "0",
               "rawQuery": true,
@@ -976,7 +993,8 @@
           "aliasColors": {},
           "seriesOverrides": [],
           "links": [],
-          "interval": ">60s"
+          "interval": ">60s",
+          "leftYAxisLabel": "per second"
         }
       ],
       "showTitle": true
@@ -1027,6 +1045,18 @@
         "refresh_on_load": false,
         "name": "controller",
         "options": [
+          {
+            "text": "node-2",
+            "value": "node-2"
+          },
+          {
+            "text": "node-3",
+            "value": "node-3"
+          },
+          {
+            "text": "node-5",
+            "value": "node-5"
+          }
         ],
         "includeAll": false,
         "allFormat": "regex values",
@@ -1034,6 +1064,8 @@
         "regex": "/^([^.]+)/",
         "refresh": true,
         "current": {
+          "text": "node-2",
+          "value": "node-2"
         }
       },
       {
@@ -1103,6 +1135,10 @@
             "value": "nova-novncproxy"
           },
           {
+            "text": "rabbitmq",
+            "value": "rabbitmq"
+          },
+          {
             "text": "stats",
             "value": "stats"
           },
@@ -1117,8 +1153,8 @@
         "regex": "/^[^.]+.haproxy\\.backend\\.([^.]+)/",
         "refresh": true,
         "current": {
-          "text": "cinder-api",
-          "value": "cinder-api"
+          "text": "nova-api-2",
+          "value": "nova-api-2"
         }
       },
       {
@@ -1151,7 +1187,7 @@
     "list": [],
     "enable": false
   },
-  "refresh": false,
+  "refresh": "10s",
   "version": 6,
   "hideAllLegends": false
 }

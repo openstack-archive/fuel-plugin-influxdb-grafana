@@ -712,13 +712,33 @@
         "datasource": null,
         "refresh_on_load": false,
         "name": "server",
-        "options": [],
+        "options": [
+          {
+            "text": "All",
+            "value": "(node-2|node-3|node-5)"
+          },
+          {
+            "text": "node-2",
+            "value": "node-2"
+          },
+          {
+            "text": "node-3",
+            "value": "node-3"
+          },
+          {
+            "text": "node-5",
+            "value": "node-5"
+          }
+        ],
         "includeAll": true,
         "allFormat": "regex values",
         "query": "list series /openstack.neutron.check_api/",
-        "current": {},
+        "current": {
+          "text": "All",
+          "value": "(node-2|node-3|node-5)"
+        },
         "regex": "/^([^.]+)/",
-        "refresh": false
+        "refresh": true
       }
     ],
     "enable": true

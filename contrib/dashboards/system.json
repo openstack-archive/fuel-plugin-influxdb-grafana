@@ -1509,13 +1509,40 @@
         "refresh_on_load": false,
         "name": "server",
         "options": [
+          {
+            "text": "node-1",
+            "value": "node-1"
+          },
+          {
+            "text": "node-2",
+            "value": "node-2"
+          },
+          {
+            "text": "node-3",
+            "value": "node-3"
+          },
+          {
+            "text": "node-4",
+            "value": "node-4"
+          },
+          {
+            "text": "node-5",
+            "value": "node-5"
+          },
+          {
+            "text": "node-6",
+            "value": "node-6"
+          }
         ],
         "includeAll": false,
         "allFormat": "glob",
         "query": "list series /.cpu.0.idle/",
         "regex": "/^([^.]+)/",
         "current": {
-        }
+          "text": "node-2",
+          "value": "node-2"
+        },
+        "refresh": true
       },
       {
         "type": "query",
@@ -1543,7 +1570,8 @@
           "text": "sda",
           "value": "sda"
         },
-        "regex": "/$server.disk.([a-z]+)/"
+        "regex": "/$server.disk.([a-z]+)/",
+        "refresh": true
       },
       {
         "type": "query",
@@ -1567,7 +1595,8 @@
           "text": "root",
           "value": "root"
         },
-        "regex": "/fs.([^.]+)/"
+        "regex": "/fs.([^.]+)/",
+        "refresh": true
       },
       {
         "type": "query",
@@ -1599,7 +1628,8 @@
           "text": "All",
           "value": "(eth0|eth1|eth2)"
         },
-        "regex": "/([^.]+).if_octets/"
+        "regex": "/([^.]+).if_octets/",
+        "refresh": true
       }
     ],
     "enable": true

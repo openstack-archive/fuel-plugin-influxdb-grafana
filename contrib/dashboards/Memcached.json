@@ -137,7 +137,8 @@
               "column": "value",
               "series": "/memcached.df.cache.used/",
               "query": "select mean(value) from /memcached.df.cache.used/ where $timeFilter group by time($interval) order asc",
-              "alias": "$0"
+              "alias": "$0",
+              "fill": ""
             }
           ],
           "aliasColors": {},
@@ -296,7 +297,7 @@
       "collapse": false,
       "panels": [
         {
-          "title": "Hitratio",
+          "title": "Hits ratio",
           "error": false,
           "span": 6,
           "editable": true,
@@ -378,7 +379,7 @@
           "interval": ">60s"
         },
         {
-          "title": "Cache hit rate",
+          "title": "Cache hits stats",
           "error": false,
           "span": 6,
           "editable": true,
@@ -516,7 +517,7 @@
       "collapse": false,
       "panels": [
         {
-          "title": "Network",
+          "title": "Network activity stats",
           "error": false,
           "span": 6,
           "editable": true,
@@ -644,12 +645,12 @@
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2Color": "rgba(234, 112, 112, 0.22)"
           },
-          "lines": true,
+          "lines": false,
           "fill": 0,
           "linewidth": 1,
           "points": false,
           "pointradius": 5,
-          "bars": false,
+          "bars": true,
           "stack": true,
           "percentage": false,
           "legend": {
@@ -731,7 +732,7 @@
     }
   ],
   "time": {
-    "from": "now-15m",
+    "from": "now-1h",
     "to": "now"
   },
   "templating": {
