@@ -12,41 +12,22 @@
 #    License for the specific language governing permissions and limitations
 #    under the License.
 #
-# == Class: lma_monitoring_analytics
+# == Class: lma_monitoring_analytics::grafana
 
-class lma_monitoring_analytics (
+class lma_monitoring_analytics::grafana (
   $listen_port       = $lma_monitoring_analytics::params::listen_port,
   $influxdb_dbname   = undef,
   $influxdb_username = undef,
   $influxdb_userpass = undef,
-  $influxdb_rootpass = undef,
 ) inherits lma_monitoring_analytics::params {
 
   $grafana_dir        = $lma_monitoring_analytics::params::grafana_dir
   $grafana_conf       = $lma_monitoring_analytics::params::grafana_conf
   $influxdb_host      = $lma_monitoring_analytics::params::influxdb_host
-  $configure_influxdb = $lma_monitoring_analytics::params::influxdb_script
   $grafana_dbname     = $lma_monitoring_analytics::params::grafana_dbname
   $grafana_home_dashboard = $lma_monitoring_analytics::params::grafana_home_dashboard
 
-  # Configure InfluxDB:
-  #   - update root password
-  #   - create the user and db for metrics
-  #   - create the db for grafana
-
-  file { $configure_influxdb:
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0744',
-    content => template('lma_monitoring_analytics/configure_influxdb.sh.erb'),
-    notify  => Exec['configure_influxdb_script']
-  }
-
-  exec { 'configure_influxdb_script':
-    command => $configure_influxdb,
-  }
-
-  # Deploy sources.
+  # Deploy sources
   file { $grafana_dir:
     source  => 'puppet:///modules/lma_monitoring_analytics/grafana/sources',
     recurse => true,
@@ -59,15 +40,55 @@ class lma_monitoring_analytics (
     require => File[$grafana_dir],
   }
 
-  # Install the dashboard
-  grafana_dashboard { 'Logging, Monitoring and Alerting':
+  # Install the dashboards
+  $dashboard_defaults = {
     ensure           => present,
-    content          => template('lma_monitoring_analytics/grafana/main_dashboard.json'),
     storage_url      => "http://localhost:8086/db/${grafana_dbname}",
     storage_user     => $influxdb_username,
     storage_password => $influxdb_userpass,
-    require          => Exec['configure_influxdb_script'],
   }
+  $dashboards = {
+    'Main' => {
+      content => template('lma_monitoring_analytics/grafana_dashboards/Main.json'),
+    },
+    'Apache' => {
+      content => template('lma_monitoring_analytics/grafana_dashboards/Apache.json'),
+    },
+    'Ceph' => {
+      content => template('lma_monitoring_analytics/grafana_dashboards/Ceph.json'),
+    },
+    'Cinder' => {
+      content => template('lma_monitoring_analytics/grafana_dashboards/Cinder.json'),
+    },
+    'Glance' => {
+      content => template('lma_monitoring_analytics/grafana_dashboards/Glance.json'),
+    },
+    'HAProxy' => {
+      content => template('lma_monitoring_analytics/grafana_dashboards/HAProxy.json'),
+    },
+    'Keystone' => {
+      content => template('lma_monitoring_analytics/grafana_dashboards/Keystone.json'),
+    },
+    'Memcached' => {
+      content => template('lma_monitoring_analytics/grafana_dashboards/Memcached.json'),
+    },
+    'MySQL' => {
+      content => template('lma_monitoring_analytics/grafana_dashboards/MySQL.json'),
+    },
+    'Neutron' => {
+      content => template('lma_monitoring_analytics/grafana_dashboards/Neutron.json'),
+    },
+    'Nova' => {
+      content => template('lma_monitoring_analytics/grafana_dashboards/Nova.json'),
+    },
+    'RabbitMQ' => {
+      content => template('lma_monitoring_analytics/grafana_dashboards/RabbitMQ.json'),
+    },
+    'System' => {
+      content => template('lma_monitoring_analytics/grafana_dashboards/System.json'),
+    },
+  }
+  create_resources(grafana_dashboard, $dashboards, $dashboard_defaults)
 
   # And now install nginx
   class { 'nginx':
