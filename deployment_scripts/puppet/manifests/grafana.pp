@@ -30,10 +30,9 @@ if $influxdb_grafana['node_name'] == $user_node_name {
     $listen_port = 80
   }
 
-  class {'lma_monitoring_analytics':
+  class {'lma_monitoring_analytics::grafana':
     listen_port       => $listen_port,
     influxdb_dbname   => $influxdb_grafana['influxdb_dbname'],
-    influxdb_rootpass => $influxdb_grafana['influxdb_rootpass'],
     influxdb_username => $influxdb_grafana['influxdb_username'],
     influxdb_userpass => $influxdb_grafana['influxdb_userpass'],
   }

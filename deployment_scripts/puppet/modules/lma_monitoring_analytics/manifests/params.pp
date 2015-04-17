@@ -21,5 +21,5 @@ class lma_monitoring_analytics::params {
   $grafana_dbname         = 'grafana'
   $grafana_dir            = '/opt/grafana'
   $grafana_conf           = "${grafana_dir}/config.js"
-  $grafana_home_dashboard = '/dashboard/db/logging-monitoring-and-alerting'
+  $grafana_home_dashboard = '/dashboard/db/main'
 }
