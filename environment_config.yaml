@@ -49,3 +49,69 @@ attributes:
     regex:
       source: '^[\S]{4,}$'
       error: "You must provide a password with at least 4 characters"
+
+  # Parameter is disabled in UI on purpose
+  data_dir:
+    value: '/opt/influxdb'
+    label: 'InfluxDB storage directory'
+    description: 'Directory used by InfluxDB to store data'
+    weight: 70
+    type: "text"
+    restrictions:
+      - condition: true
+        action: "disable"
+
+  disk1:
+    value: ''
+    label: 'Disk 1'
+    description: 'Disk device used to store InfluxDB data (for instance sda or sdb or another device). Leave it empty to use "/"'
+    weight: 80
+    type: "text"
+
+  disk1_size:
+    value: ''
+    label: 'Size'
+    description: 'in GB. Leave it empty to use all free space.'
+    weight: 90
+    type: "text"
+
+  disk2:
+    value: ''
+    label: 'Disk 2'
+    description: 'Disk device used to store InfluxDB data (for instance sdb).'
+    weight: 100
+    type: "text"
+    restrictions:
+        - condition: "settings:influxdb_grafana.disk1.value == ''"
+          action: "disable"
+
+  disk2_size:
+    value: ''
+    label: 'Size'
+    description: 'in GB. Leave it empty to use all free space.'
+    weight: 110
+    type: "text"
+    restrictions:
+        - condition: "settings:influxdb_grafana.disk1.value == ''"
+          action: "disable"
+
+  disk3:
+    value: ''
+    label: 'Disk 3'
+    description: 'Disk device used to store InfluxDB data (for instance sdc).'
+    weight: 120
+    type: "text"
+    restrictions:
+        - condition: "settings:influxdb_grafana.disk2.value == ''"
+          action: "disable"
+
+  disk3_size:
+    value: ''
+    label: 'Size'
+    description: 'in GB. Leave it empty to use all free space.'
+    weight: 130
+    type: "text"
+    restrictions:
+        - condition: "settings:influxdb_grafana.disk2.value == ''"
+          action: "disable"
+
