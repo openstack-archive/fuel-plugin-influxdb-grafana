@@ -81,6 +81,14 @@ User Guide
     - The name of the database where you want to store your metrics.
     - The username and the password for this specific database.
 
+You can select up to 3 physical disks that will be mounted as a single logical
+volume to store the InfluxDB data. If you specify no disk, the data will
+be stored on the root filesystem. In all cases, InfluxDB data will be
+located in the */opt/influxdb* directory.
+
+For each disk, you can also specify the allocated size (in GB). If you don't
+specify a value, the plugin will use all the free space of the disk.
+
 Here is a screenshot of the fields
 
 ![InfluxDB-Grafana fields](./figures/influxdb-grafana-plugin.png "InfluxDB-Grafana fields")
