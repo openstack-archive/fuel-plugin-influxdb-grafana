@@ -17,6 +17,9 @@ NGINX_TARBALL_URL="https://forgeapi.puppetlabs.com/v3/files/jfryman-nginx-0.2.2.
 FUEL_LIB_VERSION="6.0"
 FUEL_LIB_TARBALL_URL="https://github.com/stackforge/fuel-library/archive/${FUEL_LIB_VERSION}.tar.gz"
 
+# Get the disk_management from fuel-plugin-elasticsearch-kibana
+MODULE_DISK_MANAGEMENT="https://github.com/stackforge/fuel-plugin-elasticsearch-kibana/archive/master.tar.gz"
+
 # Downloads needed RPM or DEB packages
 function download {
     case "$1" in
@@ -37,7 +40,7 @@ download rpm http://get.influxdb.org/influxdb-0.8.8-1.x86_64.rpm
 
 # Install puppet manifests
 # Clean-up first
-rm -rf ${MODULES}/{influxdb,nginx,staging,stdlib,concat,inifile}
+rm -rf ${MODULES}/{influxdb,nginx,staging,stdlib,concat,inifile,disk_management,lvm}
 mkdir -p ${MODULES}/{influxdb,nginx,staging}
 
 # Include influxdb manifests, its dependendy and nginx.
@@ -48,7 +51,12 @@ wget -qO- "${NGINX_TARBALL_URL}" | tar -C "${MODULES}/nginx" --strip-components=
 # Include dependent manifests from fuel-library
 wget -qO- "${FUEL_LIB_TARBALL_URL}" | \
     tar -C "${MODULES}" --strip-components=3 -zxvf - \
-    fuel-library-${FUEL_LIB_VERSION}/deployment/puppet/{stdlib,concat,inifile}
+    fuel-library-${FUEL_LIB_VERSION}/deployment/puppet/{stdlib,concat,inifile,lvm}
+
+# Include disk_management
+wget -qO- "${MODULE_DISK_MANAGEMENT}" | \
+    tar -C "${MODULES}" --strip-components=4 -xzvf - \
+    fuel-plugin-elasticsearch-kibana-master/deployment_scripts/puppet/modules/disk_management
 
 # We need to embed grafana sources into the lma_monitoring_analytics module.
 GRAFANA_TARBALL_URL="http://grafanarel.s3.amazonaws.com/grafana-1.9.1.tar.gz"

@@ -11,6 +11,28 @@
   stage: post_deployment
   type: puppet
   parameters:
+    puppet_manifest: puppet/manifests/setup_disks.pp
+    puppet_modules: puppet/modules
+    timeout: 600
+
+- role: ['base-os']
+  stage: post_deployment
+  type: reboot
+  parameters:
+    timeout: 600
+
+- role: ['base-os']
+  stage: post_deployment
+  type: puppet
+  parameters:
+    puppet_manifest: puppet/manifests/setup_influxdir.pp
+    puppet_modules: puppet/modules
+    timeout: 600
+
+- role: ['base-os']
+  stage: post_deployment
+  type: puppet
+  parameters:
     puppet_manifest: puppet/manifests/influxdb.pp
     puppet_modules: puppet/modules
     timeout: 600
