@@ -29,8 +29,8 @@
             {
               "function": "last",
               "column": "value",
-              "series": "merge(/openstack.cinder.check_api/)",
-              "query": "select last(value) from merge(/openstack.cinder.check_api/) where $timeFilter group by time($interval) order asc",
+              "series": "merge(/openstack.cinder.status/)",
+              "query": "select last(value) from merge(/openstack.cinder.status/) where $timeFilter group by time($interval) order asc",
               "rawQuery": false,
               "interval": "",
               "groupby_field": "",
@@ -47,17 +47,27 @@
             {
               "value": "null",
               "op": "=",
-              "text": "Unknown"
+              "text": "no data"
             },
             {
               "value": "0",
               "op": "=",
-              "text": "Down"
+              "text": "OK"
             },
             {
               "value": "1",
               "op": "=",
-              "text": "Healthy"
+              "text": "DEGRADED"
+            },
+            {
+              "value": "2",
+              "op": "=",
+              "text": "DOWN"
+            },
+            {
+              "value": "3",
+              "op": "=",
+              "text": "UNKNOWN"
             }
           ],
           "nullPointMode": "connected",
@@ -65,13 +75,13 @@
           "prefixFontSize": "50%",
           "valueFontSize": "80%",
           "postfixFontSize": "50%",
-          "thresholds": "0,0,1",
+          "thresholds": "0,1,2",
           "colorBackground": true,
           "colorValue": false,
           "colors": [
-            "rgba(225, 40, 40, 0.59)",
-            "rgba(245, 40, 40, 0.73)",
-            "rgba(71, 212, 59, 0.4)"
+            "rgba(71, 212, 59, 0.4)",
+            "rgba(241, 181, 37, 0.73)",
+            "rgba(225, 40, 40, 0.59)"
           ],
           "sparkline": {
             "show": false,
@@ -465,6 +475,704 @@
           "seriesOverrides": [],
           "links": [],
           "interval": "> 60s"
+        }
+      ],
+      "showTitle": true
+    },
+    {
+      "title": "Cinder API",
+      "height": "100px",
+      "editable": true,
+      "collapse": false,
+      "panels": [
+        {
+          "title": "",
+          "error": false,
+          "span": 2,
+          "editable": true,
+          "type": "text",
+          "id": 46,
+          "mode": "html",
+          "content": "<br />\n<h3 align=\"center\"> Up </h3>",
+          "style": {},
+          "links": []
+        },
+        {
+          "title": "Cinder",
+          "error": false,
+          "span": 2,
+          "editable": true,
+          "type": "singlestat",
+          "id": 48,
+          "links": [],
+          "maxDataPoints": 100,
+          "interval": null,
+          "targets": [
+            {
+              "function": "mean",
+              "column": "value",
+              "series": "merge(/haproxy.backend.cinder-api.servers.up/)",
+              "query": "select mean(value) from merge(/haproxy.backend.cinder-api.servers.up/) where $timeFilter group by time($interval) order asc"
+            }
+          ],
+          "cacheTimeout": null,
+          "format": "none",
+          "prefix": "",
+          "postfix": "",
+          "nullText": null,
+          "valueMaps": [
+            {
+              "value": "null",
+              "op": "=",
+              "text": "N/A"
+            }
+          ],
+          "nullPointMode": "connected",
+          "valueName": "avg",
+          "prefixFontSize": "50%",
+          "valueFontSize": "80%",
+          "postfixFontSize": "50%",
+          "thresholds": "0,1,1",
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(255, 255, 255, 0.89)",
+            "rgba(255, 255, 255, 0.97)"
+          ],
+          "sparkline": {
+            "show": false,
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "fillColor": "rgba(31, 118, 189, 0.18)"
+          }
+        },
+        {
+          "title": "",
+          "error": false,
+          "span": 8,
+          "editable": true,
+          "type": "text",
+          "id": 49,
+          "mode": "markdown",
+          "content": "",
+          "style": {},
+          "links": []
+        },
+        {
+          "title": "",
+          "error": false,
+          "span": 2,
+          "editable": true,
+          "type": "text",
+          "id": 47,
+          "mode": "html",
+          "content": "<br />\n<h3 align=\"center\"> Down </h3>",
+          "style": {},
+          "links": []
+        },
+        {
+          "title": "",
+          "error": false,
+          "span": 2,
+          "editable": true,
+          "type": "singlestat",
+          "id": 50,
+          "links": [],
+          "maxDataPoints": 100,
+          "interval": "> 60s",
+          "targets": [
+            {
+              "function": "last",
+              "column": "value",
+              "series": "merge(/haproxy.backend.cinder-api.servers.down/)",
+              "query": "select last(value) from merge(/haproxy.backend.cinder-api.servers.down/) where $timeFilter group by time($interval) order asc",
+              "rawQuery": false
+            }
+          ],
+          "cacheTimeout": null,
+          "format": "none",
+          "prefix": "",
+          "postfix": "",
+          "nullText": null,
+          "valueMaps": [
+            {
+              "value": "null",
+              "op": "=",
+              "text": "N/A"
+            }
+          ],
+          "nullPointMode": "connected",
+          "valueName": "current",
+          "prefixFontSize": "50%",
+          "valueFontSize": "80%",
+          "postfixFontSize": "50%",
+          "thresholds": "0,0,1",
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "rgba(255, 255, 255, 0.97)",
+            "rgba(255, 255, 255, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "sparkline": {
+            "show": false,
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "fillColor": "rgba(31, 118, 189, 0.18)"
+          }
+        },
+        {
+          "title": "",
+          "error": false,
+          "span": 8,
+          "editable": true,
+          "type": "text",
+          "id": 51,
+          "mode": "markdown",
+          "content": "",
+          "style": {},
+          "links": []
+        }
+      ],
+      "showTitle": true
+    },
+    {
+      "title": "Cinder services",
+      "height": "100px",
+      "editable": true,
+      "collapse": false,
+      "panels": [
+        {
+          "title": "",
+          "error": false,
+          "span": 2,
+          "editable": true,
+          "type": "text",
+          "id": 31,
+          "mode": "html",
+          "content": "<br />\n<h3 align=\"center\"> Disabled </h3>",
+          "style": {},
+          "links": []
+        },
+        {
+          "title": "Scheduler nodes",
+          "error": false,
+          "span": 2,
+          "editable": true,
+          "type": "singlestat",
+          "id": 32,
+          "links": [],
+          "maxDataPoints": 100,
+          "interval": "> 60s",
+          "targets": [
+            {
+              "function": "last",
+              "column": "value",
+              "series": "merge(/openstack.cinder.services.scheduler.disabled/)",
+              "query": "select last(value) from merge(/openstack.cinder.services.scheduler.disabled/) where $timeFilter group by time($interval) fill(null) order asc",
+              "fill": "null"
+            }
+          ],
+          "cacheTimeout": null,
+          "format": "none",
+          "prefix": "",
+          "postfix": "",
+          "nullText": null,
+          "valueMaps": [
+            {
+              "value": "null",
+              "op": "=",
+              "text": "N/A"
+            }
+          ],
+          "nullPointMode": "connected",
+          "valueName": "current",
+          "prefixFontSize": "50%",
+          "valueFontSize": "80%",
+          "postfixFontSize": "50%",
+          "thresholds": "0,1,1",
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "sparkline": {
+            "show": false,
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "fillColor": "rgba(31, 118, 189, 0.18)"
+          }
+        },
+        {
+          "title": "Volume nodes",
+          "error": false,
+          "span": 2,
+          "editable": true,
+          "type": "singlestat",
+          "id": 33,
+          "links": [],
+          "maxDataPoints": 100,
+          "interval": "> 60s",
+          "targets": [
+            {
+              "function": "last",
+              "column": "value",
+              "series": "merge(/openstack.cinder.services.volume.disabled/)",
+              "query": "select last(value) from merge(/openstack.cinder.services.volume.disabled/) where $timeFilter group by time($interval) fill(null) order asc",
+              "fill": "null"
+            }
+          ],
+          "cacheTimeout": null,
+          "format": "none",
+          "prefix": "",
+          "postfix": "",
+          "nullText": null,
+          "valueMaps": [
+            {
+              "value": "null",
+              "op": "=",
+              "text": "N/A"
+            }
+          ],
+          "nullPointMode": "connected",
+          "valueName": "current",
+          "prefixFontSize": "50%",
+          "valueFontSize": "80%",
+          "postfixFontSize": "50%",
+          "thresholds": "0,1,1",
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "rgba(71, 212, 59, 0.4)",
+            "rgba(245, 150, 40, 0.73)",
+            "rgba(225, 40, 40, 0.59)"
+          ],
+          "sparkline": {
+            "show": false,
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "fillColor": "rgba(31, 118, 189, 0.18)"
+          }
+        },
+        {
+          "title": "Backup nodes",
+          "error": false,
+          "span": 2,
+          "editable": true,
+          "type": "singlestat",
+          "id": 39,
+          "links": [],
+          "maxDataPoints": 100,
+          "interval": "> 60s",
+          "targets": [
+            {
+              "function": "last",
+              "column": "value",
+              "series": "merge(/openstack.cinder.services.backup.disabled/)",
+              "query": "select last(value) from merge(/openstack.cinder.services.backup.disabled/) where $timeFilter group by time($interval) fill(null) order asc",
+              "fill": "null"
+            }
+          ],
+          "cacheTimeout": null,
+          "format": "none",
+          "prefix": "",
+          "postfix": "",
+          "nullText": null,
+          "valueMaps": [
+            {
+              "value": "null",
+              "op": "=",
+              "text": "N/A"
+            }
+          ],
+          "nullPointMode": "connected",
+          "valueName": "current",
+          "prefixFontSize": "50%",
+          "valueFontSize": "80%",
+          "postfixFontSize": "50%",
+          "thresholds": "0,1,1",
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "rgba(71, 212, 59, 0.4)",
+            "rgba(245, 150, 40, 0.73)",
+            "rgba(225, 40, 40, 0.59)"
+          ],
+          "sparkline": {
+            "show": false,
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "fillColor": "rgba(31, 118, 189, 0.18)"
+          }
+        },
+        {
+          "title": "",
+          "error": false,
+          "span": 4,
+          "editable": true,
+          "type": "text",
+          "id": 38,
+          "mode": "markdown",
+          "content": "",
+          "style": {},
+          "links": []
+        },
+        {
+          "title": "",
+          "error": false,
+          "span": 2,
+          "editable": true,
+          "type": "text",
+          "id": 34,
+          "mode": "html",
+          "content": "<br />\n<h3 align=\"center\"> Up </h3>",
+          "style": {},
+          "links": []
+        },
+        {
+          "title": "",
+          "error": false,
+          "span": 2,
+          "editable": true,
+          "type": "singlestat",
+          "id": 35,
+          "links": [],
+          "maxDataPoints": 100,
+          "interval": "> 60s",
+          "targets": [
+            {
+              "function": "last",
+              "column": "value",
+              "series": "merge(/openstack.cinder.services.scheduler.up/)",
+              "query": "select last(value) from merge(/openstack.cinder.services.scheduler.up/) where $timeFilter group by time($interval) fill(null) order asc",
+              "fill": "null"
+            }
+          ],
+          "cacheTimeout": null,
+          "format": "none",
+          "prefix": "",
+          "postfix": "",
+          "nullText": null,
+          "valueMaps": [
+            {
+              "value": "null",
+              "op": "=",
+              "text": "N/A"
+            }
+          ],
+          "nullPointMode": "connected",
+          "valueName": "current",
+          "prefixFontSize": "50%",
+          "valueFontSize": "80%",
+          "postfixFontSize": "50%",
+          "thresholds": "0,1,1",
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(255, 255, 255, 0.89)",
+            "rgba(255, 255, 255, 0.97)"
+          ],
+          "sparkline": {
+            "show": false,
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "fillColor": "rgba(31, 118, 189, 0.18)"
+          }
+        },
+        {
+          "title": "",
+          "error": false,
+          "span": 2,
+          "editable": true,
+          "type": "singlestat",
+          "id": 36,
+          "links": [],
+          "maxDataPoints": 100,
+          "interval": "> 60s",
+          "targets": [
+            {
+              "function": "last",
+              "column": "value",
+              "series": "merge(/openstack.cinder.services.volume.up/)",
+              "query": "select last(value) from merge(/openstack.cinder.services.volume.up/) where $timeFilter group by time($interval) fill(null) order asc",
+              "fill": "null"
+            }
+          ],
+          "cacheTimeout": null,
+          "format": "none",
+          "prefix": "",
+          "postfix": "",
+          "nullText": null,
+          "valueMaps": [
+            {
+              "value": "null",
+              "op": "=",
+              "text": "N/A"
+            }
+          ],
+          "nullPointMode": "connected",
+          "valueName": "current",
+          "prefixFontSize": "50%",
+          "valueFontSize": "80%",
+          "postfixFontSize": "50%",
+          "thresholds": "0,1,1",
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(255, 255, 255, 0.89)",
+            "rgba(255, 255, 255, 0.97)"
+          ],
+          "sparkline": {
+            "show": false,
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "fillColor": "rgba(31, 118, 189, 0.18)"
+          }
+        },
+        {
+          "title": "",
+          "error": false,
+          "span": 2,
+          "editable": true,
+          "type": "singlestat",
+          "id": 40,
+          "links": [],
+          "maxDataPoints": 100,
+          "interval": "> 60s",
+          "targets": [
+            {
+              "function": "last",
+              "column": "value",
+              "series": "merge(/openstack.cinder.services.backup.up/)",
+              "query": "select last(value) from merge(/openstack.cinder.services.backup.up/) where $timeFilter group by time($interval) fill(null) order asc",
+              "fill": "null"
+            }
+          ],
+          "cacheTimeout": null,
+          "format": "none",
+          "prefix": "",
+          "postfix": "",
+          "nullText": null,
+          "valueMaps": [
+            {
+              "value": "null",
+              "op": "=",
+              "text": "N/A"
+            }
+          ],
+          "nullPointMode": "connected",
+          "valueName": "current",
+          "prefixFontSize": "50%",
+          "valueFontSize": "80%",
+          "postfixFontSize": "50%",
+          "thresholds": "0,1,1",
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(255, 255, 255, 0.89)",
+            "rgba(255, 255, 255, 0.97)"
+          ],
+          "sparkline": {
+            "show": false,
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "fillColor": "rgba(31, 118, 189, 0.18)"
+          }
+        },
+        {
+          "title": "",
+          "error": false,
+          "span": 4,
+          "editable": true,
+          "type": "text",
+          "id": 37,
+          "mode": "markdown",
+          "content": "",
+          "style": {},
+          "links": []
+        },
+        {
+          "title": "",
+          "error": false,
+          "span": 2,
+          "editable": true,
+          "type": "text",
+          "id": 41,
+          "mode": "html",
+          "content": "<br />\n<h3 align=\"center\"> Down </h3>",
+          "style": {},
+          "links": []
+        },
+        {
+          "title": "",
+          "error": false,
+          "span": 2,
+          "editable": true,
+          "type": "singlestat",
+          "id": 42,
+          "links": [],
+          "maxDataPoints": 100,
+          "interval": "> 60s",
+          "targets": [
+            {
+              "function": "last",
+              "column": "value",
+              "series": "merge(/openstack.cinder.services.scheduler.down/)",
+              "query": "select last(value) from merge(/openstack.cinder.services.scheduler.down/) where $timeFilter group by time($interval) fill(null) order asc",
+              "fill": "null"
+            }
+          ],
+          "cacheTimeout": null,
+          "format": "none",
+          "prefix": "",
+          "postfix": "",
+          "nullText": null,
+          "valueMaps": [
+            {
+              "value": "null",
+              "op": "=",
+              "text": "N/A"
+            }
+          ],
+          "nullPointMode": "connected",
+          "valueName": "current",
+          "prefixFontSize": "50%",
+          "valueFontSize": "80%",
+          "postfixFontSize": "50%",
+          "thresholds": "0,1,1",
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "rgba(255, 255, 255, 0.97)",
+            "rgba(237, 57, 57, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "sparkline": {
+            "show": false,
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "fillColor": "rgba(31, 118, 189, 0.18)"
+          }
+        },
+        {
+          "title": "",
+          "error": false,
+          "span": 2,
+          "editable": true,
+          "type": "singlestat",
+          "id": 43,
+          "links": [],
+          "maxDataPoints": 100,
+          "interval": "> 60s",
+          "targets": [
+            {
+              "function": "last",
+              "column": "value",
+              "series": "merge(/openstack.cinder.services.volume.down/)",
+              "query": "select last(value) from merge(/openstack.cinder.services.volume.down/) where $timeFilter group by time($interval) fill(null) order asc",
+              "fill": "null"
+            }
+          ],
+          "cacheTimeout": null,
+          "format": "none",
+          "prefix": "",
+          "postfix": "",
+          "nullText": null,
+          "valueMaps": [
+            {
+              "value": "null",
+              "op": "=",
+              "text": "N/A"
+            }
+          ],
+          "nullPointMode": "connected",
+          "valueName": "current",
+          "prefixFontSize": "50%",
+          "valueFontSize": "80%",
+          "postfixFontSize": "50%",
+          "thresholds": "0,1,1",
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "rgba(255, 255, 255, 0.97)",
+            "rgba(237, 57, 57, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "sparkline": {
+            "show": false,
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "fillColor": "rgba(31, 118, 189, 0.18)"
+          }
+        },
+        {
+          "title": "",
+          "error": false,
+          "span": 2,
+          "editable": true,
+          "type": "singlestat",
+          "id": 44,
+          "links": [],
+          "maxDataPoints": 100,
+          "interval": "> 60s",
+          "targets": [
+            {
+              "function": "last",
+              "column": "value",
+              "series": "merge(/openstack.cinder.services.backup.down/)",
+              "query": "select last(value) from merge(/openstack.cinder.services.backup.down/) where $timeFilter group by time($interval) fill(null) order asc",
+              "fill": "null"
+            }
+          ],
+          "cacheTimeout": null,
+          "format": "none",
+          "prefix": "",
+          "postfix": "",
+          "nullText": null,
+          "valueMaps": [
+            {
+              "value": "null",
+              "op": "=",
+              "text": "N/A"
+            }
+          ],
+          "nullPointMode": "connected",
+          "valueName": "current",
+          "prefixFontSize": "50%",
+          "valueFontSize": "80%",
+          "postfixFontSize": "50%",
+          "thresholds": "0,1,1",
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "rgba(255, 255, 255, 0.97)",
+            "rgba(237, 57, 57, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "sparkline": {
+            "show": false,
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "fillColor": "rgba(31, 118, 189, 0.18)"
+          }
+        },
+        {
+          "title": "",
+          "error": false,
+          "span": 4,
+          "editable": true,
+          "type": "text",
+          "id": 45,
+          "mode": "markdown",
+          "content": "",
+          "style": {},
+          "links": []
         }
       ],
       "showTitle": true
@@ -1145,7 +1853,22 @@
     "enable": true
   },
   "annotations": {
-    "list": []
+    "list": [
+      {
+        "name": "Status",
+        "datasource": "influxdb",
+        "showLine": true,
+        "iconColor": "#C0C6BE",
+        "lineColor": "rgba(255, 96, 96, 0.592157)",
+        "iconSize": 13,
+        "enable": false,
+        "query": "select * from merge(/annotation.cinder/) where $timeFilter",
+        "titleColumn": "title",
+        "tagsColumn": "tag",
+        "textColumn": "text"
+      }
+    ],
+    "enable": true
   },
   "refresh": false,
   "version": 6,
