@@ -32,8 +32,8 @@
             {
               "function": "last",
               "column": "value",
-              "series": "merge(/openstack.glance.check_api/)",
-              "query": "select last(value) from merge(/openstack.glance.check_api/) where $timeFilter group by time($interval) order asc",
+              "series": "merge(/openstack.glance.status/)",
+              "query": "select last(value) from merge(/openstack.glance.status/) where $timeFilter group by time($interval) order asc",
               "rawQuery": false,
               "interval": "",
               "groupby_field": "",
@@ -55,12 +55,22 @@
             {
               "value": "0",
               "op": "=",
-              "text": "Down"
+              "text": "OK"
             },
             {
               "value": "1",
               "op": "=",
-              "text": "Healthy"
+              "text": "DEGRADED"
+            },
+            {
+              "value": "2",
+              "op": "=",
+              "text": "DOWN"
+            },
+            {
+              "value": "3",
+              "op": "=",
+              "text": "UNKNOWN"
             }
           ],
           "nullPointMode": "connected",
@@ -68,13 +78,13 @@
           "prefixFontSize": "50%",
           "valueFontSize": "80%",
           "postfixFontSize": "50%",
-          "thresholds": "0,0,1",
+          "thresholds": "0,1,2",
           "colorBackground": true,
           "colorValue": false,
           "colors": [
-            "rgba(225, 40, 40, 0.59)",
-            "rgba(245, 40, 40, 0.73)",
-            "rgba(71, 212, 59, 0.4)"
+            "rgba(71, 212, 59, 0.4)",
+            "rgba(245, 150, 40, 0.73)",
+            "rgba(225, 40, 40, 0.59)"
           ],
           "sparkline": {
             "show": false,
@@ -895,9 +905,24 @@
     "enable": true
   },
   "annotations": {
-    "list": []
+    "list": [
+      {
+        "name": "Status",
+        "datasource": "influxdb",
+        "showLine": true,
+        "iconColor": "#C0C6BE",
+        "lineColor": "rgba(255, 96, 96, 0.592157)",
+        "iconSize": 13,
+        "enable": true,
+        "query": "select * from merge(/annotation.glance/) where $timeFilter",
+        "titleColumn": "title",
+        "tagsColumn": "tag",
+        "textColumn": "text"
+      }
+    ],
+    "enable": true
   },
-  "refresh": "1m",
+  "refresh": "5s",
   "version": 6,
   "hideAllLegends": false
 }
