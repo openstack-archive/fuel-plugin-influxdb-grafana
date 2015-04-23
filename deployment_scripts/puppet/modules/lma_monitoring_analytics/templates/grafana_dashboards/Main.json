@@ -36,8 +36,8 @@
             {
               "function": "last",
               "column": "value",
-              "series": "merge(/openstack.cinder.check_api/)",
-              "query": "select last(value) from merge(/openstack.cinder.check_api/) where $timeFilter group by time($interval) order asc",
+              "series": "merge(/openstack.cinder.status/)",
+              "query": "select last(value) from merge(/openstack.cinder.status/) where $timeFilter group by time($interval) order asc",
               "rawQuery": false,
               "interval": "",
               "groupby_field": "",
@@ -54,17 +54,27 @@
             {
               "value": "null",
               "op": "=",
-              "text": "Unknown"
+              "text": "no data"
             },
             {
               "value": "0",
               "op": "=",
-              "text": "Down"
+              "text": "OK"
             },
             {
               "value": "1",
               "op": "=",
-              "text": "Healthy"
+              "text": "DEGRADED"
+            },
+            {
+              "value": "2",
+              "op": "=",
+              "text": "DOWN"
+            },
+            {
+              "value": "3",
+              "op": "=",
+              "text": "UNKNOWN"
             }
           ],
           "nullPointMode": "connected",
@@ -72,13 +82,13 @@
           "prefixFontSize": "50%",
           "valueFontSize": "50%",
           "postfixFontSize": "50%",
-          "thresholds": "0,0,1",
+          "thresholds": "0,1,2",
           "colorBackground": true,
           "colorValue": false,
           "colors": [
-            "rgba(225, 40, 40, 0.59)",
-            "rgba(245, 40, 40, 0.73)",
-            "rgba(71, 212, 59, 0.4)"
+            "rgba(71, 212, 59, 0.4)",
+            "rgba(245, 150, 40, 0.73)",
+            "rgba(225, 40, 40, 0.59)"
           ],
           "sparkline": {
             "show": false,
@@ -108,8 +118,8 @@
             {
               "function": "last",
               "column": "value",
-              "series": "merge(/openstack.keystone.check_api/)",
-              "query": "select last(value) from merge(/openstack.keystone.check_api/) where $timeFilter group by time($interval) order asc",
+              "series": "merge(/openstack.keystone.status/)",
+              "query": "select last(value) from merge(/openstack.keystone.status/) where $timeFilter group by time($interval) order asc",
               "rawQuery": false,
               "interval": "",
               "groupby_field": "",
@@ -126,17 +136,27 @@
             {
               "value": "null",
               "op": "=",
-              "text": "Unknown"
+              "text": "no data"
             },
             {
               "value": "0",
               "op": "=",
-              "text": "Down"
+              "text": "OK"
             },
             {
               "value": "1",
               "op": "=",
-              "text": "Healthy"
+              "text": "DEGRADED"
+            },
+            {
+              "value": "2",
+              "op": "=",
+              "text": "DOWN"
+            },
+            {
+              "value": "3",
+              "op": "=",
+              "text": "UNKNOWN"
             }
           ],
           "nullPointMode": "connected",
@@ -144,13 +164,13 @@
           "prefixFontSize": "50%",
           "valueFontSize": "50%",
           "postfixFontSize": "50%",
-          "thresholds": "0,0,1",
+          "thresholds": "0,1,2",
           "colorBackground": true,
           "colorValue": false,
           "colors": [
-            "rgba(225, 40, 40, 0.59)",
-            "rgba(245, 40, 40, 0.73)",
-            "rgba(71, 212, 59, 0.4)"
+            "rgba(71, 212, 59, 0.4)",
+            "rgba(245, 150, 40, 0.73)",
+            "rgba(225, 40, 40, 0.59)"
           ],
           "sparkline": {
             "show": false,
@@ -180,8 +200,8 @@
             {
               "function": "last",
               "column": "value",
-              "series": "merge(/openstack.glance.check_api/)",
-              "query": "select last(value) from merge(/openstack.glance.check_api/) where $timeFilter group by time($interval) order asc",
+              "series": "merge(/openstack.glance.status/)",
+              "query": "select last(value) from merge(/openstack.glance.status/) where $timeFilter group by time($interval) order asc",
               "rawQuery": false,
               "interval": "",
               "groupby_field": "",
@@ -198,17 +218,27 @@
             {
               "value": "null",
               "op": "=",
-              "text": "Unknown"
+              "text": "no data"
             },
             {
               "value": "0",
               "op": "=",
-              "text": "Down"
+              "text": "OK"
             },
             {
               "value": "1",
               "op": "=",
-              "text": "Healthy"
+              "text": "DEGRADED"
+            },
+            {
+              "value": "2",
+              "op": "=",
+              "text": "DOWN"
+            },
+            {
+              "value": "3",
+              "op": "=",
+              "text": "UNKNOWN"
             }
           ],
           "nullPointMode": "connected",
@@ -216,13 +246,13 @@
           "prefixFontSize": "50%",
           "valueFontSize": "50%",
           "postfixFontSize": "50%",
-          "thresholds": "0,0,1",
+          "thresholds": "0,1,2",
           "colorBackground": true,
           "colorValue": false,
           "colors": [
-            "rgba(225, 40, 40, 0.59)",
-            "rgba(245, 40, 40, 0.73)",
-            "rgba(71, 212, 59, 0.4)"
+            "rgba(71, 212, 59, 0.4)",
+            "rgba(245, 150, 40, 0.73)",
+            "rgba(225, 40, 40, 0.59)"
           ],
           "sparkline": {
             "show": false,
@@ -245,8 +275,8 @@
             {
               "function": "last",
               "column": "value",
-              "series": "merge(/openstack.heat.check_api/)",
-              "query": "select last(value) from merge(/openstack.heat.check_api/) where $timeFilter group by time($interval) order asc",
+              "series": "merge(/openstack.heat.status/)",
+              "query": "select last(value) from merge(/openstack.heat.status/) where $timeFilter group by time($interval) order asc",
               "rawQuery": false,
               "interval": "",
               "groupby_field": "",
@@ -263,17 +293,27 @@
             {
               "value": "null",
               "op": "=",
-              "text": "Unknown"
+              "text": "no data"
             },
             {
               "value": "0",
               "op": "=",
-              "text": "Down"
+              "text": "OK"
             },
             {
               "value": "1",
               "op": "=",
-              "text": "Healthy"
+              "text": "DEGRADED"
+            },
+            {
+              "value": "2",
+              "op": "=",
+              "text": "DOWN"
+            },
+            {
+              "value": "3",
+              "op": "=",
+              "text": "UNKNOWN"
             }
           ],
           "nullPointMode": "connected",
@@ -281,13 +321,13 @@
           "prefixFontSize": "50%",
           "valueFontSize": "50%",
           "postfixFontSize": "50%",
-          "thresholds": "0,0,1",
+          "thresholds": "0,1,2",
           "colorBackground": true,
           "colorValue": false,
           "colors": [
-            "rgba(225, 40, 40, 0.59)",
-            "rgba(245, 40, 40, 0.73)",
-            "rgba(71, 212, 59, 0.4)"
+            "rgba(71, 212, 59, 0.4)",
+            "rgba(245, 150, 40, 0.73)",
+            "rgba(225, 40, 40, 0.59)"
           ],
           "sparkline": {
             "show": false,
@@ -317,8 +357,8 @@
             {
               "function": "last",
               "column": "value",
-              "series": "merge(/openstack.neutron.check_api/)",
-              "query": "select last(value) from merge(/openstack.neutron.check_api/) where $timeFilter group by time($interval) order asc",
+              "series": "merge(/openstack.neutron.status/)",
+              "query": "select last(value) from merge(/openstack.neutron.status/) where $timeFilter group by time($interval) order asc",
               "rawQuery": false,
               "interval": "",
               "groupby_field": "",
@@ -335,17 +375,27 @@
             {
               "value": "null",
               "op": "=",
-              "text": "Unknown"
+              "text": "no data"
             },
             {
               "value": "0",
               "op": "=",
-              "text": "Down"
+              "text": "OK"
             },
             {
               "value": "1",
               "op": "=",
-              "text": "Healthy"
+              "text": "DEGRADED"
+            },
+            {
+              "value": "2",
+              "op": "=",
+              "text": "DOWN"
+            },
+            {
+              "value": "3",
+              "op": "=",
+              "text": "UNKNOWN"
             }
           ],
           "nullPointMode": "connected",
@@ -353,13 +403,13 @@
           "prefixFontSize": "50%",
           "valueFontSize": "50%",
           "postfixFontSize": "50%",
-          "thresholds": "0,0,1",
+          "thresholds": "0,1,2",
           "colorBackground": true,
           "colorValue": false,
           "colors": [
-            "rgba(225, 40, 40, 0.59)",
-            "rgba(245, 40, 40, 0.73)",
-            "rgba(71, 212, 59, 0.4)"
+            "rgba(71, 212, 59, 0.4)",
+            "rgba(245, 150, 40, 0.73)",
+            "rgba(225, 40, 40, 0.59)"
           ],
           "sparkline": {
             "show": false,
@@ -389,8 +439,8 @@
             {
               "function": "last",
               "column": "value",
-              "series": "merge(/openstack.nova.check_api/)",
-              "query": "select last(value) from merge(/openstack.nova.check_api/) where $timeFilter group by time($interval) order asc",
+              "series": "merge(/openstack.nova.status/)",
+              "query": "select last(value) from merge(/openstack.nova.status/) where $timeFilter group by time($interval) order asc",
               "rawQuery": false,
               "interval": "",
               "groupby_field": "",
@@ -407,17 +457,27 @@
             {
               "value": "null",
               "op": "=",
-              "text": "Unknown"
+              "text": "no data"
             },
             {
               "value": "0",
               "op": "=",
-              "text": "Down"
+              "text": "OK"
             },
             {
               "value": "1",
               "op": "=",
-              "text": "Healthy"
+              "text": "DEGRADED"
+            },
+            {
+              "value": "2",
+              "op": "=",
+              "text": "DOWN"
+            },
+            {
+              "value": "3",
+              "op": "=",
+              "text": "UNKNOWN"
             }
           ],
           "nullPointMode": "connected",
@@ -425,13 +485,13 @@
           "prefixFontSize": "50%",
           "valueFontSize": "50%",
           "postfixFontSize": "50%",
-          "thresholds": "0,0,1",
+          "thresholds": "0,1,2",
           "colorBackground": true,
           "colorValue": false,
           "colors": [
-            "rgba(225, 40, 40, 0.59)",
-            "rgba(245, 40, 40, 0.73)",
-            "rgba(71, 212, 59, 0.4)"
+            "rgba(71, 212, 59, 0.4)",
+            "rgba(245, 150, 40, 0.73)",
+            "rgba(225, 40, 40, 0.59)"
           ],
           "sparkline": {
             "show": false,
@@ -494,12 +554,22 @@
             {
               "value": "0",
               "op": "=",
-              "text": "Down"
+              "text": "OK"
             },
             {
               "value": "1",
               "op": "=",
-              "text": "Healthy"
+              "text": "DEGRADED"
+            },
+            {
+              "value": "2",
+              "op": "=",
+              "text": "DOWN"
+            },
+            {
+              "value": "3",
+              "op": "=",
+              "text": "UNKNOWN"
             }
           ],
           "nullPointMode": "connected",
@@ -564,12 +634,22 @@
             {
               "value": "0",
               "op": "=",
-              "text": "Down"
+              "text": "OK"
             },
             {
               "value": "1",
               "op": "=",
-              "text": "Healthy"
+              "text": "DEGRADED"
+            },
+            {
+              "value": "2",
+              "op": "=",
+              "text": "DOWN"
+            },
+            {
+              "value": "3",
+              "op": "=",
+              "text": "UNKNOWN"
             }
           ],
           "nullPointMode": "connected",
@@ -629,17 +709,27 @@
             {
               "value": "null",
               "op": "=",
-              "text": "N/A"
+              "text": "no data"
             },
             {
               "value": "0",
               "op": "=",
-              "text": "Down"
+              "text": "OK"
             },
             {
               "value": "1",
               "op": "=",
-              "text": "Healthy"
+              "text": "DEGRADED"
+            },
+            {
+              "value": "2",
+              "op": "=",
+              "text": "DOWN"
+            },
+            {
+              "value": "3",
+              "op": "=",
+              "text": "UNKNOWN"
             }
           ],
           "nullPointMode": "connected",
@@ -699,17 +789,27 @@
             {
               "value": "null",
               "op": "=",
-              "text": "N/A"
+              "text": "no data"
             },
             {
               "value": "0",
               "op": "=",
-              "text": "Down"
+              "text": "OK"
             },
             {
               "value": "1",
               "op": "=",
-              "text": "Healthy"
+              "text": "DEGRADED"
+            },
+            {
+              "value": "2",
+              "op": "=",
+              "text": "DOWN"
+            },
+            {
+              "value": "3",
+              "op": "=",
+              "text": "UNKNOWN"
             }
           ],
           "nullPointMode": "connected",
@@ -717,13 +817,13 @@
           "prefixFontSize": "50%",
           "valueFontSize": "50%",
           "postfixFontSize": "50%",
-          "thresholds": "0,0,1",
+          "thresholds": "0,1,2",
           "colorBackground": true,
           "colorValue": false,
           "colors": [
-            "rgba(225, 40, 40, 0.59)",
-            "rgba(245, 40, 40, 0.73)",
-            "rgba(71, 212, 59, 0.4)"
+            "rgba(71, 212, 59, 0.4)",
+            "rgba(245, 150, 40, 0.73)",
+            "rgba(225, 40, 40, 0.59)"
           ],
           "sparkline": {
             "show": false,
@@ -773,17 +873,27 @@
             {
               "value": "null",
               "op": "=",
-              "text": "N/A"
+              "text": "no data"
             },
             {
               "value": "0",
               "op": "=",
-              "text": "Down"
+              "text": "OK"
             },
             {
               "value": "1",
               "op": "=",
-              "text": "Healthy"
+              "text": "DEGRADED"
+            },
+            {
+              "value": "2",
+              "op": "=",
+              "text": "DOWN"
+            },
+            {
+              "value": "3",
+              "op": "=",
+              "text": "UNKNOWN"
             }
           ],
           "nullPointMode": "connected",
@@ -791,13 +901,13 @@
           "prefixFontSize": "50%",
           "valueFontSize": "50%",
           "postfixFontSize": "50%",
-          "thresholds": "0,0,1",
+          "thresholds": "0,1,2",
           "colorBackground": true,
           "colorValue": false,
           "colors": [
-            "rgba(225, 40, 40, 0.59)",
-            "rgba(245, 40, 40, 0.73)",
-            "rgba(71, 212, 59, 0.4)"
+            "rgba(71, 212, 59, 0.4)",
+            "rgba(245, 150, 40, 0.73)",
+            "rgba(225, 40, 40, 0.59)"
           ],
           "sparkline": {
             "show": false,
@@ -1656,12 +1766,18 @@
         "refresh_on_load": false,
         "name": "controller",
         "options": [
+          {
+            "text": "node-6",
+            "value": "node-6"
+          }
         ],
         "includeAll": false,
         "allFormat": "regex values",
         "query": "list series /openstack.keystone.check_api/",
         "regex": "/^([^.]+)/",
         "current": {
+          "text": "node-6",
+          "value": "node-6"
         },
         "refresh": true
       }
