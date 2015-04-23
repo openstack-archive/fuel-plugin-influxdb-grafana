@@ -29,8 +29,8 @@
             {
               "function": "last",
               "column": "value",
-              "series": "merge(/openstack.nova.check_api/)",
-              "query": "select last(value) from merge(/openstack.nova.check_api/) where $timeFilter group by time($interval) order asc",
+              "series": "merge(/openstack.nova.status/)",
+              "query": "select last(value) from merge(/openstack.nova.status/) where $timeFilter group by time($interval) order asc",
               "rawQuery": false,
               "interval": "",
               "groupby_field": "",
@@ -47,17 +47,27 @@
             {
               "value": "null",
               "op": "=",
-              "text": "Unknown"
+              "text": "no data"
             },
             {
               "value": "0",
               "op": "=",
-              "text": "Down"
+              "text": "OK"
             },
             {
               "value": "1",
               "op": "=",
-              "text": "Healthy"
+              "text": "DEGARADED"
+            },
+            {
+              "value": "2",
+              "op": "=",
+              "text": "DOWN"
+            },
+            {
+              "value": "3",
+              "op": "=",
+              "text": "UNKNOWN"
             }
           ],
           "nullPointMode": "connected",
@@ -65,13 +75,13 @@
           "prefixFontSize": "50%",
           "valueFontSize": "80%",
           "postfixFontSize": "50%",
-          "thresholds": "0,0,1",
+          "thresholds": "0,1,2",
           "colorBackground": true,
           "colorValue": false,
           "colors": [
-            "rgba(225, 40, 40, 0.59)",
-            "rgba(245, 40, 40, 0.73)",
-            "rgba(71, 212, 59, 0.4)"
+            "rgba(71, 212, 59, 0.4)",
+            "rgba(225, 139, 58, 0.73)",
+            "rgba(225, 40, 40, 0.59)"
           ],
           "sparkline": {
             "show": false,
@@ -400,6 +410,471 @@
       "showTitle": true
     },
     {
+      "title": "Nova API",
+      "height": "100px",
+      "editable": true,
+      "collapse": false,
+      "panels": [
+        {
+          "title": "",
+          "error": false,
+          "span": 2,
+          "editable": true,
+          "type": "text",
+          "id": 57,
+          "mode": "html",
+          "content": "<br />\n<h3 align=\"center\"> Up </h3>\n",
+          "style": {},
+          "links": []
+        },
+        {
+          "title": "OpenStack",
+          "error": false,
+          "span": 2,
+          "editable": true,
+          "type": "singlestat",
+          "id": 52,
+          "links": [],
+          "maxDataPoints": 100,
+          "interval": "> 60s",
+          "targets": [
+            {
+              "function": "last",
+              "column": "value",
+              "series": "merge(/haproxy.backend.nova-api-1.servers.up/)",
+              "query": "select last(value) from merge(/haproxy.backend.nova-api-1.servers.up/) where $timeFilter group by time($interval) fill(null) order asc",
+              "fill": "null"
+            }
+          ],
+          "cacheTimeout": null,
+          "format": "none",
+          "prefix": "",
+          "postfix": "",
+          "nullText": null,
+          "valueMaps": [
+            {
+              "value": "null",
+              "op": "=",
+              "text": "N/A"
+            }
+          ],
+          "nullPointMode": "connected",
+          "valueName": "current",
+          "prefixFontSize": "50%",
+          "valueFontSize": "80%",
+          "postfixFontSize": "50%",
+          "thresholds": "0,1,1",
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "rgba(71, 212, 59, 0.4)",
+            "rgba(245, 150, 40, 0.73)",
+            "rgba(225, 40, 40, 0.59)"
+          ],
+          "sparkline": {
+            "show": false,
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "fillColor": "rgba(31, 118, 189, 0.18)"
+          }
+        },
+        {
+          "title": "EC2",
+          "error": false,
+          "span": 2,
+          "editable": true,
+          "type": "singlestat",
+          "id": 53,
+          "links": [],
+          "maxDataPoints": 100,
+          "interval": "> 60s",
+          "targets": [
+            {
+              "function": "last",
+              "column": "value",
+              "series": "merge(/haproxy.backend.nova-api-2.servers.up/)",
+              "query": "select last(value) from merge(/haproxy.backend.nova-api-2.servers.up/) where $timeFilter group by time($interval) fill(null) order asc",
+              "fill": "null"
+            }
+          ],
+          "cacheTimeout": null,
+          "format": "none",
+          "prefix": "",
+          "postfix": "",
+          "nullText": null,
+          "valueMaps": [
+            {
+              "value": "null",
+              "op": "=",
+              "text": "N/A"
+            }
+          ],
+          "nullPointMode": "connected",
+          "valueName": "current",
+          "prefixFontSize": "50%",
+          "valueFontSize": "80%",
+          "postfixFontSize": "50%",
+          "thresholds": "0,1,1",
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "rgba(71, 212, 59, 0.4)",
+            "rgba(245, 150, 40, 0.73)",
+            "rgba(225, 40, 40, 0.59)"
+          ],
+          "sparkline": {
+            "show": false,
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "fillColor": "rgba(31, 118, 189, 0.18)"
+          }
+        },
+        {
+          "title": "Metadata",
+          "error": false,
+          "span": 2,
+          "editable": true,
+          "type": "singlestat",
+          "id": 54,
+          "links": [],
+          "maxDataPoints": 100,
+          "interval": "> 60s",
+          "targets": [
+            {
+              "function": "last",
+              "column": "value",
+              "series": "merge(/haproxy.backend.nova-metadata-api.servers.up/)",
+              "query": "select last(value) from merge(/haproxy.backend.nova-metadata-api.servers.up/) where $timeFilter group by time($interval) fill(null) order asc",
+              "fill": "null"
+            }
+          ],
+          "cacheTimeout": null,
+          "format": "none",
+          "prefix": "",
+          "postfix": "",
+          "nullText": null,
+          "valueMaps": [
+            {
+              "value": "null",
+              "op": "=",
+              "text": "N/A"
+            }
+          ],
+          "nullPointMode": "connected",
+          "valueName": "current",
+          "prefixFontSize": "50%",
+          "valueFontSize": "80%",
+          "postfixFontSize": "50%",
+          "thresholds": "0,1,1",
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "rgba(71, 212, 59, 0.4)",
+            "rgba(245, 150, 40, 0.73)",
+            "rgba(225, 40, 40, 0.59)"
+          ],
+          "sparkline": {
+            "show": false,
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "fillColor": "rgba(31, 118, 189, 0.18)"
+          }
+        },
+        {
+          "title": "NoVNC proxy",
+          "error": false,
+          "span": 2,
+          "editable": true,
+          "type": "singlestat",
+          "id": 55,
+          "links": [],
+          "maxDataPoints": 100,
+          "interval": "> 60s",
+          "targets": [
+            {
+              "function": "last",
+              "column": "value",
+              "series": "merge(/haproxy.backend.nova-novncproxy.servers.up/)",
+              "query": "select last(value) from merge(/haproxy.backend.nova-novncproxy.servers.up/) where $timeFilter group by time($interval) fill(null) order asc",
+              "fill": "null"
+            }
+          ],
+          "cacheTimeout": null,
+          "format": "none",
+          "prefix": "",
+          "postfix": "",
+          "nullText": null,
+          "valueMaps": [
+            {
+              "value": "null",
+              "op": "=",
+              "text": "N/A"
+            }
+          ],
+          "nullPointMode": "connected",
+          "valueName": "current",
+          "prefixFontSize": "50%",
+          "valueFontSize": "80%",
+          "postfixFontSize": "50%",
+          "thresholds": "0,1,1",
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "rgba(71, 212, 59, 0.4)",
+            "rgba(245, 150, 40, 0.73)",
+            "rgba(225, 40, 40, 0.59)"
+          ],
+          "sparkline": {
+            "show": false,
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "fillColor": "rgba(31, 118, 189, 0.18)"
+          }
+        },
+        {
+          "title": "",
+          "error": false,
+          "span": 2,
+          "editable": true,
+          "type": "text",
+          "id": 56,
+          "mode": "html",
+          "content": "<br />\n<h3 align=\"center\">  </h3>",
+          "style": {},
+          "links": []
+        },
+        {
+          "title": "",
+          "error": false,
+          "span": 2,
+          "editable": true,
+          "type": "text",
+          "id": 58,
+          "mode": "html",
+          "content": "<br />\n<h3 align=\"center\"> Down </h3>\n",
+          "style": {},
+          "links": []
+        },
+        {
+          "title": "",
+          "error": false,
+          "span": 2,
+          "editable": true,
+          "type": "singlestat",
+          "id": 59,
+          "links": [],
+          "maxDataPoints": 100,
+          "interval": "> 60s",
+          "targets": [
+            {
+              "function": "last",
+              "column": "value",
+              "series": "merge(/haproxy.backend.nova-api-1.servers.down/)",
+              "query": "select last(value) from merge(/haproxy.backend.nova-api-1.servers.down/) where $timeFilter group by time($interval) fill(null) order asc",
+              "fill": "null"
+            }
+          ],
+          "cacheTimeout": null,
+          "format": "none",
+          "prefix": "",
+          "postfix": "",
+          "nullText": null,
+          "valueMaps": [
+            {
+              "value": "null",
+              "op": "=",
+              "text": "N/A"
+            }
+          ],
+          "nullPointMode": "connected",
+          "valueName": "current",
+          "prefixFontSize": "50%",
+          "valueFontSize": "80%",
+          "postfixFontSize": "50%",
+          "thresholds": "0,1,1",
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "rgba(255, 255, 255, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "sparkline": {
+            "show": false,
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "fillColor": "rgba(31, 118, 189, 0.18)"
+          }
+        },
+        {
+          "title": "",
+          "error": false,
+          "span": 2,
+          "editable": true,
+          "type": "singlestat",
+          "id": 60,
+          "links": [],
+          "maxDataPoints": 100,
+          "interval": "> 60s",
+          "targets": [
+            {
+              "function": "last",
+              "column": "value",
+              "series": "merge(/haproxy.backend.nova-api-2.servers.down/)",
+              "query": "select last(value) from merge(/haproxy.backend.nova-api-2.servers.down/) where $timeFilter group by time($interval) fill(null) order asc",
+              "fill": "null"
+            }
+          ],
+          "cacheTimeout": null,
+          "format": "none",
+          "prefix": "",
+          "postfix": "",
+          "nullText": null,
+          "valueMaps": [
+            {
+              "value": "null",
+              "op": "=",
+              "text": "N/A"
+            }
+          ],
+          "nullPointMode": "connected",
+          "valueName": "current",
+          "prefixFontSize": "50%",
+          "valueFontSize": "80%",
+          "postfixFontSize": "50%",
+          "thresholds": "0,1,1",
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "rgba(255, 255, 255, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "sparkline": {
+            "show": false,
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "fillColor": "rgba(31, 118, 189, 0.18)"
+          }
+        },
+        {
+          "title": "",
+          "error": false,
+          "span": 2,
+          "editable": true,
+          "type": "singlestat",
+          "id": 61,
+          "links": [],
+          "maxDataPoints": 100,
+          "interval": "> 60s",
+          "targets": [
+            {
+              "function": "last",
+              "column": "value",
+              "series": "merge(/haproxy.backend.nova-metadata-api.servers.down/)",
+              "query": "select last(value) from merge(/haproxy.backend.nova-metadata-api.servers.down/) where $timeFilter group by time($interval) fill(null) order asc",
+              "fill": "null"
+            }
+          ],
+          "cacheTimeout": null,
+          "format": "none",
+          "prefix": "",
+          "postfix": "",
+          "nullText": null,
+          "valueMaps": [
+            {
+              "value": "null",
+              "op": "=",
+              "text": "N/A"
+            }
+          ],
+          "nullPointMode": "connected",
+          "valueName": "current",
+          "prefixFontSize": "50%",
+          "valueFontSize": "80%",
+          "postfixFontSize": "50%",
+          "thresholds": "0,1,1",
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "rgba(255, 255, 255, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "sparkline": {
+            "show": false,
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "fillColor": "rgba(31, 118, 189, 0.18)"
+          }
+        },
+        {
+          "title": "",
+          "error": false,
+          "span": 2,
+          "editable": true,
+          "type": "singlestat",
+          "id": 62,
+          "links": [],
+          "maxDataPoints": 100,
+          "interval": "> 60s",
+          "targets": [
+            {
+              "function": "last",
+              "column": "value",
+              "series": "merge(/haproxy.backend.nova-novncproxy.servers.down/)",
+              "query": "select last(value) from merge(/haproxy.backend.nova-novncproxy.servers.down/) where $timeFilter group by time($interval) fill(null) order asc",
+              "fill": "null"
+            }
+          ],
+          "cacheTimeout": null,
+          "format": "none",
+          "prefix": "",
+          "postfix": "",
+          "nullText": null,
+          "valueMaps": [
+            {
+              "value": "null",
+              "op": "=",
+              "text": "N/A"
+            }
+          ],
+          "nullPointMode": "connected",
+          "valueName": "current",
+          "prefixFontSize": "50%",
+          "valueFontSize": "80%",
+          "postfixFontSize": "50%",
+          "thresholds": "0,1,1",
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "rgba(255, 255, 255, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "sparkline": {
+            "show": false,
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "fillColor": "rgba(31, 118, 189, 0.18)"
+          }
+        },
+        {
+          "title": "",
+          "error": false,
+          "span": 2,
+          "editable": true,
+          "type": "text",
+          "id": 63,
+          "mode": "html",
+          "content": "<br />\n<h3 align=\"center\">  </h3>",
+          "style": {},
+          "links": []
+        }
+      ],
+      "showTitle": true
+    },
+    {
       "title": "Nova services",
       "height": "100px",
       "editable": true,
@@ -413,7 +888,7 @@
           "type": "text",
           "id": 20,
           "mode": "html",
-          "content": "<br />\n<h3 align=\"center\"> Enabled </h3>",
+          "content": "<br />\n<h3 align=\"center\"> Disabled </h3>",
           "style": {},
           "links": []
         },
@@ -431,8 +906,8 @@
             {
               "function": "last",
               "column": "value",
-              "series": "merge(/openstack.nova.services.nova-compute.enabled/)",
-              "query": "select last(value) from merge(/openstack.nova.services.nova-compute.enabled/) where $timeFilter group by time($interval) fill(null) order asc",
+              "series": "merge(/openstack.nova.services.compute.disabled/)",
+              "query": "select last(value) from merge(/openstack.nova.services.compute.disabled/) where $timeFilter group by time($interval) fill(null) order asc",
               "fill": "null"
             }
           ],
@@ -482,377 +957,8 @@
             {
               "function": "last",
               "column": "value",
-              "series": "merge(/openstack.nova.services.nova-scheduler.enabled/)",
-              "query": "select last(value) from merge(/openstack.nova.services.nova-scheduler.enabled/) where $timeFilter group by time($interval) fill(null) order asc",
-              "fill": "null"
-            }
-          ],
-          "cacheTimeout": null,
-          "format": "none",
-          "prefix": "",
-          "postfix": "",
-          "nullText": null,
-          "valueMaps": [
-            {
-              "value": "null",
-              "op": "=",
-              "text": "N/A"
-            }
-          ],
-          "nullPointMode": "connected",
-          "valueName": "current",
-          "prefixFontSize": "50%",
-          "valueFontSize": "80%",
-          "postfixFontSize": "50%",
-          "thresholds": "0,1,1",
-          "colorBackground": false,
-          "colorValue": true,
-          "colors": [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(255, 255, 255, 0.89)",
-            "rgba(255, 255, 255, 0.97)"
-          ],
-          "sparkline": {
-            "show": false,
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "fillColor": "rgba(31, 118, 189, 0.18)"
-          }
-        },
-        {
-          "title": "Conductors",
-          "error": false,
-          "span": 2,
-          "editable": true,
-          "type": "singlestat",
-          "id": 17,
-          "links": [],
-          "maxDataPoints": 100,
-          "interval": "> 60s",
-          "targets": [
-            {
-              "function": "last",
-              "column": "value",
-              "series": "merge(/openstack.nova.services.nova-conductor.enabled/)",
-              "query": "select last(value) from merge(/openstack.nova.services.nova-conductor.enabled/) where $timeFilter group by time($interval) fill(null) order asc",
-              "fill": "null"
-            }
-          ],
-          "cacheTimeout": null,
-          "format": "none",
-          "prefix": "",
-          "postfix": "",
-          "nullText": null,
-          "valueMaps": [
-            {
-              "value": "null",
-              "op": "=",
-              "text": "N/A"
-            }
-          ],
-          "nullPointMode": "connected",
-          "valueName": "current",
-          "prefixFontSize": "50%",
-          "valueFontSize": "80%",
-          "postfixFontSize": "50%",
-          "thresholds": "0,1,1",
-          "colorBackground": false,
-          "colorValue": true,
-          "colors": [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(255, 255, 255, 0.89)",
-            "rgba(255, 255, 255, 0.97)"
-          ],
-          "sparkline": {
-            "show": false,
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "fillColor": "rgba(31, 118, 189, 0.18)"
-          }
-        },
-        {
-          "title": "Cert servers",
-          "error": false,
-          "span": 2,
-          "editable": true,
-          "type": "singlestat",
-          "id": 15,
-          "links": [],
-          "maxDataPoints": 100,
-          "interval": "> 60s",
-          "targets": [
-            {
-              "function": "last",
-              "column": "value",
-              "series": "merge(/openstack.nova.services.nova-cert.enabled/)",
-              "query": "select last(value) from merge(/openstack.nova.services.nova-cert.enabled/) where $timeFilter group by time($interval) fill(null) order asc",
-              "fill": "null"
-            }
-          ],
-          "cacheTimeout": null,
-          "format": "none",
-          "prefix": "",
-          "postfix": "",
-          "nullText": null,
-          "valueMaps": [
-            {
-              "value": "null",
-              "op": "=",
-              "text": "N/A"
-            }
-          ],
-          "nullPointMode": "connected",
-          "valueName": "current",
-          "prefixFontSize": "50%",
-          "valueFontSize": "80%",
-          "postfixFontSize": "50%",
-          "thresholds": "0,1,1",
-          "colorBackground": false,
-          "colorValue": true,
-          "colors": [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(255, 255, 255, 0.89)",
-            "rgba(255, 255, 255, 0.97)"
-          ],
-          "sparkline": {
-            "show": false,
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "fillColor": "rgba(31, 118, 189, 0.18)"
-          }
-        },
-        {
-          "title": "Consoleauth",
-          "error": false,
-          "span": 2,
-          "editable": true,
-          "type": "singlestat",
-          "id": 18,
-          "links": [],
-          "maxDataPoints": 100,
-          "interval": "> 60s",
-          "targets": [
-            {
-              "function": "last",
-              "column": "value",
-              "series": "merge(/openstack.nova.services.nova-consoleauth.enabled/)",
-              "query": "select last(value) from merge(/openstack.nova.services.nova-consoleauth.enabled/) where $timeFilter group by time($interval) fill(null) order asc",
-              "fill": "null"
-            }
-          ],
-          "cacheTimeout": null,
-          "format": "none",
-          "prefix": "",
-          "postfix": "",
-          "nullText": null,
-          "valueMaps": [
-            {
-              "value": "null",
-              "op": "=",
-              "text": "N/A"
-            }
-          ],
-          "nullPointMode": "connected",
-          "valueName": "current",
-          "prefixFontSize": "50%",
-          "valueFontSize": "80%",
-          "postfixFontSize": "50%",
-          "thresholds": "0,1,1",
-          "colorBackground": false,
-          "colorValue": true,
-          "colors": [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(255, 255, 255, 0.89)",
-            "rgba(255, 255, 255, 0.97)"
-          ],
-          "sparkline": {
-            "show": false,
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "fillColor": "rgba(31, 118, 189, 0.18)"
-          }
-        },
-        {
-          "title": "",
-          "error": false,
-          "span": 2,
-          "editable": true,
-          "type": "text",
-          "id": 21,
-          "mode": "html",
-          "content": "<br />\n<h3 align=\"center\"> Disabled </h3>\n",
-          "style": {},
-          "links": []
-        },
-        {
-          "title": "",
-          "error": false,
-          "span": 2,
-          "editable": true,
-          "type": "singlestat",
-          "id": 23,
-          "links": [],
-          "maxDataPoints": 100,
-          "interval": "> 60s",
-          "targets": [
-            {
-              "function": "last",
-              "column": "value",
-              "series": "merge(/openstack.nova.services.nova-compute.disabled/)",
-              "query": "select last(value) from merge(/openstack.nova.services.nova-compute.disabled/) where $timeFilter group by time($interval) fill(null) order asc",
-              "fill": "null"
-            }
-          ],
-          "cacheTimeout": null,
-          "format": "none",
-          "prefix": "",
-          "postfix": "",
-          "nullText": null,
-          "valueMaps": [
-            {
-              "value": "null",
-              "op": "=",
-              "text": "N/A"
-            }
-          ],
-          "nullPointMode": "connected",
-          "valueName": "current",
-          "prefixFontSize": "50%",
-          "valueFontSize": "80%",
-          "postfixFontSize": "50%",
-          "thresholds": "0,1,1",
-          "colorBackground": false,
-          "colorValue": false,
-          "colors": [
-            "rgba(50, 172, 45, 0.97)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(245, 54, 54, 0.9)"
-          ],
-          "sparkline": {
-            "show": false,
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "fillColor": "rgba(31, 118, 189, 0.18)"
-          }
-        },
-        {
-          "title": "",
-          "error": false,
-          "span": 2,
-          "editable": true,
-          "type": "singlestat",
-          "id": 26,
-          "links": [],
-          "maxDataPoints": 100,
-          "interval": "> 60s",
-          "targets": [
-            {
-              "function": "last",
-              "column": "value",
-              "series": "merge(/openstack.nova.services.nova-scheduler.disabled/)",
-              "query": "select last(value) from merge(/openstack.nova.services.nova-scheduler.disabled/) where $timeFilter group by time($interval) fill(null) order asc",
-              "fill": "null"
-            }
-          ],
-          "cacheTimeout": null,
-          "format": "none",
-          "prefix": "",
-          "postfix": "",
-          "nullText": null,
-          "valueMaps": [
-            {
-              "value": "null",
-              "op": "=",
-              "text": "N/A"
-            }
-          ],
-          "nullPointMode": "connected",
-          "valueName": "current",
-          "prefixFontSize": "50%",
-          "valueFontSize": "80%",
-          "postfixFontSize": "50%",
-          "thresholds": "0,1,1",
-          "colorBackground": false,
-          "colorValue": false,
-          "colors": [
-            "rgba(50, 172, 45, 0.97)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(245, 54, 54, 0.9)"
-          ],
-          "sparkline": {
-            "show": false,
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "fillColor": "rgba(31, 118, 189, 0.18)"
-          }
-        },
-        {
-          "title": "",
-          "error": false,
-          "span": 2,
-          "editable": true,
-          "type": "singlestat",
-          "id": 24,
-          "links": [],
-          "maxDataPoints": 100,
-          "interval": "> 60s",
-          "targets": [
-            {
-              "function": "last",
-              "column": "value",
-              "series": "merge(/openstack.nova.services.nova-conductor.disabled/)",
-              "query": "select last(value) from merge(/openstack.nova.services.nova-conductor.disabled/) where $timeFilter group by time($interval) fill(null) order asc",
-              "fill": "null"
-            }
-          ],
-          "cacheTimeout": null,
-          "format": "none",
-          "prefix": "",
-          "postfix": "",
-          "nullText": null,
-          "valueMaps": [
-            {
-              "value": "null",
-              "op": "=",
-              "text": "N/A"
-            }
-          ],
-          "nullPointMode": "connected",
-          "valueName": "current",
-          "prefixFontSize": "50%",
-          "valueFontSize": "80%",
-          "postfixFontSize": "50%",
-          "thresholds": "0,1,1",
-          "colorBackground": false,
-          "colorValue": false,
-          "colors": [
-            "rgba(50, 172, 45, 0.97)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(245, 54, 54, 0.9)"
-          ],
-          "sparkline": {
-            "show": false,
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "fillColor": "rgba(31, 118, 189, 0.18)"
-          }
-        },
-        {
-          "title": "",
-          "error": false,
-          "span": 2,
-          "editable": true,
-          "type": "singlestat",
-          "id": 22,
-          "links": [],
-          "maxDataPoints": 100,
-          "interval": "> 60s",
-          "targets": [
-            {
-              "function": "last",
-              "column": "value",
-              "series": "merge(/openstack.nova.services.nova-cert.disabled/)",
-              "query": "select last(value) from merge(/openstack.nova.services.nova-cert.disabled/) where $timeFilter group by time($interval) fill(null) order asc",
+              "series": "merge(/openstack.nova.services.scheduler.disabled/)",
+              "query": "select last(value) from merge(/openstack.nova.services.scheduler.disabled/) where $timeFilter group by time($interval) fill(null) order asc",
               "fill": "null"
             }
           ],
@@ -875,10 +981,10 @@
           "postfixFontSize": "50%",
           "thresholds": "0,0,1",
           "colorBackground": false,
-          "colorValue": false,
+          "colorValue": true,
           "colors": [
-            "rgba(50, 172, 45, 0.97)",
-            "rgba(237, 129, 40, 0.89)",
+            "rgba(255, 255, 255, 0.97)",
+            "rgba(255, 255, 255, 0.89)",
             "rgba(245, 54, 54, 0.9)"
           ],
           "sparkline": {
@@ -889,12 +995,12 @@
           }
         },
         {
-          "title": "",
+          "title": "Conductors",
           "error": false,
           "span": 2,
           "editable": true,
           "type": "singlestat",
-          "id": 25,
+          "id": 17,
           "links": [],
           "maxDataPoints": 100,
           "interval": "> 60s",
@@ -902,8 +1008,8 @@
             {
               "function": "last",
               "column": "value",
-              "series": "merge(/openstack.nova.services.nova-consoleauth.disabled/)",
-              "query": "select last(value) from merge(/openstack.nova.services.nova-consoleauth.disabled/) where $timeFilter group by time($interval) fill(null) order asc",
+              "series": "merge(/openstack.nova.services.conductor.disabled/)",
+              "query": "select last(value) from merge(/openstack.nova.services.conductor.disabled/) where $timeFilter group by time($interval) fill(null) order asc",
               "fill": "null"
             }
           ],
@@ -924,12 +1030,114 @@
           "prefixFontSize": "50%",
           "valueFontSize": "80%",
           "postfixFontSize": "50%",
-          "thresholds": "0,1,1",
+          "thresholds": "0,0,1",
           "colorBackground": false,
-          "colorValue": false,
+          "colorValue": true,
           "colors": [
-            "rgba(50, 172, 45, 0.97)",
-            "rgba(237, 129, 40, 0.89)",
+            "rgba(255, 255, 255, 0.97)",
+            "rgba(255, 255, 255, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "sparkline": {
+            "show": false,
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "fillColor": "rgba(31, 118, 189, 0.18)"
+          }
+        },
+        {
+          "title": "Cert servers",
+          "error": false,
+          "span": 2,
+          "editable": true,
+          "type": "singlestat",
+          "id": 15,
+          "links": [],
+          "maxDataPoints": 100,
+          "interval": "> 60s",
+          "targets": [
+            {
+              "function": "last",
+              "column": "value",
+              "series": "merge(/openstack.nova.services.cert.disabled/)",
+              "query": "select last(value) from merge(/openstack.nova.services.cert.disabled/) where $timeFilter group by time($interval) fill(null) order asc",
+              "fill": "null"
+            }
+          ],
+          "cacheTimeout": null,
+          "format": "none",
+          "prefix": "",
+          "postfix": "",
+          "nullText": null,
+          "valueMaps": [
+            {
+              "value": "null",
+              "op": "=",
+              "text": "N/A"
+            }
+          ],
+          "nullPointMode": "connected",
+          "valueName": "current",
+          "prefixFontSize": "50%",
+          "valueFontSize": "80%",
+          "postfixFontSize": "50%",
+          "thresholds": "0,0,1",
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "rgba(255, 255, 255, 0.97)",
+            "rgba(255, 255, 255, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "sparkline": {
+            "show": false,
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "fillColor": "rgba(31, 118, 189, 0.18)"
+          }
+        },
+        {
+          "title": "Consoleauth",
+          "error": false,
+          "span": 2,
+          "editable": true,
+          "type": "singlestat",
+          "id": 18,
+          "links": [],
+          "maxDataPoints": 100,
+          "interval": "> 60s",
+          "targets": [
+            {
+              "function": "last",
+              "column": "value",
+              "series": "merge(/openstack.nova.services.consoleauth.disabled/)",
+              "query": "select last(value) from merge(/openstack.nova.services.consoleauth.disabled/) where $timeFilter group by time($interval) fill(null) order asc",
+              "fill": "null"
+            }
+          ],
+          "cacheTimeout": null,
+          "format": "none",
+          "prefix": "",
+          "postfix": "",
+          "nullText": null,
+          "valueMaps": [
+            {
+              "value": "null",
+              "op": "=",
+              "text": "N/A"
+            }
+          ],
+          "nullPointMode": "connected",
+          "valueName": "current",
+          "prefixFontSize": "50%",
+          "valueFontSize": "80%",
+          "postfixFontSize": "50%",
+          "thresholds": "0,0,1",
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "rgba(255, 255, 255, 0.97)",
+            "rgba(255, 255, 255, 0.89)",
             "rgba(245, 54, 54, 0.9)"
           ],
           "sparkline": {
@@ -965,161 +1173,8 @@
             {
               "function": "last",
               "column": "value",
-              "series": "merge(/openstack.nova.services.nova-compute.up/)",
-              "query": "select last(value) from merge(/openstack.nova.services.nova-compute.up/) where $timeFilter group by time($interval) fill(null) order asc",
-              "fill": "null"
-            }
-          ],
-          "cacheTimeout": null,
-          "format": "none",
-          "prefix": "",
-          "postfix": "",
-          "nullText": null,
-          "valueMaps": [
-            {
-              "value": "null",
-              "op": "=",
-              "text": "N/A"
-            }
-          ],
-          "nullPointMode": "connected",
-          "valueName": "current",
-          "prefixFontSize": "50%",
-          "valueFontSize": "80%",
-          "postfixFontSize": "50%",
-          "thresholds": "0,1,1",
-          "colorBackground": false,
-          "colorValue": false,
-          "colors": [
-            "rgba(50, 172, 45, 0.97)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(245, 54, 54, 0.9)"
-          ],
-          "sparkline": {
-            "show": false,
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "fillColor": "rgba(31, 118, 189, 0.18)"
-          }
-        },
-        {
-          "title": "",
-          "error": false,
-          "span": 2,
-          "editable": true,
-          "type": "singlestat",
-          "id": 42,
-          "links": [],
-          "maxDataPoints": 100,
-          "interval": "> 60s",
-          "targets": [
-            {
-              "function": "last",
-              "column": "value",
-              "series": "merge(/openstack.nova.services.nova-scheduler.up/)",
-              "query": "select last(value) from merge(/openstack.nova.services.nova-scheduler.up/) where $timeFilter group by time($interval) fill(null) order asc",
-              "fill": "null"
-            }
-          ],
-          "cacheTimeout": null,
-          "format": "none",
-          "prefix": "",
-          "postfix": "",
-          "nullText": null,
-          "valueMaps": [
-            {
-              "value": "null",
-              "op": "=",
-              "text": "N/A"
-            }
-          ],
-          "nullPointMode": "connected",
-          "valueName": "current",
-          "prefixFontSize": "50%",
-          "valueFontSize": "80%",
-          "postfixFontSize": "50%",
-          "thresholds": "0,1,1",
-          "colorBackground": false,
-          "colorValue": false,
-          "colors": [
-            "rgba(50, 172, 45, 0.97)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(245, 54, 54, 0.9)"
-          ],
-          "sparkline": {
-            "show": false,
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "fillColor": "rgba(31, 118, 189, 0.18)"
-          }
-        },
-        {
-          "title": "",
-          "error": false,
-          "span": 2,
-          "editable": true,
-          "type": "singlestat",
-          "id": 43,
-          "links": [],
-          "maxDataPoints": 100,
-          "interval": "> 60s",
-          "targets": [
-            {
-              "function": "last",
-              "column": "value",
-              "series": "merge(/openstack.nova.services.nova-conductor.up/)",
-              "query": "select last(value) from merge(/openstack.nova.services.nova-conductor.up/) where $timeFilter group by time($interval) fill(null) order asc",
-              "fill": "null"
-            }
-          ],
-          "cacheTimeout": null,
-          "format": "none",
-          "prefix": "",
-          "postfix": "",
-          "nullText": null,
-          "valueMaps": [
-            {
-              "value": "null",
-              "op": "=",
-              "text": "N/A"
-            }
-          ],
-          "nullPointMode": "connected",
-          "valueName": "current",
-          "prefixFontSize": "50%",
-          "valueFontSize": "80%",
-          "postfixFontSize": "50%",
-          "thresholds": "0,1,1",
-          "colorBackground": false,
-          "colorValue": false,
-          "colors": [
-            "rgba(50, 172, 45, 0.97)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(245, 54, 54, 0.9)"
-          ],
-          "sparkline": {
-            "show": false,
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "fillColor": "rgba(31, 118, 189, 0.18)"
-          }
-        },
-        {
-          "title": "",
-          "error": false,
-          "span": 2,
-          "editable": true,
-          "type": "singlestat",
-          "id": 44,
-          "links": [],
-          "maxDataPoints": 100,
-          "interval": "> 60s",
-          "targets": [
-            {
-              "function": "last",
-              "column": "value",
-              "series": "merge(/openstack.nova.services.nova-cert.up/)",
-              "query": "select last(value) from merge(/openstack.nova.services.nova-cert.up/) where $timeFilter group by time($interval) fill(null) order asc",
+              "series": "merge(/openstack.nova.services.compute.up/)",
+              "query": "select last(value) from merge(/openstack.nova.services.compute.up/) where $timeFilter group by time($interval) fill(null) order asc",
               "fill": "null"
             }
           ],
@@ -1142,11 +1197,11 @@
           "postfixFontSize": "50%",
           "thresholds": "0,0,1",
           "colorBackground": false,
-          "colorValue": false,
+          "colorValue": true,
           "colors": [
-            "rgba(50, 172, 45, 0.97)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(245, 54, 54, 0.9)"
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(239, 56, 56, 0.89)",
+            "rgba(255, 255, 255, 0.97)"
           ],
           "sparkline": {
             "show": false,
@@ -1161,7 +1216,7 @@
           "span": 2,
           "editable": true,
           "type": "singlestat",
-          "id": 45,
+          "id": 42,
           "links": [],
           "maxDataPoints": 100,
           "interval": "> 60s",
@@ -1169,8 +1224,59 @@
             {
               "function": "last",
               "column": "value",
-              "series": "merge(/openstack.nova.services.nova-consoleauth.up/)",
-              "query": "select last(value) from merge(/openstack.nova.services.nova-consoleauth.up/) where $timeFilter group by time($interval) fill(null) order asc",
+              "series": "merge(/openstack.nova.services.scheduler.up/)",
+              "query": "select last(value) from merge(/openstack.nova.services.scheduler.up/) where $timeFilter group by time($interval) fill(null) order asc",
+              "fill": "null"
+            }
+          ],
+          "cacheTimeout": null,
+          "format": "none",
+          "prefix": "",
+          "postfix": "",
+          "nullText": null,
+          "valueMaps": [
+            {
+              "value": "null",
+              "op": "=",
+              "text": "N/A"
+            }
+          ],
+          "nullPointMode": "connected",
+          "valueName": "current",
+          "prefixFontSize": "50%",
+          "valueFontSize": "80%",
+          "postfixFontSize": "50%",
+          "thresholds": "0,0,1",
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(255, 255, 255, 0.89)",
+            "rgba(255, 255, 255, 0.97)"
+          ],
+          "sparkline": {
+            "show": false,
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "fillColor": "rgba(31, 118, 189, 0.18)"
+          }
+        },
+        {
+          "title": "",
+          "error": false,
+          "span": 2,
+          "editable": true,
+          "type": "singlestat",
+          "id": 43,
+          "links": [],
+          "maxDataPoints": 100,
+          "interval": "> 60s",
+          "targets": [
+            {
+              "function": "last",
+              "column": "value",
+              "series": "merge(/openstack.nova.services.conductor.up/)",
+              "query": "select last(value) from merge(/openstack.nova.services.conductor.up/) where $timeFilter group by time($interval) fill(null) order asc",
               "fill": "null"
             }
           ],
@@ -1193,11 +1299,113 @@
           "postfixFontSize": "50%",
           "thresholds": "0,1,1",
           "colorBackground": false,
-          "colorValue": false,
+          "colorValue": true,
           "colors": [
-            "rgba(50, 172, 45, 0.97)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(245, 54, 54, 0.9)"
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(255, 255, 255, 0.89)",
+            "rgba(255, 255, 255, 0.97)"
+          ],
+          "sparkline": {
+            "show": false,
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "fillColor": "rgba(31, 118, 189, 0.18)"
+          }
+        },
+        {
+          "title": "",
+          "error": false,
+          "span": 2,
+          "editable": true,
+          "type": "singlestat",
+          "id": 44,
+          "links": [],
+          "maxDataPoints": 100,
+          "interval": "> 60s",
+          "targets": [
+            {
+              "function": "last",
+              "column": "value",
+              "series": "merge(/openstack.nova.services.cert.up/)",
+              "query": "select last(value) from merge(/openstack.nova.services.cert.up/) where $timeFilter group by time($interval) fill(null) order asc",
+              "fill": "null"
+            }
+          ],
+          "cacheTimeout": null,
+          "format": "none",
+          "prefix": "",
+          "postfix": "",
+          "nullText": null,
+          "valueMaps": [
+            {
+              "value": "null",
+              "op": "=",
+              "text": "N/A"
+            }
+          ],
+          "nullPointMode": "connected",
+          "valueName": "current",
+          "prefixFontSize": "50%",
+          "valueFontSize": "80%",
+          "postfixFontSize": "50%",
+          "thresholds": "0,1,1",
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(255, 255, 255, 0.89)",
+            "rgba(255, 255, 255, 0.97)"
+          ],
+          "sparkline": {
+            "show": false,
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "fillColor": "rgba(31, 118, 189, 0.18)"
+          }
+        },
+        {
+          "title": "",
+          "error": false,
+          "span": 2,
+          "editable": true,
+          "type": "singlestat",
+          "id": 45,
+          "links": [],
+          "maxDataPoints": 100,
+          "interval": "> 60s",
+          "targets": [
+            {
+              "function": "last",
+              "column": "value",
+              "series": "merge(/openstack.nova.services.consoleauth.up/)",
+              "query": "select last(value) from merge(/openstack.nova.services.consoleauth.up/) where $timeFilter group by time($interval) fill(null) order asc",
+              "fill": "null"
+            }
+          ],
+          "cacheTimeout": null,
+          "format": "none",
+          "prefix": "",
+          "postfix": "",
+          "nullText": null,
+          "valueMaps": [
+            {
+              "value": "null",
+              "op": "=",
+              "text": "N/A"
+            }
+          ],
+          "nullPointMode": "connected",
+          "valueName": "current",
+          "prefixFontSize": "50%",
+          "valueFontSize": "80%",
+          "postfixFontSize": "50%",
+          "thresholds": "0,1,1",
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(255, 255, 255, 0.89)",
+            "rgba(255, 255, 255, 0.97)"
           ],
           "sparkline": {
             "show": false,
@@ -1232,8 +1440,8 @@
             {
               "function": "last",
               "column": "value",
-              "series": "merge(/openstack.nova.services.nova-compute.down/)",
-              "query": "select last(value) from merge(/openstack.nova.services.nova-compute.down/) where $timeFilter group by time($interval) fill(null) order asc",
+              "series": "merge(/openstack.nova.services.compute.down/)",
+              "query": "select last(value) from merge(/openstack.nova.services.compute.down/) where $timeFilter group by time($interval) fill(null) order asc",
               "fill": "null"
             }
           ],
@@ -1254,13 +1462,13 @@
           "prefixFontSize": "50%",
           "valueFontSize": "80%",
           "postfixFontSize": "50%",
-          "thresholds": "0,1,1",
+          "thresholds": "1,0,0",
           "colorBackground": false,
-          "colorValue": false,
+          "colorValue": true,
           "colors": [
-            "rgba(50, 172, 45, 0.97)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(245, 54, 54, 0.9)"
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(255, 255, 255, 0.89)",
+            "rgba(255, 255, 255, 0.97)"
           ],
           "sparkline": {
             "show": false,
@@ -1283,8 +1491,8 @@
             {
               "function": "last",
               "column": "value",
-              "series": "merge(/openstack.nova.services.nova-scheduler.down/)",
-              "query": "select last(value) from merge(/openstack.nova.services.nova-scheduler.down/) where $timeFilter group by time($interval) fill(null) order asc",
+              "series": "merge(/openstack.nova.services.scheduler.down/)",
+              "query": "select last(value) from merge(/openstack.nova.services.scheduler.down/) where $timeFilter group by time($interval) fill(null) order asc",
               "fill": "null"
             }
           ],
@@ -1305,13 +1513,13 @@
           "prefixFontSize": "50%",
           "valueFontSize": "80%",
           "postfixFontSize": "50%",
-          "thresholds": "0,1,1",
+          "thresholds": "1,0,0",
           "colorBackground": false,
-          "colorValue": false,
+          "colorValue": true,
           "colors": [
-            "rgba(50, 172, 45, 0.97)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(245, 54, 54, 0.9)"
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(255, 255, 255, 0.89)",
+            "rgba(255, 255, 255, 0.97)"
           ],
           "sparkline": {
             "show": false,
@@ -1334,8 +1542,8 @@
             {
               "function": "last",
               "column": "value",
-              "series": "merge(/openstack.nova.services.nova-conductor.down/)",
-              "query": "select last(value) from merge(/openstack.nova.services.nova-conductor.down/) where $timeFilter group by time($interval) fill(null) order asc",
+              "series": "merge(/openstack.nova.services.conductor.down/)",
+              "query": "select last(value) from merge(/openstack.nova.services.conductor.down/) where $timeFilter group by time($interval) fill(null) order asc",
               "fill": "null"
             }
           ],
@@ -1356,13 +1564,13 @@
           "prefixFontSize": "50%",
           "valueFontSize": "80%",
           "postfixFontSize": "50%",
-          "thresholds": "0,1,1",
+          "thresholds": "1,0,0",
           "colorBackground": false,
-          "colorValue": false,
+          "colorValue": true,
           "colors": [
-            "rgba(50, 172, 45, 0.97)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(245, 54, 54, 0.9)"
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(255, 255, 255, 0.89)",
+            "rgba(255, 255, 255, 0.97)"
           ],
           "sparkline": {
             "show": false,
@@ -1385,8 +1593,8 @@
             {
               "function": "last",
               "column": "value",
-              "series": "merge(/openstack.nova.services.nova-cert.down/)",
-              "query": "select last(value) from merge(/openstack.nova.services.nova-cert.down/) where $timeFilter group by time($interval) fill(null) order asc",
+              "series": "merge(/openstack.nova.services.cert.down/)",
+              "query": "select last(value) from merge(/openstack.nova.services.cert.down/) where $timeFilter group by time($interval) fill(null) order asc",
               "fill": "null"
             }
           ],
@@ -1407,13 +1615,13 @@
           "prefixFontSize": "50%",
           "valueFontSize": "80%",
           "postfixFontSize": "50%",
-          "thresholds": "0,0,1",
+          "thresholds": "1,0,0",
           "colorBackground": false,
-          "colorValue": false,
+          "colorValue": true,
           "colors": [
-            "rgba(50, 172, 45, 0.97)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(245, 54, 54, 0.9)"
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(255, 255, 255, 0.89)",
+            "rgba(255, 255, 255, 0.97)"
           ],
           "sparkline": {
             "show": false,
@@ -1436,8 +1644,8 @@
             {
               "function": "last",
               "column": "value",
-              "series": "merge(/openstack.nova.services.nova-consoleauth.down/)",
-              "query": "select last(value) from merge(/openstack.nova.services.nova-consoleauth.down/) where $timeFilter group by time($interval) fill(null) order asc",
+              "series": "merge(/openstack.nova.services.consoleauth.down/)",
+              "query": "select last(value) from merge(/openstack.nova.services.consoleauth.down/) where $timeFilter group by time($interval) fill(null) order asc",
               "fill": "null"
             }
           ],
@@ -1458,13 +1666,13 @@
           "prefixFontSize": "50%",
           "valueFontSize": "80%",
           "postfixFontSize": "50%",
-          "thresholds": "0,1,1",
+          "thresholds": "1,0,0",
           "colorBackground": false,
-          "colorValue": false,
+          "colorValue": true,
           "colors": [
-            "rgba(50, 172, 45, 0.97)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(245, 54, 54, 0.9)"
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(255, 255, 255, 0.89)",
+            "rgba(255, 255, 255, 0.97)"
           ],
           "sparkline": {
             "show": false,
@@ -2029,21 +2237,34 @@
         "datasource": null,
         "refresh_on_load": false,
         "name": "server",
-        "options": [
-        ],
+        "options": [],
         "includeAll": true,
         "allFormat": "regex values",
         "query": "list series /openstack.nova.check_api/",
-        "current": {
-        },
+        "current": {},
         "regex": "/^([^.]+)/",
-        "refresh": false
+        "refresh": true
       }
     ],
     "enable": true
   },
   "annotations": {
-    "list": []
+    "list": [
+      {
+        "name": "Status",
+        "datasource": "influxdb",
+        "showLine": true,
+        "iconColor": "#C0C6BE",
+        "lineColor": "rgba(255, 96, 96, 0.592157)",
+        "iconSize": 13,
+        "enable": true,
+        "query": "select * from merge(/annotation.nova/) where $timeFilter",
+        "titleColumn": "title",
+        "tagsColumn": "tag",
+        "textColumn": "text"
+      }
+    ],
+    "enable": true
   },
   "refresh": "1m",
   "version": 6,
