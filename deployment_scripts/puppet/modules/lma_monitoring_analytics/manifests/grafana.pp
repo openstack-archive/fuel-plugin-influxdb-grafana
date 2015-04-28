@@ -57,6 +57,9 @@ class lma_monitoring_analytics::grafana (
     'Ceph' => {
       content => template('lma_monitoring_analytics/grafana_dashboards/Ceph.json'),
     },
+    'Ceph OSD' => {
+      content => template('lma_monitoring_analytics/grafana_dashboards/Ceph_OSD.json'),
+    },
     'Cinder' => {
       content => template('lma_monitoring_analytics/grafana_dashboards/Cinder.json'),
     },
