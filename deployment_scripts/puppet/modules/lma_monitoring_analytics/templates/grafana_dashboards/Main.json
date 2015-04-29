@@ -870,7 +870,7 @@
       "showTitle": true
     },
     {
-      "title": "Virtual resources",
+      "title": "Virtual compute resources",
       "height": "250px",
       "editable": true,
       "collapse": false,
@@ -925,22 +925,22 @@
           },
           "targets": [
             {
-              "function": "mean",
+              "function": "min",
               "column": "value",
-              "series": "$server.openstack.nova.free_vcpus",
-              "query": "select min(value) from merge(/.*.openstack.nova.free_vcpus/) where $timeFilter group by time($interval) fill(0) order asc",
+              "series": "merge(/.*.openstack.nova.total_free_vcpus/)",
+              "query": "select min(value) from merge(/.*.openstack.nova.total_free_vcpus/) where $timeFilter group by time($interval) fill(null) order asc",
               "alias": "free",
-              "fill": "0",
-              "rawQuery": true
+              "fill": "null",
+              "rawQuery": false
             },
             {
-              "function": "mean",
+              "function": "max",
               "column": "value",
-              "series": "$server.openstack.nova.used_vcpus",
-              "query": "select max(value) from merge(/.*.openstack.nova.used_vcpus/) where $timeFilter group by time($interval) fill(0) order asc",
+              "series": "merge(/.*.openstack.nova.total_used_vcpus/)",
+              "query": "select max(value) from merge(/.*.openstack.nova.total_used_vcpus/) where $timeFilter group by time($interval) fill(null) order asc",
               "alias": "used",
-              "fill": "0",
-              "rawQuery": true
+              "fill": "null",
+              "rawQuery": false
             }
           ],
           "aliasColors": {},
@@ -1001,7 +1001,7 @@
               "function": "mean",
               "column": "value",
               "series": "$server.openstack.nova.free_ram",
-              "query": "select min(value*1000000) from merge(/.*.openstack.nova.free_ram/) where $timeFilter group by time($interval) fill(0) order asc",
+              "query": "select min(value*1000000) from merge(/.*.openstack.nova.total_free_ram/) where $timeFilter group by time($interval) fill(null) order asc",
               "alias": "free",
               "fill": "0",
               "rawQuery": true
@@ -1010,7 +1010,7 @@
               "function": "mean",
               "column": "value",
               "series": "$server.openstack.nova.used_ram",
-              "query": "select max(value*1000000) from merge(/.*.openstack.nova.used_ram/) where $timeFilter group by time($interval) fill(0) order asc",
+              "query": "select max(value*1000000) from merge(/.*.openstack.nova.total_used_ram/) where $timeFilter group by time($interval) fill(null) order asc",
               "alias": "used",
               "fill": "0",
               "rawQuery": true
@@ -1075,7 +1075,7 @@
               "function": "mean",
               "column": "value",
               "series": "$server.openstack.nova.free_disk",
-              "query": "select min(value*1000000000) from merge(/.*.openstack.nova.free_disk/) where $timeFilter group by time($interval) fill(0) order asc",
+              "query": "select min(value*1000000000) from merge(/.*.openstack.nova.total_free_disk/) where $timeFilter group by time($interval) fill(null) order asc",
               "alias": "free",
               "fill": "0",
               "rawQuery": true
@@ -1084,7 +1084,7 @@
               "function": "mean",
               "column": "value",
               "series": "$server.openstack.nova.used_disk",
-              "query": "select max(value*1000000000) from merge(/.*.openstack.nova.used_disk/) where $timeFilter group by time($interval) fill(0) order asc",
+              "query": "select max(value*1000000000) from merge(/.*.openstack.nova.total_used_disk/) where $timeFilter group by time($interval) fill(null) order asc",
               "alias": "used",
               "fill": "0",
               "rawQuery": true

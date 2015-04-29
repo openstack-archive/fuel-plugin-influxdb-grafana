@@ -1885,8 +1885,8 @@
             {
               "function": "last",
               "column": "value",
-              "series": "merge(/openstack.nova.used_vcpus/)",
-              "query": "select last(value) from merge(/openstack.nova.used_vcpus/) where $timeFilter group by time($interval) fill(null) order asc",
+              "series": "merge(/openstack.nova.total_used_vcpus/)",
+              "query": "select last(value) from merge(/openstack.nova.total_used_vcpus/) where $timeFilter group by time($interval) fill(null) order asc",
               "fill": "null"
             }
           ],
@@ -1936,8 +1936,8 @@
             {
               "function": "last",
               "column": "value",
-              "series": "merge(/openstack.nova.used_disk/)",
-              "query": "select last(value) from merge(/openstack.nova.used_disk/) where $timeFilter group by time($interval) fill(null) order asc",
+              "series": "merge(/openstack.nova.total_used_disk/)",
+              "query": "select last(value) from merge(/openstack.nova.total_used_disk/) where $timeFilter group by time($interval) fill(null) order asc",
               "fill": "null"
             }
           ],
@@ -1987,8 +1987,8 @@
             {
               "function": "last",
               "column": "value",
-              "series": "merge(/openstack.nova.used_ram/)",
-              "query": "select last(value) from merge(/openstack.nova.used_ram/) where $timeFilter group by time($interval) fill(null) order asc",
+              "series": "merge(/openstack.nova.total_used_ram/)",
+              "query": "select last(value) from merge(/openstack.nova.total_used_ram/) where $timeFilter group by time($interval) fill(null) order asc",
               "fill": "null"
             }
           ],
@@ -2050,8 +2050,8 @@
             {
               "function": "last",
               "column": "value",
-              "series": "merge(/openstack.nova.free_vcpus/)",
-              "query": "select last(value) from merge(/openstack.nova.free_vcpus/) where $timeFilter group by time($interval) fill(null) order asc",
+              "series": "merge(/openstack.nova.total_free_vcpus/)",
+              "query": "select last(value) from merge(/openstack.nova.total_free_vcpus/) where $timeFilter group by time($interval) fill(null) order asc",
               "fill": "null"
             }
           ],
@@ -2101,8 +2101,8 @@
             {
               "function": "last",
               "column": "value",
-              "series": "merge(/openstack.nova.free_disk/)",
-              "query": "select last(value) from merge(/openstack.nova.free_disk/) where $timeFilter group by time($interval) fill(null) order asc",
+              "series": "merge(/openstack.nova.total_free_disk/)",
+              "query": "select last(value) from merge(/openstack.nova.total_free_disk/) where $timeFilter group by time($interval) fill(null) order asc",
               "fill": "null"
             }
           ],
@@ -2152,8 +2152,8 @@
             {
               "function": "last",
               "column": "value",
-              "series": "merge(/openstack.nova.free_ram/)",
-              "query": "select last(value) from merge(/openstack.nova.free_ram/) where $timeFilter group by time($interval) fill(null) order asc",
+              "series": "merge(/openstack.nova.total_free_ram/)",
+              "query": "select last(value) from merge(/openstack.nova.total_free_ram/) where $timeFilter group by time($interval) fill(null) order asc",
               "fill": "null"
             }
           ],
