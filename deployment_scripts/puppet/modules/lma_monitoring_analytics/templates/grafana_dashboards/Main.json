@@ -549,7 +549,7 @@
             {
               "value": "null",
               "op": "=",
-              "text": "N/A"
+              "text": "no data"
             },
             {
               "value": "1",
@@ -619,7 +619,7 @@
             {
               "value": "null",
               "op": "=",
-              "text": "N/A"
+              "text": "no data"
             },
             {
               "value": "1",
@@ -777,12 +777,12 @@
           "prefixFontSize": "50%",
           "valueFontSize": "50%",
           "postfixFontSize": "50%",
-          "thresholds": "0,1,1",
+          "thresholds": "0,0,1",
           "colorBackground": true,
           "colorValue": false,
           "colors": [
             "rgba(225, 40, 40, 0.59)",
-            "rgba(245, 150, 40, 0.73)",
+            "rgba(245, 40, 40, 0.73)",
             "rgba(71, 212, 59, 0.4)"
           ],
           "sparkline": {
@@ -851,13 +851,13 @@
           "prefixFontSize": "50%",
           "valueFontSize": "50%",
           "postfixFontSize": "50%",
-          "thresholds": "0,1,2",
+          "thresholds": "0,0,1",
           "colorBackground": true,
           "colorValue": false,
           "colors": [
-            "rgba(71, 212, 59, 0.4)",
-            "rgba(245, 150, 40, 0.73)",
-            "rgba(225, 40, 40, 0.59)"
+            "rgba(225, 40, 40, 0.59)",
+            "rgba(245, 40, 40, 0.73)",
+            "rgba(71, 212, 59, 0.4)"
           ],
           "sparkline": {
             "show": false,
