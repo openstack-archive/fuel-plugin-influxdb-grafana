@@ -23,7 +23,7 @@
           "type": "singlestat",
           "id": 1,
           "links": [
-            {
+           {
               "type": "dashboard",
               "name": "Drilldown dashboard",
               "title": "Cinder",
@@ -268,7 +268,14 @@
           "editable": true,
           "type": "singlestat",
           "id": 4,
-          "links": [],
+          "links": [
+           {
+              "type": "dashboard",
+              "name": "Drilldown dashboard",
+              "title": "Heat",
+              "dashboard": "Heat"
+            }
+          ],
           "maxDataPoints": 100,
           "interval": "> 60s",
           "targets": [
