@@ -539,10 +539,10 @@
               "fill": "null"
             },
             {
-              "function": "sum",
+              "function": "derivative",
               "column": "value",
               "series": "merge(/haproxy.$frontback.$service.bytes_out/)",
-              "query": "select sum(value) from merge(/haproxy.$frontback.$service.bytes_out/) where $timeFilter group by time($interval) fill(null) order asc",
+              "query": "select derivative(value) from merge(/haproxy.$frontback.$service.bytes_out/) where $timeFilter group by time($interval) fill(null) order asc",
               "alias": "out",
               "rawQuery": false,
               "hide": false,
@@ -732,10 +732,10 @@
             {
               "function": "sum",
               "column": "value",
-              "series": "merge(/haproxy.*.connection/)",
+              "series": "merge(/haproxy.connection/)",
               "query": "select sum(value) from merge(/haproxy.connection/) where $timeFilter group by time($interval) order asc",
               "alias": "connections",
-              "rawQuery": true
+              "rawQuery": false
             },
             {
               "target": "",
