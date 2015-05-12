@@ -52,12 +52,12 @@
             {
               "value": "0",
               "op": "=",
-              "text": "OK"
+              "text": "OKAY$"
             },
             {
               "value": "1",
               "op": "=",
-              "text": "DEGRADED"
+              "text": "WARN"
             },
             {
               "value": "2",
@@ -67,7 +67,7 @@
             {
               "value": "3",
               "op": "=",
-              "text": "UNKNOWN"
+              "text": "????"
             }
           ],
           "nullPointMode": "connected",
