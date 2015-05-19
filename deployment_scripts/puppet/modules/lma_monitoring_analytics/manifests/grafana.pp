@@ -87,6 +87,9 @@ class lma_monitoring_analytics::grafana (
     'RabbitMQ' => {
       content => template('lma_monitoring_analytics/grafana_dashboards/RabbitMQ.json'),
     },
+    'Heat' => {
+      content => template('lma_monitoring_analytics/grafana_dashboards/Heat.json'),
+    },
     'System' => {
       content => template('lma_monitoring_analytics/grafana_dashboards/System.json'),
     },
