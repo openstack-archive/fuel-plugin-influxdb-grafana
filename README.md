@@ -134,7 +134,13 @@ http://$HOST:8000/
 Known issues
 ------------
 
-None.
+1. Empty graph (no datapoints): queries built with variable are some times
+   executed before that template variables are filled, resulting of failed query
+   and empty graphs.
+   A workaround is to refresh manually the dashboard.
+2. Grafana templating: some variables failed to load at the first display
+   leading to bug `(1)`.
+   A workaround is to load manually variables from the `templating interface`.
 
 Release Notes
 -------------
