@@ -441,8 +441,8 @@
             {
               "function": "last",
               "column": "value",
-              "series": "merge(/haproxy.backend.nova-api-1.servers.up/)",
-              "query": "select last(value) from merge(/haproxy.backend.nova-api-1.servers.up/) where $timeFilter group by time($interval) fill(null) order asc",
+              "series": "merge(/haproxy.backend.nova-api.servers.up/)",
+              "query": "select last(value) from merge(/haproxy.backend.nova-api.servers.up/) where $timeFilter group by time($interval) fill(null) order asc",
               "fill": "null"
             }
           ],
@@ -492,8 +492,8 @@
             {
               "function": "last",
               "column": "value",
-              "series": "merge(/haproxy.backend.nova-api-2.servers.up/)",
-              "query": "select last(value) from merge(/haproxy.backend.nova-api-2.servers.up/) where $timeFilter group by time($interval) fill(null) order asc",
+              "series": "merge(/haproxy.backend.nova-ec2-api.servers.up/)",
+              "query": "select last(value) from merge(/haproxy.backend.nova-ec2-api.servers.up/) where $timeFilter group by time($interval) fill(null) order asc",
               "fill": "null"
             }
           ],
@@ -594,8 +594,8 @@
             {
               "function": "last",
               "column": "value",
-              "series": "merge(/haproxy.backend.nova-novncproxy.servers.up/)",
-              "query": "select last(value) from merge(/haproxy.backend.nova-novncproxy.servers.up/) where $timeFilter group by time($interval) fill(null) order asc",
+              "series": "merge(/haproxy.backend.nova-novncproxy-websocket.servers.up/)",
+              "query": "select last(value) from merge(/haproxy.backend.nova-novncproxy-websocket.servers.up/) where $timeFilter group by time($interval) fill(null) order asc",
               "fill": "null"
             }
           ],
@@ -669,8 +669,8 @@
             {
               "function": "last",
               "column": "value",
-              "series": "merge(/haproxy.backend.nova-api-1.servers.down/)",
-              "query": "select last(value) from merge(/haproxy.backend.nova-api-1.servers.down/) where $timeFilter group by time($interval) fill(null) order asc",
+              "series": "merge(/haproxy.backend.nova-api.servers.down/)",
+              "query": "select last(value) from merge(/haproxy.backend.nova-api.servers.down/) where $timeFilter group by time($interval) fill(null) order asc",
               "fill": "null"
             }
           ],
@@ -720,8 +720,8 @@
             {
               "function": "last",
               "column": "value",
-              "series": "merge(/haproxy.backend.nova-api-2.servers.down/)",
-              "query": "select last(value) from merge(/haproxy.backend.nova-api-2.servers.down/) where $timeFilter group by time($interval) fill(null) order asc",
+              "series": "merge(/haproxy.backend.nova-ec2-api.servers.down/)",
+              "query": "select last(value) from merge(/haproxy.backend.nova-ec2-api.servers.down/) where $timeFilter group by time($interval) fill(null) order asc",
               "fill": "null"
             }
           ],
@@ -822,8 +822,8 @@
             {
               "function": "last",
               "column": "value",
-              "series": "merge(/haproxy.backend.nova-novncproxy.servers.down/)",
-              "query": "select last(value) from merge(/haproxy.backend.nova-novncproxy.servers.down/) where $timeFilter group by time($interval) fill(null) order asc",
+              "series": "merge(/haproxy.backend.nova-novncproxy-websocket.servers.down/)",
+              "query": "select last(value) from merge(/haproxy.backend.nova-novncproxy-websocket.servers.down/) where $timeFilter group by time($interval) fill(null) order asc",
               "fill": "null"
             }
           ],

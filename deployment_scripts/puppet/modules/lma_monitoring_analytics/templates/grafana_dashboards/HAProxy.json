@@ -1099,7 +1099,7 @@
     "list": [],
     "enable": false
   },
-  "refresh": "10s",
+  "refresh": "1m",
   "version": 6,
   "hideAllLegends": false
 }

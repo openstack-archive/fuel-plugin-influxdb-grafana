@@ -741,7 +741,7 @@
   "annotations": {
     "list": []
   },
-  "refresh": false,
+  "refresh": "1m",
   "version": 6,
   "hideAllLegends": false
 }
