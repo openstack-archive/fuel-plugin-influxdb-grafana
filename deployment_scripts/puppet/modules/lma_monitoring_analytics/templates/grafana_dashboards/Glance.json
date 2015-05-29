@@ -422,6 +422,263 @@
       "showTitle": true
     },
     {
+      "title": "Glance services",
+      "height": "100px",
+      "editable": true,
+      "collapse": false,
+      "panels": [
+        {
+          "title": "",
+          "error": false,
+          "span": 2,
+          "editable": true,
+          "type": "text",
+          "id": 21,
+          "mode": "html",
+          "content": "<br />\n<h3 align=\"center\"> Up </h3>",
+          "style": {},
+          "links": []
+        },
+        {
+          "title": "API",
+          "error": false,
+          "span": 2,
+          "editable": true,
+          "type": "singlestat",
+          "id": 22,
+          "links": [],
+          "maxDataPoints": 100,
+          "interval": null,
+          "targets": [
+            {
+              "function": "mean",
+              "column": "value",
+              "series": "merge(/haproxy.backend.glance-api.servers.up/)",
+              "query": "select mean(value) from merge(/haproxy.backend.glance-api.servers.up/) where $timeFilter group by time($interval) order asc"
+            }
+          ],
+          "cacheTimeout": null,
+          "format": "none",
+          "prefix": "",
+          "postfix": "",
+          "nullText": null,
+          "valueMaps": [
+            {
+              "value": "null",
+              "op": "=",
+              "text": "N/A"
+            }
+          ],
+          "nullPointMode": "connected",
+          "valueName": "avg",
+          "prefixFontSize": "50%",
+          "valueFontSize": "80%",
+          "postfixFontSize": "50%",
+          "thresholds": "",
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "sparkline": {
+            "show": false,
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "fillColor": "rgba(31, 118, 189, 0.18)"
+          }
+        },
+        {
+          "title": "Registry",
+          "error": false,
+          "span": 2,
+          "editable": true,
+          "type": "singlestat",
+          "id": 23,
+          "links": [],
+          "maxDataPoints": 100,
+          "interval": null,
+          "targets": [
+            {
+              "function": "mean",
+              "column": "value",
+              "series": "merge(/haproxy.backend.glance-registry-api.servers.up/)",
+              "query": "select mean(value) from merge(/haproxy.backend.glance-registry-api.servers.up/) where $timeFilter group by time($interval) order asc"
+            }
+          ],
+          "cacheTimeout": null,
+          "format": "none",
+          "prefix": "",
+          "postfix": "",
+          "nullText": null,
+          "valueMaps": [
+            {
+              "value": "null",
+              "op": "=",
+              "text": "N/A"
+            }
+          ],
+          "nullPointMode": "connected",
+          "valueName": "avg",
+          "prefixFontSize": "50%",
+          "valueFontSize": "80%",
+          "postfixFontSize": "50%",
+          "thresholds": "",
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "sparkline": {
+            "show": false,
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "fillColor": "rgba(31, 118, 189, 0.18)"
+          }
+        },
+        {
+          "title": "",
+          "error": false,
+          "span": 6,
+          "editable": true,
+          "type": "text",
+          "id": 24,
+          "mode": "markdown",
+          "content": "",
+          "style": {},
+          "links": []
+        },
+        {
+          "title": "",
+          "error": false,
+          "span": 2,
+          "editable": true,
+          "type": "text",
+          "id": 25,
+          "mode": "html",
+          "content": "<br />\n<h3 align=\"center\"> Down </h3>",
+          "style": {},
+          "links": []
+        },
+        {
+          "title": "",
+          "error": false,
+          "span": 2,
+          "editable": true,
+          "type": "singlestat",
+          "id": 26,
+          "links": [],
+          "maxDataPoints": 100,
+          "interval": null,
+          "targets": [
+            {
+              "function": "mean",
+              "column": "value",
+              "series": "merge(/haproxy.backend.glance-api.servers.down/)",
+              "query": "select mean(value) from merge(/haproxy.backend.glance-api.servers.down/) where $timeFilter group by time($interval) order asc"
+            }
+          ],
+          "cacheTimeout": null,
+          "format": "none",
+          "prefix": "",
+          "postfix": "",
+          "nullText": null,
+          "valueMaps": [
+            {
+              "value": "null",
+              "op": "=",
+              "text": "N/A"
+            }
+          ],
+          "nullPointMode": "connected",
+          "valueName": "avg",
+          "prefixFontSize": "50%",
+          "valueFontSize": "80%",
+          "postfixFontSize": "50%",
+          "thresholds": "0,0,1",
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "rgba(255, 255, 255, 0.97)",
+            "rgba(255, 255, 255, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "sparkline": {
+            "show": false,
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "fillColor": "rgba(31, 118, 189, 0.18)"
+          }
+        },
+        {
+          "title": "",
+          "error": false,
+          "span": 2,
+          "editable": true,
+          "type": "singlestat",
+          "id": 27,
+          "links": [],
+          "maxDataPoints": 100,
+          "interval": null,
+          "targets": [
+            {
+              "function": "mean",
+              "column": "value",
+              "series": "merge(/haproxy.backend.glance-registry-api.servers.down/)",
+              "query": "select mean(value) from merge(/haproxy.backend.glance-registry-api.servers.down/) where $timeFilter group by time($interval) order asc"
+            }
+          ],
+          "cacheTimeout": null,
+          "format": "none",
+          "prefix": "",
+          "postfix": "",
+          "nullText": null,
+          "valueMaps": [
+            {
+              "value": "null",
+              "op": "=",
+              "text": "N/A"
+            }
+          ],
+          "nullPointMode": "connected",
+          "valueName": "avg",
+          "prefixFontSize": "50%",
+          "valueFontSize": "80%",
+          "postfixFontSize": "50%",
+          "thresholds": "0,0,1",
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "rgba(255, 255, 255, 0.97)",
+            "rgba(255, 255, 255, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "sparkline": {
+            "show": false,
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "fillColor": "rgba(31, 118, 189, 0.18)"
+          }
+        },
+        {
+          "title": "",
+          "error": false,
+          "span": 6,
+          "editable": true,
+          "type": "text",
+          "id": 28,
+          "mode": "markdown",
+          "content": "",
+          "style": {},
+          "links": []
+        }
+      ],
+      "showTitle": true
+    },
+    {
       "title": "Resources",
       "height": "250px",
       "editable": true,
@@ -922,7 +1179,7 @@
     ],
     "enable": true
   },
-  "refresh": "5s",
+  "refresh": "1m",
   "version": 6,
   "hideAllLegends": false
 }

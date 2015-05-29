@@ -1574,8 +1574,8 @@
     }
   ],
   "time": {
-    "from": "2015-04-01T11:36:31.936Z",
-    "to": "2015-04-01T15:36:31.936Z"
+    "from": "now-15m",
+    "to": "now"
   },
   "templating": {
     "list": [
@@ -1653,7 +1653,7 @@
   "annotations": {
     "list": []
   },
-  "refresh": false,
+  "refresh": "1m",
   "version": 6,
   "hideAllLegends": false
 }

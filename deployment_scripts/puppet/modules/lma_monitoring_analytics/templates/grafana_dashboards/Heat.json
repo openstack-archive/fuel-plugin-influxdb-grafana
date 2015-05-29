@@ -492,8 +492,8 @@
             {
               "function": "last",
               "column": "value",
-              "series": "merge(/haproxy.backend.heat-api-cfn.servers.up/)",
-              "query": "select last(value) from merge(/haproxy.backend.heat-api-cfn.servers.up/) where $timeFilter group by time($interval) fill(null) order asc",
+              "series": "merge(/haproxy.backend.heat-cfn-api.servers.up/)",
+              "query": "select last(value) from merge(/haproxy.backend.heat-cfn-api.servers.up/) where $timeFilter group by time($interval) fill(null) order asc",
               "fill": "null"
             }
           ],
@@ -705,7 +705,7 @@
     }
   ],
   "time": {
-    "from": "now-1h",
+    "from": "now-15m",
     "to": "now"
   },
   "templating": {
@@ -746,7 +746,7 @@
     ],
     "enable": true
   },
-  "refresh": false,
+  "refresh": "1m",
   "version": 6,
   "hideAllLegends": false
 }

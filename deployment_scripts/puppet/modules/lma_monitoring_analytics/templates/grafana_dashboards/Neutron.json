@@ -444,8 +444,8 @@
             {
               "function": "mean",
               "column": "value",
-              "series": "merge(/haproxy.backend.neutron.servers.up/)",
-              "query": "select mean(value) from merge(/haproxy.backend.neutron.servers.up/) where $timeFilter group by time($interval) order asc"
+              "series": "merge(/haproxy.backend.neutron-api.servers.up/)",
+              "query": "select mean(value) from merge(/haproxy.backend.neutron-api.servers.up/) where $timeFilter group by time($interval) order asc"
             }
           ],
           "cacheTimeout": null,
@@ -518,8 +518,8 @@
             {
               "function": "mean",
               "column": "value",
-              "series": "merge(/haproxy.backend.neutron.servers.down/)",
-              "query": "select mean(value) from merge(/haproxy.backend.neutron.servers.down/) where $timeFilter group by time($interval) order asc"
+              "series": "merge(/haproxy.backend.neutron-api.servers.down/)",
+              "query": "select mean(value) from merge(/haproxy.backend.neutron-api.servers.down/) where $timeFilter group by time($interval) order asc"
             }
           ],
           "cacheTimeout": null,
