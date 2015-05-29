@@ -59,17 +59,17 @@
             {
               "value": "0",
               "op": "=",
-              "text": "OK"
+              "text": "OKAY"
             },
             {
               "value": "1",
               "op": "=",
-              "text": "DEGRADED"
+              "text": "WARN"
             },
             {
               "value": "2",
               "op": "=",
-              "text": "DOWN"
+              "text": "FAIL"
             },
             {
               "value": "3",
@@ -141,17 +141,17 @@
             {
               "value": "0",
               "op": "=",
-              "text": "OK"
+              "text": "OKAY"
             },
             {
               "value": "1",
               "op": "=",
-              "text": "DEGRADED"
+              "text": "WARN"
             },
             {
               "value": "2",
               "op": "=",
-              "text": "DOWN"
+              "text": "FAIL"
             },
             {
               "value": "3",
@@ -223,17 +223,17 @@
             {
               "value": "0",
               "op": "=",
-              "text": "OK"
+              "text": "OKAY"
             },
             {
               "value": "1",
               "op": "=",
-              "text": "DEGRADED"
+              "text": "WARN"
             },
             {
               "value": "2",
               "op": "=",
-              "text": "DOWN"
+              "text": "FAIL"
             },
             {
               "value": "3",
@@ -305,17 +305,17 @@
             {
               "value": "0",
               "op": "=",
-              "text": "OK"
+              "text": "OKAY"
             },
             {
               "value": "1",
               "op": "=",
-              "text": "DEGRADED"
+              "text": "WARN"
             },
             {
               "value": "2",
               "op": "=",
-              "text": "DOWN"
+              "text": "FAIL"
             },
             {
               "value": "3",
@@ -387,17 +387,17 @@
             {
               "value": "0",
               "op": "=",
-              "text": "OK"
+              "text": "OKAY"
             },
             {
               "value": "1",
               "op": "=",
-              "text": "DEGRADED"
+              "text": "WARN"
             },
             {
               "value": "2",
               "op": "=",
-              "text": "DOWN"
+              "text": "FAIL"
             },
             {
               "value": "3",
@@ -469,17 +469,17 @@
             {
               "value": "0",
               "op": "=",
-              "text": "OK"
+              "text": "OKAY"
             },
             {
               "value": "1",
               "op": "=",
-              "text": "DEGRADED"
+              "text": "WARN"
             },
             {
               "value": "2",
               "op": "=",
-              "text": "DOWN"
+              "text": "FAIL"
             },
             {
               "value": "3",
@@ -561,12 +561,12 @@
             {
               "value": "1",
               "op": "=",
-              "text": "OK"
+              "text": "OKAY"
             },
             {
               "value": "0",
               "op": "=",
-              "text": "DOWN"
+              "text": "FAIL"
             }
           ],
           "nullPointMode": "connected",
@@ -631,12 +631,12 @@
             {
               "value": "1",
               "op": "=",
-              "text": "OK"
+              "text": "OKAY"
             },
             {
               "value": "0",
               "op": "=",
-              "text": "DOWN"
+              "text": "FAIL"
             }
           ],
           "nullPointMode": "connected",
@@ -701,12 +701,12 @@
             {
               "value": "1",
               "op": "=",
-              "text": "OK"
+              "text": "OKAY"
             },
             {
               "value": "0",
               "op": "=",
-              "text": "DOWN"
+              "text": "FAIL"
             }
           ],
           "nullPointMode": "connected",
@@ -771,12 +771,12 @@
             {
               "value": "1",
               "op": "=",
-              "text": "OK"
+              "text": "OKAY"
             },
             {
               "value": "0",
               "op": "=",
-              "text": "DOWN"
+              "text": "FAIL"
             }
           ],
           "nullPointMode": "connected",
@@ -845,12 +845,12 @@
             {
               "value": "1",
               "op": "=",
-              "text": "OK"
+              "text": "OKAY"
             },
             {
               "value": "0",
               "op": "=",
-              "text": "DOWN"
+              "text": "FAIL"
             }
           ],
           "nullPointMode": "connected",
