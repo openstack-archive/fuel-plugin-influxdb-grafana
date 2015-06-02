@@ -405,76 +405,6 @@
           "seriesOverrides": [],
           "links": [],
           "interval": "> 60s"
-        },
-        {
-          "title": "Volume creation time",
-          "error": false,
-          "span": 9,
-          "editable": true,
-          "type": "graph",
-          "id": 30,
-          "datasource": null,
-          "renderer": "flot",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "s",
-            "short"
-          ],
-          "grid": {
-            "leftMax": null,
-            "rightMax": null,
-            "leftMin": 0,
-            "rightMin": null,
-            "threshold1": null,
-            "threshold2": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2Color": "rgba(234, 112, 112, 0.22)",
-            "thresholdLine": false
-          },
-          "lines": true,
-          "fill": 0,
-          "linewidth": 1,
-          "points": false,
-          "pointradius": 5,
-          "bars": false,
-          "stack": false,
-          "percentage": false,
-          "legend": {
-            "show": true,
-            "values": true,
-            "min": true,
-            "max": true,
-            "current": false,
-            "total": false,
-            "avg": true,
-            "alignAsTable": true,
-            "hideEmpty": false,
-            "rightSide": false
-          },
-          "nullPointMode": "connected",
-          "steppedLine": false,
-          "tooltip": {
-            "value_type": "individual",
-            "shared": true
-          },
-          "targets": [
-            {
-              "function": "count",
-              "column": "value",
-              "series": "merge(/openstack.cinder.volume_creation_time/)",
-              "query": "select count(value) from merge(/openstack.cinder.volume_creation_time/) where $timeFilter group by time($interval) fill(0) order asc",
-              "fill": "0",
-              "interval": "1m",
-              "alias": "time",
-              "rawQuery": false,
-              "hide": false
-            }
-          ],
-          "aliasColors": {},
-          "seriesOverrides": [],
-          "links": [],
-          "interval": "> 60s"
         }
       ],
       "showTitle": true
@@ -483,7 +413,7 @@
       "title": "Cinder API",
       "height": "100px",
       "editable": true,
-      "collapse": false,
+      "collapse": true,
       "panels": [
         {
           "title": "",
@@ -1178,7 +1108,7 @@
       "showTitle": true
     },
     {
-      "title": "Resources",
+      "title": "Volumes",
       "height": "250px",
       "editable": true,
       "collapse": false,
@@ -1227,7 +1157,7 @@
             "rgba(50, 172, 45, 0.97)"
           ],
           "sparkline": {
-            "show": true,
+            "show": false,
             "full": false,
             "lineColor": "rgb(31, 120, 193)",
             "fillColor": "rgba(31, 118, 189, 0.18)"
@@ -1248,8 +1178,8 @@
               "function": "last",
               "column": "value",
               "series": "merge(/openstack.cinder.volumes.in-use/)",
-              "query": "select last(value) from merge(/openstack.cinder.volumes.in-use/) where $timeFilter group by time($interval) fill(0) order asc",
-              "fill": "0"
+              "query": "select last(value) from merge(/openstack.cinder.volumes.in-use/) where $timeFilter group by time($interval) order asc",
+              "fill": ""
             }
           ],
           "cacheTimeout": null,
@@ -1278,7 +1208,7 @@
             "rgba(50, 172, 45, 0.97)"
           ],
           "sparkline": {
-            "show": true,
+            "show": false,
             "full": false,
             "lineColor": "rgb(31, 120, 193)",
             "fillColor": "rgba(31, 118, 189, 0.18)"
@@ -1299,8 +1229,8 @@
               "function": "last",
               "column": "value",
               "series": "merge(/openstack.cinder.volumes.error/)",
-              "query": "select last(value) from merge(/openstack.cinder.volumes.error/) where $timeFilter group by time($interval) fill(0) order asc",
-              "fill": "0"
+              "query": "select last(value) from merge(/openstack.cinder.volumes.error/) where $timeFilter group by time($interval) order asc",
+              "fill": ""
             }
           ],
           "cacheTimeout": null,
@@ -1336,156 +1266,87 @@
           }
         },
         {
-          "title": "Available Snapshots",
+          "title": "Volumes",
           "error": false,
-          "span": 2,
+          "span": 6,
           "editable": true,
-          "type": "singlestat",
-          "id": 17,
-          "links": [],
-          "maxDataPoints": 100,
-          "interval": "> 60s",
+          "type": "graph",
+          "id": 54,
+          "datasource": null,
+          "renderer": "flot",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "short"
+          ],
+          "grid": {
+            "leftMax": null,
+            "rightMax": null,
+            "leftMin": 0,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold2": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "lines": true,
+          "fill": 0,
+          "linewidth": 1,
+          "points": false,
+          "pointradius": 5,
+          "bars": false,
+          "stack": false,
+          "percentage": false,
+          "legend": {
+            "show": true,
+            "values": false,
+            "min": false,
+            "max": false,
+            "current": false,
+            "total": false,
+            "avg": false
+          },
+          "nullPointMode": "connected",
+          "steppedLine": false,
+          "tooltip": {
+            "value_type": "cumulative",
+            "shared": true
+          },
           "targets": [
             {
-              "function": "last",
+              "function": "max",
               "column": "value",
-              "series": "merge(/openstack.cinder.snapshots.available/)",
-              "query": "select last(value) from merge(/openstack.cinder.snapshots.available/) where $timeFilter group by time($interval) order asc"
-            }
-          ],
-          "cacheTimeout": null,
-          "format": "none",
-          "prefix": "",
-          "postfix": "",
-          "nullText": null,
-          "valueMaps": [
+              "series": "merge(/openstack.cinder.volumes.available/)",
+              "query": "select max(value) from merge(/openstack.cinder.volumes.available/) where $timeFilter group by time($interval) fill(0) order asc",
+              "alias": "available",
+              "fill": "0",
+              "hide": false
+            },
             {
-              "value": "null",
-              "op": "=",
-              "text": "0"
+              "target": "",
+              "function": "max",
+              "column": "value",
+              "series": "merge(/openstack.cinder.volumes.in-use/)",
+              "query": "select max(value) from merge(/openstack.cinder.volumes.in-use/) where $timeFilter group by time($interval) fill(0) order asc",
+              "fill": "0",
+              "alias": "in-use"
+            },
+            {
+              "target": "",
+              "function": "max",
+              "column": "value",
+              "series": "merge(/openstack.cinder.volumes.error/)",
+              "query": "select max(value) from merge(/openstack.cinder.volumes.error/) where $timeFilter group by time($interval) fill(0) order asc",
+              "fill": "0",
+              "alias": "error",
+              "hide": false
             }
           ],
-          "nullPointMode": "connected",
-          "valueName": "current",
-          "prefixFontSize": "50%",
-          "valueFontSize": "80%",
-          "postfixFontSize": "50%",
-          "thresholds": "",
-          "colorBackground": false,
-          "colorValue": false,
-          "colors": [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(50, 172, 45, 0.97)"
-          ],
-          "sparkline": {
-            "show": true,
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "fillColor": "rgba(31, 118, 189, 0.18)"
-          }
-        },
-        {
-          "title": "Snapshots in use",
-          "error": false,
-          "span": 2,
-          "editable": true,
-          "type": "singlestat",
-          "id": 18,
+          "aliasColors": {},
+          "seriesOverrides": [],
           "links": [],
-          "maxDataPoints": 100,
-          "interval": "> 60s",
-          "targets": [
-            {
-              "function": "last",
-              "column": "value",
-              "series": "merge(/openstack.cinder.snapshots.in-use/)",
-              "query": "select last(value) from merge(/openstack.cinder.snapshots.in-use/) where $timeFilter group by time($interval) fill(0) order asc",
-              "fill": "0"
-            }
-          ],
-          "cacheTimeout": null,
-          "format": "none",
-          "prefix": "",
-          "postfix": "",
-          "nullText": null,
-          "valueMaps": [
-            {
-              "value": "null",
-              "op": "=",
-              "text": "0"
-            }
-          ],
-          "nullPointMode": "connected",
-          "valueName": "current",
-          "prefixFontSize": "50%",
-          "valueFontSize": "80%",
-          "postfixFontSize": "50%",
-          "thresholds": "",
-          "colorBackground": false,
-          "colorValue": false,
-          "colors": [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(50, 172, 45, 0.97)"
-          ],
-          "sparkline": {
-            "show": true,
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "fillColor": "rgba(31, 118, 189, 0.18)"
-          }
-        },
-        {
-          "title": "Snapshots in error",
-          "error": false,
-          "span": 2,
-          "editable": true,
-          "type": "singlestat",
-          "id": 22,
-          "links": [],
-          "maxDataPoints": 100,
-          "interval": "> 60s",
-          "targets": [
-            {
-              "function": "last",
-              "column": "value",
-              "series": "merge(/openstack.cinder.snapshots.error/)",
-              "query": "select last(value) from merge(/openstack.cinder.snapshots.error/) where $timeFilter group by time($interval) fill(0) order asc",
-              "fill": "0"
-            }
-          ],
-          "cacheTimeout": null,
-          "format": "none",
-          "prefix": "",
-          "postfix": "",
-          "nullText": null,
-          "valueMaps": [
-            {
-              "value": "null",
-              "op": "=",
-              "text": "0"
-            }
-          ],
-          "nullPointMode": "connected",
-          "valueName": "current",
-          "prefixFontSize": "50%",
-          "valueFontSize": "80%",
-          "postfixFontSize": "50%",
-          "thresholds": "",
-          "colorBackground": false,
-          "colorValue": false,
-          "colors": [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(50, 172, 45, 0.97)"
-          ],
-          "sparkline": {
-            "show": true,
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "fillColor": "rgba(31, 118, 189, 0.18)"
-          }
+          "interval": ">60s"
         },
         {
           "title": "",
@@ -1531,7 +1392,7 @@
             "rgba(50, 172, 45, 0.97)"
           ],
           "sparkline": {
-            "show": true,
+            "show": false,
             "full": false,
             "lineColor": "rgb(31, 120, 193)",
             "fillColor": "rgba(31, 118, 189, 0.18)"
@@ -1582,7 +1443,7 @@
             "rgba(50, 172, 45, 0.97)"
           ],
           "sparkline": {
-            "show": true,
+            "show": false,
             "full": false,
             "lineColor": "rgb(31, 120, 193)",
             "fillColor": "rgba(31, 118, 189, 0.18)"
@@ -1603,8 +1464,8 @@
               "function": "last",
               "column": "value",
               "series": "merge(/openstack.cinder.volumes_size.error/)",
-              "query": "select last(value) from merge(/openstack.cinder.volumes_size.error/) where $timeFilter group by time($interval) fill(0) order asc",
-              "fill": "0"
+              "query": "select last(value) from merge(/openstack.cinder.volumes_size.error/) where $timeFilter group by time($interval) order asc",
+              "fill": ""
             }
           ],
           "cacheTimeout": null,
@@ -1633,11 +1494,563 @@
             "rgba(50, 172, 45, 0.97)"
           ],
           "sparkline": {
-            "show": true,
+            "show": false,
             "full": false,
             "lineColor": "rgb(31, 120, 193)",
             "fillColor": "rgba(31, 118, 189, 0.18)"
           }
+        },
+        {
+          "title": "Volumes size",
+          "error": false,
+          "span": 6,
+          "editable": true,
+          "type": "graph",
+          "id": 55,
+          "datasource": null,
+          "renderer": "flot",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "bytes",
+            "none"
+          ],
+          "grid": {
+            "leftMax": null,
+            "rightMax": null,
+            "leftMin": 0,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold2": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "lines": true,
+          "fill": 0,
+          "linewidth": 1,
+          "points": false,
+          "pointradius": 5,
+          "bars": false,
+          "stack": false,
+          "percentage": false,
+          "legend": {
+            "show": true,
+            "values": false,
+            "min": false,
+            "max": false,
+            "current": false,
+            "total": false,
+            "avg": false
+          },
+          "nullPointMode": "connected",
+          "steppedLine": false,
+          "tooltip": {
+            "value_type": "cumulative",
+            "shared": true
+          },
+          "targets": [
+            {
+              "function": "max",
+              "column": "value",
+              "series": "merge(/openstack.cinder.volumes_size.available/)",
+              "query": "select max(value) from merge(/openstack.cinder.volumes_size.available/) where $timeFilter group by time($interval) fill(0) order asc",
+              "fill": "0",
+              "alias": "available"
+            },
+            {
+              "function": "max",
+              "column": "value",
+              "series": "merge(/openstack.cinder.volumes_size.in-user/)",
+              "query": "select max(value) from merge(/openstack.cinder.volumes_size.in-user/) where $timeFilter group by time($interval) fill(0) order asc",
+              "fill": "0",
+              "alias": "in-use"
+            },
+            {
+              "function": "max",
+              "column": "value",
+              "series": "merge(/openstack.cinder.volumes_size.error/)",
+              "query": "select max(value) from merge(/openstack.cinder.volumes_size.error/) where $timeFilter group by time($interval) fill(0) order asc",
+              "fill": "0",
+              "alias": "error"
+            }
+          ],
+          "aliasColors": {},
+          "seriesOverrides": [],
+          "links": [],
+          "interval": ">60s"
+        },
+        {
+          "title": "Response time (mean)",
+          "error": false,
+          "span": 2,
+          "editable": true,
+          "type": "singlestat",
+          "id": 57,
+          "links": [],
+          "maxDataPoints": 100,
+          "interval": ">60s",
+          "targets": [
+            {
+              "function": "mean",
+              "column": "value",
+              "series": "merge(/openstack.cinder.volume_creation_time/)",
+              "query": "select mean(value) from merge(/openstack.cinder.volume_creation_time/) where $timeFilter group by time($interval) order asc"
+            }
+          ],
+          "cacheTimeout": null,
+          "format": "none",
+          "prefix": "",
+          "postfix": "",
+          "nullText": null,
+          "valueMaps": [
+            {
+              "value": "null",
+              "op": "=",
+              "text": "N/A"
+            }
+          ],
+          "nullPointMode": "connected",
+          "valueName": "avg",
+          "prefixFontSize": "50%",
+          "valueFontSize": "80%",
+          "postfixFontSize": "50%",
+          "thresholds": "",
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "sparkline": {
+            "show": false,
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "fillColor": "rgba(31, 118, 189, 0.18)"
+          }
+        },
+        {
+          "title": "",
+          "error": false,
+          "span": 4,
+          "editable": true,
+          "type": "text",
+          "id": 58,
+          "mode": "markdown",
+          "content": "",
+          "style": {},
+          "links": []
+        },
+        {
+          "title": "",
+          "error": false,
+          "span": 6,
+          "editable": true,
+          "type": "graph",
+          "id": 30,
+          "datasource": null,
+          "renderer": "flot",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "s",
+            "short"
+          ],
+          "grid": {
+            "leftMax": null,
+            "rightMax": null,
+            "leftMin": 0,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold2": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2Color": "rgba(234, 112, 112, 0.22)",
+            "thresholdLine": false
+          },
+          "lines": true,
+          "fill": 0,
+          "linewidth": 1,
+          "points": false,
+          "pointradius": 5,
+          "bars": false,
+          "stack": false,
+          "percentage": false,
+          "legend": {
+            "show": true,
+            "values": false,
+            "min": true,
+            "max": true,
+            "current": false,
+            "total": false,
+            "avg": true,
+            "alignAsTable": false,
+            "hideEmpty": false,
+            "rightSide": false
+          },
+          "nullPointMode": "connected",
+          "steppedLine": false,
+          "tooltip": {
+            "value_type": "individual",
+            "shared": true
+          },
+          "targets": [
+            {
+              "function": "mean",
+              "column": "value",
+              "series": "merge(/openstack.cinder.volume_creation_time/)",
+              "query": "select mean(value) from merge(/openstack.cinder.volume_creation_time/) where $timeFilter group by time($interval) fill(0) order asc",
+              "fill": "0",
+              "interval": "",
+              "alias": "mean",
+              "rawQuery": false,
+              "hide": false
+            },
+            {
+              "function": "max",
+              "column": "value",
+              "series": "merge(/openstack.cinder.volume_creation_time/)",
+              "query": "select max(value) from merge(/openstack.cinder.volume_creation_time/) where $timeFilter group by time($interval) fill(0) order asc",
+              "fill": "0",
+              "interval": "",
+              "alias": "max",
+              "rawQuery": false,
+              "hide": false
+            },
+            {
+              "function": "min",
+              "column": "value",
+              "series": "merge(/openstack.cinder.volume_creation_time/)",
+              "query": "select min(value) from merge(/openstack.cinder.volume_creation_time/) where $timeFilter group by time($interval) fill(0) order asc",
+              "fill": "0",
+              "interval": "",
+              "alias": "min",
+              "rawQuery": false,
+              "hide": false
+            }
+          ],
+          "aliasColors": {},
+          "seriesOverrides": [],
+          "links": [],
+          "interval": "> 60s"
+        }
+      ],
+      "showTitle": true
+    },
+    {
+      "title": "Snapshots",
+      "height": "250px",
+      "editable": true,
+      "collapse": true,
+      "panels": [
+        {
+          "title": "Available Snapshots",
+          "error": false,
+          "span": 2,
+          "editable": true,
+          "type": "singlestat",
+          "id": 17,
+          "links": [],
+          "maxDataPoints": 100,
+          "interval": "> 60s",
+          "targets": [
+            {
+              "function": "last",
+              "column": "value",
+              "series": "merge(/openstack.cinder.snapshots.available/)",
+              "query": "select last(value) from merge(/openstack.cinder.snapshots.available/) where $timeFilter group by time($interval) order asc"
+            }
+          ],
+          "cacheTimeout": null,
+          "format": "none",
+          "prefix": "",
+          "postfix": "",
+          "nullText": null,
+          "valueMaps": [
+            {
+              "value": "null",
+              "op": "=",
+              "text": "0"
+            }
+          ],
+          "nullPointMode": "connected",
+          "valueName": "current",
+          "prefixFontSize": "50%",
+          "valueFontSize": "80%",
+          "postfixFontSize": "50%",
+          "thresholds": "",
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "sparkline": {
+            "show": false,
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "fillColor": "rgba(31, 118, 189, 0.18)"
+          }
+        },
+        {
+          "title": "Snapshots in use",
+          "error": false,
+          "span": 2,
+          "editable": true,
+          "type": "singlestat",
+          "id": 18,
+          "links": [],
+          "maxDataPoints": 100,
+          "interval": "> 60s",
+          "targets": [
+            {
+              "function": "last",
+              "column": "value",
+              "series": "merge(/openstack.cinder.snapshots.in-use/)",
+              "query": "select last(value) from merge(/openstack.cinder.snapshots.in-use/) where $timeFilter group by time($interval) fill(0) order asc",
+              "fill": "0"
+            }
+          ],
+          "cacheTimeout": null,
+          "format": "none",
+          "prefix": "",
+          "postfix": "",
+          "nullText": null,
+          "valueMaps": [
+            {
+              "value": "null",
+              "op": "=",
+              "text": "0"
+            }
+          ],
+          "nullPointMode": "connected",
+          "valueName": "current",
+          "prefixFontSize": "50%",
+          "valueFontSize": "80%",
+          "postfixFontSize": "50%",
+          "thresholds": "",
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "sparkline": {
+            "show": false,
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "fillColor": "rgba(31, 118, 189, 0.18)"
+          }
+        },
+        {
+          "title": "Snapshots in error",
+          "error": false,
+          "span": 2,
+          "editable": true,
+          "type": "singlestat",
+          "id": 22,
+          "links": [],
+          "maxDataPoints": 100,
+          "interval": "> 60s",
+          "targets": [
+            {
+              "function": "last",
+              "column": "value",
+              "series": "merge(/openstack.cinder.snapshots.error/)",
+              "query": "select last(value) from merge(/openstack.cinder.snapshots.error/) where $timeFilter group by time($interval) fill(0) order asc",
+              "fill": "0"
+            }
+          ],
+          "cacheTimeout": null,
+          "format": "none",
+          "prefix": "",
+          "postfix": "",
+          "nullText": null,
+          "valueMaps": [
+            {
+              "value": "null",
+              "op": "=",
+              "text": "0"
+            }
+          ],
+          "nullPointMode": "connected",
+          "valueName": "current",
+          "prefixFontSize": "50%",
+          "valueFontSize": "80%",
+          "postfixFontSize": "50%",
+          "thresholds": "",
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "sparkline": {
+            "show": false,
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "fillColor": "rgba(31, 118, 189, 0.18)"
+          }
+        },
+        {
+          "title": "Snapshots",
+          "error": false,
+          "span": 6,
+          "editable": true,
+          "type": "graph",
+          "id": 52,
+          "datasource": null,
+          "renderer": "flot",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "short"
+          ],
+          "grid": {
+            "leftMax": null,
+            "rightMax": null,
+            "leftMin": 0,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold2": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "lines": true,
+          "fill": 0,
+          "linewidth": 1,
+          "points": false,
+          "pointradius": 5,
+          "bars": false,
+          "stack": false,
+          "percentage": false,
+          "legend": {
+            "show": true,
+            "values": false,
+            "min": false,
+            "max": false,
+            "current": false,
+            "total": false,
+            "avg": false
+          },
+          "nullPointMode": "connected",
+          "steppedLine": false,
+          "tooltip": {
+            "value_type": "cumulative",
+            "shared": true
+          },
+          "targets": [
+            {
+              "function": "max",
+              "column": "value",
+              "series": "merge(/openstack.cinder.snapshots.available/)",
+              "query": "select max(value) from merge(/openstack.cinder.snapshots.available/) where $timeFilter group by time($interval) order asc",
+              "alias": "available",
+              "fill": "0"
+            },
+            {
+              "function": "max",
+              "column": "value",
+              "series": "merge(/openstack.cinder.snapshots.in-use/)",
+              "query": "select max(value) from merge(/openstack.cinder.snapshots.available/) where $timeFilter group by time($interval) order asc",
+              "alias": "in-use",
+              "fill": "0"
+            },
+            {
+              "function": "max",
+              "column": "value",
+              "series": "merge(/openstack.cinder.snapshots.error/)",
+              "query": "select max(value) from merge(/openstack.cinder.snapshots.available/) where $timeFilter group by time($interval) order asc",
+              "alias": "error",
+              "fill": "0"
+            }
+          ],
+          "aliasColors": {},
+          "seriesOverrides": [],
+          "interval": ">60",
+          "links": []
+        },
+        {
+          "title": "Snapshots",
+          "error": false,
+          "span": 6,
+          "editable": true,
+          "type": "graph",
+          "id": 53,
+          "datasource": null,
+          "renderer": "flot",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "short"
+          ],
+          "grid": {
+            "leftMax": null,
+            "rightMax": null,
+            "leftMin": 0,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold2": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "lines": true,
+          "fill": 0,
+          "linewidth": 1,
+          "points": false,
+          "pointradius": 5,
+          "bars": false,
+          "stack": false,
+          "percentage": false,
+          "legend": {
+            "show": true,
+            "values": false,
+            "min": false,
+            "max": false,
+            "current": false,
+            "total": false,
+            "avg": false
+          },
+          "nullPointMode": "connected",
+          "steppedLine": false,
+          "tooltip": {
+            "value_type": "cumulative",
+            "shared": true
+          },
+          "targets": [
+            {
+              "function": "max",
+              "column": "value",
+              "series": "merge(/openstack.cinder.snapshots.available/)",
+              "query": "select max(value) from merge(/openstack.cinder.snapshots.available/) where $timeFilter group by time($interval) fill(0) order asc",
+              "fill": "0",
+              "alias": "available"
+            },
+            {
+              "function": "max",
+              "column": "value",
+              "series": "merge(/openstack.cinder.snapshots.in-use/)",
+              "query": "select max(value) from merge(/openstack.cinder.snapshots.in-use/) where $timeFilter group by time($interval) fill(0) order asc",
+              "fill": "0",
+              "alias": "in-use"
+            },
+            {
+              "function": "max",
+              "column": "value",
+              "series": "merge(/openstack.cinder.snapshots.error/)",
+              "query": "select max(value) from merge(/openstack.cinder.snapshots.error/) where $timeFilter group by time($interval) fill(0) order asc",
+              "fill": "0",
+              "alias": "error"
+            }
+          ],
+          "aliasColors": {},
+          "seriesOverrides": [],
+          "interval": ">60s",
+          "links": []
         },
         {
           "title": "",
@@ -1683,7 +2096,7 @@
             "rgba(50, 172, 45, 0.97)"
           ],
           "sparkline": {
-            "show": true,
+            "show": false,
             "full": false,
             "lineColor": "rgb(31, 120, 193)",
             "fillColor": "rgba(31, 118, 189, 0.18)"
@@ -1734,7 +2147,7 @@
             "rgba(50, 172, 45, 0.97)"
           ],
           "sparkline": {
-            "show": true,
+            "show": false,
             "full": false,
             "lineColor": "rgb(31, 120, 193)",
             "fillColor": "rgba(31, 118, 189, 0.18)"
@@ -1760,7 +2173,7 @@
             }
           ],
           "cacheTimeout": null,
-          "format": "none",
+          "format": "bytes",
           "prefix": "",
           "postfix": "",
           "nullText": null,
@@ -1785,11 +2198,90 @@
             "rgba(50, 172, 45, 0.97)"
           ],
           "sparkline": {
-            "show": true,
+            "show": false,
             "full": false,
             "lineColor": "rgb(31, 120, 193)",
             "fillColor": "rgba(31, 118, 189, 0.18)"
           }
+        },
+        {
+          "title": "Snapshots size",
+          "error": false,
+          "span": 6,
+          "editable": true,
+          "type": "graph",
+          "id": 56,
+          "datasource": null,
+          "renderer": "flot",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "bytes",
+            "short"
+          ],
+          "grid": {
+            "leftMax": null,
+            "rightMax": null,
+            "leftMin": 0,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold2": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "lines": true,
+          "fill": 0,
+          "linewidth": 1,
+          "points": false,
+          "pointradius": 5,
+          "bars": false,
+          "stack": false,
+          "percentage": false,
+          "legend": {
+            "show": true,
+            "values": false,
+            "min": false,
+            "max": false,
+            "current": false,
+            "total": false,
+            "avg": false
+          },
+          "nullPointMode": "connected",
+          "steppedLine": false,
+          "tooltip": {
+            "value_type": "cumulative",
+            "shared": true
+          },
+          "targets": [
+            {
+              "function": "mean",
+              "column": "value",
+              "series": "merge(/openstack.cinder.snapshots_size.available/)",
+              "query": "select mean(value) from merge(/openstack.cinder.snapshots_size.available/) where $timeFilter group by time($interval) fill(0) order asc",
+              "alias": "available",
+              "fill": "0"
+            },
+            {
+              "function": "mean",
+              "column": "value",
+              "series": "merge(/openstack.cinder.snapshots_size.in-use/)",
+              "query": "select mean(value) from merge(/openstack.cinder.snapshots_size.in-use/) where $timeFilter group by time($interval) fill(0) order asc",
+              "alias": "in-use",
+              "fill": "0"
+            },
+            {
+              "function": "mean",
+              "column": "value",
+              "series": "merge(/openstack.cinder.snapshots_size.error/)",
+              "query": "select mean(value) from merge(/openstack.cinder.snapshots_size.error/) where $timeFilter group by time($interval) fill(0) order asc",
+              "alias": "error",
+              "fill": "0"
+            }
+          ],
+          "aliasColors": {},
+          "seriesOverrides": [],
+          "interval": ">60s",
+          "links": []
         }
       ],
       "showTitle": true
@@ -1824,13 +2316,13 @@
         "2h",
         "1d"
       ],
-      "now": true,
+      "now": false,
       "notice": false
     }
   ],
   "time": {
-    "from": "now-15m",
-    "to": "now"
+    "from": "2015-05-18T14:05:10.877Z",
+    "to": "2015-05-20T03:55:04.372Z"
   },
   "templating": {
     "list": [
@@ -1840,11 +2332,29 @@
         "refresh_on_load": true,
         "name": "server",
         "options": [
+          {
+            "text": "All",
+            "value": "(node-1|node-2|node-3)"
+          },
+          {
+            "text": "node-1",
+            "value": "node-1"
+          },
+          {
+            "text": "node-2",
+            "value": "node-2"
+          },
+          {
+            "text": "node-3",
+            "value": "node-3"
+          }
         ],
         "includeAll": true,
         "allFormat": "regex values",
         "query": "list series /openstack.keystone.check_api/",
         "current": {
+          "text": "All",
+          "value": "(node-1|node-2|node-3)"
         },
         "regex": "/^([^.]+)/",
         "refresh": true
@@ -1861,7 +2371,7 @@
         "iconColor": "#C0C6BE",
         "lineColor": "rgba(255, 96, 96, 0.592157)",
         "iconSize": 13,
-        "enable": false,
+        "enable": true,
         "query": "select * from merge(/annotation.cinder/) where $timeFilter",
         "titleColumn": "title",
         "tagsColumn": "tag",
