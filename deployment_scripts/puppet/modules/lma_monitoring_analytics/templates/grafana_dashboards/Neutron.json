@@ -237,7 +237,7 @@
           ],
           "aliasColors": {},
           "seriesOverrides": [],
-          "interval": ">60s",
+          "interval": "> 60s",
           "links": []
         },
         {
@@ -364,7 +364,7 @@
               "series": "merge(/$server.openstack.neutron.http.*.1\\d\\d/)",
               "query": "select count(value) from merge(/$server.openstack.neutron.http.*.1\\d\\d/) where $timeFilter group by time($interval) fill(0) order asc",
               "fill": "0",
-              "interval": "1m",
+              "interval": "",
               "alias": "1xx"
             },
             {
@@ -373,7 +373,7 @@
               "series": "merge(/$server.openstack.neutron.http.*.2\\d\\d/)",
               "query": "select count(value) from merge(/$server.openstack.neutron.http.*.2\\d\\d/) where $timeFilter group by time($interval) fill(0) order asc",
               "fill": "0",
-              "interval": "1m",
+              "interval": "",
               "alias": "2xx"
             },
             {
@@ -382,7 +382,7 @@
               "series": "merge(/$server.openstack.neutron.http.*.3\\d\\d/)",
               "query": "select count(value) from merge(/$server.openstack.neutron.http.*.3\\d\\d/) where $timeFilter group by time($interval) fill(0) order asc",
               "fill": "0",
-              "interval": "1m",
+              "interval": "",
               "alias": "3xx"
             },
             {
@@ -391,7 +391,7 @@
               "series": "merge(/$server.openstack.neutron.http.*.4\\d\\d/)",
               "query": "select count(value) from merge(/$server.openstack.neutron.http.*.4\\d\\d/) where $timeFilter group by time($interval) fill(0) order asc",
               "fill": "0",
-              "interval": "1m",
+              "interval": "",
               "alias": "4xx"
             },
             {
@@ -400,7 +400,7 @@
               "series": "merge(/$server.openstack.neutron.http.*.5\\d\\d/)",
               "query": "select count(value) from merge(/$server.openstack.neutron.http.*.5\\d\\d/) where $timeFilter group by time($interval) fill(0) order asc",
               "fill": "0",
-              "interval": "1m",
+              "interval": "",
               "alias": "5xx"
             }
           ],
@@ -439,7 +439,7 @@
           "id": 30,
           "links": [],
           "maxDataPoints": 100,
-          "interval": null,
+          "interval": "> 60s",
           "targets": [
             {
               "function": "mean",
@@ -513,7 +513,7 @@
           "id": 33,
           "links": [],
           "maxDataPoints": 100,
-          "interval": null,
+          "interval": "> 60s",
           "targets": [
             {
               "function": "mean",
@@ -1241,14 +1241,14 @@
           "id": 1,
           "links": [],
           "maxDataPoints": 100,
-          "interval": ">60s",
+          "interval": "> 60s",
           "targets": [
             {
               "function": "last",
               "column": "value",
               "series": "merge(/openstack.neutron.networks$/)",
-              "query": "select last(value) from merge(/openstack.neutron.networks$/) where $timeFilter group by time($interval) fill(0) order asc",
-              "fill": "0",
+              "query": "select last(value) from merge(/openstack.neutron.networks$/) where $timeFilter group by time($interval) order asc",
+              "fill": "",
               "rawQuery": false
             }
           ],
@@ -1278,11 +1278,75 @@
             "rgba(50, 172, 45, 0.97)"
           ],
           "sparkline": {
-            "show": true,
+            "show": false,
             "full": false,
             "lineColor": "rgb(31, 120, 193)",
             "fillColor": "rgba(31, 118, 189, 0.18)"
           }
+        },
+        {
+          "title": "",
+          "error": false,
+          "span": 10,
+          "editable": true,
+          "type": "graph",
+          "id": 35,
+          "datasource": null,
+          "renderer": "flot",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "short"
+          ],
+          "grid": {
+            "leftMax": null,
+            "rightMax": null,
+            "leftMin": 0,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold2": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "lines": true,
+          "fill": 0,
+          "linewidth": 1,
+          "points": false,
+          "pointradius": 5,
+          "bars": false,
+          "stack": false,
+          "percentage": false,
+          "legend": {
+            "show": false,
+            "values": false,
+            "min": false,
+            "max": false,
+            "current": false,
+            "total": false,
+            "avg": false
+          },
+          "nullPointMode": "connected",
+          "steppedLine": false,
+          "tooltip": {
+            "value_type": "cumulative",
+            "shared": true
+          },
+          "targets": [
+            {
+              "function": "mean",
+              "column": "value",
+              "series": "merge(/openstack.neutron.networks$/)",
+              "query": "select mean(value) from merge(/openstack.neutron.networks$/) where $timeFilter group by time($interval) fill(0) order asc",
+              "alias": "",
+              "fill": "0"
+            }
+          ],
+          "aliasColors": {},
+          "seriesOverrides": [],
+          "interval": "> 60s",
+          "links": [],
+          "leftYAxisLabel": "number of networks"
         },
         {
           "title": "Subnets",
@@ -1293,7 +1357,7 @@
           "id": 2,
           "links": [],
           "maxDataPoints": 100,
-          "interval": ">60s",
+          "interval": "> 60s",
           "targets": [
             {
               "function": "last",
@@ -1329,11 +1393,75 @@
             "rgba(50, 172, 45, 0.97)"
           ],
           "sparkline": {
-            "show": true,
+            "show": false,
             "full": false,
             "lineColor": "rgb(31, 120, 193)",
             "fillColor": "rgba(31, 118, 189, 0.18)"
           }
+        },
+        {
+          "title": "",
+          "error": false,
+          "span": 10,
+          "editable": true,
+          "type": "graph",
+          "id": 36,
+          "datasource": null,
+          "renderer": "flot",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "short"
+          ],
+          "grid": {
+            "leftMax": null,
+            "rightMax": null,
+            "leftMin": 0,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold2": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "lines": true,
+          "fill": 0,
+          "linewidth": 1,
+          "points": false,
+          "pointradius": 5,
+          "bars": false,
+          "stack": false,
+          "percentage": false,
+          "legend": {
+            "show": false,
+            "values": false,
+            "min": false,
+            "max": false,
+            "current": false,
+            "total": false,
+            "avg": false
+          },
+          "nullPointMode": "connected",
+          "steppedLine": false,
+          "tooltip": {
+            "value_type": "cumulative",
+            "shared": true
+          },
+          "targets": [
+            {
+              "function": "mean",
+              "column": "value",
+              "series": "merge(/openstack.neutron.subnets$/)",
+              "query": "select mean(value) from merge(/openstack.neutron.subnets$/) where $timeFilter group by time($interval) fill(0) order asc",
+              "alias": "",
+              "fill": "0"
+            }
+          ],
+          "aliasColors": {},
+          "seriesOverrides": [],
+          "links": [],
+          "interval": "> 60s",
+          "leftYAxisLabel": "number of subnets"
         },
         {
           "title": "Ports",
@@ -1344,7 +1472,7 @@
           "id": 3,
           "links": [],
           "maxDataPoints": 100,
-          "interval": ">60s",
+          "interval": "> 60s",
           "targets": [
             {
               "function": "last",
@@ -1380,11 +1508,75 @@
             "rgba(50, 172, 45, 0.97)"
           ],
           "sparkline": {
-            "show": true,
+            "show": false,
             "full": false,
             "lineColor": "rgb(31, 120, 193)",
             "fillColor": "rgba(31, 118, 189, 0.18)"
           }
+        },
+        {
+          "title": "",
+          "error": false,
+          "span": 10,
+          "editable": true,
+          "type": "graph",
+          "id": 37,
+          "datasource": null,
+          "renderer": "flot",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "short"
+          ],
+          "grid": {
+            "leftMax": null,
+            "rightMax": null,
+            "leftMin": 0,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold2": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "lines": true,
+          "fill": 0,
+          "linewidth": 1,
+          "points": false,
+          "pointradius": 5,
+          "bars": false,
+          "stack": false,
+          "percentage": false,
+          "legend": {
+            "show": false,
+            "values": false,
+            "min": false,
+            "max": false,
+            "current": false,
+            "total": false,
+            "avg": false
+          },
+          "nullPointMode": "connected",
+          "steppedLine": false,
+          "tooltip": {
+            "value_type": "cumulative",
+            "shared": true
+          },
+          "targets": [
+            {
+              "function": "mean",
+              "column": "value",
+              "series": "merge(/openstack.neutron.ports$/)",
+              "query": "select mean(value) from merge(/openstack.neutron.ports$/) where $timeFilter group by time($interval) fill(0) order asc",
+              "alias": "",
+              "fill": "0"
+            }
+          ],
+          "aliasColors": {},
+          "seriesOverrides": [],
+          "interval": "> 60s",
+          "links": [],
+          "leftYAxisLabel": "number of ports"
         },
         {
           "title": "Routers",
@@ -1395,7 +1587,7 @@
           "id": 6,
           "links": [],
           "maxDataPoints": 100,
-          "interval": ">60s",
+          "interval": "> 60s",
           "targets": [
             {
               "function": "last",
@@ -1431,11 +1623,74 @@
             "rgba(50, 172, 45, 0.97)"
           ],
           "sparkline": {
-            "show": true,
+            "show": false,
             "full": false,
             "lineColor": "rgb(31, 120, 193)",
             "fillColor": "rgba(31, 118, 189, 0.18)"
           }
+        },
+        {
+          "title": "",
+          "error": false,
+          "span": 10,
+          "editable": true,
+          "type": "graph",
+          "id": 38,
+          "datasource": null,
+          "renderer": "flot",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "short"
+          ],
+          "grid": {
+            "leftMax": null,
+            "rightMax": null,
+            "leftMin": 0,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold2": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "lines": true,
+          "fill": 0,
+          "linewidth": 1,
+          "points": false,
+          "pointradius": 5,
+          "bars": false,
+          "stack": false,
+          "percentage": false,
+          "legend": {
+            "show": false,
+            "values": false,
+            "min": false,
+            "max": false,
+            "current": false,
+            "total": false,
+            "avg": false
+          },
+          "nullPointMode": "connected",
+          "steppedLine": false,
+          "tooltip": {
+            "value_type": "cumulative",
+            "shared": true
+          },
+          "targets": [
+            {
+              "function": "mean",
+              "column": "value",
+              "series": "merge(/openstack.neutron.routers$/)",
+              "query": "select mean(value) from merge(/openstack.neutron.routers$/) where $timeFilter group by time($interval) fill(0) order asc",
+              "fill": "0"
+            }
+          ],
+          "aliasColors": {},
+          "seriesOverrides": [],
+          "leftYAxisLabel": "number of routers",
+          "links": [],
+          "interval": "> 60s"
         },
         {
           "title": "Floating IP addresses",
@@ -1446,7 +1701,7 @@
           "id": 7,
           "links": [],
           "maxDataPoints": 100,
-          "interval": ">60s",
+          "interval": "> 60s",
           "targets": [
             {
               "function": "last",
@@ -1482,11 +1737,74 @@
             "rgba(50, 172, 45, 0.97)"
           ],
           "sparkline": {
-            "show": true,
+            "show": false,
             "full": false,
             "lineColor": "rgb(31, 120, 193)",
             "fillColor": "rgba(31, 118, 189, 0.18)"
           }
+        },
+        {
+          "title": "",
+          "error": false,
+          "span": 10,
+          "editable": true,
+          "type": "graph",
+          "id": 39,
+          "datasource": null,
+          "renderer": "flot",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "short"
+          ],
+          "grid": {
+            "leftMax": null,
+            "rightMax": null,
+            "leftMin": 0,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold2": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "lines": true,
+          "fill": 0,
+          "linewidth": 1,
+          "points": false,
+          "pointradius": 5,
+          "bars": false,
+          "stack": false,
+          "percentage": false,
+          "legend": {
+            "show": false,
+            "values": false,
+            "min": false,
+            "max": false,
+            "current": false,
+            "total": false,
+            "avg": false
+          },
+          "nullPointMode": "connected",
+          "steppedLine": false,
+          "tooltip": {
+            "value_type": "cumulative",
+            "shared": true
+          },
+          "targets": [
+            {
+              "function": "mean",
+              "column": "value",
+              "series": "merge(/openstack.neutron.floatingips$/)",
+              "query": "select mean(value) from merge(/openstack.neutron.floatingips$/) where $timeFilter group by time($interval) fill(0) order asc",
+              "fill": "0"
+            }
+          ],
+          "aliasColors": {},
+          "seriesOverrides": [],
+          "leftYAxisLabel": "number of floating IPs",
+          "links": [],
+          "interval": "> 60s"
         }
       ],
       "showTitle": true
