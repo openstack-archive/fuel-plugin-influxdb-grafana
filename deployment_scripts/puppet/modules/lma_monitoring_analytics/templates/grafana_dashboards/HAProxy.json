@@ -49,12 +49,12 @@
             {
               "value": "1",
               "op": "=",
-              "text": "active"
+              "text": "ACTIVE"
             },
             {
               "value": "0",
               "op": "=",
-              "text": "inactive"
+              "text": "INACTIVE"
             }
           ],
           "nullPointMode": "null as zero",
@@ -129,39 +129,36 @@
             {
               "function": "mean",
               "column": "value",
-              "series": "/$controller.haproxy.$frontback.$service.session_current/",
-              "query": "select mean(value) from /$controller.haproxy.$frontback.$service.session_current/ where $timeFilter group by time($interval) order asc",
-              "alias": "$0.$3"
+              "series": "$controller.haproxy.$frontback.$service.session_current",
+              "query": "select mean(value) from \"$controller.haproxy.$frontback.$service.session_current\" where $timeFilter group by time($interval) fill(0) order asc",
+              "alias": "mean",
+              "fill": "0",
+              "hide": false
             },
             {
               "function": "max",
               "column": "value",
-              "series": "/$controller.haproxy.$frontback.$service.session_current/",
-              "query": "select max(value) from /$controller.haproxy.$frontback.$service.session_current/ where $timeFilter group by time($interval) order asc",
-              "alias": "max"
+              "series": "$controller.haproxy.$frontback.$service.session_current",
+              "query": "select max(value) from \"$controller.haproxy.$frontback.$service.session_current\" where $timeFilter group by time($interval) fill(0) order asc",
+              "alias": "max",
+              "fill": "0",
+              "interval": "",
+              "hide": false
             },
             {
               "function": "min",
               "column": "value",
-              "series": "/$controller.haproxy.$frontback.$service.session_current/",
-              "query": "select min(value) from /$controller.haproxy.$frontback.$service.session_current/ where $timeFilter group by time($interval) order asc",
-              "alias": "min"
+              "series": "$controller.haproxy.$frontback.$service.session_current",
+              "query": "select min(value) from \"$controller.haproxy.$frontback.$service.session_current\" where $timeFilter group by time($interval) fill(0) order asc",
+              "alias": "min",
+              "fill": "0",
+              "interval": ""
             }
           ],
           "aliasColors": {},
-          "seriesOverrides": [
-            {
-              "alias": "max",
-              "fillBelowTo": "min",
-              "lines": false
-            },
-            {
-              "alias": "min",
-              "lines": false
-            }
-          ],
+          "seriesOverrides": [],
           "links": [],
-          "interval": "30s",
+          "interval": ">60s",
           "leftYAxisLabel": "sessions"
         },
         {
@@ -214,16 +211,18 @@
           },
           "targets": [
             {
-              "function": "sum",
+              "function": "mean",
               "column": "value",
-              "series": "/$controller.haproxy.backend.$service.queue_current/",
-              "query": "select sum(value) from /$controller.haproxy.backend.$service.queue_current/ where $timeFilter group by time($interval) order asc",
-              "alias": "$0.$4"
+              "series": "$controller.haproxy.backend.$service.queue_current",
+              "query": "select mean(value) from \"$controller.haproxy.backend.$service.queue_current\" where $timeFilter group by time($interval) fill(0) order asc",
+              "alias": "$4",
+              "fill": "0"
             }
           ],
           "aliasColors": {},
           "seriesOverrides": [],
-          "links": []
+          "links": [],
+          "interval": ">60s"
         },
         {
           "title": "$service status",
@@ -259,12 +258,12 @@
             {
               "value": "1",
               "op": "=",
-              "text": "Healthy"
+              "text": "OKAY"
             },
             {
               "value": "0",
               "op": "=",
-              "text": "Down"
+              "text": "FAIL"
             }
           ],
           "nullPointMode": "null as zero",
@@ -340,9 +339,9 @@
             {
               "function": "derivative",
               "column": "value",
-              "series": "/$controller.haproxy.$frontback.$service.response_1xx/",
-              "query": "select derivative(value) from /$controller.haproxy.$frontback.$service.response_1xx/ where $timeFilter group by time($interval) fill(0) order asc",
-              "alias": "$0.1xx",
+              "series": "$controller.haproxy.$frontback.$service.response_1xx",
+              "query": "select derivative(value) from \"$controller.haproxy.$frontback.$service.response_1xx\" where $timeFilter group by time($interval) fill(0) order asc",
+              "alias": "1xx",
               "rawQuery": false,
               "interval": "",
               "fill": "0"
@@ -350,45 +349,45 @@
             {
               "function": "derivative",
               "column": "value",
-              "series": "/$controller.haproxy.$frontback.$service.response_2xx/",
-              "query": "select derivative(value) from /$controller.haproxy.$frontback.$service.response_2xx/ where $timeFilter group by time($interval) fill(0) order asc",
-              "alias": "$0.2xx",
+              "series": "$controller.haproxy.$frontback.$service.response_2xx",
+              "query": "select derivative(value) from \"$controller.haproxy.$frontback.$service.response_2xx\" where $timeFilter group by time($interval) fill(0) order asc",
+              "alias": "2xx",
               "rawQuery": false,
               "fill": "0"
             },
             {
               "function": "derivative",
               "column": "value",
-              "series": "/$controller.haproxy.$frontback.$service.response_3xx/",
-              "query": "select derivative(value) from /$controller.haproxy.$frontback.$service.response_3xx/ where $timeFilter group by time($interval) fill(0) order asc",
-              "alias": "$0.3xx",
+              "series": "$controller.haproxy.$frontback.$service.response_3xx",
+              "query": "select derivative(value) from \"$controller.haproxy.$frontback.$service.response_3xx\" where $timeFilter group by time($interval) fill(0) order asc",
+              "alias": "3xx",
               "rawQuery": false,
               "fill": "0"
             },
             {
               "function": "derivative",
               "column": "value",
-              "series": "/$controller.haproxy.$frontback.$service.response_4xx/",
-              "query": "select derivative(value) from /$controller.haproxy.$frontback.$service.response_4xx/ where $timeFilter group by time($interval) fill(0) order asc",
-              "alias": "$0.4xx",
+              "series": "$controller.haproxy.$frontback.$service.response_4xx",
+              "query": "select derivative(value) from \"$controller.haproxy.$frontback.$service.response_4xx\" where $timeFilter group by time($interval) fill(0) order asc",
+              "alias": "4xx",
               "rawQuery": false,
               "fill": "0"
             },
             {
               "function": "derivative",
               "column": "value",
-              "series": "/$controller.haproxy.$frontback.$service.response_5xx/",
-              "query": "select derivative(value) from /$controller.haproxy.$frontback.$service.response_5xx/ where $timeFilter group by time($interval) fill(0) order asc",
-              "alias": "$0.5xx",
+              "series": "$controller.haproxy.$frontback.$service.response_5xx",
+              "query": "select derivative(value) from \"$controller.haproxy.$frontback.$service.response_5xx\" where $timeFilter group by time($interval) fill(0) order asc",
+              "alias": "5xx",
               "rawQuery": false,
               "fill": "0"
             },
             {
               "function": "derivative",
               "column": "value",
-              "series": "/$controller.haproxy.$frontback.$service.response_other/",
-              "query": "select derivative(value) from /$controller.haproxy.$frontback.$service.response_other/ where $timeFilter group by time($interval) fill(0) order asc",
-              "alias": "$0.other",
+              "series": "$controller.haproxy.$frontback.$service.response_other",
+              "query": "select derivative(value) from \"$controller.haproxy.$frontback.$service.response_other\" where $timeFilter group by time($interval) fill(0) order asc",
+              "alias": "other",
               "rawQuery": false,
               "fill": "0"
             }
@@ -453,7 +452,7 @@
               "column": "value",
               "series": "/$controller.haproxy.$frontback.$service.error_/",
               "query": "select derivative(value) from /$controller.haproxy.$frontback.$service.error_/ where $timeFilter group by time($interval) fill(0) order asc",
-              "alias": "$0.$4",
+              "alias": "$4",
               "fill": "0"
             },
             {
@@ -462,13 +461,15 @@
               "column": "value",
               "series": "/$controller.haproxy.$frontback.$service.denied_/",
               "query": "select derivative(value) from /$controller.haproxy.$frontback.$service.denied_/ where $timeFilter group by time($interval) fill(0) order asc",
-              "alias": "$0.$4",
+              "alias": "$4",
               "fill": "0"
             }
           ],
           "aliasColors": {},
           "seriesOverrides": [],
-          "links": []
+          "links": [],
+          "interval": ">60s",
+          "leftYAxisLabel": "per second"
         }
       ],
       "showTitle": true
@@ -535,7 +536,7 @@
               "query": "select derivative(value) from merge(/haproxy.$frontback.$service.bytes_in/) where $timeFilter group by time($interval) fill(null) order asc",
               "alias": "in",
               "rawQuery": false,
-              "interval": "",
+              "interval": ">60s",
               "fill": "null"
             },
             {
@@ -546,7 +547,7 @@
               "alias": "out",
               "rawQuery": false,
               "hide": false,
-              "interval": "",
+              "interval": ">60s",
               "fill": "null"
             }
           ],
@@ -730,49 +731,50 @@
           },
           "targets": [
             {
-              "function": "sum",
+              "function": "mean",
               "column": "value",
-              "series": "merge(/haproxy.connection/)",
-              "query": "select sum(value) from merge(/haproxy.connection/) where $timeFilter group by time($interval) order asc",
-              "alias": "connections",
-              "rawQuery": false
+              "series": "$controller.haproxy.connections",
+              "query": "select mean(value) from \"$controller.haproxy.connections\" where $timeFilter group by time($interval) fill(0) order asc",
+              "alias": "$2",
+              "rawQuery": false,
+              "fill": "0"
             },
             {
               "target": "",
               "function": "mean",
               "column": "value",
-              "series": "/haproxy.pipes_free/",
-              "query": "select mean(value) from /haproxy.pipes_free/ where $timeFilter group by time($interval) fill(null) order asc",
-              "alias": "$0.$2",
+              "series": "$controller.haproxy.pipes_free",
+              "query": "select mean(value) from \"$controller.haproxy.pipes_free\" where $timeFilter group by time($interval) fill(0) order asc",
+              "alias": "$2",
               "hide": false,
-              "fill": "null"
+              "fill": "0"
             },
             {
               "target": "",
               "function": "mean",
               "column": "value",
-              "series": "/haproxy.pipes_used/",
-              "query": "select mean(value) from /haproxy.pipes_used/ where $timeFilter group by time($interval) fill(null) order asc",
+              "series": "$controller.haproxy.pipes_used",
+              "query": "select mean(value) from \"$controller.haproxy.pipes_used\" where $timeFilter group by time($interval) fill(0) order asc",
               "hide": false,
-              "alias": "$0.$2",
-              "fill": "null",
+              "alias": "$2",
+              "fill": "0",
               "interval": ""
             },
             {
               "target": "",
               "function": "mean",
               "column": "value",
-              "series": "/haproxy.tasks/",
-              "query": "select mean(value) from /haproxy.tasks/ where $timeFilter group by time($interval) fill(null) order asc",
-              "alias": "$0.$2",
-              "fill": "null",
+              "series": "$controller.haproxy.tasks",
+              "query": "select mean(value) from \"$controller.haproxy.tasks\" where $timeFilter group by time($interval) fill(0) order asc",
+              "alias": "$2",
+              "fill": "0",
               "interval": ""
             }
           ],
           "aliasColors": {},
           "seriesOverrides": [],
           "links": [],
-          "interval": "60s"
+          "interval": ">60s"
         },
         {
           "title": "ALL backend retries",
@@ -828,7 +830,7 @@
               "column": "value",
               "series": "/$controller.haproxy.backend.\\w+.*.retries$/",
               "query": "select max(value) from /$controller.haproxy.backend.\\w+.*.retries$/ where $timeFilter group by time($interval) fill(0) order asc",
-              "alias": "$0.$3",
+              "alias": "$3",
               "rawQuery": false,
               "fill": "0"
             }
@@ -837,7 +839,7 @@
           "seriesOverrides": [],
           "links": [],
           "leftYAxisLabel": "retries",
-          "interval": "30s"
+          "interval": ">60s"
         },
         {
           "title": "Global network throughput $frontback (all Services)",
