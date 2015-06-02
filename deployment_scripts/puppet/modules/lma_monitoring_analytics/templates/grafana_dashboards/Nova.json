@@ -1685,7 +1685,7 @@
       "showTitle": true
     },
     {
-      "title": "Resources",
+      "title": "Instances",
       "height": "250px",
       "editable": true,
       "collapse": false,
@@ -1730,16 +1730,80 @@
           "colorBackground": false,
           "colorValue": false,
           "colors": [
-            "rgba(245, 54, 54, 0.9)",
+            "rgba(50, 172, 45, 0.97)",
             "rgba(237, 129, 40, 0.89)",
-            "rgba(50, 172, 45, 0.97)"
+            "rgba(245, 54, 54, 0.9)"
           ],
           "sparkline": {
-            "show": true,
+            "show": false,
             "full": false,
             "lineColor": "rgb(31, 120, 193)",
             "fillColor": "rgba(31, 118, 189, 0.18)"
           }
+        },
+        {
+          "title": "",
+          "error": false,
+          "span": 10,
+          "editable": true,
+          "type": "graph",
+          "id": 64,
+          "datasource": null,
+          "renderer": "flot",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "short"
+          ],
+          "grid": {
+            "leftMax": null,
+            "rightMax": null,
+            "leftMin": 0,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold2": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "lines": true,
+          "fill": 0,
+          "linewidth": 1,
+          "points": false,
+          "pointradius": 5,
+          "bars": false,
+          "stack": false,
+          "percentage": false,
+          "legend": {
+            "show": true,
+            "values": true,
+            "min": false,
+            "max": true,
+            "current": true,
+            "total": false,
+            "avg": false
+          },
+          "nullPointMode": "connected",
+          "steppedLine": false,
+          "tooltip": {
+            "value_type": "cumulative",
+            "shared": true
+          },
+          "targets": [
+            {
+              "function": "max",
+              "column": "value",
+              "series": "merge(/openstack.nova.instances.active/)",
+              "query": "select max(value) from merge(/openstack.nova.instances.active/) where $timeFilter group by time($interval) fill(0) order asc",
+              "fill": "0",
+              "alias": "active"
+            }
+          ],
+          "aliasColors": {},
+          "seriesOverrides": [],
+          "links": [],
+          "interval": ">60s",
+          "leftYAxisLabel": "number of instances"
         },
         {
           "title": "Instances in error",
@@ -1756,8 +1820,8 @@
               "function": "last",
               "column": "value",
               "series": "merge(/openstack.nova.instances.error/)",
-              "query": "select last(value) from merge(/openstack.nova.instances.error/) where $timeFilter group by time($interval) fill(null) order asc",
-              "fill": "null"
+              "query": "select last(value) from merge(/openstack.nova.instances.error/) where $timeFilter group by time($interval) fill(0) order asc",
+              "fill": "0"
             }
           ],
           "cacheTimeout": null,
@@ -1786,16 +1850,131 @@
             "rgba(50, 172, 45, 0.97)"
           ],
           "sparkline": {
-            "show": true,
+            "show": false,
             "full": false,
             "lineColor": "rgb(31, 120, 193)",
             "fillColor": "rgba(31, 118, 189, 0.18)"
           }
         },
         {
+          "title": "",
+          "error": false,
+          "span": 10,
+          "editable": true,
+          "type": "graph",
+          "id": 65,
+          "datasource": null,
+          "renderer": "flot",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "short"
+          ],
+          "grid": {
+            "leftMax": null,
+            "rightMax": null,
+            "leftMin": 0,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold2": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "lines": true,
+          "fill": 0,
+          "linewidth": 1,
+          "points": false,
+          "pointradius": 5,
+          "bars": false,
+          "stack": false,
+          "percentage": false,
+          "legend": {
+            "show": true,
+            "values": true,
+            "min": false,
+            "max": true,
+            "current": true,
+            "total": false,
+            "avg": false
+          },
+          "nullPointMode": "connected",
+          "steppedLine": false,
+          "tooltip": {
+            "value_type": "cumulative",
+            "shared": true
+          },
+          "targets": [
+            {
+              "function": "max",
+              "column": "value",
+              "series": "merge(/openstack.nova.instances.error/)",
+              "query": "select max(value) from merge(/openstack.nova.instances.error/) where $timeFilter group by time($interval) fill(0) order asc",
+              "fill": "0",
+              "alias": "error"
+            }
+          ],
+          "aliasColors": {},
+          "seriesOverrides": [],
+          "links": [],
+          "interval": ">60s",
+          "leftYAxisLabel": "number of instances"
+        },
+        {
           "title": "Instance creation time",
           "error": false,
-          "span": 8,
+          "span": 2,
+          "editable": true,
+          "type": "singlestat",
+          "id": 68,
+          "links": [],
+          "maxDataPoints": 100,
+          "interval": ">1m",
+          "targets": [
+            {
+              "function": "last",
+              "column": "value",
+              "series": "merge(/openstack.nova.instance_creation_time/)",
+              "query": "select last(value) from merge(/openstack.nova.instance_creation_time/) where $timeFilter group by time($interval) order asc",
+              "fill": ""
+            }
+          ],
+          "cacheTimeout": null,
+          "format": "s",
+          "prefix": "",
+          "postfix": "",
+          "nullText": null,
+          "valueMaps": [
+            {
+              "value": "null",
+              "op": "=",
+              "text": "N/A"
+            }
+          ],
+          "nullPointMode": "connected",
+          "valueName": "avg",
+          "prefixFontSize": "50%",
+          "valueFontSize": "80%",
+          "postfixFontSize": "50%",
+          "thresholds": "",
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "sparkline": {
+            "show": false,
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "fillColor": "rgba(31, 118, 189, 0.18)"
+          }
+        },
+        {
+          "title": "",
+          "error": false,
+          "span": 10,
           "editable": true,
           "type": "graph",
           "id": 28,
@@ -1827,13 +2006,13 @@
           "percentage": false,
           "legend": {
             "show": true,
-            "values": true,
+            "values": false,
             "min": false,
-            "max": true,
+            "max": false,
             "current": false,
             "total": false,
             "avg": false,
-            "alignAsTable": true,
+            "alignAsTable": false,
             "hideEmpty": false,
             "sortDesc": true
           },
@@ -1847,22 +2026,52 @@
             {
               "function": "mean",
               "column": "value",
-              "series": "/openstack.nova.instance_creation_time/",
-              "query": "select mean(value) from /openstack.nova.instance_creation_time/ where $timeFilter group by time($interval) fill(0) order asc",
+              "series": "merge(/openstack.nova.instance_creation_time/)",
+              "query": "select mean(value) from merge(/openstack.nova.instance_creation_time/) where $timeFilter group by time($interval) fill(0) order asc",
               "fill": "0",
-              "alias": "$0",
+              "alias": "mean",
               "rawQuery": false
+            },
+            {
+              "function": "max",
+              "column": "value",
+              "series": "merge(/openstack.nova.instance_creation_time/)",
+              "query": "select max(value) from merge(/openstack.nova.instance_creation_time/) where $timeFilter group by time($interval) fill(0) order asc",
+              "fill": "0",
+              "alias": "max",
+              "rawQuery": false,
+              "condition": ""
+            },
+            {
+              "function": "min",
+              "column": "value",
+              "series": "merge(/openstack.nova.instance_creation_time/)",
+              "query": "select min(value) from merge(/openstack.nova.instance_creation_time/) where $timeFilter group by time($interval) fill(0) order asc",
+              "fill": "0",
+              "alias": "min",
+              "rawQuery": false,
+              "condition": ""
             }
           ],
           "aliasColors": {},
           "seriesOverrides": [],
           "interval": ">60s",
-          "links": []
-        },
+          "links": [],
+          "leftYAxisLabel": "creation time"
+        }
+      ],
+      "showTitle": true
+    },
+    {
+      "title": "Resources",
+      "height": "250px",
+      "editable": true,
+      "collapse": false,
+      "panels": [
         {
           "title": "",
           "error": false,
-          "span": 3,
+          "span": 2,
           "editable": true,
           "type": "text",
           "id": 34,
@@ -1874,7 +2083,7 @@
         {
           "title": "Virtual CPU",
           "error": false,
-          "span": 3,
+          "span": 2,
           "editable": true,
           "type": "singlestat",
           "id": 32,
@@ -1925,7 +2134,7 @@
         {
           "title": "Virtual Disks",
           "error": false,
-          "span": 3,
+          "span": 2,
           "editable": true,
           "type": "singlestat",
           "id": 30,
@@ -1937,14 +2146,15 @@
               "function": "last",
               "column": "value",
               "series": "merge(/openstack.nova.total_used_disk/)",
-              "query": "select last(value) from merge(/openstack.nova.total_used_disk/) where $timeFilter group by time($interval) fill(null) order asc",
-              "fill": "null"
+              "query": "select last(value * 1024 * 1024 * 1024) from merge(/openstack.nova.total_used_disk/) where $timeFilter group by time($interval) fill(null) order asc",
+              "fill": "null",
+              "rawQuery": true
             }
           ],
           "cacheTimeout": null,
-          "format": "none",
+          "format": "bytes",
           "prefix": "",
-          "postfix": " GiB",
+          "postfix": " ",
           "nullText": null,
           "valueMaps": [
             {
@@ -1976,7 +2186,7 @@
         {
           "title": "Virtual RAM",
           "error": false,
-          "span": 3,
+          "span": 2,
           "editable": true,
           "type": "singlestat",
           "id": 31,
@@ -1988,14 +2198,15 @@
               "function": "last",
               "column": "value",
               "series": "merge(/openstack.nova.total_used_ram/)",
-              "query": "select last(value) from merge(/openstack.nova.total_used_ram/) where $timeFilter group by time($interval) fill(null) order asc",
-              "fill": "null"
+              "query": "select last(value * 1024 * 1024 ) from merge(/openstack.nova.total_used_ram/) where $timeFilter group by time($interval) fill(null) order asc",
+              "fill": "null",
+              "rawQuery": true
             }
           ],
           "cacheTimeout": null,
-          "format": "none",
+          "format": "bytes",
           "prefix": "",
-          "postfix": " MiB",
+          "postfix": " ",
           "nullText": null,
           "valueMaps": [
             {
@@ -2027,7 +2238,19 @@
         {
           "title": "",
           "error": false,
-          "span": 3,
+          "span": 4,
+          "editable": true,
+          "type": "text",
+          "id": 66,
+          "mode": "markdown",
+          "content": "",
+          "style": {},
+          "links": []
+        },
+        {
+          "title": "",
+          "error": false,
+          "span": 2,
           "editable": true,
           "type": "text",
           "id": 38,
@@ -2039,7 +2262,7 @@
         {
           "title": "",
           "error": false,
-          "span": 3,
+          "span": 2,
           "editable": true,
           "type": "singlestat",
           "id": 37,
@@ -2090,7 +2313,7 @@
         {
           "title": "",
           "error": false,
-          "span": 3,
+          "span": 2,
           "editable": true,
           "type": "singlestat",
           "id": 33,
@@ -2102,14 +2325,15 @@
               "function": "last",
               "column": "value",
               "series": "merge(/openstack.nova.total_free_disk/)",
-              "query": "select last(value) from merge(/openstack.nova.total_free_disk/) where $timeFilter group by time($interval) fill(null) order asc",
-              "fill": "null"
+              "query": "select last(value * 1024 * 1024 * 1024) from merge(/openstack.nova.total_free_disk/) where $timeFilter group by time($interval) fill(null) order asc",
+              "fill": "null",
+              "rawQuery": true
             }
           ],
           "cacheTimeout": null,
-          "format": "none",
+          "format": "bytes",
           "prefix": "",
-          "postfix": " GiB",
+          "postfix": "",
           "nullText": null,
           "valueMaps": [
             {
@@ -2141,7 +2365,7 @@
         {
           "title": "",
           "error": false,
-          "span": 3,
+          "span": 2,
           "editable": true,
           "type": "singlestat",
           "id": 36,
@@ -2153,14 +2377,15 @@
               "function": "last",
               "column": "value",
               "series": "merge(/openstack.nova.total_free_ram/)",
-              "query": "select last(value) from merge(/openstack.nova.total_free_ram/) where $timeFilter group by time($interval) fill(null) order asc",
-              "fill": "null"
+              "query": "select last(value * 1024 * 1024) from merge(/openstack.nova.total_free_ram/) where $timeFilter group by time($interval) fill(null) order asc",
+              "fill": "null",
+              "rawQuery": true
             }
           ],
           "cacheTimeout": null,
-          "format": "none",
+          "format": "bytes",
           "prefix": "",
-          "postfix": " MiB",
+          "postfix": "",
           "nullText": null,
           "valueMaps": [
             {
@@ -2188,6 +2413,18 @@
             "lineColor": "rgb(31, 120, 193)",
             "fillColor": "rgba(31, 118, 189, 0.18)"
           }
+        },
+        {
+          "title": "",
+          "error": false,
+          "span": 4,
+          "editable": true,
+          "type": "text",
+          "id": 67,
+          "mode": "markdown",
+          "content": "",
+          "style": {},
+          "links": []
         }
       ],
       "showTitle": true
