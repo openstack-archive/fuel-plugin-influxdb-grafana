@@ -345,12 +345,12 @@
             "threshold2Color": "rgba(234, 112, 112, 0.22)"
           },
           "lines": true,
-          "fill": 1,
+          "fill": 0,
           "linewidth": 1,
           "points": false,
           "pointradius": 5,
           "bars": false,
-          "stack": true,
+          "stack": false,
           "percentage": false,
           "legend": {
             "show": true,
@@ -372,10 +372,10 @@
               "function": "mean",
               "column": "value",
               "series": "/$server.rabbitmq.memory/",
-              "query": "select mean(value) from /$server.rabbitmq.memory/ where $timeFilter group by time($interval) fill(null) order asc",
+              "query": "select mean(value) from /$server.rabbitmq.memory/ where $timeFilter group by time($interval) fill(0) order asc",
               "alias": "$0.total (all processes)",
               "rawQuery": false,
-              "fill": "null"
+              "fill": "0"
             },
             {
               "function": "mean",
@@ -385,16 +385,11 @@
               "alias": "$0.$2 (main process)",
               "rawQuery": false,
               "hide": true,
-              "fill": "null"
+              "fill": "0"
             }
           ],
           "aliasColors": {},
-          "seriesOverrides": [
-            {
-              "alias": "/pmap/",
-              "yaxis": 2
-            }
-          ],
+          "seriesOverrides": [],
           "links": [],
           "interval": "> 60s"
         },
@@ -424,12 +419,12 @@
             "threshold2Color": "rgba(234, 112, 112, 0.22)"
           },
           "lines": true,
-          "fill": 1,
+          "fill": 0,
           "linewidth": 1,
           "points": false,
           "pointradius": 5,
           "bars": false,
-          "stack": true,
+          "stack": false,
           "percentage": false,
           "legend": {
             "show": true,
@@ -451,8 +446,9 @@
               "function": "mean",
               "column": "value",
               "series": "/$server.rabbitmq.messages/",
-              "query": "select mean(value) from /$server.rabbitmq.messages/ where $timeFilter group by time($interval) order asc",
-              "alias": "$0"
+              "query": "select mean(value) from /$server.rabbitmq.messages/ where $timeFilter group by time($interval) fill(0) order asc",
+              "alias": "$0",
+              "fill": "0"
             }
           ],
           "aliasColors": {},

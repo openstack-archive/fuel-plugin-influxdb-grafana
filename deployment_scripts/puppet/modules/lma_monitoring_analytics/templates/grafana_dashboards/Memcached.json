@@ -33,7 +33,7 @@
           "grid": {
             "leftMax": null,
             "rightMax": null,
-            "leftMin": null,
+            "leftMin": 0,
             "rightMin": null,
             "threshold1": null,
             "threshold2": null,
@@ -46,7 +46,7 @@
           "points": false,
           "pointradius": 5,
           "bars": false,
-          "stack": true,
+          "stack": false,
           "percentage": false,
           "legend": {
             "show": true,
@@ -129,21 +129,21 @@
           "steppedLine": false,
           "tooltip": {
             "value_type": "cumulative",
-            "shared": false
+            "shared": true
           },
           "targets": [
             {
               "function": "mean",
               "column": "value",
               "series": "/memcached.df.cache.used/",
-              "query": "select mean(value) from /memcached.df.cache.used/ where $timeFilter group by time($interval) order asc",
+              "query": "select mean(value) from /memcached.df.cache.used/ where $timeFilter group by time($interval) fill(0) order asc",
               "alias": "$0",
-              "fill": ""
+              "fill": "0"
             }
           ],
           "aliasColors": {},
           "seriesOverrides": [],
-          "interval": "1m",
+          "interval": ">1m",
           "links": []
         }
       ]
@@ -155,7 +155,7 @@
       "collapse": false,
       "panels": [
         {
-          "title": "Command rate",
+          "title": "Get/Set rates",
           "error": false,
           "span": 6,
           "editable": true,
@@ -206,18 +206,20 @@
             {
               "function": "mean",
               "column": "value",
-              "series": "/memcached.command.get/",
-              "query": "select mean(value) from /memcached.command.get/ where $timeFilter group by time($interval) order asc",
-              "alias": "$0.get"
+              "series": "merge(/memcached.command.get/)",
+              "query": "select mean(value) from merge(/memcached.command.get/) where $timeFilter group by time($interval) fill(0) order asc",
+              "alias": "get",
+              "fill": "0"
             },
             {
               "function": "mean",
               "column": "value",
               "series": "merge(/memcached.command.set/)",
-              "query": "select mean(value) from /memcached.command.set/ where $timeFilter group by time($interval) order asc",
-              "alias": "$0.set",
-              "rawQuery": true,
-              "hide": false
+              "query": "select mean(value) from merge(/memcached.command.set/) where $timeFilter group by time($interval) fill(0) order asc",
+              "alias": "set",
+              "rawQuery": false,
+              "hide": false,
+              "fill": "0"
             }
           ],
           "aliasColors": {},
@@ -272,20 +274,21 @@
           "steppedLine": false,
           "tooltip": {
             "value_type": "cumulative",
-            "shared": false
+            "shared": true
           },
           "targets": [
             {
               "function": "mean",
               "column": "value",
               "series": "/memcached.df.cache.free/",
-              "query": "select mean(value) from /memcached.df.cache.free/ where $timeFilter group by time($interval) order asc",
-              "alias": "$0"
+              "query": "select mean(value) from /memcached.df.cache.free/ where $timeFilter group by time($interval) fill(0) order asc",
+              "alias": "$0",
+              "fill": "0"
             }
           ],
           "aliasColors": {},
           "seriesOverrides": [],
-          "interval": "1m",
+          "interval": ">1m",
           "links": []
         }
       ]
@@ -424,74 +427,39 @@
           "steppedLine": false,
           "tooltip": {
             "value_type": "cumulative",
-            "shared": false
+            "shared": true
           },
           "targets": [
             {
               "function": "mean",
               "column": "value",
-              "series": "/memcached.ops.hits/",
-              "query": "select mean(value) from /memcached.ops.hits/ where $timeFilter group by time($interval) order asc",
-              "alias": "$0.hits",
+              "series": "merge(/memcached.ops.hits/)",
+              "query": "select mean(value) from merge(/memcached.ops.hits/) where $timeFilter group by time($interval) fill(0) order asc",
+              "alias": "hits",
               "interval": "",
-              "rawQuery": true
+              "rawQuery": false,
+              "hide": false,
+              "fill": "0"
             },
             {
               "function": "mean",
               "column": "value",
-              "series": "/memcached.ops.misses/",
-              "query": "select mean(value) from /memcached.ops.misses/ where $timeFilter group by time($interval) order asc",
-              "alias": "$0.misses",
-              "rawQuery": true,
-              "interval": ""
-            },
-            {
-              "function": "mean",
-              "column": "value",
-              "series": "/memcached.ops.misses/",
-              "query": "select mean(value) from merge(/memcached.ops.incr_misses/) where $timeFilter group by time($interval) order asc",
-              "alias": "incr_misses",
-              "rawQuery": true,
+              "series": "merge(/memcached.ops.misses/)",
+              "query": "select mean(value) from merge(/memcached.ops.misses/) where $timeFilter group by time($interval) fill(0) order asc",
+              "alias": "misses",
+              "rawQuery": false,
               "interval": "",
-              "hide": true
-            },
-            {
-              "function": "mean",
-              "column": "value",
-              "series": "/memcached.ops.hits/",
-              "query": "select mean(value) from merge(/memcached.ops.incr_hits/) where $timeFilter group by time($interval) order asc",
-              "alias": "incr_hits",
-              "interval": "",
-              "rawQuery": true,
-              "hide": true
-            },
-            {
-              "function": "mean",
-              "column": "value",
-              "series": "/memcached.ops.hits/",
-              "query": "select mean(value) from merge(/memcached.ops.decr_hits/) where $timeFilter group by time($interval) order asc",
-              "alias": "decr_hits",
-              "interval": "",
-              "rawQuery": true,
-              "hide": true
-            },
-            {
-              "function": "mean",
-              "column": "value",
-              "series": "/memcached.ops.hits/",
-              "query": "select mean(value*-1) from merge(/memcached.ops.decr_misses/) where $timeFilter group by time($interval) order asc",
-              "alias": "decr_misses",
-              "interval": "",
-              "rawQuery": true,
-              "hide": true
+              "hide": false,
+              "fill": "0"
             },
             {
               "target": "",
               "function": "mean",
               "column": "value",
-              "series": "/memcached.ops.evictions/",
-              "query": "select mean(value) from /memcached.ops.evictions/ where $timeFilter group by time($interval) order asc",
-              "alias": "$0.evictions"
+              "series": "merge(/memcached.ops.evictions/)",
+              "query": "select mean(value) from merge(/memcached.ops.evictions/) where $timeFilter group by time($interval) fill(0) order asc",
+              "alias": "evictions",
+              "fill": "0"
             }
           ],
           "aliasColors": {
@@ -505,7 +473,7 @@
             }
           ],
           "links": [],
-          "interval": "1m",
+          "interval": ">1m",
           "leftYAxisLabel": "per second"
         }
       ]
@@ -645,13 +613,13 @@
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2Color": "rgba(234, 112, 112, 0.22)"
           },
-          "lines": false,
+          "lines": true,
           "fill": 0,
           "linewidth": 1,
           "points": false,
           "pointradius": 5,
-          "bars": true,
-          "stack": true,
+          "bars": false,
+          "stack": false,
           "percentage": false,
           "legend": {
             "show": true,
@@ -663,7 +631,7 @@
             "avg": false
           },
           "nullPointMode": "null as zero",
-          "steppedLine": true,
+          "steppedLine": false,
           "tooltip": {
             "value_type": "individual",
             "shared": true
