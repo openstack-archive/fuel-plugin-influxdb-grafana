@@ -1052,7 +1052,7 @@
         "allFormat": "regex values",
         "query": "list series /openstack.keystone.check_api/",
         "regex": "/^([^.]+)/",
-        "refresh": true,
+        "refresh": false,
         "current": {
         }
       },
@@ -1067,7 +1067,7 @@
         "allFormat": "glob",
         "query": "list series /haproxy.backend.*downtime/",
         "regex": "/^[^.]+.haproxy\\.backend\\.([^.]+)/",
-        "refresh": true,
+        "refresh": false,
         "current": {
         }
       },

@@ -2329,7 +2329,7 @@
       {
         "type": "query",
         "datasource": null,
-        "refresh_on_load": true,
+        "refresh_on_load": false,
         "name": "server",
         "options": [
         ],
@@ -2339,7 +2339,7 @@
         "current": {
         },
         "regex": "/^([^.]+)/",
-        "refresh": true
+        "refresh": false
       }
     ],
     "enable": true

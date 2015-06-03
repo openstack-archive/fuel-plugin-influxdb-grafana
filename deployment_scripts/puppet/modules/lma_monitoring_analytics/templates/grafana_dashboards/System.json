@@ -1516,7 +1516,7 @@
         "regex": "/^([^.]+)/",
         "current": {
         },
-        "refresh": true
+        "refresh": false
       },
       {
         "type": "query",
@@ -1531,7 +1531,7 @@
         "current": {
         },
         "regex": "/$server.disk.([a-z]+)/",
-        "refresh": true
+        "refresh": false
       },
       {
         "type": "query",
@@ -1546,7 +1546,7 @@
         "current": {
         },
         "regex": "/fs.([^.]+)/",
-        "refresh": true
+        "refresh": false
       },
       {
         "type": "query",
@@ -1561,7 +1561,7 @@
         "current": {
         },
         "regex": "/([^.]+).if_octets/",
-        "refresh": true
+        "refresh": false
       }
     ],
     "enable": true
