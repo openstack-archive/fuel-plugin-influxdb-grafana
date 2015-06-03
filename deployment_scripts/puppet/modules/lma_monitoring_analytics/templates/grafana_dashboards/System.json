@@ -504,7 +504,7 @@
           "id": 26,
           "links": [],
           "maxDataPoints": 100,
-          "interval": "",
+          "interval": ">60s",
           "targets": [
             {
               "function": "last",

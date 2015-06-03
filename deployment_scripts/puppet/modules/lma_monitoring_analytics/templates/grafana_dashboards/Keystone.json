@@ -361,7 +361,7 @@
               "series": "merge(/$server.openstack.keystone.http.*.1\\d\\d/)",
               "query": "select count(value) from merge(/$server.openstack.keystone.http.*.1\\d\\d/) where $timeFilter group by time($interval) fill(0) order asc",
               "fill": "0",
-              "interval": "1m",
+              "interval": "",
               "alias": "1xx"
             },
             {
@@ -370,7 +370,7 @@
               "series": "merge(/$server.openstack.keystone.http.*.2\\d\\d/)",
               "query": "select count(value) from merge(/$server.openstack.keystone.http.*.2\\d\\d/) where $timeFilter group by time($interval) fill(0) order asc",
               "fill": "0",
-              "interval": "1m",
+              "interval": "",
               "alias": "2xx"
             },
             {
@@ -379,7 +379,7 @@
               "series": "merge(/$server.openstack.keystone.http.*.3\\d\\d/)",
               "query": "select count(value) from merge(/$server.openstack.keystone.http.*.3\\d\\d/) where $timeFilter group by time($interval) fill(0) order asc",
               "fill": "0",
-              "interval": "1m",
+              "interval": "",
               "alias": "3xx"
             },
             {
@@ -388,7 +388,7 @@
               "series": "merge(/$server.openstack.keystone.http.*.4\\d\\d/)",
               "query": "select count(value) from merge(/$server.openstack.keystone.http.*.4\\d\\d/) where $timeFilter group by time($interval) fill(0) order asc",
               "fill": "0",
-              "interval": "1m",
+              "interval": "",
               "alias": "4xx"
             },
             {
@@ -397,7 +397,7 @@
               "series": "merge(/$server.openstack.keystone.http.*.5\\d\\d/)",
               "query": "select count(value) from merge(/$server.openstack.keystone.http.*.5\\d\\d/) where $timeFilter group by time($interval) fill(0) order asc",
               "fill": "0",
-              "interval": "1m",
+              "interval": "",
               "alias": "5xx"
             }
           ],
@@ -436,7 +436,7 @@
           "id": 16,
           "links": [],
           "maxDataPoints": 100,
-          "interval": null,
+          "interval": ">60s",
           "targets": [
             {
               "function": "mean",
@@ -486,7 +486,7 @@
           "id": 17,
           "links": [],
           "maxDataPoints": 100,
-          "interval": null,
+          "interval": ">60s",
           "targets": [
             {
               "function": "mean",
@@ -560,7 +560,7 @@
           "id": 20,
           "links": [],
           "maxDataPoints": 100,
-          "interval": null,
+          "interval": ">60s",
           "targets": [
             {
               "function": "mean",
@@ -610,7 +610,7 @@
           "id": 21,
           "links": [],
           "maxDataPoints": 100,
-          "interval": null,
+          "interval": ">60s",
           "targets": [
             {
               "function": "mean",

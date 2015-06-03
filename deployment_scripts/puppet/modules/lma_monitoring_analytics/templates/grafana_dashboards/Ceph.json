@@ -24,7 +24,7 @@
           "id": 8,
           "links": [],
           "maxDataPoints": 100,
-          "interval": null,
+          "interval": ">60s",
           "targets": [
             {
               "function": "last",
@@ -89,7 +89,7 @@
           "id": 24,
           "links": [],
           "maxDataPoints": 100,
-          "interval": null,
+          "interval": ">60s",
           "targets": [
             {
               "function": "mean",
@@ -98,7 +98,7 @@
               "rawQuery": true,
               "query": "select last((avail.value * 1.0) / (total.value) * 100) from \"$controller.ceph.cluster-$cluster.pool.total_avail_bytes\" as avail inner join \"$controller.ceph.cluster-$cluster.pool.total_bytes\" as total  where $timeFilter group by time($interval) order asc",
               "alias": "",
-              "interval": "60"
+              "interval": ""
             }
           ],
           "cacheTimeout": null,
@@ -142,7 +142,7 @@
           "id": 10,
           "links": [],
           "maxDataPoints": 100,
-          "interval": null,
+          "interval": ">60s",
           "targets": [
             {
               "function": "last",
@@ -192,7 +192,7 @@
           "id": 9,
           "links": [],
           "maxDataPoints": 100,
-          "interval": null,
+          "interval": ">60s",
           "targets": [
             {
               "function": "last",
@@ -311,7 +311,7 @@
           "seriesOverrides": [],
           "links": [],
           "leftYAxisLabel": "",
-          "interval": "60s"
+          "interval": ">60s"
         },
         {
           "title": "Free Storage",
@@ -389,7 +389,7 @@
               "query": "select mean((avail.value * 1.0) / (total.value) * 100) from \"$controller.ceph.cluster-$cluster.pool.total_avail_bytes\" as avail inner join \"$controller.ceph.cluster-$cluster.pool.total_bytes\" as total  where $timeFilter group by time($interval) order asc",
               "rawQuery": true,
               "alias": "%",
-              "interval": "10s",
+              "interval": "",
               "hide": false
             },
             {
@@ -427,7 +427,7 @@
           "id": 4,
           "links": [],
           "maxDataPoints": 100,
-          "interval": null,
+          "interval": ">60s",
           "targets": [
             {
               "function": "last",
@@ -628,7 +628,7 @@
           "id": 15,
           "links": [],
           "maxDataPoints": 100,
-          "interval": "60s",
+          "interval": ">60s",
           "targets": [
             {
               "function": "sum",
@@ -730,7 +730,8 @@
           "aliasColors": {},
           "seriesOverrides": [],
           "links": [],
-          "leftYAxisLabel": ""
+          "leftYAxisLabel": "",
+          "interval": ">60s"
         },
         {
           "title": "I/O ($pool)",
@@ -818,7 +819,8 @@
             }
           ],
           "links": [],
-          "leftYAxisLabel": "bytes/sec"
+          "leftYAxisLabel": "bytes/sec",
+          "interval": ">60s"
         },
         {
           "title": "Replication factor ($pool)",
@@ -829,7 +831,7 @@
           "id": 17,
           "links": [],
           "maxDataPoints": 100,
-          "interval": null,
+          "interval": ">60s",
           "targets": [
             {
               "function": "mean",
@@ -950,7 +952,7 @@
           "id": 16,
           "links": [],
           "maxDataPoints": 100,
-          "interval": null,
+          "interval": ">60s",
           "targets": [
             {
               "function": "last",
@@ -1059,7 +1061,7 @@
           "aliasColors": {},
           "seriesOverrides": [],
           "links": [],
-          "interval": "60s",
+          "interval": ">60s",
           "leftYAxisLabel": "pg"
         },
         {
@@ -1143,7 +1145,8 @@
           ],
           "aliasColors": {},
           "seriesOverrides": [],
-          "links": []
+          "links": [],
+          "interval": ">60s"
         }
       ],
       "showTitle": true
@@ -1163,7 +1166,7 @@
           "id": 13,
           "links": [],
           "maxDataPoints": 100,
-          "interval": null,
+          "interval": ">60s",
           "targets": [
             {
               "function": "last",
@@ -1213,7 +1216,7 @@
           "id": 14,
           "links": [],
           "maxDataPoints": 100,
-          "interval": null,
+          "interval": ">60s",
           "targets": [
             {
               "function": "last",
@@ -1334,7 +1337,8 @@
           ],
           "aliasColors": {},
           "seriesOverrides": [],
-          "links": []
+          "links": [],
+          "interval": ">60s"
         },
         {
           "title": "Storage osd-$osd",
@@ -1405,7 +1409,7 @@
           "aliasColors": {},
           "seriesOverrides": [],
           "links": [],
-          "interval": "60s"
+          "interval": ">60s"
         },
         {
           "title": "Apply Latency osd-$osd",
@@ -1466,7 +1470,8 @@
           ],
           "aliasColors": {},
           "seriesOverrides": [],
-          "links": []
+          "links": [],
+          "interval": ">60s"
         },
         {
           "title": "Commit Latency osd-$osd",
@@ -1527,7 +1532,8 @@
           ],
           "aliasColors": {},
           "seriesOverrides": [],
-          "links": []
+          "links": [],
+          "interval": ">60s"
         }
       ],
       "showTitle": true
