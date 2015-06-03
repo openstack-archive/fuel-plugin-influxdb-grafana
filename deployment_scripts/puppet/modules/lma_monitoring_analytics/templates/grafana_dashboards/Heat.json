@@ -723,7 +723,7 @@
         "current": {
         },
         "regex": "/^([^.]+)/",
-        "refresh": true
+        "refresh": false
       }
     ],
     "enable": true

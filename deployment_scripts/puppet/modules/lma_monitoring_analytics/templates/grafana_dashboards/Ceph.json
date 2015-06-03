@@ -1592,7 +1592,7 @@
         "regex": "/^([^.]+)/",
         "current": {
         },
-        "refresh": true
+        "refresh": false
       },
       {
         "type": "query",
@@ -1613,7 +1613,7 @@
           "text": "ceph",
           "value": "ceph"
         },
-        "refresh": true
+        "refresh": false
       },
       {
         "type": "query",
@@ -1630,7 +1630,7 @@
           "text": "All",
           "value": "(compute|data|images|metadata|rbd|volumes)"
         },
-        "refresh": true
+        "refresh": false
       },
       {
         "type": "query",
@@ -1645,7 +1645,7 @@
         "current": {
         },
         "regex": "/\\.osd\\.(\\d+)/",
-        "refresh": true
+        "refresh": false
       }
     ],
     "enable": true

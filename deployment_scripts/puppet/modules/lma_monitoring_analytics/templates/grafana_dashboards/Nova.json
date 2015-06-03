@@ -2480,7 +2480,7 @@
         "query": "list series /openstack.nova.check_api/",
         "current": {},
         "regex": "/^([^.]+)/",
-        "refresh": true
+        "refresh": false
       }
     ],
     "enable": true

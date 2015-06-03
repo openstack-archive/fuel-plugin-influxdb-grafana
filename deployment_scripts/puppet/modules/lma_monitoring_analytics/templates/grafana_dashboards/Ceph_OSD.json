@@ -962,7 +962,7 @@
         "allFormat": "glob",
         "query": "list series /ceph.cluster.*.monitor/",
         "regex": "/cluster\\-([^.]+)/",
-        "refresh": true,
+        "refresh": false,
         "current": {
           "text": "ceph",
           "value": "ceph"
@@ -978,7 +978,7 @@
         "allFormat": "regex values",
         "query": "list series /ceph.cluster\\-$cluster\\.osd\\-/",
         "regex": "/^(([^.]+).*ceph\\.cluster-$cluster.*\\.osd\\-(\\d+))/",
-        "refresh": true
+        "refresh": false
       }
     ],
     "enable": true
