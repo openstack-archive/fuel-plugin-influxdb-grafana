@@ -251,7 +251,7 @@
           "grid": {
             "leftMax": null,
             "rightMax": null,
-            "leftMin": null,
+            "leftMin": 0,
             "rightMin": null,
             "threshold1": null,
             "threshold2": null,
@@ -348,7 +348,7 @@
           "percentage": false,
           "legend": {
             "show": true,
-            "values": true,
+            "values": false,
             "min": false,
             "max": false,
             "current": true,
@@ -388,7 +388,7 @@
               "series": "/ceph.*.pool.total_bytes/",
               "query": "select mean((avail.value * 1.0) / (total.value) * 100) from \"$controller.ceph.cluster-$cluster.pool.total_avail_bytes\" as avail inner join \"$controller.ceph.cluster-$cluster.pool.total_bytes\" as total  where $timeFilter group by time($interval) order asc",
               "rawQuery": true,
-              "alias": "%",
+              "alias": "% free",
               "interval": "",
               "hide": false
             },
@@ -578,7 +578,7 @@
           "stack": false,
           "percentage": false,
           "legend": {
-            "show": false,
+            "show": true,
             "values": false,
             "min": false,
             "max": false,
@@ -594,23 +594,13 @@
           },
           "targets": [
             {
-              "function": "mean",
-              "column": "value",
-              "series": "/$controller.ceph.cluster-$cluster.pool.$pool.op_per_sec/",
-              "query": "select mean(value) from /$controller.ceph.cluster-$cluster.pool.$pool.op_per_sec/ where $timeFilter group by time($interval) order asc",
-              "alias": "ops",
-              "rawQuery": false,
-              "interval": "",
-              "groupby_field": ""
-            },
-            {
               "function": "max",
               "column": "value",
               "series": "/$controller.ceph.cluster-$cluster.pool.$pool.op_per_sec/",
               "query": "select max(value) from /$controller.ceph.cluster-$cluster.pool.$pool.op_per_sec/ where $timeFilter group by time($interval) order asc",
-              "alias": "max",
+              "alias": "$4.ops",
               "rawQuery": false,
-              "hide": true
+              "hide": false
             }
           ],
           "aliasColors": {},
@@ -618,6 +608,19 @@
           "links": [],
           "leftYAxisLabel": "per second",
           "interval": ">60s"
+        },
+        {
+          "title": "",
+          "error": false,
+          "span": 12,
+          "editable": true,
+          "type": "text",
+          "id": 28,
+          "mode": "markdown",
+          "content": "",
+          "style": {},
+          "links": [],
+          "height": "2px"
         },
         {
           "title": "$pool",
@@ -704,7 +707,7 @@
           "stack": false,
           "percentage": false,
           "legend": {
-            "show": false,
+            "show": true,
             "values": false,
             "min": false,
             "max": false,
@@ -821,6 +824,19 @@
           "links": [],
           "leftYAxisLabel": "bytes/sec",
           "interval": ">60s"
+        },
+        {
+          "title": "",
+          "error": false,
+          "span": 12,
+          "editable": true,
+          "type": "text",
+          "id": 29,
+          "mode": "markdown",
+          "content": "",
+          "style": {},
+          "links": [],
+          "height": "2px"
         },
         {
           "title": "Replication factor ($pool)",
@@ -1392,18 +1408,19 @@
             {
               "function": "mean",
               "column": "value",
-              "series": "/ceph.cluster-$cluster.osd.$osd.used/",
-              "query": "select mean(value) from /ceph.cluster-$cluster.osd.$osd.used/ where $timeFilter group by time($interval) fill(null) order asc",
-              "alias": "osd-$4.used",
+              "series": "merge(/ceph.cluster-$cluster.osd.$osd.used/)",
+              "query": "select mean(value) from merge(/ceph.cluster-$cluster.osd.$osd.used/) where $timeFilter group by time($interval) fill(null) order asc",
+              "alias": "mean.used",
               "fill": "null"
             },
             {
               "function": "mean",
               "column": "value",
-              "series": "/ceph.cluster-$cluster.osd.$osd.total/",
-              "query": "select mean(value) from /ceph.cluster-$cluster.osd.$osd.total/ where $timeFilter group by time($interval) fill(null) order asc",
-              "alias": "osd-$4.total",
-              "fill": "null"
+              "series": "merge(/ceph.cluster-$cluster.osd.$osd.total/)",
+              "query": "select mean(value) from merge(/ceph.cluster-$cluster.osd.$osd.total/) where $timeFilter group by time($interval) fill(null) order asc",
+              "alias": "mean.total",
+              "fill": "null",
+              "hide": false
             }
           ],
           "aliasColors": {},
@@ -1463,9 +1480,23 @@
             {
               "function": "mean",
               "column": "value",
-              "series": "/ceph.cluster-$cluster.osd.$osd.apply_latency/",
-              "query": "select mean(value) from /ceph.cluster-$cluster.osd.$osd.apply_latency/ where $timeFilter group by time($interval) order asc",
-              "alias": "osd-$4.$5"
+              "series": "merge(/ceph.cluster-$cluster.osd.$osd.apply_latency/)",
+              "query": "select mean(value) from merge(/ceph.cluster-$cluster.osd.$osd.apply_latency/) where $timeFilter group by time($interval) order asc",
+              "alias": "mean"
+            },
+            {
+              "function": "min",
+              "column": "value",
+              "series": "merge(/ceph.cluster-$cluster.osd.$osd.apply_latency/)",
+              "query": "select min(value) from merge(/ceph.cluster-$cluster.osd.$osd.apply_latency/) where $timeFilter group by time($interval) order asc",
+              "alias": "min"
+            },
+            {
+              "function": "max",
+              "column": "value",
+              "series": "merge(/ceph.cluster-$cluster.osd.$osd.apply_latency/)",
+              "query": "select max(value) from merge(/ceph.cluster-$cluster.osd.$osd.apply_latency/) where $timeFilter group by time($interval) order asc",
+              "alias": "max"
             }
           ],
           "aliasColors": {},
@@ -1525,9 +1556,23 @@
             {
               "function": "mean",
               "column": "value",
-              "series": "/ceph.cluster-$cluster.osd.$osd.commit_latency/",
-              "query": "select mean(value) from /ceph.cluster-$cluster.osd.$osd.commit_latency/ where $timeFilter group by time($interval) order asc",
-              "alias": "$3-$4.$5"
+              "series": "merge(/ceph.cluster-$cluster.osd.$osd.commit_latency/)",
+              "query": "select mean(value) from merge(/ceph.cluster-$cluster.osd.$osd.commit_latency/) where $timeFilter group by time($interval) order asc",
+              "alias": "mean"
+            },
+            {
+              "function": "min",
+              "column": "value",
+              "series": "merge(/ceph.cluster-$cluster.osd.$osd.commit_latency/)",
+              "query": "select min(value) from merge(/ceph.cluster-$cluster.osd.$osd.commit_latency/) where $timeFilter group by time($interval) order asc",
+              "alias": "min"
+            },
+            {
+              "function": "max",
+              "column": "value",
+              "series": "merge(/ceph.cluster-$cluster.osd.$osd.commit_latency/)",
+              "query": "select max(value) from merge(/ceph.cluster-$cluster.osd.$osd.commit_latency/) where $timeFilter group by time($interval) order asc",
+              "alias": "max"
             }
           ],
           "aliasColors": {},
@@ -1598,7 +1643,7 @@
         "regex": "/^([^.]+)/",
         "current": {
         },
-        "refresh": true
+        "refresh": false
       },
       {
         "type": "query",
@@ -1619,7 +1664,7 @@
           "text": "ceph",
           "value": "ceph"
         },
-        "refresh": true
+        "refresh": false
       },
       {
         "type": "query",
@@ -1636,7 +1681,7 @@
           "text": "All",
           "value": "(compute|data|images|metadata|rbd|volumes)"
         },
-        "refresh": true
+        "refresh": false
       },
       {
         "type": "query",
@@ -1651,7 +1696,7 @@
         "current": {
         },
         "regex": "/\\.osd\\.(\\d+)/",
-        "refresh": true
+        "refresh": false
       }
     ],
     "enable": true
@@ -1659,7 +1704,7 @@
   "annotations": {
     "list": []
   },
-  "refresh": "1m",
+  "refresh": false,
   "version": 6,
   "hideAllLegends": false
 }
