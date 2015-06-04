@@ -535,7 +535,7 @@
             }
           ],
           "maxDataPoints": 100,
-          "interval": "60s",
+          "interval": ">60s",
           "targets": [
             {
               "function": "last",
@@ -605,7 +605,7 @@
             }
           ],
           "maxDataPoints": 100,
-          "interval": "60s",
+          "interval": ">60s",
           "targets": [
             {
               "function": "last",
@@ -675,7 +675,7 @@
             }
           ],
           "maxDataPoints": 100,
-          "interval": "60s",
+          "interval": ">60s",
           "targets": [
             {
               "function": "last",
@@ -745,7 +745,7 @@
             }
           ],
           "maxDataPoints": 100,
-          "interval": "60s",
+          "interval": ">60s",
           "targets": [
             {
               "function": "last",
@@ -1532,7 +1532,7 @@
           "id": 26,
           "links": [],
           "maxDataPoints": 100,
-          "interval": "60s",
+          "interval": ">60s",
           "targets": [
             {
               "function": "sum",
@@ -1583,7 +1583,7 @@
           "id": 24,
           "links": [],
           "maxDataPoints": 100,
-          "interval": null,
+          "interval": ">60s",
           "targets": [
             {
               "function": "last",
@@ -1633,7 +1633,7 @@
           "id": 25,
           "links": [],
           "maxDataPoints": 100,
-          "interval": null,
+          "interval": ">60s",
           "targets": [
             {
               "function": "last",

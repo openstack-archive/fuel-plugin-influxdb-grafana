@@ -80,7 +80,7 @@
             }
           ],
           "links": [],
-          "interval": "1m",
+          "interval": ">1m",
           "leftYAxisLabel": ""
         },
         {
@@ -355,7 +355,7 @@
               "alias": "$0",
               "series": "/memcached.percent.hitratio/",
               "query": "select mean(value) from /memcached.percent.hitratio/ where $timeFilter group by time($interval) order asc",
-              "interval": "1m"
+              "interval": ""
             }
           ],
           "aliasColors": {
@@ -654,16 +654,9 @@
           },
           "seriesOverrides": [],
           "links": [],
-          "interval": "1m"
+          "interval": ">1m"
         }
       ]
-    },
-    {
-      "title": "New row",
-      "height": "250px",
-      "editable": true,
-      "collapse": false,
-      "panels": []
     }
   ],
   "nav": [

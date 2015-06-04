@@ -77,7 +77,7 @@
           "aliasColors": {},
           "seriesOverrides": [],
           "links": [],
-          "interval": "60",
+          "interval": ">60s",
           "leftYAxisLabel": "operation"
         },
         {
@@ -146,7 +146,8 @@
             }
           ],
           "links": [],
-          "leftYAxisLabel": "commit"
+          "leftYAxisLabel": "commit",
+          "interval": ">60s"
         }
       ]
     },
@@ -215,7 +216,8 @@
           "aliasColors": {},
           "seriesOverrides": [],
           "links": [],
-          "leftYAxisLabel": "operations"
+          "leftYAxisLabel": "operations",
+          "interval": ">60s"
         },
         {
           "title": "Client Operations",
@@ -278,7 +280,7 @@
           "aliasColors": {},
           "seriesOverrides": [],
           "links": [],
-          "interval": "120s",
+          "interval": ">60s",
           "leftYAxisLabel": "operations"
         },
         {
@@ -358,7 +360,7 @@
           "aliasColors": {},
           "seriesOverrides": [],
           "links": [],
-          "interval": "120s",
+          "interval": ">60s",
           "leftYAxisLabel": "operations"
         },
         {
@@ -430,7 +432,7 @@
           "aliasColors": {},
           "seriesOverrides": [],
           "links": [],
-          "interval": "60s",
+          "interval": ">60s",
           "leftYAxisLabel": "operations"
         }
       ]
@@ -496,7 +498,7 @@
               "series": "/$osd.osd.op_r_out_bytes$/",
               "query": "select derivative(value) from /$osd.osd.op_r_out_bytes$/ where $timeFilter group by time($interval) order asc",
               "alias": "throughput",
-              "interval": "100s"
+              "interval": ""
             },
             {
               "function": "derivative",
@@ -504,7 +506,7 @@
               "series": "/$osd.osd.op_r$/",
               "query": "select derivative(value) from /$osd.osd.op_r$/ where $timeFilter group by time($interval) order asc",
               "alias": "operation",
-              "interval": "100s"
+              "interval": ""
             }
           ],
           "aliasColors": {},
@@ -515,7 +517,7 @@
             }
           ],
           "links": [],
-          "interval": "60s",
+          "interval": ">60s",
           "leftYAxisLabel": "op/sec"
         },
         {
@@ -585,7 +587,7 @@
           "aliasColors": {},
           "seriesOverrides": [],
           "links": [],
-          "interval": "60s",
+          "interval": ">60s",
           "leftYAxisLabel": ""
         }
       ]
@@ -675,7 +677,7 @@
             }
           ],
           "links": [],
-          "interval": "120s",
+          "interval": ">60s",
           "leftYAxisLabel": "operations"
         },
         {
@@ -747,7 +749,7 @@
           "aliasColors": {},
           "seriesOverrides": [],
           "links": [],
-          "interval": "60s",
+          "interval": ">60s",
           "leftYAxisLabel": ""
         }
       ]
@@ -837,7 +839,7 @@
             }
           ],
           "links": [],
-          "interval": "120s",
+          "interval": ">60s",
           "leftYAxisLabel": "op/s"
         },
         {
@@ -907,7 +909,7 @@
           "aliasColors": {},
           "seriesOverrides": [],
           "links": [],
-          "interval": "60s",
+          "interval": ">60s",
           "leftYAxisLabel": ""
         }
       ]

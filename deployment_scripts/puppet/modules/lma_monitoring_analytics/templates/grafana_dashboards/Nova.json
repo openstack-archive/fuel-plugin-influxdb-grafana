@@ -361,7 +361,7 @@
               "series": "merge(/$server.openstack.nova.http.*.1\\d\\d/)",
               "query": "select count(value) from merge(/$server.openstack.nova.http.*.1\\d\\d/) where $timeFilter group by time($interval) fill(0) order asc",
               "fill": "0",
-              "interval": "1m",
+              "interval": "",
               "alias": "1xx"
             },
             {
@@ -370,7 +370,7 @@
               "series": "merge(/$server.openstack.nova.http.*.2\\d\\d/)",
               "query": "select count(value) from merge(/$server.openstack.nova.http.*.2\\d\\d/) where $timeFilter group by time($interval) fill(0) order asc",
               "fill": "0",
-              "interval": "1m",
+              "interval": "",
               "alias": "2xx"
             },
             {
@@ -379,7 +379,7 @@
               "series": "merge(/$server.openstack.nova.http.*.3\\d\\d/)",
               "query": "select count(value) from merge(/$server.openstack.nova.http.*.3\\d\\d/) where $timeFilter group by time($interval) fill(0) order asc",
               "fill": "0",
-              "interval": "1m",
+              "interval": "",
               "alias": "3xx"
             },
             {
@@ -388,7 +388,7 @@
               "series": "merge(/$server.openstack.nova.http.*.4\\d\\d/)",
               "query": "select count(value) from merge(/$server.openstack.nova.http.*.4\\d\\d/) where $timeFilter group by time($interval) fill(0) order asc",
               "fill": "0",
-              "interval": "1m",
+              "interval": "",
               "alias": "4xx"
             },
             {
@@ -397,7 +397,7 @@
               "series": "merge(/$server.openstack.nova.http.*.5\\d\\d/)",
               "query": "select count(value) from merge(/$server.openstack.nova.http.*.5\\d\\d/) where $timeFilter group by time($interval) fill(0) order asc",
               "fill": "0",
-              "interval": "1m",
+              "interval": "",
               "alias": "5xx"
             }
           ],
