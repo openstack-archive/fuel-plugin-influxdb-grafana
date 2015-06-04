@@ -286,7 +286,7 @@
               "function": "mean",
               "column": "value",
               "series": "/ceph.*.pool.total_bytes/",
-              "query": "select mean(value) from /$controller.ceph.*.pool.total_bytes/ where $timeFilter group by time($interval) order asc",
+              "query": "select mean(value) from /$controller.ceph.*.pool.total_bytes/ where $timeFilter group by time($interval) fill(0) order asc",
               "rawQuery": true,
               "alias": "total"
             },
@@ -294,7 +294,7 @@
               "function": "mean",
               "column": "value",
               "series": "/ceph.*.pool.total_bytes/",
-              "query": "select mean(value) from /$controller.ceph.*.pool.total_used_bytes/ where $timeFilter group by time($interval) order asc",
+              "query": "select mean(value) from /$controller.ceph.*.pool.total_used_bytes/ where $timeFilter group by time($interval) fill(0) order asc",
               "rawQuery": true,
               "alias": "used"
             },
@@ -302,7 +302,7 @@
               "function": "mean",
               "column": "value",
               "series": "/ceph.*.pool.total_bytes/",
-              "query": "select mean(value) from /$controller.ceph.*.pool.total_avail_bytes/ where $timeFilter group by time($interval) order asc",
+              "query": "select mean(value) from /$controller.ceph.*.pool.total_avail_bytes/ where $timeFilter group by time($interval) fill(0) order asc",
               "rawQuery": true,
               "alias": "available"
             }
@@ -366,7 +366,7 @@
               "function": "mean",
               "column": "value",
               "series": "/ceph.*.pool.total_bytes/",
-              "query": "select mean(value) from /$controller.ceph.*.pool.total_bytes/ where $timeFilter group by time($interval) order asc",
+              "query": "select mean(value) from /$controller.ceph.*.pool.total_bytes/ where $timeFilter group by time($interval) fill(0) order asc",
               "rawQuery": true,
               "alias": "total",
               "interval": "",
@@ -376,7 +376,7 @@
               "function": "mean",
               "column": "value",
               "series": "/ceph.*.pool.total_bytes/",
-              "query": "select mean(value) from /$controller.ceph.*.pool.total_used_bytes/ where $timeFilter group by time($interval) order asc",
+              "query": "select mean(value) from /$controller.ceph.*.pool.total_used_bytes/ where $timeFilter group by time($interval) fill(0) order asc",
               "rawQuery": true,
               "alias": "used",
               "interval": "",
@@ -386,7 +386,7 @@
               "function": "mean",
               "column": "value",
               "series": "/ceph.*.pool.total_bytes/",
-              "query": "select mean((avail.value * 1.0) / (total.value) * 100) from \"$controller.ceph.cluster-$cluster.pool.total_avail_bytes\" as avail inner join \"$controller.ceph.cluster-$cluster.pool.total_bytes\" as total  where $timeFilter group by time($interval) order asc",
+              "query": "select mean((avail.value * 1.0) / (total.value) * 100) from \"$controller.ceph.cluster-$cluster.pool.total_avail_bytes\" as avail inner join \"$controller.ceph.cluster-$cluster.pool.total_bytes\" as total  where $timeFilter group by time($interval) fill(0) order asc",
               "rawQuery": true,
               "alias": "% free",
               "interval": "",
@@ -396,7 +396,7 @@
               "function": "mean",
               "column": "value",
               "series": "/ceph.*.pool.total_bytes/",
-              "query": "select mean(value) from /$controller.ceph.*.pool.total_avail_bytes/ where $timeFilter group by time($interval) order asc",
+              "query": "select mean(value) from /$controller.ceph.*.pool.total_avail_bytes/ where $timeFilter group by time($interval) fill(0) order asc",
               "rawQuery": true,
               "alias": "avail",
               "interval": "",
@@ -525,17 +525,17 @@
               "function": "mean",
               "column": "value",
               "series": "/$controller.ceph.cluster-$cluster.*\\.pool.$pool.bytes_used/",
-              "query": "select mean(value) from /$controller.ceph.cluster-$cluster.*\\.pool.$pool.bytes_used/ where $timeFilter group by time($interval) fill(null) order asc",
+              "query": "select mean(value) from /$controller.ceph.cluster-$cluster.*\\.pool.$pool.bytes_used/ where $timeFilter group by time($interval) fill(0) order asc",
               "alias": "$4 used",
-              "fill": "null"
+              "fill": "0"
             },
             {
               "function": "mean",
               "column": "value",
               "series": "/$controller.ceph.cluster-$cluster.*.pool.$pool.max_avail/",
-              "query": "select mean(value) from /$controller.ceph.cluster-$cluster.*.pool.$pool.max_avail/ where $timeFilter group by time($interval) fill(null) order asc",
+              "query": "select mean(value) from /$controller.ceph.cluster-$cluster.*.pool.$pool.max_avail/ where $timeFilter group by time($interval) fill(0) order asc",
               "alias": "$4 available",
-              "fill": "null"
+              "fill": "0"
             }
           ],
           "aliasColors": {},
@@ -597,10 +597,11 @@
               "function": "max",
               "column": "value",
               "series": "/$controller.ceph.cluster-$cluster.pool.$pool.op_per_sec/",
-              "query": "select max(value) from /$controller.ceph.cluster-$cluster.pool.$pool.op_per_sec/ where $timeFilter group by time($interval) order asc",
+              "query": "select max(value) from /$controller.ceph.cluster-$cluster.pool.$pool.op_per_sec/ where $timeFilter group by time($interval) fill(0) order asc",
               "alias": "$4.ops",
               "rawQuery": false,
-              "hide": false
+              "hide": false,
+              "fill": "0"
             }
           ],
           "aliasColors": {},
@@ -726,8 +727,9 @@
               "function": "mean",
               "column": "value",
               "series": "/$controller.ceph.cluster-$cluster.pool.$pool.objects/",
-              "query": "select mean(value) from /$controller.ceph.cluster-$cluster.pool.$pool.objects/ where $timeFilter group by time($interval) order asc",
-              "alias": "$4"
+              "query": "select mean(value) from /$controller.ceph.cluster-$cluster.pool.$pool.objects/ where $timeFilter group by time($interval) fill(0) order asc",
+              "alias": "$4",
+              "fill": "0"
             }
           ],
           "aliasColors": {},
@@ -789,25 +791,28 @@
               "function": "mean",
               "column": "value",
               "series": "/$controller.ceph.cluster-$cluster.pool.$pool.read_bytes_sec/",
-              "query": "select mean(value) from /$controller.ceph.cluster-$cluster.pool.$pool.read_bytes_sec/ where $timeFilter group by time($interval) order asc",
+              "query": "select mean(value) from /$controller.ceph.cluster-$cluster.pool.$pool.read_bytes_sec/ where $timeFilter group by time($interval) fill(0) order asc",
               "alias": "$4.read",
-              "rawQuery": false
+              "rawQuery": false,
+              "fill": "0"
             },
             {
               "function": "mean",
               "column": "value",
               "series": "/$controller.ceph.cluster-$cluster.pool.$pool.write_bytes_sec/",
-              "query": "select mean(value) from /$controller.ceph.cluster-$cluster.pool.$pool.write_bytes_sec/ where $timeFilter group by time($interval) order asc",
+              "query": "select mean(value) from /$controller.ceph.cluster-$cluster.pool.$pool.write_bytes_sec/ where $timeFilter group by time($interval) fill(0) order asc",
               "alias": "$4.write",
-              "rawQuery": false
+              "rawQuery": false,
+              "fill": "0"
             },
             {
               "function": "max",
               "column": "value",
               "series": "/$controller.ceph.cluster-$cluster.pool.$pool.write_bytes_sec/",
-              "query": "select max(value) from /$controller.ceph.cluster-$cluster.pool.$pool.write_bytes_sec/ where $timeFilter group by time($interval) order asc",
+              "query": "select max(value) from /$controller.ceph.cluster-$cluster.pool.$pool.write_bytes_sec/ where $timeFilter group by time($interval) fill(0) order asc",
               "alias": "$4.write.max",
-              "rawQuery": false
+              "rawQuery": false,
+              "fill": "0"
             }
           ],
           "aliasColors": {},
@@ -941,8 +946,9 @@
               "function": "max",
               "column": "value",
               "series": "/$controller.ceph.cluster-$cluster.pool.$pool.pg_num/",
-              "query": "select max(value) from /$controller.ceph.cluster-$cluster.pool.$pool.pg_num/ where $timeFilter group by time($interval) order asc",
-              "alias": "$4.pg_num"
+              "query": "select max(value) from /$controller.ceph.cluster-$cluster.pool.$pool.pg_num/ where $timeFilter group by time($interval) fill(0) order asc",
+              "alias": "$4.pg_num",
+              "fill": "0"
             }
           ],
           "aliasColors": {},
@@ -1062,16 +1068,18 @@
               "function": "max",
               "column": "value",
               "series": "/$controller.ceph.cluster-$cluster.pg.state/",
-              "query": "select max(value) from /$controller.ceph.cluster-$cluster.pg.state/ where $timeFilter group by time($interval) order asc",
+              "query": "select max(value) from /$controller.ceph.cluster-$cluster.pg.state/ where $timeFilter group by time($interval) fill(0) order asc",
               "alias": "$5",
-              "hide": false
+              "hide": false,
+              "fill": "0"
             },
             {
               "function": "max",
               "column": "value",
               "series": "/$controller.ceph.cluster-$cluster.pg.total/",
-              "query": "select max(value) from /$controller.ceph.cluster-$cluster.pg.total/ where $timeFilter group by time($interval) order asc",
-              "alias": "total"
+              "query": "select max(value) from /$controller.ceph.cluster-$cluster.pg.total/ where $timeFilter group by time($interval) fill(0) order asc",
+              "alias": "total",
+              "fill": "0"
             }
           ],
           "aliasColors": {},
@@ -1133,30 +1141,34 @@
               "function": "mean",
               "column": "value",
               "series": "/$controller.ceph.cluster-$cluster.pg.bytes_avail/",
-              "query": "select mean(value) from /$controller.ceph.cluster-$cluster.pg.bytes_avail/ where $timeFilter group by time($interval) order asc",
-              "alias": "available"
+              "query": "select mean(value) from /$controller.ceph.cluster-$cluster.pg.bytes_avail/ where $timeFilter group by time($interval) fill(0) order asc",
+              "alias": "available",
+              "fill": "0"
             },
             {
               "function": "mean",
               "column": "value",
               "series": "/$controller.ceph.cluster-$cluster.pg.bytes_total/",
-              "query": "select mean(value) from /$controller.ceph.cluster-$cluster.pg.bytes_total/ where $timeFilter group by time($interval) order asc",
-              "alias": "total"
+              "query": "select mean(value) from /$controller.ceph.cluster-$cluster.pg.bytes_total/ where $timeFilter group by time($interval) fill(0) order asc",
+              "alias": "total",
+              "fill": "0"
             },
             {
               "function": "mean",
               "column": "value",
               "series": "/$controller.ceph.cluster-$cluster.pg.bytes_used/",
-              "query": "select mean(value) from /$controller.ceph.cluster-$cluster.pg.bytes_used/ where $timeFilter group by time($interval) order asc",
-              "alias": "used"
+              "query": "select mean(value) from /$controller.ceph.cluster-$cluster.pg.bytes_used/ where $timeFilter group by time($interval) fill(0) order asc",
+              "alias": "used",
+              "fill": "0"
             },
             {
               "function": "mean",
               "column": "value",
               "series": "/$controller.ceph.cluster-$cluster.pg.data_bytes/",
-              "query": "select mean(value) from /$controller.ceph.cluster-$cluster.pg.data_bytes/ where $timeFilter group by time($interval) order asc",
+              "query": "select mean(value) from /$controller.ceph.cluster-$cluster.pg.data_bytes/ where $timeFilter group by time($interval) fill(0) order asc",
               "alias": "data",
-              "hide": false
+              "hide": false,
+              "fill": "0"
             }
           ],
           "aliasColors": {},
@@ -1326,29 +1338,33 @@
               "function": "mean",
               "column": "value",
               "series": "/$controller.ceph.cluster-$cluster.osd.up/",
-              "query": "select mean(value) from /$controller.ceph.cluster-$cluster.osd.up/ where $timeFilter group by time($interval) order asc",
-              "alias": "up"
+              "query": "select mean(value) from /$controller.ceph.cluster-$cluster.osd.up/ where $timeFilter group by time($interval) fill(0) order asc",
+              "alias": "up",
+              "fill": "0"
             },
             {
               "function": "mean",
               "column": "value",
               "series": "/$controller.ceph.cluster-$cluster.osd.in/",
-              "query": "select mean(value) from /$controller.ceph.cluster-$cluster.osd.in/ where $timeFilter group by time($interval) order asc",
-              "alias": "in"
+              "query": "select mean(value) from /$controller.ceph.cluster-$cluster.osd.in/ where $timeFilter group by time($interval) fill(0) order asc",
+              "alias": "in",
+              "fill": "0"
             },
             {
               "function": "mean",
               "column": "value",
               "series": "/$controller.ceph.cluster-$cluster.osd.down/",
-              "query": "select mean(value) from /$controller.ceph.cluster-$cluster.osd.down/ where $timeFilter group by time($interval) order asc",
-              "alias": "down"
+              "query": "select mean(value) from /$controller.ceph.cluster-$cluster.osd.down/ where $timeFilter group by time($interval) fill(0) order asc",
+              "alias": "down",
+              "fill": "0"
             },
             {
               "function": "mean",
               "column": "value",
               "series": "/$controller.ceph.cluster-$cluster.osd.out/",
-              "query": "select mean(value) from /$controller.ceph.cluster-$cluster.osd.out/ where $timeFilter group by time($interval) order asc",
-              "alias": "out"
+              "query": "select mean(value) from /$controller.ceph.cluster-$cluster.osd.out/ where $timeFilter group by time($interval) fill(0) order asc",
+              "alias": "out",
+              "fill": "0"
             }
           ],
           "aliasColors": {},
@@ -1409,17 +1425,17 @@
               "function": "mean",
               "column": "value",
               "series": "merge(/ceph.cluster-$cluster.osd.$osd.used/)",
-              "query": "select mean(value) from merge(/ceph.cluster-$cluster.osd.$osd.used/) where $timeFilter group by time($interval) fill(null) order asc",
+              "query": "select mean(value) from merge(/ceph.cluster-$cluster.osd.$osd.used/) where $timeFilter group by time($interval) fill(0) order asc",
               "alias": "mean.used",
-              "fill": "null"
+              "fill": "0"
             },
             {
               "function": "mean",
               "column": "value",
               "series": "merge(/ceph.cluster-$cluster.osd.$osd.total/)",
-              "query": "select mean(value) from merge(/ceph.cluster-$cluster.osd.$osd.total/) where $timeFilter group by time($interval) fill(null) order asc",
+              "query": "select mean(value) from merge(/ceph.cluster-$cluster.osd.$osd.total/) where $timeFilter group by time($interval) fill(0) order asc",
               "alias": "mean.total",
-              "fill": "null",
+              "fill": "0",
               "hide": false
             }
           ],
@@ -1481,22 +1497,25 @@
               "function": "mean",
               "column": "value",
               "series": "merge(/ceph.cluster-$cluster.osd.$osd.apply_latency/)",
-              "query": "select mean(value) from merge(/ceph.cluster-$cluster.osd.$osd.apply_latency/) where $timeFilter group by time($interval) order asc",
-              "alias": "mean"
+              "query": "select mean(value) from merge(/ceph.cluster-$cluster.osd.$osd.apply_latency/) where $timeFilter group by time($interval) fill(0) order asc",
+              "alias": "mean",
+              "fill": "0"
             },
             {
               "function": "min",
               "column": "value",
               "series": "merge(/ceph.cluster-$cluster.osd.$osd.apply_latency/)",
-              "query": "select min(value) from merge(/ceph.cluster-$cluster.osd.$osd.apply_latency/) where $timeFilter group by time($interval) order asc",
-              "alias": "min"
+              "query": "select min(value) from merge(/ceph.cluster-$cluster.osd.$osd.apply_latency/) where $timeFilter group by time($interval) fill(0) order asc",
+              "alias": "min",
+              "fill": "0"
             },
             {
               "function": "max",
               "column": "value",
               "series": "merge(/ceph.cluster-$cluster.osd.$osd.apply_latency/)",
-              "query": "select max(value) from merge(/ceph.cluster-$cluster.osd.$osd.apply_latency/) where $timeFilter group by time($interval) order asc",
-              "alias": "max"
+              "query": "select max(value) from merge(/ceph.cluster-$cluster.osd.$osd.apply_latency/) where $timeFilter group by time($interval) fill(0) order asc",
+              "alias": "max",
+              "fill": "0"
             }
           ],
           "aliasColors": {},
@@ -1557,22 +1576,25 @@
               "function": "mean",
               "column": "value",
               "series": "merge(/ceph.cluster-$cluster.osd.$osd.commit_latency/)",
-              "query": "select mean(value) from merge(/ceph.cluster-$cluster.osd.$osd.commit_latency/) where $timeFilter group by time($interval) order asc",
-              "alias": "mean"
+              "query": "select mean(value) from merge(/ceph.cluster-$cluster.osd.$osd.commit_latency/) where $timeFilter group by time($interval) fill(0) order asc",
+              "alias": "mean",
+              "fill": "0"
             },
             {
               "function": "min",
               "column": "value",
               "series": "merge(/ceph.cluster-$cluster.osd.$osd.commit_latency/)",
-              "query": "select min(value) from merge(/ceph.cluster-$cluster.osd.$osd.commit_latency/) where $timeFilter group by time($interval) order asc",
-              "alias": "min"
+              "query": "select min(value) from merge(/ceph.cluster-$cluster.osd.$osd.commit_latency/) where $timeFilter group by time($interval) fill(0) order asc",
+              "alias": "min",
+              "fill": "0"
             },
             {
               "function": "max",
               "column": "value",
               "series": "merge(/ceph.cluster-$cluster.osd.$osd.commit_latency/)",
-              "query": "select max(value) from merge(/ceph.cluster-$cluster.osd.$osd.commit_latency/) where $timeFilter group by time($interval) order asc",
-              "alias": "max"
+              "query": "select max(value) from merge(/ceph.cluster-$cluster.osd.$osd.commit_latency/) where $timeFilter group by time($interval) fill(0) order asc",
+              "alias": "max",
+              "fill": "0"
             }
           ],
           "aliasColors": {},

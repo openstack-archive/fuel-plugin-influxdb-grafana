@@ -68,7 +68,8 @@
               "function": "mean",
               "column": "value",
               "series": "$server.apache.requests",
-              "query": "select mean(value) from \"$server.apache.requests\" where $timeFilter group by time($interval) order asc"
+              "query": "select mean(value) from \"$server.apache.requests\" where $timeFilter group by time($interval) fill(0) order asc",
+              "fill": "0"
             }
           ],
           "aliasColors": {},
@@ -130,7 +131,8 @@
               "function": "mean",
               "column": "value",
               "series": "$server.apache.bytes",
-              "query": "select mean(value) from \"$server.apache.bytes\" where $timeFilter group by time($interval) order asc"
+              "query": "select mean(value) from \"$server.apache.bytes\" where $timeFilter group by time($interval) fill(0) order asc",
+              "fill": "0"
             }
           ],
           "aliasColors": {},
@@ -192,7 +194,8 @@
               "function": "mean",
               "column": "value",
               "series": "$server.apache.connections",
-              "query": "select mean(value) from \"$server.apache.connections\" where $timeFilter group by time($interval) order asc"
+              "query": "select mean(value) from \"$server.apache.connections\" where $timeFilter group by time($interval) fill(0) order asc",
+              "fill": "0"
             }
           ],
           "aliasColors": {},
@@ -303,8 +306,9 @@
               "function": "mean",
               "column": "value",
               "series": "/$server.apache.workers/",
-              "query": "select mean(value) from /$server.apache.workers/ where $timeFilter group by time($interval) order asc",
-              "alias": "$3"
+              "query": "select mean(value) from /$server.apache.workers/ where $timeFilter group by time($interval) fill(0) order asc",
+              "alias": "$3",
+              "fill": "0"
             }
           ],
           "aliasColors": {},

@@ -108,12 +108,12 @@
               "function": "count",
               "column": "value",
               "series": "merge(/$server.openstack.neutron.http.*.5\\d\\d/)",
-              "query": "select count(value) from merge(/$server.openstack.neutron.http.*.5\\d\\d/) where $timeFilter group by time($interval) fill(0) order asc",
+              "query": "select count(value) from merge(/$server.openstack.neutron.http.*.5\\d\\d/) where $timeFilter group by time($interval) order asc",
               "rawQuery": false,
               "interval": "",
               "groupby_field": "",
               "condition": "",
-              "fill": "0"
+              "fill": ""
             }
           ],
           "cacheTimeout": null,
@@ -602,8 +602,8 @@
               "function": "last",
               "column": "value",
               "series": "merge(/openstack.neutron.agents.dhcp.disabled/)",
-              "query": "select last(value) from merge(/openstack.neutron.agents.dhcp.disabled/) where $timeFilter group by time($interval) fill(null) order asc",
-              "fill": "null"
+              "query": "select last(value) from merge(/openstack.neutron.agents.dhcp.disabled/) where $timeFilter group by time($interval) order asc",
+              "fill": ""
             }
           ],
           "cacheTimeout": null,
@@ -653,8 +653,8 @@
               "function": "last",
               "column": "value",
               "series": "merge(/openstack.neutron.agents.l3.disabled/)",
-              "query": "select last(value) from merge(/openstack.neutron.agents.l3.disabled/) where $timeFilter group by time($interval) fill(null) order asc",
-              "fill": "null"
+              "query": "select last(value) from merge(/openstack.neutron.agents.l3.disabled/) where $timeFilter group by time($interval) order asc",
+              "fill": ""
             }
           ],
           "cacheTimeout": null,
@@ -704,8 +704,8 @@
               "function": "last",
               "column": "value",
               "series": "merge(/openstack.neutron.agents.metadata.disabled/)",
-              "query": "select last(value) from merge(/openstack.neutron.agents.metadata.disabled/) where $timeFilter group by time($interval) fill(null) order asc",
-              "fill": "null"
+              "query": "select last(value) from merge(/openstack.neutron.agents.metadata.disabled/) where $timeFilter group by time($interval) order asc",
+              "fill": ""
             }
           ],
           "cacheTimeout": null,
@@ -755,8 +755,8 @@
               "function": "last",
               "column": "value",
               "series": "merge(/openstack.neutron.agents.openvswitch.disabled/)",
-              "query": "select last(value) from merge(/openstack.neutron.agents.openvswitch.disabled/) where $timeFilter group by time($interval) fill(null) order asc",
-              "fill": "null"
+              "query": "select last(value) from merge(/openstack.neutron.agents.openvswitch.disabled/) where $timeFilter group by time($interval) order asc",
+              "fill": ""
             }
           ],
           "cacheTimeout": null,
@@ -818,8 +818,8 @@
               "function": "last",
               "column": "value",
               "series": "merge(/openstack.neutron.agents.dhcp.up/)",
-              "query": "select last(value) from merge(/openstack.neutron.agents.dhcp.up/) where $timeFilter group by time($interval) fill(null) order asc",
-              "fill": "null"
+              "query": "select last(value) from merge(/openstack.neutron.agents.dhcp.up/) where $timeFilter group by time($interval) order asc",
+              "fill": ""
             }
           ],
           "cacheTimeout": null,
@@ -869,8 +869,8 @@
               "function": "last",
               "column": "value",
               "series": "merge(/openstack.neutron.agents.l3.up/)",
-              "query": "select last(value) from merge(/openstack.neutron.agents.l3.up/) where $timeFilter group by time($interval) fill(null) order asc",
-              "fill": "null"
+              "query": "select last(value) from merge(/openstack.neutron.agents.l3.up/) where $timeFilter group by time($interval) order asc",
+              "fill": ""
             }
           ],
           "cacheTimeout": null,
@@ -920,8 +920,8 @@
               "function": "last",
               "column": "value",
               "series": "merge(/openstack.neutron.agents.metadata.up/)",
-              "query": "select last(value) from merge(/openstack.neutron.agents.metadata.up/) where $timeFilter group by time($interval) fill(null) order asc",
-              "fill": "null"
+              "query": "select last(value) from merge(/openstack.neutron.agents.metadata.up/) where $timeFilter group by time($interval) order asc",
+              "fill": ""
             }
           ],
           "cacheTimeout": null,
@@ -971,8 +971,8 @@
               "function": "last",
               "column": "value",
               "series": "merge(/openstack.neutron.agents.openvswitch.up/)",
-              "query": "select last(value) from merge(/openstack.neutron.agents.openvswitch.up/) where $timeFilter group by time($interval) fill(null) order asc",
-              "fill": "null"
+              "query": "select last(value) from merge(/openstack.neutron.agents.openvswitch.up/) where $timeFilter group by time($interval) order asc",
+              "fill": ""
             }
           ],
           "cacheTimeout": null,
@@ -1034,8 +1034,8 @@
               "function": "last",
               "column": "value",
               "series": "merge(/openstack.neutron.agents.dhcp.down/)",
-              "query": "select last(value) from merge(/openstack.neutron.agents.dhcp.down/) where $timeFilter group by time($interval) fill(null) order asc",
-              "fill": "null"
+              "query": "select last(value) from merge(/openstack.neutron.agents.dhcp.down/) where $timeFilter group by time($interval) order asc",
+              "fill": ""
             }
           ],
           "cacheTimeout": null,
@@ -1085,8 +1085,8 @@
               "function": "last",
               "column": "value",
               "series": "merge(/openstack.neutron.agents.l3.down/)",
-              "query": "select last(value) from merge(/openstack.neutron.agents.l3.down/) where $timeFilter group by time($interval) fill(null) order asc",
-              "fill": "null"
+              "query": "select last(value) from merge(/openstack.neutron.agents.l3.down/) where $timeFilter group by time($interval) order asc",
+              "fill": ""
             }
           ],
           "cacheTimeout": null,
@@ -1136,8 +1136,8 @@
               "function": "last",
               "column": "value",
               "series": "merge(/openstack.neutron.agents.metadata.down/)",
-              "query": "select last(value) from merge(/openstack.neutron.agents.metadata.down/) where $timeFilter group by time($interval) fill(null) order asc",
-              "fill": "null"
+              "query": "select last(value) from merge(/openstack.neutron.agents.metadata.down/) where $timeFilter group by time($interval) order asc",
+              "fill": ""
             }
           ],
           "cacheTimeout": null,
@@ -1187,8 +1187,8 @@
               "function": "last",
               "column": "value",
               "series": "merge(/openstack.neutron.agents.openvswitch.down/)",
-              "query": "select last(value) from merge(/openstack.neutron.agents.openvswitch.down/) where $timeFilter group by time($interval) fill(null) order asc",
-              "fill": "null"
+              "query": "select last(value) from merge(/openstack.neutron.agents.openvswitch.down/) where $timeFilter group by time($interval) order asc",
+              "fill": ""
             }
           ],
           "cacheTimeout": null,
