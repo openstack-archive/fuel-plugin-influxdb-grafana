@@ -105,12 +105,12 @@
               "function": "count",
               "column": "value",
               "series": "merge(/$server.openstack.keystone.http.*.5\\d\\d/)",
-              "query": "select count(value) from merge(/$server.openstack.keystone.http.*.5\\d\\d/) where $timeFilter group by time($interval) fill(0) order asc",
+              "query": "select count(value) from merge(/$server.openstack.keystone.http.*.5\\d\\d/) where $timeFilter group by time($interval) order asc",
               "rawQuery": false,
               "interval": "",
               "groupby_field": "",
               "condition": "",
-              "fill": "0"
+              "fill": ""
             }
           ],
           "cacheTimeout": null,
@@ -889,8 +889,9 @@
               "function": "last",
               "column": "value",
               "series": "merge(/openstack.keystone.tenants.enabled/)",
-              "query": "select last(value) from merge(/openstack.keystone.tenants.enabled/) where $timeFilter group by time($interval) order asc",
-              "alias": "number of tenants"
+              "query": "select last(value) from merge(/openstack.keystone.tenants.enabled/) where $timeFilter group by time($interval) fill(0) order asc",
+              "alias": "number of tenants",
+              "fill": "0"
             }
           ],
           "aliasColors": {},

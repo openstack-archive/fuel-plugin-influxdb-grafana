@@ -108,12 +108,12 @@
               "function": "count",
               "column": "value",
               "series": "merge(/$server.openstack.glance.http.*.5\\d\\d/)",
-              "query": "select count(value) from merge(/$server.openstack.glance.http.*.5\\d\\d/) where $timeFilter group by time($interval) fill(0) order asc",
+              "query": "select count(value) from merge(/$server.openstack.glance.http.*.5\\d\\d/) where $timeFilter group by time($interval) order asc",
               "rawQuery": false,
               "interval": "",
               "groupby_field": "",
               "condition": "",
-              "fill": "0"
+              "fill": ""
             }
           ],
           "cacheTimeout": null,

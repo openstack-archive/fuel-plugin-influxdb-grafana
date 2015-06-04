@@ -68,43 +68,49 @@
               "function": "mean",
               "column": "value",
               "series": "$server.mysql_commands.commit",
-              "query": "select mean(value) from \"$server.mysql_commands.commit\" where $timeFilter group by time($interval) order asc",
-              "alias": "commit"
+              "query": "select mean(value) from \"$server.mysql_commands.commit\" where $timeFilter group by time($interval) fill(0) order asc",
+              "alias": "commit",
+              "fill": "0"
             },
             {
               "function": "mean",
               "column": "value",
               "series": "$server.mysql_commands.delete",
-              "query": "select mean(value) from \"$server.mysql_commands.delete\" where $timeFilter group by time($interval) order asc",
-              "alias": "delete"
+              "query": "select mean(value) from \"$server.mysql_commands.delete\" where $timeFilter group by time($interval) fill(0) order asc",
+              "alias": "delete",
+              "fill": "0"
             },
             {
               "function": "mean",
               "column": "value",
               "series": "$server.mysql_commands.insert",
-              "query": "select mean(value) from \"$server.mysql_commands.insert\" where $timeFilter group by time($interval) order asc",
-              "alias": "insert"
+              "query": "select mean(value) from \"$server.mysql_commands.insert\" where $timeFilter group by time($interval) fill(0) order asc",
+              "alias": "insert",
+              "fill": "0"
             },
             {
               "function": "mean",
               "column": "value",
               "series": "$server.mysql_commands.select",
-              "query": "select mean(value) from \"$server.mysql_commands.select\" where $timeFilter group by time($interval) order asc",
-              "alias": "select"
+              "query": "select mean(value) from \"$server.mysql_commands.select\" where $timeFilter group by time($interval) fill(0) order asc",
+              "alias": "select",
+              "fill": "0"
             },
             {
               "function": "mean",
               "column": "value",
               "series": "$server.mysql_commands.rollback",
-              "query": "select mean(value) from \"$server.mysql_commands.rollback\" where $timeFilter group by time($interval) order asc",
-              "alias": "rollback"
+              "query": "select mean(value) from \"$server.mysql_commands.rollback\" where $timeFilter group by time($interval) fill(0) order asc",
+              "alias": "rollback",
+              "fill": "0"
             },
             {
               "function": "mean",
               "column": "value",
               "series": "$server.mysql_commands.update",
-              "query": "select mean(value) from \"$server.mysql_commands.update\" where $timeFilter group by time($interval) order asc",
-              "alias": "update"
+              "query": "select mean(value) from \"$server.mysql_commands.update\" where $timeFilter group by time($interval) fill(0) order asc",
+              "alias": "update",
+              "fill": "0"
             }
           ],
           "aliasColors": {},
@@ -166,8 +172,9 @@
               "function": "mean",
               "column": "value",
               "series": "/$server.mysql_threads/",
-              "query": "select mean(value) from /$server.mysql_threads/ where $timeFilter group by time($interval) order asc",
-              "alias": "$2"
+              "query": "select mean(value) from /$server.mysql_threads/ where $timeFilter group by time($interval) fill(0) order asc",
+              "alias": "$2",
+              "fill": "0"
             }
           ],
           "aliasColors": {},
@@ -229,8 +236,9 @@
               "function": "mean",
               "column": "value",
               "series": "/$server.mysql_octets/",
-              "query": "select mean(value) from /$server.mysql_octets/ where $timeFilter group by time($interval) order asc",
-              "alias": "$2"
+              "query": "select mean(value) from /$server.mysql_octets/ where $timeFilter group by time($interval) fill(0) order asc",
+              "alias": "$2",
+              "fill": "0"
             }
           ],
           "aliasColors": {},
@@ -292,8 +300,9 @@
               "function": "mean",
               "column": "value",
               "series": "/$server.mysql_locks/",
-              "query": "select mean(value) from /$server.mysql_locks/ where $timeFilter group by time($interval) order asc",
-              "alias": "$2"
+              "query": "select mean(value) from /$server.mysql_locks/ where $timeFilter group by time($interval) fill(0) order asc",
+              "alias": "$2",
+              "fill": "0"
             }
           ],
           "aliasColors": {},
@@ -355,8 +364,9 @@
               "function": "mean",
               "column": "value",
               "series": "/$server.mysql_handler/",
-              "query": "select mean(value) from /$server.mysql_handler/ where $timeFilter group by time($interval) order asc",
-              "alias": "$2"
+              "query": "select mean(value) from /$server.mysql_handler/ where $timeFilter group by time($interval) fill(0) order asc",
+              "alias": "$2",
+              "fill": "0"
             }
           ],
           "aliasColors": {},

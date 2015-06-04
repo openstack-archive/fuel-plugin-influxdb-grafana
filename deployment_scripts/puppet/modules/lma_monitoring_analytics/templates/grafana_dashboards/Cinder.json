@@ -105,12 +105,12 @@
               "function": "count",
               "column": "value",
               "series": "merge(/$server.openstack.cinder.http.*.5\\d\\d/)",
-              "query": "select count(value) from merge(/$server.openstack.cinder.http.*.5\\d\\d/) where $timeFilter group by time($interval) fill(0) order asc",
+              "query": "select count(value) from merge(/$server.openstack.cinder.http.*.5\\d\\d/) where $timeFilter group by time($interval) order asc",
               "rawQuery": false,
               "interval": "",
               "groupby_field": "",
               "condition": "",
-              "fill": "0"
+              "fill": ""
             }
           ],
           "cacheTimeout": null,
@@ -600,8 +600,8 @@
               "function": "last",
               "column": "value",
               "series": "merge(/openstack.cinder.services.scheduler.disabled/)",
-              "query": "select last(value) from merge(/openstack.cinder.services.scheduler.disabled/) where $timeFilter group by time($interval) fill(null) order asc",
-              "fill": "null"
+              "query": "select last(value) from merge(/openstack.cinder.services.scheduler.disabled/) where $timeFilter group by time($interval) order asc",
+              "fill": ""
             }
           ],
           "cacheTimeout": null,
@@ -651,8 +651,8 @@
               "function": "last",
               "column": "value",
               "series": "merge(/openstack.cinder.services.volume.disabled/)",
-              "query": "select last(value) from merge(/openstack.cinder.services.volume.disabled/) where $timeFilter group by time($interval) fill(null) order asc",
-              "fill": "null"
+              "query": "select last(value) from merge(/openstack.cinder.services.volume.disabled/) where $timeFilter group by time($interval) order asc",
+              "fill": ""
             }
           ],
           "cacheTimeout": null,
@@ -702,8 +702,8 @@
               "function": "last",
               "column": "value",
               "series": "merge(/openstack.cinder.services.backup.disabled/)",
-              "query": "select last(value) from merge(/openstack.cinder.services.backup.disabled/) where $timeFilter group by time($interval) fill(null) order asc",
-              "fill": "null"
+              "query": "select last(value) from merge(/openstack.cinder.services.backup.disabled/) where $timeFilter group by time($interval) order asc",
+              "fill": ""
             }
           ],
           "cacheTimeout": null,
@@ -777,8 +777,8 @@
               "function": "last",
               "column": "value",
               "series": "merge(/openstack.cinder.services.scheduler.up/)",
-              "query": "select last(value) from merge(/openstack.cinder.services.scheduler.up/) where $timeFilter group by time($interval) fill(null) order asc",
-              "fill": "null"
+              "query": "select last(value) from merge(/openstack.cinder.services.scheduler.up/) where $timeFilter group by time($interval) order asc",
+              "fill": ""
             }
           ],
           "cacheTimeout": null,
@@ -828,8 +828,8 @@
               "function": "last",
               "column": "value",
               "series": "merge(/openstack.cinder.services.volume.up/)",
-              "query": "select last(value) from merge(/openstack.cinder.services.volume.up/) where $timeFilter group by time($interval) fill(null) order asc",
-              "fill": "null"
+              "query": "select last(value) from merge(/openstack.cinder.services.volume.up/) where $timeFilter group by time($interval) order asc",
+              "fill": ""
             }
           ],
           "cacheTimeout": null,
@@ -879,8 +879,8 @@
               "function": "last",
               "column": "value",
               "series": "merge(/openstack.cinder.services.backup.up/)",
-              "query": "select last(value) from merge(/openstack.cinder.services.backup.up/) where $timeFilter group by time($interval) fill(null) order asc",
-              "fill": "null"
+              "query": "select last(value) from merge(/openstack.cinder.services.backup.up/) where $timeFilter group by time($interval) order asc",
+              "fill": ""
             }
           ],
           "cacheTimeout": null,
@@ -954,8 +954,8 @@
               "function": "last",
               "column": "value",
               "series": "merge(/openstack.cinder.services.scheduler.down/)",
-              "query": "select last(value) from merge(/openstack.cinder.services.scheduler.down/) where $timeFilter group by time($interval) fill(null) order asc",
-              "fill": "null"
+              "query": "select last(value) from merge(/openstack.cinder.services.scheduler.down/) where $timeFilter group by time($interval) order asc",
+              "fill": ""
             }
           ],
           "cacheTimeout": null,
@@ -1005,8 +1005,8 @@
               "function": "last",
               "column": "value",
               "series": "merge(/openstack.cinder.services.volume.down/)",
-              "query": "select last(value) from merge(/openstack.cinder.services.volume.down/) where $timeFilter group by time($interval) fill(null) order asc",
-              "fill": "null"
+              "query": "select last(value) from merge(/openstack.cinder.services.volume.down/) where $timeFilter group by time($interval) order asc",
+              "fill": ""
             }
           ],
           "cacheTimeout": null,
@@ -1056,8 +1056,8 @@
               "function": "last",
               "column": "value",
               "series": "merge(/openstack.cinder.services.backup.down/)",
-              "query": "select last(value) from merge(/openstack.cinder.services.backup.down/) where $timeFilter group by time($interval) fill(null) order asc",
-              "fill": "null"
+              "query": "select last(value) from merge(/openstack.cinder.services.backup.down/) where $timeFilter group by time($interval) order asc",
+              "fill": ""
             }
           ],
           "cacheTimeout": null,
@@ -1413,8 +1413,8 @@
               "function": "last",
               "column": "value",
               "series": "merge(/openstack.cinder.volumes_size.in-use/)",
-              "query": "select last(value) from merge(/openstack.cinder.volumes_size.in-use/) where $timeFilter group by time($interval) fill(0) order asc",
-              "fill": "0"
+              "query": "select last(value) from merge(/openstack.cinder.volumes_size.in-use/) where $timeFilter group by time($interval) order asc",
+              "fill": ""
             }
           ],
           "cacheTimeout": null,
@@ -1807,8 +1807,8 @@
               "function": "last",
               "column": "value",
               "series": "merge(/openstack.cinder.snapshots.in-use/)",
-              "query": "select last(value) from merge(/openstack.cinder.snapshots.in-use/) where $timeFilter group by time($interval) fill(0) order asc",
-              "fill": "0"
+              "query": "select last(value) from merge(/openstack.cinder.snapshots.in-use/) where $timeFilter group by time($interval) order asc",
+              "fill": ""
             }
           ],
           "cacheTimeout": null,
@@ -1858,8 +1858,8 @@
               "function": "last",
               "column": "value",
               "series": "merge(/openstack.cinder.snapshots.error/)",
-              "query": "select last(value) from merge(/openstack.cinder.snapshots.error/) where $timeFilter group by time($interval) fill(0) order asc",
-              "fill": "0"
+              "query": "select last(value) from merge(/openstack.cinder.snapshots.error/) where $timeFilter group by time($interval) order asc",
+              "fill": ""
             }
           ],
           "cacheTimeout": null,
@@ -1893,85 +1893,6 @@
             "lineColor": "rgb(31, 120, 193)",
             "fillColor": "rgba(31, 118, 189, 0.18)"
           }
-        },
-        {
-          "title": "Snapshots",
-          "error": false,
-          "span": 6,
-          "editable": true,
-          "type": "graph",
-          "id": 52,
-          "datasource": null,
-          "renderer": "flot",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "short",
-            "short"
-          ],
-          "grid": {
-            "leftMax": null,
-            "rightMax": null,
-            "leftMin": 0,
-            "rightMin": null,
-            "threshold1": null,
-            "threshold2": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
-          "lines": true,
-          "fill": 0,
-          "linewidth": 1,
-          "points": false,
-          "pointradius": 5,
-          "bars": false,
-          "stack": false,
-          "percentage": false,
-          "legend": {
-            "show": true,
-            "values": false,
-            "min": false,
-            "max": false,
-            "current": false,
-            "total": false,
-            "avg": false
-          },
-          "nullPointMode": "connected",
-          "steppedLine": false,
-          "tooltip": {
-            "value_type": "cumulative",
-            "shared": true
-          },
-          "targets": [
-            {
-              "function": "max",
-              "column": "value",
-              "series": "merge(/openstack.cinder.snapshots.available/)",
-              "query": "select max(value) from merge(/openstack.cinder.snapshots.available/) where $timeFilter group by time($interval) order asc",
-              "alias": "available",
-              "fill": "0"
-            },
-            {
-              "function": "max",
-              "column": "value",
-              "series": "merge(/openstack.cinder.snapshots.in-use/)",
-              "query": "select max(value) from merge(/openstack.cinder.snapshots.available/) where $timeFilter group by time($interval) order asc",
-              "alias": "in-use",
-              "fill": "0"
-            },
-            {
-              "function": "max",
-              "column": "value",
-              "series": "merge(/openstack.cinder.snapshots.error/)",
-              "query": "select max(value) from merge(/openstack.cinder.snapshots.available/) where $timeFilter group by time($interval) order asc",
-              "alias": "error",
-              "fill": "0"
-            }
-          ],
-          "aliasColors": {},
-          "seriesOverrides": [],
-          "interval": ">60",
-          "links": []
         },
         {
           "title": "Snapshots",
@@ -2117,8 +2038,8 @@
               "function": "last",
               "column": "value",
               "series": "merge(/openstack.cinder.snapshot_size.in-use/)",
-              "query": "select last(value) from merge(/openstack.cinder.snapshot_size.in-use/) where $timeFilter group by time($interval) fill(0) order asc",
-              "fill": "0"
+              "query": "select last(value) from merge(/openstack.cinder.snapshot_size.in-use/) where $timeFilter group by time($interval) order asc",
+              "fill": ""
             }
           ],
           "cacheTimeout": null,
@@ -2168,8 +2089,8 @@
               "function": "last",
               "column": "value",
               "series": "merge(/openstack.cinder.snapshots_size.error/)",
-              "query": "select last(value) from merge(/openstack.cinder.snapshots_size.error/) where $timeFilter group by time($interval) fill(0) order asc",
-              "fill": "0"
+              "query": "select last(value) from merge(/openstack.cinder.snapshots_size.error/) where $timeFilter group by time($interval) order asc",
+              "fill": ""
             }
           ],
           "cacheTimeout": null,

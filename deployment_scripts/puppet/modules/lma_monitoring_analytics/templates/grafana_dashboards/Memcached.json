@@ -354,8 +354,9 @@
               "column": "value",
               "alias": "$0",
               "series": "/memcached.percent.hitratio/",
-              "query": "select mean(value) from /memcached.percent.hitratio/ where $timeFilter group by time($interval) order asc",
-              "interval": ""
+              "query": "select mean(value) from /memcached.percent.hitratio/ where $timeFilter group by time($interval) fill(0) order asc",
+              "interval": "",
+              "fill": "0"
             }
           ],
           "aliasColors": {
@@ -537,7 +538,7 @@
               "function": "mean",
               "column": "value",
               "series": "/memcached.octets.rx/",
-              "query": "select mean(value) from /memcached.octets.tx/ where $timeFilter group by time($interval) order asc",
+              "query": "select mean(value) from /memcached.octets.tx/ where $timeFilter group by time($interval) fill(0) order asc",
               "alias": "$0.tx",
               "rawQuery": true,
               "interval": ""
@@ -546,7 +547,7 @@
               "function": "mean",
               "column": "value",
               "series": "/memcached.octets.rx/",
-              "query": "select mean(value) from /memcached.octets.rx/ where $timeFilter group by time($interval) order asc",
+              "query": "select mean(value) from /memcached.octets.rx/ where $timeFilter group by time($interval) fill(0) order asc",
               "alias": "$0.rx",
               "rawQuery": true,
               "interval": ""
@@ -555,7 +556,7 @@
               "function": "mean",
               "column": "value",
               "series": "/memcached.octets.rx/",
-              "query": "select max(value) from /memcached.octets.tx/ where $timeFilter group by time($interval) order asc",
+              "query": "select max(value) from /memcached.octets.tx/ where $timeFilter group by time($interval) fill(0) order asc",
               "alias": "$0.max.tx",
               "rawQuery": true,
               "interval": "",
@@ -565,7 +566,7 @@
               "function": "mean",
               "column": "value",
               "series": "/memcached.octets.rx/",
-              "query": "select max(value) from /memcached.octets.rx/ where $timeFilter group by time($interval) order asc",
+              "query": "select max(value) from /memcached.octets.rx/ where $timeFilter group by time($interval) fill(0) order asc",
               "alias": "$0.max.rx",
               "rawQuery": true,
               "interval": "",

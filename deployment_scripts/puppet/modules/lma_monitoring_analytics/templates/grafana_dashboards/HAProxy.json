@@ -611,8 +611,9 @@
               "function": "max",
               "column": "value",
               "series": "/$controller.haproxy.backend.$service.retries/",
-              "query": "select max(value) from /$controller.haproxy.backend.$service.retries/ where $timeFilter group by time($interval) order asc",
-              "alias": "$0.$3.retries"
+              "query": "select max(value) from /$controller.haproxy.backend.$service.retries/ where $timeFilter group by time($interval) fill(0) order asc",
+              "alias": "$0.$3.retries",
+              "fill": "0"
             }
           ],
           "aliasColors": {},
@@ -894,7 +895,7 @@
               "function": "derivative",
               "column": "value",
               "series": "/$controller.haproxy.$frontback.+.bytes_in/",
-              "query": "select derivative(value) from /$controller.haproxy.$frontback.bytes_in/ where $timeFilter  group by time($interval) fill(null) order asc",
+              "query": "select derivative(value) from /$controller.haproxy.$frontback.bytes_in/ where $timeFilter  group by time($interval) fill(0) order asc",
               "alias": "in",
               "rawQuery": true,
               "hide": false,
@@ -905,11 +906,11 @@
               "function": "derivative",
               "column": "value",
               "series": "/$controller.haproxy.$frontback.bytes_out/",
-              "query": "select derivative(value) from /$controller.haproxy.$frontback.bytes_out/ where $timeFilter group by time($interval) fill(null) order asc",
+              "query": "select derivative(value) from /$controller.haproxy.$frontback.bytes_out/ where $timeFilter group by time($interval) fill(0) order asc",
               "alias": "out",
               "rawQuery": false,
               "hide": false,
-              "fill": "null"
+              "fill": "0"
             }
           ],
           "aliasColors": {

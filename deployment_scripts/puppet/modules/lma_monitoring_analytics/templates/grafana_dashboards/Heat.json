@@ -105,12 +105,11 @@
               "function": "count",
               "column": "value",
               "series": "merge(/$server.openstack.heat.http.*.5\\d\\d/)",
-              "query": "select count(value) from merge(/$server.openstack.heat.http.*.5\\d\\d/) where $timeFilter group by time($interval) fill(null) order asc",
+              "query": "select count(value) from merge(/$server.openstack.heat.http.*.5\\d\\d/) where $timeFilter group by time($interval) order asc",
               "rawQuery": false,
               "interval": "",
               "groupby_field": "",
-              "condition": "",
-              "fill": "null"
+              "condition": ""
             }
           ],
           "cacheTimeout": null,
@@ -442,8 +441,8 @@
               "function": "last",
               "column": "value",
               "series": "merge(/haproxy.backend.heat-api.servers.up/)",
-              "query": "select last(value) from merge(/haproxy.backend.heat-api.servers.up/) where $timeFilter group by time($interval) fill(null) order asc",
-              "fill": "null"
+              "query": "select last(value) from merge(/haproxy.backend.heat-api.servers.up/) where $timeFilter group by time($interval) order asc",
+              "fill": ""
             }
           ],
           "cacheTimeout": null,
@@ -493,8 +492,8 @@
               "function": "last",
               "column": "value",
               "series": "merge(/haproxy.backend.heat-cfn-api.servers.up/)",
-              "query": "select last(value) from merge(/haproxy.backend.heat-cfn-api.servers.up/) where $timeFilter group by time($interval) fill(null) order asc",
-              "fill": "null"
+              "query": "select last(value) from merge(/haproxy.backend.heat-cfn-api.servers.up/) where $timeFilter group by time($interval) order asc",
+              "fill": ""
             }
           ],
           "cacheTimeout": null,
@@ -568,8 +567,8 @@
               "function": "last",
               "column": "value",
               "series": "merge(/haproxy.backend.heat-api.servers.down/)",
-              "query": "select last(value) from merge(/haproxy.backend.heat-api.servers.down/) where $timeFilter group by time($interval) fill(null) order asc",
-              "fill": "null"
+              "query": "select last(value) from merge(/haproxy.backend.heat-api.servers.down/) where $timeFilter group by time($interval) order asc",
+              "fill": ""
             }
           ],
           "cacheTimeout": null,
@@ -619,8 +618,8 @@
               "function": "last",
               "column": "value",
               "series": "merge(/haproxy.backend.heat-api.servers.down/)",
-              "query": "select last(value) from merge(/haproxy.backend.heat-api.servers.down/) where $timeFilter group by time($interval) fill(null) order asc",
-              "fill": "null"
+              "query": "select last(value) from merge(/haproxy.backend.heat-api.servers.down/) where $timeFilter group by time($interval) order asc",
+              "fill": ""
             }
           ],
           "cacheTimeout": null,

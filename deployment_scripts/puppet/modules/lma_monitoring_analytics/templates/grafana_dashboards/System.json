@@ -1365,22 +1365,25 @@
               "function": "mean",
               "column": "value",
               "series": "$server.swap.used",
-              "query": "select mean(value) from \"$server.swap.used\" where $timeFilter group by time($interval) order asc",
-              "alias": "used"
+              "query": "select mean(value) from \"$server.swap.used\" where $timeFilter group by time($interval) fill(0) order asc",
+              "alias": "used",
+              "fill": "0"
             },
             {
               "function": "mean",
               "column": "value",
               "series": "$server.swap.cached",
-              "query": "select mean(value) from \"$server.swap.cached\" where $timeFilter group by time($interval) order asc",
-              "alias": "cached"
+              "query": "select mean(value) from \"$server.swap.cached\" where $timeFilter group by time($interval) fill(0) order asc",
+              "alias": "cached",
+              "fill": "0"
             },
             {
               "function": "mean",
               "column": "value",
               "series": "$server.swap.free",
-              "query": "select mean(value) from \"$server.swap.free\" where $timeFilter group by time($interval) order asc",
-              "alias": "free"
+              "query": "select mean(value) from \"$server.swap.free\" where $timeFilter group by time($interval) fill(0) order asc",
+              "alias": "free",
+              "fill": "0"
             }
           ],
           "aliasColors": {},

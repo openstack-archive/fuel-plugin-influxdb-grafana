@@ -71,7 +71,8 @@
               "function": "mean",
               "column": "value",
               "series": "/$osd.osd.op_wip/",
-              "query": "select mean(value) from /$osd.osd.op_wip/ where $timeFilter group by time($interval) order asc"
+              "query": "select mean(value) from /$osd.osd.op_wip/ where $timeFilter group by time($interval) fill(0) order asc",
+              "fill": "0"
             }
           ],
           "aliasColors": {},
@@ -354,17 +355,19 @@
               "function": "derivative",
               "column": "value",
               "series": "/$osd.osd.op_r_out_bytes$/",
-              "query": "select derivative(value) from /$osd.osd.op_r_out_bytes$/ where $timeFilter group by time($interval) order asc",
+              "query": "select derivative(value) from /$osd.osd.op_r_out_bytes$/ where $timeFilter group by time($interval) fill(0) order asc",
               "alias": "throughput",
-              "interval": ""
+              "interval": "",
+              "fill": "0"
             },
             {
               "function": "derivative",
               "column": "value",
               "series": "/$osd.osd.op_r$/",
-              "query": "select derivative(value) from /$osd.osd.op_r$/ where $timeFilter group by time($interval) order asc",
+              "query": "select derivative(value) from /$osd.osd.op_r$/ where $timeFilter group by time($interval) fill(0) order asc",
               "alias": "operation",
-              "interval": ""
+              "interval": "",
+              "fill": "0"
             }
           ],
           "aliasColors": {},
@@ -511,22 +514,25 @@
               "function": "derivative",
               "column": "value",
               "series": "/$osd.osd.op_w_in_bytes$/",
-              "query": "select derivative(value) from /$osd.osd.op_w_in_bytes$/ where $timeFilter group by time($interval) order asc",
-              "alias": "throughput"
+              "query": "select derivative(value) from /$osd.osd.op_w_in_bytes$/ where $timeFilter group by time($interval) fill(0) order asc",
+              "alias": "throughput",
+              "fill": "0"
             },
             {
               "function": "derivative",
               "column": "value",
               "series": "/$osd.osd.op_w$/",
-              "query": "select derivative(value) from /$osd.osd.op_w$/ where $timeFilter group by time($interval) order asc",
-              "alias": "operation"
+              "query": "select derivative(value) from /$osd.osd.op_w$/ where $timeFilter group by time($interval) fill(0) order asc",
+              "alias": "operation",
+              "fill": "0"
             },
             {
               "function": "derivative",
               "column": "value",
               "series": "/$osd.osd.op_w_rlat$/",
-              "query": "select derivative(value) from /$osd.osd.op_w_rlat$/ where $timeFilter group by time($interval) order asc",
-              "alias": "operation rlat"
+              "query": "select derivative(value) from /$osd.osd.op_w_rlat$/ where $timeFilter group by time($interval) fill(0) order asc",
+              "alias": "operation rlat",
+              "fill": "0"
             }
           ],
           "aliasColors": {},
@@ -673,22 +679,25 @@
               "function": "derivative",
               "column": "value",
               "series": "/$osd.osd.op_rw_in_bytes$/",
-              "query": "select derivative(value) from /$osd.osd.op_rw_in_bytes$/ where $timeFilter group by time($interval) order asc",
-              "alias": "throughput"
+              "query": "select derivative(value) from /$osd.osd.op_rw_in_bytes$/ where $timeFilter group by time($interval) fill(0) order asc",
+              "alias": "throughput",
+              "fill": "0"
             },
             {
               "function": "derivative",
               "column": "value",
               "series": "/$osd.osd.op_rw$/",
-              "query": "select derivative(value) from /$osd.osd.op_rw$/ where $timeFilter group by time($interval) order asc",
-              "alias": "operation"
+              "query": "select derivative(value) from /$osd.osd.op_rw$/ where $timeFilter group by time($interval) fill(0) order asc",
+              "alias": "operation",
+              "fill": "0"
             },
             {
               "function": "derivative",
               "column": "value",
               "series": "/$osd.osd.op_rw_rlat$/",
-              "query": "select derivative(value) from /$osd.osd.op_rw_rlat$/ where $timeFilter group by time($interval) order asc",
-              "alias": "operation rlat"
+              "query": "select derivative(value) from /$osd.osd.op_rw_rlat$/ where $timeFilter group by time($interval) fill(0) order asc",
+              "alias": "operation rlat",
+              "fill": "0"
             }
           ],
           "aliasColors": {},
@@ -898,9 +907,9 @@
               "function": "derivative",
               "column": "value",
               "series": "/$osd.objecter.op_commit/",
-              "query": "select derivative(value) from /$osd.objecter.op_commit/ where $timeFilter group by time($interval) fill(null) order asc",
+              "query": "select derivative(value) from /$osd.objecter.op_commit/ where $timeFilter group by time($interval) fill(0) order asc",
               "alias": "commit",
-              "fill": "null"
+              "fill": "0"
             }
           ],
           "aliasColors": {},
