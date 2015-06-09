@@ -1136,7 +1136,7 @@
             "rgba(50, 172, 45, 0.97)"
           ],
           "sparkline": {
-            "show": true,
+            "show": false,
             "full": false,
             "lineColor": "rgb(31, 120, 193)",
             "fillColor": "rgba(31, 118, 189, 0.18)"
