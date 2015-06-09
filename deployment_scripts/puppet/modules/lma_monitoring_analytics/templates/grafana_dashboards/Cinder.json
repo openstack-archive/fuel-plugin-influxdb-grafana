@@ -290,8 +290,8 @@
             {
               "function": "last",
               "column": "value",
-              "series": "merge(/openstack.keystone.check_api/)",
-              "query": "select last(value) from merge(/openstack.keystone.check_api/) where $timeFilter group by time($interval) fill(0) order asc",
+              "series": "merge(/openstack.cinder.check_api/)",
+              "query": "select last(value) from merge(/openstack.cinder.check_api/) where $timeFilter group by time($interval) fill(0) order asc",
               "fill": "0",
               "alias": "healthy"
             }
@@ -2283,7 +2283,7 @@
     ],
     "enable": true
   },
-  "refresh": false,
+  "refresh": "1m",
   "version": 6,
   "hideAllLegends": false
 }
