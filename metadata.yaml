@@ -16,7 +16,7 @@ authors: ['Mirantis Inc.']
 homepage: 'https://github.com/stackforge/fuel-plugin-influxdb-grafana'
 # Specify a group which your plugin implements, possible options:
 # network, storage, storage::cinder, storage::glance, hypervisor
-groups: []
+groups: ['monitoring']
 
 # The plugin is compatible with releases in the list
 releases:
