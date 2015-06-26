@@ -72,6 +72,9 @@ class lma_monitoring_analytics::grafana (
     'Keystone' => {
       content => template('lma_monitoring_analytics/grafana_dashboards/Keystone.json'),
     },
+    'LMA' => {
+      content => template('lma_monitoring_analytics/grafana_dashboards/LMA.json'),
+    },
     'Memcached' => {
       content => template('lma_monitoring_analytics/grafana_dashboards/Memcached.json'),
     },
@@ -89,6 +92,9 @@ class lma_monitoring_analytics::grafana (
     },
     'Heat' => {
       content => template('lma_monitoring_analytics/grafana_dashboards/Heat.json'),
+    },
+    'Heka' => {
+      content => template('lma_monitoring_analytics/grafana_dashboards/Heka.json'),
     },
     'System' => {
       content => template('lma_monitoring_analytics/grafana_dashboards/System.json'),
