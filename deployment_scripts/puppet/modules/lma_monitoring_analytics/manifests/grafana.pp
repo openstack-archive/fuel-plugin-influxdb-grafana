@@ -72,7 +72,7 @@ class lma_monitoring_analytics::grafana (
     'Keystone' => {
       content => template('lma_monitoring_analytics/grafana_dashboards/Keystone.json'),
     },
-    'LMA' => {
+    'LMA self-monitoring' => {
       content => template('lma_monitoring_analytics/grafana_dashboards/LMA.json'),
     },
     'Memcached' => {
