@@ -12,15 +12,26 @@
 #    License for the specific language governing permissions and limitations
 #    under the License.
 #
-# == Class lma_monitoring_analytics::params
+# == Class: influxdb
 
-class lma_monitoring_analytics::params {
-  $listen_port            = 80
-  $influxdb_host          = undef
-  $influxdb_script        = '/usr/local/bin/configure_influxdb.sh'
-  $influxdb_dir           = '/opt/influxdb'
-  $grafana_dbname         = 'grafana'
-  $grafana_dir            = '/opt/grafana'
-  $grafana_conf           = "${grafana_dir}/config.js"
-  $grafana_home_dashboard = '/dashboard/db/main'
+class influxdb (
+  $data_dir    = $influxdb::params::data_dir,
+  $hh_dir      = $influxdb::params::hh_dir,
+  $meta_dir    = $influxdb::params::meta_dir,
+) inherits influxdb::params {
+
+  class {'influxdb::install': }
+
+  class {'influxdb::service':
+    require => Class['influxdb::install'],
+  }
+
+  class {'influxdb::configure':
+    auth_enabled => $influxdb::params::auth_enabled,
+    config_file  => $influxdb::params::config_file,
+    data_dir     => $data_dir,
+    hh_dir       => $hh_dir,
+    meta_dir     => $meta_dir,
+    notify       => Class['influxdb::service'],
+  }
 }
