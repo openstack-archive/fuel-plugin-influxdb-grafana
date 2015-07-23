@@ -6,10 +6,6 @@ MODULES="${ROOT}"/deployment_scripts/puppet/modules
 RPM_REPO="${ROOT}"/repositories/centos/
 DEB_REPO="${ROOT}"/repositories/ubuntu/
 
-# Puppet manifests for influx
-INFLUXDB_TARBALL_URL="https://forgeapi.puppetlabs.com/v3/files/jdowning-influxdb-0.3.0.tar.gz"
-STAGING_TARBALL_URL="https://forgeapi.puppetlabs.com/v3/files/nanliu-staging-1.0.3.tar.gz"
-
 # Puppet manifests required for grafana
 NGINX_TARBALL_URL="https://forgeapi.puppetlabs.com/v3/files/jfryman-nginx-0.2.2.tar.gz"
 
@@ -36,17 +32,15 @@ function download {
     done
 }
 
-download deb http://get.influxdb.org/influxdb_0.8.8_amd64.deb
-download rpm http://get.influxdb.org/influxdb-0.8.8-1.x86_64.rpm
+download deb https://s3.amazonaws.com/influxdb/influxdb_0.9.2_amd64.deb
+download rpm https://s3.amazonaws.com/influxdb/influxdb-0.9.2-1.x86_64.rpm
 
 # Install puppet manifests
 # Clean-up first
-rm -rf "${MODULES:?}"/{influxdb,nginx,staging,stdlib,concat,inifile,disk_management,lvm}
-mkdir -p "${MODULES}"/{influxdb,nginx,staging}
+rm -rf "${MODULES:?}"/{nginx,stdlib,concat,inifile,disk_management,lvm}
+mkdir -p "${MODULES}"/nginx
 
-# Include influxdb manifests, its dependendy and nginx.
-wget -qO- "${INFLUXDB_TARBALL_URL}" | tar -C "${MODULES}/influxdb" --strip-components=1 -xz
-wget -qO- "${STAGING_TARBALL_URL}" | tar -C "${MODULES}/staging" --strip-components=1 -xz
+# Include nginx.
 wget -qO- "${NGINX_TARBALL_URL}" | tar -C "${MODULES}/nginx" --strip-components=1 -xz
 
 # Include dependent manifests from fuel-library
