@@ -12,15 +12,13 @@
 #    License for the specific language governing permissions and limitations
 #    under the License.
 #
-# == Class lma_monitoring_analytics::params
+# == Class: influxdb::params
 
-class lma_monitoring_analytics::params {
-  $listen_port            = 80
-  $influxdb_host          = undef
-  $influxdb_script        = '/usr/local/bin/configure_influxdb.sh'
-  $influxdb_dir           = '/opt/influxdb'
-  $grafana_dbname         = 'grafana'
-  $grafana_dir            = '/opt/grafana'
-  $grafana_conf           = "${grafana_dir}/config.js"
-  $grafana_home_dashboard = '/dashboard/db/main'
+class influxdb::service {
+  service { 'influxdb':
+    ensure     => running,
+    enable     => true,
+    hasrestart => true,
+    status     => '/usr/bin/pgrep -u influxdb -f "/opt/influxdb/influxd "'
+  }
 }
