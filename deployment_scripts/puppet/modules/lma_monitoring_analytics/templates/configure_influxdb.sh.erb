@@ -4,24 +4,24 @@ set -eux
 
 INFLUXDB_URL="http://127.0.0.1:8086"
 
-# Setup the new root password
-curl -X POST "${INFLUXDB_URL}/cluster_admins/root?u=root&p=root" \
-    -d '{"password": "<%= @influxdb_rootpass %>"}'
+# Setup the admin user
+curl -G "${INFLUXDB_URL}/query" \
+    --data-urlencode "q=CREATE USER root WITH PASSWORD '<%= @influxdb_rootpass %>' WITH ALL PRIVILEGES"
 
-# Create the lma DB with a user
-curl -X POST "${INFLUXDB_URL}/db?u=root&p=<%= @influxdb_rootpass %>" \
-    -d '{"name": "<%= @influxdb_dbname %>"}'
-curl -X POST "${INFLUXDB_URL}/db/<%= @influxdb_dbname %>/users?u=root&p=<%= @influxdb_rootpass %>" \
-    -d '{"name": "<%= @influxdb_username %>", "password": "<%= @influxdb_userpass %>"}'
-# add admin privilege to this user
-curl -X POST "${INFLUXDB_URL}/db/<%= @influxdb_dbname %>/users/<%= @influxdb_username %>?u=root&p=<%= @influxdb_rootpass %>" \
-    -d '{"admin": true}'
+# Create LMA user
+curl -G "${INFLUXDB_URL}/query" \
+    --data-urlencode "u=root" \
+    --data-urlencode "p=<%= @influxdb_rootpass %>" \
+    --data-urlencode "q=CREATE USER <%= @influxdb_username %> WITH PASSWORD '<%= @influxdb_userpass %>'"
 
-# Create the grafana DB with a user
-curl -X POST "${INFLUXDB_URL}/db?u=root&p=<%= @influxdb_rootpass %>" \
-    -d '{"name": "<%= @grafana_dbname %>"}'
-curl -X POST "${INFLUXDB_URL}/db/<%= @grafana_dbname %>/users?u=root&p=<%= @influxdb_rootpass %>" \
-    -d '{"name": "<%= @influxdb_username %>", "password": "<%= @influxdb_userpass %>"}'
-# add admin privilege to this user
-curl -X POST "${INFLUXDB_URL}/db/<%= @grafana_dbname %>/users/<%= @influxdb_username %>?u=root&p=<%= @influxdb_rootpass %>" \
-    -d '{"admin": true}'
+# Create LMA database
+curl -G "${INFLUXDB_URL}/query" \
+    --data-urlencode "u=root" \
+    --data-urlencode "p=<%= @influxdb_rootpass %>" \
+    --data-urlencode "q=CREATE DATABASE <%= @influxdb_dbname %>"
+
+# Give all privileges to LMA for LMA DB
+curl -G "${INFLUXDB_URL}/query" \
+    --data-urlencode "u=root" \
+    --data-urlencode "p=<%= @influxdb_rootpass %>" \
+    --data-urlencode "q=GRANT ALL ON <%= @influxdb_dbname %> TO <%= @influxdb_username %>"
