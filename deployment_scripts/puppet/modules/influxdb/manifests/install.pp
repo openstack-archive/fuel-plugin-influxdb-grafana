@@ -12,15 +12,16 @@
 #    License for the specific language governing permissions and limitations
 #    under the License.
 #
-# == Class lma_monitoring_analytics::params
+# == Class: influxdb::install
 
-class lma_monitoring_analytics::params {
-  $listen_port            = 80
-  $influxdb_host          = undef
-  $influxdb_script        = '/usr/local/bin/configure_influxdb.sh'
-  $influxdb_dir           = '/opt/influxdb'
-  $grafana_dbname         = 'grafana'
-  $grafana_dir            = '/opt/grafana'
-  $grafana_conf           = "${grafana_dir}/config.js"
-  $grafana_home_dashboard = '/dashboard/db/main'
+class influxdb::install {
+
+  package { 'influxdb':
+    ensure => installed,
+  }
+
+  file { '/etc/logrotate.d/influxdb':
+    ensure  => present,
+    source  => 'puppet:///modules/influxdb/logrotate.conf',
+  }
 }
