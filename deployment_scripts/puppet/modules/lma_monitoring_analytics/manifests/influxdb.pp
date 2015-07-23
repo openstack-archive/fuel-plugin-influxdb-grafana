@@ -19,12 +19,15 @@ class lma_monitoring_analytics::influxdb (
   $influxdb_username = undef,
   $influxdb_userpass = undef,
   $influxdb_rootpass = undef,
+  $influxdb_dir      = $lma_monitoring_analytics::params::influxdb_dir,
 ) inherits lma_monitoring_analytics::params {
 
   $configure_influxdb = $lma_monitoring_analytics::params::influxdb_script
 
   class { '::influxdb':
-    install_from_repository => true,
+    data_dir => "\"${influxdb_dir}/data\"",
+    meta_dir => "\"${influxdb_dir}/meta\"",
+    hh_dir   => "\"${influxdb_dir}/hh\"",
   }
 
   file { $configure_influxdb:
