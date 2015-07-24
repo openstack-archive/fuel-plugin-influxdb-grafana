@@ -13,18 +13,9 @@
 #    under the License.
 #
 $influxdb_grafana = hiera('influxdb_grafana')
-$elasticsearch_kibana = hiera('elasticsearch_kibana', undef)
 $user_node_name = hiera('user_node_name')
 
 if $influxdb_grafana['node_name'] == $user_node_name {
-  if $elasticsearch_kibana {
-    $http_port = $elasticsearch_kibana['node_name'] ? {
-      $user_node_name => 8000,
-      default         => 80,
-    }
-  } else {
-    $http_port = 80
-  }
 
   class {'::firewall':}
 
@@ -58,7 +49,7 @@ if $influxdb_grafana['node_name'] == $user_node_name {
   }
 
   firewall { '201 grafana':
-    port   => $http_port,
+    port   => 8000,
     proto  => 'tcp',
     action => 'accept',
   }
