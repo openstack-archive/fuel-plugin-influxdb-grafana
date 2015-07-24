@@ -12,8 +12,8 @@
 #    License for the specific language governing permissions and limitations
 #    under the License.
 #
-# == Class: lma_monitoring_analytics::grafana
+# == Class: grafana::params
 
-class lma_monitoring_analytics::grafana {
-  class { '::grafana': }
+class grafana::params {
+  $config_file  = '/etc/grafana/grafana.ini'
 }

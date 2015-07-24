@@ -12,8 +12,13 @@
 #    License for the specific language governing permissions and limitations
 #    under the License.
 #
-# == Class: lma_monitoring_analytics::grafana
+# == Class: grafana::service
 
-class lma_monitoring_analytics::grafana {
-  class { '::grafana': }
+class grafana::service {
+  service { 'grafana-server':
+    ensure     => running,
+    enable     => true,
+    hasrestart => true,
+    status     => '/usr/bin/pgrep -u grafana -f "/usr/sbin/grafana-server "'
+  }
 }

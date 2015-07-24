@@ -12,8 +12,14 @@
 #    License for the specific language governing permissions and limitations
 #    under the License.
 #
-# == Class: lma_monitoring_analytics::grafana
+# == Class: grafana::configure
 
-class lma_monitoring_analytics::grafana {
-  class { '::grafana': }
+class grafana::configure (
+  $config_file = undef,
+) {
+
+  Ini_setting {
+    ensure => present,
+    path   => $config_file,
+  }
 }
