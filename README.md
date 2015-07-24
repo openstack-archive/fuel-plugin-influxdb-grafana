@@ -77,9 +77,10 @@ User Guide
 5. Scroll down the page, select the "InfluxDB-Grafana Server plugin" checkbox
    and fill-in the required fields.
     - The name of the node where the plugin is deployed.
-    - The password for the root user.
+    - The password for the root user of InfluxDB..
     - The name of the database where you want to store your metrics.
     - The username and the password for this specific database.
+    - The name and the password for the admin user of Grafana.
 
 You can select up to 3 physical disks that will be mounted as a single logical
 volume to store the InfluxDB data. If you specify no disk, the data will
@@ -101,35 +102,30 @@ Testing
 Once installed, you can check that InfluxDB is working using `curl`:
 
 ```
-curl -G 'http://<HOST>:8086/db/lma/series?u=lma&p=<yourpassword>' --data-urlencode "q=list series"
+curl -G 'http://<HOST>:8086/'  \
+  --data-urlencode "u=<root user of InfluxDB>" \
+  --data-urlencode "p=<password of root user>" \
+  --data-urlencode "q=show databases"
 ```
 
 Where `HOST` is the IP address or the name of the node that runs the server and
-`yourpassword` is the password provided in the Fuel UI for the user of InfluxDB.
+credentials are the one you provided in the Fuel UI for the user of InfluxDB.
 
-The curl command should return a valid JSON object similar to:
+The curl command should return something similar to:
 
 ```
-[{"name":"list_series_result","columns":["time","sequence_number","name"],"points":[...]}]
+{"results":[{"series":[{"name":"databases","columns":["name"],"values":[["lma"]]}]}]}
 ```
 
 ### Grafana
 
-To check that Grafana is running, you need to make sure that *nginx* is listening
-on port 80. The user interface is available at:
-
-```
-http://$HOST/
-```
-
-**Note**: if you deploy this plugin on a node that is also running the
-[Elasticsearch-Kibana plugin](https://github.com/stackforge/fuel-plugin-elasticsearch-kibana)
-then *nginx* will use the port 8000 instead of 80. So in that case the user interface
-is available at:
+The user interface of Grafana is available at:
 
 ```
 http://$HOST:8000/
 ```
+
+You can login by using the username and password that you provided in the FUEL UI.
 
 Known issues
 ------------
@@ -141,7 +137,8 @@ Release Notes
 
 **0.8.0**
 
-* 
+* Upgrade Grafana to 2.1
+* Upgrade InfluxDB to 0.9
 
 **0.7.0**
 
