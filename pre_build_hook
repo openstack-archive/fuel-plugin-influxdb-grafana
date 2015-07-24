@@ -6,8 +6,9 @@ MODULES="${ROOT}"/deployment_scripts/puppet/modules
 RPM_REPO="${ROOT}"/repositories/centos/
 DEB_REPO="${ROOT}"/repositories/ubuntu/
 
-# Puppet manifests required for grafana
-NGINX_TARBALL_URL="https://forgeapi.puppetlabs.com/v3/files/jfryman-nginx-0.2.2.tar.gz"
+# Puppet manifests for Grafana
+# NOTE: We are downloading master until branch 2.1.x is available.
+GRAFANA_TARBALL_URL="https://github.com/bfraser/puppet-grafana/archive/master.tar.gz"
 
 # Puppet manifests from fuel-lib
 # This is the commit id for the current stable/6.1 branch
@@ -35,13 +36,18 @@ function download {
 download deb https://s3.amazonaws.com/influxdb/influxdb_0.9.2_amd64.deb
 download rpm https://s3.amazonaws.com/influxdb/influxdb-0.9.2-1.x86_64.rpm
 
+# As Grafana 2.1.x is required for InfluxDB, we download nightly build until
+# official release is available.
+download deb https://grafanarel.s3.amazonaws.com/builds/grafana_latest_amd64.deb
+download rpm https://grafanarel.s3.amazonaws.com/builds/grafana-latest-1.x86_64.rpm
+
 # Install puppet manifests
 # Clean-up first
-rm -rf "${MODULES:?}"/{nginx,stdlib,concat,inifile,disk_management,lvm}
-mkdir -p "${MODULES}"/nginx
+rm -rf "${MODULES:?}"/{grafana,stdlib,concat,inifile,disk_management,lvm}
+mkdir -p "${MODULES}"/grafana
 
 # Include nginx.
-wget -qO- "${NGINX_TARBALL_URL}" | tar -C "${MODULES}/nginx" --strip-components=1 -xz
+wget -qO- "${GRAFANA_TARBALL_URL}" | tar -C "${MODULES}/grafana" --strip-components=1 -xz
 
 # Include dependent manifests from fuel-library
 wget -qO- "${FUEL_LIB_TARBALL_URL}" | \
@@ -52,9 +58,3 @@ wget -qO- "${FUEL_LIB_TARBALL_URL}" | \
 wget -qO- "${MODULE_DISK_MANAGEMENT}" | \
     tar -C "${MODULES}" --strip-components=4 -xzvf - \
     fuel-plugin-elasticsearch-kibana-master/deployment_scripts/puppet/modules/disk_management
-
-# We need to embed grafana sources into the lma_monitoring_analytics module.
-GRAFANA_TARBALL_URL="http://grafanarel.s3.amazonaws.com/grafana-1.9.1.tar.gz"
-GRAFANA_FOLDER="${MODULES}/lma_monitoring_analytics/files/grafana/sources"
-mkdir -p "${GRAFANA_FOLDER}"
-wget -qO- "${GRAFANA_TARBALL_URL}" | tar -C "${GRAFANA_FOLDER}" --strip-components=1 -xz
