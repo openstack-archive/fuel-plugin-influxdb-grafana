@@ -12,8 +12,20 @@
 #    License for the specific language governing permissions and limitations
 #    under the License.
 #
-# == Class: lma_monitoring_analytics::grafana
+# == Class: grafana
 
-class lma_monitoring_analytics::grafana {
-  class { '::grafana': }
+class grafana {
+
+  include grafana::params
+
+  class {'grafana::install': }
+
+  class {'grafana::service':
+    require => Class['grafana::install'],
+  }
+
+  class {'grafana::configure':
+    config_file => $grafana::params::config_file,
+    notify      => Class['grafana::service'],
+  }
 }
