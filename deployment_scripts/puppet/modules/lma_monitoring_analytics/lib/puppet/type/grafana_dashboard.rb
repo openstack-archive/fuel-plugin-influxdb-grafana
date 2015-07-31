@@ -54,7 +54,7 @@ Puppet::Type.newtype(:grafana_dashboard) do
 
         validate do |value|
             unless value =~ /^https?:\/\//
-                raise ArgumentError , "'%s' is not a valid backenb URL" % value
+                raise ArgumentError , "'%s' is not a valid backend URL" % value
             end
         end
     end
