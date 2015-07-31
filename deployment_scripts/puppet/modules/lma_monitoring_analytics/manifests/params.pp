@@ -16,7 +16,7 @@
 
 class lma_monitoring_analytics::params {
   $listen_port            = 8000
-  $influxdb_host          = undef
+  $influxdb_url           = 'http://localhost:8086'
   $influxdb_script        = '/usr/local/bin/configure_influxdb.sh'
   $influxdb_dir           = '/opt/influxdb'
 }
