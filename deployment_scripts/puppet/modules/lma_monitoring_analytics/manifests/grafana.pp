@@ -15,9 +15,13 @@
 # == Class: lma_monitoring_analytics::grafana
 
 class lma_monitoring_analytics::grafana (
-    $admin_username = undef,
-    $admin_password = undef,
-    $http_port      = $lma_monitoring_analytics::params::listen_port,
+  $admin_username    = undef,
+  $admin_password    = undef,
+  $http_port         = $lma_monitoring_analytics::params::listen_port,
+  $influxdb_url      = $lma_monitoring_analytics::params::influxdb_url,
+  $influxdb_username = undef,
+  $influxdb_password = undef,
+  $influxdb_database = undef,
 ) inherits lma_monitoring_analytics::params {
   class { '::grafana':
     install_method      => 'repo',
@@ -34,5 +38,18 @@ class lma_monitoring_analytics::grafana (
         reporting_enabled => false,
       },
     },
+  }
+
+  grafana_datasource { 'influxdb':
+    ensure           => present,
+    url              => $influxdb_url,
+    user             => $influxdb_username,
+    password         => $admin_password,
+    database         => $influxdb_database,
+    access_mode      => 'proxy',
+    is_default       => true,
+    grafana_url      => "http://localhost:${http_port}",
+    grafana_user     => $admin_username,
+    grafana_password => $admin_password,
   }
 }
