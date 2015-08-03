@@ -23,6 +23,7 @@ class lma_monitoring_analytics::grafana (
   $influxdb_password = undef,
   $influxdb_database = undef,
 ) inherits lma_monitoring_analytics::params {
+
   class { '::grafana':
     install_method      => 'repo',
     manage_package_repo => false,
@@ -53,4 +54,20 @@ class lma_monitoring_analytics::grafana (
     grafana_password => $admin_password,
     require          => Class['::grafana'],
   }
+
+  $dashboard_defaults = {
+    ensure           => present,
+    backend_url      => "http://localhost:${http_port}",
+    backend_user     => $admin_username,
+    backend_password => $admin_password,
+    require          => Class['::grafana'],
+  }
+
+  $dashboards = {
+    'System' => {
+      content => template('lma_monitoring_analytics/grafana_dashboards/System.json'),
+      tags    => [],
+    },
+  }
+  create_resources(grafana_dashboard, $dashboards, $dashboard_defaults)
 }
