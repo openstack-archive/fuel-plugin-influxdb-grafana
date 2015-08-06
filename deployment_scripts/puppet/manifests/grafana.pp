@@ -20,7 +20,7 @@ if $influxdb_grafana['node_name'] == $user_node_name {
     admin_username    => $influxdb_grafana['grafana_username'],
     admin_password    => $influxdb_grafana['grafana_userpass'],
     influxdb_username => $influxdb_grafana['influxdb_username'],
-    influxdb_password => $influxdb_grafana['influxdb_password'],
+    influxdb_password => $influxdb_grafana['influxdb_userpass'],
     influxdb_database => $influxdb_grafana['influxdb_dbname'],
   }
 }
