@@ -68,6 +68,10 @@ class lma_monitoring_analytics::grafana (
       content => template('lma_monitoring_analytics/grafana_dashboards/System.json'),
       tags    => [],
     },
+    'LMA self-monitoring' => {
+      content => template('lma_monitoring_analytics/grafana_dashboards/LMA.json'),
+      tags    => [],
+    },
   }
   create_resources(grafana_dashboard, $dashboards, $dashboard_defaults)
 }
