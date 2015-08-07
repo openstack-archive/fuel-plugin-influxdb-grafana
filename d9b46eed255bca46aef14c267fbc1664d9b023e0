@@ -1,0 +1,8 @@
+Verified+2: Jenkins
+Code-Review+2: Simon Pasquier <spasquier@mirantis.com>
+Workflow+1: Simon Pasquier <spasquier@mirantis.com>
+Submitted-by: Jenkins
+Submitted-at: Fri, 07 Aug 2015 12:32:59 +0000
+Reviewed-on: https://review.openstack.org/210261
+Project: stackforge/fuel-plugin-influxdb-grafana
+Branch: refs/heads/feature/upgrade-influxdb-grafana
