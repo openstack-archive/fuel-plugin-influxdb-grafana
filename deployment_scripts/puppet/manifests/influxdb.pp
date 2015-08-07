@@ -15,12 +15,20 @@
 $influxdb_grafana = hiera('influxdb_grafana')
 
 if $influxdb_grafana['node_name'] == hiera('user_node_name') {
+  # retention period value is expressd in days
+  if $influxdb_grafana['retention_period'] == 0 {
+    $retention_period = 'INF'
+  } else {
+    $retention_period = sprintf('%dd', $influxdb_grafana['retention_period'])
+  }
 
   class { 'lma_monitoring_analytics::influxdb':
-    influxdb_rootpass => $influxdb_grafana['influxdb_rootpass'],
-    influxdb_dbname   => $influxdb_grafana['influxdb_dbname'],
-    influxdb_username => $influxdb_grafana['influxdb_username'],
-    influxdb_userpass => $influxdb_grafana['influxdb_userpass'],
-    influxdb_dir      => $influxdb_grafana['data_dir'],
+    influxdb_rootpass  => $influxdb_grafana['influxdb_rootpass'],
+    influxdb_dbname    => $influxdb_grafana['influxdb_dbname'],
+    influxdb_username  => $influxdb_grafana['influxdb_username'],
+    influxdb_userpass  => $influxdb_grafana['influxdb_userpass'],
+    influxdb_dir       => $influxdb_grafana['data_dir'],
+    retention_period   => $retention_period,
+    replication_factor => $influxdb_grafana['replication_factor'],
   }
 }

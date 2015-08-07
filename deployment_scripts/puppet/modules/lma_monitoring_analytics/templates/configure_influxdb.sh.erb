@@ -25,3 +25,9 @@ curl -G "${INFLUXDB_URL}/query" \
     --data-urlencode "u=root" \
     --data-urlencode "p=<%= @influxdb_rootpass %>" \
     --data-urlencode "q=GRANT ALL ON <%= @influxdb_dbname %> TO <%= @influxdb_username %>"
+
+# Define the retentation policy
+curl -G "${INFLUXDB_URL}/query" \
+    --data-urlencode "u=root" \
+    --data-urlencode "p=<%= @influxdb_rootpass %>" \
+    --data-urlencode "q=ALTER RETENTION POLICY default ON <%= @influxdb_dbname %> DURATION <%= @retention_period %> REPLICATION <%= @replication_factor %>"
