@@ -19,4 +19,6 @@ class lma_monitoring_analytics::params {
   $influxdb_url           = 'http://localhost:8086'
   $influxdb_script        = '/usr/local/bin/configure_influxdb.sh'
   $influxdb_dir           = '/opt/influxdb'
+  $influxdb_retention_period = 0
+  $influxdb_replication_factor = 1
 }
