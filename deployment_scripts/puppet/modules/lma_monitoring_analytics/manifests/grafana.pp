@@ -64,6 +64,10 @@ class lma_monitoring_analytics::grafana (
   }
 
   $dashboards = {
+    'Main' => {
+      content => template('lma_monitoring_analytics/grafana_dashboards/Main.json'),
+      tags    => [],
+    },
     'System' => {
       content => template('lma_monitoring_analytics/grafana_dashboards/System.json'),
       tags    => [],
