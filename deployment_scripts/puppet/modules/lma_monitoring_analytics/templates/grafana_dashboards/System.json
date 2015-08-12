@@ -1,2325 +1,2394 @@
 {
-  "id": 5,
-  "title": "System",
-  "originalTitle": "System",
-  "tags": [],
   "style": "dark",
-  "timezone": "browser",
-  "editable": true,
-  "hideControls": false,
-  "sharedCrosshair": true,
   "rows": [
     {
       "collapse": false,
+      "title": "Main",
       "editable": true,
       "height": "250px",
       "panels": [
         {
-          "aliasColors": {},
           "bars": false,
-          "datasource": null,
-          "editable": true,
-          "error": false,
-          "fill": 0,
-          "grid": {
-            "leftLogBase": 1,
-            "leftMax": 100,
-            "leftMin": null,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
-            "threshold1": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2": null,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
-          "id": 5,
-          "interval": ">60s",
-          "legend": {
-            "avg": false,
-            "current": false,
-            "max": false,
-            "min": false,
-            "show": true,
-            "total": false,
-            "values": false
-          },
-          "lines": true,
-          "linewidth": 1,
+          "aliasColors": {},
           "links": [],
           "nullPointMode": "connected",
-          "percentage": false,
-          "pointradius": 5,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "span": 6,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "alias": "user",
-              "column": "value",
-              "fields": [
-                {
-                  "func": "mean",
-                  "name": "value"
-                }
-              ],
-              "fill": "0",
-              "function": "mean",
-              "groupByTags": [],
-              "measurement": "cpu_user",
-              "query": "SELECT mean(value) FROM \"cpu_user\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "rawQuery": false,
-              "series": "merge(/$server.cpu.\\d+.user/)",
-              "tags": [
-                {
-                  "key": "hostname",
-                  "value": "$server"
-                }
-              ]
-            },
-            {
-              "alias": "idle",
-              "column": "value",
-              "fields": [
-                {
-                  "func": "mean",
-                  "name": "value"
-                }
-              ],
-              "fill": "0",
-              "function": "mean",
-              "groupByTags": [],
-              "measurement": "cpu_idle",
-              "query": "SELECT mean(value) FROM \"cpu_idle\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "series": "merge(/$server.cpu.\\d+.idle/)",
-              "tags": [
-                {
-                  "key": "hostname",
-                  "value": "$server"
-                }
-              ],
-              "target": ""
-            },
-            {
-              "alias": "interrupt",
-              "column": "value",
-              "fields": [
-                {
-                  "func": "mean",
-                  "name": "value"
-                }
-              ],
-              "fill": "0",
-              "function": "mean",
-              "groupByTags": [],
-              "measurement": "cpu_interrupt",
-              "query": "SELECT mean(value) FROM \"cpu_interrupt\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "series": "merge(/$server.cpu.\\d+.interrupt/)",
-              "tags": [
-                {
-                  "key": "hostname",
-                  "value": "$server"
-                }
-              ],
-              "target": ""
-            },
-            {
-              "alias": "nice",
-              "column": "value",
-              "fields": [
-                {
-                  "func": "mean",
-                  "name": "value"
-                }
-              ],
-              "fill": "0",
-              "function": "mean",
-              "groupByTags": [],
-              "measurement": "cpu_nice",
-              "query": "SELECT mean(value) FROM \"cpu_nice\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "series": "merge(/$server.cpu.\\d+.nice/)",
-              "tags": [
-                {
-                  "key": "hostname",
-                  "value": "$server"
-                }
-              ],
-              "target": ""
-            },
-            {
-              "alias": "system",
-              "column": "value",
-              "fields": [
-                {
-                  "func": "mean",
-                  "name": "value"
-                }
-              ],
-              "fill": "0",
-              "function": "mean",
-              "groupByTags": [],
-              "measurement": "cpu_system",
-              "query": "SELECT mean(value) FROM \"cpu_system\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "series": "merge(/$server.cpu.\\d+.system/)",
-              "tags": [
-                {
-                  "key": "hostname",
-                  "value": "$server"
-                }
-              ],
-              "target": ""
-            },
-            {
-              "alias": "steal",
-              "column": "value",
-              "fields": [
-                {
-                  "func": "mean",
-                  "name": "value"
-                }
-              ],
-              "fill": "0",
-              "function": "mean",
-              "groupByTags": [],
-              "measurement": "cpu_steal",
-              "query": "SELECT mean(value) FROM \"cpu_steal\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "series": "merge(/$server.cpu.\\d+.steal/)",
-              "tags": [
-                {
-                  "key": "hostname",
-                  "value": "$server"
-                }
-              ],
-              "target": ""
-            },
-            {
-              "alias": "wait",
-              "column": "value",
-              "fields": [
-                {
-                  "func": "mean",
-                  "name": "value"
-                }
-              ],
-              "fill": "0",
-              "function": "mean",
-              "groupByTags": [],
-              "measurement": "cpu_wait",
-              "query": "SELECT mean(value) FROM \"cpu_wait\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "series": "merge(/$server.cpu.\\d+.wait/)",
-              "tags": [
-                {
-                  "key": "hostname",
-                  "value": "$server"
-                }
-              ],
-              "target": ""
-            }
-          ],
           "timeFrom": null,
-          "timeShift": null,
+          "renderer": "flot",
+          "linewidth": 1,
+          "steppedLine": false,
+          "id": 5,
+          "fill": 0,
+          "span": 6,
           "title": "CPU",
           "tooltip": {
             "shared": true,
             "value_type": "cumulative"
           },
+          "legend": {
+            "total": false,
+            "show": true,
+            "max": false,
+            "min": false,
+            "current": false,
+            "values": false,
+            "avg": false
+          },
+          "targets": [
+            {
+              "function": "mean",
+              "rawQuery": false,
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "$server",
+                  "key": "hostname"
+                }
+              ],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "mean"
+                }
+              ],
+              "alias": "user",
+              "series": "merge(/$server.cpu.\\d+.user/)",
+              "measurement": "cpu_user",
+              "query": "SELECT mean(value) FROM \"cpu_user\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "fill": "0"
+            },
+            {
+              "function": "mean",
+              "target": "",
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "$server",
+                  "key": "hostname"
+                }
+              ],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "mean"
+                }
+              ],
+              "alias": "idle",
+              "series": "merge(/$server.cpu.\\d+.idle/)",
+              "measurement": "cpu_idle",
+              "query": "SELECT mean(value) FROM \"cpu_idle\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "fill": "0"
+            },
+            {
+              "function": "mean",
+              "target": "",
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "$server",
+                  "key": "hostname"
+                }
+              ],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "mean"
+                }
+              ],
+              "alias": "interrupt",
+              "series": "merge(/$server.cpu.\\d+.interrupt/)",
+              "measurement": "cpu_interrupt",
+              "query": "SELECT mean(value) FROM \"cpu_interrupt\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "fill": "0"
+            },
+            {
+              "function": "mean",
+              "target": "",
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "$server",
+                  "key": "hostname"
+                }
+              ],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "mean"
+                }
+              ],
+              "alias": "nice",
+              "series": "merge(/$server.cpu.\\d+.nice/)",
+              "measurement": "cpu_nice",
+              "query": "SELECT mean(value) FROM \"cpu_nice\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "fill": "0"
+            },
+            {
+              "function": "mean",
+              "target": "",
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "$server",
+                  "key": "hostname"
+                }
+              ],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "mean"
+                }
+              ],
+              "alias": "system",
+              "series": "merge(/$server.cpu.\\d+.system/)",
+              "measurement": "cpu_system",
+              "query": "SELECT mean(value) FROM \"cpu_system\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "fill": "0"
+            },
+            {
+              "function": "mean",
+              "target": "",
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "$server",
+                  "key": "hostname"
+                }
+              ],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "mean"
+                }
+              ],
+              "alias": "steal",
+              "series": "merge(/$server.cpu.\\d+.steal/)",
+              "measurement": "cpu_steal",
+              "query": "SELECT mean(value) FROM \"cpu_steal\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "fill": "0"
+            },
+            {
+              "function": "mean",
+              "target": "",
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "$server",
+                  "key": "hostname"
+                }
+              ],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "mean"
+                }
+              ],
+              "alias": "wait",
+              "series": "merge(/$server.cpu.\\d+.wait/)",
+              "measurement": "cpu_wait",
+              "query": "SELECT mean(value) FROM \"cpu_wait\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "fill": "0"
+            }
+          ],
+          "seriesOverrides": [],
+          "percentage": false,
           "type": "graph",
           "x-axis": true,
+          "error": false,
+          "editable": true,
+          "grid": {
+            "leftMax": 100,
+            "threshold2": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "threshold1": null,
+            "leftLogBase": 1,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)",
+            "rightMin": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "leftMin": null
+          },
+          "stack": false,
           "y-axis": true,
+          "timeShift": null,
+          "interval": ">60s",
+          "lines": true,
+          "points": false,
+          "datasource": null,
+          "pointradius": 5,
           "y_formats": [
             "percent",
             "short"
           ]
         },
         {
+          "bars": false,
           "aliasColors": {},
-          "aliasYAxis": {},
+          "links": [],
+          "nullPointMode": "connected",
           "annotate": {
             "enable": false
           },
-          "bars": false,
-          "datasource": null,
-          "fill": 1,
-          "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": 0,
-            "max": null,
-            "min": null,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
-            "threshold1": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2": null,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
-          "id": 4,
-          "interactive": true,
-          "interval": ">60s",
-          "leftYAxisLabel": "",
-          "legend": {
-            "avg": false,
-            "current": false,
-            "max": false,
-            "min": false,
-            "show": true,
-            "total": false,
-            "values": false
-          },
-          "legend_counts": true,
-          "lines": true,
-          "linewidth": 2,
-          "links": [],
-          "nullPointMode": "connected",
-          "options": false,
-          "percentage": false,
-          "pointradius": 5,
-          "points": false,
-          "renderer": "flot",
-          "resolution": 100,
-          "scale": 1,
-          "seriesOverrides": [],
-          "span": 6,
-          "spyable": true,
-          "stack": true,
-          "steppedLine": false,
-          "targets": [
-            {
-              "alias": "used",
-              "column": "value",
-              "fields": [
-                {
-                  "func": "mean",
-                  "name": "value"
-                }
-              ],
-              "fill": "0",
-              "function": "mean",
-              "groupByTags": [],
-              "interval": "",
-              "measurement": "memory_used",
-              "query": "SELECT mean(value) FROM \"memory_used\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "series": "$server.memory.used",
-              "tags": [
-                {
-                  "key": "hostname",
-                  "value": "$server"
-                }
-              ],
-              "target": "randomWalk('random walk')"
-            },
-            {
-              "alias": "buffered",
-              "column": "value",
-              "fields": [
-                {
-                  "func": "mean",
-                  "name": "value"
-                }
-              ],
-              "fill": "0",
-              "function": "mean",
-              "groupByTags": [],
-              "interval": "",
-              "measurement": "memory_buffered",
-              "query": "SELECT mean(value) FROM \"memory_buffered\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "series": "$server.memory.buffered",
-              "tags": [
-                {
-                  "key": "hostname",
-                  "value": "$server"
-                }
-              ],
-              "target": ""
-            },
-            {
-              "alias": "cached",
-              "column": "value",
-              "fields": [
-                {
-                  "func": "mean",
-                  "name": "value"
-                }
-              ],
-              "fill": "0",
-              "function": "mean",
-              "groupByTags": [],
-              "interval": "",
-              "measurement": "memory_cached",
-              "query": "SELECT mean(value) FROM \"memory_cached\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "series": "$server.memory.cached",
-              "tags": [
-                {
-                  "key": "hostname",
-                  "value": "$server"
-                }
-              ],
-              "target": ""
-            },
-            {
-              "alias": "free",
-              "column": "value",
-              "fields": [
-                {
-                  "func": "mean",
-                  "name": "value"
-                }
-              ],
-              "fill": "0",
-              "function": "mean",
-              "groupByTags": [],
-              "interval": "",
-              "measurement": "memory_free",
-              "query": "SELECT mean(value) FROM \"memory_free\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "series": "$server.memory.free",
-              "tags": [
-                {
-                  "key": "hostname",
-                  "value": "$server"
-                }
-              ],
-              "target": ""
-            }
-          ],
           "timeFrom": null,
-          "timeShift": null,
+          "renderer": "flot",
           "timezone": "browser",
+          "spyable": true,
+          "linewidth": 2,
+          "steppedLine": false,
+          "id": 4,
+          "fill": 1,
+          "scale": 1,
+          "span": 6,
           "title": "Memory",
-          "tooltip": {
-            "query_as_alias": true,
-            "shared": true,
-            "value_type": "individual"
-          },
-          "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
           "y_formats": [
             "bytes",
             "short"
-          ]
-        },
-        {
-          "aliasColors": {},
-          "bars": false,
-          "datasource": null,
-          "editable": true,
-          "error": false,
-          "fill": 0,
-          "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": null,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
-            "threshold1": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2": null,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          ],
+          "tooltip": {
+            "shared": true,
+            "value_type": "individual",
+            "query_as_alias": true
           },
-          "id": 13,
-          "interval": ">60s",
-          "legend": {
-            "avg": false,
-            "current": false,
-            "max": false,
-            "min": false,
-            "show": true,
-            "total": false,
-            "values": false
-          },
-          "lines": true,
-          "linewidth": 1,
-          "links": [],
-          "nullPointMode": "connected",
-          "percentage": false,
-          "pointradius": 5,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "span": 4,
-          "stack": false,
-          "steppedLine": false,
+          "stack": true,
           "targets": [
             {
-              "alias": "short",
+              "function": "mean",
+              "target": "randomWalk('random walk')",
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "$server",
+                  "key": "hostname"
+                }
+              ],
               "column": "value",
               "fields": [
                 {
-                  "func": "mean",
-                  "name": "value"
+                  "name": "value",
+                  "func": "mean"
                 }
               ],
-              "fill": "0",
-              "function": "mean",
-              "groupByTags": [],
-              "measurement": "load_shortterm",
-              "query": "SELECT mean(value) FROM \"load_shortterm\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "series": "$server.load.shortterm",
-              "tags": [
-                {
-                  "key": "hostname",
-                  "value": "$server"
-                }
-              ]
+              "interval": "",
+              "alias": "used",
+              "series": "$server.memory.used",
+              "measurement": "memory_used",
+              "query": "SELECT mean(value) FROM \"memory_used\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "fill": "0"
             },
             {
-              "alias": "mid",
+              "function": "mean",
+              "target": "",
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "$server",
+                  "key": "hostname"
+                }
+              ],
               "column": "value",
               "fields": [
                 {
-                  "func": "mean",
-                  "name": "value"
+                  "name": "value",
+                  "func": "mean"
                 }
               ],
-              "fill": "0",
-              "function": "mean",
-              "groupByTags": [],
-              "measurement": "load_midterm",
-              "query": "SELECT mean(value) FROM \"load_midterm\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "series": "$server.load.midterm",
-              "tags": [
-                {
-                  "key": "hostname",
-                  "value": "$server"
-                }
-              ]
+              "interval": "",
+              "alias": "buffered",
+              "series": "$server.memory.buffered",
+              "measurement": "memory_buffered",
+              "query": "SELECT mean(value) FROM \"memory_buffered\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "fill": "0"
             },
             {
-              "alias": "long",
+              "function": "mean",
+              "target": "",
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "$server",
+                  "key": "hostname"
+                }
+              ],
               "column": "value",
               "fields": [
                 {
-                  "func": "mean",
-                  "name": "value"
+                  "name": "value",
+                  "func": "mean"
                 }
               ],
-              "fill": "0",
+              "interval": "",
+              "alias": "cached",
+              "series": "$server.memory.cached",
+              "measurement": "memory_cached",
+              "query": "SELECT mean(value) FROM \"memory_cached\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "fill": "0"
+            },
+            {
               "function": "mean",
+              "target": "",
               "groupByTags": [],
-              "measurement": "load_longterm",
-              "query": "SELECT mean(value) FROM \"load_longterm\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "series": "$server.load.longterm",
               "tags": [
                 {
-                  "key": "hostname",
-                  "value": "$server"
+                  "value": "$server",
+                  "key": "hostname"
                 }
-              ]
+              ],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "mean"
+                }
+              ],
+              "interval": "",
+              "alias": "free",
+              "series": "$server.memory.free",
+              "measurement": "memory_free",
+              "query": "SELECT mean(value) FROM \"memory_free\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "fill": "0"
             }
           ],
-          "timeFrom": null,
+          "leftYAxisLabel": "",
+          "seriesOverrides": [],
+          "percentage": false,
+          "type": "graph",
+          "x-axis": true,
+          "grid": {
+            "leftMax": null,
+            "threshold2": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "min": null,
+            "threshold1": null,
+            "max": null,
+            "leftLogBase": 1,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)",
+            "rightMin": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "leftMin": 0
+          },
+          "legend": {
+            "total": false,
+            "show": true,
+            "max": false,
+            "min": false,
+            "current": false,
+            "values": false,
+            "avg": false
+          },
+          "legend_counts": true,
+          "y-axis": true,
+          "aliasYAxis": {},
           "timeShift": null,
+          "interval": ">60s",
+          "lines": true,
+          "points": false,
+          "datasource": null,
+          "pointradius": 5,
+          "resolution": 100,
+          "options": false,
+          "interactive": true
+        },
+        {
+          "bars": false,
+          "aliasColors": {},
+          "links": [],
+          "nullPointMode": "connected",
+          "timeFrom": null,
+          "renderer": "flot",
+          "linewidth": 1,
+          "steppedLine": false,
+          "id": 13,
+          "fill": 0,
+          "span": 4,
           "title": "System load",
           "tooltip": {
             "shared": true,
             "value_type": "cumulative"
           },
+          "legend": {
+            "total": false,
+            "show": true,
+            "max": false,
+            "min": false,
+            "current": false,
+            "values": false,
+            "avg": false
+          },
+          "targets": [
+            {
+              "function": "mean",
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "$server",
+                  "key": "hostname"
+                }
+              ],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "mean"
+                }
+              ],
+              "alias": "short",
+              "series": "$server.load.shortterm",
+              "measurement": "load_shortterm",
+              "query": "SELECT mean(value) FROM \"load_shortterm\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "fill": "0"
+            },
+            {
+              "function": "mean",
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "$server",
+                  "key": "hostname"
+                }
+              ],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "mean"
+                }
+              ],
+              "alias": "mid",
+              "series": "$server.load.midterm",
+              "measurement": "load_midterm",
+              "query": "SELECT mean(value) FROM \"load_midterm\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "fill": "0"
+            },
+            {
+              "function": "mean",
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "$server",
+                  "key": "hostname"
+                }
+              ],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "mean"
+                }
+              ],
+              "alias": "long",
+              "series": "$server.load.longterm",
+              "measurement": "load_longterm",
+              "query": "SELECT mean(value) FROM \"load_longterm\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "fill": "0"
+            }
+          ],
+          "seriesOverrides": [],
+          "percentage": false,
           "type": "graph",
           "x-axis": true,
+          "error": false,
+          "editable": true,
+          "grid": {
+            "leftMax": null,
+            "threshold2": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "threshold1": null,
+            "leftLogBase": 1,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)",
+            "rightMin": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "leftMin": null
+          },
+          "stack": false,
           "y-axis": true,
+          "timeShift": null,
+          "interval": ">60s",
+          "lines": true,
+          "points": false,
+          "datasource": null,
+          "pointradius": 5,
           "y_formats": [
             "short",
             "short"
           ]
         },
         {
-          "aliasColors": {},
           "bars": false,
-          "datasource": null,
-          "editable": true,
-          "error": false,
-          "fill": 0,
-          "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": 0,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": 0,
-            "threshold1": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2": null,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
-          "id": 15,
-          "interval": ">60s",
-          "legend": {
-            "alignAsTable": false,
-            "avg": false,
-            "current": false,
-            "max": false,
-            "min": false,
-            "rightSide": false,
-            "show": true,
-            "total": false,
-            "values": false
-          },
-          "lines": true,
-          "linewidth": 1,
+          "aliasColors": {},
           "links": [],
           "nullPointMode": "connected",
-          "percentage": false,
-          "pointradius": 5,
-          "points": false,
+          "timeFrom": null,
           "renderer": "flot",
+          "linewidth": 1,
+          "steppedLine": false,
+          "id": 15,
+          "fill": 0,
+          "span": 3,
+          "title": "Processes",
+          "tooltip": {
+            "shared": true,
+            "value_type": "cumulative"
+          },
+          "legend": {
+            "rightSide": false,
+            "total": false,
+            "min": false,
+            "max": false,
+            "show": true,
+            "current": false,
+            "values": false,
+            "alignAsTable": false,
+            "avg": false
+          },
+          "targets": [
+            {
+              "function": "max",
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "$server",
+                  "key": "hostname"
+                },
+                {
+                  "value": "blocked",
+                  "key": "state",
+                  "condition": "AND"
+                }
+              ],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "max"
+                }
+              ],
+              "alias": "blocked",
+              "series": "$server.processes.state.blocked",
+              "measurement": "processes_count",
+              "query": "SELECT max(value) FROM \"processes_count\" WHERE \"hostname\" = '$server' AND \"state\" = 'blocked' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "fill": "0"
+            },
+            {
+              "function": "max",
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "$server",
+                  "key": "hostname"
+                },
+                {
+                  "value": "paging",
+                  "key": "state",
+                  "condition": "AND"
+                }
+              ],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "max"
+                }
+              ],
+              "alias": "paging",
+              "series": "$server.processes.state.paging",
+              "measurement": "processes_count",
+              "query": "SELECT max(value) FROM \"processes_count\" WHERE \"hostname\" = '$server' AND \"state\" = 'paging' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "fill": "0"
+            },
+            {
+              "function": "max",
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "$server",
+                  "key": "hostname"
+                },
+                {
+                  "value": "running",
+                  "key": "state",
+                  "condition": "AND"
+                }
+              ],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "max"
+                }
+              ],
+              "alias": "running",
+              "series": "$server.processes.state.paging",
+              "measurement": "processes_count",
+              "query": "SELECT max(value) FROM \"processes_count\" WHERE \"hostname\" = '$server' AND \"state\" = 'running' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "fill": "0"
+            },
+            {
+              "function": "max",
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "$server",
+                  "key": "hostname"
+                },
+                {
+                  "value": "sleeping",
+                  "key": "state",
+                  "condition": "AND"
+                }
+              ],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "max"
+                }
+              ],
+              "alias": "sleeping",
+              "series": "$server.processes.state.paging",
+              "measurement": "processes_count",
+              "query": "SELECT max(value) FROM \"processes_count\" WHERE \"hostname\" = '$server' AND \"state\" = 'sleeping' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "fill": "0"
+            },
+            {
+              "function": "max",
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "$server",
+                  "key": "hostname"
+                },
+                {
+                  "value": "stopped",
+                  "key": "state",
+                  "condition": "AND"
+                }
+              ],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "max"
+                }
+              ],
+              "alias": "stopped",
+              "series": "$server.processes.state.paging",
+              "measurement": "processes_count",
+              "query": "SELECT max(value) FROM \"processes_count\" WHERE \"hostname\" = '$server' AND \"state\" = 'stopped' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "fill": "0"
+            },
+            {
+              "function": "max",
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "$server",
+                  "key": "hostname"
+                },
+                {
+                  "value": "zombies",
+                  "key": "state",
+                  "condition": "AND"
+                }
+              ],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "max"
+                }
+              ],
+              "alias": "zombies",
+              "series": "$server.processes.state.paging",
+              "measurement": "processes_count",
+              "query": "SELECT max(value) FROM \"processes_count\" WHERE \"hostname\" = '$server' AND \"state\" = 'zombies' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "fill": "0"
+            }
+          ],
           "seriesOverrides": [
             {
               "alias": "fork rate",
               "yaxis": 2
             }
           ],
-          "span": 3,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "alias": "blocked",
-              "column": "value",
-              "fields": [
-                {
-                  "func": "max",
-                  "name": "value"
-                }
-              ],
-              "fill": "0",
-              "function": "max",
-              "groupByTags": [],
-              "measurement": "processes_count",
-              "query": "SELECT max(value) FROM \"processes_count\" WHERE \"hostname\" = '$server' AND \"state\" = 'blocked' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "series": "$server.processes.state.blocked",
-              "tags": [
-                {
-                  "key": "hostname",
-                  "value": "$server"
-                },
-                {
-                  "condition": "AND",
-                  "key": "state",
-                  "value": "blocked"
-                }
-              ]
-            },
-            {
-              "alias": "paging",
-              "column": "value",
-              "fields": [
-                {
-                  "func": "max",
-                  "name": "value"
-                }
-              ],
-              "fill": "0",
-              "function": "max",
-              "groupByTags": [],
-              "measurement": "processes_count",
-              "query": "SELECT max(value) FROM \"processes_count\" WHERE \"hostname\" = '$server' AND \"state\" = 'paging' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "series": "$server.processes.state.paging",
-              "tags": [
-                {
-                  "key": "hostname",
-                  "value": "$server"
-                },
-                {
-                  "condition": "AND",
-                  "key": "state",
-                  "value": "paging"
-                }
-              ]
-            },
-            {
-              "alias": "running",
-              "column": "value",
-              "fields": [
-                {
-                  "func": "max",
-                  "name": "value"
-                }
-              ],
-              "fill": "0",
-              "function": "max",
-              "groupByTags": [],
-              "measurement": "processes_count",
-              "query": "SELECT max(value) FROM \"processes_count\" WHERE \"hostname\" = '$server' AND \"state\" = 'running' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "series": "$server.processes.state.paging",
-              "tags": [
-                {
-                  "key": "hostname",
-                  "value": "$server"
-                },
-                {
-                  "condition": "AND",
-                  "key": "state",
-                  "value": "running"
-                }
-              ]
-            },
-            {
-              "alias": "sleeping",
-              "column": "value",
-              "fields": [
-                {
-                  "func": "max",
-                  "name": "value"
-                }
-              ],
-              "fill": "0",
-              "function": "max",
-              "groupByTags": [],
-              "measurement": "processes_count",
-              "query": "SELECT max(value) FROM \"processes_count\" WHERE \"hostname\" = '$server' AND \"state\" = 'sleeping' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "series": "$server.processes.state.paging",
-              "tags": [
-                {
-                  "key": "hostname",
-                  "value": "$server"
-                },
-                {
-                  "condition": "AND",
-                  "key": "state",
-                  "value": "sleeping"
-                }
-              ]
-            },
-            {
-              "alias": "stopped",
-              "column": "value",
-              "fields": [
-                {
-                  "func": "max",
-                  "name": "value"
-                }
-              ],
-              "fill": "0",
-              "function": "max",
-              "groupByTags": [],
-              "measurement": "processes_count",
-              "query": "SELECT max(value) FROM \"processes_count\" WHERE \"hostname\" = '$server' AND \"state\" = 'stopped' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "series": "$server.processes.state.paging",
-              "tags": [
-                {
-                  "key": "hostname",
-                  "value": "$server"
-                },
-                {
-                  "condition": "AND",
-                  "key": "state",
-                  "value": "stopped"
-                }
-              ]
-            },
-            {
-              "alias": "zombies",
-              "column": "value",
-              "fields": [
-                {
-                  "func": "max",
-                  "name": "value"
-                }
-              ],
-              "fill": "0",
-              "function": "max",
-              "groupByTags": [],
-              "measurement": "processes_count",
-              "query": "SELECT max(value) FROM \"processes_count\" WHERE \"hostname\" = '$server' AND \"state\" = 'zombies' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "series": "$server.processes.state.paging",
-              "tags": [
-                {
-                  "key": "hostname",
-                  "value": "$server"
-                },
-                {
-                  "condition": "AND",
-                  "key": "state",
-                  "value": "zombies"
-                }
-              ]
-            }
-          ],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "Processes",
-          "tooltip": {
-            "shared": true,
-            "value_type": "cumulative"
-          },
+          "percentage": false,
           "type": "graph",
           "x-axis": true,
+          "error": false,
+          "editable": true,
+          "grid": {
+            "leftMax": null,
+            "threshold2": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "threshold1": null,
+            "leftLogBase": 1,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)",
+            "rightMin": 0,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "leftMin": 0
+          },
+          "stack": false,
           "y-axis": true,
+          "timeShift": null,
+          "interval": ">60s",
+          "lines": true,
+          "points": false,
+          "datasource": null,
+          "pointradius": 5,
           "y_formats": [
             "short",
             "short"
           ]
         },
         {
-          "aliasColors": {},
           "bars": false,
-          "datasource": null,
-          "editable": true,
-          "error": false,
-          "fill": 0,
-          "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": 0,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
-            "threshold1": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2": null,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
-          "id": 16,
-          "interval": ">60s",
-          "leftYAxisLabel": "per second",
-          "legend": {
-            "avg": false,
-            "current": false,
-            "max": false,
-            "min": false,
-            "show": true,
-            "total": false,
-            "values": false
-          },
-          "lines": true,
-          "linewidth": 1,
+          "aliasColors": {},
           "links": [],
           "nullPointMode": "connected",
-          "percentage": false,
-          "pointradius": 5,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "span": 3,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "alias": "fork rate",
-              "column": "value",
-              "fields": [
-                {
-                  "func": "max",
-                  "name": "value"
-                }
-              ],
-              "fill": "0",
-              "function": "max",
-              "groupByTags": [],
-              "measurement": "processes_fork_rate",
-              "query": "SELECT max(value) FROM \"processes_fork_rate\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "series": "$server.processes.fork_rate",
-              "tags": [
-                {
-                  "key": "hostname",
-                  "value": "$server"
-                }
-              ]
-            }
-          ],
           "timeFrom": null,
-          "timeShift": null,
+          "renderer": "flot",
+          "linewidth": 1,
+          "steppedLine": false,
+          "id": 16,
+          "fill": 0,
+          "span": 3,
           "title": "Process fork",
           "tooltip": {
             "shared": true,
             "value_type": "cumulative"
           },
+          "legend": {
+            "total": false,
+            "show": true,
+            "max": false,
+            "min": false,
+            "current": false,
+            "values": false,
+            "avg": false
+          },
+          "targets": [
+            {
+              "function": "max",
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "$server",
+                  "key": "hostname"
+                }
+              ],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "max"
+                }
+              ],
+              "alias": "fork rate",
+              "series": "$server.processes.fork_rate",
+              "measurement": "processes_fork_rate",
+              "query": "SELECT max(value) FROM \"processes_fork_rate\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "fill": "0"
+            }
+          ],
+          "leftYAxisLabel": "per second",
+          "seriesOverrides": [],
+          "percentage": false,
           "type": "graph",
           "x-axis": true,
+          "error": false,
+          "editable": true,
+          "grid": {
+            "leftMax": null,
+            "threshold2": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "threshold1": null,
+            "leftLogBase": 1,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)",
+            "rightMin": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "leftMin": 0
+          },
+          "stack": false,
           "y-axis": true,
+          "timeShift": null,
+          "interval": ">60s",
+          "lines": true,
+          "points": false,
+          "datasource": null,
+          "pointradius": 5,
           "y_formats": [
             "short",
             "short"
           ]
         },
         {
-          "cacheTimeout": null,
-          "colorBackground": false,
-          "colorValue": false,
-          "colors": [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(50, 172, 45, 0.97)"
-          ],
-          "editable": true,
-          "error": false,
-          "format": "none",
-          "id": 26,
-          "interval": ">60s",
           "links": [],
-          "maxDataPoints": 100,
-          "nullPointMode": "connected",
-          "nullText": null,
-          "postfix": "",
-          "postfixFontSize": "50%",
-          "prefix": "",
-          "prefixFontSize": "50%",
-          "span": 2,
-          "sparkline": {
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "show": true
-          },
-          "targets": [
+          "valueMaps": [
             {
-              "column": "value",
-              "fields": [
-                {
-                  "func": "last",
-                  "name": "value"
-                }
-              ],
-              "function": "last",
-              "groupByTags": [],
-              "measurement": "logged_users",
-              "query": "SELECT last(value) FROM \"logged_users\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval)",
-              "rawQuery": false,
-              "series": "$server.users",
-              "tags": [
-                {
-                  "key": "hostname",
-                  "value": "$server"
-                }
-              ]
+              "text": "N/A",
+              "value": "null",
+              "op": "="
             }
           ],
           "thresholds": "",
-          "title": "Logged-in users",
-          "type": "singlestat",
-          "valueFontSize": "80%",
-          "valueMaps": [
+          "nullPointMode": "connected",
+          "prefix": "",
+          "targets": [
             {
-              "op": "=",
-              "text": "N/A",
-              "value": "null"
+              "function": "last",
+              "rawQuery": false,
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "$server",
+                  "key": "hostname"
+                }
+              ],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "last"
+                }
+              ],
+              "series": "$server.users",
+              "measurement": "logged_users",
+              "query": "SELECT last(value) FROM \"logged_users\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval)"
             }
           ],
-          "valueName": "current"
-        }
-      ],
-      "showTitle": false,
-      "title": "Main"
-    },
-    {
-      "collapse": false,
-      "editable": true,
-      "height": "250px",
-      "panels": [
-        {
-          "cacheTimeout": null,
+          "maxDataPoints": 100,
+          "span": 2,
           "colorBackground": false,
-          "colorValue": true,
+          "title": "Logged-in users",
+          "sparkline": {
+            "full": false,
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "lineColor": "rgb(31, 120, 193)",
+            "show": true
+          },
+          "id": 26,
+          "prefixFontSize": "50%",
+          "valueName": "current",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "format": "none",
+          "editable": true,
+          "cacheTimeout": null,
+          "postfix": "",
+          "interval": ">60s",
           "colors": [
             "rgba(245, 54, 54, 0.9)",
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
-          "editable": true,
           "error": false,
-          "format": "percent",
-          "id": 27,
-          "interval": ">60s",
-          "links": [],
-          "maxDataPoints": 100,
-          "nullPointMode": "connected",
           "nullText": null,
-          "postfix": "",
           "postfixFontSize": "50%",
-          "prefix": "",
-          "prefixFontSize": "50%",
-          "span": 2,
-          "sparkline": {
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "show": true
-          },
-          "targets": [
+          "colorValue": false
+        }
+      ],
+      "showTitle": false
+    },
+    {
+      "collapse": false,
+      "title": "File system",
+      "editable": true,
+      "height": "250px",
+      "panels": [
+        {
+          "links": [],
+          "valueMaps": [
             {
-              "column": "value",
-              "fields": [
-                {
-                  "func": "mean",
-                  "name": "value"
-                }
-              ],
-              "function": "mean",
-              "groupByTags": [],
-              "measurement": "fs_space_percent_free",
-              "query": "SELECT mean(value) FROM \"fs_space_percent_free\" WHERE \"hostname\" = '$server' AND \"fs\" = '$mount' AND $timeFilter GROUP BY time($interval)",
-              "rawQuery": false,
-              "series": "select last(100.0*avail.value/(used.value + free.value)) from \"$server.fs.$mount.space.free\" as free inner join \"$server.fs.$mount.space.used\" as used where $timeFilter group by time($interval) order asc",
-              "tags": [
-                {
-                  "key": "hostname",
-                  "value": "$server"
-                },
-                {
-                  "condition": "AND",
-                  "key": "fs",
-                  "value": "$mount"
-                }
-              ]
+              "text": "N/A",
+              "value": "null",
+              "op": "="
             }
           ],
           "thresholds": "5,10,15",
-          "title": "Free space",
-          "type": "singlestat",
-          "valueFontSize": "80%",
-          "valueMaps": [
+          "nullPointMode": "connected",
+          "prefix": "",
+          "targets": [
             {
-              "op": "=",
-              "text": "N/A",
-              "value": "null"
+              "function": "mean",
+              "rawQuery": false,
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "$server",
+                  "key": "hostname"
+                },
+                {
+                  "value": "$mount",
+                  "key": "fs",
+                  "condition": "AND"
+                }
+              ],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "mean"
+                }
+              ],
+              "series": "select last(100.0*avail.value/(used.value + free.value)) from \"$server.fs.$mount.space.free\" as free inner join \"$server.fs.$mount.space.used\" as used where $timeFilter group by time($interval) order asc",
+              "measurement": "fs_space_percent_free",
+              "query": "SELECT mean(value) FROM \"fs_space_percent_free\" WHERE \"hostname\" = '$server' AND \"fs\" = '$mount' AND $timeFilter GROUP BY time($interval)"
             }
           ],
-          "valueName": "current"
+          "maxDataPoints": 100,
+          "span": 2,
+          "colorBackground": false,
+          "title": "Free space",
+          "sparkline": {
+            "full": false,
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "lineColor": "rgb(31, 120, 193)",
+            "show": true
+          },
+          "id": 27,
+          "prefixFontSize": "50%",
+          "valueName": "current",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "format": "percent",
+          "editable": true,
+          "cacheTimeout": null,
+          "postfix": "",
+          "interval": ">60s",
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "error": false,
+          "nullText": null,
+          "postfixFontSize": "50%",
+          "colorValue": true
         },
         {
+          "bars": false,
           "aliasColors": {},
-          "aliasYAxis": {},
+          "links": [],
+          "nullPointMode": "connected",
           "annotate": {
             "enable": false
           },
-          "bars": false,
-          "datasource": null,
-          "fill": 1,
-          "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": 0,
-            "max": null,
-            "min": null,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
-            "threshold1": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2": null,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
-          "id": 9,
-          "interactive": true,
-          "interval": ">60s",
-          "leftYAxisLabel": "",
-          "legend": {
-            "avg": false,
-            "current": false,
-            "max": false,
-            "min": false,
-            "show": true,
-            "total": false,
-            "values": false
-          },
-          "legend_counts": true,
-          "lines": true,
-          "linewidth": 2,
-          "links": [],
-          "nullPointMode": "connected",
-          "options": false,
-          "percentage": false,
-          "pointradius": 5,
-          "points": false,
-          "renderer": "flot",
-          "resolution": 100,
-          "scale": 1,
-          "seriesOverrides": [],
-          "span": 4,
-          "spyable": true,
-          "stack": true,
-          "steppedLine": false,
-          "targets": [
-            {
-              "alias": "used",
-              "column": "value",
-              "fields": [
-                {
-                  "func": "mean",
-                  "name": "value"
-                }
-              ],
-              "fill": "0",
-              "function": "mean",
-              "groupByTags": [],
-              "interval": "",
-              "measurement": "fs_space_used",
-              "query": "SELECT mean(value) FROM \"fs_space_used\" WHERE \"hostname\" = '$server' AND \"fs\" = '$mount' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "series": "$server.fs.$mount.space.used",
-              "tags": [
-                {
-                  "key": "hostname",
-                  "value": "$server"
-                },
-                {
-                  "condition": "AND",
-                  "key": "fs",
-                  "value": "$mount"
-                }
-              ],
-              "target": "randomWalk('random walk')"
-            },
-            {
-              "alias": "reserved",
-              "column": "value",
-              "fields": [
-                {
-                  "func": "mean",
-                  "name": "value"
-                }
-              ],
-              "fill": "0",
-              "function": "mean",
-              "groupByTags": [],
-              "interval": "",
-              "measurement": "fs_space_reserved",
-              "query": "SELECT mean(value) FROM \"fs_space_reserved\" WHERE \"hostname\" = '$server' AND \"fs\" = '$mount' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "series": "$server.fs.$mount.space.reserved",
-              "tags": [
-                {
-                  "key": "hostname",
-                  "value": "$server"
-                },
-                {
-                  "condition": "AND",
-                  "key": "fs",
-                  "value": "$mount"
-                }
-              ],
-              "target": "randomWalk('random walk')"
-            },
-            {
-              "alias": "free",
-              "column": "value",
-              "fields": [
-                {
-                  "func": "mean",
-                  "name": "value"
-                }
-              ],
-              "fill": "0",
-              "function": "mean",
-              "groupByTags": [],
-              "interval": "",
-              "measurement": "fs_space_free",
-              "query": "SELECT mean(value) FROM \"fs_space_free\" WHERE \"hostname\" = '$server' AND \"fs\" = '$mount' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "series": "$server.fs.$mount.space.free",
-              "tags": [
-                {
-                  "key": "hostname",
-                  "value": "$server"
-                },
-                {
-                  "condition": "AND",
-                  "key": "fs",
-                  "value": "$mount"
-                }
-              ],
-              "target": "randomWalk('random walk')"
-            }
-          ],
           "timeFrom": null,
-          "timeShift": null,
+          "renderer": "flot",
           "timezone": "browser",
+          "spyable": true,
+          "linewidth": 2,
+          "steppedLine": false,
+          "id": 9,
+          "fill": 1,
+          "scale": 1,
+          "span": 4,
           "title": "Disk usage on $mount partition",
-          "tooltip": {
-            "query_as_alias": true,
-            "shared": true,
-            "value_type": "individual"
-          },
-          "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
           "y_formats": [
             "bytes",
             "short"
-          ]
+          ],
+          "tooltip": {
+            "shared": true,
+            "value_type": "individual",
+            "query_as_alias": true
+          },
+          "stack": true,
+          "targets": [
+            {
+              "function": "mean",
+              "target": "randomWalk('random walk')",
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "$server",
+                  "key": "hostname"
+                },
+                {
+                  "value": "$mount",
+                  "key": "fs",
+                  "condition": "AND"
+                }
+              ],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "mean"
+                }
+              ],
+              "interval": "",
+              "alias": "used",
+              "series": "$server.fs.$mount.space.used",
+              "measurement": "fs_space_used",
+              "query": "SELECT mean(value) FROM \"fs_space_used\" WHERE \"hostname\" = '$server' AND \"fs\" = '$mount' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "fill": "0"
+            },
+            {
+              "function": "mean",
+              "target": "randomWalk('random walk')",
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "$server",
+                  "key": "hostname"
+                },
+                {
+                  "value": "$mount",
+                  "key": "fs",
+                  "condition": "AND"
+                }
+              ],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "mean"
+                }
+              ],
+              "interval": "",
+              "alias": "reserved",
+              "series": "$server.fs.$mount.space.reserved",
+              "measurement": "fs_space_reserved",
+              "query": "SELECT mean(value) FROM \"fs_space_reserved\" WHERE \"hostname\" = '$server' AND \"fs\" = '$mount' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "fill": "0"
+            },
+            {
+              "function": "mean",
+              "target": "randomWalk('random walk')",
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "$server",
+                  "key": "hostname"
+                },
+                {
+                  "value": "$mount",
+                  "key": "fs",
+                  "condition": "AND"
+                }
+              ],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "mean"
+                }
+              ],
+              "interval": "",
+              "alias": "free",
+              "series": "$server.fs.$mount.space.free",
+              "measurement": "fs_space_free",
+              "query": "SELECT mean(value) FROM \"fs_space_free\" WHERE \"hostname\" = '$server' AND \"fs\" = '$mount' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "fill": "0"
+            }
+          ],
+          "leftYAxisLabel": "",
+          "seriesOverrides": [],
+          "percentage": false,
+          "type": "graph",
+          "x-axis": true,
+          "grid": {
+            "leftMax": null,
+            "threshold2": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "min": null,
+            "threshold1": null,
+            "max": null,
+            "leftLogBase": 1,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)",
+            "rightMin": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "leftMin": 0
+          },
+          "legend": {
+            "total": false,
+            "show": true,
+            "max": false,
+            "min": false,
+            "current": false,
+            "values": false,
+            "avg": false
+          },
+          "legend_counts": true,
+          "y-axis": true,
+          "aliasYAxis": {},
+          "timeShift": null,
+          "interval": ">60s",
+          "lines": true,
+          "points": false,
+          "datasource": null,
+          "pointradius": 5,
+          "resolution": 100,
+          "options": false,
+          "interactive": true
         },
         {
-          "cacheTimeout": null,
+          "links": [],
+          "valueMaps": [
+            {
+              "text": "N/A",
+              "value": "null",
+              "op": "="
+            }
+          ],
+          "thresholds": "5,10,15",
+          "nullPointMode": "connected",
+          "prefix": "",
+          "targets": [
+            {
+              "function": "mean",
+              "rawQuery": false,
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "$server",
+                  "key": "hostname"
+                },
+                {
+                  "value": "$mount",
+                  "key": "fs",
+                  "condition": "AND"
+                }
+              ],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "mean"
+                }
+              ],
+              "series": "select last(100.0*avail.value/(used.value + free.value)) from \"$server.fs.$mount.space.free\" as free inner join \"$server.fs.$mount.space.used\" as used where $timeFilter group by time($interval) order asc",
+              "measurement": "fs_inodes_percent_free",
+              "query": "SELECT mean(value) FROM \"fs_inodes_percent_free\" WHERE \"hostname\" = '$server' AND \"fs\" = '$mount' AND $timeFilter GROUP BY time($interval)"
+            }
+          ],
+          "maxDataPoints": 100,
+          "span": 2,
           "colorBackground": false,
-          "colorValue": true,
+          "title": "Free inodes",
+          "sparkline": {
+            "full": false,
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "lineColor": "rgb(31, 120, 193)",
+            "show": true
+          },
+          "id": 28,
+          "prefixFontSize": "50%",
+          "valueName": "current",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "format": "percent",
+          "editable": true,
+          "cacheTimeout": null,
+          "postfix": "",
+          "interval": ">60s",
           "colors": [
             "rgba(245, 54, 54, 0.9)",
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
-          "editable": true,
           "error": false,
-          "format": "percent",
-          "id": 28,
-          "interval": ">60s",
-          "links": [],
-          "maxDataPoints": 100,
-          "nullPointMode": "connected",
           "nullText": null,
-          "postfix": "",
           "postfixFontSize": "50%",
-          "prefix": "",
-          "prefixFontSize": "50%",
-          "span": 2,
-          "sparkline": {
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "show": true
-          },
-          "targets": [
-            {
-              "column": "value",
-              "fields": [
-                {
-                  "func": "mean",
-                  "name": "value"
-                }
-              ],
-              "function": "mean",
-              "groupByTags": [],
-              "measurement": "fs_inodes_percent_free",
-              "query": "SELECT mean(value) FROM \"fs_inodes_percent_free\" WHERE \"hostname\" = '$server' AND \"fs\" = '$mount' AND $timeFilter GROUP BY time($interval)",
-              "rawQuery": false,
-              "series": "select last(100.0*avail.value/(used.value + free.value)) from \"$server.fs.$mount.space.free\" as free inner join \"$server.fs.$mount.space.used\" as used where $timeFilter group by time($interval) order asc",
-              "tags": [
-                {
-                  "key": "hostname",
-                  "value": "$server"
-                },
-                {
-                  "condition": "AND",
-                  "key": "fs",
-                  "value": "$mount"
-                }
-              ]
-            }
-          ],
-          "thresholds": "5,10,15",
-          "title": "Free inodes",
-          "type": "singlestat",
-          "valueFontSize": "80%",
-          "valueMaps": [
-            {
-              "op": "=",
-              "text": "N/A",
-              "value": "null"
-            }
-          ],
-          "valueName": "current"
+          "colorValue": true
         },
         {
+          "bars": false,
           "aliasColors": {},
-          "aliasYAxis": {},
+          "links": [],
+          "nullPointMode": "connected",
           "annotate": {
             "enable": false
           },
-          "bars": false,
-          "datasource": null,
-          "fill": 1,
-          "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": 0,
-            "max": null,
-            "min": null,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
-            "threshold1": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2": null,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
-          "id": 18,
-          "interactive": true,
-          "interval": ">60s",
-          "leftYAxisLabel": "",
-          "legend": {
-            "avg": false,
-            "current": false,
-            "max": false,
-            "min": false,
-            "show": true,
-            "total": false,
-            "values": false
-          },
-          "legend_counts": true,
-          "lines": true,
-          "linewidth": 2,
-          "links": [],
-          "nullPointMode": "connected",
-          "options": false,
-          "percentage": false,
-          "pointradius": 5,
-          "points": false,
-          "renderer": "flot",
-          "resolution": 100,
-          "scale": 1,
-          "seriesOverrides": [],
-          "span": 4,
-          "spyable": true,
-          "stack": true,
-          "steppedLine": false,
-          "targets": [
-            {
-              "alias": "used",
-              "column": "value",
-              "fields": [
-                {
-                  "func": "mean",
-                  "name": "value"
-                }
-              ],
-              "fill": "0",
-              "function": "mean",
-              "groupByTags": [],
-              "interval": "",
-              "measurement": "fs_inodes_used",
-              "query": "SELECT mean(value) FROM \"fs_inodes_used\" WHERE \"hostname\" = '$server' AND \"fs\" = '$mount' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "series": "$server.fs.$mount.inodes.used",
-              "tags": [
-                {
-                  "key": "hostname",
-                  "value": "$server"
-                },
-                {
-                  "condition": "AND",
-                  "key": "fs",
-                  "value": "$mount"
-                }
-              ],
-              "target": "randomWalk('random walk')"
-            },
-            {
-              "alias": "reserved",
-              "column": "value",
-              "fields": [
-                {
-                  "func": "mean",
-                  "name": "value"
-                }
-              ],
-              "fill": "0",
-              "function": "mean",
-              "groupByTags": [],
-              "interval": "",
-              "measurement": "fs_inodes_reserved",
-              "query": "SELECT mean(value) FROM \"fs_inodes_reserved\" WHERE \"hostname\" = '$server' AND \"fs\" = '$mount' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "series": "$server.fs.$mount.inodes.reserved",
-              "tags": [
-                {
-                  "key": "hostname",
-                  "value": "$server"
-                },
-                {
-                  "condition": "AND",
-                  "key": "fs",
-                  "value": "$mount"
-                }
-              ],
-              "target": "randomWalk('random walk')"
-            },
-            {
-              "alias": "free",
-              "column": "value",
-              "fields": [
-                {
-                  "func": "mean",
-                  "name": "value"
-                }
-              ],
-              "fill": "0",
-              "function": "mean",
-              "groupByTags": [],
-              "interval": "",
-              "measurement": "fs_inodes_free",
-              "query": "SELECT mean(value) FROM \"fs_inodes_free\" WHERE \"hostname\" = '$server' AND \"fs\" = '$mount' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "series": "$server.fs.$mount.inodes.free",
-              "tags": [
-                {
-                  "key": "hostname",
-                  "value": "$server"
-                },
-                {
-                  "condition": "AND",
-                  "key": "fs",
-                  "value": "$mount"
-                }
-              ],
-              "target": "randomWalk('random walk')"
-            }
-          ],
           "timeFrom": null,
-          "timeShift": null,
+          "renderer": "flot",
           "timezone": "browser",
+          "spyable": true,
+          "linewidth": 2,
+          "steppedLine": false,
+          "id": 18,
+          "fill": 1,
+          "scale": 1,
+          "span": 4,
           "title": "inodes on $mount partition",
-          "tooltip": {
-            "query_as_alias": true,
-            "shared": true,
-            "value_type": "individual"
-          },
-          "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
           "y_formats": [
             "short",
             "short"
-          ]
+          ],
+          "tooltip": {
+            "shared": true,
+            "value_type": "individual",
+            "query_as_alias": true
+          },
+          "stack": true,
+          "targets": [
+            {
+              "function": "mean",
+              "target": "randomWalk('random walk')",
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "$server",
+                  "key": "hostname"
+                },
+                {
+                  "value": "$mount",
+                  "key": "fs",
+                  "condition": "AND"
+                }
+              ],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "mean"
+                }
+              ],
+              "interval": "",
+              "alias": "used",
+              "series": "$server.fs.$mount.inodes.used",
+              "measurement": "fs_inodes_used",
+              "query": "SELECT mean(value) FROM \"fs_inodes_used\" WHERE \"hostname\" = '$server' AND \"fs\" = '$mount' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "fill": "0"
+            },
+            {
+              "function": "mean",
+              "target": "randomWalk('random walk')",
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "$server",
+                  "key": "hostname"
+                },
+                {
+                  "value": "$mount",
+                  "key": "fs",
+                  "condition": "AND"
+                }
+              ],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "mean"
+                }
+              ],
+              "interval": "",
+              "alias": "reserved",
+              "series": "$server.fs.$mount.inodes.reserved",
+              "measurement": "fs_inodes_reserved",
+              "query": "SELECT mean(value) FROM \"fs_inodes_reserved\" WHERE \"hostname\" = '$server' AND \"fs\" = '$mount' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "fill": "0"
+            },
+            {
+              "function": "mean",
+              "target": "randomWalk('random walk')",
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "$server",
+                  "key": "hostname"
+                },
+                {
+                  "value": "$mount",
+                  "key": "fs",
+                  "condition": "AND"
+                }
+              ],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "mean"
+                }
+              ],
+              "interval": "",
+              "alias": "free",
+              "series": "$server.fs.$mount.inodes.free",
+              "measurement": "fs_inodes_free",
+              "query": "SELECT mean(value) FROM \"fs_inodes_free\" WHERE \"hostname\" = '$server' AND \"fs\" = '$mount' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "fill": "0"
+            }
+          ],
+          "leftYAxisLabel": "",
+          "seriesOverrides": [],
+          "percentage": false,
+          "type": "graph",
+          "x-axis": true,
+          "grid": {
+            "leftMax": null,
+            "threshold2": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "min": null,
+            "threshold1": null,
+            "max": null,
+            "leftLogBase": 1,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)",
+            "rightMin": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "leftMin": 0
+          },
+          "legend": {
+            "total": false,
+            "show": true,
+            "max": false,
+            "min": false,
+            "current": false,
+            "values": false,
+            "avg": false
+          },
+          "legend_counts": true,
+          "y-axis": true,
+          "aliasYAxis": {},
+          "timeShift": null,
+          "interval": ">60s",
+          "lines": true,
+          "points": false,
+          "datasource": null,
+          "pointradius": 5,
+          "resolution": 100,
+          "options": false,
+          "interactive": true
         }
       ],
-      "showTitle": true,
-      "title": "File system"
+      "showTitle": true
     },
     {
       "collapse": false,
+      "title": "Disk",
       "editable": true,
       "height": "250px",
       "panels": [
         {
-          "aliasColors": {},
           "bars": false,
-          "datasource": null,
-          "editable": true,
-          "error": false,
-          "fill": 0,
-          "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": 0,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
-            "threshold1": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2": null,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
-          "id": 23,
-          "interval": ">60s",
-          "leftYAxisLabel": "per second",
-          "legend": {
-            "avg": false,
-            "current": false,
-            "max": false,
-            "min": false,
-            "show": true,
-            "total": false,
-            "values": false
-          },
-          "lines": true,
-          "linewidth": 1,
+          "aliasColors": {},
           "links": [],
           "nullPointMode": "connected",
-          "percentage": false,
-          "pointradius": 5,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "span": 4,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "alias": "read",
-              "column": "value",
-              "fields": [
-                {
-                  "func": "max",
-                  "name": "value"
-                }
-              ],
-              "fill": "0",
-              "function": "max",
-              "groupByTags": [],
-              "measurement": "disk_merged_read",
-              "query": "SELECT max(value) FROM \"disk_merged_read\" WHERE \"hostname\" = '$server' AND \"device\" = '$disk' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "series": "$server.disk.$disk.disk_merged.read",
-              "tags": [
-                {
-                  "key": "hostname",
-                  "value": "$server"
-                },
-                {
-                  "condition": "AND",
-                  "key": "device",
-                  "value": "$disk"
-                }
-              ]
-            },
-            {
-              "alias": "write",
-              "column": "value",
-              "fields": [
-                {
-                  "func": "max",
-                  "name": "value"
-                }
-              ],
-              "fill": "0",
-              "function": "max",
-              "groupByTags": [],
-              "measurement": "disk_merged_write",
-              "query": "SELECT max(value) FROM \"disk_merged_write\" WHERE \"hostname\" = '$server' AND \"device\" = '$disk' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "series": "$server.disk.$disk.disk_merged.write",
-              "tags": [
-                {
-                  "key": "hostname",
-                  "value": "$server"
-                },
-                {
-                  "condition": "AND",
-                  "key": "device",
-                  "value": "$disk"
-                }
-              ]
-            }
-          ],
           "timeFrom": null,
-          "timeShift": null,
+          "renderer": "flot",
+          "linewidth": 1,
+          "steppedLine": false,
+          "id": 23,
+          "fill": 0,
+          "span": 4,
           "title": "Merged operations on $disk",
           "tooltip": {
             "shared": true,
             "value_type": "cumulative"
           },
+          "legend": {
+            "total": false,
+            "show": true,
+            "max": false,
+            "min": false,
+            "current": false,
+            "values": false,
+            "avg": false
+          },
+          "targets": [
+            {
+              "function": "max",
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "$server",
+                  "key": "hostname"
+                },
+                {
+                  "value": "$disk",
+                  "key": "device",
+                  "condition": "AND"
+                }
+              ],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "max"
+                }
+              ],
+              "alias": "read",
+              "series": "$server.disk.$disk.disk_merged.read",
+              "measurement": "disk_merged_read",
+              "query": "SELECT max(value) FROM \"disk_merged_read\" WHERE \"hostname\" = '$server' AND \"device\" = '$disk' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "fill": "0"
+            },
+            {
+              "function": "max",
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "$server",
+                  "key": "hostname"
+                },
+                {
+                  "value": "$disk",
+                  "key": "device",
+                  "condition": "AND"
+                }
+              ],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "max"
+                }
+              ],
+              "alias": "write",
+              "series": "$server.disk.$disk.disk_merged.write",
+              "measurement": "disk_merged_write",
+              "query": "SELECT max(value) FROM \"disk_merged_write\" WHERE \"hostname\" = '$server' AND \"device\" = '$disk' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "fill": "0"
+            }
+          ],
+          "leftYAxisLabel": "per second",
+          "seriesOverrides": [],
+          "percentage": false,
           "type": "graph",
           "x-axis": true,
+          "error": false,
+          "editable": true,
+          "grid": {
+            "leftMax": null,
+            "threshold2": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "threshold1": null,
+            "leftLogBase": 1,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)",
+            "rightMin": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "leftMin": 0
+          },
+          "stack": false,
           "y-axis": true,
+          "timeShift": null,
+          "interval": ">60s",
+          "lines": true,
+          "points": false,
+          "datasource": null,
+          "pointradius": 5,
           "y_formats": [
             "short",
             "short"
           ]
         },
         {
-          "aliasColors": {},
           "bars": false,
-          "datasource": null,
-          "editable": true,
-          "error": false,
-          "fill": 0,
-          "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": 0,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
-            "threshold1": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2": null,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
-          "id": 21,
-          "interval": ">60s",
-          "leftYAxisLabel": "per second",
-          "legend": {
-            "avg": false,
-            "current": false,
-            "max": false,
-            "min": false,
-            "show": true,
-            "total": false,
-            "values": false
-          },
-          "lines": true,
-          "linewidth": 1,
+          "aliasColors": {},
           "links": [],
           "nullPointMode": "connected",
-          "percentage": false,
-          "pointradius": 5,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "span": 4,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "alias": "read",
-              "column": "value",
-              "fields": [
-                {
-                  "func": "max",
-                  "name": "value"
-                }
-              ],
-              "fill": "0",
-              "function": "max",
-              "groupByTags": [],
-              "measurement": "disk_ops_read",
-              "query": "SELECT max(value) FROM \"disk_ops_read\" WHERE \"hostname\" = '$server' AND \"device\" = '$disk' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "series": "$server.disk.$disk.disk_ops.read",
-              "tags": [
-                {
-                  "key": "hostname",
-                  "value": "$server"
-                },
-                {
-                  "condition": "AND",
-                  "key": "device",
-                  "value": "$disk"
-                }
-              ]
-            },
-            {
-              "alias": "write",
-              "column": "value",
-              "fields": [
-                {
-                  "func": "max",
-                  "name": "value"
-                }
-              ],
-              "fill": "0",
-              "function": "max",
-              "groupByTags": [],
-              "measurement": "disk_ops_write",
-              "query": "SELECT max(value) FROM \"disk_ops_write\" WHERE \"hostname\" = '$server' AND \"device\" = '$disk' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "series": "$server.disk.$disk.disk_ops.write",
-              "tags": [
-                {
-                  "key": "hostname",
-                  "value": "$server"
-                },
-                {
-                  "condition": "AND",
-                  "key": "device",
-                  "value": "$disk"
-                }
-              ]
-            }
-          ],
           "timeFrom": null,
-          "timeShift": null,
+          "renderer": "flot",
+          "linewidth": 1,
+          "steppedLine": false,
+          "id": 21,
+          "fill": 0,
+          "span": 4,
           "title": "Operations on $disk",
           "tooltip": {
             "shared": true,
             "value_type": "cumulative"
           },
+          "legend": {
+            "total": false,
+            "show": true,
+            "max": false,
+            "min": false,
+            "current": false,
+            "values": false,
+            "avg": false
+          },
+          "targets": [
+            {
+              "function": "max",
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "$server",
+                  "key": "hostname"
+                },
+                {
+                  "value": "$disk",
+                  "key": "device",
+                  "condition": "AND"
+                }
+              ],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "max"
+                }
+              ],
+              "alias": "read",
+              "series": "$server.disk.$disk.disk_ops.read",
+              "measurement": "disk_ops_read",
+              "query": "SELECT max(value) FROM \"disk_ops_read\" WHERE \"hostname\" = '$server' AND \"device\" = '$disk' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "fill": "0"
+            },
+            {
+              "function": "max",
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "$server",
+                  "key": "hostname"
+                },
+                {
+                  "value": "$disk",
+                  "key": "device",
+                  "condition": "AND"
+                }
+              ],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "max"
+                }
+              ],
+              "alias": "write",
+              "series": "$server.disk.$disk.disk_ops.write",
+              "measurement": "disk_ops_write",
+              "query": "SELECT max(value) FROM \"disk_ops_write\" WHERE \"hostname\" = '$server' AND \"device\" = '$disk' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "fill": "0"
+            }
+          ],
+          "leftYAxisLabel": "per second",
+          "seriesOverrides": [],
+          "percentage": false,
           "type": "graph",
           "x-axis": true,
+          "error": false,
+          "editable": true,
+          "grid": {
+            "leftMax": null,
+            "threshold2": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "threshold1": null,
+            "leftLogBase": 1,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)",
+            "rightMin": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "leftMin": 0
+          },
+          "stack": false,
           "y-axis": true,
+          "timeShift": null,
+          "interval": ">60s",
+          "lines": true,
+          "points": false,
+          "datasource": null,
+          "pointradius": 5,
           "y_formats": [
             "short",
             "short"
           ]
         },
         {
-          "aliasColors": {},
           "bars": false,
-          "datasource": null,
-          "editable": true,
-          "error": false,
-          "fill": 0,
-          "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": 0,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
-            "threshold1": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2": null,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
-          "id": 22,
-          "interval": ">60s",
-          "leftYAxisLabel": "Bytes/s",
-          "legend": {
-            "avg": false,
-            "current": false,
-            "max": false,
-            "min": false,
-            "show": true,
-            "total": false,
-            "values": false
-          },
-          "lines": true,
-          "linewidth": 1,
+          "aliasColors": {},
           "links": [],
           "nullPointMode": "connected",
-          "percentage": false,
-          "pointradius": 5,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "span": 4,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "alias": "read",
-              "column": "value",
-              "fields": [
-                {
-                  "func": "max",
-                  "name": "value"
-                }
-              ],
-              "fill": "0",
-              "function": "max",
-              "groupByTags": [],
-              "measurement": "disk_octets_read",
-              "query": "SELECT max(value) FROM \"disk_octets_read\" WHERE \"hostname\" = '$server' AND \"device\" = '$disk' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "series": "$server.disk.$disk.disk_octets.read",
-              "tags": [
-                {
-                  "key": "hostname",
-                  "value": "$server"
-                },
-                {
-                  "condition": "AND",
-                  "key": "device",
-                  "value": "$disk"
-                }
-              ]
-            },
-            {
-              "alias": "write",
-              "column": "value",
-              "fields": [
-                {
-                  "func": "max",
-                  "name": "value"
-                }
-              ],
-              "fill": "0",
-              "function": "max",
-              "groupByTags": [],
-              "measurement": "disk_octets_write",
-              "query": "SELECT max(value) FROM \"disk_octets_write\" WHERE \"hostname\" = '$server' AND \"device\" = '$disk' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "series": "$server.disk.$disk.disk_octets.write",
-              "tags": [
-                {
-                  "key": "hostname",
-                  "value": "$server"
-                },
-                {
-                  "condition": "AND",
-                  "key": "device",
-                  "value": "$disk"
-                }
-              ]
-            }
-          ],
           "timeFrom": null,
-          "timeShift": null,
+          "renderer": "flot",
+          "linewidth": 1,
+          "steppedLine": false,
+          "id": 22,
+          "fill": 0,
+          "span": 4,
           "title": "Traffic on $disk",
           "tooltip": {
             "shared": true,
             "value_type": "cumulative"
           },
+          "legend": {
+            "total": false,
+            "show": true,
+            "max": false,
+            "min": false,
+            "current": false,
+            "values": false,
+            "avg": false
+          },
+          "targets": [
+            {
+              "function": "max",
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "$server",
+                  "key": "hostname"
+                },
+                {
+                  "value": "$disk",
+                  "key": "device",
+                  "condition": "AND"
+                }
+              ],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "max"
+                }
+              ],
+              "alias": "read",
+              "series": "$server.disk.$disk.disk_octets.read",
+              "measurement": "disk_octets_read",
+              "query": "SELECT max(value) FROM \"disk_octets_read\" WHERE \"hostname\" = '$server' AND \"device\" = '$disk' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "fill": "0"
+            },
+            {
+              "function": "max",
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "$server",
+                  "key": "hostname"
+                },
+                {
+                  "value": "$disk",
+                  "key": "device",
+                  "condition": "AND"
+                }
+              ],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "max"
+                }
+              ],
+              "alias": "write",
+              "series": "$server.disk.$disk.disk_octets.write",
+              "measurement": "disk_octets_write",
+              "query": "SELECT max(value) FROM \"disk_octets_write\" WHERE \"hostname\" = '$server' AND \"device\" = '$disk' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "fill": "0"
+            }
+          ],
+          "leftYAxisLabel": "Bytes/s",
+          "seriesOverrides": [],
+          "percentage": false,
           "type": "graph",
           "x-axis": true,
+          "error": false,
+          "editable": true,
+          "grid": {
+            "leftMax": null,
+            "threshold2": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "threshold1": null,
+            "leftLogBase": 1,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)",
+            "rightMin": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "leftMin": 0
+          },
+          "stack": false,
           "y-axis": true,
+          "timeShift": null,
+          "interval": ">60s",
+          "lines": true,
+          "points": false,
+          "datasource": null,
+          "pointradius": 5,
           "y_formats": [
             "short",
             "short"
           ]
         }
       ],
-      "showTitle": true,
-      "title": "Disk"
+      "showTitle": true
     },
     {
       "collapse": false,
+      "title": "Network",
       "editable": true,
       "height": "250px",
       "panels": [
         {
-          "aliasColors": {},
           "bars": false,
-          "datasource": null,
-          "editable": true,
-          "error": false,
-          "fill": 0,
-          "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": 0,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
-            "threshold1": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2": null,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
-          "id": 17,
-          "interval": ">60s",
-          "leftYAxisLabel": "Bytes/s",
-          "legend": {
-            "avg": false,
-            "current": false,
-            "max": false,
-            "min": false,
-            "show": true,
-            "total": false,
-            "values": false
-          },
-          "lines": true,
-          "linewidth": 1,
+          "aliasColors": {},
           "links": [],
           "nullPointMode": "connected",
-          "percentage": false,
-          "pointradius": 5,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "span": 4,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "alias": "rx",
-              "column": "value",
-              "fields": [
-                {
-                  "func": "max",
-                  "name": "value"
-                }
-              ],
-              "fill": "0",
-              "function": "max",
-              "groupByTags": [],
-              "measurement": "if_octets_rx",
-              "query": "SELECT max(value) FROM \"if_octets_rx\" WHERE \"hostname\" = '$server' AND \"interface\" = '$interface' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "series": "/$server.net.$interface.if_octets.rx/",
-              "tags": [
-                {
-                  "key": "hostname",
-                  "value": "$server"
-                },
-                {
-                  "condition": "AND",
-                  "key": "interface",
-                  "value": "$interface"
-                }
-              ]
-            },
-            {
-              "alias": "tx",
-              "column": "value",
-              "fields": [
-                {
-                  "func": "max",
-                  "name": "value"
-                }
-              ],
-              "fill": "0",
-              "function": "max",
-              "groupByTags": [],
-              "measurement": "if_octets_tx",
-              "query": "SELECT max(value) FROM \"if_octets_tx\" WHERE \"hostname\" = '$server' AND \"interface\" = '$interface' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "series": "/$server.net.$interface.if_octets.tx/",
-              "tags": [
-                {
-                  "key": "hostname",
-                  "value": "$server"
-                },
-                {
-                  "condition": "AND",
-                  "key": "interface",
-                  "value": "$interface"
-                }
-              ]
-            }
-          ],
           "timeFrom": null,
-          "timeShift": null,
+          "renderer": "flot",
+          "linewidth": 1,
+          "steppedLine": false,
+          "id": 17,
+          "fill": 0,
+          "span": 4,
           "title": "Network traffic on $interface",
           "tooltip": {
             "shared": true,
             "value_type": "cumulative"
           },
+          "legend": {
+            "total": false,
+            "show": true,
+            "max": false,
+            "min": false,
+            "current": false,
+            "values": false,
+            "avg": false
+          },
+          "targets": [
+            {
+              "function": "max",
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "$server",
+                  "key": "hostname"
+                },
+                {
+                  "value": "$interface",
+                  "key": "interface",
+                  "condition": "AND"
+                }
+              ],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "max"
+                }
+              ],
+              "alias": "rx",
+              "series": "/$server.net.$interface.if_octets.rx/",
+              "measurement": "if_octets_rx",
+              "query": "SELECT max(value) FROM \"if_octets_rx\" WHERE \"hostname\" = '$server' AND \"interface\" = '$interface' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "fill": "0"
+            },
+            {
+              "function": "max",
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "$server",
+                  "key": "hostname"
+                },
+                {
+                  "value": "$interface",
+                  "key": "interface",
+                  "condition": "AND"
+                }
+              ],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "max"
+                }
+              ],
+              "alias": "tx",
+              "series": "/$server.net.$interface.if_octets.tx/",
+              "measurement": "if_octets_tx",
+              "query": "SELECT max(value) FROM \"if_octets_tx\" WHERE \"hostname\" = '$server' AND \"interface\" = '$interface' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "fill": "0"
+            }
+          ],
+          "leftYAxisLabel": "Bytes/s",
+          "seriesOverrides": [],
+          "percentage": false,
           "type": "graph",
           "x-axis": true,
+          "error": false,
+          "editable": true,
+          "grid": {
+            "leftMax": null,
+            "threshold2": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "threshold1": null,
+            "leftLogBase": 1,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)",
+            "rightMin": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "leftMin": 0
+          },
+          "stack": false,
           "y-axis": true,
+          "timeShift": null,
+          "interval": ">60s",
+          "lines": true,
+          "points": false,
+          "datasource": null,
+          "pointradius": 5,
           "y_formats": [
             "short",
             "short"
           ]
         },
         {
-          "aliasColors": {},
           "bars": false,
-          "datasource": null,
-          "editable": true,
-          "error": false,
-          "fill": 0,
-          "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": 0,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
-            "threshold1": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2": null,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
-          "id": 19,
-          "interval": ">60s",
-          "leftYAxisLabel": "per second",
-          "legend": {
-            "avg": false,
-            "current": false,
-            "max": false,
-            "min": false,
-            "show": true,
-            "total": false,
-            "values": false
-          },
-          "lines": true,
-          "linewidth": 1,
+          "aliasColors": {},
           "links": [],
           "nullPointMode": "connected",
-          "percentage": false,
-          "pointradius": 5,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "span": 4,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "alias": "rx",
-              "column": "value",
-              "fields": [
-                {
-                  "func": "max",
-                  "name": "value"
-                }
-              ],
-              "fill": "0",
-              "function": "max",
-              "groupByTags": [],
-              "measurement": "if_packets_rx",
-              "query": "SELECT max(value) FROM \"if_packets_rx\" WHERE \"hostname\" = '$server' AND \"interface\" = '$interface' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "series": "/$server.net.$interface.if_packets.rx/",
-              "tags": [
-                {
-                  "key": "hostname",
-                  "value": "$server"
-                },
-                {
-                  "condition": "AND",
-                  "key": "interface",
-                  "value": "$interface"
-                }
-              ]
-            },
-            {
-              "alias": "tx",
-              "column": "value",
-              "fields": [
-                {
-                  "func": "max",
-                  "name": "value"
-                }
-              ],
-              "fill": "0",
-              "function": "max",
-              "groupByTags": [],
-              "measurement": "if_packets_tx",
-              "query": "SELECT max(value) FROM \"if_packets_tx\" WHERE \"hostname\" = '$server' AND \"interface\" = '$interface' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "series": "/$server.net.$interface.if_packets.tx/",
-              "tags": [
-                {
-                  "key": "hostname",
-                  "value": "$server"
-                },
-                {
-                  "condition": "AND",
-                  "key": "interface",
-                  "value": "$interface"
-                }
-              ]
-            }
-          ],
           "timeFrom": null,
-          "timeShift": null,
+          "renderer": "flot",
+          "linewidth": 1,
+          "steppedLine": false,
+          "id": 19,
+          "fill": 0,
+          "span": 4,
           "title": "Packets on $interface",
           "tooltip": {
             "shared": true,
             "value_type": "cumulative"
           },
+          "legend": {
+            "total": false,
+            "show": true,
+            "max": false,
+            "min": false,
+            "current": false,
+            "values": false,
+            "avg": false
+          },
+          "targets": [
+            {
+              "function": "max",
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "$server",
+                  "key": "hostname"
+                },
+                {
+                  "value": "$interface",
+                  "key": "interface",
+                  "condition": "AND"
+                }
+              ],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "max"
+                }
+              ],
+              "alias": "rx",
+              "series": "/$server.net.$interface.if_packets.rx/",
+              "measurement": "if_packets_rx",
+              "query": "SELECT max(value) FROM \"if_packets_rx\" WHERE \"hostname\" = '$server' AND \"interface\" = '$interface' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "fill": "0"
+            },
+            {
+              "function": "max",
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "$server",
+                  "key": "hostname"
+                },
+                {
+                  "value": "$interface",
+                  "key": "interface",
+                  "condition": "AND"
+                }
+              ],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "max"
+                }
+              ],
+              "alias": "tx",
+              "series": "/$server.net.$interface.if_packets.tx/",
+              "measurement": "if_packets_tx",
+              "query": "SELECT max(value) FROM \"if_packets_tx\" WHERE \"hostname\" = '$server' AND \"interface\" = '$interface' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "fill": "0"
+            }
+          ],
+          "leftYAxisLabel": "per second",
+          "seriesOverrides": [],
+          "percentage": false,
           "type": "graph",
           "x-axis": true,
+          "error": false,
+          "editable": true,
+          "grid": {
+            "leftMax": null,
+            "threshold2": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "threshold1": null,
+            "leftLogBase": 1,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)",
+            "rightMin": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "leftMin": 0
+          },
+          "stack": false,
           "y-axis": true,
+          "timeShift": null,
+          "interval": ">60s",
+          "lines": true,
+          "points": false,
+          "datasource": null,
+          "pointradius": 5,
           "y_formats": [
             "short",
             "short"
           ]
         },
         {
-          "aliasColors": {},
           "bars": false,
-          "datasource": null,
-          "editable": true,
-          "error": false,
-          "fill": 0,
-          "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": 0,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
-            "threshold1": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2": null,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
-          "id": 20,
-          "interval": ">60s",
-          "leftYAxisLabel": "per second",
-          "legend": {
-            "avg": false,
-            "current": false,
-            "max": false,
-            "min": false,
-            "show": true,
-            "total": false,
-            "values": false
-          },
-          "lines": true,
-          "linewidth": 1,
+          "aliasColors": {},
           "links": [],
           "nullPointMode": "connected",
-          "percentage": false,
-          "pointradius": 5,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "span": 4,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "alias": "rx",
-              "column": "value",
-              "fields": [
-                {
-                  "func": "max",
-                  "name": "value"
-                }
-              ],
-              "fill": "0",
-              "function": "max",
-              "groupByTags": [],
-              "measurement": "if_errors_rx",
-              "query": "SELECT max(value) FROM \"if_errors_rx\" WHERE \"hostname\" = '$server' AND \"interface\" = '$interface' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "series": "/$server.net.$interface.if_errors.rx/",
-              "tags": [
-                {
-                  "key": "hostname",
-                  "value": "$server"
-                },
-                {
-                  "condition": "AND",
-                  "key": "interface",
-                  "value": "$interface"
-                }
-              ]
-            },
-            {
-              "alias": "tx",
-              "column": "value",
-              "fields": [
-                {
-                  "func": "max",
-                  "name": "value"
-                }
-              ],
-              "fill": "0",
-              "function": "max",
-              "groupByTags": [],
-              "measurement": "if_errors_tx",
-              "query": "SELECT max(value) FROM \"if_errors_tx\" WHERE \"hostname\" = '$server' AND \"interface\" = '$interface' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "series": "/$server.net.$interface.if_errors.tx/",
-              "tags": [
-                {
-                  "key": "hostname",
-                  "value": "$server"
-                },
-                {
-                  "condition": "AND",
-                  "key": "interface",
-                  "value": "$interface"
-                }
-              ]
-            }
-          ],
           "timeFrom": null,
-          "timeShift": null,
+          "renderer": "flot",
+          "linewidth": 1,
+          "steppedLine": false,
+          "id": 20,
+          "fill": 0,
+          "span": 4,
           "title": "Errors on $interface",
           "tooltip": {
             "shared": true,
             "value_type": "cumulative"
           },
+          "legend": {
+            "total": false,
+            "show": true,
+            "max": false,
+            "min": false,
+            "current": false,
+            "values": false,
+            "avg": false
+          },
+          "targets": [
+            {
+              "function": "max",
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "$server",
+                  "key": "hostname"
+                },
+                {
+                  "value": "$interface",
+                  "key": "interface",
+                  "condition": "AND"
+                }
+              ],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "max"
+                }
+              ],
+              "alias": "rx",
+              "series": "/$server.net.$interface.if_errors.rx/",
+              "measurement": "if_errors_rx",
+              "query": "SELECT max(value) FROM \"if_errors_rx\" WHERE \"hostname\" = '$server' AND \"interface\" = '$interface' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "fill": "0"
+            },
+            {
+              "function": "max",
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "$server",
+                  "key": "hostname"
+                },
+                {
+                  "value": "$interface",
+                  "key": "interface",
+                  "condition": "AND"
+                }
+              ],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "max"
+                }
+              ],
+              "alias": "tx",
+              "series": "/$server.net.$interface.if_errors.tx/",
+              "measurement": "if_errors_tx",
+              "query": "SELECT max(value) FROM \"if_errors_tx\" WHERE \"hostname\" = '$server' AND \"interface\" = '$interface' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "fill": "0"
+            }
+          ],
+          "leftYAxisLabel": "per second",
+          "seriesOverrides": [],
+          "percentage": false,
           "type": "graph",
           "x-axis": true,
+          "error": false,
+          "editable": true,
+          "grid": {
+            "leftMax": null,
+            "threshold2": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "threshold1": null,
+            "leftLogBase": 1,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)",
+            "rightMin": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "leftMin": 0
+          },
+          "stack": false,
           "y-axis": true,
+          "timeShift": null,
+          "interval": ">60s",
+          "lines": true,
+          "points": false,
+          "datasource": null,
+          "pointradius": 5,
           "y_formats": [
             "short",
             "short"
           ]
         }
       ],
-      "showTitle": true,
-      "title": "Network"
+      "showTitle": true
     },
     {
       "collapse": false,
+      "title": "Swap",
       "editable": true,
       "height": "250px",
       "panels": [
         {
-          "aliasColors": {},
           "bars": false,
-          "datasource": null,
-          "editable": true,
-          "error": false,
-          "fill": 1,
-          "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": null,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
-            "threshold1": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2": null,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
-          "id": 24,
-          "interval": ">60s",
-          "legend": {
-            "avg": false,
-            "current": false,
-            "max": false,
-            "min": false,
-            "show": true,
-            "total": false,
-            "values": false
-          },
-          "lines": true,
-          "linewidth": 2,
+          "aliasColors": {},
           "links": [],
           "nullPointMode": "connected",
-          "percentage": false,
-          "pointradius": 5,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "span": 6,
-          "stack": true,
-          "steppedLine": false,
-          "targets": [
-            {
-              "alias": "used",
-              "column": "value",
-              "fields": [
-                {
-                  "func": "mean",
-                  "name": "value"
-                }
-              ],
-              "fill": "0",
-              "function": "mean",
-              "groupByTags": [],
-              "measurement": "swap_used",
-              "query": "SELECT mean(value) FROM \"swap_used\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "series": "$server.swap.used",
-              "tags": [
-                {
-                  "key": "hostname",
-                  "value": "$server"
-                }
-              ]
-            },
-            {
-              "alias": "cached",
-              "column": "value",
-              "fields": [
-                {
-                  "func": "mean",
-                  "name": "value"
-                }
-              ],
-              "fill": "0",
-              "function": "mean",
-              "groupByTags": [],
-              "measurement": "swap_cached",
-              "query": "SELECT mean(value) FROM \"swap_cached\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "series": "$server.swap.cached",
-              "tags": [
-                {
-                  "key": "hostname",
-                  "value": "$server"
-                }
-              ]
-            },
-            {
-              "alias": "free",
-              "column": "value",
-              "fields": [
-                {
-                  "func": "mean",
-                  "name": "value"
-                }
-              ],
-              "fill": "0",
-              "function": "mean",
-              "groupByTags": [],
-              "measurement": "swap_free",
-              "query": "SELECT mean(value) FROM \"swap_free\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "series": "$server.swap.free",
-              "tags": [
-                {
-                  "key": "hostname",
-                  "value": "$server"
-                }
-              ]
-            }
-          ],
           "timeFrom": null,
-          "timeShift": null,
+          "renderer": "flot",
+          "linewidth": 2,
+          "steppedLine": false,
+          "id": 24,
+          "fill": 1,
+          "span": 6,
           "title": "Swap memory",
           "tooltip": {
             "shared": true,
             "value_type": "cumulative"
           },
+          "legend": {
+            "total": false,
+            "show": true,
+            "max": false,
+            "min": false,
+            "current": false,
+            "values": false,
+            "avg": false
+          },
+          "targets": [
+            {
+              "function": "mean",
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "$server",
+                  "key": "hostname"
+                }
+              ],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "mean"
+                }
+              ],
+              "alias": "used",
+              "series": "$server.swap.used",
+              "measurement": "swap_used",
+              "query": "SELECT mean(value) FROM \"swap_used\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "fill": "0"
+            },
+            {
+              "function": "mean",
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "$server",
+                  "key": "hostname"
+                }
+              ],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "mean"
+                }
+              ],
+              "alias": "cached",
+              "series": "$server.swap.cached",
+              "measurement": "swap_cached",
+              "query": "SELECT mean(value) FROM \"swap_cached\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "fill": "0"
+            },
+            {
+              "function": "mean",
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "$server",
+                  "key": "hostname"
+                }
+              ],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "mean"
+                }
+              ],
+              "alias": "free",
+              "series": "$server.swap.free",
+              "measurement": "swap_free",
+              "query": "SELECT mean(value) FROM \"swap_free\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "fill": "0"
+            }
+          ],
+          "seriesOverrides": [],
+          "percentage": false,
           "type": "graph",
           "x-axis": true,
+          "error": false,
+          "editable": true,
+          "grid": {
+            "leftMax": null,
+            "threshold2": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "threshold1": null,
+            "leftLogBase": 1,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)",
+            "rightMin": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "leftMin": null
+          },
+          "stack": true,
           "y-axis": true,
+          "timeShift": null,
+          "interval": ">60s",
+          "lines": true,
+          "points": false,
+          "datasource": null,
+          "pointradius": 5,
           "y_formats": [
             "bytes",
             "short"
           ]
         },
         {
-          "aliasColors": {},
           "bars": false,
-          "datasource": null,
-          "editable": true,
-          "error": false,
-          "fill": 0,
-          "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": 0,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
-            "threshold1": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2": null,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
-          "id": 25,
-          "interval": ">60s",
-          "leftYAxisLabel": "per second",
-          "legend": {
-            "avg": false,
-            "current": false,
-            "max": false,
-            "min": false,
-            "show": true,
-            "total": false,
-            "values": false
-          },
-          "lines": true,
-          "linewidth": 1,
+          "aliasColors": {},
           "links": [],
           "nullPointMode": "connected",
-          "percentage": false,
-          "pointradius": 5,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "span": 6,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "alias": "read",
-              "column": "value",
-              "fields": [
-                {
-                  "func": "max",
-                  "name": "value"
-                }
-              ],
-              "fill": "0",
-              "function": "max",
-              "groupByTags": [],
-              "measurement": "swap_io_out",
-              "query": "SELECT max(value) FROM \"swap_io_out\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "series": "$server.swap_io.out",
-              "tags": [
-                {
-                  "key": "hostname",
-                  "value": "$server"
-                }
-              ]
-            },
-            {
-              "alias": "write",
-              "column": "value",
-              "fields": [
-                {
-                  "func": "max",
-                  "name": "value"
-                }
-              ],
-              "fill": "0",
-              "function": "max",
-              "groupByTags": [],
-              "measurement": "swap_io_in",
-              "query": "SELECT max(value) FROM \"swap_io_in\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "series": "$server.swap_io.in",
-              "tags": [
-                {
-                  "key": "hostname",
-                  "value": "$server"
-                }
-              ]
-            }
-          ],
           "timeFrom": null,
-          "timeShift": null,
+          "renderer": "flot",
+          "linewidth": 1,
+          "steppedLine": false,
+          "id": 25,
+          "fill": 0,
+          "span": 6,
           "title": "Swap page operations",
           "tooltip": {
             "shared": true,
             "value_type": "cumulative"
           },
+          "legend": {
+            "total": false,
+            "show": true,
+            "max": false,
+            "min": false,
+            "current": false,
+            "values": false,
+            "avg": false
+          },
+          "targets": [
+            {
+              "function": "max",
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "$server",
+                  "key": "hostname"
+                }
+              ],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "max"
+                }
+              ],
+              "alias": "read",
+              "series": "$server.swap_io.out",
+              "measurement": "swap_io_out",
+              "query": "SELECT max(value) FROM \"swap_io_out\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "fill": "0"
+            },
+            {
+              "function": "max",
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "$server",
+                  "key": "hostname"
+                }
+              ],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "max"
+                }
+              ],
+              "alias": "write",
+              "series": "$server.swap_io.in",
+              "measurement": "swap_io_in",
+              "query": "SELECT max(value) FROM \"swap_io_in\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "fill": "0"
+            }
+          ],
+          "leftYAxisLabel": "per second",
+          "seriesOverrides": [],
+          "percentage": false,
           "type": "graph",
           "x-axis": true,
+          "error": false,
+          "editable": true,
+          "grid": {
+            "leftMax": null,
+            "threshold2": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "threshold1": null,
+            "leftLogBase": 1,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)",
+            "rightMin": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "leftMin": 0
+          },
+          "stack": false,
           "y-axis": true,
+          "timeShift": null,
+          "interval": ">60s",
+          "lines": true,
+          "points": false,
+          "datasource": null,
+          "pointradius": 5,
           "y_formats": [
             "short",
             "short"
           ]
         }
       ],
-      "showTitle": true,
-      "title": "Swap"
+      "showTitle": true
     }
   ],
+  "templating": {
+    "enable": true,
+    "list": [
+      {
+        "regex": "",
+        "name": "server",
+        "refresh_on_load": true,
+        "allFormat": "glob",
+        "refresh": true,
+        "current": {},
+        "datasource": null,
+        "query": "show tag values from cpu_idle with  key=\"hostname\"",
+        "type": "query",
+        "options": [],
+        "includeAll": false
+      },
+      {
+        "regex": "/^[a-z]+$/",
+        "name": "disk",
+        "refresh_on_load": true,
+        "allFormat": "glob",
+        "refresh": true,
+        "current": {},
+        "datasource": null,
+        "query": "show tag values from disk_merged_read with key=\"device\" ",
+        "type": "query",
+        "options": [],
+        "includeAll": false
+      },
+      {
+        "regex": "",
+        "name": "mount",
+        "refresh_on_load": true,
+        "allFormat": "glob",
+        "refresh": true,
+        "current": {},
+        "datasource": null,
+        "query": "show tag values from fs_inodes_free with key=\"fs\" ",
+        "type": "query",
+        "options": [],
+        "includeAll": false
+      },
+      {
+        "regex": "",
+        "name": "interface",
+        "refresh_on_load": true,
+        "allFormat": "regex values",
+        "refresh": true,
+        "current": {},
+        "datasource": null,
+        "query": "show tag values from if_errors_rx with key=\"interface\" ",
+        "type": "query",
+        "options": [],
+        "includeAll": false
+      }
+    ]
+  },
+  "links": [],
+  "tags": [],
+  "hideControls": false,
+  "title": "System",
+  "editable": true,
+  "refresh": "1m",
+  "id": null,
+  "originalTitle": "System",
+  "version": 0,
   "nav": [
     {
-      "collapse": false,
-      "enable": true,
+      "status": "Stable",
       "notice": false,
-      "now": true,
+      "enable": true,
+      "collapse": false,
+      "time_options": [
+        "5m",
+        "15m",
+        "1h",
+        "6h",
+        "12h",
+        "24h",
+        "2d",
+        "7d",
+        "30d"
+      ],
       "refresh_intervals": [
         "5s",
         "10s",
@@ -2332,95 +2401,18 @@
         "2h",
         "1d"
       ],
-      "status": "Stable",
-      "time_options": [
-        "5m",
-        "15m",
-        "1h",
-        "6h",
-        "12h",
-        "24h",
-        "2d",
-        "7d",
-        "30d"
-      ],
+      "now": true,
       "type": "timepicker"
     }
   ],
+  "sharedCrosshair": true,
   "time": {
-    "from": "now-1h",
-    "to": "now"
+    "to": "now",
+    "from": "now-1h"
   },
-  "templating": {
-    "enable": true,
-    "list": [
-      {
-        "allFormat": "glob",
-        "current": {
-        },
-        "datasource": null,
-        "includeAll": false,
-        "name": "server",
-        "options": [
-        ],
-        "query": "show tag values from cpu_idle with  key=\"hostname\"",
-        "refresh": true,
-        "refresh_on_load": false,
-        "regex": "",
-        "type": "query"
-      },
-      {
-        "allFormat": "glob",
-        "current": {
-        },
-        "datasource": null,
-        "includeAll": false,
-        "name": "disk",
-        "options": [
-        ],
-        "query": "show tag values from disk_merged_read with key=\"device\" ",
-        "refresh": true,
-        "refresh_on_load": false,
-        "regex": "/^[a-z]+$/",
-        "type": "query"
-      },
-      {
-        "allFormat": "glob",
-        "current": {
-        },
-        "datasource": null,
-        "includeAll": false,
-        "name": "mount",
-        "options": [
-        ],
-        "query": "show tag values from fs_inodes_free with key=\"fs\" ",
-        "refresh": true,
-        "refresh_on_load": false,
-        "regex": "",
-        "type": "query"
-      },
-      {
-        "allFormat": "regex values",
-        "current": {
-        },
-        "datasource": null,
-        "includeAll": false,
-        "name": "interface",
-        "options": [
-        ],
-        "query": "show tag values from if_errors_rx with key=\"interface\" ",
-        "refresh": true,
-        "refresh_on_load": false,
-        "regex": "",
-        "type": "query"
-      }
-    ]
-  },
+  "timezone": "browser",
+  "schemaVersion": 6,
   "annotations": {
     "list": []
-  },
-  "refresh": "1m",
-  "schemaVersion": 6,
-  "version": 17,
-  "links": []
+  }
 }

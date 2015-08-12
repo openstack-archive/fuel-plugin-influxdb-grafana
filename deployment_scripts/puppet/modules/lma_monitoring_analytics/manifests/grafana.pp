@@ -76,6 +76,54 @@ class lma_monitoring_analytics::grafana (
       content => template('lma_monitoring_analytics/grafana_dashboards/LMA.json'),
       tags    => [],
     },
+    'Apache' => {
+      content => template('lma_monitoring_analytics/grafana_dashboards/Apache.json'),
+      tags    => [],
+    },
+    'Cinder' => {
+      content => template('lma_monitoring_analytics/grafana_dashboards/Cinder.json'),
+      tags    => [],
+    },
+    'Glance' => {
+      content => template('lma_monitoring_analytics/grafana_dashboards/Glance.json'),
+      tags    => [],
+    },
+    'HAProxy' => {
+      content => template('lma_monitoring_analytics/grafana_dashboards/HAProxy.json'),
+      tags    => [],
+    },
+    'Heat' => {
+      content => template('lma_monitoring_analytics/grafana_dashboards/Heat.json'),
+      tags    => [],
+    },
+    'Keystone' => {
+      content => template('lma_monitoring_analytics/grafana_dashboards/Keystone.json'),
+      tags    => [],
+    },
+    'Memcached' => {
+      content => template('lma_monitoring_analytics/grafana_dashboards/Memcached.json'),
+      tags    => [],
+    },
+    'MySQL' => {
+      content => template('lma_monitoring_analytics/grafana_dashboards/MySQL.json'),
+      tags    => [],
+    },
+    'Memcached' => {
+      content => template('lma_monitoring_analytics/grafana_dashboards/Memcached.json'),
+      tags    => [],
+    },
+    'Neutron' => {
+      content => template('lma_monitoring_analytics/grafana_dashboards/Neutron.json'),
+      tags    => [],
+    },
+    'Nova' => {
+      content => template('lma_monitoring_analytics/grafana_dashboards/Nova.json'),
+      tags    => [],
+    },
+    'RabbitMQ' => {
+      content => template('lma_monitoring_analytics/grafana_dashboards/RabbitMQ.json'),
+      tags    => [],
+    },
   }
   create_resources(grafana_dashboard, $dashboards, $dashboard_defaults)
 }
