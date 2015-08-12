@@ -1,1822 +1,2439 @@
 {
-  "id": null,
-  "title": "Neutron",
-  "originalTitle": "Neutron",
-  "tags": [
-    "neutron",
-    "openstack"
-  ],
   "style": "dark",
-  "timezone": "browser",
-  "editable": true,
-  "hideControls": false,
-  "sharedCrosshair": false,
   "rows": [
     {
-      "title": "Service Status",
-      "height": "250px",
-      "editable": true,
       "collapse": false,
+      "title": "Service Status",
+      "editable": true,
+      "height": "250px",
       "panels": [
         {
-          "title": "",
-          "error": false,
-          "span": 2,
-          "editable": true,
-          "type": "singlestat",
-          "id": 6,
           "links": [],
-          "maxDataPoints": 100,
-          "interval": "> 60s",
+          "valueMaps": [
+            {
+              "text": "no data",
+              "value": "null",
+              "op": "="
+            },
+            {
+              "text": "OKAY",
+              "value": "0",
+              "op": "="
+            },
+            {
+              "text": "WARN",
+              "value": "1",
+              "op": "="
+            },
+            {
+              "text": "FAIL",
+              "value": "2",
+              "op": "="
+            },
+            {
+              "text": "UNKNOWN",
+              "value": "3",
+              "op": "="
+            }
+          ],
+          "thresholds": "0,1,2",
+          "nullPointMode": "connected",
+          "prefix": "",
           "targets": [
             {
               "function": "last",
-              "column": "value",
-              "series": "merge(/openstack.neutron.status/)",
-              "query": "select last(value) from merge(/openstack.neutron.status/) where $timeFilter group by time($interval) order asc",
-              "rawQuery": false,
-              "interval": "",
               "groupby_field": "",
+              "rawQuery": false,
+              "groupByTags": [],
+              "tags": [],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "last"
+                }
+              ],
+              "interval": "",
+              "series": "merge(/openstack.cinder.status/)",
+              "measurement": "openstack_neutron_status",
+              "query": "SELECT last(value) FROM \"openstack_neutron_status\" WHERE $timeFilter GROUP BY time($interval)",
               "condition": "",
               "fill": ""
             }
           ],
-          "cacheTimeout": null,
-          "format": "none",
-          "prefix": "",
-          "postfix": "",
-          "nullText": null,
-          "valueMaps": [
-            {
-              "value": "null",
-              "op": "=",
-              "text": "no data"
-            },
-            {
-              "value": "0",
-              "op": "=",
-              "text": "OKAY"
-            },
-            {
-              "value": "1",
-              "op": "=",
-              "text": "WARN"
-            },
-            {
-              "value": "2",
-              "op": "=",
-              "text": "FAIL"
-            },
-            {
-              "value": "3",
-              "op": "=",
-              "text": "UNKNOWN"
-            }
-          ],
-          "nullPointMode": "connected",
-          "valueName": "current",
-          "prefixFontSize": "50%",
-          "valueFontSize": "80%",
-          "postfixFontSize": "50%",
-          "thresholds": "0,1,2",
+          "maxDataPoints": 100,
+          "span": 2,
           "colorBackground": true,
-          "colorValue": false,
+          "title": "",
+          "sparkline": {
+            "full": false,
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "id": 6,
+          "prefixFontSize": "50%",
+          "valueName": "current",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "format": "none",
+          "editable": true,
+          "cacheTimeout": null,
+          "postfix": "",
+          "interval": "> 60s",
           "colors": [
             "rgba(71, 212, 59, 0.4)",
-            "rgba(245, 150, 40, 0.73)",
+            "rgba(241, 181, 37, 0.73)",
             "rgba(225, 40, 40, 0.59)"
           ],
-          "sparkline": {
-            "show": false,
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "fillColor": "rgba(31, 118, 189, 0.18)"
-          }
+          "error": false,
+          "nullText": null,
+          "postfixFontSize": "50%",
+          "colorValue": false
         },
         {
-          "title": "HTTP 5xx errors",
-          "error": false,
-          "span": 2,
-          "editable": true,
-          "type": "singlestat",
-          "id": 13,
           "links": [],
-          "maxDataPoints": 100,
-          "interval": "> 60s",
+          "valueMaps": [
+            {
+              "text": "0",
+              "value": "null",
+              "op": "="
+            }
+          ],
+          "thresholds": "0,0,1",
+          "nullPointMode": "connected",
+          "prefix": "",
           "targets": [
             {
               "function": "count",
-              "column": "value",
-              "series": "merge(/$server.openstack.neutron.http.*.5\\d\\d/)",
-              "query": "select count(value) from merge(/$server.openstack.neutron.http.*.5\\d\\d/) where $timeFilter group by time($interval) order asc",
-              "rawQuery": false,
-              "interval": "",
               "groupby_field": "",
+              "rawQuery": false,
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "/$server/",
+                  "key": "hostname"
+                },
+                {
+                  "value": "/^5/",
+                  "key": "http_status",
+                  "condition": "AND"
+                }
+              ],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "count"
+                }
+              ],
+              "interval": "",
+              "series": "merge(/$server.openstack.cinder.http.*.5\\d\\d/)",
+              "measurement": "openstack_neutron_http_responses",
+              "query": "SELECT count(value) FROM \"openstack_neutron_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^5/ AND $timeFilter GROUP BY time($interval)",
               "condition": "",
               "fill": ""
             }
           ],
-          "cacheTimeout": null,
-          "format": "none",
-          "prefix": "",
-          "postfix": "",
-          "nullText": null,
-          "valueMaps": [
-            {
-              "value": "null",
-              "op": "=",
-              "text": "0"
-            }
-          ],
-          "nullPointMode": "connected",
-          "valueName": "current",
-          "prefixFontSize": "50%",
-          "valueFontSize": "80%",
-          "postfixFontSize": "50%",
-          "thresholds": "0,0,1",
+          "maxDataPoints": 100,
+          "span": 2,
           "colorBackground": false,
-          "colorValue": false,
+          "title": "HTTP 5xx errors",
+          "sparkline": {
+            "full": false,
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "lineColor": "rgb(31, 120, 193)",
+            "show": true
+          },
+          "id": 13,
+          "prefixFontSize": "50%",
+          "valueName": "current",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "format": "none",
+          "editable": true,
+          "cacheTimeout": null,
+          "postfix": "",
+          "interval": "> 60s",
           "colors": [
             "rgba(71, 212, 59, 0.4)",
             "rgba(245, 150, 40, 0.73)",
             "rgba(225, 40, 40, 0.59)"
           ],
-          "sparkline": {
-            "show": true,
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "fillColor": "rgba(31, 118, 189, 0.18)"
-          }
+          "error": false,
+          "nullText": null,
+          "postfixFontSize": "50%",
+          "colorValue": false
         },
         {
-          "title": "HTTP response time on $server",
-          "error": false,
-          "span": 8,
-          "editable": true,
-          "type": "graph",
-          "id": 7,
-          "datasource": null,
+          "bars": false,
+          "aliasColors": {},
+          "links": [],
+          "nullPointMode": "connected",
+          "timeFrom": null,
           "renderer": "flot",
+          "linewidth": 1,
+          "steppedLine": false,
+          "id": 7,
+          "fill": 0,
+          "span": 8,
+          "title": "HTTP response time on $server",
+          "tooltip": {
+            "shared": true,
+            "value_type": "cumulative"
+          },
+          "legend": {
+            "total": false,
+            "show": true,
+            "max": true,
+            "min": true,
+            "current": false,
+            "values": true,
+            "alignAsTable": true,
+            "avg": true
+          },
+          "targets": [
+            {
+              "function": "mean",
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "/$server/",
+                  "key": "hostname"
+                },
+                {
+                  "value": "GET",
+                  "key": "http_method",
+                  "condition": "AND"
+                }
+              ],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "mean"
+                }
+              ],
+              "interval": "",
+              "alias": "GET",
+              "series": "merge(/$server.openstack.cinder.http.GET.*/)",
+              "measurement": "openstack_neutron_http_responses",
+              "query": "SELECT mean(value) FROM \"openstack_neutron_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_method\" = 'GET' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "fill": "0"
+            },
+            {
+              "function": "mean",
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "/$server/",
+                  "key": "hostname"
+                },
+                {
+                  "value": "POST",
+                  "key": "http_method",
+                  "condition": "AND"
+                }
+              ],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "mean"
+                }
+              ],
+              "interval": "",
+              "alias": "POST",
+              "series": "merge(/$server.openstack.cinder.http.POST.*/)",
+              "measurement": "openstack_neutron_http_responses",
+              "query": "SELECT mean(value) FROM \"openstack_neutron_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_method\" = 'POST' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "fill": "0"
+            },
+            {
+              "function": "mean",
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "/$server/",
+                  "key": "hostname"
+                },
+                {
+                  "value": "PUT",
+                  "key": "http_method",
+                  "condition": "AND"
+                }
+              ],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "mean"
+                }
+              ],
+              "interval": "",
+              "alias": "PUT",
+              "series": "merge(/$server.openstack.cinder.http.PUT.*/)",
+              "measurement": "openstack_neutron_http_responses",
+              "query": "SELECT mean(value) FROM \"openstack_neutron_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_method\" = 'PUT' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "fill": "0"
+            },
+            {
+              "function": "mean",
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "/$server/",
+                  "key": "hostname"
+                },
+                {
+                  "value": "DELETE",
+                  "key": "http_method",
+                  "condition": "AND"
+                }
+              ],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "mean"
+                }
+              ],
+              "interval": "",
+              "alias": "DELETE",
+              "series": "merge(/$server.openstack.cinder.http.DELETE.*/)",
+              "measurement": "openstack_neutron_http_responses",
+              "query": "SELECT mean(value) FROM \"openstack_neutron_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_method\" = 'DELETE' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "fill": "0"
+            }
+          ],
+          "seriesOverrides": [],
+          "percentage": false,
+          "type": "graph",
           "x-axis": true,
+          "error": false,
+          "editable": true,
+          "grid": {
+            "leftMax": null,
+            "threshold2": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "threshold1": null,
+            "leftLogBase": 1,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)",
+            "rightMin": 0,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "leftMin": 0
+          },
+          "stack": false,
           "y-axis": true,
+          "timeShift": null,
+          "interval": ">60s",
+          "lines": true,
+          "points": false,
+          "datasource": null,
+          "pointradius": 5,
           "y_formats": [
             "s",
             "short"
-          ],
-          "grid": {
-            "leftMax": null,
-            "rightMax": null,
-            "leftMin": 0,
-            "rightMin": 0,
-            "threshold1": null,
-            "threshold2": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
-          "lines": true,
-          "fill": 0,
-          "linewidth": 1,
-          "points": false,
-          "pointradius": 5,
-          "bars": false,
-          "stack": false,
-          "percentage": false,
-          "legend": {
-            "show": true,
-            "values": true,
-            "min": true,
-            "max": true,
-            "current": false,
-            "total": false,
-            "avg": true,
-            "alignAsTable": true
-          },
-          "nullPointMode": "connected",
-          "steppedLine": false,
-          "tooltip": {
-            "value_type": "cumulative",
-            "shared": true
-          },
-          "targets": [
-            {
-              "function": "mean",
-              "column": "value",
-              "series": "merge(/$server.openstack.neutron.http.GET.*/)",
-              "query": "select mean(value) from merge(/$server.openstack.neutron.http.GET.*/) where $timeFilter group by time($interval) fill(0) order asc",
-              "interval": "",
-              "fill": "0",
-              "alias": "GET"
-            },
-            {
-              "function": "mean",
-              "column": "value",
-              "series": "merge(/$server.openstack.neutron.http.POST.*/)",
-              "query": "select mean(value) from merge(/$server.openstack.neutron.http.POST.*/) where $timeFilter group by time($interval) fill(0) order asc",
-              "interval": "",
-              "fill": "0",
-              "alias": "POST"
-            },
-            {
-              "function": "mean",
-              "column": "value",
-              "series": "merge(/$server.openstack.neutron.http.PUT.*/)",
-              "query": "select mean(value) from merge(/$server.openstack.neutron.http.PUT.*/) where $timeFilter group by time($interval) fill(0) order asc",
-              "interval": "",
-              "fill": "0",
-              "alias": "PUT"
-            },
-            {
-              "function": "mean",
-              "column": "value",
-              "series": "merge(/$server.openstack.neutron.http.DELETE.*/)",
-              "query": "select mean(value) from merge(/$server.openstack.neutron.http.DELETE.*/) where $timeFilter group by time($interval) fill(0) order asc",
-              "interval": "",
-              "fill": "0",
-              "alias": "DELETE"
-            }
-          ],
-          "aliasColors": {},
-          "seriesOverrides": [],
-          "interval": "> 60s",
-          "links": []
+          ]
         },
         {
-          "title": "API Availability",
-          "error": false,
-          "span": 4,
-          "editable": true,
-          "type": "graph",
-          "id": 9,
-          "datasource": null,
-          "renderer": "flot",
-          "x-axis": true,
-          "y-axis": false,
-          "y_formats": [
-            "none",
-            "short"
-          ],
-          "grid": {
-            "leftMax": 1,
-            "rightMax": null,
-            "leftMin": 0,
-            "rightMin": null,
-            "threshold1": null,
-            "threshold2": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2Color": "rgba(234, 112, 112, 0.22)",
-            "thresholdLine": false
-          },
-          "lines": true,
-          "fill": 1,
-          "linewidth": 2,
-          "points": false,
-          "pointradius": 5,
           "bars": false,
-          "stack": false,
-          "percentage": false,
-          "legend": {
-            "show": false,
-            "values": false,
-            "min": false,
-            "max": false,
-            "current": false,
-            "total": false,
-            "avg": false
-          },
+          "aliasColors": {},
+          "links": [],
           "nullPointMode": "connected",
+          "timeFrom": null,
+          "renderer": "flot",
+          "linewidth": 2,
           "steppedLine": true,
+          "id": 9,
+          "fill": 1,
+          "span": 4,
+          "title": "API Availability",
           "tooltip": {
-            "value_type": "cumulative",
-            "shared": false
+            "shared": false,
+            "value_type": "cumulative"
+          },
+          "legend": {
+            "total": false,
+            "show": false,
+            "max": false,
+            "min": false,
+            "current": false,
+            "values": false,
+            "avg": false
           },
           "targets": [
             {
               "function": "last",
+              "groupByTags": [],
+              "tags": [],
               "column": "value",
-              "series": "merge(/openstack.neutron.check_api/)",
-              "query": "select last(value) from merge(/openstack.neutron.check_api/) where $timeFilter group by time($interval) fill(0) order asc",
-              "fill": "0",
-              "alias": "healthy"
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "last"
+                }
+              ],
+              "alias": "healthy",
+              "series": "merge(/openstack.cinder.check_api/)",
+              "measurement": "openstack_neutron_check_api",
+              "query": "SELECT last(value) FROM \"openstack_neutron_check_api\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
+              "fill": "0"
             }
           ],
-          "aliasColors": {},
+          "leftYAxisLabel": "",
           "seriesOverrides": [],
+          "percentage": false,
+          "type": "graph",
+          "x-axis": true,
+          "error": false,
+          "editable": true,
+          "grid": {
+            "leftMax": 1,
+            "threshold2": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "threshold1": null,
+            "leftLogBase": 1,
+            "thresholdLine": false,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)",
+            "rightMin": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "leftMin": 0
+          },
+          "stack": false,
+          "y-axis": false,
+          "timeShift": null,
           "interval": "> 60s",
-          "links": [],
-          "leftYAxisLabel": ""
+          "lines": true,
+          "points": false,
+          "datasource": null,
+          "pointradius": 5,
+          "y_formats": [
+            "none",
+            "short"
+          ]
         },
         {
-          "title": "Number of HTTP responses on $server",
-          "error": false,
-          "span": 8,
-          "editable": true,
-          "type": "graph",
-          "id": 8,
-          "datasource": null,
-          "renderer": "flot",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "short",
-            "short"
-          ],
-          "grid": {
-            "leftMax": null,
-            "rightMax": null,
-            "leftMin": 0,
-            "rightMin": null,
-            "threshold1": null,
-            "threshold2": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2Color": "rgba(234, 112, 112, 0.22)",
-            "thresholdLine": false
-          },
-          "lines": false,
-          "fill": 0,
-          "linewidth": 1,
-          "points": false,
-          "pointradius": 5,
           "bars": true,
-          "stack": true,
-          "percentage": false,
+          "aliasColors": {},
+          "links": [],
+          "nullPointMode": "connected",
+          "timeFrom": null,
+          "renderer": "flot",
+          "linewidth": 1,
+          "steppedLine": false,
+          "id": 8,
+          "fill": 0,
+          "span": 8,
+          "title": "Number of HTTP responses on $server",
+          "tooltip": {
+            "shared": true,
+            "value_type": "individual"
+          },
           "legend": {
-            "show": true,
-            "values": true,
+            "rightSide": false,
+            "total": true,
             "min": true,
             "max": true,
+            "show": true,
             "current": false,
-            "total": true,
-            "avg": false,
-            "alignAsTable": true,
             "hideEmpty": false,
-            "rightSide": false
-          },
-          "nullPointMode": "connected",
-          "steppedLine": false,
-          "tooltip": {
-            "value_type": "individual",
-            "shared": true
+            "values": true,
+            "alignAsTable": true,
+            "avg": false
           },
           "targets": [
             {
               "function": "count",
+              "rawQuery": false,
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "/$server/",
+                  "key": "hostname"
+                },
+                {
+                  "value": "/^2/",
+                  "key": "http_status",
+                  "condition": "AND"
+                }
+              ],
               "column": "value",
-              "series": "merge(/$server.openstack.neutron.http.*.1\\d\\d/)",
-              "query": "select count(value) from merge(/$server.openstack.neutron.http.*.1\\d\\d/) where $timeFilter group by time($interval) fill(0) order asc",
-              "fill": "0",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "count"
+                }
+              ],
               "interval": "",
-              "alias": "1xx"
+              "alias": "2xx",
+              "series": "merge(/$server.openstack.cinder.http.*.2\\d\\d/)",
+              "measurement": "openstack_neutron_http_responses",
+              "query": "SELECT count(value) FROM \"openstack_neutron_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^2/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "fill": "0"
             },
             {
               "function": "count",
+              "hide": false,
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "/$server/",
+                  "key": "hostname"
+                },
+                {
+                  "value": "/^1/",
+                  "key": "http_status",
+                  "condition": "AND"
+                }
+              ],
               "column": "value",
-              "series": "merge(/$server.openstack.neutron.http.*.2\\d\\d/)",
-              "query": "select count(value) from merge(/$server.openstack.neutron.http.*.2\\d\\d/) where $timeFilter group by time($interval) fill(0) order asc",
-              "fill": "0",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "count"
+                }
+              ],
               "interval": "",
-              "alias": "2xx"
+              "alias": "1xx",
+              "series": "merge(/$server.openstack.cinder.http.*.1\\d\\d/)",
+              "measurement": "openstack_neutron_http_responses",
+              "query": "SELECT count(value) FROM \"openstack_neutron_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^1/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "fill": "0"
             },
             {
               "function": "count",
+              "hide": false,
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "/$server/",
+                  "key": "hostname"
+                },
+                {
+                  "value": "/^3/",
+                  "key": "http_status",
+                  "condition": "AND"
+                }
+              ],
               "column": "value",
-              "series": "merge(/$server.openstack.neutron.http.*.3\\d\\d/)",
-              "query": "select count(value) from merge(/$server.openstack.neutron.http.*.3\\d\\d/) where $timeFilter group by time($interval) fill(0) order asc",
-              "fill": "0",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "count"
+                }
+              ],
               "interval": "",
-              "alias": "3xx"
+              "alias": "3xx",
+              "series": "merge(/$server.openstack.cinder.http.*.3\\d\\d/)",
+              "measurement": "openstack_neutron_http_responses",
+              "query": "SELECT count(value) FROM \"openstack_neutron_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^3/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "fill": "0"
             },
             {
               "function": "count",
+              "hide": false,
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "/$server/",
+                  "key": "hostname"
+                },
+                {
+                  "value": "/^4/",
+                  "key": "http_status",
+                  "condition": "AND"
+                }
+              ],
               "column": "value",
-              "series": "merge(/$server.openstack.neutron.http.*.4\\d\\d/)",
-              "query": "select count(value) from merge(/$server.openstack.neutron.http.*.4\\d\\d/) where $timeFilter group by time($interval) fill(0) order asc",
-              "fill": "0",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "count"
+                }
+              ],
               "interval": "",
-              "alias": "4xx"
+              "alias": "4xx",
+              "series": "merge(/$server.openstack.cinder.http.*.4\\d\\d/)",
+              "measurement": "openstack_neutron_http_responses",
+              "query": "SELECT count(value) FROM \"openstack_neutron_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^4/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "fill": "0"
             },
             {
               "function": "count",
+              "hide": false,
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "/$server/",
+                  "key": "hostname"
+                },
+                {
+                  "value": "/^5/",
+                  "key": "http_status",
+                  "condition": "AND"
+                }
+              ],
               "column": "value",
-              "series": "merge(/$server.openstack.neutron.http.*.5\\d\\d/)",
-              "query": "select count(value) from merge(/$server.openstack.neutron.http.*.5\\d\\d/) where $timeFilter group by time($interval) fill(0) order asc",
-              "fill": "0",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "count"
+                }
+              ],
               "interval": "",
-              "alias": "5xx"
+              "alias": "5xx",
+              "series": "merge(/$server.openstack.cinder.http.*.5\\d\\d/)",
+              "measurement": "openstack_neutron_http_responses",
+              "query": "SELECT count(value) FROM \"openstack_neutron_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^5/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "fill": "0"
             }
           ],
-          "aliasColors": {},
           "seriesOverrides": [],
-          "links": [],
-          "interval": "> 60s"
+          "percentage": false,
+          "type": "graph",
+          "x-axis": true,
+          "error": false,
+          "editable": true,
+          "grid": {
+            "leftMax": null,
+            "threshold2": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "threshold1": null,
+            "leftLogBase": 1,
+            "thresholdLine": false,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)",
+            "rightMin": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "leftMin": 0
+          },
+          "stack": true,
+          "y-axis": true,
+          "timeShift": null,
+          "interval": "> 60s",
+          "lines": false,
+          "points": false,
+          "datasource": null,
+          "pointradius": 5,
+          "y_formats": [
+            "short",
+            "short"
+          ]
         }
       ],
       "showTitle": true
     },
     {
-      "title": "Neutron API",
-      "height": "100px",
-      "editable": true,
       "collapse": false,
+      "title": "Neutron API",
+      "editable": true,
+      "height": "100px",
       "panels": [
         {
-          "title": "",
-          "error": false,
-          "span": 2,
-          "editable": true,
-          "type": "text",
-          "id": 29,
-          "mode": "html",
-          "content": "<br />\n<h3 align=\"center\"> Up </h3>",
           "style": {},
-          "links": []
+          "span": 2,
+          "links": [],
+          "title": "",
+          "editable": true,
+          "content": "<br />\n<h3 align=\"center\"> Up </h3>",
+          "mode": "html",
+          "error": false,
+          "type": "text",
+          "id": 29
         },
         {
-          "title": "Neutron",
-          "error": false,
-          "span": 2,
-          "editable": true,
-          "type": "singlestat",
-          "id": 30,
           "links": [],
-          "maxDataPoints": 100,
-          "interval": "> 60s",
+          "valueMaps": [
+            {
+              "text": "N/A",
+              "value": "null",
+              "op": "="
+            }
+          ],
+          "thresholds": "0,1,1",
+          "nullPointMode": "connected",
+          "prefix": "",
           "targets": [
             {
               "function": "mean",
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "neutron-api",
+                  "key": "backend"
+                },
+                {
+                  "value": "up",
+                  "key": "state",
+                  "condition": "AND"
+                }
+              ],
               "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "last"
+                }
+              ],
               "series": "merge(/haproxy.backend.neutron-api.servers.up/)",
-              "query": "select mean(value) from merge(/haproxy.backend.neutron-api.servers.up/) where $timeFilter group by time($interval) order asc"
+              "measurement": "haproxy_backend_servers",
+              "query": "SELECT last(value) FROM \"haproxy_backend_servers\" WHERE \"backend\" = 'neutron-api' AND \"state\" = 'up' AND $timeFilter GROUP BY time($interval)"
             }
           ],
-          "cacheTimeout": null,
-          "format": "none",
-          "prefix": "",
-          "postfix": "",
-          "nullText": null,
-          "valueMaps": [
-            {
-              "value": "null",
-              "op": "=",
-              "text": "N/A"
-            }
-          ],
-          "nullPointMode": "connected",
-          "valueName": "current",
-          "prefixFontSize": "50%",
-          "valueFontSize": "80%",
-          "postfixFontSize": "50%",
-          "thresholds": "0,1,1",
+          "maxDataPoints": 100,
+          "span": 2,
           "colorBackground": false,
-          "colorValue": true,
+          "title": "Neutron",
+          "sparkline": {
+            "full": false,
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "id": 30,
+          "prefixFontSize": "50%",
+          "valueName": "current",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "format": "none",
+          "editable": true,
+          "cacheTimeout": null,
+          "postfix": "",
+          "interval": "> 60s",
           "colors": [
             "rgba(245, 54, 54, 0.9)",
             "rgba(255, 255, 255, 0.89)",
             "rgba(255, 255, 255, 0.97)"
           ],
-          "sparkline": {
-            "show": false,
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "fillColor": "rgba(31, 118, 189, 0.18)"
-          }
+          "error": false,
+          "nullText": null,
+          "postfixFontSize": "50%",
+          "colorValue": true
         },
         {
-          "title": "",
-          "error": false,
+          "style": {},
           "span": 8,
-          "editable": true,
-          "type": "text",
-          "id": 31,
-          "mode": "markdown",
-          "content": "",
-          "style": {},
-          "links": []
-        },
-        {
-          "title": "",
-          "error": false,
-          "span": 2,
-          "editable": true,
-          "type": "text",
-          "id": 32,
-          "mode": "html",
-          "content": "<br />\n<h3 align=\"center\"> Down </h3>",
-          "style": {},
-          "links": []
-        },
-        {
-          "title": "",
-          "error": false,
-          "span": 2,
-          "editable": true,
-          "type": "singlestat",
-          "id": 33,
           "links": [],
-          "maxDataPoints": 100,
-          "interval": "> 60s",
+          "title": "",
+          "editable": true,
+          "content": "",
+          "mode": "markdown",
+          "error": false,
+          "type": "text",
+          "id": 31
+        },
+        {
+          "style": {},
+          "span": 2,
+          "links": [],
+          "title": "",
+          "editable": true,
+          "content": "<br />\n<h3 align=\"center\"> Down </h3>",
+          "mode": "html",
+          "error": false,
+          "type": "text",
+          "id": 32
+        },
+        {
+          "links": [],
+          "valueMaps": [
+            {
+              "text": "N/A",
+              "value": "null",
+              "op": "="
+            }
+          ],
+          "thresholds": "0,0,1",
+          "nullPointMode": "connected",
+          "prefix": "",
           "targets": [
             {
               "function": "mean",
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "neutron-api",
+                  "key": "backend"
+                },
+                {
+                  "value": "down",
+                  "key": "state",
+                  "condition": "AND"
+                }
+              ],
               "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "last"
+                }
+              ],
               "series": "merge(/haproxy.backend.neutron-api.servers.down/)",
-              "query": "select mean(value) from merge(/haproxy.backend.neutron-api.servers.down/) where $timeFilter group by time($interval) order asc"
+              "measurement": "haproxy_backend_servers",
+              "query": "SELECT last(value) FROM \"haproxy_backend_servers\" WHERE \"backend\" = 'neutron-api' AND \"state\" = 'down' AND $timeFilter GROUP BY time($interval)"
             }
           ],
-          "cacheTimeout": null,
-          "format": "none",
-          "prefix": "",
-          "postfix": "",
-          "nullText": null,
-          "valueMaps": [
-            {
-              "value": "null",
-              "op": "=",
-              "text": "N/A"
-            }
-          ],
-          "nullPointMode": "connected",
-          "valueName": "current",
-          "prefixFontSize": "50%",
-          "valueFontSize": "80%",
-          "postfixFontSize": "50%",
-          "thresholds": "0,0,1",
+          "maxDataPoints": 100,
+          "span": 2,
           "colorBackground": false,
-          "colorValue": true,
+          "title": "",
+          "sparkline": {
+            "full": false,
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "id": 33,
+          "prefixFontSize": "50%",
+          "valueName": "current",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "format": "none",
+          "editable": true,
+          "cacheTimeout": null,
+          "postfix": "",
+          "interval": "> 60s",
           "colors": [
             "rgba(255, 255, 255, 0.97)",
             "rgba(255, 255, 255, 0.89)",
             "rgba(245, 54, 54, 0.9)"
           ],
-          "sparkline": {
-            "show": false,
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "fillColor": "rgba(31, 118, 189, 0.18)"
-          }
+          "error": false,
+          "nullText": null,
+          "postfixFontSize": "50%",
+          "colorValue": true
         },
         {
-          "title": "",
-          "error": false,
+          "style": {},
           "span": 8,
+          "links": [],
+          "title": "",
           "editable": true,
-          "type": "text",
-          "id": 34,
-          "mode": "markdown",
           "content": "",
-          "style": {},
-          "links": []
+          "mode": "markdown",
+          "error": false,
+          "type": "text",
+          "id": 34
         }
       ],
       "showTitle": true
     },
     {
+      "collapse": false,
       "title": "Neutron Agents",
-      "height": "100px",
       "editable": true,
-      "collapse": false,
+      "height": "100px",
       "panels": [
         {
-          "title": "",
-          "error": false,
+          "style": {},
           "span": 2,
+          "links": [],
+          "title": "",
           "editable": true,
-          "type": "text",
-          "id": 14,
-          "mode": "html",
           "content": "<br />\n<h3 align=\"center\"> Disabled </h3>",
-          "style": {},
-          "links": []
+          "mode": "html",
+          "error": false,
+          "type": "text",
+          "id": 14
         },
         {
-          "title": "dhcp",
-          "error": false,
-          "span": 2,
-          "editable": true,
-          "type": "singlestat",
-          "id": 15,
           "links": [],
-          "maxDataPoints": 100,
-          "interval": "> 60s",
+          "valueMaps": [
+            {
+              "text": "N/A",
+              "value": "null",
+              "op": "="
+            }
+          ],
+          "thresholds": "0,1,1",
+          "nullPointMode": "connected",
+          "prefix": "",
           "targets": [
             {
               "function": "last",
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "dhcp",
+                  "key": "service"
+                },
+                {
+                  "value": "disabled",
+                  "key": "state",
+                  "condition": "AND"
+                }
+              ],
               "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "last"
+                }
+              ],
               "series": "merge(/openstack.neutron.agents.dhcp.disabled/)",
-              "query": "select last(value) from merge(/openstack.neutron.agents.dhcp.disabled/) where $timeFilter group by time($interval) order asc",
+              "measurement": "openstack_neutron_agents",
+              "query": "SELECT last(value) FROM \"openstack_neutron_agents\" WHERE \"service\" = 'dhcp' AND \"state\" = 'disabled' AND $timeFilter GROUP BY time($interval)",
               "fill": ""
             }
           ],
-          "cacheTimeout": null,
-          "format": "none",
-          "prefix": "",
-          "postfix": "",
-          "nullText": null,
-          "valueMaps": [
-            {
-              "value": "null",
-              "op": "=",
-              "text": "N/A"
-            }
-          ],
-          "nullPointMode": "connected",
-          "valueName": "current",
-          "prefixFontSize": "50%",
-          "valueFontSize": "80%",
-          "postfixFontSize": "50%",
-          "thresholds": "0,1,1",
+          "maxDataPoints": 100,
+          "span": 2,
           "colorBackground": false,
-          "colorValue": false,
+          "title": "dhcp",
+          "sparkline": {
+            "full": false,
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "id": 15,
+          "prefixFontSize": "50%",
+          "valueName": "current",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "format": "none",
+          "editable": true,
+          "cacheTimeout": null,
+          "postfix": "",
+          "interval": "> 60s",
           "colors": [
             "rgba(50, 172, 45, 0.97)",
             "rgba(237, 129, 40, 0.89)",
             "rgba(245, 54, 54, 0.9)"
           ],
-          "sparkline": {
-            "show": false,
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "fillColor": "rgba(31, 118, 189, 0.18)"
-          }
+          "error": false,
+          "nullText": null,
+          "postfixFontSize": "50%",
+          "colorValue": false
         },
         {
-          "title": "L3",
-          "error": false,
-          "span": 2,
-          "editable": true,
-          "type": "singlestat",
-          "id": 16,
           "links": [],
-          "maxDataPoints": 100,
-          "interval": "> 60s",
+          "valueMaps": [
+            {
+              "text": "N/A",
+              "value": "null",
+              "op": "="
+            }
+          ],
+          "thresholds": "0,1,1",
+          "nullPointMode": "connected",
+          "prefix": "",
           "targets": [
             {
               "function": "last",
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "l3",
+                  "key": "service"
+                },
+                {
+                  "value": "disabled",
+                  "key": "state",
+                  "condition": "AND"
+                }
+              ],
               "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "last"
+                }
+              ],
               "series": "merge(/openstack.neutron.agents.l3.disabled/)",
-              "query": "select last(value) from merge(/openstack.neutron.agents.l3.disabled/) where $timeFilter group by time($interval) order asc",
+              "measurement": "openstack_neutron_agents",
+              "query": "SELECT last(value) FROM \"openstack_neutron_agents\" WHERE \"service\" = 'l3' AND \"state\" = 'disabled' AND $timeFilter GROUP BY time($interval)",
               "fill": ""
             }
           ],
-          "cacheTimeout": null,
-          "format": "none",
-          "prefix": "",
-          "postfix": "",
-          "nullText": null,
-          "valueMaps": [
-            {
-              "value": "null",
-              "op": "=",
-              "text": "N/A"
-            }
-          ],
-          "nullPointMode": "connected",
-          "valueName": "current",
-          "prefixFontSize": "50%",
-          "valueFontSize": "80%",
-          "postfixFontSize": "50%",
-          "thresholds": "0,1,1",
+          "maxDataPoints": 100,
+          "span": 2,
           "colorBackground": false,
-          "colorValue": false,
+          "title": "L3",
+          "sparkline": {
+            "full": false,
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "id": 16,
+          "prefixFontSize": "50%",
+          "valueName": "current",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "format": "none",
+          "editable": true,
+          "cacheTimeout": null,
+          "postfix": "",
+          "interval": "> 60s",
           "colors": [
             "rgba(50, 172, 45, 0.97)",
             "rgba(237, 129, 40, 0.89)",
             "rgba(245, 54, 54, 0.9)"
           ],
-          "sparkline": {
-            "show": false,
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "fillColor": "rgba(31, 118, 189, 0.18)"
-          }
+          "error": false,
+          "nullText": null,
+          "postfixFontSize": "50%",
+          "colorValue": false
         },
         {
-          "title": "metadata",
-          "error": false,
-          "span": 2,
-          "editable": true,
-          "type": "singlestat",
-          "id": 17,
           "links": [],
-          "maxDataPoints": 100,
-          "interval": "> 60s",
+          "valueMaps": [
+            {
+              "text": "N/A",
+              "value": "null",
+              "op": "="
+            }
+          ],
+          "thresholds": "0,1,1",
+          "nullPointMode": "connected",
+          "prefix": "",
           "targets": [
             {
               "function": "last",
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "metadata",
+                  "key": "service"
+                },
+                {
+                  "value": "disabled",
+                  "key": "state",
+                  "condition": "AND"
+                }
+              ],
               "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "last"
+                }
+              ],
               "series": "merge(/openstack.neutron.agents.metadata.disabled/)",
-              "query": "select last(value) from merge(/openstack.neutron.agents.metadata.disabled/) where $timeFilter group by time($interval) order asc",
+              "measurement": "openstack_neutron_agents",
+              "query": "SELECT last(value) FROM \"openstack_neutron_agents\" WHERE \"service\" = 'metadata' AND \"state\" = 'disabled' AND $timeFilter GROUP BY time($interval)",
               "fill": ""
             }
           ],
-          "cacheTimeout": null,
-          "format": "none",
-          "prefix": "",
-          "postfix": "",
-          "nullText": null,
-          "valueMaps": [
-            {
-              "value": "null",
-              "op": "=",
-              "text": "N/A"
-            }
-          ],
-          "nullPointMode": "connected",
-          "valueName": "current",
-          "prefixFontSize": "50%",
-          "valueFontSize": "80%",
-          "postfixFontSize": "50%",
-          "thresholds": "0,1,1",
+          "maxDataPoints": 100,
+          "span": 2,
           "colorBackground": false,
-          "colorValue": false,
+          "title": "metadata",
+          "sparkline": {
+            "full": false,
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "id": 17,
+          "prefixFontSize": "50%",
+          "valueName": "current",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "format": "none",
+          "editable": true,
+          "cacheTimeout": null,
+          "postfix": "",
+          "interval": "> 60s",
           "colors": [
             "rgba(50, 172, 45, 0.97)",
             "rgba(237, 129, 40, 0.89)",
             "rgba(245, 54, 54, 0.9)"
           ],
-          "sparkline": {
-            "show": false,
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "fillColor": "rgba(31, 118, 189, 0.18)"
-          }
+          "error": false,
+          "nullText": null,
+          "postfixFontSize": "50%",
+          "colorValue": false
         },
         {
-          "title": "openvswitch",
-          "error": false,
-          "span": 3,
-          "editable": true,
-          "type": "singlestat",
-          "id": 18,
           "links": [],
-          "maxDataPoints": 100,
-          "interval": "> 60s",
+          "valueMaps": [
+            {
+              "text": "N/A",
+              "value": "null",
+              "op": "="
+            }
+          ],
+          "thresholds": "0,1,1",
+          "nullPointMode": "connected",
+          "prefix": "",
           "targets": [
             {
               "function": "last",
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "openvswitch",
+                  "key": "service"
+                },
+                {
+                  "value": "disabled",
+                  "key": "state",
+                  "condition": "AND"
+                }
+              ],
               "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "last"
+                }
+              ],
               "series": "merge(/openstack.neutron.agents.openvswitch.disabled/)",
-              "query": "select last(value) from merge(/openstack.neutron.agents.openvswitch.disabled/) where $timeFilter group by time($interval) order asc",
+              "measurement": "openstack_neutron_agents",
+              "query": "SELECT last(value) FROM \"openstack_neutron_agents\" WHERE \"service\" = 'openvswitch' AND \"state\" = 'disabled' AND $timeFilter GROUP BY time($interval)",
               "fill": ""
             }
           ],
-          "cacheTimeout": null,
-          "format": "none",
-          "prefix": "",
-          "postfix": "",
-          "nullText": null,
-          "valueMaps": [
-            {
-              "value": "null",
-              "op": "=",
-              "text": "N/A"
-            }
-          ],
-          "nullPointMode": "connected",
-          "valueName": "current",
-          "prefixFontSize": "50%",
-          "valueFontSize": "80%",
-          "postfixFontSize": "50%",
-          "thresholds": "0,1,1",
+          "maxDataPoints": 100,
+          "span": 3,
           "colorBackground": false,
-          "colorValue": false,
+          "title": "openvswitch",
+          "sparkline": {
+            "full": false,
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "id": 18,
+          "prefixFontSize": "50%",
+          "valueName": "current",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "format": "none",
+          "editable": true,
+          "cacheTimeout": null,
+          "postfix": "",
+          "interval": "> 60s",
           "colors": [
             "rgba(50, 172, 45, 0.97)",
             "rgba(237, 129, 40, 0.89)",
             "rgba(245, 54, 54, 0.9)"
           ],
-          "sparkline": {
-            "show": false,
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "fillColor": "rgba(31, 118, 189, 0.18)"
-          }
+          "error": false,
+          "nullText": null,
+          "postfixFontSize": "50%",
+          "colorValue": false
         },
         {
-          "title": "",
-          "error": false,
+          "style": {},
           "span": 2,
+          "links": [],
+          "title": "",
           "editable": true,
-          "type": "text",
-          "id": 19,
-          "mode": "html",
           "content": "<br />\n<h3 align=\"center\"> Up </h3>",
-          "style": {},
-          "links": []
-        },
-        {
-          "title": "",
-          "error": false,
-          "span": 2,
-          "editable": true,
-          "type": "singlestat",
-          "id": 20,
-          "links": [],
-          "maxDataPoints": 100,
-          "interval": "> 60s",
-          "targets": [
-            {
-              "function": "last",
-              "column": "value",
-              "series": "merge(/openstack.neutron.agents.dhcp.up/)",
-              "query": "select last(value) from merge(/openstack.neutron.agents.dhcp.up/) where $timeFilter group by time($interval) order asc",
-              "fill": ""
-            }
-          ],
-          "cacheTimeout": null,
-          "format": "none",
-          "prefix": "",
-          "postfix": "",
-          "nullText": null,
-          "valueMaps": [
-            {
-              "value": "null",
-              "op": "=",
-              "text": "N/A"
-            }
-          ],
-          "nullPointMode": "connected",
-          "valueName": "current",
-          "prefixFontSize": "50%",
-          "valueFontSize": "80%",
-          "postfixFontSize": "50%",
-          "thresholds": "0,1,1",
-          "colorBackground": false,
-          "colorValue": false,
-          "colors": [
-            "rgba(50, 172, 45, 0.97)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(245, 54, 54, 0.9)"
-          ],
-          "sparkline": {
-            "show": false,
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "fillColor": "rgba(31, 118, 189, 0.18)"
-          }
-        },
-        {
-          "title": "",
-          "error": false,
-          "span": 2,
-          "editable": true,
-          "type": "singlestat",
-          "id": 21,
-          "links": [],
-          "maxDataPoints": 100,
-          "interval": "> 60s",
-          "targets": [
-            {
-              "function": "last",
-              "column": "value",
-              "series": "merge(/openstack.neutron.agents.l3.up/)",
-              "query": "select last(value) from merge(/openstack.neutron.agents.l3.up/) where $timeFilter group by time($interval) order asc",
-              "fill": ""
-            }
-          ],
-          "cacheTimeout": null,
-          "format": "none",
-          "prefix": "",
-          "postfix": "",
-          "nullText": null,
-          "valueMaps": [
-            {
-              "value": "null",
-              "op": "=",
-              "text": "N/A"
-            }
-          ],
-          "nullPointMode": "connected",
-          "valueName": "current",
-          "prefixFontSize": "50%",
-          "valueFontSize": "80%",
-          "postfixFontSize": "50%",
-          "thresholds": "0,1,1",
-          "colorBackground": false,
-          "colorValue": false,
-          "colors": [
-            "rgba(50, 172, 45, 0.97)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(245, 54, 54, 0.9)"
-          ],
-          "sparkline": {
-            "show": false,
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "fillColor": "rgba(31, 118, 189, 0.18)"
-          }
-        },
-        {
-          "title": "",
-          "error": false,
-          "span": 2,
-          "editable": true,
-          "type": "singlestat",
-          "id": 22,
-          "links": [],
-          "maxDataPoints": 100,
-          "interval": "> 60s",
-          "targets": [
-            {
-              "function": "last",
-              "column": "value",
-              "series": "merge(/openstack.neutron.agents.metadata.up/)",
-              "query": "select last(value) from merge(/openstack.neutron.agents.metadata.up/) where $timeFilter group by time($interval) order asc",
-              "fill": ""
-            }
-          ],
-          "cacheTimeout": null,
-          "format": "none",
-          "prefix": "",
-          "postfix": "",
-          "nullText": null,
-          "valueMaps": [
-            {
-              "value": "null",
-              "op": "=",
-              "text": "N/A"
-            }
-          ],
-          "nullPointMode": "connected",
-          "valueName": "current",
-          "prefixFontSize": "50%",
-          "valueFontSize": "80%",
-          "postfixFontSize": "50%",
-          "thresholds": "0,1,1",
-          "colorBackground": false,
-          "colorValue": false,
-          "colors": [
-            "rgba(50, 172, 45, 0.97)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(245, 54, 54, 0.9)"
-          ],
-          "sparkline": {
-            "show": false,
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "fillColor": "rgba(31, 118, 189, 0.18)"
-          }
-        },
-        {
-          "title": "",
-          "error": false,
-          "span": 3,
-          "editable": true,
-          "type": "singlestat",
-          "id": 23,
-          "links": [],
-          "maxDataPoints": 100,
-          "interval": "> 60s",
-          "targets": [
-            {
-              "function": "last",
-              "column": "value",
-              "series": "merge(/openstack.neutron.agents.openvswitch.up/)",
-              "query": "select last(value) from merge(/openstack.neutron.agents.openvswitch.up/) where $timeFilter group by time($interval) order asc",
-              "fill": ""
-            }
-          ],
-          "cacheTimeout": null,
-          "format": "none",
-          "prefix": "",
-          "postfix": "",
-          "nullText": null,
-          "valueMaps": [
-            {
-              "value": "null",
-              "op": "=",
-              "text": "N/A"
-            }
-          ],
-          "nullPointMode": "connected",
-          "valueName": "current",
-          "prefixFontSize": "50%",
-          "valueFontSize": "80%",
-          "postfixFontSize": "50%",
-          "thresholds": "0,1,1",
-          "colorBackground": false,
-          "colorValue": false,
-          "colors": [
-            "rgba(50, 172, 45, 0.97)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(245, 54, 54, 0.9)"
-          ],
-          "sparkline": {
-            "show": false,
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "fillColor": "rgba(31, 118, 189, 0.18)"
-          }
-        },
-        {
-          "title": "",
-          "error": false,
-          "span": 2,
-          "editable": true,
-          "type": "text",
-          "id": 24,
           "mode": "html",
-          "content": "<br />\n<h3 align=\"center\"> Down </h3>",
-          "style": {},
-          "links": []
+          "error": false,
+          "type": "text",
+          "id": 19
         },
         {
-          "title": "",
-          "error": false,
-          "span": 2,
-          "editable": true,
-          "type": "singlestat",
-          "id": 25,
           "links": [],
-          "maxDataPoints": 100,
-          "interval": "> 60s",
+          "valueMaps": [
+            {
+              "text": "N/A",
+              "value": "null",
+              "op": "="
+            }
+          ],
+          "thresholds": "0,1,1",
+          "nullPointMode": "connected",
+          "prefix": "",
           "targets": [
             {
               "function": "last",
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "dhcp",
+                  "key": "service"
+                },
+                {
+                  "value": "up",
+                  "key": "state",
+                  "condition": "AND"
+                }
+              ],
               "column": "value",
-              "series": "merge(/openstack.neutron.agents.dhcp.down/)",
-              "query": "select last(value) from merge(/openstack.neutron.agents.dhcp.down/) where $timeFilter group by time($interval) order asc",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "last"
+                }
+              ],
+              "series": "merge(/openstack.neutron.agents.dhcp.up/)",
+              "measurement": "openstack_neutron_agents",
+              "query": "SELECT last(value) FROM \"openstack_neutron_agents\" WHERE \"service\" = 'dhcp' AND \"state\" = 'up' AND $timeFilter GROUP BY time($interval)",
               "fill": ""
             }
           ],
-          "cacheTimeout": null,
-          "format": "none",
-          "prefix": "",
-          "postfix": "",
-          "nullText": null,
-          "valueMaps": [
-            {
-              "value": "null",
-              "op": "=",
-              "text": "N/A"
-            }
-          ],
-          "nullPointMode": "connected",
-          "valueName": "current",
-          "prefixFontSize": "50%",
-          "valueFontSize": "80%",
-          "postfixFontSize": "50%",
-          "thresholds": "1,0,0",
+          "maxDataPoints": 100,
+          "span": 2,
           "colorBackground": false,
-          "colorValue": true,
-          "colors": [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(255, 255, 255, 0.89)",
-            "rgba(255, 255, 255, 0.97)"
-          ],
+          "title": "",
           "sparkline": {
-            "show": false,
             "full": false,
+            "fillColor": "rgba(31, 118, 189, 0.18)",
             "lineColor": "rgb(31, 120, 193)",
-            "fillColor": "rgba(31, 118, 189, 0.18)"
-          }
+            "show": false
+          },
+          "id": 20,
+          "prefixFontSize": "50%",
+          "valueName": "current",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "format": "none",
+          "editable": true,
+          "cacheTimeout": null,
+          "postfix": "",
+          "interval": "> 60s",
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "error": false,
+          "nullText": null,
+          "postfixFontSize": "50%",
+          "colorValue": false
         },
         {
-          "title": "",
-          "error": false,
-          "span": 2,
-          "editable": true,
-          "type": "singlestat",
-          "id": 26,
           "links": [],
-          "maxDataPoints": 100,
-          "interval": "> 60s",
+          "valueMaps": [
+            {
+              "text": "N/A",
+              "value": "null",
+              "op": "="
+            }
+          ],
+          "thresholds": "0,1,1",
+          "nullPointMode": "connected",
+          "prefix": "",
           "targets": [
             {
               "function": "last",
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "l3",
+                  "key": "service"
+                },
+                {
+                  "value": "up",
+                  "key": "state",
+                  "condition": "AND"
+                }
+              ],
               "column": "value",
-              "series": "merge(/openstack.neutron.agents.l3.down/)",
-              "query": "select last(value) from merge(/openstack.neutron.agents.l3.down/) where $timeFilter group by time($interval) order asc",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "last"
+                }
+              ],
+              "series": "merge(/openstack.neutron.agents.l3.up/)",
+              "measurement": "openstack_neutron_agents",
+              "query": "SELECT last(value) FROM \"openstack_neutron_agents\" WHERE \"service\" = 'l3' AND \"state\" = 'up' AND $timeFilter GROUP BY time($interval)",
               "fill": ""
             }
           ],
-          "cacheTimeout": null,
-          "format": "none",
-          "prefix": "",
-          "postfix": "",
-          "nullText": null,
-          "valueMaps": [
-            {
-              "value": "null",
-              "op": "=",
-              "text": "N/A"
-            }
-          ],
-          "nullPointMode": "connected",
-          "valueName": "current",
-          "prefixFontSize": "50%",
-          "valueFontSize": "80%",
-          "postfixFontSize": "50%",
-          "thresholds": "1,0,0",
+          "maxDataPoints": 100,
+          "span": 2,
           "colorBackground": false,
-          "colorValue": true,
-          "colors": [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(255, 255, 255, 0.89)",
-            "rgba(255, 255, 255, 0.97)"
-          ],
+          "title": "",
           "sparkline": {
-            "show": false,
             "full": false,
+            "fillColor": "rgba(31, 118, 189, 0.18)",
             "lineColor": "rgb(31, 120, 193)",
-            "fillColor": "rgba(31, 118, 189, 0.18)"
-          }
+            "show": false
+          },
+          "id": 21,
+          "prefixFontSize": "50%",
+          "valueName": "current",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "format": "none",
+          "editable": true,
+          "cacheTimeout": null,
+          "postfix": "",
+          "interval": "> 60s",
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "error": false,
+          "nullText": null,
+          "postfixFontSize": "50%",
+          "colorValue": false
         },
         {
-          "title": "",
-          "error": false,
-          "span": 2,
-          "editable": true,
-          "type": "singlestat",
-          "id": 27,
           "links": [],
-          "maxDataPoints": 100,
-          "interval": "> 60s",
+          "valueMaps": [
+            {
+              "text": "N/A",
+              "value": "null",
+              "op": "="
+            }
+          ],
+          "thresholds": "0,1,1",
+          "nullPointMode": "connected",
+          "prefix": "",
           "targets": [
             {
               "function": "last",
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "metadata",
+                  "key": "service"
+                },
+                {
+                  "value": "up",
+                  "key": "state",
+                  "condition": "AND"
+                }
+              ],
               "column": "value",
-              "series": "merge(/openstack.neutron.agents.metadata.down/)",
-              "query": "select last(value) from merge(/openstack.neutron.agents.metadata.down/) where $timeFilter group by time($interval) order asc",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "last"
+                }
+              ],
+              "series": "merge(/openstack.neutron.agents.metadata.up/)",
+              "measurement": "openstack_neutron_agents",
+              "query": "SELECT last(value) FROM \"openstack_neutron_agents\" WHERE \"service\" = 'metadata' AND \"state\" = 'up' AND $timeFilter GROUP BY time($interval)",
               "fill": ""
             }
           ],
-          "cacheTimeout": null,
-          "format": "none",
-          "prefix": "",
-          "postfix": "",
-          "nullText": null,
-          "valueMaps": [
-            {
-              "value": "null",
-              "op": "=",
-              "text": "N/A"
-            }
-          ],
-          "nullPointMode": "connected",
-          "valueName": "current",
-          "prefixFontSize": "50%",
-          "valueFontSize": "80%",
-          "postfixFontSize": "50%",
-          "thresholds": "1,0,0",
+          "maxDataPoints": 100,
+          "span": 2,
           "colorBackground": false,
-          "colorValue": true,
-          "colors": [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(255, 255, 255, 0.89)",
-            "rgba(255, 255, 255, 0.97)"
-          ],
+          "title": "",
           "sparkline": {
-            "show": false,
             "full": false,
+            "fillColor": "rgba(31, 118, 189, 0.18)",
             "lineColor": "rgb(31, 120, 193)",
-            "fillColor": "rgba(31, 118, 189, 0.18)"
-          }
+            "show": false
+          },
+          "id": 22,
+          "prefixFontSize": "50%",
+          "valueName": "current",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "format": "none",
+          "editable": true,
+          "cacheTimeout": null,
+          "postfix": "",
+          "interval": "> 60s",
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "error": false,
+          "nullText": null,
+          "postfixFontSize": "50%",
+          "colorValue": false
         },
         {
-          "title": "",
-          "error": false,
+          "links": [],
+          "valueMaps": [
+            {
+              "text": "N/A",
+              "value": "null",
+              "op": "="
+            }
+          ],
+          "thresholds": "0,1,1",
+          "nullPointMode": "connected",
+          "prefix": "",
+          "targets": [
+            {
+              "function": "last",
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "openvswitch",
+                  "key": "service"
+                },
+                {
+                  "value": "up",
+                  "key": "state",
+                  "condition": "AND"
+                }
+              ],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "last"
+                }
+              ],
+              "series": "merge(/openstack.neutron.agents.openvswitch.up/)",
+              "measurement": "openstack_neutron_agents",
+              "query": "SELECT last(value) FROM \"openstack_neutron_agents\" WHERE \"service\" = 'openvswitch' AND \"state\" = 'up' AND $timeFilter GROUP BY time($interval)",
+              "fill": ""
+            }
+          ],
+          "maxDataPoints": 100,
           "span": 3,
-          "editable": true,
+          "colorBackground": false,
+          "title": "",
+          "sparkline": {
+            "full": false,
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "id": 23,
+          "prefixFontSize": "50%",
+          "valueName": "current",
           "type": "singlestat",
-          "id": 28,
-          "links": [],
-          "maxDataPoints": 100,
+          "valueFontSize": "80%",
+          "format": "none",
+          "editable": true,
+          "cacheTimeout": null,
+          "postfix": "",
           "interval": "> 60s",
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "error": false,
+          "nullText": null,
+          "postfixFontSize": "50%",
+          "colorValue": false
+        },
+        {
+          "style": {},
+          "span": 2,
+          "links": [],
+          "title": "",
+          "editable": true,
+          "content": "<br />\n<h3 align=\"center\"> Down </h3>",
+          "mode": "html",
+          "error": false,
+          "type": "text",
+          "id": 24
+        },
+        {
+          "links": [],
+          "valueMaps": [
+            {
+              "text": "N/A",
+              "value": "null",
+              "op": "="
+            }
+          ],
+          "thresholds": "0,1,1",
+          "nullPointMode": "connected",
+          "prefix": "",
           "targets": [
             {
               "function": "last",
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "dhcp",
+                  "key": "service"
+                },
+                {
+                  "value": "down",
+                  "key": "state",
+                  "condition": "AND"
+                }
+              ],
               "column": "value",
-              "series": "merge(/openstack.neutron.agents.openvswitch.down/)",
-              "query": "select last(value) from merge(/openstack.neutron.agents.openvswitch.down/) where $timeFilter group by time($interval) order asc",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "last"
+                }
+              ],
+              "series": "merge(/openstack.neutron.agents.dhcp.up/)",
+              "measurement": "openstack_neutron_agents",
+              "query": "SELECT last(value) FROM \"openstack_neutron_agents\" WHERE \"service\" = 'dhcp' AND \"state\" = 'down' AND $timeFilter GROUP BY time($interval)",
               "fill": ""
             }
           ],
-          "cacheTimeout": null,
+          "maxDataPoints": 100,
+          "span": 2,
+          "colorBackground": false,
+          "title": "",
+          "sparkline": {
+            "full": false,
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "id": 25,
+          "prefixFontSize": "50%",
+          "valueName": "current",
+          "type": "singlestat",
+          "valueFontSize": "80%",
           "format": "none",
-          "prefix": "",
+          "editable": true,
+          "cacheTimeout": null,
           "postfix": "",
+          "interval": "> 60s",
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "error": false,
           "nullText": null,
+          "postfixFontSize": "50%",
+          "colorValue": false
+        },
+        {
+          "links": [],
           "valueMaps": [
             {
+              "text": "N/A",
               "value": "null",
-              "op": "=",
-              "text": "N/A"
+              "op": "="
             }
           ],
-          "nullPointMode": "connected",
-          "valueName": "current",
-          "prefixFontSize": "50%",
-          "valueFontSize": "80%",
-          "postfixFontSize": "50%",
           "thresholds": "1,0,0",
+          "nullPointMode": "connected",
+          "prefix": "",
+          "targets": [
+            {
+              "function": "last",
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "l3",
+                  "key": "service"
+                },
+                {
+                  "value": "down",
+                  "key": "state",
+                  "condition": "AND"
+                }
+              ],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "last"
+                }
+              ],
+              "series": "merge(/openstack.neutron.agents.metadata.down/)",
+              "measurement": "openstack_neutron_agents",
+              "query": "SELECT last(value) FROM \"openstack_neutron_agents\" WHERE \"service\" = 'l3' AND \"state\" = 'down' AND $timeFilter GROUP BY time($interval)",
+              "fill": ""
+            }
+          ],
+          "maxDataPoints": 100,
+          "span": 2,
           "colorBackground": false,
-          "colorValue": true,
+          "title": "",
+          "sparkline": {
+            "full": false,
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "id": 27,
+          "prefixFontSize": "50%",
+          "valueName": "current",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "format": "none",
+          "editable": true,
+          "cacheTimeout": null,
+          "postfix": "",
+          "interval": "> 60s",
           "colors": [
             "rgba(245, 54, 54, 0.9)",
             "rgba(255, 255, 255, 0.89)",
             "rgba(255, 255, 255, 0.97)"
           ],
+          "error": false,
+          "nullText": null,
+          "postfixFontSize": "50%",
+          "colorValue": true
+        },
+        {
+          "links": [],
+          "valueMaps": [
+            {
+              "text": "N/A",
+              "value": "null",
+              "op": "="
+            }
+          ],
+          "thresholds": "1,0,0",
+          "nullPointMode": "connected",
+          "prefix": "",
+          "targets": [
+            {
+              "function": "last",
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "metadata",
+                  "key": "service"
+                },
+                {
+                  "value": "down",
+                  "key": "state",
+                  "condition": "AND"
+                }
+              ],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "last"
+                }
+              ],
+              "series": "merge(/openstack.neutron.agents.openvswitch.down/)",
+              "measurement": "openstack_neutron_agents",
+              "query": "SELECT last(value) FROM \"openstack_neutron_agents\" WHERE \"service\" = 'metadata' AND \"state\" = 'down' AND $timeFilter GROUP BY time($interval)",
+              "fill": ""
+            }
+          ],
+          "maxDataPoints": 100,
+          "span": 2,
+          "colorBackground": false,
+          "title": "",
           "sparkline": {
-            "show": false,
             "full": false,
+            "fillColor": "rgba(31, 118, 189, 0.18)",
             "lineColor": "rgb(31, 120, 193)",
-            "fillColor": "rgba(31, 118, 189, 0.18)"
-          }
+            "show": false
+          },
+          "id": 28,
+          "prefixFontSize": "50%",
+          "valueName": "current",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "format": "none",
+          "editable": true,
+          "cacheTimeout": null,
+          "postfix": "",
+          "interval": "> 60s",
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(255, 255, 255, 0.89)",
+            "rgba(255, 255, 255, 0.97)"
+          ],
+          "error": false,
+          "nullText": null,
+          "postfixFontSize": "50%",
+          "colorValue": true
+        },
+        {
+          "links": [],
+          "valueMaps": [
+            {
+              "text": "N/A",
+              "value": "null",
+              "op": "="
+            }
+          ],
+          "thresholds": "1,0,0",
+          "nullPointMode": "connected",
+          "prefix": "",
+          "targets": [
+            {
+              "function": "last",
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "openvswitch",
+                  "key": "service"
+                },
+                {
+                  "value": "down",
+                  "key": "state",
+                  "condition": "AND"
+                }
+              ],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "last"
+                }
+              ],
+              "series": "merge(/openstack.neutron.agents.openvswitch.down/)",
+              "measurement": "openstack_neutron_agents",
+              "query": "SELECT last(value) FROM \"openstack_neutron_agents\" WHERE \"service\" = 'openvswitch' AND \"state\" = 'down' AND $timeFilter GROUP BY time($interval)",
+              "fill": ""
+            }
+          ],
+          "maxDataPoints": 100,
+          "span": 3,
+          "colorBackground": false,
+          "title": "",
+          "sparkline": {
+            "full": false,
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "id": 40,
+          "prefixFontSize": "50%",
+          "valueName": "current",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "format": "none",
+          "editable": true,
+          "cacheTimeout": null,
+          "postfix": "",
+          "interval": "> 60s",
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(255, 255, 255, 0.89)",
+            "rgba(255, 255, 255, 0.97)"
+          ],
+          "error": false,
+          "nullText": null,
+          "postfixFontSize": "50%",
+          "colorValue": true
         }
       ],
       "showTitle": true
     },
     {
-      "title": "Resources",
-      "height": "250px",
-      "editable": true,
       "collapse": false,
+      "title": "Resources",
+      "editable": true,
+      "height": "250px",
       "panels": [
         {
+          "links": [],
+          "valueMaps": [
+            {
+              "text": "N/A",
+              "value": "null",
+              "op": "="
+            }
+          ],
+          "thresholds": "",
+          "nullPointMode": "connected",
+          "prefix": "",
+          "targets": [
+            {
+              "function": "last",
+              "rawQuery": false,
+              "groupByTags": [],
+              "tags": [],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "last"
+                }
+              ],
+              "series": "merge(/openstack.neutron.networks$/)",
+              "measurement": "openstack_neutron_networks",
+              "query": "SELECT last(value) FROM \"openstack_neutron_networks\" WHERE $timeFilter GROUP BY time($interval)",
+              "fill": ""
+            }
+          ],
+          "maxDataPoints": 100,
+          "span": 2,
+          "colorBackground": false,
           "title": "Networks",
-          "error": false,
-          "span": 2,
-          "editable": true,
-          "type": "singlestat",
+          "sparkline": {
+            "full": false,
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
           "id": 1,
-          "links": [],
-          "maxDataPoints": 100,
-          "interval": "> 60s",
-          "targets": [
-            {
-              "function": "last",
-              "column": "value",
-              "series": "merge(/openstack.neutron.networks$/)",
-              "query": "select last(value) from merge(/openstack.neutron.networks$/) where $timeFilter group by time($interval) order asc",
-              "fill": "",
-              "rawQuery": false
-            }
-          ],
-          "cacheTimeout": null,
-          "format": "none",
-          "prefix": "",
-          "postfix": "",
-          "nullText": null,
-          "valueMaps": [
-            {
-              "value": "null",
-              "op": "=",
-              "text": "N/A"
-            }
-          ],
-          "nullPointMode": "connected",
-          "valueName": "current",
           "prefixFontSize": "50%",
+          "valueName": "current",
+          "type": "singlestat",
           "valueFontSize": "80%",
-          "postfixFontSize": "50%",
-          "thresholds": "",
-          "colorBackground": false,
-          "colorValue": false,
+          "format": "none",
+          "editable": true,
+          "cacheTimeout": null,
+          "postfix": "",
+          "interval": "> 60s",
           "colors": [
             "rgba(245, 54, 54, 0.9)",
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
-          "sparkline": {
-            "show": false,
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "fillColor": "rgba(31, 118, 189, 0.18)"
-          }
+          "error": false,
+          "nullText": null,
+          "postfixFontSize": "50%",
+          "colorValue": false
         },
         {
-          "title": "",
-          "error": false,
-          "span": 10,
-          "editable": true,
-          "type": "graph",
+          "bars": false,
+          "aliasColors": {},
+          "links": [],
+          "nullPointMode": "connected",
+          "timeFrom": null,
+          "renderer": "flot",
+          "linewidth": 1,
+          "steppedLine": false,
           "id": 35,
-          "datasource": null,
-          "renderer": "flot",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "short",
-            "short"
-          ],
-          "grid": {
-            "leftMax": null,
-            "rightMax": null,
-            "leftMin": 0,
-            "rightMin": null,
-            "threshold1": null,
-            "threshold2": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
-          "lines": true,
           "fill": 0,
-          "linewidth": 1,
-          "points": false,
-          "pointradius": 5,
-          "bars": false,
-          "stack": false,
-          "percentage": false,
-          "legend": {
-            "show": false,
-            "values": false,
-            "min": false,
-            "max": false,
-            "current": false,
-            "total": false,
-            "avg": false
-          },
-          "nullPointMode": "connected",
-          "steppedLine": false,
+          "span": 10,
+          "title": "",
           "tooltip": {
-            "value_type": "cumulative",
-            "shared": true
+            "shared": true,
+            "value_type": "cumulative"
           },
+          "stack": false,
           "targets": [
             {
               "function": "last",
+              "groupByTags": [],
+              "tags": [],
               "column": "value",
-              "series": "merge(/openstack.neutron.networks$/)",
-              "query": "select last(value) from merge(/openstack.neutron.networks$/) where $timeFilter group by time($interval) fill(0) order asc",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "last"
+                }
+              ],
               "alias": "number of networks",
+              "series": "merge(/openstack.neutron.networks$/)",
+              "measurement": "openstack_neutron_networks",
+              "query": "SELECT last(value) FROM \"openstack_neutron_networks\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
               "fill": "0"
             }
           ],
-          "aliasColors": {},
+          "leftYAxisLabel": "",
           "seriesOverrides": [],
+          "percentage": false,
+          "type": "graph",
+          "x-axis": true,
+          "error": false,
+          "editable": true,
+          "grid": {
+            "leftMax": null,
+            "threshold2": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "threshold1": null,
+            "leftLogBase": 1,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)",
+            "rightMin": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "leftMin": 0
+          },
+          "legend": {
+            "total": false,
+            "show": false,
+            "max": false,
+            "min": false,
+            "current": false,
+            "values": false,
+            "avg": false
+          },
+          "y-axis": true,
+          "timeShift": null,
           "interval": "> 60s",
-          "links": [],
-          "leftYAxisLabel": ""
+          "lines": true,
+          "points": false,
+          "datasource": null,
+          "pointradius": 5,
+          "decimals": 0,
+          "y_formats": [
+            "short",
+            "short"
+          ]
         },
         {
+          "links": [],
+          "valueMaps": [
+            {
+              "text": "N/A",
+              "value": "null",
+              "op": "="
+            }
+          ],
+          "thresholds": "",
+          "nullPointMode": "connected",
+          "prefix": "",
+          "targets": [
+            {
+              "function": "last",
+              "rawQuery": false,
+              "groupByTags": [],
+              "tags": [],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "last"
+                }
+              ],
+              "series": "merge(/openstack.neutron.subnets$/)",
+              "measurement": "openstack_neutron_subnets",
+              "query": "SELECT last(value) FROM \"openstack_neutron_subnets\" WHERE $timeFilter GROUP BY time($interval)"
+            }
+          ],
+          "maxDataPoints": 100,
+          "span": 2,
+          "colorBackground": false,
           "title": "Subnets",
-          "error": false,
-          "span": 2,
-          "editable": true,
-          "type": "singlestat",
+          "sparkline": {
+            "full": false,
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
           "id": 2,
-          "links": [],
-          "maxDataPoints": 100,
-          "interval": "> 60s",
-          "targets": [
-            {
-              "function": "last",
-              "column": "value",
-              "series": "merge(/openstack.neutron.subnets$/)",
-              "query": "select last(value) from merge(/openstack.neutron.subnets$/) where $timeFilter group by time($interval) order asc",
-              "rawQuery": false
-            }
-          ],
-          "cacheTimeout": null,
-          "format": "none",
-          "prefix": "",
-          "postfix": "",
-          "nullText": null,
-          "valueMaps": [
-            {
-              "value": "null",
-              "op": "=",
-              "text": "N/A"
-            }
-          ],
-          "nullPointMode": "connected",
-          "valueName": "current",
           "prefixFontSize": "50%",
+          "valueName": "current",
+          "type": "singlestat",
           "valueFontSize": "80%",
-          "postfixFontSize": "50%",
-          "thresholds": "",
-          "colorBackground": false,
-          "colorValue": false,
+          "format": "none",
+          "editable": true,
+          "cacheTimeout": null,
+          "postfix": "",
+          "interval": "> 60s",
           "colors": [
             "rgba(245, 54, 54, 0.9)",
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
-          "sparkline": {
-            "show": false,
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "fillColor": "rgba(31, 118, 189, 0.18)"
-          }
+          "error": false,
+          "nullText": null,
+          "postfixFontSize": "50%",
+          "colorValue": false
         },
         {
-          "title": "",
-          "error": false,
-          "span": 10,
-          "editable": true,
-          "type": "graph",
+          "bars": false,
+          "aliasColors": {},
+          "links": [],
+          "nullPointMode": "connected",
+          "timeFrom": null,
+          "renderer": "flot",
+          "linewidth": 1,
+          "steppedLine": false,
           "id": 36,
-          "datasource": null,
-          "renderer": "flot",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "short",
-            "short"
-          ],
-          "grid": {
-            "leftMax": null,
-            "rightMax": null,
-            "leftMin": 0,
-            "rightMin": null,
-            "threshold1": null,
-            "threshold2": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
-          "lines": true,
           "fill": 0,
-          "linewidth": 1,
-          "points": false,
-          "pointradius": 5,
-          "bars": false,
-          "stack": false,
-          "percentage": false,
-          "legend": {
-            "show": false,
-            "values": false,
-            "min": false,
-            "max": false,
-            "current": false,
-            "total": false,
-            "avg": false
-          },
-          "nullPointMode": "connected",
-          "steppedLine": false,
+          "span": 10,
+          "title": "",
           "tooltip": {
-            "value_type": "cumulative",
-            "shared": true
+            "shared": true,
+            "value_type": "cumulative"
           },
+          "stack": false,
           "targets": [
             {
               "function": "last",
+              "groupByTags": [],
+              "tags": [],
               "column": "value",
-              "series": "merge(/openstack.neutron.subnets$/)",
-              "query": "select last(value) from merge(/openstack.neutron.subnets$/) where $timeFilter group by time($interval) fill(0) order asc",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "last"
+                }
+              ],
               "alias": "number of subnets",
+              "series": "merge(/openstack.neutron.subnets$/)",
+              "measurement": "openstack_neutron_subnets",
+              "query": "SELECT last(value) FROM \"openstack_neutron_subnets\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
               "fill": "0"
             }
           ],
-          "aliasColors": {},
+          "leftYAxisLabel": "",
           "seriesOverrides": [],
-          "links": [],
+          "percentage": false,
+          "type": "graph",
+          "x-axis": true,
+          "error": false,
+          "editable": true,
+          "grid": {
+            "leftMax": null,
+            "threshold2": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "threshold1": null,
+            "leftLogBase": 1,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)",
+            "rightMin": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "leftMin": 0
+          },
+          "legend": {
+            "total": false,
+            "show": false,
+            "max": false,
+            "min": false,
+            "current": false,
+            "values": false,
+            "avg": false
+          },
+          "y-axis": true,
+          "timeShift": null,
           "interval": "> 60s",
-          "leftYAxisLabel": ""
+          "lines": true,
+          "points": false,
+          "datasource": null,
+          "pointradius": 5,
+          "decimals": 0,
+          "y_formats": [
+            "short",
+            "short"
+          ]
         },
         {
+          "links": [],
+          "valueMaps": [
+            {
+              "text": "N/A",
+              "value": "null",
+              "op": "="
+            }
+          ],
+          "thresholds": "",
+          "nullPointMode": "connected",
+          "prefix": "",
+          "targets": [
+            {
+              "function": "last",
+              "rawQuery": false,
+              "groupByTags": [],
+              "tags": [],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "last"
+                }
+              ],
+              "series": "merge(/openstack.neutron.ports$/)",
+              "measurement": "openstack_neutron_ports",
+              "query": "SELECT last(value) FROM \"openstack_neutron_ports\" WHERE $timeFilter GROUP BY time($interval)"
+            }
+          ],
+          "maxDataPoints": 100,
+          "span": 2,
+          "colorBackground": false,
           "title": "Ports",
-          "error": false,
-          "span": 2,
-          "editable": true,
-          "type": "singlestat",
+          "sparkline": {
+            "full": false,
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
           "id": 3,
-          "links": [],
-          "maxDataPoints": 100,
-          "interval": "> 60s",
-          "targets": [
-            {
-              "function": "last",
-              "column": "value",
-              "series": "merge(/openstack.neutron.ports$/)",
-              "query": "select last(value) from merge(/openstack.neutron.ports$/) where $timeFilter group by time($interval) order asc",
-              "rawQuery": false
-            }
-          ],
-          "cacheTimeout": null,
-          "format": "none",
-          "prefix": "",
-          "postfix": "",
-          "nullText": null,
-          "valueMaps": [
-            {
-              "value": "null",
-              "op": "=",
-              "text": "N/A"
-            }
-          ],
-          "nullPointMode": "connected",
-          "valueName": "current",
           "prefixFontSize": "50%",
+          "valueName": "current",
+          "type": "singlestat",
           "valueFontSize": "80%",
-          "postfixFontSize": "50%",
-          "thresholds": "",
-          "colorBackground": false,
-          "colorValue": false,
+          "format": "none",
+          "editable": true,
+          "cacheTimeout": null,
+          "postfix": "",
+          "interval": "> 60s",
           "colors": [
             "rgba(245, 54, 54, 0.9)",
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
-          "sparkline": {
-            "show": false,
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "fillColor": "rgba(31, 118, 189, 0.18)"
-          }
+          "error": false,
+          "nullText": null,
+          "postfixFontSize": "50%",
+          "colorValue": false
         },
         {
-          "title": "",
-          "error": false,
-          "span": 10,
-          "editable": true,
-          "type": "graph",
-          "id": 37,
-          "datasource": null,
-          "renderer": "flot",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "short",
-            "short"
-          ],
-          "grid": {
-            "leftMax": null,
-            "rightMax": null,
-            "leftMin": 0,
-            "rightMin": null,
-            "threshold1": null,
-            "threshold2": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
-          "lines": true,
-          "fill": 0,
-          "linewidth": 1,
-          "points": false,
-          "pointradius": 5,
           "bars": false,
-          "stack": false,
-          "percentage": false,
-          "legend": {
-            "show": false,
-            "values": false,
-            "min": false,
-            "max": false,
-            "current": false,
-            "total": false,
-            "avg": false
-          },
+          "aliasColors": {},
+          "links": [],
           "nullPointMode": "connected",
+          "timeFrom": null,
+          "renderer": "flot",
+          "linewidth": 1,
           "steppedLine": false,
+          "id": 37,
+          "fill": 0,
+          "span": 10,
+          "title": "",
           "tooltip": {
-            "value_type": "cumulative",
-            "shared": true
+            "shared": true,
+            "value_type": "cumulative"
           },
+          "stack": false,
           "targets": [
             {
               "function": "last",
+              "groupByTags": [
+                "owner"
+              ],
+              "tags": [],
               "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "last"
+                }
+              ],
+              "alias": "$tag_owner",
               "series": "merge(/openstack.neutron.ports$/)",
-              "query": "select last(value) from merge(/openstack.neutron.ports$/) where $timeFilter group by time($interval) fill(0) order asc",
-              "alias": "number of ports",
+              "measurement": "openstack_neutron_ports",
+              "query": "SELECT last(value) FROM \"openstack_neutron_ports\" WHERE $timeFilter GROUP BY time($interval), \"owner\" fill(0)",
               "fill": "0"
             }
           ],
-          "aliasColors": {},
+          "leftYAxisLabel": "",
           "seriesOverrides": [],
+          "percentage": false,
+          "type": "graph",
+          "x-axis": true,
+          "error": false,
+          "editable": true,
+          "grid": {
+            "leftMax": null,
+            "threshold2": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "threshold1": null,
+            "leftLogBase": 1,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)",
+            "rightMin": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "leftMin": 0
+          },
+          "legend": {
+            "total": false,
+            "show": false,
+            "max": false,
+            "min": false,
+            "current": false,
+            "values": false,
+            "avg": false
+          },
+          "y-axis": true,
+          "timeShift": null,
           "interval": "> 60s",
-          "links": [],
-          "leftYAxisLabel": ""
+          "lines": true,
+          "points": false,
+          "datasource": null,
+          "pointradius": 5,
+          "decimals": 0,
+          "y_formats": [
+            "short",
+            "short"
+          ]
         },
         {
+          "links": [],
+          "valueMaps": [
+            {
+              "text": "N/A",
+              "value": "null",
+              "op": "="
+            }
+          ],
+          "thresholds": "",
+          "nullPointMode": "connected",
+          "prefix": "",
+          "targets": [
+            {
+              "function": "last",
+              "rawQuery": false,
+              "groupByTags": [],
+              "tags": [],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "last"
+                }
+              ],
+              "series": "merge(/openstack.neutron.routers$/)",
+              "measurement": "openstack_neutron_routers",
+              "query": "SELECT last(value) FROM \"openstack_neutron_routers\" WHERE $timeFilter GROUP BY time($interval)"
+            }
+          ],
+          "maxDataPoints": 100,
+          "span": 2,
+          "colorBackground": false,
           "title": "Routers",
-          "error": false,
-          "span": 2,
-          "editable": true,
-          "type": "singlestat",
+          "sparkline": {
+            "full": false,
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
           "id": 6,
-          "links": [],
-          "maxDataPoints": 100,
-          "interval": "> 60s",
-          "targets": [
-            {
-              "function": "last",
-              "column": "value",
-              "series": "merge(/openstack.neutron.routers$/)",
-              "query": "select last(value) from merge(/openstack.neutron.routers$/) where $timeFilter group by time($interval) order asc",
-              "rawQuery": false
-            }
-          ],
-          "cacheTimeout": null,
-          "format": "none",
-          "prefix": "",
-          "postfix": "",
-          "nullText": null,
-          "valueMaps": [
-            {
-              "value": "null",
-              "op": "=",
-              "text": "N/A"
-            }
-          ],
-          "nullPointMode": "connected",
-          "valueName": "current",
           "prefixFontSize": "50%",
-          "valueFontSize": "80%",
-          "postfixFontSize": "50%",
-          "thresholds": "",
-          "colorBackground": false,
-          "colorValue": false,
-          "colors": [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(50, 172, 45, 0.97)"
-          ],
-          "sparkline": {
-            "show": false,
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "fillColor": "rgba(31, 118, 189, 0.18)"
-          }
-        },
-        {
-          "title": "",
-          "error": false,
-          "span": 10,
-          "editable": true,
-          "type": "graph",
-          "id": 38,
-          "datasource": null,
-          "renderer": "flot",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "short",
-            "short"
-          ],
-          "grid": {
-            "leftMax": null,
-            "rightMax": null,
-            "leftMin": 0,
-            "rightMin": null,
-            "threshold1": null,
-            "threshold2": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
-          "lines": true,
-          "fill": 0,
-          "linewidth": 1,
-          "points": false,
-          "pointradius": 5,
-          "bars": false,
-          "stack": false,
-          "percentage": false,
-          "legend": {
-            "show": false,
-            "values": false,
-            "min": false,
-            "max": false,
-            "current": false,
-            "total": false,
-            "avg": false
-          },
-          "nullPointMode": "connected",
-          "steppedLine": false,
-          "tooltip": {
-            "value_type": "cumulative",
-            "shared": true
-          },
-          "targets": [
-            {
-              "function": "last",
-              "column": "value",
-              "series": "merge(/openstack.neutron.routers$/)",
-              "query": "select last(value) from merge(/openstack.neutron.routers$/) where $timeFilter group by time($interval) fill(0) order asc",
-              "fill": "0",
-              "alias": "number of routers"
-            }
-          ],
-          "aliasColors": {},
-          "seriesOverrides": [],
-          "leftYAxisLabel": "",
-          "links": [],
-          "interval": "> 60s"
-        },
-        {
-          "title": "Floating IP addresses",
-          "error": false,
-          "span": 2,
-          "editable": true,
+          "valueName": "current",
           "type": "singlestat",
-          "id": 7,
-          "links": [],
-          "maxDataPoints": 100,
-          "interval": "> 60s",
-          "targets": [
-            {
-              "function": "last",
-              "column": "value",
-              "series": "merge(/openstack.neutron.floatingips$/)",
-              "query": "select last(value) from merge(/openstack.neutron.floatingips$/) where $timeFilter group by time($interval) order asc",
-              "rawQuery": false
-            }
-          ],
-          "cacheTimeout": null,
-          "format": "none",
-          "prefix": "",
-          "postfix": "",
-          "nullText": null,
-          "valueMaps": [
-            {
-              "value": "null",
-              "op": "=",
-              "text": "N/A"
-            }
-          ],
-          "nullPointMode": "connected",
-          "valueName": "current",
-          "prefixFontSize": "50%",
           "valueFontSize": "80%",
-          "postfixFontSize": "50%",
-          "thresholds": "",
-          "colorBackground": false,
-          "colorValue": false,
+          "format": "none",
+          "editable": true,
+          "cacheTimeout": null,
+          "postfix": "",
+          "interval": "> 60s",
           "colors": [
             "rgba(245, 54, 54, 0.9)",
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
-          "sparkline": {
-            "show": false,
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "fillColor": "rgba(31, 118, 189, 0.18)"
-          }
+          "error": false,
+          "nullText": null,
+          "postfixFontSize": "50%",
+          "colorValue": false
         },
         {
-          "title": "",
-          "error": false,
-          "span": 10,
-          "editable": true,
-          "type": "graph",
-          "id": 39,
-          "datasource": null,
+          "bars": false,
+          "aliasColors": {},
+          "links": [],
+          "nullPointMode": "connected",
+          "timeFrom": null,
           "renderer": "flot",
+          "linewidth": 1,
+          "steppedLine": false,
+          "id": 38,
+          "fill": 0,
+          "span": 10,
+          "title": "",
+          "tooltip": {
+            "shared": true,
+            "value_type": "cumulative"
+          },
+          "legend": {
+            "total": false,
+            "show": false,
+            "max": false,
+            "min": false,
+            "current": false,
+            "values": false,
+            "avg": false
+          },
+          "targets": [
+            {
+              "function": "last",
+              "groupByTags": [],
+              "tags": [],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "last"
+                }
+              ],
+              "alias": "number of routers",
+              "series": "merge(/openstack.neutron.routers$/)",
+              "measurement": "openstack_neutron_routers",
+              "query": "SELECT last(value) FROM \"openstack_neutron_routers\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
+              "fill": "0"
+            }
+          ],
+          "leftYAxisLabel": "",
+          "seriesOverrides": [],
+          "percentage": false,
+          "type": "graph",
           "x-axis": true,
+          "error": false,
+          "editable": true,
+          "grid": {
+            "leftMax": null,
+            "threshold2": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "threshold1": null,
+            "leftLogBase": 1,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)",
+            "rightMin": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "leftMin": 0
+          },
+          "stack": false,
           "y-axis": true,
+          "timeShift": null,
+          "interval": "> 60s",
+          "lines": true,
+          "points": false,
+          "datasource": null,
+          "pointradius": 5,
           "y_formats": [
             "short",
             "short"
+          ]
+        },
+        {
+          "links": [],
+          "valueMaps": [
+            {
+              "text": "N/A",
+              "value": "null",
+              "op": "="
+            }
           ],
-          "grid": {
-            "leftMax": null,
-            "rightMax": null,
-            "leftMin": 0,
-            "rightMin": null,
-            "threshold1": null,
-            "threshold2": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
-          "lines": true,
-          "fill": 0,
-          "linewidth": 1,
-          "points": false,
-          "pointradius": 5,
-          "bars": false,
-          "stack": false,
-          "percentage": false,
-          "legend": {
-            "show": false,
-            "values": false,
-            "min": false,
-            "max": false,
-            "current": false,
-            "total": false,
-            "avg": false
-          },
+          "thresholds": "",
           "nullPointMode": "connected",
+          "prefix": "",
+          "targets": [
+            {
+              "function": "last",
+              "rawQuery": false,
+              "groupByTags": [],
+              "tags": [],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "last"
+                }
+              ],
+              "series": "merge(/openstack.neutron.floatingips$/)",
+              "measurement": "neutron",
+              "query": "SELECT last(value) FROM \"neutron\" WHERE $timeFilter GROUP BY time($interval)"
+            }
+          ],
+          "maxDataPoints": 100,
+          "span": 2,
+          "colorBackground": false,
+          "title": "Floating IP addresses",
+          "sparkline": {
+            "full": false,
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "id": 7,
+          "prefixFontSize": "50%",
+          "valueName": "current",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "format": "none",
+          "editable": true,
+          "cacheTimeout": null,
+          "postfix": "",
+          "interval": "> 60s",
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "error": false,
+          "nullText": null,
+          "postfixFontSize": "50%",
+          "colorValue": false
+        },
+        {
+          "bars": false,
+          "aliasColors": {},
+          "links": [],
+          "nullPointMode": "connected",
+          "timeFrom": null,
+          "renderer": "flot",
+          "linewidth": 1,
           "steppedLine": false,
+          "id": 39,
+          "fill": 0,
+          "span": 10,
+          "title": "",
           "tooltip": {
-            "value_type": "cumulative",
-            "shared": true
+            "shared": true,
+            "value_type": "cumulative"
+          },
+          "legend": {
+            "total": false,
+            "show": false,
+            "max": false,
+            "min": false,
+            "current": false,
+            "values": false,
+            "avg": false
           },
           "targets": [
             {
               "function": "last",
               "column": "value",
               "series": "merge(/openstack.neutron.floatingips$/)",
+              "alias": "number of floating IPs",
               "query": "select last(value) from merge(/openstack.neutron.floatingips$/) where $timeFilter group by time($interval) fill(0) order asc",
-              "fill": "0",
-              "alias": "number of floating IPs"
+              "fill": "0"
             }
           ],
-          "aliasColors": {},
-          "seriesOverrides": [],
           "leftYAxisLabel": "",
-          "links": [],
-          "interval": "> 60s"
+          "seriesOverrides": [],
+          "percentage": false,
+          "type": "graph",
+          "x-axis": true,
+          "error": false,
+          "editable": true,
+          "grid": {
+            "leftMax": null,
+            "threshold2": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "threshold1": null,
+            "leftLogBase": 1,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)",
+            "rightMin": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "leftMin": 0
+          },
+          "stack": false,
+          "y-axis": true,
+          "timeShift": null,
+          "interval": "> 60s",
+          "lines": true,
+          "points": false,
+          "datasource": null,
+          "pointradius": 5,
+          "y_formats": [
+            "short",
+            "short"
+          ]
         }
       ],
       "showTitle": true
     }
   ],
+  "templating": {
+    "enable": true,
+    "list": [
+      {
+        "regex": "",
+        "name": "server",
+        "refresh_on_load": false,
+        "allFormat": "regex values",
+        "refresh": true,
+        "current": {
+          "text": "All",
+          "value": "(node\\-63|node\\-64|node\\-65)"
+        },
+        "datasource": null,
+        "query": " show tag values from pacemaker_local_resource_active with key = hostname ",
+        "type": "query",
+        "options": [],
+        "includeAll": true
+      }
+    ]
+  },
+  "links": [],
+  "tags": [],
+  "hideControls": false,
+  "title": "Neutron",
+  "editable": true,
+  "refresh": "1m",
+  "id": null,
+  "originalTitle": "Neutron",
+  "version": 5,
   "nav": [
     {
-      "type": "timepicker",
-      "enable": true,
       "status": "Stable",
+      "notice": false,
+      "enable": true,
+      "collapse": false,
       "time_options": [
         "5m",
         "15m",
@@ -1841,53 +2458,32 @@
         "1d"
       ],
       "now": true,
-      "collapse": false,
-      "notice": false
+      "type": "timepicker"
     }
   ],
+  "sharedCrosshair": true,
   "time": {
-    "from": "now-15m",
-    "to": "now"
+    "to": "now",
+    "from": "now-1h"
   },
-  "templating": {
-    "list": [
-      {
-        "type": "query",
-        "datasource": null,
-        "refresh_on_load": false,
-        "name": "server",
-        "options": [
-        ],
-        "includeAll": true,
-        "allFormat": "regex values",
-        "query": "list series /openstack.neutron.check_api/",
-        "current": {
-        },
-        "regex": "/^([^.]+)/",
-        "refresh": false
-      }
-    ],
-    "enable": true
-  },
+  "timezone": "browser",
+  "schemaVersion": 6,
   "annotations": {
+    "enable": true,
     "list": [
       {
-        "name": "Status",
-        "datasource": "influxdb",
-        "showLine": true,
-        "iconColor": "#C0C6BE",
-        "lineColor": "rgba(255, 96, 96, 0.592157)",
-        "iconSize": 13,
         "enable": true,
-        "query": "select * from merge(/annotation.neutron/) where $timeFilter",
+        "name": "Status",
+        "iconSize": 13,
+        "textColumn": "text",
         "titleColumn": "title",
-        "tagsColumn": "tag",
-        "textColumn": "text"
+        "datasource": "influxdb",
+        "lineColor": "rgba(255, 96, 96, 0.592157)",
+        "showLine": true,
+        "query": "select title,tags,text from annotations where $timeFilter and service = 'cinder'",
+        "tagsColumn": "tags",
+        "iconColor": "#C0C6BE"
       }
-    ],
-    "enable": true
-  },
-  "refresh": "1m",
-  "version": 6,
-  "hideAllLegends": false
+    ]
+  }
 }
