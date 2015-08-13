@@ -33,30 +33,41 @@ Puppet::Type.newtype(:grafana_dashboard) do
                 raise ArgumentError , "Invalid JSON string for content"
             end
         end
+
+        munge do |value|
+            JSON.parse(value)
+        end
+
+        def should_to_s(value)
+            if value.length > 12
+                "#{value.to_s.slice(0,12)}..."
+            else
+                value
+            end
+        end
+
+        def is_to_s(value)
+            should_to_s(value)
+        end
     end
 
-    newparam(:tags, :array_matching => :all) do
-        desc "Tags associated to the dashboard"
-        defaultto []
-    end
-
-    newparam(:backend_url) do
-        desc "The URL of the storage backend"
+    newparam(:grafana_url) do
+        desc "The URL of the Grafana server"
         defaultto ""
 
         validate do |value|
             unless value =~ /^https?:\/\//
-                raise ArgumentError , "'%s' is not a valid backend URL" % value
+                raise ArgumentError , "'%s' is not a valid URL" % value
             end
         end
     end
 
-    newparam(:backend_user) do
-        desc "The username for the storage backend (optional)"
+    newparam(:grafana_user) do
+        desc "The username for the Grafana server (optional)"
     end
 
-    newparam(:backend_password) do
-        desc "The password for the storage backend (optional)"
+    newparam(:grafana_password) do
+        desc "The password for the Grafana server (optional)"
     end
 
     validate do

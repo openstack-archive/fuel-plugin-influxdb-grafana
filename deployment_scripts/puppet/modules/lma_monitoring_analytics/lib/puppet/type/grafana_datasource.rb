@@ -19,14 +19,12 @@ Puppet::Type.newtype(:grafana_datasource) do
 
     ensurable
 
-    newparam(:name) do
+    newparam(:name, :namevar => true) do
         desc "The name of the datasource."
-
-        isnamevar
     end
 
     newparam(:grafana_url) do
-        desc "The URL of the Grafana server."
+        desc "The URL of the Grafana server"
         defaultto ""
 
         validate do |value|
@@ -37,16 +35,15 @@ Puppet::Type.newtype(:grafana_datasource) do
     end
 
     newparam(:grafana_user) do
-        desc "The username for the Grafana server."
+        desc "The username for the Grafana server"
     end
 
     newparam(:grafana_password) do
-        desc "The password for the Grafana server."
+        desc "The password for the Grafana server"
     end
 
-    newparam(:url) do
-        desc "The URL of the backend."
-        defaultto ""
+    newproperty(:url) do
+        desc "The URL of the datasource"
 
         validate do |value|
             unless value =~ /^https?:\/\//
@@ -55,41 +52,42 @@ Puppet::Type.newtype(:grafana_datasource) do
         end
     end
 
-    newparam(:type) do
-        # We support only InfluxDB 0.9 for now
-        desc "The datasource type."
+    newproperty(:type) do
+        # TODO: support more types than just InfluxDB 0.9
+        desc "The datasource type"
         newvalues(:influxdb)
         defaultto :influxdb
     end
 
-    newparam(:user) do
-        desc "The username for the backend (optional)."
+    newproperty(:user) do
+        desc "The username for the datasource (optional)"
     end
 
-    newparam(:password) do
-        desc "The password for the backend (optional)."
+    newproperty(:password) do
+        desc "The password for the datasource (optional)"
     end
 
-    newparam(:database) do
-        desc "The name of the database (optional)."
+    newproperty(:database) do
+        desc "The name of the database (optional)"
     end
 
-    newparam(:access_mode) do
-        desc "Whether the datasource is accessed directly or not by the clients."
+    newproperty(:access_mode) do
+        desc "Whether the datasource is accessed directly or not by the clients"
         newvalues(:direct, :proxy)
         defaultto :direct
     end
 
-    newparam(:is_default) do
-        desc "Whether the datasource is the default."
+    newproperty(:is_default) do
+        desc "Whether the datasource is the default one"
         newvalues(:true, :false)
         defaultto :false
     end
 
-    newparam(:json_data) do
-        desc "Additional JSON data to configure the datasource (optional)."
+    newproperty(:json_data) do
+        desc "Additional JSON data to configure the datasource (optional)"
 
         validate do |value|
+            return if value.nil?
             begin
                 JSON.parse(value)
             rescue JSON::ParserError

@@ -1995,7 +1995,7 @@
         "name": "server",
         "refresh_on_load": true,
         "allFormat": "regex values",
-        "refresh": false,
+        "refresh": true,
         "current": {
         },
         "datasource": null,

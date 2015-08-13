@@ -12,130 +12,99 @@
 #    License for the specific language governing permissions and limitations
 #    under the License.
 #
-require 'cgi'
 require 'json'
-require 'net/http'
 
-Puppet::Type.type(:grafana_dashboard).provide(:grafana) do
+require File.expand_path(File.join(File.dirname(__FILE__), '..', 'grafana'))
+
+# Note: this class doesn't implement the self.instances and self.prefetch
+# methods because the Grafana API doesn't allow to retrieve the dashboards and
+# all their properties in a single call.
+Puppet::Type.type(:grafana_dashboard).provide(:grafana, :parent => Puppet::Provider::Grafana) do
     desc "Support for Grafana dashboards stored into Grafana"
 
     defaultfor :kernel => 'Linux'
 
-    def backend_host
-        unless @backend_host
-            @backend_host = URI.parse(resource[:backend_url]).host
+    # Return the list of dashboards
+    def dashboards
+        response = self.send_request('GET', '/api/search', nil, {:q => '', :starred => false})
+        if response.code != '200'
+            fail("Fail to retrieve the dashboards (HTTP response: %s/%s)" %
+                 [response.code, response.body])
         end
-        @backend_host
+
+        begin
+            JSON.parse(response.body)
+        rescue JSON::ParserError
+            fail("Fail to parse dashboards (HTTP response: %s/%s)" %
+                 [response_code, response.body])
+        end
     end
 
-    def backend_port
-        unless @backend_port
-            @backend_port = URI.parse(resource[:backend_url]).port
+    # Return the dashboard matching with the resource's title
+    def find_dashboard
+        if not self.dashboards.find{ |x| x['title'] == resource[:title] }
+            return
         end
-        @backend_port
+
+        response = self.send_request('GET', '/api/dashboards/db/%s' % self.slug)
+        if response.code != '200'
+            fail("Fail to retrieve dashboard '%s' (HTTP response: %s/%s)" %
+                 [resource[:title], response.code, response.body])
+        end
+
+        begin
+            # Cache the dashboard's content
+            @dashboard = JSON.parse(response.body)["dashboard"]
+        rescue JSON::ParserError
+            fail("Fail to parse dashboard '%s': %s" %
+                 [resource[:title], response.body])
+        end
     end
 
-    def backend_scheme
-        unless @backend_scheme
-            @backend_scheme = URI.parse(resource[:backend_url]).scheme
+    def save_dashboard(dashboard)
+        data = {
+            :dashboard => dashboard.merge({
+                'title' => resource[:title],
+                'id' => @dashboard ? @dashboard['id'] : nil,
+                'version' => @dashboard ? @dashboard['version'] + 1 : 0
+            }),
+            :overwrite => @dashboard != nil
+        }
+
+        response = self.send_request('POST', '/api/dashboards/db', data)
+        if response.code != '200'
+            fail("Fail to save dashboard '%s' (HTTP response: %s/%s)" %
+                 [resource[:name], response.code, response.body])
         end
-        @backend_scheme
     end
 
-    # Return a Net::HTTP::Request object
-    def build_request(operation="GET", path="", data=nil, search_path={})
-        request = nil
-        encoded_search = ""
-
-        if URI.respond_to?(:encode_www_form)
-            encoded_search = URI.encode_www_form(search_path)
-        else
-            # Ideally we would have use URI.encode_www_form but it isn't
-            # available with Ruby 1.8.x that ships with CentOS 6.5.
-            encoded_search = search_path.to_a.map do |x|
-                x.map{|y| CGI.escape(y.to_s)}.join('=')
-            end
-            encoded_search = encoded_search.join('&')
-        end
-        uri = URI.parse("%s://%s:%d%s?%s" % [
-            self.backend_scheme, self.backend_host, self.backend_port,
-            path, encoded_search])
-
-        case operation.upcase
-        when 'POST'
-            request = Net::HTTP::Post.new(uri.request_uri)
-            request.body = data.to_json()
-        when 'GET'
-            request = Net::HTTP::Get.new(uri.request_uri)
-        when 'DELETE'
-            request = Net::HTTP::Delete.new(uri.request_uri)
-        else
-            raise Puppet::Error, "Unsupported HTTP operation '%s'" % operation
-        end
-
-        request.content_type = 'application/json'
-        request.basic_auth resource[:backend_user], resource[:backend_password]
-
-        return request
+    def slug
+        resource[:title].downcase.gsub(/[^\w\- ]/, '').gsub(/ +/, '-')
     end
 
-    # Return the id of the dashboard which is the name's slug
-    def dashboard_id
-        unless @dashboard_id
-            @dashboard_id = resource[:name].downcase
-            @dashboard_id = @dashboard_id.gsub(/[^\w ]/, '').gsub(/ +/, '-')
-        end
-        @dashboard_id
+    def content
+        @dashboard
+    end
+
+    def content=(value)
+        self.save_dashboard(value)
     end
 
     def create
-        data = {
-            :dashboard => JSON.parse(resource[:content]),
-            :overwrite => false
-        }
-        data[:dashboard]['id'] = nil
-        data[:dashboard]['tags'] = resource[:tags].sort()
-        data[:dashboard]['title'] = resource[:title]
-        data[:dashboard]['version'] = 0
-
-        req = self.build_request('POST', '/api/dashboards/db', data)
-        response = Net::HTTP.start(self.backend_host, self.backend_port) do |http|
-            http.request(req)
-        end
-
-        if response.code != '200'
-            raise Puppet::Error, "Failed to create dashboard '%s' (HTTP "\
-                "response: %s/'%s')" % [resource[:name], response.code,
-                response.body]
-        end
+        self.save_dashboard(resource[:content])
     end
 
     def destroy
-        req = self.build_request('DELETE', '/api/dashboards/db/%s' % self.dashboard_id)
-        response = Net::HTTP.start(self.backend_host, self.backend_port) do |http|
-            http.request(req)
-        end
+        response = self.send_request('DELETE', '/api/dashboards/db/%s' % self.slug)
 
         if response.code != '200'
             raise Puppet::Error, "Failed to delete dashboard '%s' (HTTP "\
-                "response: %s/'%s')" % [resource[:name], response.code,
+                "response: %s/'%s')" % [resource[:title], response.code,
                 response.body]
         end
     end
 
     def exists?
-        req = self.build_request('GET', '/api/dashboards/db/%s' % self.dashboard_id)
-        response = Net::HTTP.start(self.backend_host, self.backend_port) do |http|
-            http.request(req)
-        end
-
-        if response.code == '200'
-            return true
-        elsif response.code == '404'
-            return false
-        else
-            raise Puppet::Error , "Invalid response code %d from the backend"\
-                " '%s'" % [response.code, response.body]
-        end
+        self.find_dashboard()
     end
 end

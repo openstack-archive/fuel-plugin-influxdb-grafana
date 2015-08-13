@@ -13,7 +13,7 @@
 # limitations under the License.
 require 'spec_helper'
 
-describe Puppet::Type.type(:grafana_dashboard) do
+describe Puppet::Type.type(:grafana_datasource) do
   context "when setting parameters" do
 
     it "should fail if grafana_url isn't HTTP-based" do
@@ -22,23 +22,17 @@ describe Puppet::Type.type(:grafana_dashboard) do
       }.to raise_error(Puppet::Error, /not a valid URL/)
     end
 
-    it "should fail if content isn't provided" do
+    it "should fail if json_data isn't valid" do
       expect {
-        described_class.new :name => "foo", :grafana_url => "http://example.com", :ensure => :present
-      }.to raise_error(Puppet::Error, /content is required/)
-    end
-
-    it "should fail if content isn't JSON" do
-      expect {
-        described_class.new :name => "foo", :grafana_url => "http://example.com/", :content => "{invalid", :ensure => :present
+        described_class.new :name => "foo", :grafana_url => "http://example.com", :json_data => "{invalid", :ensure => :present
       }.to raise_error(Puppet::Error, /Invalid JSON/)
     end
 
     it "should accept valid parameters" do
-      resource = described_class.new :name => "foo", :grafana_url => "http://example.com/", :content => "{}", :ensure => :present
+      resource = described_class.new :name => "foo", :grafana_url => "http://example.com", :url => 'http://influx.example.com'
       expect(resource[:name]).to eq('foo')
-      expect(resource[:grafana_url]).to eq('http://example.com/')
-      expect(resource[:content]).to eq({})
+      expect(resource[:grafana_url]).to eq('http://example.com')
+      expect(resource[:url]).to eq('http://influx.example.com')
     end
   end
 end
