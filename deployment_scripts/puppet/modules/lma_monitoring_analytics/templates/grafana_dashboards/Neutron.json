@@ -1729,7 +1729,12 @@
               "function": "last",
               "rawQuery": false,
               "groupByTags": [],
-              "tags": [],
+              "tags": [
+                {
+                  "value": "active",
+                  "key": "state"
+                }
+              ],
               "column": "value",
               "fields": [
                 {
@@ -1739,7 +1744,7 @@
               ],
               "series": "merge(/openstack.neutron.networks$/)",
               "measurement": "openstack_neutron_networks",
-              "query": "SELECT last(value) FROM \"openstack_neutron_networks\" WHERE $timeFilter GROUP BY time($interval)",
+              "query": "SELECT last(value) FROM \"openstack_neutron_networks\" WHERE \"state\" = 'active' AND $timeFilter GROUP BY time($interval)",
               "fill": ""
             }
           ],
@@ -1761,7 +1766,8 @@
           "format": "none",
           "editable": true,
           "cacheTimeout": null,
-          "postfix": "",
+          "postfix": " active",
+          "decimals": 0,
           "interval": "> 60s",
           "colors": [
             "rgba(245, 54, 54, 0.9)",
@@ -1794,7 +1800,9 @@
           "targets": [
             {
               "function": "last",
-              "groupByTags": [],
+              "groupByTags": [
+                "state"
+              ],
               "tags": [],
               "column": "value",
               "fields": [
@@ -1803,10 +1811,10 @@
                   "func": "last"
                 }
               ],
-              "alias": "number of networks",
+              "alias": "$tag_state",
               "series": "merge(/openstack.neutron.networks$/)",
               "measurement": "openstack_neutron_networks",
-              "query": "SELECT last(value) FROM \"openstack_neutron_networks\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT last(value) FROM \"openstack_neutron_networks\" WHERE $timeFilter GROUP BY time($interval), \"state\" fill(0)",
               "fill": "0"
             }
           ],
@@ -1899,7 +1907,7 @@
           "format": "none",
           "editable": true,
           "cacheTimeout": null,
-          "postfix": "",
+          "postfix": " active",
           "interval": "> 60s",
           "colors": [
             "rgba(245, 54, 54, 0.9)",
@@ -2006,7 +2014,17 @@
               "function": "last",
               "rawQuery": false,
               "groupByTags": [],
-              "tags": [],
+              "tags": [
+                {
+                  "value": "compute",
+                  "key": "owner"
+                },
+                {
+                  "value": "active",
+                  "key": "state",
+                  "condition": "AND"
+                }
+              ],
               "column": "value",
               "fields": [
                 {
@@ -2016,13 +2034,13 @@
               ],
               "series": "merge(/openstack.neutron.ports$/)",
               "measurement": "openstack_neutron_ports",
-              "query": "SELECT last(value) FROM \"openstack_neutron_ports\" WHERE $timeFilter GROUP BY time($interval)"
+              "query": "SELECT last(value) FROM \"openstack_neutron_ports\" WHERE \"owner\" = 'compute' AND \"state\" = 'active' AND $timeFilter GROUP BY time($interval)"
             }
           ],
           "maxDataPoints": 100,
           "span": 2,
           "colorBackground": false,
-          "title": "Ports",
+          "title": "Compute ports",
           "sparkline": {
             "full": false,
             "fillColor": "rgba(31, 118, 189, 0.18)",
@@ -2037,7 +2055,7 @@
           "format": "none",
           "editable": true,
           "cacheTimeout": null,
-          "postfix": "",
+          "postfix": " active",
           "interval": "> 60s",
           "colors": [
             "rgba(245, 54, 54, 0.9)",
@@ -2146,7 +2164,12 @@
               "function": "last",
               "rawQuery": false,
               "groupByTags": [],
-              "tags": [],
+              "tags": [
+                {
+                  "value": "active",
+                  "key": "state"
+                }
+              ],
               "column": "value",
               "fields": [
                 {
@@ -2156,7 +2179,7 @@
               ],
               "series": "merge(/openstack.neutron.routers$/)",
               "measurement": "openstack_neutron_routers",
-              "query": "SELECT last(value) FROM \"openstack_neutron_routers\" WHERE $timeFilter GROUP BY time($interval)"
+              "query": "SELECT last(value) FROM \"openstack_neutron_routers\" WHERE \"state\" = 'active' AND $timeFilter GROUP BY time($interval)"
             }
           ],
           "maxDataPoints": 100,
@@ -2177,7 +2200,8 @@
           "format": "none",
           "editable": true,
           "cacheTimeout": null,
-          "postfix": "",
+          "postfix": " active",
+          "decimals": 0,
           "interval": "> 60s",
           "colors": [
             "rgba(245, 54, 54, 0.9)",
@@ -2206,19 +2230,13 @@
             "shared": true,
             "value_type": "cumulative"
           },
-          "legend": {
-            "total": false,
-            "show": false,
-            "max": false,
-            "min": false,
-            "current": false,
-            "values": false,
-            "avg": false
-          },
+          "stack": false,
           "targets": [
             {
               "function": "last",
-              "groupByTags": [],
+              "groupByTags": [
+                "state"
+              ],
               "tags": [],
               "column": "value",
               "fields": [
@@ -2227,10 +2245,10 @@
                   "func": "last"
                 }
               ],
-              "alias": "number of routers",
+              "alias": "$tag_state",
               "series": "merge(/openstack.neutron.routers$/)",
               "measurement": "openstack_neutron_routers",
-              "query": "SELECT last(value) FROM \"openstack_neutron_routers\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT last(value) FROM \"openstack_neutron_routers\" WHERE $timeFilter GROUP BY time($interval), \"state\" fill(0)",
               "fill": "0"
             }
           ],
@@ -2253,7 +2271,15 @@
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "leftMin": 0
           },
-          "stack": false,
+          "legend": {
+            "total": false,
+            "show": false,
+            "max": false,
+            "min": false,
+            "current": false,
+            "values": false,
+            "avg": false
+          },
           "y-axis": true,
           "timeShift": null,
           "interval": "> 60s",
@@ -2261,6 +2287,7 @@
           "points": false,
           "datasource": null,
           "pointradius": 5,
+          "decimals": 0,
           "y_formats": [
             "short",
             "short"
@@ -2283,7 +2310,12 @@
               "function": "last",
               "rawQuery": false,
               "groupByTags": [],
-              "tags": [],
+              "tags": [
+                {
+                  "value": "associated",
+                  "key": "state"
+                }
+              ],
               "column": "value",
               "fields": [
                 {
@@ -2292,8 +2324,8 @@
                 }
               ],
               "series": "merge(/openstack.neutron.floatingips$/)",
-              "measurement": "neutron",
-              "query": "SELECT last(value) FROM \"neutron\" WHERE $timeFilter GROUP BY time($interval)"
+              "measurement": "openstack_neutron_floatingips",
+              "query": "SELECT last(value) FROM \"openstack_neutron_floatingips\" WHERE \"state\" = 'associated' AND $timeFilter GROUP BY time($interval)"
             }
           ],
           "maxDataPoints": 100,
@@ -2306,7 +2338,7 @@
             "lineColor": "rgb(31, 120, 193)",
             "show": false
           },
-          "id": 7,
+          "id": 41,
           "prefixFontSize": "50%",
           "valueName": "current",
           "type": "singlestat",
@@ -2314,7 +2346,7 @@
           "format": "none",
           "editable": true,
           "cacheTimeout": null,
-          "postfix": "",
+          "postfix": " associated",
           "interval": "> 60s",
           "colors": [
             "rgba(245, 54, 54, 0.9)",
@@ -2355,10 +2387,21 @@
           "targets": [
             {
               "function": "last",
+              "groupByTags": [
+                "state"
+              ],
+              "tags": [],
               "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "last"
+                }
+              ],
+              "alias": "$tag_state",
               "series": "merge(/openstack.neutron.floatingips$/)",
-              "alias": "number of floating IPs",
-              "query": "select last(value) from merge(/openstack.neutron.floatingips$/) where $timeFilter group by time($interval) fill(0) order asc",
+              "measurement": "openstack_neutron_floatingips",
+              "query": "SELECT last(value) FROM \"openstack_neutron_floatingips\" WHERE $timeFilter GROUP BY time($interval), \"state\" fill(0)",
               "fill": "0"
             }
           ],
@@ -2407,8 +2450,7 @@
         "refresh_on_load": true,
         "allFormat": "regex values",
         "refresh": true,
-        "current": {
-        },
+        "current": {},
         "datasource": null,
         "query": " show tag values from pacemaker_local_resource_active with key = hostname ",
         "type": "query",
@@ -2478,7 +2520,7 @@
         "datasource": "influxdb",
         "lineColor": "rgba(255, 96, 96, 0.592157)",
         "showLine": true,
-        "query": "select title,tags,text from annotations where $timeFilter and service = 'cinder'",
+        "query": "select title,tags,text from annotations where $timeFilter and service = 'neutron'",
         "tagsColumn": "tags",
         "iconColor": "#C0C6BE"
       }
