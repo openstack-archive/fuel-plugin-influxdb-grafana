@@ -2126,17 +2126,10 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "max"
-                }
-              ],
-              "alias": "in-use",
-              "series": "merge(/openstack.cinder.volumes_size.in-user/)",
-              "measurement": "openstack_cinder_volumes_size",
-              "query": "SELECT max(value) FROM \"openstack_cinder_volumes_size\" WHERE \"state\" = 'in-use' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "fill": "0"
+              "series": "merge(/openstack.cinder.volumes_size.in-use/)",
+              "query": "select max(value) from merge(/openstack.cinder.volumes_size.in-use/) where $timeFilter group by time($interval) fill(0) order asc",
+              "fill": "0",
+              "alias": "in-use"
             },
             {
               "function": "max",
