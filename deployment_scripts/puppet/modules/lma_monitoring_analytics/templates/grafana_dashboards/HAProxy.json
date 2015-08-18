@@ -211,7 +211,7 @@
               ],
               "series": "/$controller.haproxy.backend.$service.status/",
               "measurement": "haproxy_backend_status",
-              "query": "SELECT last(value) FROM \"haproxy_backend_status\" WHERE \"hostname\" =~ /$server/ AND $timeFilter GROUP BY time($interval)",
+              "query": "SELECT last(value) FROM \"haproxy_backend_status\" WHERE \"hostname\" =~ /$server/ AND \"backend\" =~ /$service/ AND $timeFilter GROUP BY time($interval)",
               "fill": ""
             }
           ],
