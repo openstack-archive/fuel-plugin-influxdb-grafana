@@ -1,1404 +1,2026 @@
 {
-  "id": null,
-  "title": "Glance",
-  "originalTitle": "Glance",
-  "tags": [
-    "glance",
-    "openstack"
-  ],
   "style": "dark",
-  "timezone": "browser",
-  "editable": true,
-  "hideControls": false,
-  "sharedCrosshair": false,
   "rows": [
     {
-      "title": "Service Status",
-      "height": "250px",
-      "editable": true,
       "collapse": false,
+      "title": "Service Status",
+      "editable": true,
+      "height": "250px",
       "panels": [
         {
-          "title": "",
-          "error": false,
-          "span": 2,
-          "editable": true,
-          "type": "singlestat",
-          "id": 6,
           "links": [],
-          "maxDataPoints": 100,
-          "interval": "> 60s",
+          "valueMaps": [
+            {
+              "text": "no data",
+              "value": "null",
+              "op": "="
+            },
+            {
+              "text": "OKAY",
+              "value": "0",
+              "op": "="
+            },
+            {
+              "text": "WARN",
+              "value": "1",
+              "op": "="
+            },
+            {
+              "text": "FAIL",
+              "value": "2",
+              "op": "="
+            },
+            {
+              "text": "UNKNOWN",
+              "value": "3",
+              "op": "="
+            }
+          ],
+          "thresholds": "0,1,2",
+          "nullPointMode": "connected",
+          "prefix": "",
           "targets": [
             {
               "function": "last",
-              "column": "value",
-              "series": "merge(/openstack.glance.status/)",
-              "query": "select last(value) from merge(/openstack.glance.status/) where $timeFilter group by time($interval) order asc",
-              "rawQuery": false,
-              "interval": "",
               "groupby_field": "",
+              "rawQuery": false,
+              "groupByTags": [],
+              "tags": [],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "last"
+                }
+              ],
+              "interval": "",
+              "series": "merge(/openstack.cinder.status/)",
+              "measurement": "openstack_glance_status",
+              "query": "SELECT last(value) FROM \"openstack_glance_status\" WHERE $timeFilter GROUP BY time($interval)",
               "condition": "",
               "fill": ""
             }
           ],
-          "cacheTimeout": null,
-          "format": "none",
-          "prefix": "",
-          "postfix": "",
-          "nullText": null,
-          "valueMaps": [
-            {
-              "value": "null",
-              "op": "=",
-              "text": "Unknown"
-            },
-            {
-              "value": "0",
-              "op": "=",
-              "text": "OKAY"
-            },
-            {
-              "value": "1",
-              "op": "=",
-              "text": "WARN"
-            },
-            {
-              "value": "2",
-              "op": "=",
-              "text": "FAIL"
-            },
-            {
-              "value": "3",
-              "op": "=",
-              "text": "UNKNOWN"
-            }
-          ],
-          "nullPointMode": "connected",
-          "valueName": "current",
-          "prefixFontSize": "50%",
-          "valueFontSize": "80%",
-          "postfixFontSize": "50%",
-          "thresholds": "0,1,2",
+          "maxDataPoints": 100,
+          "span": 2,
           "colorBackground": true,
-          "colorValue": false,
+          "title": "",
+          "sparkline": {
+            "full": false,
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "id": 6,
+          "prefixFontSize": "50%",
+          "valueName": "current",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "format": "none",
+          "editable": true,
+          "cacheTimeout": null,
+          "postfix": "",
+          "interval": "> 60s",
           "colors": [
             "rgba(71, 212, 59, 0.4)",
-            "rgba(245, 150, 40, 0.73)",
+            "rgba(241, 181, 37, 0.73)",
             "rgba(225, 40, 40, 0.59)"
           ],
-          "sparkline": {
-            "show": false,
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "fillColor": "rgba(31, 118, 189, 0.18)"
-          }
+          "error": false,
+          "nullText": null,
+          "postfixFontSize": "50%",
+          "colorValue": false
         },
         {
-          "title": "HTTP 5xx errors",
-          "error": false,
-          "span": 2,
-          "editable": true,
-          "type": "singlestat",
-          "id": 13,
           "links": [],
-          "maxDataPoints": 100,
-          "interval": "> 60s",
+          "valueMaps": [
+            {
+              "text": "0",
+              "value": "null",
+              "op": "="
+            }
+          ],
+          "thresholds": "0,0,1",
+          "nullPointMode": "connected",
+          "prefix": "",
           "targets": [
             {
               "function": "count",
-              "column": "value",
-              "series": "merge(/$server.openstack.glance.http.*.5\\d\\d/)",
-              "query": "select count(value) from merge(/$server.openstack.glance.http.*.5\\d\\d/) where $timeFilter group by time($interval) order asc",
-              "rawQuery": false,
-              "interval": "",
               "groupby_field": "",
+              "rawQuery": false,
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "/$server/",
+                  "key": "hostname"
+                },
+                {
+                  "value": "/^5/",
+                  "key": "http_status",
+                  "condition": "AND"
+                }
+              ],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "count"
+                }
+              ],
+              "interval": "",
+              "series": "merge(/$server.openstack.cinder.http.*.5\\d\\d/)",
+              "measurement": "openstack_glance_http_responses",
+              "query": "SELECT count(value) FROM \"openstack_glance_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^5/ AND $timeFilter GROUP BY time($interval)",
               "condition": "",
               "fill": ""
             }
           ],
-          "cacheTimeout": null,
-          "format": "none",
-          "prefix": "",
-          "postfix": "",
-          "nullText": null,
-          "valueMaps": [
-            {
-              "value": "null",
-              "op": "=",
-              "text": "0"
-            }
-          ],
-          "nullPointMode": "connected",
-          "valueName": "current",
-          "prefixFontSize": "50%",
-          "valueFontSize": "80%",
-          "postfixFontSize": "50%",
-          "thresholds": "0,0,1",
+          "maxDataPoints": 100,
+          "span": 2,
           "colorBackground": false,
-          "colorValue": false,
+          "title": "HTTP 5xx errors",
+          "sparkline": {
+            "full": false,
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "lineColor": "rgb(31, 120, 193)",
+            "show": true
+          },
+          "id": 13,
+          "prefixFontSize": "50%",
+          "valueName": "current",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "format": "none",
+          "editable": true,
+          "cacheTimeout": null,
+          "postfix": "",
+          "interval": "> 60s",
           "colors": [
             "rgba(71, 212, 59, 0.4)",
             "rgba(245, 150, 40, 0.73)",
             "rgba(225, 40, 40, 0.59)"
           ],
-          "sparkline": {
-            "show": true,
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "fillColor": "rgba(31, 118, 189, 0.18)"
-          }
+          "error": false,
+          "nullText": null,
+          "postfixFontSize": "50%",
+          "colorValue": false
         },
         {
-          "title": "HTTP response time on $server",
-          "error": false,
-          "span": 8,
-          "editable": true,
-          "type": "graph",
-          "id": 7,
-          "datasource": null,
+          "bars": false,
+          "aliasColors": {},
+          "links": [],
+          "nullPointMode": "connected",
+          "timeFrom": null,
           "renderer": "flot",
+          "linewidth": 1,
+          "steppedLine": false,
+          "id": 7,
+          "fill": 0,
+          "span": 8,
+          "title": "HTTP response time on $server",
+          "tooltip": {
+            "shared": true,
+            "value_type": "cumulative"
+          },
+          "legend": {
+            "total": false,
+            "show": true,
+            "max": true,
+            "min": true,
+            "current": false,
+            "values": true,
+            "alignAsTable": true,
+            "avg": true
+          },
+          "targets": [
+            {
+              "function": "mean",
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "/$server/",
+                  "key": "hostname"
+                },
+                {
+                  "value": "GET",
+                  "key": "http_method",
+                  "condition": "AND"
+                }
+              ],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "mean"
+                }
+              ],
+              "interval": "",
+              "alias": "GET",
+              "series": "merge(/$server.openstack.cinder.http.GET.*/)",
+              "measurement": "openstack_glance_http_responses",
+              "query": "SELECT mean(value) FROM \"openstack_glance_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_method\" = 'GET' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "fill": "0"
+            },
+            {
+              "function": "mean",
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "/$server/",
+                  "key": "hostname"
+                },
+                {
+                  "value": "POST",
+                  "key": "http_method",
+                  "condition": "AND"
+                }
+              ],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "mean"
+                }
+              ],
+              "interval": "",
+              "alias": "POST",
+              "series": "merge(/$server.openstack.cinder.http.POST.*/)",
+              "measurement": "openstack_glance_http_responses",
+              "query": "SELECT mean(value) FROM \"openstack_glance_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_method\" = 'POST' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "fill": "0"
+            },
+            {
+              "function": "mean",
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "/$server/",
+                  "key": "hostname"
+                },
+                {
+                  "value": "PUT",
+                  "key": "http_method",
+                  "condition": "AND"
+                }
+              ],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "mean"
+                }
+              ],
+              "interval": "",
+              "alias": "PUT",
+              "series": "merge(/$server.openstack.cinder.http.PUT.*/)",
+              "measurement": "openstack_glance_http_responses",
+              "query": "SELECT mean(value) FROM \"openstack_glance_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_method\" = 'PUT' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "fill": "0"
+            },
+            {
+              "function": "mean",
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "/$server/",
+                  "key": "hostname"
+                },
+                {
+                  "value": "DELETE",
+                  "key": "http_method",
+                  "condition": "AND"
+                }
+              ],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "mean"
+                }
+              ],
+              "interval": "",
+              "alias": "DELETE",
+              "series": "merge(/$server.openstack.cinder.http.DELETE.*/)",
+              "measurement": "openstack_glance_http_responses",
+              "query": "SELECT mean(value) FROM \"openstack_glance_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_method\" = 'DELETE' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "fill": "0"
+            }
+          ],
+          "seriesOverrides": [],
+          "percentage": false,
+          "type": "graph",
           "x-axis": true,
+          "error": false,
+          "editable": true,
+          "grid": {
+            "leftMax": null,
+            "threshold2": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "threshold1": null,
+            "leftLogBase": 1,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)",
+            "rightMin": 0,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "leftMin": 0
+          },
+          "stack": false,
           "y-axis": true,
+          "timeShift": null,
+          "interval": ">60s",
+          "lines": true,
+          "points": false,
+          "datasource": null,
+          "pointradius": 5,
           "y_formats": [
             "s",
             "short"
-          ],
-          "grid": {
-            "leftMax": null,
-            "rightMax": null,
-            "leftMin": 0,
-            "rightMin": 0,
-            "threshold1": null,
-            "threshold2": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
-          "lines": true,
-          "fill": 0,
-          "linewidth": 1,
-          "points": false,
-          "pointradius": 5,
-          "bars": false,
-          "stack": false,
-          "percentage": false,
-          "legend": {
-            "show": true,
-            "values": true,
-            "min": true,
-            "max": true,
-            "current": false,
-            "total": false,
-            "avg": true,
-            "alignAsTable": true
-          },
-          "nullPointMode": "connected",
-          "steppedLine": false,
-          "tooltip": {
-            "value_type": "cumulative",
-            "shared": true
-          },
-          "targets": [
-            {
-              "function": "mean",
-              "column": "value",
-              "series": "merge(/$server.openstack.glance.http.GET.*/)",
-              "query": "select mean(value) from merge(/$server.openstack.glance.http.GET.*/) where $timeFilter group by time($interval) fill(0) order asc",
-              "interval": "",
-              "fill": "0",
-              "alias": "GET"
-            },
-            {
-              "function": "mean",
-              "column": "value",
-              "series": "merge(/$server.openstack.glance.http.HEAD.*/)",
-              "query": "select mean(value) from merge(/$server.openstack.glance.http.HEAD.*/) where $timeFilter group by time($interval) fill(0) order asc",
-              "interval": "",
-              "fill": "0",
-              "alias": "HEAD"
-            },
-            {
-              "function": "mean",
-              "column": "value",
-              "series": "merge(/$server.openstack.glance.http.POST.*/)",
-              "query": "select mean(value) from merge(/$server.openstack.glance.http.POST.*/) where $timeFilter group by time($interval) fill(0) order asc",
-              "interval": "",
-              "fill": "0",
-              "alias": "POST"
-            },
-            {
-              "function": "mean",
-              "column": "value",
-              "series": "merge(/$server.openstack.glance.http.PUT.*/)",
-              "query": "select mean(value) from merge(/$server.openstack.glance.http.PUT.*/) where $timeFilter group by time($interval) fill(0) order asc",
-              "interval": "",
-              "fill": "0",
-              "alias": "PUT"
-            },
-            {
-              "function": "mean",
-              "column": "value",
-              "series": "merge(/$server.openstack.glance.http.DELETE.*/)",
-              "query": "select mean(value) from merge(/$server.openstack.glance.http.DELETE.*/) where $timeFilter group by time($interval) fill(0) order asc",
-              "interval": "",
-              "fill": "0",
-              "alias": "DELETE"
-            }
-          ],
-          "aliasColors": {},
-          "seriesOverrides": [],
-          "interval": "> 60s",
-          "links": []
+          ]
         },
         {
-          "title": "API Availability",
-          "error": false,
-          "span": 4,
-          "editable": true,
-          "type": "graph",
-          "id": 9,
-          "datasource": null,
+          "bars": false,
+          "aliasColors": {},
+          "links": [],
+          "nullPointMode": "connected",
+          "timeFrom": null,
           "renderer": "flot",
-          "x-axis": true,
-          "y-axis": false,
-          "y_formats": [
-            "none",
-            "short"
-          ],
-          "grid": {
-            "leftMax": 1,
-            "rightMax": null,
-            "leftMin": 0,
-            "rightMin": null,
-            "threshold1": null,
-            "threshold2": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2Color": "rgba(234, 112, 112, 0.22)",
-            "thresholdLine": false
-          },
-          "lines": true,
-          "fill": 1,
           "linewidth": 2,
-          "points": false,
-          "pointradius": 5,
-          "bars": false,
-          "stack": false,
-          "percentage": false,
-          "legend": {
-            "show": false,
-            "values": false,
-            "min": false,
-            "max": false,
-            "current": false,
-            "total": false,
-            "avg": false
-          },
-          "nullPointMode": "connected",
           "steppedLine": true,
+          "id": 9,
+          "fill": 1,
+          "span": 4,
+          "title": "API Availability",
           "tooltip": {
-            "value_type": "cumulative",
-            "shared": false
+            "shared": false,
+            "value_type": "cumulative"
           },
-          "targets": [
-            {
-              "function": "last",
-              "column": "value",
-              "series": "merge(/openstack.glance.check_api/)",
-              "query": "select last(value) from merge(/openstack.glance.check_api/) where $timeFilter group by time($interval) fill(0) order asc",
-              "fill": "0",
-              "alias": "healthy"
-            }
-          ],
-          "aliasColors": {},
-          "seriesOverrides": [],
-          "interval": "> 60s",
-          "links": [],
-          "leftYAxisLabel": ""
-        },
-        {
-          "title": "Number of HTTP responses on $server",
-          "error": false,
-          "span": 8,
-          "editable": true,
-          "type": "graph",
-          "id": 8,
-          "datasource": null,
-          "renderer": "flot",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "none",
-            "short"
-          ],
-          "grid": {
-            "leftMax": null,
-            "rightMax": null,
-            "leftMin": 0,
-            "rightMin": null,
-            "threshold1": null,
-            "threshold2": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2Color": "rgba(234, 112, 112, 0.22)",
-            "thresholdLine": false
-          },
-          "lines": false,
-          "fill": 0,
-          "linewidth": 1,
-          "points": false,
-          "pointradius": 5,
-          "bars": true,
-          "stack": true,
-          "percentage": false,
           "legend": {
-            "show": true,
-            "values": true,
-            "min": true,
-            "max": true,
-            "current": false,
-            "total": true,
-            "avg": false,
-            "alignAsTable": true,
-            "hideEmpty": false,
-            "rightSide": false
-          },
-          "nullPointMode": "connected",
-          "steppedLine": false,
-          "tooltip": {
-            "value_type": "individual",
-            "shared": true
-          },
-          "targets": [
-            {
-              "function": "count",
-              "column": "value",
-              "series": "merge(/$server.openstack.glance.http.*.1\\d\\d/)",
-              "query": "select count(value) from merge(/$server.openstack.glance.http.*.1\\d\\d/) where $timeFilter group by time($interval) fill(0) order asc",
-              "fill": "0",
-              "interval": "",
-              "alias": "1xx"
-            },
-            {
-              "function": "count",
-              "column": "value",
-              "series": "merge(/$server.openstack.glance.http.*.2\\d\\d/)",
-              "query": "select count(value) from merge(/$server.openstack.glance.http.*.2\\d\\d/) where $timeFilter group by time($interval) fill(0) order asc",
-              "fill": "0",
-              "interval": "",
-              "alias": "2xx"
-            },
-            {
-              "function": "count",
-              "column": "value",
-              "series": "merge(/$server.openstack.glance.http.*.3\\d\\d/)",
-              "query": "select count(value) from merge(/$server.openstack.glance.http.*.3\\d\\d/) where $timeFilter group by time($interval) fill(0) order asc",
-              "fill": "0",
-              "interval": "",
-              "alias": "3xx"
-            },
-            {
-              "function": "count",
-              "column": "value",
-              "series": "merge(/$server.openstack.glance.http.*.4\\d\\d/)",
-              "query": "select count(value) from merge(/$server.openstack.glance.http.*.4\\d\\d/) where $timeFilter group by time($interval) fill(0) order asc",
-              "fill": "0",
-              "interval": "",
-              "alias": "4xx"
-            },
-            {
-              "function": "count",
-              "column": "value",
-              "series": "merge(/$server.openstack.glance.http.*.5\\d\\d/)",
-              "query": "select count(value) from merge(/$server.openstack.glance.http.*.5\\d\\d/) where $timeFilter group by time($interval) fill(0) order asc",
-              "fill": "0",
-              "interval": "",
-              "alias": "5xx"
-            }
-          ],
-          "aliasColors": {},
-          "seriesOverrides": [],
-          "links": [],
-          "interval": "> 60s"
-        }
-      ],
-      "showTitle": true
-    },
-    {
-      "title": "Glance services",
-      "height": "100px",
-      "editable": true,
-      "collapse": false,
-      "panels": [
-        {
-          "title": "",
-          "error": false,
-          "span": 2,
-          "editable": true,
-          "type": "text",
-          "id": 21,
-          "mode": "html",
-          "content": "<br />\n<h3 align=\"center\"> Up </h3>",
-          "style": {},
-          "links": []
-        },
-        {
-          "title": "API",
-          "error": false,
-          "span": 2,
-          "editable": true,
-          "type": "singlestat",
-          "id": 22,
-          "links": [],
-          "maxDataPoints": 100,
-          "interval": "> 60s",
-          "targets": [
-            {
-              "function": "mean",
-              "column": "value",
-              "series": "merge(/haproxy.backend.glance-api.servers.up/)",
-              "query": "select mean(value) from merge(/haproxy.backend.glance-api.servers.up/) where $timeFilter group by time($interval) order asc"
-            }
-          ],
-          "cacheTimeout": null,
-          "format": "none",
-          "prefix": "",
-          "postfix": "",
-          "nullText": null,
-          "valueMaps": [
-            {
-              "value": "null",
-              "op": "=",
-              "text": "N/A"
-            }
-          ],
-          "nullPointMode": "connected",
-          "valueName": "avg",
-          "prefixFontSize": "50%",
-          "valueFontSize": "80%",
-          "postfixFontSize": "50%",
-          "thresholds": "",
-          "colorBackground": false,
-          "colorValue": false,
-          "colors": [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(50, 172, 45, 0.97)"
-          ],
-          "sparkline": {
-            "show": false,
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "fillColor": "rgba(31, 118, 189, 0.18)"
-          }
-        },
-        {
-          "title": "Registry",
-          "error": false,
-          "span": 2,
-          "editable": true,
-          "type": "singlestat",
-          "id": 23,
-          "links": [],
-          "maxDataPoints": 100,
-          "interval": "> 60s",
-          "targets": [
-            {
-              "function": "mean",
-              "column": "value",
-              "series": "merge(/haproxy.backend.glance-registry-api.servers.up/)",
-              "query": "select mean(value) from merge(/haproxy.backend.glance-registry-api.servers.up/) where $timeFilter group by time($interval) order asc"
-            }
-          ],
-          "cacheTimeout": null,
-          "format": "none",
-          "prefix": "",
-          "postfix": "",
-          "nullText": null,
-          "valueMaps": [
-            {
-              "value": "null",
-              "op": "=",
-              "text": "N/A"
-            }
-          ],
-          "nullPointMode": "connected",
-          "valueName": "avg",
-          "prefixFontSize": "50%",
-          "valueFontSize": "80%",
-          "postfixFontSize": "50%",
-          "thresholds": "",
-          "colorBackground": false,
-          "colorValue": false,
-          "colors": [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(50, 172, 45, 0.97)"
-          ],
-          "sparkline": {
-            "show": false,
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "fillColor": "rgba(31, 118, 189, 0.18)"
-          }
-        },
-        {
-          "title": "",
-          "error": false,
-          "span": 6,
-          "editable": true,
-          "type": "text",
-          "id": 24,
-          "mode": "markdown",
-          "content": "",
-          "style": {},
-          "links": []
-        },
-        {
-          "title": "",
-          "error": false,
-          "span": 2,
-          "editable": true,
-          "type": "text",
-          "id": 25,
-          "mode": "html",
-          "content": "<br />\n<h3 align=\"center\"> Down </h3>",
-          "style": {},
-          "links": []
-        },
-        {
-          "title": "",
-          "error": false,
-          "span": 2,
-          "editable": true,
-          "type": "singlestat",
-          "id": 26,
-          "links": [],
-          "maxDataPoints": 100,
-          "interval": "> 60s",
-          "targets": [
-            {
-              "function": "mean",
-              "column": "value",
-              "series": "merge(/haproxy.backend.glance-api.servers.down/)",
-              "query": "select mean(value) from merge(/haproxy.backend.glance-api.servers.down/) where $timeFilter group by time($interval) order asc"
-            }
-          ],
-          "cacheTimeout": null,
-          "format": "none",
-          "prefix": "",
-          "postfix": "",
-          "nullText": null,
-          "valueMaps": [
-            {
-              "value": "null",
-              "op": "=",
-              "text": "N/A"
-            }
-          ],
-          "nullPointMode": "connected",
-          "valueName": "avg",
-          "prefixFontSize": "50%",
-          "valueFontSize": "80%",
-          "postfixFontSize": "50%",
-          "thresholds": "0,0,1",
-          "colorBackground": false,
-          "colorValue": true,
-          "colors": [
-            "rgba(255, 255, 255, 0.97)",
-            "rgba(255, 255, 255, 0.89)",
-            "rgba(245, 54, 54, 0.9)"
-          ],
-          "sparkline": {
-            "show": false,
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "fillColor": "rgba(31, 118, 189, 0.18)"
-          }
-        },
-        {
-          "title": "",
-          "error": false,
-          "span": 2,
-          "editable": true,
-          "type": "singlestat",
-          "id": 27,
-          "links": [],
-          "maxDataPoints": 100,
-          "interval": "> 60s",
-          "targets": [
-            {
-              "function": "mean",
-              "column": "value",
-              "series": "merge(/haproxy.backend.glance-registry-api.servers.down/)",
-              "query": "select mean(value) from merge(/haproxy.backend.glance-registry-api.servers.down/) where $timeFilter group by time($interval) order asc"
-            }
-          ],
-          "cacheTimeout": null,
-          "format": "none",
-          "prefix": "",
-          "postfix": "",
-          "nullText": null,
-          "valueMaps": [
-            {
-              "value": "null",
-              "op": "=",
-              "text": "N/A"
-            }
-          ],
-          "nullPointMode": "connected",
-          "valueName": "avg",
-          "prefixFontSize": "50%",
-          "valueFontSize": "80%",
-          "postfixFontSize": "50%",
-          "thresholds": "0,0,1",
-          "colorBackground": false,
-          "colorValue": true,
-          "colors": [
-            "rgba(255, 255, 255, 0.97)",
-            "rgba(255, 255, 255, 0.89)",
-            "rgba(245, 54, 54, 0.9)"
-          ],
-          "sparkline": {
-            "show": false,
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "fillColor": "rgba(31, 118, 189, 0.18)"
-          }
-        },
-        {
-          "title": "",
-          "error": false,
-          "span": 6,
-          "editable": true,
-          "type": "text",
-          "id": 28,
-          "mode": "markdown",
-          "content": "",
-          "style": {},
-          "links": []
-        }
-      ],
-      "showTitle": true
-    },
-    {
-      "title": "Resources",
-      "height": "250px",
-      "editable": true,
-      "collapse": false,
-      "panels": [
-        {
-          "title": "Public images",
-          "error": false,
-          "span": 2,
-          "editable": true,
-          "type": "singlestat",
-          "id": 1,
-          "links": [],
-          "maxDataPoints": 100,
-          "interval": "> 60s",
-          "targets": [
-            {
-              "function": "last",
-              "column": "value",
-              "series": "merge(/openstack.glance.images.public.active$/)",
-              "query": "select last(value) from merge(/openstack.glance.images.public.active$/) where $timeFilter group by time($interval) order asc",
-              "fill": "",
-              "rawQuery": false
-            }
-          ],
-          "cacheTimeout": null,
-          "format": "none",
-          "prefix": "",
-          "postfix": "",
-          "nullText": null,
-          "valueMaps": [
-            {
-              "value": "null",
-              "op": "=",
-              "text": "0"
-            }
-          ],
-          "nullPointMode": "connected",
-          "valueName": "current",
-          "prefixFontSize": "50%",
-          "valueFontSize": "80%",
-          "postfixFontSize": "50%",
-          "thresholds": "",
-          "colorBackground": false,
-          "colorValue": false,
-          "colors": [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(50, 172, 45, 0.97)"
-          ],
-          "sparkline": {
-            "show": false,
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "fillColor": "rgba(31, 118, 189, 0.18)"
-          }
-        },
-        {
-          "title": "Private images",
-          "error": false,
-          "span": 2,
-          "editable": true,
-          "type": "singlestat",
-          "id": 14,
-          "links": [],
-          "maxDataPoints": 100,
-          "interval": "> 60s",
-          "targets": [
-            {
-              "function": "last",
-              "column": "value",
-              "series": "merge(/openstack.glance.images.private.active$/)",
-              "query": "select last(value) from merge(/openstack.glance.images.private.active$/) where $timeFilter group by time($interval) order asc",
-              "fill": "",
-              "rawQuery": false
-            }
-          ],
-          "cacheTimeout": null,
-          "format": "none",
-          "prefix": "",
-          "postfix": "",
-          "nullText": null,
-          "valueMaps": [
-            {
-              "value": "null",
-              "op": "=",
-              "text": "0"
-            }
-          ],
-          "nullPointMode": "connected",
-          "valueName": "current",
-          "prefixFontSize": "50%",
-          "valueFontSize": "80%",
-          "postfixFontSize": "50%",
-          "thresholds": "",
-          "colorBackground": false,
-          "colorValue": false,
-          "colors": [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(50, 172, 45, 0.97)"
-          ],
-          "sparkline": {
-            "show": false,
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "fillColor": "rgba(31, 118, 189, 0.18)"
-          }
-        },
-        {
-          "title": "Number of images",
-          "error": false,
-          "span": 8,
-          "editable": true,
-          "type": "graph",
-          "id": 29,
-          "datasource": null,
-          "renderer": "flot",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "short",
-            "short"
-          ],
-          "grid": {
-            "leftMax": null,
-            "rightMax": null,
-            "leftMin": 0,
-            "rightMin": null,
-            "threshold1": null,
-            "threshold2": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
-          "lines": true,
-          "fill": 0,
-          "linewidth": 1,
-          "points": false,
-          "pointradius": 5,
-          "bars": false,
-          "stack": false,
-          "percentage": false,
-          "legend": {
-            "show": true,
-            "values": false,
-            "min": false,
-            "max": false,
-            "current": false,
             "total": false,
+            "show": false,
+            "max": false,
+            "min": false,
+            "current": false,
+            "values": false,
             "avg": false
           },
-          "nullPointMode": "connected",
-          "steppedLine": false,
-          "tooltip": {
-            "value_type": "cumulative",
-            "shared": true
-          },
           "targets": [
             {
               "function": "last",
+              "groupByTags": [],
+              "tags": [],
               "column": "value",
-              "series": "merge(/openstack.glance.images.public.active$/)",
-              "query": "select last(value) from merge(/openstack.glance.images.public.active$/) where $timeFilter group by time($interval) fill(0) order asc",
-              "alias": "public",
-              "fill": "0",
-              "hide": false
-            },
-            {
-              "function": "last",
-              "column": "value",
-              "series": "merge(/openstack.glance.images.private.active$/)",
-              "query": "select last(value) from merge(/openstack.glance.images.private.active$/) where $timeFilter group by time($interval) fill(0) order asc",
-              "alias": "private",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "last"
+                }
+              ],
+              "alias": "healthy",
+              "series": "merge(/openstack.cinder.check_api/)",
+              "measurement": "openstack_glance_check_api",
+              "query": "SELECT last(value) FROM \"openstack_glance_check_api\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
               "fill": "0"
             }
           ],
-          "aliasColors": {},
+          "leftYAxisLabel": "",
           "seriesOverrides": [],
-          "links": [],
-          "interval": "> 60s"
-        },
-        {
-          "title": "",
-          "error": false,
-          "span": 2,
-          "editable": true,
-          "type": "singlestat",
-          "id": 17,
-          "links": [],
-          "maxDataPoints": 100,
-          "interval": "> 60s",
-          "targets": [
-            {
-              "function": "last",
-              "column": "value",
-              "series": "merge(/openstack.glance.images_size.public.active$/)",
-              "query": "select last(value) from merge(/openstack.glance.images_size.public.active$/) where $timeFilter group by time($interval) order asc",
-              "fill": "",
-              "rawQuery": false
-            }
-          ],
-          "cacheTimeout": null,
-          "format": "bytes",
-          "prefix": "",
-          "postfix": "",
-          "nullText": null,
-          "valueMaps": [
-            {
-              "value": "null",
-              "op": "=",
-              "text": "0"
-            }
-          ],
-          "nullPointMode": "connected",
-          "valueName": "current",
-          "prefixFontSize": "50%",
-          "valueFontSize": "80%",
-          "postfixFontSize": "50%",
-          "thresholds": "",
-          "colorBackground": false,
-          "colorValue": false,
-          "colors": [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(50, 172, 45, 0.97)"
-          ],
-          "sparkline": {
-            "show": false,
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "fillColor": "rgba(31, 118, 189, 0.18)"
-          }
-        },
-        {
-          "title": "",
-          "error": false,
-          "span": 2,
-          "editable": true,
-          "type": "singlestat",
-          "id": 18,
-          "links": [],
-          "maxDataPoints": 100,
-          "interval": "> 60s",
-          "targets": [
-            {
-              "function": "last",
-              "column": "value",
-              "series": "merge(/openstack.glance.images_size.private.active$/)",
-              "query": "select last(value) from merge(/openstack.glance.images_size.private.active$/) where $timeFilter group by time($interval) order asc",
-              "fill": "",
-              "rawQuery": false
-            }
-          ],
-          "cacheTimeout": null,
-          "format": "bytes",
-          "prefix": "",
-          "postfix": "",
-          "nullText": null,
-          "valueMaps": [
-            {
-              "value": "null",
-              "op": "=",
-              "text": "0"
-            }
-          ],
-          "nullPointMode": "connected",
-          "valueName": "current",
-          "prefixFontSize": "50%",
-          "valueFontSize": "80%",
-          "postfixFontSize": "50%",
-          "thresholds": "",
-          "colorBackground": false,
-          "colorValue": false,
-          "colors": [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(50, 172, 45, 0.97)"
-          ],
-          "sparkline": {
-            "show": true,
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "fillColor": "rgba(31, 118, 189, 0.18)"
-          }
-        },
-        {
-          "title": "Images size",
-          "error": false,
-          "span": 8,
-          "editable": true,
+          "percentage": false,
           "type": "graph",
-          "id": 30,
-          "datasource": null,
-          "renderer": "flot",
           "x-axis": true,
+          "error": false,
+          "editable": true,
+          "grid": {
+            "leftMax": 1,
+            "threshold2": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "threshold1": null,
+            "leftLogBase": 1,
+            "thresholdLine": false,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)",
+            "rightMin": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "leftMin": 0
+          },
+          "stack": false,
+          "y-axis": false,
+          "timeShift": null,
+          "interval": "> 60s",
+          "lines": true,
+          "points": false,
+          "datasource": null,
+          "pointradius": 5,
+          "y_formats": [
+            "none",
+            "short"
+          ]
+        },
+        {
+          "bars": true,
+          "aliasColors": {},
+          "links": [],
+          "nullPointMode": "connected",
+          "timeFrom": null,
+          "renderer": "flot",
+          "linewidth": 1,
+          "steppedLine": false,
+          "id": 8,
+          "fill": 0,
+          "span": 8,
+          "title": "Number of HTTP responses on $server",
+          "tooltip": {
+            "shared": true,
+            "value_type": "individual"
+          },
+          "legend": {
+            "rightSide": false,
+            "total": true,
+            "min": true,
+            "max": true,
+            "show": true,
+            "current": false,
+            "hideEmpty": false,
+            "values": true,
+            "alignAsTable": true,
+            "avg": false
+          },
+          "targets": [
+            {
+              "function": "count",
+              "rawQuery": false,
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "/$server/",
+                  "key": "hostname"
+                },
+                {
+                  "value": "/^2/",
+                  "key": "http_status",
+                  "condition": "AND"
+                }
+              ],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "count"
+                }
+              ],
+              "interval": "",
+              "alias": "2xx",
+              "series": "merge(/$server.openstack.cinder.http.*.2\\d\\d/)",
+              "measurement": "openstack_glance_http_responses",
+              "query": "SELECT count(value) FROM \"openstack_glance_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^2/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "fill": "0"
+            },
+            {
+              "function": "count",
+              "hide": false,
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "/$server/",
+                  "key": "hostname"
+                },
+                {
+                  "value": "/^1/",
+                  "key": "http_status",
+                  "condition": "AND"
+                }
+              ],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "count"
+                }
+              ],
+              "interval": "",
+              "alias": "1xx",
+              "series": "merge(/$server.openstack.cinder.http.*.1\\d\\d/)",
+              "measurement": "openstack_glance_http_responses",
+              "query": "SELECT count(value) FROM \"openstack_glance_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^1/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "fill": "0"
+            },
+            {
+              "function": "count",
+              "hide": false,
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "/$server/",
+                  "key": "hostname"
+                },
+                {
+                  "value": "/^3/",
+                  "key": "http_status",
+                  "condition": "AND"
+                }
+              ],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "count"
+                }
+              ],
+              "interval": "",
+              "alias": "3xx",
+              "series": "merge(/$server.openstack.cinder.http.*.3\\d\\d/)",
+              "measurement": "openstack_glance_http_responses",
+              "query": "SELECT count(value) FROM \"openstack_glance_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^3/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "fill": "0"
+            },
+            {
+              "function": "count",
+              "hide": false,
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "/$server/",
+                  "key": "hostname"
+                },
+                {
+                  "value": "/^4/",
+                  "key": "http_status",
+                  "condition": "AND"
+                }
+              ],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "count"
+                }
+              ],
+              "interval": "",
+              "alias": "4xx",
+              "series": "merge(/$server.openstack.cinder.http.*.4\\d\\d/)",
+              "measurement": "openstack_glance_http_responses",
+              "query": "SELECT count(value) FROM \"openstack_glance_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^4/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "fill": "0"
+            },
+            {
+              "function": "count",
+              "hide": false,
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "/$server/",
+                  "key": "hostname"
+                },
+                {
+                  "value": "/^5/",
+                  "key": "http_status",
+                  "condition": "AND"
+                }
+              ],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "count"
+                }
+              ],
+              "interval": "",
+              "alias": "5xx",
+              "series": "merge(/$server.openstack.cinder.http.*.5\\d\\d/)",
+              "measurement": "openstack_glance_http_responses",
+              "query": "SELECT count(value) FROM \"openstack_glance_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^5/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "fill": "0"
+            }
+          ],
+          "seriesOverrides": [],
+          "percentage": false,
+          "type": "graph",
+          "x-axis": true,
+          "error": false,
+          "editable": true,
+          "grid": {
+            "leftMax": null,
+            "threshold2": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "threshold1": null,
+            "leftLogBase": 1,
+            "thresholdLine": false,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)",
+            "rightMin": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "leftMin": 0
+          },
+          "stack": true,
           "y-axis": true,
+          "timeShift": null,
+          "interval": "> 60s",
+          "lines": false,
+          "points": false,
+          "datasource": null,
+          "pointradius": 5,
+          "y_formats": [
+            "short",
+            "short"
+          ]
+        }
+      ],
+      "showTitle": true
+    },
+    {
+      "collapse": false,
+      "title": "Glance services",
+      "editable": true,
+      "height": "100px",
+      "panels": [
+        {
+          "style": {},
+          "span": 2,
+          "links": [],
+          "title": "",
+          "editable": true,
+          "content": "<br />\n<h3 align=\"center\"> Up </h3>",
+          "mode": "html",
+          "error": false,
+          "type": "text",
+          "id": 21
+        },
+        {
+          "links": [],
+          "valueMaps": [
+            {
+              "text": "N/A",
+              "value": "null",
+              "op": "="
+            }
+          ],
+          "thresholds": "",
+          "nullPointMode": "connected",
+          "prefix": "",
+          "targets": [
+            {
+              "function": "mean",
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "glance-api",
+                  "key": "backend"
+                },
+                {
+                  "value": "up",
+                  "key": "state",
+                  "condition": "AND"
+                }
+              ],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "last"
+                }
+              ],
+              "series": "merge(/haproxy.backend.glance-api.servers.up/)",
+              "measurement": "haproxy_backend_servers",
+              "query": "SELECT last(value) FROM \"haproxy_backend_servers\" WHERE \"backend\" = 'glance-api' AND \"state\" = 'up' AND $timeFilter GROUP BY time($interval)"
+            }
+          ],
+          "maxDataPoints": 100,
+          "span": 2,
+          "colorBackground": false,
+          "title": "API",
+          "sparkline": {
+            "full": false,
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "id": 22,
+          "prefixFontSize": "50%",
+          "valueName": "current",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "format": "none",
+          "editable": true,
+          "cacheTimeout": null,
+          "postfix": "",
+          "interval": "> 60s",
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "error": false,
+          "nullText": null,
+          "postfixFontSize": "50%",
+          "colorValue": false
+        },
+        {
+          "links": [],
+          "valueMaps": [
+            {
+              "text": "N/A",
+              "value": "null",
+              "op": "="
+            }
+          ],
+          "thresholds": "",
+          "nullPointMode": "connected",
+          "prefix": "",
+          "targets": [
+            {
+              "function": "mean",
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "glance-registry-api",
+                  "key": "backend"
+                },
+                {
+                  "value": "up",
+                  "key": "state",
+                  "condition": "AND"
+                }
+              ],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "last"
+                }
+              ],
+              "series": "merge(/haproxy.backend.glance-registry-api.servers.up/)",
+              "measurement": "haproxy_backend_servers",
+              "query": "SELECT last(value) FROM \"haproxy_backend_servers\" WHERE \"backend\" = 'glance-registry-api' AND \"state\" = 'up' AND $timeFilter GROUP BY time($interval)"
+            }
+          ],
+          "maxDataPoints": 100,
+          "span": 2,
+          "colorBackground": false,
+          "title": "Registry",
+          "sparkline": {
+            "full": false,
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "id": 23,
+          "prefixFontSize": "50%",
+          "valueName": "current",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "format": "none",
+          "editable": true,
+          "cacheTimeout": null,
+          "postfix": "",
+          "interval": "> 60s",
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "error": false,
+          "nullText": null,
+          "postfixFontSize": "50%",
+          "colorValue": false
+        },
+        {
+          "style": {},
+          "span": 6,
+          "links": [],
+          "title": "",
+          "editable": true,
+          "content": "",
+          "mode": "markdown",
+          "error": false,
+          "type": "text",
+          "id": 24
+        },
+        {
+          "style": {},
+          "span": 2,
+          "links": [],
+          "title": "",
+          "editable": true,
+          "content": "<br />\n<h3 align=\"center\"> Down </h3>",
+          "mode": "html",
+          "error": false,
+          "type": "text",
+          "id": 25
+        },
+        {
+          "links": [],
+          "valueMaps": [
+            {
+              "text": "N/A",
+              "value": "null",
+              "op": "="
+            }
+          ],
+          "thresholds": "0,0,1",
+          "nullPointMode": "connected",
+          "prefix": "",
+          "targets": [
+            {
+              "function": "mean",
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "glance-api",
+                  "key": "backend"
+                },
+                {
+                  "value": "down",
+                  "key": "state",
+                  "condition": "AND"
+                }
+              ],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "last"
+                }
+              ],
+              "series": "merge(/haproxy.backend.glance-api.servers.down/)",
+              "measurement": "haproxy_backend_servers",
+              "query": "SELECT last(value) FROM \"haproxy_backend_servers\" WHERE \"backend\" = 'glance-api' AND \"state\" = 'down' AND $timeFilter GROUP BY time($interval)"
+            }
+          ],
+          "maxDataPoints": 100,
+          "span": 2,
+          "colorBackground": false,
+          "title": "",
+          "sparkline": {
+            "full": false,
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "id": 26,
+          "prefixFontSize": "50%",
+          "valueName": "current",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "format": "none",
+          "editable": true,
+          "cacheTimeout": null,
+          "postfix": "",
+          "interval": "> 60s",
+          "colors": [
+            "rgba(255, 255, 255, 0.97)",
+            "rgba(255, 255, 255, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "error": false,
+          "nullText": null,
+          "postfixFontSize": "50%",
+          "colorValue": true
+        },
+        {
+          "links": [],
+          "valueMaps": [
+            {
+              "text": "N/A",
+              "value": "null",
+              "op": "="
+            }
+          ],
+          "thresholds": "0,0,1",
+          "nullPointMode": "connected",
+          "prefix": "",
+          "targets": [
+            {
+              "function": "mean",
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "glance-registry-api",
+                  "key": "backend"
+                },
+                {
+                  "value": "down",
+                  "key": "state",
+                  "condition": "AND"
+                }
+              ],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "last"
+                }
+              ],
+              "series": "merge(/haproxy.backend.glance-registry-api.servers.down/)",
+              "measurement": "haproxy_backend_servers",
+              "query": "SELECT last(value) FROM \"haproxy_backend_servers\" WHERE \"backend\" = 'glance-registry-api' AND \"state\" = 'down' AND $timeFilter GROUP BY time($interval)"
+            }
+          ],
+          "maxDataPoints": 100,
+          "span": 2,
+          "colorBackground": false,
+          "title": "",
+          "sparkline": {
+            "full": false,
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "id": 27,
+          "prefixFontSize": "50%",
+          "valueName": "current",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "format": "none",
+          "editable": true,
+          "cacheTimeout": null,
+          "postfix": "",
+          "interval": "> 60s",
+          "colors": [
+            "rgba(255, 255, 255, 0.97)",
+            "rgba(255, 255, 255, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "error": false,
+          "nullText": null,
+          "postfixFontSize": "50%",
+          "colorValue": true
+        },
+        {
+          "style": {},
+          "span": 6,
+          "links": [],
+          "title": "",
+          "editable": true,
+          "content": "",
+          "mode": "markdown",
+          "error": false,
+          "type": "text",
+          "id": 28
+        }
+      ],
+      "showTitle": true
+    },
+    {
+      "collapse": false,
+      "title": "Resources",
+      "editable": true,
+      "height": "250px",
+      "panels": [
+        {
+          "links": [],
+          "valueMaps": [
+            {
+              "text": "0",
+              "value": "null",
+              "op": "="
+            }
+          ],
+          "thresholds": "",
+          "nullPointMode": "connected",
+          "prefix": "",
+          "targets": [
+            {
+              "function": "last",
+              "rawQuery": false,
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "public",
+                  "key": "visibility"
+                },
+                {
+                  "value": "active",
+                  "key": "state",
+                  "condition": "AND"
+                }
+              ],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "last"
+                }
+              ],
+              "series": "merge(/openstack.glance.images.public.active$/)",
+              "measurement": "openstack_glance_images",
+              "query": "SELECT last(value) FROM \"openstack_glance_images\" WHERE \"visibility\" = 'public' AND \"state\" = 'active' AND $timeFilter GROUP BY time($interval)",
+              "fill": ""
+            }
+          ],
+          "maxDataPoints": 100,
+          "span": 2,
+          "colorBackground": false,
+          "title": "Public images",
+          "sparkline": {
+            "full": false,
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "id": 1,
+          "prefixFontSize": "50%",
+          "valueName": "current",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "format": "none",
+          "editable": true,
+          "cacheTimeout": null,
+          "postfix": "",
+          "interval": "> 60s",
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "error": false,
+          "nullText": null,
+          "postfixFontSize": "50%",
+          "colorValue": false
+        },
+        {
+          "links": [],
+          "valueMaps": [
+            {
+              "text": "0",
+              "value": "null",
+              "op": "="
+            }
+          ],
+          "thresholds": "",
+          "nullPointMode": "connected",
+          "prefix": "",
+          "targets": [
+            {
+              "function": "last",
+              "rawQuery": false,
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "active",
+                  "key": "state"
+                },
+                {
+                  "value": "private",
+                  "key": "visibility",
+                  "condition": "AND"
+                }
+              ],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "last"
+                }
+              ],
+              "series": "merge(/openstack.glance.images.private.active$/)",
+              "measurement": "openstack_glance_images",
+              "query": "SELECT last(value) FROM \"openstack_glance_images\" WHERE \"state\" = 'active' AND \"visibility\" = 'private' AND $timeFilter GROUP BY time($interval)",
+              "fill": ""
+            }
+          ],
+          "maxDataPoints": 100,
+          "span": 2,
+          "colorBackground": false,
+          "title": "Private images",
+          "sparkline": {
+            "full": false,
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "id": 14,
+          "prefixFontSize": "50%",
+          "valueName": "current",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "format": "none",
+          "editable": true,
+          "cacheTimeout": null,
+          "postfix": "",
+          "interval": "> 60s",
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "error": false,
+          "nullText": null,
+          "postfixFontSize": "50%",
+          "colorValue": false
+        },
+        {
+          "bars": false,
+          "aliasColors": {},
+          "links": [],
+          "nullPointMode": "connected",
+          "timeFrom": null,
+          "renderer": "flot",
+          "linewidth": 1,
+          "steppedLine": false,
+          "id": 29,
+          "fill": 0,
+          "span": 8,
+          "title": "Number of images",
+          "tooltip": {
+            "shared": true,
+            "value_type": "cumulative"
+          },
+          "legend": {
+            "total": false,
+            "show": true,
+            "max": false,
+            "min": false,
+            "current": false,
+            "values": false,
+            "avg": false
+          },
+          "targets": [
+            {
+              "function": "last",
+              "hide": false,
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "active",
+                  "key": "state"
+                },
+                {
+                  "value": "public",
+                  "key": "visibility",
+                  "condition": "AND"
+                }
+              ],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "last"
+                }
+              ],
+              "alias": "public",
+              "series": "merge(/openstack.glance.images.public.active$/)",
+              "measurement": "openstack_glance_images",
+              "query": "SELECT last(value) FROM \"openstack_glance_images\" WHERE \"state\" = 'active' AND \"visibility\" = 'public' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "fill": "0"
+            },
+            {
+              "function": "last",
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "active",
+                  "key": "state"
+                },
+                {
+                  "value": "private",
+                  "key": "state",
+                  "condition": "AND"
+                }
+              ],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "last"
+                }
+              ],
+              "alias": "private",
+              "series": "merge(/openstack.glance.images.private.active$/)",
+              "measurement": "openstack_glance_images",
+              "query": "SELECT last(value) FROM \"openstack_glance_images\" WHERE \"state\" = 'active' AND \"state\" = 'private' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "fill": "0"
+            }
+          ],
+          "seriesOverrides": [],
+          "percentage": false,
+          "type": "graph",
+          "x-axis": true,
+          "error": false,
+          "editable": true,
+          "grid": {
+            "leftMax": null,
+            "threshold2": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "threshold1": null,
+            "leftLogBase": 1,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)",
+            "rightMin": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "leftMin": 0
+          },
+          "stack": false,
+          "y-axis": true,
+          "timeShift": null,
+          "interval": "> 60s",
+          "lines": true,
+          "points": false,
+          "datasource": null,
+          "pointradius": 5,
+          "decimals": 0,
+          "y_formats": [
+            "short",
+            "short"
+          ]
+        },
+        {
+          "links": [],
+          "valueMaps": [
+            {
+              "text": "0",
+              "value": "null",
+              "op": "="
+            }
+          ],
+          "thresholds": "",
+          "nullPointMode": "connected",
+          "prefix": "",
+          "targets": [
+            {
+              "function": "last",
+              "rawQuery": false,
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "public",
+                  "key": "visibility"
+                },
+                {
+                  "value": "active",
+                  "key": "state",
+                  "condition": "AND"
+                }
+              ],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "last"
+                }
+              ],
+              "series": "merge(/openstack.glance.images_size.public.active$/)",
+              "measurement": "openstack_glance_images_size",
+              "query": "SELECT last(value) FROM \"openstack_glance_images_size\" WHERE \"visibility\" = 'public' AND \"state\" = 'active' AND $timeFilter GROUP BY time($interval)",
+              "fill": ""
+            }
+          ],
+          "maxDataPoints": 100,
+          "span": 2,
+          "colorBackground": false,
+          "title": "",
+          "sparkline": {
+            "full": false,
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "id": 17,
+          "prefixFontSize": "50%",
+          "valueName": "current",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "format": "bytes",
+          "editable": true,
+          "cacheTimeout": null,
+          "postfix": "",
+          "interval": "> 60s",
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "error": false,
+          "nullText": null,
+          "postfixFontSize": "50%",
+          "colorValue": false
+        },
+        {
+          "links": [],
+          "valueMaps": [
+            {
+              "text": "0",
+              "value": "null",
+              "op": "="
+            }
+          ],
+          "thresholds": "",
+          "nullPointMode": "connected",
+          "prefix": "",
+          "targets": [
+            {
+              "function": "last",
+              "rawQuery": false,
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "private",
+                  "key": "visibility"
+                },
+                {
+                  "value": "active",
+                  "key": "state",
+                  "condition": "AND"
+                }
+              ],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "last"
+                }
+              ],
+              "series": "merge(/openstack.glance.images_size.private.active$/)",
+              "measurement": "openstack_glance_images_size",
+              "query": "SELECT last(value) FROM \"openstack_glance_images_size\" WHERE \"visibility\" = 'private' AND \"state\" = 'active' AND $timeFilter GROUP BY time($interval)",
+              "fill": ""
+            }
+          ],
+          "maxDataPoints": 100,
+          "span": 2,
+          "colorBackground": false,
+          "title": "",
+          "sparkline": {
+            "full": false,
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "id": 18,
+          "prefixFontSize": "50%",
+          "valueName": "current",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "format": "bytes",
+          "editable": true,
+          "cacheTimeout": null,
+          "postfix": "",
+          "interval": "> 60s",
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "error": false,
+          "nullText": null,
+          "postfixFontSize": "50%",
+          "colorValue": false
+        },
+        {
+          "bars": false,
+          "aliasColors": {},
+          "links": [],
+          "nullPointMode": "connected",
+          "timeFrom": null,
+          "renderer": "flot",
+          "linewidth": 1,
+          "steppedLine": false,
+          "id": 30,
+          "fill": 0,
+          "span": 8,
+          "title": "Images size",
+          "tooltip": {
+            "shared": true,
+            "value_type": "cumulative"
+          },
+          "legend": {
+            "total": false,
+            "show": true,
+            "max": false,
+            "min": false,
+            "current": false,
+            "values": false,
+            "avg": false
+          },
+          "targets": [
+            {
+              "function": "last",
+              "rawQuery": false,
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "active",
+                  "key": "state"
+                },
+                {
+                  "value": "public",
+                  "key": "visibility",
+                  "condition": "AND"
+                }
+              ],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "last"
+                }
+              ],
+              "alias": "public",
+              "series": "merge(/openstack.glance.images_size.public.active$/)",
+              "measurement": "openstack_glance_images_size",
+              "query": "SELECT last(value) FROM \"openstack_glance_images_size\" WHERE \"state\" = 'active' AND \"visibility\" = 'public' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "fill": "0"
+            },
+            {
+              "function": "last",
+              "target": "",
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "active",
+                  "key": "state"
+                },
+                {
+                  "value": "private",
+                  "key": "visibility",
+                  "condition": "AND"
+                }
+              ],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "last"
+                }
+              ],
+              "alias": "private",
+              "series": "merge(/openstack.glance.images_size.private.active$/)",
+              "measurement": "openstack_glance_images_size",
+              "query": "SELECT last(value) FROM \"openstack_glance_images_size\" WHERE \"state\" = 'active' AND \"visibility\" = 'private' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "fill": "0"
+            }
+          ],
+          "leftYAxisLabel": "",
+          "seriesOverrides": [],
+          "percentage": false,
+          "type": "graph",
+          "x-axis": true,
+          "error": false,
+          "editable": true,
+          "grid": {
+            "leftMax": null,
+            "threshold2": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "threshold1": null,
+            "leftLogBase": 1,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)",
+            "rightMin": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "leftMin": 0
+          },
+          "stack": false,
+          "y-axis": true,
+          "timeShift": null,
+          "interval": "> 60s",
+          "lines": true,
+          "points": false,
+          "datasource": null,
+          "pointradius": 5,
           "y_formats": [
             "bytes",
             "short"
+          ]
+        },
+        {
+          "links": [],
+          "valueMaps": [
+            {
+              "text": "0",
+              "value": "null",
+              "op": "="
+            }
           ],
-          "grid": {
-            "leftMax": null,
-            "rightMax": null,
-            "leftMin": 0,
-            "rightMin": null,
-            "threshold1": null,
-            "threshold2": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
-          "lines": true,
-          "fill": 0,
-          "linewidth": 1,
-          "points": false,
-          "pointradius": 5,
-          "bars": false,
-          "stack": false,
-          "percentage": false,
-          "legend": {
-            "show": true,
-            "values": false,
-            "min": false,
-            "max": false,
-            "current": false,
-            "total": false,
-            "avg": false
-          },
+          "thresholds": "",
           "nullPointMode": "connected",
-          "steppedLine": false,
-          "tooltip": {
-            "value_type": "cumulative",
-            "shared": true
-          },
+          "prefix": "",
           "targets": [
             {
               "function": "last",
-              "column": "value",
-              "series": "merge(/openstack.glance.images_size.public.active$/)",
-              "query": "select last(value) from merge(/openstack.glance.images_size.public.active$/) where $timeFilter group by time($interval) fill(0) order asc",
               "rawQuery": false,
-              "alias": "public",
-              "fill": "0"
-            },
-            {
-              "target": "",
-              "function": "last",
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "public",
+                  "key": "visibility"
+                },
+                {
+                  "value": "active",
+                  "key": "state",
+                  "condition": "AND"
+                }
+              ],
               "column": "value",
-              "series": "merge(/openstack.glance.images_size.private.active$/)",
-              "query": "select last(value) from merge(/openstack.glance.images_size.private.active$/) where $timeFilter group by time($interval) fill(0) order asc",
-              "alias": "private",
-              "fill": "0"
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "last"
+                }
+              ],
+              "series": "merge(/openstack.glance.snapshots.public.active$/)",
+              "measurement": "openstack_glance_snapshots",
+              "query": "SELECT last(value) FROM \"openstack_glance_snapshots\" WHERE \"visibility\" = 'public' AND \"state\" = 'active' AND $timeFilter GROUP BY time($interval)",
+              "fill": ""
             }
           ],
-          "aliasColors": {},
-          "seriesOverrides": [],
-          "interval": "> 60s",
-          "leftYAxisLabel": "",
-          "links": []
-        },
-        {
+          "maxDataPoints": 100,
+          "span": 2,
+          "colorBackground": false,
           "title": "Public snapshots",
-          "error": false,
-          "span": 2,
-          "editable": true,
-          "type": "singlestat",
+          "sparkline": {
+            "full": false,
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
           "id": 15,
-          "links": [],
-          "maxDataPoints": 100,
-          "interval": "> 60s",
-          "targets": [
-            {
-              "function": "last",
-              "column": "value",
-              "series": "merge(/openstack.glance.snapshots.public.active$/)",
-              "query": "select last(value) from merge(/openstack.glance.snapshots.public.active$/) where $timeFilter group by time($interval) order asc",
-              "fill": "",
-              "rawQuery": false
-            }
-          ],
-          "cacheTimeout": null,
-          "format": "none",
-          "prefix": "",
-          "postfix": "",
-          "nullText": null,
-          "valueMaps": [
-            {
-              "value": "null",
-              "op": "=",
-              "text": "0"
-            }
-          ],
-          "nullPointMode": "connected",
-          "valueName": "current",
           "prefixFontSize": "50%",
+          "valueName": "current",
+          "type": "singlestat",
           "valueFontSize": "80%",
-          "postfixFontSize": "50%",
-          "thresholds": "",
-          "colorBackground": false,
-          "colorValue": false,
+          "format": "none",
+          "editable": true,
+          "cacheTimeout": null,
+          "postfix": "",
+          "interval": "> 60s",
           "colors": [
             "rgba(245, 54, 54, 0.9)",
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
-          "sparkline": {
-            "show": false,
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "fillColor": "rgba(31, 118, 189, 0.18)"
-          }
+          "error": false,
+          "nullText": null,
+          "postfixFontSize": "50%",
+          "colorValue": false
         },
         {
+          "links": [],
+          "valueMaps": [
+            {
+              "text": "0",
+              "value": "null",
+              "op": "="
+            }
+          ],
+          "thresholds": "",
+          "nullPointMode": "connected",
+          "prefix": "",
+          "targets": [
+            {
+              "function": "last",
+              "rawQuery": false,
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "private",
+                  "key": "visibility"
+                },
+                {
+                  "value": "active",
+                  "key": "state",
+                  "condition": "AND"
+                }
+              ],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "last"
+                }
+              ],
+              "series": "merge(/openstack.glance.snapshots.private.active$/)",
+              "measurement": "openstack_glance_snapshots",
+              "query": "SELECT last(value) FROM \"openstack_glance_snapshots\" WHERE \"visibility\" = 'private' AND \"state\" = 'active' AND $timeFilter GROUP BY time($interval)",
+              "fill": ""
+            }
+          ],
+          "maxDataPoints": 100,
+          "span": 2,
+          "colorBackground": false,
           "title": "Private snapshots",
-          "error": false,
-          "span": 2,
-          "editable": true,
-          "type": "singlestat",
+          "sparkline": {
+            "full": false,
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
           "id": 16,
-          "links": [],
-          "maxDataPoints": 100,
-          "interval": "> 60s",
-          "targets": [
-            {
-              "function": "last",
-              "column": "value",
-              "series": "merge(/openstack.glance.snapshots.private.active$/)",
-              "query": "select last(value) from merge(/openstack.glance.snapshots.private.active$/) where $timeFilter group by time($interval) order asc",
-              "fill": "",
-              "rawQuery": false
-            }
-          ],
-          "cacheTimeout": null,
+          "prefixFontSize": "50%",
+          "valueName": "current",
+          "type": "singlestat",
+          "valueFontSize": "80%",
           "format": "none",
-          "prefix": "",
+          "editable": true,
+          "cacheTimeout": null,
           "postfix": "",
-          "nullText": null,
-          "valueMaps": [
-            {
-              "value": "null",
-              "op": "=",
-              "text": "0"
-            }
-          ],
-          "nullPointMode": "connected",
-          "valueName": "current",
-          "prefixFontSize": "50%",
-          "valueFontSize": "80%",
-          "postfixFontSize": "50%",
-          "thresholds": "",
-          "colorBackground": false,
-          "colorValue": false,
+          "interval": "> 60s",
           "colors": [
             "rgba(245, 54, 54, 0.9)",
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
-          "sparkline": {
-            "show": false,
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "fillColor": "rgba(31, 118, 189, 0.18)"
-          }
+          "error": false,
+          "nullText": null,
+          "postfixFontSize": "50%",
+          "colorValue": false
         },
         {
-          "title": "Number of snapshots",
-          "error": false,
-          "span": 8,
-          "editable": true,
-          "type": "graph",
-          "id": 31,
-          "datasource": null,
-          "renderer": "flot",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "short",
-            "short"
-          ],
-          "grid": {
-            "leftMax": null,
-            "rightMax": null,
-            "leftMin": 0,
-            "rightMin": null,
-            "threshold1": null,
-            "threshold2": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
-          "lines": true,
-          "fill": 0,
-          "linewidth": 1,
-          "points": false,
-          "pointradius": 5,
           "bars": false,
-          "stack": false,
-          "percentage": false,
-          "legend": {
-            "show": true,
-            "values": false,
-            "min": false,
-            "max": false,
-            "current": false,
-            "total": false,
-            "avg": false
-          },
-          "nullPointMode": "connected",
-          "steppedLine": false,
-          "tooltip": {
-            "value_type": "cumulative",
-            "shared": true
-          },
-          "targets": [
-            {
-              "function": "last",
-              "column": "value",
-              "series": "merge(/openstack.glance.snapshots.public.active$/)",
-              "query": "select last(value) from merge(/openstack.glance.snapshots.public.active$/) where $timeFilter group by time($interval) fill(0) order asc",
-              "fill": "0",
-              "alias": "public"
-            },
-            {
-              "target": "",
-              "function": "last",
-              "column": "value",
-              "series": "merge(/openstack.glance.snapshots.private.active$/)",
-              "query": "select last(value) from merge(/openstack.glance.snapshots.private.active$/) where $timeFilter group by time($interval) fill(0) order asc",
-              "fill": "0",
-              "alias": "private"
-            }
-          ],
           "aliasColors": {},
-          "seriesOverrides": [],
-          "interval": "> 60s",
-          "links": []
-        },
-        {
-          "title": "",
-          "error": false,
-          "span": 2,
-          "editable": true,
-          "type": "singlestat",
-          "id": 19,
           "links": [],
-          "maxDataPoints": 100,
-          "interval": "> 60s",
-          "targets": [
-            {
-              "function": "last",
-              "column": "value",
-              "series": "merge(/openstack.glance.snapshots_size.public.active$/)",
-              "query": "select last(value) from merge(/openstack.glance.snapshots_size.public.active$/) where $timeFilter group by time($interval) order asc",
-              "fill": "",
-              "rawQuery": false
-            }
-          ],
-          "cacheTimeout": null,
-          "format": "bytes",
-          "prefix": "",
-          "postfix": "",
-          "nullText": null,
-          "valueMaps": [
-            {
-              "value": "null",
-              "op": "=",
-              "text": "0"
-            }
-          ],
           "nullPointMode": "connected",
-          "valueName": "current",
-          "prefixFontSize": "50%",
-          "valueFontSize": "80%",
-          "postfixFontSize": "50%",
-          "thresholds": "",
-          "colorBackground": false,
-          "colorValue": false,
-          "colors": [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(50, 172, 45, 0.97)"
-          ],
-          "sparkline": {
-            "show": false,
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "fillColor": "rgba(31, 118, 189, 0.18)"
-          }
-        },
-        {
-          "title": "",
-          "error": false,
-          "span": 2,
-          "editable": true,
-          "type": "singlestat",
-          "id": 20,
-          "links": [],
-          "maxDataPoints": 100,
-          "interval": "> 60s",
-          "targets": [
-            {
-              "function": "last",
-              "column": "value",
-              "series": "merge(/openstack.glance.snapshots_size.private.active$/)",
-              "query": "select last(value) from merge(/openstack.glance.snapshots_size.private.active$/) where $timeFilter group by time($interval) order asc",
-              "fill": "",
-              "rawQuery": false
-            }
-          ],
-          "cacheTimeout": null,
-          "format": "bytes",
-          "prefix": "",
-          "postfix": "",
-          "nullText": null,
-          "valueMaps": [
-            {
-              "value": "null",
-              "op": "=",
-              "text": "0"
-            }
-          ],
-          "nullPointMode": "connected",
-          "valueName": "current",
-          "prefixFontSize": "50%",
-          "valueFontSize": "80%",
-          "postfixFontSize": "50%",
-          "thresholds": "",
-          "colorBackground": false,
-          "colorValue": false,
-          "colors": [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(50, 172, 45, 0.97)"
-          ],
-          "sparkline": {
-            "show": false,
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "fillColor": "rgba(31, 118, 189, 0.18)"
-          }
-        },
-        {
-          "title": "Snapshots size",
-          "error": false,
-          "span": 8,
-          "editable": true,
-          "type": "graph",
-          "id": 32,
-          "datasource": null,
+          "timeFrom": null,
           "renderer": "flot",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "short",
-            "short"
-          ],
-          "grid": {
-            "leftMax": null,
-            "rightMax": null,
-            "leftMin": 0,
-            "rightMin": null,
-            "threshold1": null,
-            "threshold2": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
-          "lines": true,
-          "fill": 0,
           "linewidth": 1,
-          "points": false,
-          "pointradius": 5,
-          "bars": false,
-          "stack": false,
-          "percentage": false,
+          "steppedLine": false,
+          "id": 31,
+          "fill": 0,
+          "span": 8,
+          "title": "Number of snapshots",
+          "tooltip": {
+            "shared": true,
+            "value_type": "cumulative"
+          },
           "legend": {
-            "show": true,
-            "values": false,
-            "min": false,
-            "max": false,
-            "current": false,
             "total": false,
+            "show": true,
+            "max": false,
+            "min": false,
+            "current": false,
+            "values": false,
             "avg": false
           },
-          "nullPointMode": "connected",
-          "steppedLine": false,
-          "tooltip": {
-            "value_type": "cumulative",
-            "shared": true
-          },
           "targets": [
             {
               "function": "last",
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "public",
+                  "key": "visibility"
+                }
+              ],
               "column": "value",
-              "series": "merge(/openstack.glance.snapshots_size.public.active$/)",
-              "query": "select last(value) from merge(/openstack.glance.snapshots_size.public.active$/) where $timeFilter group by time($interval) fill(0) order asc",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "last"
+                }
+              ],
               "alias": "public",
+              "series": "merge(/openstack.glance.snapshots.public.active$/)",
+              "measurement": "openstack_glance_snapshots",
+              "query": "SELECT last(value) FROM \"openstack_glance_snapshots\" WHERE \"visibility\" = 'public' AND $timeFilter GROUP BY time($interval) fill(0)",
               "fill": "0"
             },
             {
-              "target": "",
               "function": "last",
+              "target": "",
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "private",
+                  "key": "visibility"
+                }
+              ],
               "column": "value",
-              "series": "merge(/openstack.glance.snapshots_size.private.active$/)",
-              "query": "select last(value) from merge(/openstack.glance.snapshots_size.private.active$/) where $timeFilter group by time($interval) fill(0) order asc",
-              "fill": "0",
-              "alias": "private"
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "last"
+                }
+              ],
+              "alias": "private",
+              "series": "merge(/openstack.glance.snapshots.private.active$/)",
+              "measurement": "openstack_glance_snapshots",
+              "query": "SELECT last(value) FROM \"openstack_glance_snapshots\" WHERE \"visibility\" = 'private' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "fill": "0"
             }
           ],
-          "aliasColors": {},
           "seriesOverrides": [],
+          "percentage": false,
+          "type": "graph",
+          "x-axis": true,
+          "error": false,
+          "editable": true,
+          "grid": {
+            "leftMax": null,
+            "threshold2": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "threshold1": null,
+            "leftLogBase": 1,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)",
+            "rightMin": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "leftMin": 0
+          },
+          "stack": false,
+          "y-axis": true,
+          "timeShift": null,
           "interval": "> 60s",
-          "links": []
+          "lines": true,
+          "points": false,
+          "datasource": null,
+          "pointradius": 5,
+          "decimals": 0,
+          "y_formats": [
+            "short",
+            "short"
+          ]
+        },
+        {
+          "links": [],
+          "valueMaps": [
+            {
+              "text": "0",
+              "value": "null",
+              "op": "="
+            }
+          ],
+          "thresholds": "",
+          "nullPointMode": "connected",
+          "prefix": "",
+          "targets": [
+            {
+              "function": "last",
+              "rawQuery": false,
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "active",
+                  "key": "state"
+                },
+                {
+                  "value": "public",
+                  "key": "visibility",
+                  "condition": "AND"
+                }
+              ],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "last"
+                }
+              ],
+              "series": "merge(/openstack.glance.snapshots_size.public.active$/)",
+              "measurement": "openstack_glance_snapshots_size",
+              "query": "SELECT last(value) FROM \"openstack_glance_snapshots_size\" WHERE \"state\" = 'active' AND \"visibility\" = 'public' AND $timeFilter GROUP BY time($interval)",
+              "fill": ""
+            }
+          ],
+          "maxDataPoints": 100,
+          "span": 2,
+          "colorBackground": false,
+          "title": "",
+          "sparkline": {
+            "full": false,
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "id": 19,
+          "prefixFontSize": "50%",
+          "valueName": "current",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "format": "bytes",
+          "editable": true,
+          "cacheTimeout": null,
+          "postfix": "",
+          "interval": "> 60s",
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "error": false,
+          "nullText": null,
+          "postfixFontSize": "50%",
+          "colorValue": false
+        },
+        {
+          "links": [],
+          "valueMaps": [
+            {
+              "text": "0",
+              "value": "null",
+              "op": "="
+            }
+          ],
+          "thresholds": "",
+          "nullPointMode": "connected",
+          "prefix": "",
+          "targets": [
+            {
+              "function": "last",
+              "rawQuery": false,
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "active",
+                  "key": "state"
+                },
+                {
+                  "value": "private",
+                  "key": "visibility",
+                  "condition": "AND"
+                }
+              ],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "last"
+                }
+              ],
+              "series": "merge(/openstack.glance.snapshots_size.private.active$/)",
+              "measurement": "openstack_glance_snapshots_size",
+              "query": "SELECT last(value) FROM \"openstack_glance_snapshots_size\" WHERE \"state\" = 'active' AND \"visibility\" = 'private' AND $timeFilter GROUP BY time($interval)",
+              "fill": ""
+            }
+          ],
+          "maxDataPoints": 100,
+          "span": 2,
+          "colorBackground": false,
+          "title": "",
+          "sparkline": {
+            "full": false,
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "id": 20,
+          "prefixFontSize": "50%",
+          "valueName": "current",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "format": "bytes",
+          "editable": true,
+          "cacheTimeout": null,
+          "postfix": "",
+          "interval": "> 60s",
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "error": false,
+          "nullText": null,
+          "postfixFontSize": "50%",
+          "colorValue": false
+        },
+        {
+          "bars": false,
+          "aliasColors": {},
+          "links": [],
+          "nullPointMode": "connected",
+          "timeFrom": null,
+          "renderer": "flot",
+          "linewidth": 1,
+          "steppedLine": false,
+          "id": 32,
+          "fill": 0,
+          "span": 8,
+          "title": "Snapshots size",
+          "tooltip": {
+            "shared": true,
+            "value_type": "cumulative"
+          },
+          "legend": {
+            "total": false,
+            "show": true,
+            "max": false,
+            "min": false,
+            "current": false,
+            "values": false,
+            "avg": false
+          },
+          "targets": [
+            {
+              "function": "last",
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "active",
+                  "key": "state"
+                },
+                {
+                  "value": "public",
+                  "key": "visibility",
+                  "condition": "AND"
+                }
+              ],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "last"
+                }
+              ],
+              "alias": "public",
+              "series": "merge(/openstack.glance.snapshots_size.public.active$/)",
+              "measurement": "openstack_glance_snapshots_size",
+              "query": "SELECT last(value) FROM \"openstack_glance_snapshots_size\" WHERE \"state\" = 'active' AND \"visibility\" = 'public' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "fill": "0"
+            },
+            {
+              "function": "last",
+              "target": "",
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "active",
+                  "key": "state"
+                },
+                {
+                  "value": "private",
+                  "key": "visibility",
+                  "condition": "AND"
+                }
+              ],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "last"
+                }
+              ],
+              "alias": "private",
+              "series": "merge(/openstack.glance.snapshots_size.private.active$/)",
+              "measurement": "openstack_glance_snapshots_size",
+              "query": "SELECT last(value) FROM \"openstack_glance_snapshots_size\" WHERE \"state\" = 'active' AND \"visibility\" = 'private' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "fill": "0"
+            }
+          ],
+          "seriesOverrides": [],
+          "percentage": false,
+          "type": "graph",
+          "x-axis": true,
+          "error": false,
+          "editable": true,
+          "grid": {
+            "leftMax": null,
+            "threshold2": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "threshold1": null,
+            "leftLogBase": 1,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)",
+            "rightMin": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "leftMin": 0
+          },
+          "stack": false,
+          "y-axis": true,
+          "timeShift": null,
+          "interval": "> 60s",
+          "lines": true,
+          "points": false,
+          "datasource": null,
+          "pointradius": 5,
+          "y_formats": [
+            "short",
+            "short"
+          ]
         }
       ],
       "showTitle": true
     }
   ],
+  "templating": {
+    "enable": true,
+    "list": [
+      {
+        "regex": "",
+        "name": "server",
+        "refresh_on_load": true,
+        "allFormat": "regex values",
+        "refresh": true,
+        "current": {
+        },
+        "datasource": null,
+        "query": "show tag values from pacemaker_local_resource_active with key = hostname ",
+        "type": "query",
+        "options": [],
+        "includeAll": true
+      }
+    ]
+  },
+  "links": [],
+  "tags": [],
+  "hideControls": false,
+  "title": "Glance",
+  "editable": true,
+  "refresh": "1m",
+  "id": null,
+  "originalTitle": "Glance",
+  "version": 10,
   "nav": [
     {
-      "type": "timepicker",
-      "enable": true,
       "status": "Stable",
+      "notice": false,
+      "enable": true,
+      "collapse": false,
       "time_options": [
         "5m",
         "15m",
@@ -1423,53 +2045,32 @@
         "1d"
       ],
       "now": true,
-      "collapse": false,
-      "notice": false
+      "type": "timepicker"
     }
   ],
+  "sharedCrosshair": true,
   "time": {
-    "from": "now-15m",
-    "to": "now"
+    "to": "now",
+    "from": "now-1h"
   },
-  "templating": {
-    "list": [
-      {
-        "type": "query",
-        "datasource": null,
-        "refresh_on_load": false,
-        "name": "server",
-        "options": [
-        ],
-        "includeAll": true,
-        "allFormat": "regex values",
-        "query": "list series /openstack.glance.check_api/",
-        "current": {
-        },
-        "regex": "/^([^.]+)/",
-        "refresh": false
-      }
-    ],
-    "enable": true
-  },
+  "timezone": "browser",
+  "schemaVersion": 6,
   "annotations": {
+    "enable": true,
     "list": [
       {
-        "name": "Status",
-        "datasource": "influxdb",
-        "showLine": true,
-        "iconColor": "#C0C6BE",
-        "lineColor": "rgba(255, 96, 96, 0.592157)",
-        "iconSize": 13,
         "enable": true,
-        "query": "select * from merge(/annotation.glance/) where $timeFilter",
+        "name": "Status",
+        "iconSize": 13,
+        "textColumn": "text",
         "titleColumn": "title",
-        "tagsColumn": "tag",
-        "textColumn": "text"
+        "datasource": "influxdb",
+        "lineColor": "rgba(255, 96, 96, 0.592157)",
+        "showLine": true,
+        "query": "select title,tags,text from annotations where $timeFilter and service = 'glance'",
+        "tagsColumn": "tags",
+        "iconColor": "#C0C6BE"
       }
-    ],
-    "enable": true
-  },
-  "refresh": "1m",
-  "version": 6,
-  "hideAllLegends": false
+    ]
+  }
 }

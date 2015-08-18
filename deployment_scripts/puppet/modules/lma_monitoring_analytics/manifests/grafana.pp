@@ -15,50 +15,66 @@
 # == Class: lma_monitoring_analytics::grafana
 
 class lma_monitoring_analytics::grafana (
-  $listen_port       = $lma_monitoring_analytics::params::listen_port,
-  $influxdb_dbname   = undef,
+  $admin_username    = undef,
+  $admin_password    = undef,
+  $http_port         = $lma_monitoring_analytics::params::listen_port,
+  $influxdb_url      = $lma_monitoring_analytics::params::influxdb_url,
   $influxdb_username = undef,
-  $influxdb_userpass = undef,
+  $influxdb_password = undef,
+  $influxdb_database = undef,
 ) inherits lma_monitoring_analytics::params {
 
-  $grafana_dir        = $lma_monitoring_analytics::params::grafana_dir
-  $grafana_conf       = $lma_monitoring_analytics::params::grafana_conf
-  $influxdb_host      = $lma_monitoring_analytics::params::influxdb_host
-  $grafana_dbname     = $lma_monitoring_analytics::params::grafana_dbname
-  $grafana_home_dashboard = $lma_monitoring_analytics::params::grafana_home_dashboard
-
-  # Deploy sources
-  file { $grafana_dir:
-    source  => 'puppet:///modules/lma_monitoring_analytics/grafana/sources',
-    recurse => true,
+  class { '::grafana':
+    install_method      => 'repo',
+    manage_package_repo => false,
+    cfg                 => {
+      server    => {
+        http_port => $http_port,
+      },
+      security  => {
+        admin_user     => $admin_username,
+        admin_password => $admin_password,
+      },
+      analytics => {
+        reporting_enabled => false,
+      },
+    },
   }
 
-  # Replace config.js
-  file { $grafana_conf:
-    ensure  => file,
-    content => template('lma_monitoring_analytics/grafana/config.js.erb'),
-    require => File[$grafana_dir],
+  grafana_datasource { 'influxdb':
+    ensure           => present,
+    url              => $influxdb_url,
+    user             => $influxdb_username,
+    password         => $influxdb_password,
+    database         => $influxdb_database,
+    access_mode      => 'proxy',
+    is_default       => true,
+    grafana_url      => "http://localhost:${http_port}",
+    grafana_user     => $admin_username,
+    grafana_password => $admin_password,
+    require          => Class['::grafana'],
   }
 
-  # Install the dashboards
   $dashboard_defaults = {
     ensure           => present,
-    storage_url      => "http://localhost:8086/db/${grafana_dbname}",
-    storage_user     => $influxdb_username,
-    storage_password => $influxdb_userpass,
+    grafana_url      => "http://localhost:${http_port}",
+    grafana_user     => $admin_username,
+    grafana_password => $admin_password,
+    require          => Class['::grafana'],
   }
+
   $dashboards = {
     'Main' => {
       content => template('lma_monitoring_analytics/grafana_dashboards/Main.json'),
     },
+    'System' => {
+      content => template('lma_monitoring_analytics/grafana_dashboards/System.json'),
+    },
+    'LMA self-monitoring' => {
+      content => template('lma_monitoring_analytics/grafana_dashboards/LMA.json'),
+    },
     'Apache' => {
       content => template('lma_monitoring_analytics/grafana_dashboards/Apache.json'),
-    },
-    'Ceph' => {
-      content => template('lma_monitoring_analytics/grafana_dashboards/Ceph.json'),
-    },
-    'Ceph OSD' => {
-      content => template('lma_monitoring_analytics/grafana_dashboards/Ceph_OSD.json'),
     },
     'Cinder' => {
       content => template('lma_monitoring_analytics/grafana_dashboards/Cinder.json'),
@@ -69,17 +85,20 @@ class lma_monitoring_analytics::grafana (
     'HAProxy' => {
       content => template('lma_monitoring_analytics/grafana_dashboards/HAProxy.json'),
     },
+    'Heat' => {
+      content => template('lma_monitoring_analytics/grafana_dashboards/Heat.json'),
+    },
     'Keystone' => {
       content => template('lma_monitoring_analytics/grafana_dashboards/Keystone.json'),
-    },
-    'LMA self-monitoring' => {
-      content => template('lma_monitoring_analytics/grafana_dashboards/LMA.json'),
     },
     'Memcached' => {
       content => template('lma_monitoring_analytics/grafana_dashboards/Memcached.json'),
     },
     'MySQL' => {
       content => template('lma_monitoring_analytics/grafana_dashboards/MySQL.json'),
+    },
+    'Memcached' => {
+      content => template('lma_monitoring_analytics/grafana_dashboards/Memcached.json'),
     },
     'Neutron' => {
       content => template('lma_monitoring_analytics/grafana_dashboards/Neutron.json'),
@@ -90,27 +109,6 @@ class lma_monitoring_analytics::grafana (
     'RabbitMQ' => {
       content => template('lma_monitoring_analytics/grafana_dashboards/RabbitMQ.json'),
     },
-    'Heat' => {
-      content => template('lma_monitoring_analytics/grafana_dashboards/Heat.json'),
-    },
-    'System' => {
-      content => template('lma_monitoring_analytics/grafana_dashboards/System.json'),
-    },
   }
   create_resources(grafana_dashboard, $dashboards, $dashboard_defaults)
-
-  # And now install nginx
-  class { 'nginx':
-    manage_repo           => false,
-    nginx_vhosts          => {
-      'grafana.local' => {
-        'www_root' => $grafana_dir
-      }
-    },
-    nginx_vhosts_defaults => {
-      'listen_port'    => $listen_port,
-      'listen_options' => 'default_server'
-    },
-    require               => File[$grafana_conf],
-  }
 }

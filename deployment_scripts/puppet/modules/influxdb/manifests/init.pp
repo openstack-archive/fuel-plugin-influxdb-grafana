@@ -12,15 +12,26 @@
 #    License for the specific language governing permissions and limitations
 #    under the License.
 #
-$influxdb_grafana = hiera('influxdb_grafana')
-$user_node_name = hiera('user_node_name')
+# == Class: influxdb
 
-if $influxdb_grafana['node_name'] == $user_node_name {
-  class {'lma_monitoring_analytics::grafana':
-    admin_username    => $influxdb_grafana['grafana_username'],
-    admin_password    => $influxdb_grafana['grafana_userpass'],
-    influxdb_username => $influxdb_grafana['influxdb_username'],
-    influxdb_password => $influxdb_grafana['influxdb_userpass'],
-    influxdb_database => $influxdb_grafana['influxdb_dbname'],
+class influxdb (
+  $data_dir    = $influxdb::params::data_dir,
+  $hh_dir      = $influxdb::params::hh_dir,
+  $meta_dir    = $influxdb::params::meta_dir,
+) inherits influxdb::params {
+
+  class {'influxdb::install': }
+
+  class {'influxdb::service':
+    require => Class['influxdb::install'],
+  }
+
+  class {'influxdb::configure':
+    auth_enabled => $influxdb::params::auth_enabled,
+    config_file  => $influxdb::params::config_file,
+    data_dir     => $data_dir,
+    hh_dir       => $hh_dir,
+    meta_dir     => $meta_dir,
+    notify       => Class['influxdb::service'],
   }
 }

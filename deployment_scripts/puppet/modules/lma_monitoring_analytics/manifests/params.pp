@@ -15,11 +15,10 @@
 # == Class lma_monitoring_analytics::params
 
 class lma_monitoring_analytics::params {
-  $listen_port            = 80
-  $influxdb_host          = undef
+  $listen_port            = 8000
+  $influxdb_url           = 'http://localhost:8086'
   $influxdb_script        = '/usr/local/bin/configure_influxdb.sh'
-  $grafana_dbname         = 'grafana'
-  $grafana_dir            = '/opt/grafana'
-  $grafana_conf           = "${grafana_dir}/config.js"
-  $grafana_home_dashboard = '/dashboard/db/main'
+  $influxdb_dir           = '/opt/influxdb'
+  $influxdb_retention_period = 0
+  $influxdb_replication_factor = 1
 }

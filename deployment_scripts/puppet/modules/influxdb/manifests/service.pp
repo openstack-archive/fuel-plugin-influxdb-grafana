@@ -12,15 +12,13 @@
 #    License for the specific language governing permissions and limitations
 #    under the License.
 #
-$influxdb_grafana = hiera('influxdb_grafana')
-$user_node_name = hiera('user_node_name')
+# == Class: influxdb::params
 
-if $influxdb_grafana['node_name'] == $user_node_name {
-  class {'lma_monitoring_analytics::grafana':
-    admin_username    => $influxdb_grafana['grafana_username'],
-    admin_password    => $influxdb_grafana['grafana_userpass'],
-    influxdb_username => $influxdb_grafana['influxdb_username'],
-    influxdb_password => $influxdb_grafana['influxdb_userpass'],
-    influxdb_database => $influxdb_grafana['influxdb_dbname'],
+class influxdb::service {
+  service { 'influxdb':
+    ensure     => running,
+    enable     => true,
+    hasrestart => true,
+    status     => '/usr/bin/pgrep -u influxdb -f "/opt/influxdb/influxd "'
   }
 }

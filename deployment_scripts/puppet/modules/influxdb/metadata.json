@@ -1,9 +1,9 @@
 {
-    "name": "lma_monitoring_analytics",
+    "name": "influxdb",
     "version": "1.0.0",
     "author": "Guillaume Thouvenin <gthouvenin@mirantis.com>",
-    "summary": "Provides Grafana for InfluxDB for LMA monitoring analytics",
-    "license": "Apache-2.0",
+    "summary": "Install and configure InfluxDB",
+    "license": "Apache License 2.0",
     "source": "git://git.openstack.org/cgit/stackforge/fuel-plugin-influxdb-grafana.git",
     "project_page": "none",
     "issues_url": "none",
@@ -17,9 +17,9 @@
             "operatingsystemrelease": ["6"]
         }
     ],
-    "description": "Puppet module for configuring the Grafana dashboard and InfluxDB",
+    "description": "Puppet module for installing and configuring InfluxDB",
     "dependencies": [
         {"name": "puppetlabs/stdlib", "version_requirement": "4.x"},
-        {"name": "jfryman/nginx", "version_requirement": ">= 0.2.2"}
+        {"name": "puppetlabs/inifile", "version_requirement": ">= 1.0.0" },
     ]
 }

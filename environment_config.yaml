@@ -1,5 +1,27 @@
 attributes:
 
+  retention_period:
+    value: '30'
+    label: 'Retention period'
+    description: 'The number of days after which data is automatically deleted within the InfluxDB system (0 to never delete data).'
+    weight: 5
+    type: "text"
+    regex: &number_validation
+        source: '^\d+$'
+        error: "You must provide a number"
+
+  replication_factor:
+    value: '1'
+    label: 'Replication factor'
+    description: 'The number of replicas'
+    weight: 6
+    type: "text"
+    regex: *number_validation
+    # Don't expose the replication factor until clustering is supported
+    restrictions:
+      - condition: "true"
+        action: hide
+
   node_name:
     value: 'influxdb'
     label: 'Node name'
@@ -45,6 +67,26 @@ attributes:
     label: 'User password'
     description: 'The password of the InfluxDB user'
     weight: 60
+    type: "password"
+    regex:
+      source: '^[\S]{4,}$'
+      error: "You must provide a password with at least 4 characters"
+
+  grafana_username:
+    value: 'lma'
+    label: 'User name'
+    description: 'The name of the Grafana admin user'
+    weight: 63
+    type: "text"
+    regex:
+      source: '\S'
+      error: "You must provide a username"
+
+  grafana_userpass:
+    value: ''
+    label: 'User password'
+    description: 'The password of the Grafana admin user'
+    weight: 66
     type: "password"
     regex:
       source: '^[\S]{4,}$'

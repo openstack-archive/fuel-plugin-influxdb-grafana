@@ -15,16 +15,26 @@
 # == Class: lma_monitoring_analytics::influxdb
 
 class lma_monitoring_analytics::influxdb (
-  $influxdb_dbname   = undef,
-  $influxdb_username = undef,
-  $influxdb_userpass = undef,
-  $influxdb_rootpass = undef,
+  $influxdb_dbname    = undef,
+  $influxdb_username  = undef,
+  $influxdb_userpass  = undef,
+  $influxdb_rootpass  = undef,
+  $influxdb_dir       = $lma_monitoring_analytics::params::influxdb_dir,
+  $retention_period   = $lma_monitoring_analytics::params::influxdb_retention_period,
+  $replication_factor = $lma_monitoring_analytics::params::influxdb_replication_factor,
 ) inherits lma_monitoring_analytics::params {
 
   $configure_influxdb = $lma_monitoring_analytics::params::influxdb_script
+  if $retention_period == 0 {
+    $real_retention_period = 'INF'
+  } else {
+    $real_retention_period = $retention_period
+  }
 
   class { '::influxdb':
-    install_from_repository => true,
+    data_dir => "${influxdb_dir}/data",
+    meta_dir => "${influxdb_dir}/meta",
+    hh_dir   => "${influxdb_dir}/hh",
   }
 
   file { $configure_influxdb:

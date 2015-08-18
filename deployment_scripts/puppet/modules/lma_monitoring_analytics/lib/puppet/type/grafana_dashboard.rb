@@ -19,51 +19,58 @@ Puppet::Type.newtype(:grafana_dashboard) do
 
     ensurable
 
-    newparam(:title) do
+    newparam(:title, :namevar => true) do
         desc "The title of the dashboard."
-
-        isnamevar
     end
 
-    newparam(:content) do
+    newproperty(:content) do
         desc "The JSON representation of the dashboard."
 
         validate do |value|
             begin
                 JSON.parse(value)
             rescue JSON::ParserError
-                raise ArgumentError , "Invalid JSON string for Grafana dashboard"
+                raise ArgumentError , "Invalid JSON string for content"
             end
+        end
+
+        munge do |value|
+            JSON.parse(value)
+        end
+
+        def should_to_s(value)
+            if value.length > 12
+                "#{value.to_s.slice(0,12)}..."
+            else
+                value
+            end
+        end
+
+        def is_to_s(value)
+            should_to_s(value)
         end
     end
 
-    newparam(:tags) do
-        desc "Tags associated to the dashboard"
-        defaultto []
-
-        validate do |value|
-            unless value.is_a?(Array)
-                raise ArgumentError , "Grafana tags must be an array"
-            end
-        end
-    end
-
-    newparam(:storage_url) do
-        desc "The URL of the storage backend"
+    newparam(:grafana_url) do
+        desc "The URL of the Grafana server"
         defaultto ""
 
         validate do |value|
             unless value =~ /^https?:\/\//
-                raise ArgumentError , "'%s' is not a valid storage URL" % value
+                raise ArgumentError , "'%s' is not a valid URL" % value
             end
         end
     end
 
-    newparam(:storage_user) do
-        desc "The username for the storage backend (optional)"
+    newparam(:grafana_user) do
+        desc "The username for the Grafana server (optional)"
     end
 
-    newparam(:storage_password) do
-        desc "The password for the storage backend (optional)"
+    newparam(:grafana_password) do
+        desc "The password for the Grafana server (optional)"
+    end
+
+    validate do
+        fail('content is required when ensure is present') if self[:ensure] == :present and self[:content].nil?
     end
 end
