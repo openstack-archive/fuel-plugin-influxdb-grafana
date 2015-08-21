@@ -1730,290 +1730,336 @@
       "showTitle": true
     },
     {
-      "collapse": true,
-      "title": "Ceph",
+      "collapse": false,
       "editable": true,
       "height": "250px",
       "panels": [
         {
-          "links": [
-            {
-              "title": "Ceph",
-              "type": "dashboard",
-              "dashboard": "Ceph",
-              "name": "Drilldown dashboard"
-            }
-          ],
-          "valueMaps": [
-            {
-              "text": "N/A",
-              "value": "null",
-              "op": "="
-            },
-            {
-              "text": "Healthy",
-              "value": "1",
-              "op": "="
-            },
-            {
-              "text": "Degraded",
-              "value": "2",
-              "op": "="
-            },
-            {
-              "text": "Down",
-              "value": "3",
-              "op": "="
-            }
-          ],
-          "thresholds": "1,2,3",
-          "nullPointMode": "connected",
-          "prefix": "",
-          "targets": [
-            {
-              "column": "value",
-              "function": "last",
-              "query": "select last(value) from merge(/ceph.cluster-ceph.health/) where $timeFilter group by time($interval) order asc",
-              "series": "merge(/ceph.cluster-ceph.health/)",
-              "fill": ""
-            }
-          ],
-          "maxDataPoints": 100,
-          "span": 2,
-          "colorBackground": true,
-          "title": "Cluster",
-          "sparkline": {
-            "full": false,
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "lineColor": "rgb(31, 120, 193)",
-            "show": false
-          },
-          "id": 8,
-          "prefixFontSize": "50%",
-          "valueName": "current",
-          "type": "singlestat",
-          "valueFontSize": "80%",
-          "format": "none",
-          "editable": true,
           "cacheTimeout": null,
-          "postfix": "",
-          "interval": ">60s",
+          "colorBackground": true,
+          "colorValue": false,
           "colors": [
             "rgba(71, 212, 59, 0.4)",
             "rgba(245, 150, 40, 0.73)",
             "rgba(225, 40, 40, 0.59)"
           ],
+          "editable": true,
           "error": false,
-          "nullText": null,
-          "postfixFontSize": "50%",
-          "colorValue": false
-        },
-        {
-          "links": [],
-          "valueMaps": [
+          "format": "none",
+          "id": 8,
+          "interval": ">60s",
+          "links": [
             {
-              "text": "N/A",
-              "value": "null",
-              "op": "="
-            }
-          ],
-          "thresholds": "",
-          "nullPointMode": "connected",
-          "prefix": "",
-          "targets": [
-            {
-              "function": "mean",
-              "rawQuery": true,
-              "column": "value",
-              "series": "",
-              "interval": "",
-              "alias": "",
-              "query": "select last((avail.value * 1.0) / (total.value) * 100) from \"$controller.ceph.cluster-ceph.pool.total_avail_bytes\" as avail inner join \"$controller.ceph.cluster-ceph.pool.total_bytes\" as total  where time > now() - 15m group by time(60) order asc"
+              "dashboard": "Ceph",
+              "name": "Drilldown dashboard",
+              "title": "Ceph",
+              "type": "dashboard"
             }
           ],
           "maxDataPoints": 100,
-          "span": 3,
-          "colorBackground": false,
-          "title": "Capacity",
-          "sparkline": {
-            "full": true,
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "lineColor": "rgb(31, 120, 193)",
-            "show": true
-          },
-          "id": 9,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
           "prefixFontSize": "50%",
-          "valueName": "current",
+          "span": 2,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "targets": [
+            {
+              "column": "value",
+              "fill": "",
+              "function": "last",
+              "query": "SELECT last(value) FROM \"ceph_health\" WHERE $timeFilter GROUP BY time($interval)",
+              "series": "merge(/ceph.cluster-ceph.health/)",
+              "tags": [],
+              "groupByTags": [],
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "last"
+                }
+              ],
+              "rawQuery": false,
+              "measurement": "ceph_health"
+            }
+          ],
+          "thresholds": "1,2,3",
+          "title": "Cluster",
           "type": "singlestat",
           "valueFontSize": "80%",
-          "format": "percent",
-          "editable": true,
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            },
+            {
+              "op": "=",
+              "text": "OKAY",
+              "value": "1"
+            },
+            {
+              "op": "=",
+              "text": "WARN",
+              "value": "2"
+            },
+            {
+              "op": "=",
+              "text": "FAIL",
+              "value": "3"
+            }
+          ],
+          "valueName": "current"
+        },
+        {
           "cacheTimeout": null,
-          "postfix": " free",
-          "interval": ">60s",
+          "colorBackground": false,
+          "colorValue": false,
           "colors": [
             "rgba(245, 54, 54, 0.9)",
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
+          "editable": true,
           "error": false,
-          "nullText": null,
-          "postfixFontSize": "50%",
-          "colorValue": false
-        },
-        {
+          "format": "percent",
+          "id": 9,
+          "interval": ">60s",
           "links": [],
-          "valueMaps": [
-            {
-              "text": "N/A",
-              "value": "null",
-              "op": "="
-            }
-          ],
-          "thresholds": "",
-          "nullPointMode": "connected",
-          "prefix": "",
-          "targets": [
-            {
-              "column": "value",
-              "function": "sum",
-              "series": "merge(/$controller.ceph.cluster-ceph.pool.*.objects/)",
-              "rawQuery": false,
-              "query": "select sum(value) from merge(/$controller.ceph.cluster-ceph.pool.*.objects/) where $timeFilter group by time($interval) order asc"
-            }
-          ],
           "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": " free",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
           "span": 3,
-          "colorBackground": false,
-          "title": "",
           "sparkline": {
-            "full": false,
             "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": true,
             "lineColor": "rgb(31, 120, 193)",
             "show": true
           },
-          "id": 26,
-          "prefixFontSize": "50%",
-          "valueName": "current",
+          "targets": [
+            {
+              "alias": "",
+              "column": "value",
+              "function": "mean",
+              "interval": "",
+              "query": "SELECT mean(value) FROM \"ceph_pool_total_percent_free\" WHERE $timeFilter GROUP BY time($interval)",
+              "rawQuery": false,
+              "series": "",
+              "tags": [],
+              "groupByTags": [],
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "mean"
+                }
+              ],
+              "measurement": "ceph_pool_total_percent_free"
+            }
+          ],
+          "thresholds": "",
+          "title": "Capacity",
           "type": "singlestat",
           "valueFontSize": "80%",
-          "format": "short",
-          "editable": true,
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
+        },
+        {
           "cacheTimeout": null,
-          "postfix": " objects",
-          "interval": ">60s",
+          "colorBackground": false,
+          "colorValue": false,
           "colors": [
             "rgba(50, 172, 45, 0.97)",
             "rgba(237, 129, 40, 0.89)",
             "rgba(245, 54, 54, 0.9)"
           ],
+          "editable": true,
           "error": false,
-          "nullText": null,
-          "postfixFontSize": "50%",
-          "colorValue": false
-        },
-        {
+          "format": "short",
+          "id": 26,
+          "interval": ">60s",
           "links": [],
-          "valueMaps": [
-            {
-              "text": "N/A",
-              "value": "null",
-              "op": "="
-            }
-          ],
-          "thresholds": "",
-          "nullPointMode": "connected",
-          "prefix": "",
-          "targets": [
-            {
-              "column": "value",
-              "function": "last",
-              "series": "/$controller.ceph.cluster-ceph.osd.up/",
-              "query": "select last(value) from /$controller.ceph.cluster-ceph.osd.up/ where $timeFilter group by time($interval) order asc"
-            }
-          ],
           "maxDataPoints": 100,
-          "span": 2,
-          "colorBackground": false,
-          "title": "OSDs up",
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": " objects",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 3,
           "sparkline": {
-            "full": false,
             "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
             "lineColor": "rgb(31, 120, 193)",
             "show": true
           },
+          "targets": [
+            {
+              "column": "value",
+              "function": "sum",
+              "query": "SELECT last(value) FROM \"ceph_objects_count\" WHERE $timeFilter GROUP BY time($interval)",
+              "rawQuery": false,
+              "series": "merge(/$controller.ceph.cluster-ceph.pool.*.objects/)",
+              "tags": [],
+              "groupByTags": [],
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "last"
+                }
+              ],
+              "measurement": "ceph_objects_count"
+            }
+          ],
+          "thresholds": "",
+          "title": "",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "editable": true,
+          "error": false,
+          "format": "none",
           "id": 24,
-          "prefixFontSize": "50%",
-          "valueName": "current",
-          "type": "singlestat",
-          "valueFontSize": "80%",
-          "format": "none",
-          "editable": true,
-          "cacheTimeout": null,
-          "postfix": "",
           "interval": ">60s",
-          "colors": [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(50, 172, 45, 0.97)"
-          ],
-          "error": false,
-          "nullText": null,
-          "postfixFontSize": "50%",
-          "colorValue": false
-        },
-        {
           "links": [],
-          "valueMaps": [
-            {
-              "text": "N/A",
-              "value": "null",
-              "op": "="
-            }
-          ],
-          "thresholds": "",
+          "maxDataPoints": 100,
           "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
           "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 2,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": true
+          },
           "targets": [
             {
               "column": "value",
               "function": "last",
-              "series": "/$controller.ceph.cluster-ceph.osd.down/",
-              "query": "select last(value) from /$controller.ceph.cluster-ceph.osd.down/ where $timeFilter group by time($interval) order asc"
+              "query": "SELECT last(value) FROM \"ceph_osd_count_up\" WHERE $timeFilter GROUP BY time($interval)",
+              "series": "/$controller.ceph.cluster-ceph.osd.up/",
+              "tags": [],
+              "groupByTags": [],
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "last"
+                }
+              ],
+              "measurement": "ceph_osd_count_up"
             }
           ],
-          "maxDataPoints": 100,
-          "span": 2,
-          "colorBackground": false,
-          "title": "OSDs down",
-          "sparkline": {
-            "full": false,
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "lineColor": "rgb(31, 120, 193)",
-            "show": true
-          },
-          "id": 25,
-          "prefixFontSize": "50%",
-          "valueName": "current",
+          "thresholds": "",
+          "title": "OSDs up",
           "type": "singlestat",
           "valueFontSize": "80%",
-          "format": "none",
-          "editable": true,
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
+        },
+        {
           "cacheTimeout": null,
-          "postfix": "",
-          "interval": ">60s",
+          "colorBackground": false,
+          "colorValue": false,
           "colors": [
             "rgba(245, 54, 54, 0.9)",
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
+          "editable": true,
           "error": false,
+          "format": "none",
+          "id": 25,
+          "interval": ">60s",
+          "links": [],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
           "nullText": null,
+          "postfix": "",
           "postfixFontSize": "50%",
-          "colorValue": false
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 2,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": true
+          },
+          "targets": [
+            {
+              "column": "value",
+              "function": "last",
+              "query": "SELECT last(value) FROM \"ceph_osd_count_down\" WHERE $timeFilter GROUP BY time($interval)",
+              "series": "/$controller.ceph.cluster-ceph.osd.down/",
+              "tags": [],
+              "groupByTags": [],
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "last"
+                }
+              ],
+              "measurement": "ceph_osd_count_down"
+            }
+          ],
+          "thresholds": "",
+          "title": "OSDs down",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
         }
       ],
-      "showTitle": true
+      "showTitle": true,
+      "title": "Ceph"
     }
   ],
   "templating": {
