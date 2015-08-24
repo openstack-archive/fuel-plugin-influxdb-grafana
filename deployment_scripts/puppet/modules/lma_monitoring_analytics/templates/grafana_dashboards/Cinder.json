@@ -442,7 +442,7 @@
               "function": "mean",
               "column": "value",
               "series": "merge(/haproxy.backend.cinder-api.servers.up/)",
-              "query": "select mean(value) from merge(/haproxy.backend.cinder-api.servers.up/) where $timeFilter group by time($interval) order asc"
+              "query": "select last(value) from merge(/haproxy.backend.cinder-api.servers.up/) where $timeFilter group by time($interval) order asc"
             }
           ],
           "cacheTimeout": null,

@@ -445,7 +445,7 @@
               "function": "mean",
               "column": "value",
               "series": "merge(/haproxy.backend.neutron-api.servers.up/)",
-              "query": "select mean(value) from merge(/haproxy.backend.neutron-api.servers.up/) where $timeFilter group by time($interval) order asc"
+              "query": "select last(value) from merge(/haproxy.backend.neutron-api.servers.up/) where $timeFilter group by time($interval) order asc"
             }
           ],
           "cacheTimeout": null,
