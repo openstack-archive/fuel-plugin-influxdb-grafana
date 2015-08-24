@@ -451,10 +451,10 @@
           "interval": "> 60s",
           "targets": [
             {
-              "function": "mean",
+              "function": "last",
               "column": "value",
               "series": "merge(/haproxy.backend.glance-api.servers.up/)",
-              "query": "select mean(value) from merge(/haproxy.backend.glance-api.servers.up/) where $timeFilter group by time($interval) order asc"
+              "query": "select last(value) from merge(/haproxy.backend.glance-api.servers.up/) where $timeFilter group by time($interval) order asc"
             }
           ],
           "cacheTimeout": null,
@@ -501,10 +501,10 @@
           "interval": "> 60s",
           "targets": [
             {
-              "function": "mean",
+              "function": "last",
               "column": "value",
               "series": "merge(/haproxy.backend.glance-registry-api.servers.up/)",
-              "query": "select mean(value) from merge(/haproxy.backend.glance-registry-api.servers.up/) where $timeFilter group by time($interval) order asc"
+              "query": "select last(value) from merge(/haproxy.backend.glance-registry-api.servers.up/) where $timeFilter group by time($interval) order asc"
             }
           ],
           "cacheTimeout": null,
