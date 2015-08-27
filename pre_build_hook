@@ -12,8 +12,8 @@ GRAFANA_TARBALL_URL="https://forgeapi.puppetlabs.com/v3/files/bfraser-grafana-2.
 # Get the disk_management from fuel-plugin-elasticsearch-kibana
 DISK_MANAGEMENT_TARBALL_URL="https://github.com/stackforge/fuel-plugin-elasticsearch-kibana/archive/master.tar.gz"
 
-download_package https://s3.amazonaws.com/influxdb/influxdb_0.9.2_amd64.deb
-download_package https://s3.amazonaws.com/influxdb/influxdb-0.9.2-1.x86_64.rpm
+download_package https://s3.amazonaws.com/influxdb/influxdb_0.9.3_amd64.deb
+download_package https://s3.amazonaws.com/influxdb/influxdb-0.9.3-1.x86_64.rpm
 
 download_package https://grafanarel.s3.amazonaws.com/builds/grafana_2.1.0_amd64.deb
 download_package https://grafanarel.s3.amazonaws.com/builds/grafana-2.1.0-1.x86_64.rpm
