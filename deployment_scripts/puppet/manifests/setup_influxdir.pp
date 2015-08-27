@@ -24,7 +24,6 @@ if $influxdb_grafana['node_name'] == hiera('user_node_name') {
   user { 'influxdb':
     ensure => present,
     system => true,
-    shell  => '/sbin/nologin',
   }
 
   if empty($disks) {
