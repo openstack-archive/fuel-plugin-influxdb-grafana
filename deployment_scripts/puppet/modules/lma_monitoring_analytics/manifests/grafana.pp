@@ -109,6 +109,12 @@ class lma_monitoring_analytics::grafana (
     'RabbitMQ' => {
       content => template('lma_monitoring_analytics/grafana_dashboards/RabbitMQ.json'),
     },
+    'Ceph' => {
+      content => template('lma_monitoring_analytics/grafana_dashboards/Ceph.json'),
+    },
+    'Ceph OSD' => {
+      content => template('lma_monitoring_analytics/grafana_dashboards/Ceph_OSD.json'),
+    },
   }
   create_resources(grafana_dashboard, $dashboards, $dashboard_defaults)
 }
