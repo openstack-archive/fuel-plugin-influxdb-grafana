@@ -26,6 +26,7 @@ class lma_monitoring_analytics::grafana (
 
   class { '::grafana':
     install_method      => 'repo',
+    version             => latest,
     manage_package_repo => false,
     cfg                 => {
       server    => {
