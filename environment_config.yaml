@@ -22,16 +22,6 @@ attributes:
       - condition: "true"
         action: hide
 
-  node_name:
-    value: 'influxdb'
-    label: 'Node name'
-    description: 'The name of the node where the plugin will be deployed'
-    weight: 10
-    type: "text"
-    regex:
-      source: '\S'
-      error: "You must provide a name"
-
   influxdb_rootpass:
     value: ''
     label: 'Root password'
@@ -93,6 +83,7 @@ attributes:
       error: "You must provide a password with at least 4 characters"
 
   # Parameter hidden in the UI on purpose
+  # this directory must match the mount point set in volumes.yaml
   data_dir:
     value: '/opt/influxdb'
     label: 'InfluxDB storage directory'
@@ -102,58 +93,3 @@ attributes:
     restrictions:
       - condition: "true"
         action: hide
-
-  disk1:
-    value: ''
-    label: 'Disk 1'
-    description: 'Disk device used to store InfluxDB data (for instance sda or sdb or another device). Leave it empty to use "/".'
-    weight: 80
-    type: "text"
-
-  disk1_size:
-    value: ''
-    label: 'Size'
-    description: 'in GB. Leave it empty to use all free space.'
-    weight: 90
-    type: "text"
-
-  disk2:
-    value: ''
-    label: 'Disk 2'
-    description: 'Disk device used to store InfluxDB data (for instance sdb).'
-    weight: 100
-    type: "text"
-    restrictions:
-        - condition: "settings:influxdb_grafana.disk1.value == ''"
-          action: "disable"
-
-  disk2_size:
-    value: ''
-    label: 'Size'
-    description: 'in GB. Leave it empty to use all free space.'
-    weight: 110
-    type: "text"
-    restrictions:
-        - condition: "settings:influxdb_grafana.disk1.value == ''"
-          action: "disable"
-
-  disk3:
-    value: ''
-    label: 'Disk 3'
-    description: 'Disk device used to store InfluxDB data (for instance sdc).'
-    weight: 120
-    type: "text"
-    restrictions:
-        - condition: "settings:influxdb_grafana.disk2.value == ''"
-          action: "disable"
-
-  disk3_size:
-    value: ''
-    label: 'Size'
-    description: 'in GB. Leave it empty to use all free space.'
-    weight: 130
-    type: "text"
-    restrictions:
-        - condition: "settings:influxdb_grafana.disk2.value == ''"
-          action: "disable"
-
