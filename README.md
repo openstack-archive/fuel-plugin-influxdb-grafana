@@ -15,7 +15,7 @@ Requirements
 
 | Requirement                      | Version/Comment |
 |----------------------------------|-----------------|
-| Mirantis OpenStack compatibility | 6.1 or higher   |
+| Mirantis OpenStack compatibility | 7.0 or higher   |
 
 Recommendations
 ---------------
@@ -60,7 +60,7 @@ To install the InfluxDB-Grafana plugin, follow these steps:
    ```
 
 Please refer to the [Fuel Plugins wiki](https://wiki.openstack.org/wiki/Fuel/Plugins)
-if you want to build the plugin by yourself, version 2.0.0 (or higher) of the Fuel
+if you want to build the plugin by yourself, version 3.0.0 (or higher) of the Fuel
 Plugin Builder is required.
 
 User Guide
@@ -70,29 +70,28 @@ User Guide
 ---------------------------------------------
 
 1. Create a new environment with the Fuel UI wizard.
-2. Add a node with the "Operating System" role.
-3. Before applying changes or once changes applied, edit the name of the node by
-   clicking on "Untitled (xx:yy)" and modify it for "influxdb".
-4. Click on the Settings tab of the Fuel web UI.
-5. Scroll down the page, select the "InfluxDB-Grafana Server plugin" checkbox
-   and fill-in the required fields.
-    - The name of the node where the plugin is deployed.
+2. Click on the Settings tab of the Fuel web UI.
+3. Scroll down the page, select the "InfluxDB-Grafana Server plugin" tab,
+   enable the plugin and fill-in the required fields.
     - The password for the InfluxDB root user.
     - The name of the database where you want to store your metrics.
     - The username and the password for this specific database.
     - The name and the password for the Grafana admin user.
+4. Add a node with the "InfluxDB Grafana" role.
 
-You can select up to 3 physical disks that will be mounted as a single logical
-volume to store the InfluxDB data. If you specify no disk, the data will
-be stored on the root filesystem. In all cases, InfluxDB data will be
-located in the */opt/influxdb* directory.
+### Retention policy
+By default, data is automatically deleted within the InfluxDB system after
+30 days. You could want to adjust this retention period depending of your
+requirements.
 
-For each disk, you can also specify the allocated size (in GB). If you don't
-specify a value, the plugin will use all the free space of the disk.
+### Disks partitionning
+The plugin uses:
 
-Here is a screenshot of the fields
+- 20% of the first disk for the operating system by honoring the range of
+  15Gb minimum and 50Gb maximum.
+- 10Gb for /var/log.
+- at least 30Gb for the Elasticsearch data (/opt/es-data).
 
-![InfluxDB-Grafana fields](./figures/influxdb-grafana-plugin.png "InfluxDB-Grafana fields")
 
 Testing
 -------
@@ -139,6 +138,7 @@ Release Notes
 
 * Upgrade Grafana to 2.1
 * Upgrade InfluxDB to 0.9
+* Add support for retention policy
 
 **0.7.0**
 
