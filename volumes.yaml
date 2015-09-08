@@ -1,0 +1,21 @@
+volumes:
+  - id: "influxdb"
+    type: "vg"
+    min_size:
+      generator: "calc_gb_to_mb"
+      generator_args: [30]
+    label: "InfluxDB database"
+    volumes:
+      - mount: "/opt/influxdb"
+        type: "lv"
+        name: "influxdb"
+        file_system: "ext4"
+        size:
+          generator: "calc_total_vg"
+          generator_args: ["influxdb"]
+
+volumes_roles_mapping:
+  influxdb_grafana:
+    - {allocate_size: "min", id: "os"}
+    - {allocate_size: "min", id: "logs"}
+    - {allocate_size: "all", id: "influxdb"}

@@ -12,51 +12,46 @@
 #    License for the specific language governing permissions and limitations
 #    under the License.
 #
-$influxdb_grafana = hiera('influxdb_grafana')
-$user_node_name = hiera('user_node_name')
 
-if $influxdb_grafana['node_name'] == $user_node_name {
+class {'::firewall':}
 
-  class {'::firewall':}
+firewall { '000 accept all icmp requests':
+  proto  => 'icmp',
+  action => 'accept',
+}
 
-  firewall { '000 accept all icmp requests':
-    proto  => 'icmp',
-    action => 'accept',
-  }
+firewall { '001 accept all to lo interface':
+  proto   => 'all',
+  iniface => 'lo',
+  action  => 'accept',
+}
 
-  firewall { '001 accept all to lo interface':
-    proto   => 'all',
-    iniface => 'lo',
-    action  => 'accept',
-  }
+firewall { '002 accept related established rules':
+  proto  => 'all',
+  state  => ['RELATED', 'ESTABLISHED'],
+  action => 'accept',
+}
 
-  firewall { '002 accept related established rules':
-    proto  => 'all',
-    state  => ['RELATED', 'ESTABLISHED'],
-    action => 'accept',
-  }
+firewall {'020 ssh':
+  port   => 22,
+  proto  => 'tcp',
+  action => 'accept',
+}
 
-  firewall {'020 ssh':
-    port   => 22,
-    proto  => 'tcp',
-    action => 'accept',
-  }
+firewall { '200 influxdb':
+  port   => [8083, 8086],
+  proto  => 'tcp',
+  action => 'accept',
+}
 
-  firewall { '200 influxdb':
-    port   => [8083, 8086],
-    proto  => 'tcp',
-    action => 'accept',
-  }
+firewall { '201 grafana':
+  port   => 8000,
+  proto  => 'tcp',
+  action => 'accept',
+}
 
-  firewall { '201 grafana':
-    port   => 8000,
-    proto  => 'tcp',
-    action => 'accept',
-  }
-
-  firewall { '999 drop all other requests':
-    proto  => 'all',
-    chain  => 'INPUT',
-    action => 'drop',
-  }
+firewall { '999 drop all other requests':
+  proto  => 'all',
+  chain  => 'INPUT',
+  action => 'drop',
 }
