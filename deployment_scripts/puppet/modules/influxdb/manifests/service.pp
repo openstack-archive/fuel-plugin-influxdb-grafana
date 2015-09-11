@@ -15,6 +15,16 @@
 # == Class: influxdb::params
 
 class influxdb::service {
+  include influxdb::params
+
+  # Hack required for InfluxDB 0.9.3 otherwise it fails to start
+  file { $influxdb::params::pid_file:
+    ensure => present,
+    owner  => $influxdb::params::influxdb_user,
+    group  => $influxdb::params::influxdb_user,
+    before => Service['influxdb'],
+  }
+
   service { 'influxdb':
     ensure     => running,
     enable     => true,

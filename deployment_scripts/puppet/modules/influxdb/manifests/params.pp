@@ -22,4 +22,7 @@ class influxdb::params {
   $data_dir = '/opt/influxdb/data'
   $hh_dir   = '/opt/influxdb/hh'
   $meta_dir = '/opt/influxdb/meta'
+
+  $pid_file = '/var/run/influxdb/influxd.pid'
+  $influxdb_user = 'influxdb'
 }
