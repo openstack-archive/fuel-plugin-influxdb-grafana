@@ -15,6 +15,25 @@
 # == Class: influxdb::params
 
 class influxdb::service {
+  include influxdb::params
+
+  # Hack required for InfluxDB 0.9.3. The init script fails otherwise because
+  # it tries to run shell commands with 'su' while the influxdb user has
+  # /sbin/nologin as the shell
+  file { $influxdb::params::run_directory:
+    ensure => directory,
+    owner  => $influxdb::params::influxdb_user,
+    group  => $influxdb::params::influxdb_user,
+  }
+
+  file { "${influxdb::params::run_directory}/influxd.pid":
+    ensure  => present,
+    owner   => $influxdb::params::influxdb_user,
+    group   => $influxdb::params::influxdb_user,
+    before  => Service['influxdb'],
+    require => File[$influxdb::params::run_directory],
+  }
+
   service { 'influxdb':
     ensure     => running,
     enable     => true,
