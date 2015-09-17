@@ -33,17 +33,22 @@
               "op": "="
             },
             {
-              "text": "FAIL",
+              "text": "UNKW",
               "value": "2",
               "op": "="
             },
             {
-              "text": "UNKNOWN",
+              "text": "CRIT",
               "value": "3",
+              "op": "="
+            },
+            {
+              "text": "DOWN",
+              "value": "4",
               "op": "="
             }
           ],
-          "thresholds": "0,1,2",
+          "thresholds": "0,1,3",
           "nullPointMode": "connected",
           "prefix": "",
           "targets": [
@@ -52,7 +57,13 @@
               "groupby_field": "",
               "rawQuery": false,
               "groupByTags": [],
-              "tags": [],
+              "tags": [
+                {
+                  "operator": "=",
+                  "value": "cinder",
+                  "key": "cluster_name"
+                }
+              ],
               "column": "value",
               "fields": [
                 {
@@ -62,8 +73,8 @@
               ],
               "interval": "",
               "series": "merge(/openstack.cinder.status/)",
-              "measurement": "openstack_cinder_status",
-              "query": "SELECT last(value) FROM \"openstack_cinder_status\" WHERE $timeFilter GROUP BY time($interval)",
+              "measurement": "cluster_status",
+              "query": "SELECT last(value) FROM \"cluster_status\" WHERE \"cluster_name\" = 'cinder' AND $timeFilter GROUP BY time($interval)",
               "condition": "",
               "fill": ""
             }
@@ -124,17 +135,22 @@
               "op": "="
             },
             {
-              "text": "FAIL",
+              "text": "UNKW",
               "value": "2",
               "op": "="
             },
             {
-              "text": "UNKNOWN",
+              "text": "CRIT",
               "value": "3",
+              "op": "="
+            },
+            {
+              "text": "DOWN",
+              "value": "4",
               "op": "="
             }
           ],
-          "thresholds": "0,1,2",
+          "thresholds": "0,1,3",
           "nullPointMode": "connected",
           "prefix": "",
           "targets": [
@@ -143,7 +159,13 @@
               "groupby_field": "",
               "rawQuery": false,
               "groupByTags": [],
-              "tags": [],
+              "tags": [
+                {
+                  "operator": "=",
+                  "value": "keystone",
+                  "key": "cluster_name"
+                }
+              ],
               "column": "value",
               "fields": [
                 {
@@ -153,8 +175,8 @@
               ],
               "interval": "",
               "series": "merge(/openstack.keystone.status/)",
-              "measurement": "openstack_keystone_status",
-              "query": "SELECT last(value) FROM \"openstack_keystone_status\" WHERE $timeFilter GROUP BY time($interval)",
+              "measurement": "cluster_status",
+              "query": "SELECT last(value) FROM \"cluster_status\" WHERE \"cluster_name\" = 'keystone' AND $timeFilter GROUP BY time($interval)",
               "condition": "",
               "fill": ""
             }
@@ -215,17 +237,22 @@
               "op": "="
             },
             {
-              "text": "FAIL",
+              "text": "UNKW",
               "value": "2",
               "op": "="
             },
             {
-              "text": "UNKNOWN",
+              "text": "CRIT",
               "value": "3",
+              "op": "="
+            },
+            {
+              "text": "DOWN",
+              "value": "4",
               "op": "="
             }
           ],
-          "thresholds": "0,1,2",
+          "thresholds": "0,1,3",
           "nullPointMode": "connected",
           "prefix": "",
           "targets": [
@@ -234,7 +261,13 @@
               "groupby_field": "",
               "rawQuery": false,
               "groupByTags": [],
-              "tags": [],
+              "tags": [
+                {
+                  "operator": "=",
+                  "value": "glance",
+                  "key": "cluster_name"
+                }
+              ],
               "column": "value",
               "fields": [
                 {
@@ -244,8 +277,8 @@
               ],
               "interval": "",
               "series": "merge(/openstack.glance.status/)",
-              "measurement": "openstack_glance_status",
-              "query": "SELECT last(value) FROM \"openstack_glance_status\" WHERE $timeFilter GROUP BY time($interval)",
+              "measurement": "cluster_status",
+              "query": "SELECT last(value) FROM \"cluster_status\" WHERE \"cluster_name\" = 'glance' AND $timeFilter GROUP BY time($interval)",
               "condition": "",
               "fill": ""
             }
@@ -306,17 +339,22 @@
               "op": "="
             },
             {
-              "text": "FAIL",
+              "text": "UNKW",
               "value": "2",
               "op": "="
             },
             {
-              "text": "UNKNOWN",
+              "text": "CRIT",
               "value": "3",
+              "op": "="
+            },
+            {
+              "text": "DOWN",
+              "value": "4",
               "op": "="
             }
           ],
-          "thresholds": "0,1,2",
+          "thresholds": "0,1,3",
           "nullPointMode": "connected",
           "prefix": "",
           "targets": [
@@ -325,7 +363,13 @@
               "groupby_field": "",
               "rawQuery": false,
               "groupByTags": [],
-              "tags": [],
+              "tags": [
+                {
+                  "operator": "=",
+                  "value": "heat",
+                  "key": "cluster_name"
+                }
+              ],
               "column": "value",
               "fields": [
                 {
@@ -335,8 +379,8 @@
               ],
               "interval": "",
               "series": "merge(/openstack.heat.status/)",
-              "measurement": "openstack_heat_status",
-              "query": "SELECT last(value) FROM \"openstack_heat_status\" WHERE $timeFilter GROUP BY time($interval)",
+              "measurement": "cluster_status",
+              "query": "SELECT last(value) FROM \"cluster_status\" WHERE \"cluster_name\" = 'heat' AND $timeFilter GROUP BY time($interval)",
               "condition": "",
               "fill": ""
             }
@@ -397,17 +441,22 @@
               "op": "="
             },
             {
-              "text": "FAIL",
+              "text": "UNKW",
               "value": "2",
               "op": "="
             },
             {
-              "text": "UNKNOWN",
+              "text": "CRIT",
               "value": "3",
+              "op": "="
+            },
+            {
+              "text": "DOWN",
+              "value": "4",
               "op": "="
             }
           ],
-          "thresholds": "0,1,2",
+          "thresholds": "0,1,3",
           "nullPointMode": "connected",
           "prefix": "",
           "targets": [
@@ -416,7 +465,13 @@
               "groupby_field": "",
               "rawQuery": false,
               "groupByTags": [],
-              "tags": [],
+              "tags": [
+                {
+                  "operator": "=",
+                  "value": "neutron",
+                  "key": "cluster_name"
+                }
+              ],
               "column": "value",
               "fields": [
                 {
@@ -426,8 +481,8 @@
               ],
               "interval": "",
               "series": "merge(/openstack.neutron.status/)",
-              "measurement": "openstack_neutron_status",
-              "query": "SELECT last(value) FROM \"openstack_neutron_status\" WHERE $timeFilter GROUP BY time($interval)",
+              "measurement": "cluster_status",
+              "query": "SELECT last(value) FROM \"cluster_status\" WHERE \"cluster_name\" = 'neutron' AND $timeFilter GROUP BY time($interval)",
               "condition": "",
               "fill": ""
             }
@@ -488,17 +543,22 @@
               "op": "="
             },
             {
-              "text": "FAIL",
+              "text": "UNKW",
               "value": "2",
               "op": "="
             },
             {
-              "text": "UNKNOWN",
+              "text": "CRIT",
               "value": "3",
+              "op": "="
+            },
+            {
+              "text": "DOWN",
+              "value": "4",
               "op": "="
             }
           ],
-          "thresholds": "0,1,2",
+          "thresholds": "0,1,3",
           "nullPointMode": "connected",
           "prefix": "",
           "targets": [
@@ -507,7 +567,13 @@
               "groupby_field": "",
               "rawQuery": false,
               "groupByTags": [],
-              "tags": [],
+              "tags": [
+                {
+                  "operator": "=",
+                  "value": "nova",
+                  "key": "cluster_name"
+                }
+              ],
               "column": "value",
               "fields": [
                 {
@@ -517,8 +583,8 @@
               ],
               "interval": "",
               "series": "merge(/openstack.nova.status/)",
-              "measurement": "openstack_nova_status",
-              "query": "SELECT last(value) FROM \"openstack_nova_status\" WHERE $timeFilter GROUP BY time($interval)",
+              "measurement": "cluster_status",
+              "query": "SELECT last(value) FROM \"cluster_status\" WHERE \"cluster_name\" = 'nova' AND $timeFilter GROUP BY time($interval)",
               "condition": "",
               "fill": ""
             }

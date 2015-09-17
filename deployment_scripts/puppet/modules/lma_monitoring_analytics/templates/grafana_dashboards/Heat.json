@@ -26,17 +26,22 @@
               "op": "="
             },
             {
-              "text": "FAIL",
+              "text": "UNKW",
               "value": "2",
               "op": "="
             },
             {
-              "text": "UNKNOWN",
+              "text": "CRIT",
               "value": "3",
+              "op": "="
+            },
+            {
+              "text": "DOWN",
+              "value": "4",
               "op": "="
             }
           ],
-          "thresholds": "0,1,2",
+          "thresholds": "0,1,3",
           "nullPointMode": "connected",
           "prefix": "",
           "targets": [
@@ -45,7 +50,13 @@
               "groupby_field": "",
               "rawQuery": false,
               "groupByTags": [],
-              "tags": [],
+              "tags": [
+                {
+                  "operator": "=",
+                  "value": "heat",
+                  "key": "cluster_name"
+                }
+              ],
               "column": "value",
               "fields": [
                 {
@@ -55,8 +66,8 @@
               ],
               "interval": "",
               "series": "merge(/openstack.cinder.status/)",
-              "measurement": "openstack_heat_status",
-              "query": "SELECT last(value) FROM \"openstack_heat_status\" WHERE $timeFilter GROUP BY time($interval)",
+              "measurement": "cluster_status",
+              "query": "SELECT last(value) FROM \"cluster_status\" WHERE \"cluster_name\" = 'heat' AND $timeFilter GROUP BY time($interval)",
               "condition": "",
               "fill": ""
             }
@@ -973,8 +984,7 @@
         "refresh_on_load": true,
         "allFormat": "regex values",
         "refresh": true,
-        "current": {
-        },
+        "current": {},
         "datasource": null,
         "query": "show tag values from pacemaker_local_resource_active with key = hostname",
         "type": "query",
@@ -991,7 +1001,7 @@
   "refresh": "1m",
   "id": null,
   "originalTitle": "Heat",
-  "version": 4,
+  "version": 2,
   "nav": [
     {
       "status": "Stable",
@@ -1044,7 +1054,7 @@
         "datasource": "influxdb",
         "lineColor": "rgba(255, 96, 96, 0.592157)",
         "showLine": true,
-        "query": "select title,tags,text from annotations where $timeFilter and service = 'heat'",
+        "query": "select title,tags,text from annotations where $timeFilter and cluster = 'heat'",
         "tagsColumn": "tags",
         "iconColor": "#C0C6BE"
       }
