@@ -45,7 +45,13 @@
               "groupby_field": "",
               "rawQuery": false,
               "groupByTags": [],
-              "tags": [],
+              "tags": [
+                {
+                  "operator": "=",
+                  "value": "keystone",
+                  "key": "cluster_name"
+                }
+              ],
               "column": "value",
               "fields": [
                 {
@@ -55,8 +61,8 @@
               ],
               "interval": "",
               "series": "merge(/openstack.cinder.status/)",
-              "measurement": "openstack_keystone_status",
-              "query": "SELECT last(value) FROM \"openstack_keystone_status\" WHERE $timeFilter GROUP BY time($interval)",
+              "measurement": "cluster_status",
+              "query": "SELECT last(value) FROM \"cluster_status\" WHERE \"cluster_name\" = 'keystone' AND $timeFilter GROUP BY time($interval)",
               "condition": "",
               "fill": ""
             }
@@ -198,10 +204,12 @@
               "groupByTags": [],
               "tags": [
                 {
+                  "operator": "=~",
                   "value": "/$server/",
                   "key": "hostname"
                 },
                 {
+                  "operator": "=",
                   "value": "GET",
                   "key": "http_method",
                   "condition": "AND"
@@ -226,10 +234,12 @@
               "groupByTags": [],
               "tags": [
                 {
+                  "operator": "=~",
                   "value": "/$server/",
                   "key": "hostname"
                 },
                 {
+                  "operator": "=",
                   "value": "POST",
                   "key": "http_method",
                   "condition": "AND"
@@ -254,10 +264,12 @@
               "groupByTags": [],
               "tags": [
                 {
+                  "operator": "=~",
                   "value": "/$server/",
                   "key": "hostname"
                 },
                 {
+                  "operator": "=",
                   "value": "PUT",
                   "key": "http_method",
                   "condition": "AND"
@@ -282,10 +294,12 @@
               "groupByTags": [],
               "tags": [
                 {
+                  "operator": "=~",
                   "value": "/$server/",
                   "key": "hostname"
                 },
                 {
+                  "operator": "=",
                   "value": "DELETE",
                   "key": "http_method",
                   "condition": "AND"
@@ -1267,8 +1281,7 @@
         "refresh_on_load": true,
         "allFormat": "regex values",
         "refresh": true,
-        "current": {
-        },
+        "current": {},
         "datasource": null,
         "query": "show tag values from pacemaker_local_resource_active with key = hostname",
         "type": "query",
@@ -1285,7 +1298,7 @@
   "refresh": "1m",
   "id": null,
   "originalTitle": "Keystone",
-  "version": 4,
+  "version": 1,
   "nav": [
     {
       "status": "Stable",
@@ -1338,7 +1351,7 @@
         "datasource": "influxdb",
         "lineColor": "rgba(255, 96, 96, 0.592157)",
         "showLine": true,
-        "query": "select title,tags,text from annotations where $timeFilter and service = 'keystone'",
+        "query": "select title,tags,text from annotations where $timeFilter and cluster = 'keystone'",
         "tagsColumn": "tags",
         "iconColor": "#C0C6BE"
       }
