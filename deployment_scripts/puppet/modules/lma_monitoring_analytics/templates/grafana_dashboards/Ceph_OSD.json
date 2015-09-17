@@ -154,14 +154,14 @@
               "fields": [
                 {
                   "func": "derivative",
-                  "name": "value,1s"
+                  "name": "first(value),1s"
                 }
               ],
               "fill": "0",
               "function": "derivative",
               "groupByTags": [],
               "measurement": "ceph_perf_osd_op",
-              "query": "SELECT derivative(value,1s) FROM \"ceph_perf_osd_op\" WHERE \"cluster\" =~ /$cluster/ AND \"osd\" =~ /$osd/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT derivative(first(value),1s) FROM \"ceph_perf_osd_op\" WHERE \"cluster\" =~ /$cluster/ AND \"osd\" =~ /$osd/ AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "series": "/$osd.osd.op$/",
               "tags": [
@@ -242,7 +242,7 @@
               "fields": [
                 {
                   "func": "derivative",
-                  "name": "value,1s"
+                  "name": "first(value,1s)"
                 }
               ],
               "fill": "0",
@@ -251,7 +251,7 @@
               "hide": false,
               "interval": "",
               "measurement": "ceph_perf_osd_op_in_bytes",
-              "query": "SELECT derivative(value,1s) FROM \"ceph_perf_osd_op_in_bytes\" WHERE \"cluster\" =~ /$cluster/ AND \"osd\" =~ /$osd/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT derivative(first(value),1s) FROM \"ceph_perf_osd_op_in_bytes\" WHERE \"cluster\" =~ /$cluster/ AND \"osd\" =~ /$osd/ AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "series": "/$osd.osd.op_in_bytes/",
               "tags": [
@@ -272,7 +272,7 @@
               "fields": [
                 {
                   "func": "derivative",
-                  "name": "value,1s"
+                  "name": "first(value),1s"
                 }
               ],
               "fill": "0",
@@ -280,7 +280,7 @@
               "groupByTags": [],
               "interval": "",
               "measurement": "ceph_perf_osd_op_out_bytes",
-              "query": "SELECT derivative(value,1s) FROM \"ceph_perf_osd_op_out_bytes\" WHERE \"cluster\" =~ /$cluster/ AND \"osd\" =~ /$osd/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT derivative(first(value),1s) FROM \"ceph_perf_osd_op_out_bytes\" WHERE \"cluster\" =~ /$cluster/ AND \"osd\" =~ /$osd/ AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "series": "/$osd.osd.op_out_bytes/",
               "tags": [
@@ -461,7 +461,7 @@
               "fields": [
                 {
                   "func": "derivative",
-                  "name": "value,1s"
+                  "name": "first(value),1s"
                 }
               ],
               "fill": "0",
@@ -469,7 +469,7 @@
               "groupByTags": [],
               "interval": "",
               "measurement": "ceph_perf_osd_op_r_out_bytes",
-              "query": "SELECT derivative(value,1s) FROM \"ceph_perf_osd_op_r_out_bytes\" WHERE \"cluster\" =~ /$cluster/ AND \"osd\" =~ /$osd/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT derivative(first(value),1s) FROM \"ceph_perf_osd_op_r_out_bytes\" WHERE \"cluster\" =~ /$cluster/ AND \"osd\" =~ /$osd/ AND $timeFilter GROUP BY time($interval) fill(0)",
               "series": "/$osd.osd.op_r_out_bytes$/",
               "tags": [
                 {
@@ -489,7 +489,7 @@
               "fields": [
                 {
                   "func": "derivative",
-                  "name": "value,1s"
+                  "name": "first(value),1s"
                 }
               ],
               "fill": "0",
@@ -497,7 +497,7 @@
               "groupByTags": [],
               "interval": "",
               "measurement": "ceph_perf_osd_op_r",
-              "query": "SELECT derivative(value,1s) FROM \"ceph_perf_osd_op_r\" WHERE \"cluster\" =~ /$cluster/ AND \"osd\" =~ /$osd/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT derivative(first(value),1s) FROM \"ceph_perf_osd_op_r\" WHERE \"cluster\" =~ /$cluster/ AND \"osd\" =~ /$osd/ AND $timeFilter GROUP BY time($interval) fill(0)",
               "series": "/$osd.osd.op_r$/",
               "tags": [
                 {
@@ -694,14 +694,14 @@
               "fields": [
                 {
                   "func": "derivative",
-                  "name": "value,1s"
+                  "name": "first(value,1s)"
                 }
               ],
               "fill": "0",
               "function": "derivative",
               "groupByTags": [],
               "measurement": "ceph_perf_osd_op_w_in_bytes",
-              "query": "SELECT derivative(value,1s) FROM \"ceph_perf_osd_op_w_in_bytes\" WHERE \"cluster\" =~ /$cluster/ AND \"osd\" =~ /$osd/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT derivative(first(value),1s) FROM \"ceph_perf_osd_op_w_in_bytes\" WHERE \"cluster\" =~ /$cluster/ AND \"osd\" =~ /$osd/ AND $timeFilter GROUP BY time($interval) fill(0)",
               "series": "/$osd.osd.op_w_in_bytes$/",
               "tags": [
                 {
@@ -721,14 +721,14 @@
               "fields": [
                 {
                   "func": "derivative",
-                  "name": "value,1s"
+                  "name": "first(value),1s"
                 }
               ],
               "fill": "0",
               "function": "derivative",
               "groupByTags": [],
               "measurement": "ceph_perf_osd_op_w",
-              "query": "SELECT derivative(value,1s) FROM \"ceph_perf_osd_op_w\" WHERE \"cluster\" =~ /$cluster/ AND \"osd\" =~ /$osd/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT derivative(first(value),1s) FROM \"ceph_perf_osd_op_w\" WHERE \"cluster\" =~ /$cluster/ AND \"osd\" =~ /$osd/ AND $timeFilter GROUP BY time($interval) fill(0)",
               "series": "/$osd.osd.op_w_in_bytes$/",
               "tags": [
                 {
@@ -748,14 +748,14 @@
               "fields": [
                 {
                   "func": "derivative",
-                  "name": "value,1s"
+                  "name": "first(value),1s"
                 }
               ],
               "fill": "0",
               "function": "derivative",
               "groupByTags": [],
               "measurement": "ceph_perf_osd_op_w_rlat",
-              "query": "SELECT derivative(value,1s) FROM \"ceph_perf_osd_op_w_rlat\" WHERE \"cluster\" =~ /$cluster/ AND \"osd\" =~ /$osd/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT derivative(first(value),1s) FROM \"ceph_perf_osd_op_w_rlat\" WHERE \"cluster\" =~ /$cluster/ AND \"osd\" =~ /$osd/ AND $timeFilter GROUP BY time($interval) fill(0)",
               "series": "/$osd.osd.op_w_in_bytes$/",
               "tags": [
                 {
@@ -962,14 +962,14 @@
               "fields": [
                 {
                   "func": "derivative",
-                  "name": "value,1s"
+                  "name": "first(value),1s"
                 }
               ],
               "fill": "0",
               "function": "derivative",
               "groupByTags": [],
               "measurement": "ceph_perf_osd_op_rw_in_bytes",
-              "query": "SELECT derivative(value,1s) FROM \"ceph_perf_osd_op_rw_in_bytes\" WHERE \"cluster\" =~ /$cluster/ AND \"osd\" =~ /$osd/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT derivative(first(value),1s) FROM \"ceph_perf_osd_op_rw_in_bytes\" WHERE \"cluster\" =~ /$cluster/ AND \"osd\" =~ /$osd/ AND $timeFilter GROUP BY time($interval) fill(0)",
               "series": "/$osd.osd.op_rw_in_bytes$/",
               "tags": [
                 {
@@ -989,14 +989,14 @@
               "fields": [
                 {
                   "func": "derivative",
-                  "name": "value,1s"
+                  "name": "first(value),1s"
                 }
               ],
               "fill": "0",
               "function": "derivative",
               "groupByTags": [],
               "measurement": "ceph_perf_osd_op_rw",
-              "query": "SELECT derivative(value,1s) FROM \"ceph_perf_osd_op_rw\" WHERE \"cluster\" =~ /$cluster/ AND \"osd\" =~ /$osd/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT derivative(first(value),1s) FROM \"ceph_perf_osd_op_rw\" WHERE \"cluster\" =~ /$cluster/ AND \"osd\" =~ /$osd/ AND $timeFilter GROUP BY time($interval) fill(0)",
               "series": "/$osd.osd.op_rw$/",
               "tags": [
                 {
@@ -1016,14 +1016,14 @@
               "fields": [
                 {
                   "func": "derivative",
-                  "name": "value,1s"
+                  "name": "first(value),1s"
                 }
               ],
               "fill": "0",
               "function": "derivative",
               "groupByTags": [],
               "measurement": "ceph_perf_osd_op_rw_rlat",
-              "query": "SELECT derivative(value,1s) FROM \"ceph_perf_osd_op_rw_rlat\" WHERE \"cluster\" =~ /$cluster/ AND \"osd\" =~ /$osd/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT derivative(first(value),1s) FROM \"ceph_perf_osd_op_rw_rlat\" WHERE \"cluster\" =~ /$cluster/ AND \"osd\" =~ /$osd/ AND $timeFilter GROUP BY time($interval) fill(0)",
               "series": "/$osd.osd.op_rw_rlat$/",
               "tags": [
                 {

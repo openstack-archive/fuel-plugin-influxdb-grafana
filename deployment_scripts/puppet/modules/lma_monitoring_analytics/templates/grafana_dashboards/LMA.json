@@ -57,14 +57,14 @@
               "column": "value",
               "fields": [
                 {
-                  "name": "value,1s",
+                  "name": "first(value),1s",
                   "func": "derivative"
                 }
               ],
               "alias": "$tag_name",
               "series": "/$node.*decoder.*count/",
               "measurement": "hekad_msg_count",
-              "query": "SELECT derivative(value,1s) FROM \"hekad_msg_count\" WHERE \"hostname\" = '$node' AND \"type\" = 'decoder' AND $timeFilter GROUP BY time($interval), \"name\" fill(0)",
+              "query": "SELECT derivative(first(value),1s) FROM \"hekad_msg_count\" WHERE \"hostname\" = '$node' AND \"type\" = 'decoder' AND $timeFilter GROUP BY time($interval), \"name\" fill(0)",
               "fill": "0"
             }
           ],
@@ -235,14 +235,14 @@
               "column": "value",
               "fields": [
                 {
-                  "name": "value,1s",
+                  "name": "first(value),1s",
                   "func": "derivative"
                 }
               ],
               "alias": "$tag_name",
               "series": "/$node.*filter.*count/",
               "measurement": "hekad_msg_count",
-              "query": "SELECT derivative(value,1s) FROM \"hekad_msg_count\" WHERE \"hostname\" = '$node' AND \"type\" = 'filter' AND $timeFilter GROUP BY time($interval), \"name\" fill(0)",
+              "query": "SELECT derivative(first(value),1s) FROM \"hekad_msg_count\" WHERE \"hostname\" = '$node' AND \"type\" = 'filter' AND $timeFilter GROUP BY time($interval), \"name\" fill(0)",
               "fill": "0"
             }
           ],
