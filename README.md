@@ -145,6 +145,10 @@ Release Notes
 * Fix wrong values in service dashboards ([LP#1488086](https://bugs.launchpad.net/fuel-plugins/+bug/1488086)).
 * Execute the network configuration task only on the InfluxDB-Grafana node ([LP#1489885](https://bugs.launchpad.net/fuel-plugins/+bug/1489885)).
 
+**0.7.1**
+
+* Fix issues with licence.
+
 **0.7.0**
 
 * Initial release of the plugin. This is a beta version.
