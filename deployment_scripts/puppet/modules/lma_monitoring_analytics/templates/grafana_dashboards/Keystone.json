@@ -381,7 +381,13 @@
             {
               "function": "last",
               "groupByTags": [],
-              "tags": [],
+              "tags": [
+                {
+                  "operator": "=",
+                  "value": "keystone-public-api",
+                  "key": "service"
+                }
+              ],
               "column": "value",
               "fields": [
                 {
@@ -391,8 +397,8 @@
               ],
               "alias": "healthy",
               "series": "merge(/openstack.cinder.check_api/)",
-              "measurement": "openstack_keystone_check_api",
-              "query": "SELECT last(value) FROM \"openstack_keystone_check_api\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
+              "measurement": "openstack_check_api",
+              "query": "SELECT last(value) FROM \"openstack_check_api\" WHERE \"service\" = 'keystone-public-api' AND $timeFilter GROUP BY time($interval) fill(0)",
               "fill": "0"
             }
           ],
