@@ -2,8 +2,103 @@
   "style": "dark",
   "rows": [
     {
-      "title": "RabbitMQ",
+      "title": "",
       "panels": [
+        {
+          "links": [],
+          "valueMaps": [
+            {
+              "text": "no data",
+              "value": "null",
+              "op": "="
+            },
+            {
+              "text": "OKAY",
+              "value": "0",
+              "op": "="
+            },
+            {
+              "text": "WARN",
+              "value": "1",
+              "op": "="
+            },
+            {
+              "text": "UNKN",
+              "value": "2",
+              "op": "="
+            },
+            {
+              "text": "CRIT",
+              "value": "3",
+              "op": "="
+            },
+            {
+              "text": "DOWN",
+              "value": "4",
+              "op": "="
+            }
+          ],
+          "thresholds": "0,1,3",
+          "nullPointMode": "connected",
+          "prefix": "",
+          "targets": [
+            {
+              "function": "last",
+              "groupby_field": "",
+              "rawQuery": false,
+              "groupByTags": [],
+              "tags": [
+                {
+                  "operator": "=",
+                  "value": "rabbitmq",
+                  "key": "cluster_name"
+                }
+              ],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "last"
+                }
+              ],
+              "interval": "",
+              "series": "merge(/openstack.cinder.status/)",
+              "measurement": "cluster_status",
+              "query": "SELECT last(value) FROM \"cluster_status\" WHERE \"cluster_name\" = 'rabbitmq' AND $timeFilter GROUP BY time($interval)",
+              "condition": "",
+              "fill": ""
+            }
+          ],
+          "maxDataPoints": 100,
+          "span": 3,
+          "colorBackground": true,
+          "title": "",
+          "sparkline": {
+            "full": false,
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "id": 34,
+          "prefixFontSize": "50%",
+          "valueName": "current",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "format": "none",
+          "editable": true,
+          "cacheTimeout": null,
+          "postfix": "",
+          "interval": "> 60s",
+          "colors": [
+            "rgba(71, 212, 59, 0.4)",
+            "rgba(241, 181, 37, 0.73)",
+            "rgba(225, 40, 40, 0.59)"
+          ],
+          "error": false,
+          "nullText": null,
+          "postfixFontSize": "50%",
+          "colorValue": false
+        },
         {
           "links": [],
           "valueMaps": [
@@ -40,7 +135,7 @@
             }
           ],
           "maxDataPoints": 100,
-          "span": 2,
+          "span": 3,
           "colorBackground": false,
           "title": "Nodes",
           "sparkline": {
@@ -105,7 +200,7 @@
             }
           ],
           "maxDataPoints": 100,
-          "span": 2,
+          "span": 3,
           "colorBackground": false,
           "title": "Running nodes",
           "sparkline": {
@@ -134,6 +229,26 @@
           "postfixFontSize": "50%",
           "colorValue": false
         },
+        {
+          "style": {},
+          "span": 3,
+          "links": [],
+          "title": "",
+          "editable": true,
+          "content": "",
+          "mode": "markdown",
+          "error": false,
+          "type": "text",
+          "id": 35
+        }
+      ],
+      "editable": true,
+      "collapse": false,
+      "height": "250px"
+    },
+    {
+      "title": "RabbitMQ",
+      "panels": [
         {
           "links": [],
           "valueMaps": [
@@ -169,7 +284,7 @@
             }
           ],
           "maxDataPoints": 100,
-          "span": 2,
+          "span": 3,
           "colorBackground": false,
           "title": "Consumers",
           "sparkline": {
@@ -234,7 +349,7 @@
             }
           ],
           "maxDataPoints": 100,
-          "span": 2,
+          "span": 3,
           "colorBackground": false,
           "title": "Queues",
           "sparkline": {
@@ -299,7 +414,7 @@
             }
           ],
           "maxDataPoints": 100,
-          "span": 2,
+          "span": 3,
           "colorBackground": false,
           "title": "Connections",
           "sparkline": {
@@ -363,7 +478,7 @@
             }
           ],
           "maxDataPoints": 100,
-          "span": 2,
+          "span": 3,
           "colorBackground": false,
           "title": "Exchanges",
           "sparkline": {
@@ -401,10 +516,10 @@
           "renderer": "flot",
           "linewidth": 1,
           "steppedLine": false,
-          "id": 25,
+          "id": 37,
           "fill": 0,
           "span": 6,
-          "title": "Memory used by all queues",
+          "title": "Queues not mirrored",
           "tooltip": {
             "shared": true,
             "value_type": "cumulative"
@@ -433,10 +548,10 @@
                   "func": "mean"
                 }
               ],
-              "alias": "$tag_hostname.total (all processes)",
+              "alias": "$tag_hostname",
               "series": "/$server.rabbitmq.memory/",
-              "measurement": "rabbitmq_memory",
-              "query": "SELECT mean(value) FROM \"rabbitmq_memory\" WHERE $timeFilter GROUP BY time($interval), \"hostname\" fill(0)",
+              "measurement": "rabbitmq_unmirrored_queues",
+              "query": "SELECT mean(value) FROM \"rabbitmq_unmirrored_queues\" WHERE $timeFilter GROUP BY time($interval), \"hostname\" fill(0)",
               "fill": "0"
             }
           ],
@@ -466,8 +581,9 @@
           "points": false,
           "datasource": null,
           "pointradius": 5,
+          "decimals": 0,
           "y_formats": [
-            "bytes",
+            "none",
             "bytes"
           ]
         },
@@ -549,6 +665,164 @@
             "short",
             "short"
           ]
+        },
+        {
+          "bars": false,
+          "aliasColors": {},
+          "links": [],
+          "nullPointMode": "connected",
+          "timeFrom": null,
+          "renderer": "flot",
+          "linewidth": 1,
+          "steppedLine": false,
+          "id": 25,
+          "fill": 0,
+          "span": 6,
+          "title": "Used memory",
+          "tooltip": {
+            "shared": true,
+            "value_type": "cumulative"
+          },
+          "legend": {
+            "total": false,
+            "show": true,
+            "max": false,
+            "min": false,
+            "current": false,
+            "values": false,
+            "avg": false
+          },
+          "targets": [
+            {
+              "function": "mean",
+              "rawQuery": false,
+              "groupByTags": [
+                "hostname"
+              ],
+              "tags": [],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "mean"
+                }
+              ],
+              "alias": "$tag_hostname",
+              "series": "/$server.rabbitmq.memory/",
+              "measurement": "rabbitmq_used_memory",
+              "query": "SELECT mean(value) FROM \"rabbitmq_used_memory\" WHERE $timeFilter GROUP BY time($interval), \"hostname\" fill(0)",
+              "fill": "0"
+            }
+          ],
+          "seriesOverrides": [],
+          "percentage": false,
+          "type": "graph",
+          "x-axis": true,
+          "error": false,
+          "editable": true,
+          "grid": {
+            "leftMax": null,
+            "threshold2": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "threshold1": null,
+            "leftLogBase": 1,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)",
+            "rightMin": 0,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "leftMin": 0
+          },
+          "stack": false,
+          "y-axis": true,
+          "timeShift": null,
+          "interval": "> 60s",
+          "lines": true,
+          "points": false,
+          "datasource": null,
+          "pointradius": 5,
+          "y_formats": [
+            "bytes",
+            "bytes"
+          ]
+        },
+        {
+          "bars": false,
+          "aliasColors": {},
+          "links": [],
+          "nullPointMode": "connected",
+          "timeFrom": null,
+          "renderer": "flot",
+          "linewidth": 1,
+          "steppedLine": false,
+          "id": 38,
+          "fill": 0,
+          "span": 6,
+          "title": "Free disk",
+          "tooltip": {
+            "shared": true,
+            "value_type": "cumulative"
+          },
+          "legend": {
+            "total": false,
+            "show": true,
+            "max": false,
+            "min": false,
+            "current": false,
+            "values": false,
+            "avg": false
+          },
+          "targets": [
+            {
+              "function": "mean",
+              "rawQuery": false,
+              "groupByTags": [
+                "hostname"
+              ],
+              "tags": [],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "mean"
+                }
+              ],
+              "alias": "$tag_hostname",
+              "series": "/$server.rabbitmq.memory/",
+              "measurement": "rabbitmq_disk_free",
+              "query": "SELECT mean(value) FROM \"rabbitmq_disk_free\" WHERE $timeFilter GROUP BY time($interval), \"hostname\" fill(0)",
+              "fill": "0"
+            }
+          ],
+          "seriesOverrides": [],
+          "percentage": false,
+          "type": "graph",
+          "x-axis": true,
+          "error": false,
+          "editable": true,
+          "grid": {
+            "leftMax": null,
+            "threshold2": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "threshold1": null,
+            "leftLogBase": 1,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)",
+            "rightMin": 0,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "leftMin": 0
+          },
+          "stack": false,
+          "y-axis": true,
+          "timeShift": null,
+          "interval": "> 60s",
+          "lines": true,
+          "points": false,
+          "datasource": null,
+          "pointradius": 5,
+          "y_formats": [
+            "bytes",
+            "bytes"
+          ]
         }
       ],
       "editable": true,
@@ -565,8 +839,7 @@
         "refresh_on_load": true,
         "allFormat": "regex values",
         "refresh": true,
-        "current": {
-        },
+        "current": {},
         "datasource": null,
         "query": "show tag values from pacemaker_local_resource_active with key = hostname ",
         "type": "query",
@@ -625,6 +898,20 @@
   "timezone": "browser",
   "schemaVersion": 6,
   "annotations": {
-    "list": []
+    "list": [
+      {
+        "enable": true,
+        "name": "Status",
+        "iconSize": 13,
+        "textColumn": "text",
+        "titleColumn": "title",
+        "datasource": "influxdb",
+        "lineColor": "rgba(255, 96, 96, 0.592157)",
+        "showLine": true,
+        "query": "select title,tags,text from annotations where $timeFilter and cluster = 'rabbitmq'",
+        "tagsColumn": "tags",
+        "iconColor": "#C0C6BE"
+      }
+    ]
   }
 }
