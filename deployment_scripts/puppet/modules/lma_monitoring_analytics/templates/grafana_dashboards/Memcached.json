@@ -5,6 +5,101 @@
       "title": "Row1",
       "panels": [
         {
+          "links": [],
+          "valueMaps": [
+            {
+              "text": "no data",
+              "value": "null",
+              "op": "="
+            },
+            {
+              "text": "OKAY",
+              "value": "0",
+              "op": "="
+            },
+            {
+              "text": "WARN",
+              "value": "1",
+              "op": "="
+            },
+            {
+              "text": "UNKN",
+              "value": "2",
+              "op": "="
+            },
+            {
+              "text": "CRIT",
+              "value": "3",
+              "op": "="
+            },
+            {
+              "text": "DOWN",
+              "value": "4",
+              "op": "="
+            }
+          ],
+          "thresholds": "0,1,3",
+          "nullPointMode": "connected",
+          "prefix": "",
+          "targets": [
+            {
+              "function": "last",
+              "groupby_field": "",
+              "rawQuery": false,
+              "groupByTags": [],
+              "tags": [
+                {
+                  "operator": "=",
+                  "value": "memcached",
+                  "key": "cluster_name"
+                }
+              ],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "last"
+                }
+              ],
+              "interval": "",
+              "series": "merge(/openstack.cinder.status/)",
+              "measurement": "cluster_status",
+              "query": "SELECT last(value) FROM \"cluster_status\" WHERE \"cluster_name\" = 'memcached' AND $timeFilter GROUP BY time($interval)",
+              "condition": "",
+              "fill": ""
+            }
+          ],
+          "maxDataPoints": 100,
+          "span": 3,
+          "colorBackground": true,
+          "title": "",
+          "sparkline": {
+            "full": false,
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "id": 9,
+          "prefixFontSize": "50%",
+          "valueName": "current",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "format": "none",
+          "editable": true,
+          "cacheTimeout": null,
+          "postfix": "",
+          "interval": "> 60s",
+          "colors": [
+            "rgba(71, 212, 59, 0.4)",
+            "rgba(241, 181, 37, 0.73)",
+            "rgba(225, 40, 40, 0.59)"
+          ],
+          "error": false,
+          "nullText": null,
+          "postfixFontSize": "50%",
+          "colorValue": false
+        },
+        {
           "bars": false,
           "aliasColors": {},
           "links": [],
@@ -98,7 +193,7 @@
           "steppedLine": false,
           "id": 2,
           "fill": 0,
-          "span": 6,
+          "span": 3,
           "title": "Cache used",
           "tooltip": {
             "shared": true,
@@ -797,7 +892,7 @@
   "refresh": "1m",
   "id": null,
   "originalTitle": "Memcached",
-  "version": 1,
+  "version": 3,
   "nav": [
     {
       "status": "Stable",
@@ -839,6 +934,20 @@
   "timezone": "browser",
   "schemaVersion": 6,
   "annotations": {
-    "list": []
+    "list": [
+      {
+        "enable": true,
+        "name": "Status",
+        "iconSize": 13,
+        "textColumn": "text",
+        "titleColumn": "title",
+        "datasource": "influxdb",
+        "lineColor": "rgba(255, 96, 96, 0.592157)",
+        "showLine": true,
+        "query": "select title,tags,text from annotations where $timeFilter and cluster = 'memcached'",
+        "tagsColumn": "tags",
+        "iconColor": "#C0C6BE"
+      }
+    ]
   }
 }

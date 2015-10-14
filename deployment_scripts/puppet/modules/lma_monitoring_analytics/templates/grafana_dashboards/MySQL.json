@@ -5,6 +5,430 @@
       "title": "MySQL",
       "panels": [
         {
+          "links": [],
+          "valueMaps": [
+            {
+              "text": "no data",
+              "value": "null",
+              "op": "="
+            },
+            {
+              "text": "OKAY",
+              "value": "0",
+              "op": "="
+            },
+            {
+              "text": "WARN",
+              "value": "1",
+              "op": "="
+            },
+            {
+              "text": "UNKN",
+              "value": "2",
+              "op": "="
+            },
+            {
+              "text": "CRIT",
+              "value": "3",
+              "op": "="
+            },
+            {
+              "text": "DOWN",
+              "value": "4",
+              "op": "="
+            }
+          ],
+          "thresholds": "0,1,3",
+          "nullPointMode": "connected",
+          "prefix": "",
+          "targets": [
+            {
+              "function": "last",
+              "groupby_field": "",
+              "rawQuery": false,
+              "groupByTags": [],
+              "tags": [
+                {
+                  "operator": "=",
+                  "value": "mysql",
+                  "key": "cluster_name"
+                }
+              ],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "last"
+                }
+              ],
+              "interval": "",
+              "series": "merge(/openstack.cinder.status/)",
+              "measurement": "cluster_status",
+              "query": "SELECT last(value) FROM \"cluster_status\" WHERE \"cluster_name\" = 'mysql' AND $timeFilter GROUP BY time($interval)",
+              "condition": "",
+              "fill": ""
+            }
+          ],
+          "maxDataPoints": 100,
+          "span": 3,
+          "colorBackground": true,
+          "title": "",
+          "sparkline": {
+            "full": false,
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "id": 26,
+          "prefixFontSize": "50%",
+          "valueName": "current",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "format": "none",
+          "editable": true,
+          "cacheTimeout": null,
+          "postfix": "",
+          "interval": "> 60s",
+          "colors": [
+            "rgba(71, 212, 59, 0.4)",
+            "rgba(241, 181, 37, 0.73)",
+            "rgba(225, 40, 40, 0.59)"
+          ],
+          "error": false,
+          "nullText": null,
+          "postfixFontSize": "50%",
+          "colorValue": false
+        },
+        {
+          "bars": false,
+          "aliasColors": {},
+          "links": [],
+          "nullPointMode": "connected",
+          "timeFrom": null,
+          "renderer": "flot",
+          "linewidth": 1,
+          "steppedLine": false,
+          "id": 23,
+          "fill": 0,
+          "span": 3,
+          "title": "Network I/O",
+          "tooltip": {
+            "shared": true,
+            "value_type": "cumulative"
+          },
+          "legend": {
+            "total": false,
+            "show": true,
+            "max": false,
+            "min": false,
+            "current": false,
+            "values": false,
+            "avg": false
+          },
+          "targets": [
+            {
+              "function": "mean",
+              "rawQuery": false,
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "/$server/",
+                  "key": "hostname"
+                }
+              ],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "mean"
+                }
+              ],
+              "alias": "rx",
+              "series": "/$server.mysql_octets/",
+              "measurement": "mysql_octets_rx",
+              "query": "SELECT mean(value) FROM \"mysql_octets_rx\" WHERE \"hostname\" =~ /$server/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "fill": "0"
+            },
+            {
+              "function": "mean",
+              "rawQuery": false,
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "/$server/",
+                  "key": "hostname"
+                }
+              ],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "mean"
+                }
+              ],
+              "alias": "tx",
+              "series": "/$server.mysql_octets/",
+              "measurement": "mysql_octets_tx",
+              "query": "SELECT mean(value) FROM \"mysql_octets_tx\" WHERE \"hostname\" =~ /$server/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "fill": "0"
+            }
+          ],
+          "leftYAxisLabel": "",
+          "seriesOverrides": [],
+          "percentage": false,
+          "type": "graph",
+          "x-axis": true,
+          "error": false,
+          "editable": true,
+          "grid": {
+            "leftMax": null,
+            "threshold2": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "threshold1": null,
+            "leftLogBase": 1,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)",
+            "rightMin": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "leftMin": 0
+          },
+          "stack": false,
+          "y-axis": true,
+          "timeShift": null,
+          "interval": ">60s",
+          "lines": true,
+          "points": false,
+          "datasource": null,
+          "pointradius": 5,
+          "y_formats": [
+            "Bps",
+            "short"
+          ]
+        },
+        {
+          "bars": false,
+          "aliasColors": {},
+          "links": [],
+          "nullPointMode": "connected",
+          "timeFrom": null,
+          "renderer": "flot",
+          "linewidth": 1,
+          "steppedLine": false,
+          "id": 24,
+          "fill": 0,
+          "span": 3,
+          "title": "Locks",
+          "tooltip": {
+            "shared": true,
+            "value_type": "cumulative"
+          },
+          "legend": {
+            "total": false,
+            "show": true,
+            "max": false,
+            "min": false,
+            "current": false,
+            "values": false,
+            "avg": false
+          },
+          "targets": [
+            {
+              "function": "mean",
+              "groupByTags": [],
+              "tags": [],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "mean"
+                }
+              ],
+              "alias": "immediate",
+              "series": "/$server.mysql_locks/",
+              "measurement": "mysql_locks_immediate",
+              "query": "SELECT mean(value) FROM \"mysql_locks_immediate\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
+              "fill": "0"
+            },
+            {
+              "function": "mean",
+              "groupByTags": [],
+              "tags": [],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "mean"
+                }
+              ],
+              "alias": "waited",
+              "series": "/$server.mysql_locks/",
+              "measurement": "mysql_locks_waited",
+              "query": "SELECT mean(value) FROM \"mysql_locks_waited\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
+              "fill": "0"
+            }
+          ],
+          "leftYAxisLabel": "per second",
+          "seriesOverrides": [],
+          "percentage": false,
+          "type": "graph",
+          "x-axis": true,
+          "error": false,
+          "editable": true,
+          "grid": {
+            "leftMax": null,
+            "threshold2": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "threshold1": null,
+            "leftLogBase": 1,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)",
+            "rightMin": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "leftMin": 0
+          },
+          "stack": false,
+          "y-axis": true,
+          "timeShift": null,
+          "interval": ">60s",
+          "lines": true,
+          "points": false,
+          "datasource": null,
+          "pointradius": 5,
+          "y_formats": [
+            "short",
+            "short"
+          ]
+        },
+        {
+          "bars": false,
+          "aliasColors": {},
+          "links": [],
+          "nullPointMode": "connected",
+          "timeFrom": null,
+          "renderer": "flot",
+          "linewidth": 1,
+          "steppedLine": false,
+          "id": 22,
+          "fill": 0,
+          "span": 3,
+          "title": "Threads",
+          "tooltip": {
+            "shared": true,
+            "value_type": "cumulative"
+          },
+          "legend": {
+            "total": false,
+            "show": true,
+            "max": false,
+            "min": false,
+            "current": false,
+            "values": false,
+            "avg": false
+          },
+          "targets": [
+            {
+              "function": "mean",
+              "rawQuery": false,
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "/$server/",
+                  "key": "hostname"
+                }
+              ],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "mean"
+                }
+              ],
+              "alias": "cached",
+              "series": "/$server.mysql_threads/",
+              "measurement": "mysql_threads_cached",
+              "query": "SELECT mean(value) FROM \"mysql_threads_cached\" WHERE \"hostname\" =~ /$server/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "fill": "0"
+            },
+            {
+              "function": "mean",
+              "rawQuery": false,
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "/$server/",
+                  "key": "hostname"
+                }
+              ],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "mean"
+                }
+              ],
+              "alias": "connected",
+              "series": "/$server.mysql_threads/",
+              "measurement": "mysql_threads_connected",
+              "query": "SELECT mean(value) FROM \"mysql_threads_connected\" WHERE \"hostname\" =~ /$server/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "fill": "0"
+            },
+            {
+              "function": "mean",
+              "rawQuery": false,
+              "groupByTags": [],
+              "tags": [
+                {
+                  "value": "/$server/",
+                  "key": "hostname"
+                }
+              ],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "mean"
+                }
+              ],
+              "alias": "running",
+              "series": "/$server.mysql_threads/",
+              "measurement": "mysql_threads_running",
+              "query": "SELECT mean(value) FROM \"mysql_threads_running\" WHERE \"hostname\" =~ /$server/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "fill": "0"
+            }
+          ],
+          "leftYAxisLabel": "Thread Count",
+          "seriesOverrides": [],
+          "percentage": false,
+          "type": "graph",
+          "x-axis": true,
+          "error": false,
+          "editable": true,
+          "grid": {
+            "leftMax": null,
+            "threshold2": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "threshold1": null,
+            "leftLogBase": 1,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)",
+            "rightMin": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "leftMin": 0
+          },
+          "stack": false,
+          "y-axis": true,
+          "timeShift": null,
+          "interval": ">60s",
+          "lines": true,
+          "points": false,
+          "datasource": null,
+          "pointradius": 5,
+          "y_formats": [
+            "short",
+            "short"
+          ]
+        },
+        {
           "bars": false,
           "aliasColors": {},
           "links": [],
@@ -15,7 +439,7 @@
           "steppedLine": false,
           "id": 21,
           "fill": 0,
-          "span": 3,
+          "span": 6,
           "title": "Commands",
           "tooltip": {
             "shared": true,
@@ -235,338 +659,9 @@
           "renderer": "flot",
           "linewidth": 1,
           "steppedLine": false,
-          "id": 22,
-          "fill": 0,
-          "span": 3,
-          "title": "Threads",
-          "tooltip": {
-            "shared": true,
-            "value_type": "cumulative"
-          },
-          "legend": {
-            "total": false,
-            "show": true,
-            "max": false,
-            "min": false,
-            "current": false,
-            "values": false,
-            "avg": false
-          },
-          "targets": [
-            {
-              "function": "mean",
-              "rawQuery": false,
-              "groupByTags": [],
-              "tags": [
-                {
-                  "value": "/$server/",
-                  "key": "hostname"
-                }
-              ],
-              "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "mean"
-                }
-              ],
-              "alias": "cached",
-              "series": "/$server.mysql_threads/",
-              "measurement": "mysql_threads_cached",
-              "query": "SELECT mean(value) FROM \"mysql_threads_cached\" WHERE \"hostname\" =~ /$server/ AND $timeFilter GROUP BY time($interval) fill(0)",
-              "fill": "0"
-            },
-            {
-              "function": "mean",
-              "rawQuery": false,
-              "groupByTags": [],
-              "tags": [
-                {
-                  "value": "/$server/",
-                  "key": "hostname"
-                }
-              ],
-              "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "mean"
-                }
-              ],
-              "alias": "connected",
-              "series": "/$server.mysql_threads/",
-              "measurement": "mysql_threads_connected",
-              "query": "SELECT mean(value) FROM \"mysql_threads_connected\" WHERE \"hostname\" =~ /$server/ AND $timeFilter GROUP BY time($interval) fill(0)",
-              "fill": "0"
-            },
-            {
-              "function": "mean",
-              "rawQuery": false,
-              "groupByTags": [],
-              "tags": [
-                {
-                  "value": "/$server/",
-                  "key": "hostname"
-                }
-              ],
-              "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "mean"
-                }
-              ],
-              "alias": "running",
-              "series": "/$server.mysql_threads/",
-              "measurement": "mysql_threads_running",
-              "query": "SELECT mean(value) FROM \"mysql_threads_running\" WHERE \"hostname\" =~ /$server/ AND $timeFilter GROUP BY time($interval) fill(0)",
-              "fill": "0"
-            }
-          ],
-          "leftYAxisLabel": "Thread Count",
-          "seriesOverrides": [],
-          "percentage": false,
-          "type": "graph",
-          "x-axis": true,
-          "error": false,
-          "editable": true,
-          "grid": {
-            "leftMax": null,
-            "threshold2": null,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "threshold1": null,
-            "leftLogBase": 1,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)",
-            "rightMin": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "leftMin": 0
-          },
-          "stack": false,
-          "y-axis": true,
-          "timeShift": null,
-          "interval": ">60s",
-          "lines": true,
-          "points": false,
-          "datasource": null,
-          "pointradius": 5,
-          "y_formats": [
-            "short",
-            "short"
-          ]
-        },
-        {
-          "bars": false,
-          "aliasColors": {},
-          "links": [],
-          "nullPointMode": "connected",
-          "timeFrom": null,
-          "renderer": "flot",
-          "linewidth": 1,
-          "steppedLine": false,
-          "id": 23,
-          "fill": 0,
-          "span": 3,
-          "title": "Network I/O",
-          "tooltip": {
-            "shared": true,
-            "value_type": "cumulative"
-          },
-          "legend": {
-            "total": false,
-            "show": true,
-            "max": false,
-            "min": false,
-            "current": false,
-            "values": false,
-            "avg": false
-          },
-          "targets": [
-            {
-              "function": "mean",
-              "rawQuery": false,
-              "groupByTags": [],
-              "tags": [
-                {
-                  "value": "/$server/",
-                  "key": "hostname"
-                }
-              ],
-              "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "mean"
-                }
-              ],
-              "alias": "rx",
-              "series": "/$server.mysql_octets/",
-              "measurement": "mysql_octets_rx",
-              "query": "SELECT mean(value) FROM \"mysql_octets_rx\" WHERE \"hostname\" =~ /$server/ AND $timeFilter GROUP BY time($interval) fill(0)",
-              "fill": "0"
-            },
-            {
-              "function": "mean",
-              "rawQuery": false,
-              "groupByTags": [],
-              "tags": [
-                {
-                  "value": "/$server/",
-                  "key": "hostname"
-                }
-              ],
-              "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "mean"
-                }
-              ],
-              "alias": "tx",
-              "series": "/$server.mysql_octets/",
-              "measurement": "mysql_octets_tx",
-              "query": "SELECT mean(value) FROM \"mysql_octets_tx\" WHERE \"hostname\" =~ /$server/ AND $timeFilter GROUP BY time($interval) fill(0)",
-              "fill": "0"
-            }
-          ],
-          "leftYAxisLabel": "",
-          "seriesOverrides": [],
-          "percentage": false,
-          "type": "graph",
-          "x-axis": true,
-          "error": false,
-          "editable": true,
-          "grid": {
-            "leftMax": null,
-            "threshold2": null,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "threshold1": null,
-            "leftLogBase": 1,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)",
-            "rightMin": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "leftMin": 0
-          },
-          "stack": false,
-          "y-axis": true,
-          "timeShift": null,
-          "interval": ">60s",
-          "lines": true,
-          "points": false,
-          "datasource": null,
-          "pointradius": 5,
-          "y_formats": [
-            "Bps",
-            "short"
-          ]
-        },
-        {
-          "bars": false,
-          "aliasColors": {},
-          "links": [],
-          "nullPointMode": "connected",
-          "timeFrom": null,
-          "renderer": "flot",
-          "linewidth": 1,
-          "steppedLine": false,
-          "id": 24,
-          "fill": 0,
-          "span": 3,
-          "title": "Locks",
-          "tooltip": {
-            "shared": true,
-            "value_type": "cumulative"
-          },
-          "legend": {
-            "total": false,
-            "show": true,
-            "max": false,
-            "min": false,
-            "current": false,
-            "values": false,
-            "avg": false
-          },
-          "targets": [
-            {
-              "function": "mean",
-              "groupByTags": [],
-              "tags": [],
-              "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "mean"
-                }
-              ],
-              "alias": "immediate",
-              "series": "/$server.mysql_locks/",
-              "measurement": "mysql_locks_immediate",
-              "query": "SELECT mean(value) FROM \"mysql_locks_immediate\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
-              "fill": "0"
-            },
-            {
-              "function": "mean",
-              "groupByTags": [],
-              "tags": [],
-              "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "mean"
-                }
-              ],
-              "alias": "waited",
-              "series": "/$server.mysql_locks/",
-              "measurement": "mysql_locks_waited",
-              "query": "SELECT mean(value) FROM \"mysql_locks_waited\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
-              "fill": "0"
-            }
-          ],
-          "leftYAxisLabel": "per second",
-          "seriesOverrides": [],
-          "percentage": false,
-          "type": "graph",
-          "x-axis": true,
-          "error": false,
-          "editable": true,
-          "grid": {
-            "leftMax": null,
-            "threshold2": null,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "threshold1": null,
-            "leftLogBase": 1,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)",
-            "rightMin": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "leftMin": 0
-          },
-          "stack": false,
-          "y-axis": true,
-          "timeShift": null,
-          "interval": ">60s",
-          "lines": true,
-          "points": false,
-          "datasource": null,
-          "pointradius": 5,
-          "y_formats": [
-            "short",
-            "short"
-          ]
-        },
-        {
-          "bars": false,
-          "aliasColors": {},
-          "links": [],
-          "nullPointMode": "connected",
-          "timeFrom": null,
-          "renderer": "flot",
-          "linewidth": 1,
-          "steppedLine": false,
           "id": 25,
           "fill": 0,
-          "span": 12,
+          "span": 6,
           "title": "Handlers",
           "tooltip": {
             "shared": true,
@@ -654,8 +749,7 @@
         "refresh_on_load": true,
         "allFormat": "glob",
         "refresh": true,
-        "current": {
-        },
+        "current": {},
         "datasource": null,
         "query": "show tag values from pacemaker_local_resource_active with key = hostname ",
         "type": "query",
@@ -672,7 +766,7 @@
   "refresh": "1m",
   "id": null,
   "originalTitle": "MySQL",
-  "version": 3,
+  "version": 4,
   "nav": [
     {
       "status": "Stable",
@@ -715,6 +809,20 @@
   "schemaVersion": 6,
   "annotations": {
     "enable": false,
-    "list": []
+    "list": [
+      {
+        "enable": true,
+        "name": "Status",
+        "iconSize": 13,
+        "textColumn": "text",
+        "titleColumn": "title",
+        "datasource": "influxdb",
+        "lineColor": "rgba(255, 96, 96, 0.592157)",
+        "showLine": true,
+        "query": "select title,tags,text from annotations where $timeFilter and cluster = 'mysql'",
+        "tagsColumn": "tags",
+        "iconColor": "#C0C6BE"
+      }
+    ]
   }
 }
