@@ -648,16 +648,31 @@
             },
             {
               "text": "OKAY",
+              "value": "0",
+              "op": "="
+            },
+            {
+              "text": "WARN",
               "value": "1",
               "op": "="
             },
             {
-              "text": "FAIL",
-              "value": "0",
+              "text": "UNKW",
+              "value": "2",
+              "op": "="
+            },
+            {
+              "text": "CRIT",
+              "value": "3",
+              "op": "="
+            },
+            {
+              "text": "DOWN",
+              "value": "4",
               "op": "="
             }
           ],
-          "thresholds": "0,0,1",
+          "thresholds": "0,1,3",
           "nullPointMode": "connected",
           "prefix": "",
           "targets": [
@@ -665,7 +680,13 @@
               "function": "last",
               "rawQuery": false,
               "groupByTags": [],
-              "tags": [],
+              "tags": [
+                {
+                  "operator": "=",
+                  "value": "rabbitmq",
+                  "key": "cluster_name"
+                }
+              ],
               "column": "value",
               "fields": [
                 {
@@ -675,8 +696,8 @@
               ],
               "interval": "",
               "series": "merge(/\\.rabbitmq.status$/)",
-              "measurement": "rabbitmq_status",
-              "query": "SELECT last(value) FROM \"rabbitmq_status\" WHERE $timeFilter GROUP BY time($interval)",
+              "measurement": "cluster_status",
+              "query": "SELECT last(value) FROM \"cluster_status\" WHERE \"cluster_name\" = 'rabbitmq' AND $timeFilter GROUP BY time($interval)",
               "fill": ""
             }
           ],
@@ -701,9 +722,9 @@
           "postfix": "",
           "interval": ">60s",
           "colors": [
-            "rgba(225, 40, 40, 0.59)",
-            "rgba(245, 40, 40, 0.73)",
-            "rgba(71, 212, 59, 0.4)"
+            "rgba(71, 212, 59, 0.4)",
+            "rgba(245, 150, 40, 0.73)",
+            "rgba(225, 40, 40, 0.59)"
           ],
           "error": false,
           "nullText": null,
@@ -727,16 +748,31 @@
             },
             {
               "text": "OKAY",
+              "value": "0",
+              "op": "="
+            },
+            {
+              "text": "WARN",
               "value": "1",
               "op": "="
             },
             {
-              "text": "FAIL",
-              "value": "0",
+              "text": "UNKW",
+              "value": "2",
+              "op": "="
+            },
+            {
+              "text": "CRIT",
+              "value": "3",
+              "op": "="
+            },
+            {
+              "text": "DOWN",
+              "value": "4",
               "op": "="
             }
           ],
-          "thresholds": "0,0,1",
+          "thresholds": "0,1,3",
           "nullPointMode": "connected",
           "prefix": "",
           "targets": [
@@ -744,7 +780,13 @@
               "function": "last",
               "rawQuery": false,
               "groupByTags": [],
-              "tags": [],
+              "tags": [
+                {
+                  "operator": "=",
+                  "value": "mysql",
+                  "key": "cluster_name"
+                }
+              ],
               "column": "value",
               "fields": [
                 {
@@ -754,8 +796,8 @@
               ],
               "interval": "",
               "series": "merge(/mysql.status$/)",
-              "measurement": "mysql_status",
-              "query": "SELECT last(value) FROM \"mysql_status\" WHERE $timeFilter GROUP BY time($interval)",
+              "measurement": "cluster_status",
+              "query": "SELECT last(value) FROM \"cluster_status\" WHERE \"cluster_name\" = 'mysql' AND $timeFilter GROUP BY time($interval)",
               "fill": ""
             }
           ],
@@ -780,9 +822,9 @@
           "postfix": "",
           "interval": ">60s",
           "colors": [
-            "rgba(225, 40, 40, 0.59)",
-            "rgba(245, 40, 40, 0.73)",
-            "rgba(71, 212, 59, 0.4)"
+            "rgba(71, 212, 59, 0.4)",
+            "rgba(245, 150, 40, 0.73)",
+            "rgba(225, 40, 40, 0.59)"
           ],
           "error": false,
           "nullText": null,
@@ -794,8 +836,9 @@
             {
               "title": "Apache",
               "type": "dashboard",
-              "dashboard": "Apache",
-              "name": "Drilldown dashboard"
+              "dashUri": "db/apache",
+              "name": "Drilldown dashboard",
+              "dashboard": "Apache"
             }
           ],
           "valueMaps": [
@@ -806,16 +849,31 @@
             },
             {
               "text": "OKAY",
+              "value": "0",
+              "op": "="
+            },
+            {
+              "text": "WARN",
               "value": "1",
               "op": "="
             },
             {
-              "text": "FAIL",
-              "value": "0",
+              "text": "UNKW",
+              "value": "2",
+              "op": "="
+            },
+            {
+              "text": "CRIT",
+              "value": "3",
+              "op": "="
+            },
+            {
+              "text": "DOWN",
+              "value": "4",
               "op": "="
             }
           ],
-          "thresholds": "0,0,1",
+          "thresholds": "0,1,3",
           "nullPointMode": "connected",
           "prefix": "",
           "targets": [
@@ -823,7 +881,13 @@
               "function": "last",
               "rawQuery": false,
               "groupByTags": [],
-              "tags": [],
+              "tags": [
+                {
+                  "operator": "=",
+                  "value": "apache",
+                  "key": "cluster_name"
+                }
+              ],
               "column": "value",
               "fields": [
                 {
@@ -832,9 +896,9 @@
                 }
               ],
               "interval": "",
-              "series": "merge(/apache.status$/)",
-              "measurement": "apache_status",
-              "query": "SELECT last(value) FROM \"apache_status\" WHERE $timeFilter GROUP BY time($interval)",
+              "series": "merge(/mysql.status$/)",
+              "measurement": "cluster_status",
+              "query": "SELECT last(value) FROM \"cluster_status\" WHERE \"cluster_name\" = 'apache' AND $timeFilter GROUP BY time($interval)",
               "fill": ""
             }
           ],
@@ -859,9 +923,9 @@
           "postfix": "",
           "interval": ">60s",
           "colors": [
-            "rgba(225, 40, 40, 0.59)",
-            "rgba(245, 40, 40, 0.73)",
-            "rgba(71, 212, 59, 0.4)"
+            "rgba(71, 212, 59, 0.4)",
+            "rgba(245, 150, 40, 0.73)",
+            "rgba(225, 40, 40, 0.59)"
           ],
           "error": false,
           "nullText": null,
@@ -873,8 +937,9 @@
             {
               "title": "HAProxy",
               "type": "dashboard",
-              "dashboard": "HAProxy",
-              "name": "Drilldown dashboard"
+              "dashUri": "db/haproxy",
+              "name": "Drilldown dashboard",
+              "dashboard": "HAProxy"
             }
           ],
           "valueMaps": [
@@ -885,16 +950,31 @@
             },
             {
               "text": "OKAY",
+              "value": "0",
+              "op": "="
+            },
+            {
+              "text": "WARN",
               "value": "1",
               "op": "="
             },
             {
-              "text": "FAIL",
-              "value": "0",
+              "text": "UNKW",
+              "value": "2",
+              "op": "="
+            },
+            {
+              "text": "CRIT",
+              "value": "3",
+              "op": "="
+            },
+            {
+              "text": "DOWN",
+              "value": "4",
               "op": "="
             }
           ],
-          "thresholds": "0,0,1",
+          "thresholds": "0,1,3",
           "nullPointMode": "connected",
           "prefix": "",
           "targets": [
@@ -902,7 +982,13 @@
               "function": "last",
               "rawQuery": false,
               "groupByTags": [],
-              "tags": [],
+              "tags": [
+                {
+                  "operator": "=",
+                  "value": "haproxy",
+                  "key": "cluster_name"
+                }
+              ],
               "column": "value",
               "fields": [
                 {
@@ -911,16 +997,16 @@
                 }
               ],
               "interval": "",
-              "series": "merge(/haproxy.status$/)",
-              "measurement": "haproxy_status",
-              "query": "SELECT last(value) FROM \"haproxy_status\" WHERE $timeFilter GROUP BY time($interval)",
+              "series": "merge(/mysql.status$/)",
+              "measurement": "cluster_status",
+              "query": "SELECT last(value) FROM \"cluster_status\" WHERE \"cluster_name\" = 'haproxy' AND $timeFilter GROUP BY time($interval)",
               "fill": ""
             }
           ],
           "maxDataPoints": 100,
           "span": 1,
           "colorBackground": true,
-          "title": "HAProxy",
+          "title": "haproxy",
           "sparkline": {
             "full": false,
             "fillColor": "rgba(31, 118, 189, 0.18)",
@@ -938,9 +1024,9 @@
           "postfix": "",
           "interval": ">60s",
           "colors": [
-            "rgba(225, 40, 40, 0.59)",
-            "rgba(245, 40, 40, 0.73)",
-            "rgba(71, 212, 59, 0.4)"
+            "rgba(71, 212, 59, 0.4)",
+            "rgba(245, 150, 40, 0.73)",
+            "rgba(225, 40, 40, 0.59)"
           ],
           "error": false,
           "nullText": null,
@@ -950,14 +1036,11 @@
         {
           "links": [
             {
-              "title": "memcached",
+              "title": "Memcached",
               "type": "dashboard",
-              "dashboard": "Memcached",
-              "name": "Drilldown dashboard"
-            },
-            {
-              "type": "dashboard",
-              "name": "Drilldown dashboard"
+              "dashUri": "db/memcached",
+              "name": "Drilldown dashboard",
+              "dashboard": "Memcached"
             }
           ],
           "valueMaps": [
@@ -968,16 +1051,31 @@
             },
             {
               "text": "OKAY",
+              "value": "0",
+              "op": "="
+            },
+            {
+              "text": "WARN",
               "value": "1",
               "op": "="
             },
             {
-              "text": "FAIL",
-              "value": "0",
+              "text": "UNKW",
+              "value": "2",
+              "op": "="
+            },
+            {
+              "text": "CRIT",
+              "value": "3",
+              "op": "="
+            },
+            {
+              "text": "DOWN",
+              "value": "4",
               "op": "="
             }
           ],
-          "thresholds": "0,0,1",
+          "thresholds": "0,1,3",
           "nullPointMode": "connected",
           "prefix": "",
           "targets": [
@@ -985,7 +1083,13 @@
               "function": "last",
               "rawQuery": false,
               "groupByTags": [],
-              "tags": [],
+              "tags": [
+                {
+                  "operator": "=",
+                  "value": "memcached",
+                  "key": "cluster_name"
+                }
+              ],
               "column": "value",
               "fields": [
                 {
@@ -994,9 +1098,9 @@
                 }
               ],
               "interval": "",
-              "series": "/memcached.status$/",
-              "measurement": "memcached_status",
-              "query": "SELECT last(value) FROM \"memcached_status\" WHERE $timeFilter GROUP BY time($interval)",
+              "series": "merge(/mysql.status$/)",
+              "measurement": "cluster_status",
+              "query": "SELECT last(value) FROM \"cluster_status\" WHERE \"cluster_name\" = 'memcached' AND $timeFilter GROUP BY time($interval)",
               "fill": ""
             }
           ],
@@ -1021,9 +1125,9 @@
           "postfix": "",
           "interval": ">60s",
           "colors": [
-            "rgba(225, 40, 40, 0.59)",
-            "rgba(245, 40, 40, 0.73)",
-            "rgba(71, 212, 59, 0.4)"
+            "rgba(71, 212, 59, 0.4)",
+            "rgba(245, 150, 40, 0.73)",
+            "rgba(225, 40, 40, 0.59)"
           ],
           "error": false,
           "nullText": null,
@@ -1797,335 +1901,335 @@
     },
     {
       "collapse": false,
+      "title": "Ceph",
       "editable": true,
       "height": "250px",
       "panels": [
         {
-          "cacheTimeout": null,
-          "colorBackground": true,
-          "colorValue": false,
-          "colors": [
-            "rgba(71, 212, 59, 0.4)",
-            "rgba(245, 150, 40, 0.73)",
-            "rgba(225, 40, 40, 0.59)"
-          ],
-          "editable": true,
-          "error": false,
-          "format": "none",
-          "id": 8,
-          "interval": ">60s",
           "links": [
             {
-              "dashboard": "Ceph",
-              "name": "Drilldown dashboard",
               "title": "Ceph",
-              "type": "dashboard"
+              "type": "dashboard",
+              "dashboard": "Ceph",
+              "name": "Drilldown dashboard"
             }
           ],
-          "maxDataPoints": 100,
+          "valueMaps": [
+            {
+              "text": "N/A",
+              "value": "null",
+              "op": "="
+            },
+            {
+              "text": "OKAY",
+              "value": "1",
+              "op": "="
+            },
+            {
+              "text": "WARN",
+              "value": "2",
+              "op": "="
+            },
+            {
+              "text": "FAIL",
+              "value": "3",
+              "op": "="
+            }
+          ],
+          "thresholds": "1,2,3",
           "nullPointMode": "connected",
-          "nullText": null,
-          "postfix": "",
-          "postfixFontSize": "50%",
           "prefix": "",
-          "prefixFontSize": "50%",
-          "span": 2,
-          "sparkline": {
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "show": false
-          },
           "targets": [
             {
-              "column": "value",
-              "fill": "",
               "function": "last",
-              "query": "SELECT last(value) FROM \"ceph_health\" WHERE $timeFilter GROUP BY time($interval)",
-              "series": "merge(/ceph.cluster-ceph.health/)",
-              "tags": [],
+              "rawQuery": false,
               "groupByTags": [],
+              "tags": [],
+              "column": "value",
               "fields": [
                 {
                   "name": "value",
                   "func": "last"
                 }
               ],
-              "rawQuery": false,
-              "measurement": "ceph_health"
+              "series": "merge(/ceph.cluster-ceph.health/)",
+              "measurement": "ceph_health",
+              "query": "SELECT last(value) FROM \"ceph_health\" WHERE $timeFilter GROUP BY time($interval)",
+              "fill": ""
             }
           ],
-          "thresholds": "1,2,3",
+          "maxDataPoints": 100,
+          "span": 2,
+          "colorBackground": true,
           "title": "Cluster",
+          "sparkline": {
+            "full": false,
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "id": 8,
+          "prefixFontSize": "50%",
+          "valueName": "current",
           "type": "singlestat",
           "valueFontSize": "80%",
-          "valueMaps": [
-            {
-              "op": "=",
-              "text": "N/A",
-              "value": "null"
-            },
-            {
-              "op": "=",
-              "text": "OKAY",
-              "value": "1"
-            },
-            {
-              "op": "=",
-              "text": "WARN",
-              "value": "2"
-            },
-            {
-              "op": "=",
-              "text": "FAIL",
-              "value": "3"
-            }
+          "format": "none",
+          "editable": true,
+          "cacheTimeout": null,
+          "postfix": "",
+          "interval": ">60s",
+          "colors": [
+            "rgba(71, 212, 59, 0.4)",
+            "rgba(245, 150, 40, 0.73)",
+            "rgba(225, 40, 40, 0.59)"
           ],
-          "valueName": "current"
+          "error": false,
+          "nullText": null,
+          "postfixFontSize": "50%",
+          "colorValue": false
         },
         {
-          "cacheTimeout": null,
-          "colorBackground": false,
-          "colorValue": false,
-          "colors": [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(50, 172, 45, 0.97)"
-          ],
-          "editable": true,
-          "error": false,
-          "format": "percent",
-          "id": 9,
-          "interval": ">60s",
           "links": [],
-          "maxDataPoints": 100,
+          "valueMaps": [
+            {
+              "text": "N/A",
+              "value": "null",
+              "op": "="
+            }
+          ],
+          "thresholds": "",
           "nullPointMode": "connected",
-          "nullText": null,
-          "postfix": " free",
-          "postfixFontSize": "50%",
           "prefix": "",
-          "prefixFontSize": "50%",
-          "span": 3,
-          "sparkline": {
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "full": true,
-            "lineColor": "rgb(31, 120, 193)",
-            "show": true
-          },
           "targets": [
             {
-              "alias": "",
-              "column": "value",
               "function": "mean",
-              "interval": "",
-              "query": "SELECT mean(value) FROM \"ceph_pool_total_percent_free\" WHERE $timeFilter GROUP BY time($interval)",
               "rawQuery": false,
-              "series": "",
-              "tags": [],
               "groupByTags": [],
+              "tags": [],
+              "column": "value",
               "fields": [
                 {
                   "name": "value",
                   "func": "mean"
                 }
               ],
-              "measurement": "ceph_pool_total_percent_free"
+              "interval": "",
+              "alias": "",
+              "series": "",
+              "measurement": "ceph_pool_total_percent_free",
+              "query": "SELECT mean(value) FROM \"ceph_pool_total_percent_free\" WHERE $timeFilter GROUP BY time($interval)"
+            }
+          ],
+          "maxDataPoints": 100,
+          "span": 3,
+          "colorBackground": false,
+          "title": "Capacity",
+          "sparkline": {
+            "full": true,
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "lineColor": "rgb(31, 120, 193)",
+            "show": true
+          },
+          "id": 9,
+          "prefixFontSize": "50%",
+          "valueName": "current",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "format": "percent",
+          "editable": true,
+          "cacheTimeout": null,
+          "postfix": " free",
+          "interval": ">60s",
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "error": false,
+          "nullText": null,
+          "postfixFontSize": "50%",
+          "colorValue": false
+        },
+        {
+          "links": [],
+          "valueMaps": [
+            {
+              "text": "N/A",
+              "value": "null",
+              "op": "="
             }
           ],
           "thresholds": "",
-          "title": "Capacity",
-          "type": "singlestat",
-          "valueFontSize": "80%",
-          "valueMaps": [
+          "nullPointMode": "connected",
+          "prefix": "",
+          "targets": [
             {
-              "op": "=",
-              "text": "N/A",
-              "value": "null"
+              "function": "sum",
+              "rawQuery": false,
+              "groupByTags": [],
+              "tags": [],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "last"
+                }
+              ],
+              "series": "merge(/$controller.ceph.cluster-ceph.pool.*.objects/)",
+              "measurement": "ceph_objects_count",
+              "query": "SELECT last(value) FROM \"ceph_objects_count\" WHERE $timeFilter GROUP BY time($interval)"
             }
           ],
-          "valueName": "current"
-        },
-        {
-          "cacheTimeout": null,
+          "maxDataPoints": 100,
+          "span": 3,
           "colorBackground": false,
-          "colorValue": false,
+          "title": "",
+          "sparkline": {
+            "full": false,
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "lineColor": "rgb(31, 120, 193)",
+            "show": true
+          },
+          "id": 26,
+          "prefixFontSize": "50%",
+          "valueName": "current",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "format": "short",
+          "editable": true,
+          "cacheTimeout": null,
+          "postfix": " objects",
+          "interval": ">60s",
           "colors": [
             "rgba(50, 172, 45, 0.97)",
             "rgba(237, 129, 40, 0.89)",
             "rgba(245, 54, 54, 0.9)"
           ],
-          "editable": true,
           "error": false,
-          "format": "short",
-          "id": 26,
-          "interval": ">60s",
-          "links": [],
-          "maxDataPoints": 100,
-          "nullPointMode": "connected",
           "nullText": null,
-          "postfix": " objects",
           "postfixFontSize": "50%",
+          "colorValue": false
+        },
+        {
+          "links": [],
+          "valueMaps": [
+            {
+              "text": "N/A",
+              "value": "null",
+              "op": "="
+            }
+          ],
+          "thresholds": "",
+          "nullPointMode": "connected",
           "prefix": "",
-          "prefixFontSize": "50%",
-          "span": 3,
-          "sparkline": {
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "show": true
-          },
           "targets": [
             {
-              "column": "value",
-              "function": "sum",
-              "query": "SELECT last(value) FROM \"ceph_objects_count\" WHERE $timeFilter GROUP BY time($interval)",
-              "rawQuery": false,
-              "series": "merge(/$controller.ceph.cluster-ceph.pool.*.objects/)",
-              "tags": [],
+              "function": "last",
               "groupByTags": [],
+              "tags": [],
+              "column": "value",
               "fields": [
                 {
                   "name": "value",
                   "func": "last"
                 }
               ],
-              "measurement": "ceph_objects_count"
-            }
-          ],
-          "thresholds": "",
-          "title": "",
-          "type": "singlestat",
-          "valueFontSize": "80%",
-          "valueMaps": [
-            {
-              "op": "=",
-              "text": "N/A",
-              "value": "null"
-            }
-          ],
-          "valueName": "current"
-        },
-        {
-          "cacheTimeout": null,
-          "colorBackground": false,
-          "colorValue": false,
-          "colors": [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(50, 172, 45, 0.97)"
-          ],
-          "editable": true,
-          "error": false,
-          "format": "none",
-          "id": 24,
-          "interval": ">60s",
-          "links": [],
-          "maxDataPoints": 100,
-          "nullPointMode": "connected",
-          "nullText": null,
-          "postfix": "",
-          "postfixFontSize": "50%",
-          "prefix": "",
-          "prefixFontSize": "50%",
-          "span": 2,
-          "sparkline": {
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "show": true
-          },
-          "targets": [
-            {
-              "column": "value",
-              "function": "last",
-              "query": "SELECT last(value) FROM \"ceph_osd_count_up\" WHERE $timeFilter GROUP BY time($interval)",
               "series": "/$controller.ceph.cluster-ceph.osd.up/",
-              "tags": [],
-              "groupByTags": [],
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "last"
-                }
-              ],
-              "measurement": "ceph_osd_count_up"
+              "measurement": "ceph_osd_count_up",
+              "query": "SELECT last(value) FROM \"ceph_osd_count_up\" WHERE $timeFilter GROUP BY time($interval)"
             }
           ],
-          "thresholds": "",
+          "maxDataPoints": 100,
+          "span": 2,
+          "colorBackground": false,
           "title": "OSDs up",
+          "sparkline": {
+            "full": false,
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "lineColor": "rgb(31, 120, 193)",
+            "show": true
+          },
+          "id": 24,
+          "prefixFontSize": "50%",
+          "valueName": "current",
           "type": "singlestat",
           "valueFontSize": "80%",
-          "valueMaps": [
-            {
-              "op": "=",
-              "text": "N/A",
-              "value": "null"
-            }
-          ],
-          "valueName": "current"
-        },
-        {
+          "format": "none",
+          "editable": true,
           "cacheTimeout": null,
-          "colorBackground": false,
-          "colorValue": false,
+          "postfix": "",
+          "interval": ">60s",
           "colors": [
             "rgba(245, 54, 54, 0.9)",
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
-          "editable": true,
           "error": false,
-          "format": "none",
-          "id": 25,
-          "interval": ">60s",
-          "links": [],
-          "maxDataPoints": 100,
-          "nullPointMode": "connected",
           "nullText": null,
-          "postfix": "",
           "postfixFontSize": "50%",
+          "colorValue": false
+        },
+        {
+          "links": [],
+          "valueMaps": [
+            {
+              "text": "N/A",
+              "value": "null",
+              "op": "="
+            }
+          ],
+          "thresholds": "",
+          "nullPointMode": "connected",
           "prefix": "",
-          "prefixFontSize": "50%",
-          "span": 2,
-          "sparkline": {
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "show": true
-          },
           "targets": [
             {
-              "column": "value",
               "function": "last",
-              "query": "SELECT last(value) FROM \"ceph_osd_count_down\" WHERE $timeFilter GROUP BY time($interval)",
-              "series": "/$controller.ceph.cluster-ceph.osd.down/",
-              "tags": [],
               "groupByTags": [],
+              "tags": [],
+              "column": "value",
               "fields": [
                 {
                   "name": "value",
                   "func": "last"
                 }
               ],
-              "measurement": "ceph_osd_count_down"
+              "series": "/$controller.ceph.cluster-ceph.osd.down/",
+              "measurement": "ceph_osd_count_down",
+              "query": "SELECT last(value) FROM \"ceph_osd_count_down\" WHERE $timeFilter GROUP BY time($interval)"
             }
           ],
-          "thresholds": "",
+          "maxDataPoints": 100,
+          "span": 2,
+          "colorBackground": false,
           "title": "OSDs down",
+          "sparkline": {
+            "full": false,
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "lineColor": "rgb(31, 120, 193)",
+            "show": true
+          },
+          "id": 25,
+          "prefixFontSize": "50%",
+          "valueName": "current",
           "type": "singlestat",
           "valueFontSize": "80%",
-          "valueMaps": [
-            {
-              "op": "=",
-              "text": "N/A",
-              "value": "null"
-            }
+          "format": "none",
+          "editable": true,
+          "cacheTimeout": null,
+          "postfix": "",
+          "interval": ">60s",
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
           ],
-          "valueName": "current"
+          "error": false,
+          "nullText": null,
+          "postfixFontSize": "50%",
+          "colorValue": false
         }
       ],
-      "showTitle": true,
-      "title": "Ceph"
+      "showTitle": true
     }
   ],
   "templating": {
@@ -2137,8 +2241,7 @@
         "refresh_on_load": true,
         "allFormat": "regex values",
         "refresh": true,
-        "current": {
-        },
+        "current": {},
         "datasource": null,
         "query": "show tag values from pacemaker_local_resource_active with key = hostname",
         "type": "query",
@@ -2155,7 +2258,7 @@
   "refresh": "1m",
   "id": null,
   "originalTitle": "Main",
-  "version": 5,
+  "version": 3,
   "nav": [
     {
       "status": "Stable",
