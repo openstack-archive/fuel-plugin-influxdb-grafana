@@ -12,7 +12,7 @@ GRAFANA_TARBALL_URL="https://forgeapi.puppetlabs.com/v3/files/bfraser-grafana-2.
 
 download_package https://s3.amazonaws.com/influxdb/influxdb_0.9.4.2_amd64.deb
 
-download_package https://grafanarel.s3.amazonaws.com/builds/grafana_2.1.3_amd64.deb
+download_package https://grafanarel.s3.amazonaws.com/builds/grafana_2.5.0_amd64.deb
 
 # Download Puppet modules
 download_puppet_module "grafana" "$GRAFANA_TARBALL_URL"
