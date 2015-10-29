@@ -2097,7 +2097,21 @@
     ]
   },
   "annotations": {
-    "list": []
+    "list": [
+      {
+        "enable": true,
+        "name": "Status",
+        "iconSize": 13,
+        "textColumn": "text",
+        "titleColumn": "title",
+        "datasource": "influxdb",
+        "lineColor": "rgba(255, 96, 96, 0.592157)",
+        "showLine": true,
+        "query": "select title,tags,text from annotations where $timeFilter and cluster = 'ceph'",
+        "tagsColumn": "tags",
+        "iconColor": "#C0C6BE"
+      }
+    ]
   },
   "refresh": false,
   "schemaVersion": 6,
