@@ -1,4 +1,5 @@
 {
+  "version": 1,
   "style": "dark",
   "rows": [
     {
@@ -40,15 +41,15 @@
             {
               "function": "derivative",
               "hide": false,
-              "groupByTags": [
-                "name"
-              ],
+              "rawQuery": true,
               "tags": [
                 {
+                  "operator": "=",
                   "value": "$node",
                   "key": "hostname"
                 },
                 {
+                  "operator": "=",
                   "value": "decoder",
                   "key": "type",
                   "condition": "AND"
@@ -61,10 +62,21 @@
                   "func": "derivative"
                 }
               ],
+              "refId": "A",
               "alias": "$tag_name",
               "series": "/$node.*decoder.*count/",
               "measurement": "hekad_msg_count",
               "query": "SELECT derivative(first(value),1s) FROM \"hekad_msg_count\" WHERE \"hostname\" = '$node' AND \"type\" = 'decoder' AND $timeFilter GROUP BY time($interval), \"name\" fill(0)",
+              "groupBy": [
+                {
+                  "interval": "auto",
+                  "type": "time"
+                },
+                {
+                  "type": "tag",
+                  "key": "name"
+                }
+              ],
               "fill": "0"
             }
           ],
@@ -129,9 +141,6 @@
           "targets": [
             {
               "function": "mean",
-              "groupByTags": [
-                "name"
-              ],
               "tags": [
                 {
                   "value": "$node",
@@ -150,10 +159,21 @@
                   "func": "mean"
                 }
               ],
+              "refId": "A",
               "alias": "$tag_name",
               "series": "/$node.*decoder.*duration/",
               "measurement": "hekad_msg_avg_duration",
-              "query": "SELECT mean(value) FROM \"hekad_msg_avg_duration\" WHERE \"hostname\" = '$node' AND \"type\" = 'decoder' AND $timeFilter GROUP BY time($interval), \"name\" fill(0)",
+              "query": "SELECT mean(\"value\") AS \"value\" FROM \"hekad_msg_avg_duration\" WHERE \"hostname\" = '$node' AND \"type\" = 'decoder' AND $timeFilter GROUP BY time($interval), \"name\" fill(0)",
+              "groupBy": [
+                {
+                  "interval": "auto",
+                  "type": "time"
+                },
+                {
+                  "type": "tag",
+                  "key": "name"
+                }
+              ],
               "fill": "0"
             }
           ],
@@ -218,15 +238,15 @@
           "targets": [
             {
               "function": "derivative",
-              "groupByTags": [
-                "name"
-              ],
+              "rawQuery": true,
               "tags": [
                 {
+                  "operator": "=",
                   "value": "$node",
                   "key": "hostname"
                 },
                 {
+                  "operator": "=",
                   "value": "filter",
                   "key": "type",
                   "condition": "AND"
@@ -239,10 +259,21 @@
                   "func": "derivative"
                 }
               ],
+              "refId": "A",
               "alias": "$tag_name",
               "series": "/$node.*filter.*count/",
               "measurement": "hekad_msg_count",
               "query": "SELECT derivative(first(value),1s) FROM \"hekad_msg_count\" WHERE \"hostname\" = '$node' AND \"type\" = 'filter' AND $timeFilter GROUP BY time($interval), \"name\" fill(0)",
+              "groupBy": [
+                {
+                  "interval": "auto",
+                  "type": "time"
+                },
+                {
+                  "type": "tag",
+                  "key": "name"
+                }
+              ],
               "fill": "0"
             }
           ],
@@ -307,9 +338,6 @@
           "targets": [
             {
               "function": "mean",
-              "groupByTags": [
-                "name"
-              ],
               "tags": [
                 {
                   "value": "$node",
@@ -328,10 +356,21 @@
                   "func": "mean"
                 }
               ],
+              "refId": "A",
               "alias": "$tag_name",
               "series": "/$node.*filter.*duration/",
               "measurement": "hekad_msg_avg_duration",
-              "query": "SELECT mean(value) FROM \"hekad_msg_avg_duration\" WHERE \"hostname\" = '$node' AND \"type\" = 'filter' AND $timeFilter GROUP BY time($interval), \"name\" fill(0)",
+              "query": "SELECT mean(\"value\") AS \"value\" FROM \"hekad_msg_avg_duration\" WHERE \"hostname\" = '$node' AND \"type\" = 'filter' AND $timeFilter GROUP BY time($interval), \"name\" fill(0)",
+              "groupBy": [
+                {
+                  "interval": "auto",
+                  "type": "time"
+                },
+                {
+                  "type": "tag",
+                  "key": "name"
+                }
+              ],
               "fill": "0"
             }
           ],
@@ -382,7 +421,6 @@
           "targets": [
             {
               "function": "last",
-              "groupByTags": [],
               "tags": [
                 {
                   "value": "$node",
@@ -401,9 +439,16 @@
                   "func": "last"
                 }
               ],
+              "refId": "A",
               "series": "/$node.lma_components.hekad.count.threads/",
               "measurement": "lma_components_threads",
-              "query": "SELECT last(value) FROM \"lma_components_threads\" WHERE \"hostname\" = '$node' AND \"service\" = 'hekad' AND $timeFilter GROUP BY time($interval)"
+              "query": "SELECT last(\"value\") AS \"value\" FROM \"lma_components_threads\" WHERE \"hostname\" = '$node' AND \"service\" = 'hekad' AND $timeFilter GROUP BY time($interval)",
+              "groupBy": [
+                {
+                  "interval": "auto",
+                  "type": "time"
+                }
+              ]
             }
           ],
           "maxDataPoints": 100,
@@ -431,6 +476,7 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
+          "datasource": null,
           "error": false,
           "nullText": null,
           "postfixFontSize": "50%",
@@ -466,7 +512,6 @@
           "targets": [
             {
               "function": "mean",
-              "groupByTags": [],
               "tags": [
                 {
                   "value": "$node",
@@ -485,10 +530,17 @@
                   "func": "mean"
                 }
               ],
+              "refId": "A",
               "alias": "rss",
               "series": "/$node.lma_components.hekad.memory.rss/",
               "measurement": "lma_components_memory_rss",
-              "query": "SELECT mean(value) FROM \"lma_components_memory_rss\" WHERE \"hostname\" = '$node' AND \"service\" = 'hekad' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") AS \"value\" FROM \"lma_components_memory_rss\" WHERE \"hostname\" = '$node' AND \"service\" = 'hekad' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
+                {
+                  "interval": "auto",
+                  "type": "time"
+                }
+              ],
               "fill": "0"
             }
           ],
@@ -553,7 +605,6 @@
           "targets": [
             {
               "function": "mean",
-              "groupByTags": [],
               "tags": [
                 {
                   "value": "$node",
@@ -572,15 +623,21 @@
                   "func": "mean"
                 }
               ],
+              "refId": "A",
               "alias": "read",
               "series": "/$node.lma_components.hekad.disk.bytes/",
               "measurement": "lma_components_disk_bytes_read",
-              "query": "SELECT mean(value) FROM \"lma_components_disk_bytes_read\" WHERE \"hostname\" = '$node' AND \"service\" = 'hekad' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") AS \"value\" FROM \"lma_components_disk_bytes_read\" WHERE \"hostname\" = '$node' AND \"service\" = 'hekad' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
+                {
+                  "interval": "auto",
+                  "type": "time"
+                }
+              ],
               "fill": "0"
             },
             {
               "function": "mean",
-              "groupByTags": [],
               "tags": [
                 {
                   "value": "$node",
@@ -599,10 +656,17 @@
                   "func": "mean"
                 }
               ],
+              "refId": "B",
               "alias": "write",
               "series": "/$node.lma_components.hekad.disk.bytes/",
               "measurement": "lma_components_disk_bytes_write",
-              "query": "SELECT mean(value) FROM \"lma_components_disk_bytes_write\" WHERE \"hostname\" = '$node' AND \"service\" = 'hekad' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") AS \"value\" FROM \"lma_components_disk_bytes_write\" WHERE \"hostname\" = '$node' AND \"service\" = 'hekad' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
+                {
+                  "interval": "auto",
+                  "type": "time"
+                }
+              ],
               "fill": "0"
             }
           ],
@@ -667,7 +731,6 @@
           "targets": [
             {
               "function": "mean",
-              "groupByTags": [],
               "tags": [
                 {
                   "value": "$node",
@@ -686,15 +749,21 @@
                   "func": "mean"
                 }
               ],
+              "refId": "A",
               "alias": "system",
               "series": "/$node.lma_components.hekad.cputime/",
               "measurement": "lma_components_cputime_syst",
-              "query": "SELECT mean(value) FROM \"lma_components_cputime_syst\" WHERE \"hostname\" = '$node' AND \"service\" = 'hekad' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") AS \"value\" FROM \"lma_components_cputime_syst\" WHERE \"hostname\" = '$node' AND \"service\" = 'hekad' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
+                {
+                  "interval": "auto",
+                  "type": "time"
+                }
+              ],
               "fill": "0"
             },
             {
               "function": "mean",
-              "groupByTags": [],
               "tags": [
                 {
                   "value": "$node",
@@ -713,10 +782,17 @@
                   "func": "mean"
                 }
               ],
+              "refId": "B",
               "alias": "user",
               "series": "/$node.lma_components.hekad.cputime/",
               "measurement": "lma_components_cputime_user",
-              "query": "SELECT mean(value) FROM \"lma_components_cputime_user\" WHERE \"hostname\" = '$node' AND \"service\" = 'hekad' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") AS \"value\" FROM \"lma_components_cputime_user\" WHERE \"hostname\" = '$node' AND \"service\" = 'hekad' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
+                {
+                  "interval": "auto",
+                  "type": "time"
+                }
+              ],
               "fill": "0"
             }
           ],
@@ -775,7 +851,6 @@
           "targets": [
             {
               "function": "last",
-              "groupByTags": [],
               "tags": [
                 {
                   "value": "$node",
@@ -794,9 +869,16 @@
                   "func": "last"
                 }
               ],
+              "refId": "A",
               "series": "/$node.lma_components.hekad.count.threads/",
               "measurement": "lma_components_threads",
-              "query": "SELECT last(value) FROM \"lma_components_threads\" WHERE \"hostname\" = '$node' AND \"service\" = 'collectd' AND $timeFilter GROUP BY time($interval)"
+              "query": "SELECT last(\"value\") AS \"value\" FROM \"lma_components_threads\" WHERE \"hostname\" = '$node' AND \"service\" = 'collectd' AND $timeFilter GROUP BY time($interval)",
+              "groupBy": [
+                {
+                  "interval": "auto",
+                  "type": "time"
+                }
+              ]
             }
           ],
           "maxDataPoints": 100,
@@ -824,6 +906,7 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
+          "datasource": null,
           "error": false,
           "nullText": null,
           "postfixFontSize": "50%",
@@ -859,7 +942,6 @@
           "targets": [
             {
               "function": "mean",
-              "groupByTags": [],
               "tags": [
                 {
                   "value": "$node",
@@ -878,10 +960,17 @@
                   "func": "mean"
                 }
               ],
+              "refId": "A",
               "alias": "rss",
               "series": "/$node.lma_components.hekad.memory.rss/",
               "measurement": "lma_components_memory_rss",
-              "query": "SELECT mean(value) FROM \"lma_components_memory_rss\" WHERE \"hostname\" = '$node' AND \"service\" = 'collectd' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") AS \"value\" FROM \"lma_components_memory_rss\" WHERE \"hostname\" = '$node' AND \"service\" = 'collectd' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
+                {
+                  "interval": "auto",
+                  "type": "time"
+                }
+              ],
               "fill": "0"
             }
           ],
@@ -946,7 +1035,6 @@
           "targets": [
             {
               "function": "mean",
-              "groupByTags": [],
               "tags": [
                 {
                   "value": "$node",
@@ -965,15 +1053,21 @@
                   "func": "mean"
                 }
               ],
+              "refId": "A",
               "alias": "read",
               "series": "/$node.lma_components.hekad.disk.bytes/",
               "measurement": "lma_components_disk_bytes_read",
-              "query": "SELECT mean(value) FROM \"lma_components_disk_bytes_read\" WHERE \"hostname\" = '$node' AND \"service\" = 'collectd' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") AS \"value\" FROM \"lma_components_disk_bytes_read\" WHERE \"hostname\" = '$node' AND \"service\" = 'collectd' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
+                {
+                  "interval": "auto",
+                  "type": "time"
+                }
+              ],
               "fill": "0"
             },
             {
               "function": "mean",
-              "groupByTags": [],
               "tags": [
                 {
                   "value": "$node",
@@ -992,10 +1086,17 @@
                   "func": "mean"
                 }
               ],
+              "refId": "B",
               "alias": "write",
               "series": "/$node.lma_components.hekad.disk.bytes/",
               "measurement": "lma_components_disk_bytes_write",
-              "query": "SELECT mean(value) FROM \"lma_components_disk_bytes_write\" WHERE \"hostname\" = '$node' AND \"service\" = 'collectd' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") AS \"value\" FROM \"lma_components_disk_bytes_write\" WHERE \"hostname\" = '$node' AND \"service\" = 'collectd' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
+                {
+                  "interval": "auto",
+                  "type": "time"
+                }
+              ],
               "fill": "0"
             }
           ],
@@ -1060,7 +1161,6 @@
           "targets": [
             {
               "function": "mean",
-              "groupByTags": [],
               "tags": [
                 {
                   "value": "$node",
@@ -1079,15 +1179,21 @@
                   "func": "mean"
                 }
               ],
+              "refId": "A",
               "alias": "system",
               "series": "/$node.lma_components.hekad.cputime/",
               "measurement": "lma_components_cputime_syst",
-              "query": "SELECT mean(value) FROM \"lma_components_cputime_syst\" WHERE \"hostname\" = '$node' AND \"service\" = 'collectd' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") AS \"value\" FROM \"lma_components_cputime_syst\" WHERE \"hostname\" = '$node' AND \"service\" = 'collectd' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
+                {
+                  "interval": "auto",
+                  "type": "time"
+                }
+              ],
               "fill": "0"
             },
             {
               "function": "mean",
-              "groupByTags": [],
               "tags": [
                 {
                   "value": "$node",
@@ -1106,10 +1212,17 @@
                   "func": "mean"
                 }
               ],
+              "refId": "B",
               "alias": "user",
               "series": "/$node.lma_components.hekad.cputime/",
               "measurement": "lma_components_cputime_user",
-              "query": "SELECT mean(value) FROM \"lma_components_cputime_user\" WHERE \"hostname\" = '$node' AND \"service\" = 'collectd' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") AS \"value\" FROM \"lma_components_cputime_user\" WHERE \"hostname\" = '$node' AND \"service\" = 'collectd' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
+                {
+                  "interval": "auto",
+                  "type": "time"
+                }
+              ],
               "fill": "0"
             }
           ],
@@ -1168,7 +1281,6 @@
           "targets": [
             {
               "function": "last",
-              "groupByTags": [],
               "tags": [
                 {
                   "value": "influxd",
@@ -1182,9 +1294,16 @@
                   "func": "last"
                 }
               ],
+              "refId": "A",
               "series": "/$node.lma_components.hekad.count.threads/",
               "measurement": "lma_components_threads",
-              "query": "SELECT last(value) FROM \"lma_components_threads\" WHERE \"service\" = 'influxd' AND $timeFilter GROUP BY time($interval)"
+              "query": "SELECT last(\"value\") AS \"value\" FROM \"lma_components_threads\" WHERE \"service\" = 'influxd' AND $timeFilter GROUP BY time($interval)",
+              "groupBy": [
+                {
+                  "interval": "auto",
+                  "type": "time"
+                }
+              ]
             }
           ],
           "maxDataPoints": 100,
@@ -1212,6 +1331,7 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
+          "datasource": null,
           "error": false,
           "nullText": null,
           "postfixFontSize": "50%",
@@ -1247,7 +1367,6 @@
           "targets": [
             {
               "function": "mean",
-              "groupByTags": [],
               "tags": [
                 {
                   "value": "influxd",
@@ -1261,10 +1380,17 @@
                   "func": "mean"
                 }
               ],
+              "refId": "A",
               "alias": "rss",
               "series": "/$node.lma_components.hekad.memory.rss/",
               "measurement": "lma_components_memory_rss",
-              "query": "SELECT mean(value) FROM \"lma_components_memory_rss\" WHERE \"service\" = 'influxd' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") AS \"value\" FROM \"lma_components_memory_rss\" WHERE \"service\" = 'influxd' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
+                {
+                  "interval": "auto",
+                  "type": "time"
+                }
+              ],
               "fill": "0"
             }
           ],
@@ -1329,7 +1455,6 @@
           "targets": [
             {
               "function": "mean",
-              "groupByTags": [],
               "tags": [
                 {
                   "value": "influxd",
@@ -1343,15 +1468,21 @@
                   "func": "mean"
                 }
               ],
+              "refId": "A",
               "alias": "read",
               "series": "/$node.lma_components.hekad.disk.bytes/",
               "measurement": "lma_components_disk_bytes_read",
-              "query": "SELECT mean(value) FROM \"lma_components_disk_bytes_read\" WHERE \"service\" = 'influxd' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") AS \"value\" FROM \"lma_components_disk_bytes_read\" WHERE \"service\" = 'influxd' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
+                {
+                  "interval": "auto",
+                  "type": "time"
+                }
+              ],
               "fill": "0"
             },
             {
               "function": "mean",
-              "groupByTags": [],
               "tags": [
                 {
                   "value": "influxd",
@@ -1365,10 +1496,17 @@
                   "func": "mean"
                 }
               ],
+              "refId": "B",
               "alias": "write",
               "series": "/$node.lma_components.hekad.disk.bytes/",
               "measurement": "lma_components_disk_bytes_write",
-              "query": "SELECT mean(value) FROM \"lma_components_disk_bytes_write\" WHERE \"service\" = 'influxd' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") AS \"value\" FROM \"lma_components_disk_bytes_write\" WHERE \"service\" = 'influxd' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
+                {
+                  "interval": "auto",
+                  "type": "time"
+                }
+              ],
               "fill": "0"
             }
           ],
@@ -1433,7 +1571,6 @@
           "targets": [
             {
               "function": "mean",
-              "groupByTags": [],
               "tags": [
                 {
                   "value": "influxd",
@@ -1447,15 +1584,21 @@
                   "func": "mean"
                 }
               ],
+              "refId": "A",
               "alias": "system",
               "series": "/$node.lma_components.hekad.cputime/",
               "measurement": "lma_components_cputime_syst",
-              "query": "SELECT mean(value) FROM \"lma_components_cputime_syst\" WHERE \"service\" = 'influxd' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") AS \"value\" FROM \"lma_components_cputime_syst\" WHERE \"service\" = 'influxd' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
+                {
+                  "interval": "auto",
+                  "type": "time"
+                }
+              ],
               "fill": "0"
             },
             {
               "function": "mean",
-              "groupByTags": [],
               "tags": [
                 {
                   "value": "influxd",
@@ -1469,10 +1612,17 @@
                   "func": "mean"
                 }
               ],
+              "refId": "B",
               "alias": "user",
               "series": "/$node.lma_components.hekad.cputime/",
               "measurement": "lma_components_cputime_user",
-              "query": "SELECT mean(value) FROM \"lma_components_cputime_user\" WHERE \"service\" = 'influxd' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") AS \"value\" FROM \"lma_components_cputime_user\" WHERE \"service\" = 'influxd' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
+                {
+                  "interval": "auto",
+                  "type": "time"
+                }
+              ],
               "fill": "0"
             }
           ],
@@ -1521,12 +1671,6 @@
           "prefix": "",
           "targets": [
             {
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "mean"
-                }
-              ],
               "tags": [
                 {
                   "operator": "=",
@@ -1534,9 +1678,21 @@
                   "key": "fs"
                 }
               ],
-              "query": "SELECT mean(value) FROM \"fs_space_percent_free\" WHERE \"fs\" = '/opt/influxdb' AND $timeFilter GROUP BY time($interval)",
-              "groupByTags": [],
-              "measurement": "fs_space_percent_free"
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "mean"
+                }
+              ],
+              "groupBy": [
+                {
+                  "interval": "auto",
+                  "type": "time"
+                }
+              ],
+              "measurement": "fs_space_percent_free",
+              "query": "SELECT mean(\"value\") AS \"value\" FROM \"fs_space_percent_free\" WHERE \"fs\" = '/opt/influxdb' AND $timeFilter GROUP BY time($interval)",
+              "refId": "A"
             }
           ],
           "maxDataPoints": 100,
@@ -1564,6 +1720,7 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
+          "datasource": null,
           "error": false,
           "nullText": null,
           "postfixFontSize": "50%",
@@ -1597,7 +1754,6 @@
           },
           "targets": [
             {
-              "groupByTags": [],
               "rawQuery": false,
               "tags": [
                 {
@@ -1612,13 +1768,19 @@
                   "func": "mean"
                 }
               ],
+              "refId": "A",
               "alias": "free",
               "measurement": "fs_space_free",
-              "query": "SELECT mean(value) FROM \"fs_space_free\" WHERE \"fs\" = '/opt/influxdb' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") AS \"value\" FROM \"fs_space_free\" WHERE \"fs\" = '/opt/influxdb' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
+                {
+                  "interval": "auto",
+                  "type": "time"
+                }
+              ],
               "fill": "0"
             },
             {
-              "groupByTags": [],
               "rawQuery": false,
               "tags": [
                 {
@@ -1633,13 +1795,19 @@
                   "func": "mean"
                 }
               ],
+              "refId": "B",
               "alias": "used",
               "measurement": "fs_space_used",
-              "query": "SELECT mean(value) FROM \"fs_space_used\" WHERE \"fs\" = '/opt/influxdb' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") AS \"value\" FROM \"fs_space_used\" WHERE \"fs\" = '/opt/influxdb' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
+                {
+                  "interval": "auto",
+                  "type": "time"
+                }
+              ],
               "fill": "0"
             },
             {
-              "groupByTags": [],
               "rawQuery": false,
               "tags": [
                 {
@@ -1654,9 +1822,16 @@
                   "func": "mean"
                 }
               ],
+              "refId": "C",
               "alias": "reserved",
               "measurement": "fs_space_reserved",
-              "query": "SELECT mean(value) FROM \"fs_space_reserved\" WHERE \"fs\" = '/opt/influxdb' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") AS \"value\" FROM \"fs_space_reserved\" WHERE \"fs\" = '/opt/influxdb' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
+                {
+                  "interval": "auto",
+                  "type": "time"
+                }
+              ],
               "fill": "0"
             }
           ],
@@ -1715,7 +1890,6 @@
           "targets": [
             {
               "function": "last",
-              "groupByTags": [],
               "tags": [
                 {
                   "value": "grafana-server",
@@ -1729,9 +1903,16 @@
                   "func": "last"
                 }
               ],
+              "refId": "A",
               "series": "/$node.lma_components.hekad.count.threads/",
               "measurement": "lma_components_threads",
-              "query": "SELECT last(value) FROM \"lma_components_threads\" WHERE \"service\" = 'grafana-server' AND $timeFilter GROUP BY time($interval)"
+              "query": "SELECT last(\"value\") AS \"value\" FROM \"lma_components_threads\" WHERE \"service\" = 'grafana-server' AND $timeFilter GROUP BY time($interval)",
+              "groupBy": [
+                {
+                  "interval": "auto",
+                  "type": "time"
+                }
+              ]
             }
           ],
           "maxDataPoints": 100,
@@ -1759,6 +1940,7 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
+          "datasource": null,
           "error": false,
           "nullText": null,
           "postfixFontSize": "50%",
@@ -1794,7 +1976,6 @@
           "targets": [
             {
               "function": "mean",
-              "groupByTags": [],
               "tags": [
                 {
                   "value": "grafana-server",
@@ -1808,10 +1989,17 @@
                   "func": "mean"
                 }
               ],
+              "refId": "A",
               "alias": "rss",
               "series": "/$node.lma_components.hekad.memory.rss/",
               "measurement": "lma_components_memory_rss",
-              "query": "SELECT mean(value) FROM \"lma_components_memory_rss\" WHERE \"service\" = 'grafana-server' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") AS \"value\" FROM \"lma_components_memory_rss\" WHERE \"service\" = 'grafana-server' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
+                {
+                  "interval": "auto",
+                  "type": "time"
+                }
+              ],
               "fill": "0"
             }
           ],
@@ -1876,7 +2064,6 @@
           "targets": [
             {
               "function": "mean",
-              "groupByTags": [],
               "tags": [
                 {
                   "value": "grafana-server",
@@ -1890,15 +2077,21 @@
                   "func": "mean"
                 }
               ],
+              "refId": "A",
               "alias": "read",
               "series": "/$node.lma_components.hekad.disk.bytes/",
               "measurement": "lma_components_disk_bytes_read",
-              "query": "SELECT mean(value) FROM \"lma_components_disk_bytes_read\" WHERE \"service\" = 'grafana-server' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") AS \"value\" FROM \"lma_components_disk_bytes_read\" WHERE \"service\" = 'grafana-server' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
+                {
+                  "interval": "auto",
+                  "type": "time"
+                }
+              ],
               "fill": "0"
             },
             {
               "function": "mean",
-              "groupByTags": [],
               "tags": [
                 {
                   "value": "grafana-server",
@@ -1912,10 +2105,17 @@
                   "func": "mean"
                 }
               ],
+              "refId": "B",
               "alias": "write",
               "series": "/$node.lma_components.hekad.disk.bytes/",
               "measurement": "lma_components_disk_bytes_write",
-              "query": "SELECT mean(value) FROM \"lma_components_disk_bytes_write\" WHERE \"service\" = 'grafana-server' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") AS \"value\" FROM \"lma_components_disk_bytes_write\" WHERE \"service\" = 'grafana-server' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
+                {
+                  "interval": "auto",
+                  "type": "time"
+                }
+              ],
               "fill": "0"
             }
           ],
@@ -1980,7 +2180,6 @@
           "targets": [
             {
               "function": "mean",
-              "groupByTags": [],
               "tags": [
                 {
                   "value": "grafana-server",
@@ -1994,15 +2193,21 @@
                   "func": "mean"
                 }
               ],
+              "refId": "A",
               "alias": "system",
               "series": "/$node.lma_components.hekad.cputime/",
               "measurement": "lma_components_cputime_syst",
-              "query": "SELECT mean(value) FROM \"lma_components_cputime_syst\" WHERE \"service\" = 'grafana-server' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") AS \"value\" FROM \"lma_components_cputime_syst\" WHERE \"service\" = 'grafana-server' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
+                {
+                  "interval": "auto",
+                  "type": "time"
+                }
+              ],
               "fill": "0"
             },
             {
               "function": "mean",
-              "groupByTags": [],
               "tags": [
                 {
                   "value": "grafana-server",
@@ -2016,10 +2221,17 @@
                   "func": "mean"
                 }
               ],
+              "refId": "B",
               "alias": "user",
               "series": "/$node.lma_components.hekad.cputime/",
               "measurement": "lma_components_cputime_user",
-              "query": "SELECT mean(value) FROM \"lma_components_cputime_user\" WHERE \"service\" = 'grafana-server' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") AS \"value\" FROM \"lma_components_cputime_user\" WHERE \"service\" = 'grafana-server' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
+                {
+                  "interval": "auto",
+                  "type": "time"
+                }
+              ],
               "fill": "0"
             }
           ],
@@ -2078,7 +2290,6 @@
           "targets": [
             {
               "function": "last",
-              "groupByTags": [],
               "tags": [
                 {
                   "value": "elasticsearch",
@@ -2092,9 +2303,16 @@
                   "func": "last"
                 }
               ],
+              "refId": "A",
               "series": "/$node.lma_components.hekad.count.threads/",
               "measurement": "lma_components_threads",
-              "query": "SELECT last(value) FROM \"lma_components_threads\" WHERE \"service\" = 'elasticsearch' AND $timeFilter GROUP BY time($interval)"
+              "query": "SELECT last(\"value\") AS \"value\" FROM \"lma_components_threads\" WHERE \"service\" = 'elasticsearch' AND $timeFilter GROUP BY time($interval)",
+              "groupBy": [
+                {
+                  "interval": "auto",
+                  "type": "time"
+                }
+              ]
             }
           ],
           "maxDataPoints": 100,
@@ -2122,6 +2340,7 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
+          "datasource": null,
           "error": false,
           "nullText": null,
           "postfixFontSize": "50%",
@@ -2157,7 +2376,6 @@
           "targets": [
             {
               "function": "mean",
-              "groupByTags": [],
               "tags": [
                 {
                   "value": "elasticsearch",
@@ -2171,10 +2389,17 @@
                   "func": "mean"
                 }
               ],
+              "refId": "A",
               "alias": "rss",
               "series": "/$node.lma_components.hekad.memory.rss/",
               "measurement": "lma_components_memory_rss",
-              "query": "SELECT mean(value) FROM \"lma_components_memory_rss\" WHERE \"service\" = 'elasticsearch' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") AS \"value\" FROM \"lma_components_memory_rss\" WHERE \"service\" = 'elasticsearch' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
+                {
+                  "interval": "auto",
+                  "type": "time"
+                }
+              ],
               "fill": "0"
             }
           ],
@@ -2239,7 +2464,6 @@
           "targets": [
             {
               "function": "mean",
-              "groupByTags": [],
               "tags": [
                 {
                   "value": "elasticsearch",
@@ -2253,15 +2477,21 @@
                   "func": "mean"
                 }
               ],
+              "refId": "A",
               "alias": "read",
               "series": "/$node.lma_components.hekad.disk.bytes/",
               "measurement": "lma_components_disk_bytes_read",
-              "query": "SELECT mean(value) FROM \"lma_components_disk_bytes_read\" WHERE \"service\" = 'elasticsearch' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") AS \"value\" FROM \"lma_components_disk_bytes_read\" WHERE \"service\" = 'elasticsearch' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
+                {
+                  "interval": "auto",
+                  "type": "time"
+                }
+              ],
               "fill": "0"
             },
             {
               "function": "mean",
-              "groupByTags": [],
               "tags": [
                 {
                   "value": "elasticsearch",
@@ -2275,10 +2505,17 @@
                   "func": "mean"
                 }
               ],
+              "refId": "B",
               "alias": "write",
               "series": "/$node.lma_components.hekad.disk.bytes/",
               "measurement": "lma_components_disk_bytes_write",
-              "query": "SELECT mean(value) FROM \"lma_components_disk_bytes_write\" WHERE \"service\" = 'elasticsearch' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") AS \"value\" FROM \"lma_components_disk_bytes_write\" WHERE \"service\" = 'elasticsearch' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
+                {
+                  "interval": "auto",
+                  "type": "time"
+                }
+              ],
               "fill": "0"
             }
           ],
@@ -2343,7 +2580,6 @@
           "targets": [
             {
               "function": "mean",
-              "groupByTags": [],
               "tags": [
                 {
                   "value": "elasticsearch",
@@ -2357,15 +2593,21 @@
                   "func": "mean"
                 }
               ],
+              "refId": "A",
               "alias": "system",
               "series": "/$node.lma_components.hekad.cputime/",
               "measurement": "lma_components_cputime_syst",
-              "query": "SELECT mean(value) FROM \"lma_components_cputime_syst\" WHERE \"service\" = 'elasticsearch' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") AS \"value\" FROM \"lma_components_cputime_syst\" WHERE \"service\" = 'elasticsearch' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
+                {
+                  "interval": "auto",
+                  "type": "time"
+                }
+              ],
               "fill": "0"
             },
             {
               "function": "mean",
-              "groupByTags": [],
               "tags": [
                 {
                   "value": "elasticsearch",
@@ -2379,10 +2621,17 @@
                   "func": "mean"
                 }
               ],
+              "refId": "B",
               "alias": "user",
               "series": "/$node.lma_components.hekad.cputime/",
               "measurement": "lma_components_cputime_user",
-              "query": "SELECT mean(value) FROM \"lma_components_cputime_user\" WHERE \"service\" = 'elasticsearch' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") AS \"value\" FROM \"lma_components_cputime_user\" WHERE \"service\" = 'elasticsearch' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
+                {
+                  "interval": "auto",
+                  "type": "time"
+                }
+              ],
               "fill": "0"
             }
           ],
@@ -2431,12 +2680,6 @@
           "prefix": "",
           "targets": [
             {
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "mean"
-                }
-              ],
               "tags": [
                 {
                   "operator": "=",
@@ -2444,9 +2687,21 @@
                   "key": "fs"
                 }
               ],
-              "query": "SELECT mean(value) FROM \"fs_space_percent_free\" WHERE \"fs\" = '/opt/es/data' AND $timeFilter GROUP BY time($interval)",
-              "groupByTags": [],
-              "measurement": "fs_space_percent_free"
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "mean"
+                }
+              ],
+              "groupBy": [
+                {
+                  "interval": "auto",
+                  "type": "time"
+                }
+              ],
+              "measurement": "fs_space_percent_free",
+              "query": "SELECT mean(\"value\") AS \"value\" FROM \"fs_space_percent_free\" WHERE \"fs\" = '/opt/es/data' AND $timeFilter GROUP BY time($interval)",
+              "refId": "A"
             }
           ],
           "maxDataPoints": 100,
@@ -2474,6 +2729,7 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
+          "datasource": null,
           "error": false,
           "nullText": null,
           "postfixFontSize": "50%",
@@ -2508,7 +2764,6 @@
           },
           "targets": [
             {
-              "groupByTags": [],
               "tags": [
                 {
                   "operator": "=",
@@ -2522,13 +2777,19 @@
                   "func": "mean"
                 }
               ],
+              "refId": "A",
               "alias": "free",
               "measurement": "fs_space_free",
-              "query": "SELECT mean(value) FROM \"fs_space_free\" WHERE \"fs\" = '/opt/es/data' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") AS \"value\" FROM \"fs_space_free\" WHERE \"fs\" = '/opt/es/data' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
+                {
+                  "interval": "auto",
+                  "type": "time"
+                }
+              ],
               "fill": "0"
             },
             {
-              "groupByTags": [],
               "rawQuery": false,
               "tags": [
                 {
@@ -2543,13 +2804,19 @@
                   "func": "mean"
                 }
               ],
+              "refId": "B",
               "alias": "used",
               "measurement": "fs_space_used",
-              "query": "SELECT mean(value) FROM \"fs_space_used\" WHERE \"fs\" = '/opt/es/data' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") AS \"value\" FROM \"fs_space_used\" WHERE \"fs\" = '/opt/es/data' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
+                {
+                  "interval": "auto",
+                  "type": "time"
+                }
+              ],
               "fill": "0"
             },
             {
-              "groupByTags": [],
               "rawQuery": false,
               "tags": [
                 {
@@ -2564,9 +2831,16 @@
                   "func": "mean"
                 }
               ],
+              "refId": "C",
               "alias": "reserved",
               "measurement": "fs_space_percent_reserved",
-              "query": "SELECT mean(value) FROM \"fs_space_percent_reserved\" WHERE \"fs\" = '/opt/es/data' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") AS \"value\" FROM \"fs_space_percent_reserved\" WHERE \"fs\" = '/opt/es/data' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
+                {
+                  "interval": "auto",
+                  "type": "time"
+                }
+              ],
               "fill": "0"
             }
           ],
@@ -2614,8 +2888,7 @@
         "refresh_on_load": true,
         "allFormat": "glob",
         "refresh": true,
-        "current": {
-        },
+        "current": {},
         "datasource": null,
         "query": "show tag values from lma_components_threads with key = \"hostname\"",
         "type": "query",
@@ -2632,47 +2905,44 @@
   "refresh": "1m",
   "id": null,
   "originalTitle": "LMA self-monitoring",
-  "version": 3,
-  "nav": [
-    {
-      "status": "Stable",
-      "notice": false,
-      "enable": true,
-      "collapse": false,
-      "time_options": [
-        "5m",
-        "15m",
-        "1h",
-        "6h",
-        "12h",
-        "24h",
-        "2d",
-        "7d",
-        "30d"
-      ],
-      "refresh_intervals": [
-        "5s",
-        "10s",
-        "30s",
-        "1m",
-        "5m",
-        "15m",
-        "30m",
-        "1h",
-        "2h",
-        "1d"
-      ],
-      "now": true,
-      "type": "timepicker"
-    }
-  ],
+  "timepicker": {
+    "status": "Stable",
+    "notice": false,
+    "enable": true,
+    "collapse": false,
+    "time_options": [
+      "5m",
+      "15m",
+      "1h",
+      "6h",
+      "12h",
+      "24h",
+      "2d",
+      "7d",
+      "30d"
+    ],
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ],
+    "now": true,
+    "type": "timepicker"
+  },
   "sharedCrosshair": true,
   "time": {
     "to": "now",
     "from": "now-1h"
   },
   "timezone": "browser",
-  "schemaVersion": 6,
+  "schemaVersion": 7,
   "annotations": {
     "list": []
   }
