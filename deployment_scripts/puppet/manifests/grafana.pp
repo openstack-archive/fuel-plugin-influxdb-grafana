@@ -20,4 +20,5 @@ class {'lma_monitoring_analytics::grafana':
   influxdb_username => $influxdb_grafana['influxdb_username'],
   influxdb_password => $influxdb_grafana['influxdb_userpass'],
   influxdb_database => $influxdb_grafana['influxdb_dbname'],
+  grafana_domain    => hiera('internal_address'),
 }
