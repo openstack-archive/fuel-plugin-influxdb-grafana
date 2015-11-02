@@ -17,6 +17,7 @@
 class lma_monitoring_analytics::grafana (
   $admin_username    = undef,
   $admin_password    = undef,
+  $domain            = $lma_monitoring_analytics::params::grafana_domain,
   $http_port         = $lma_monitoring_analytics::params::listen_port,
   $influxdb_url      = $lma_monitoring_analytics::params::influxdb_url,
   $influxdb_username = undef,
@@ -31,6 +32,7 @@ class lma_monitoring_analytics::grafana (
     cfg                 => {
       server    => {
         http_port => $http_port,
+        domain    => $domain,
       },
       security  => {
         admin_user     => $admin_username,
