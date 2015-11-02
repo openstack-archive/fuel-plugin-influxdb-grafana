@@ -20,6 +20,7 @@
     "description": "Puppet module for configuring the Grafana dashboard and InfluxDB",
     "dependencies": [
         {"name": "puppetlabs/stdlib", "version_requirement": "4.x"},
-        {"name": "jfryman/nginx", "version_requirement": ">= 0.2.2"}
+        {"name": "jfryman/nginx", "version_requirement": ">= 0.2.2"},
+        {"name": "bfraser/puppet-grafana", "version_requirement": ">= 2.1.0"}
     ]
 }
