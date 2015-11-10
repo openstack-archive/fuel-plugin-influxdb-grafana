@@ -1450,7 +1450,7 @@
           "id": 19,
           "fill": 0,
           "span": 5,
-          "title": "CPU",
+          "title": "CPU on $controller",
           "tooltip": {
             "shared": true,
             "value_type": "cumulative"
