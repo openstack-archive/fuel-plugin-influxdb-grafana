@@ -18,9 +18,13 @@ To configure your plugin, you need to follow these steps:
 #. Scroll down the page and select the InfluxDB-Grafana Plugin in the left column.
    The InfluxDB-Grafana Plugin settings screen should appear as shown below.
 
+|
+
    .. image:: ../images/influx_grafana_settings.png
       :width: 800
       :align: center
+
+|
 
 #. Select the InfluxDB-Grafana Plugin checkbox and fill-in the required fields.
 
@@ -37,9 +41,13 @@ To configure your plugin, you need to follow these steps:
 #. Assign the *InfluxDB Grafana* role to the node where you would like to install
    the InfluxDB and Grafana servers as shown below.
 
+|
+
    .. image:: ../images/influx_grafana_role.png
       :width: 800
       :align: center
+
+|
 
    .. note:: Because of a bug with Fuel 7.0 (see bug `#1496328
       <https://bugs.launchpad.net/fuel-plugins/+bug/1496328>`_), the UI won't let
@@ -75,9 +83,13 @@ deploying a Mirantis OpenStack environment can typically take anything
 from 30 minutes to several hours. But once your deployment is complete,
 you should see a notification that looks like the following:
 
+|
+
    .. image:: ../images/deployment_notification.png
       :width: 800
       :align: center
+
+|
 
 Verifying InfluxDB
 ~~~~~~~~~~~~~~~~~~
@@ -135,10 +147,13 @@ The Grafana user interface runs on port 8000.
 Pointing your browser to the URL http://<HOST>:8000/ you should see the
 Grafana login page:
 
+|
+
 .. image:: ../images/grafana_login.png
    :align: center
    :width: 800
 
+|
 
 You should be redirected to the Grafana *Home Page*.
 The first time you access Grafana, you are requested to
@@ -147,9 +162,13 @@ Once you have authenticated successfully, you should be automatically
 redirected to the *Home Page* from where you can select a dashboard as
 shown below.
 
+|
+
 .. image:: ../images/grafana_home.png
    :align: center
    :width: 800
+
+|
 
 Exploring your time-series with Grafana
 ---------------------------------------
@@ -167,11 +186,16 @@ We suggest you start with the *Main Dashboard*, as shown
 below. The *Main Dashboard* provides a
 single pane of glass to visualize the health
 status of all the OpenStack services being monitored
-such as Nova or Cinder but also HAProxy, MySQL and RabbitMQ.
+such as Nova or Cinder but also HAProxy, MySQL and RabbitMQ to
+name a few..
+
+|
 
 .. image:: ../images/grafana_main.png
    :align: center
    :width: 800
+
+|
 
 As you can see, the *Main Dashboard* (as most dashboards) provides
 a drop down menu list in the upper left corner of the window
@@ -225,10 +249,13 @@ dashboards for each of the OpenStack services being monitored.
 For example, if you click through the Nova box, you should see
 a screen like this:
 
+|
+
    .. image:: ../images/grafana_nova.png
       :align: center
       :width: 800
 
+|
 
 The Nova Dashboard
 ~~~~~~~~~~~~~~~~~~
@@ -321,10 +348,13 @@ Nova has changed a state to *warning* because the system has detected
 5xx errors and that it may be due to the fact that Neutron is *down*.
 An example of what an annotation looks like is shown below.
 
-   .. image:: ../images/grafana_nova_annot.png
-      :align: center
-      :width: 800
+|
 
+.. image:: ../images/grafana_nova_annot.png
+   :align: center
+   :width: 800
+
+|
 
 Troubleshooting
 ---------------
@@ -358,5 +388,5 @@ If you get no data in Grafana, follow these troubleshooting tips.
     [root@node-37 ~]# /etc/init.d/grafana-server start
     * Starting Grafana Server
 
-#. If none of the above solve the problem, check the logs in ``/var/log/influxdb/influxdb.log``
+#. If none of the above solves the problem, check the logs in ``/var/log/influxdb/influxdb.log``
    and ``/var/log/grafana/grafana.log`` to find out what might have gone wrong.
