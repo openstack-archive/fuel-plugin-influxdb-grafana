@@ -21,9 +21,8 @@ that are monitored.
 Among those dashboards, the *Main Dashboard* provides a single pane of glass overview
 of your OpenStack environment status.
 
-As shown in the figure below, the InfluxDB-Grafana Plugin is a constituent of the
-**Logging, Monitoring and Alerting (LMA) Toolchain** map::
-
+The InfluxDB-Grafana Plugin is a key component of the LMA Toolchain project as
+shown in the figure below::
 
                              ...................................................
                             |               LMA Collector Plugin                |
@@ -44,7 +43,6 @@ As shown in the figure below, the InfluxDB-Grafana Plugin is a constituent of th
                                      |                                |
                                      |     alerting / escalation      |
                                      '................................'
-
 
 
 .. _plugin_requirements:
