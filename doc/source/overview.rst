@@ -12,14 +12,40 @@ The annotations contain insightful information about the detected fault
 or anomaly that triggered a change of state for a node cluster or service
 cluster as well as textual hints about what might be the root cause of the
 fault or anomaly.
+
 The InfluxDB-Grafana Plugin is an indispensable tool to answering
-the questions "what has changed, when and why?". Grafana is installed with
-a collection of predefined dashboards for each of the OpenStack services.
-Among those, the *Main Dashboard* provides a single pane of glass overview
+the questions "what has changed in my OpenStack environment,when and why?".
+Grafana is installed with
+a collection of predefined dashboards for each of the OpenStack services
+that are monitored.
+Among those dashboards, the *Main Dashboard* provides a single pane of glass overview
 of your OpenStack environment status.
 
-The InfluxDB-Grafana Plugin is a key component of the
-**Logging, Monitoring and Alerting (LMA) Toolchain** of Mirantis OpenStack.
+As shown in the figure below, the InfluxDB-Grafana Plugin is a constituent of the
+**Logging, Monitoring and Alerting (LMA) Toolchain** map::
+
+
+                             ...................................................
+                            |               LMA Collector Plugin                |
+                            |                                                   |
+                            | measurement / collection / analysis / persistence |
+                            '...................................................'
+                                            |         |          |
+                                            |         |          |
+                                            |         |          |
+   +====================================+   |         |          |    ................................
+   ||      InfluxDB Grafana Plugin     ||   |         |          |   |  Elasticsearch Kibana Plugin   |
+   ||                                  ||<--'         |          '-->|                                |
+   ||  metrics / annotations analytics ||             |              | logs / notifications analytics |
+   +====================================+             |              '................................'
+                                                      v
+                                      ................................
+                                     | Infrastructure Alerting Plugin |
+                                     |                                |
+                                     |     alerting / escalation      |
+                                     '................................'
+
+
 
 .. _plugin_requirements:
 
