@@ -21,29 +21,12 @@ that are monitored.
 Among those dashboards, the *Main Dashboard* provides a single pane of glass overview
 of your OpenStack environment status.
 
-The InfluxDB-Grafana Plugin is a key component of the LMA Toolchain project as
-shown in the figure below::
+InfluxDB and Grafana are key components
+of the `LMA Toolchain project <https://launchpad.net/lma-toolchain>`_
+as shown in the figure below.
 
-                             ...................................................
-                            |               LMA Collector Plugin                |
-                            |                                                   |
-                            | measurement / collection / analysis / persistence |
-                            '...................................................'
-                                            |         |          |
-                                            |         |          |
-                                            |         |          |
-   +====================================+   |         |          |    ................................
-   ||      InfluxDB Grafana Plugin     ||   |         |          |   |  Elasticsearch Kibana Plugin   |
-   ||                                  ||<--'         |          '-->|                                |
-   ||  metrics / annotations analytics ||             |              | logs / notifications analytics |
-   +====================================+             |              '................................'
-                                                      v
-                                      ................................
-                                     | Infrastructure Alerting Plugin |
-                                     |                                |
-                                     |     alerting / escalation      |
-                                     '................................'
-
+.. image:: ../images/toolchain_map.png
+   :align: center
 
 .. _plugin_requirements:
 
