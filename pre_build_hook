@@ -9,6 +9,8 @@ STDLIB_TARBALL_URL="https://forgeapi.puppetlabs.com/v3/files/puppetlabs-stdlib-4
 INIFILE_TARBALL_URL="https://forgeapi.puppetlabs.com/v3/files/puppetlabs-inifile-1.4.1.tar.gz"
 LVM_TARBALL_URL="https://forgeapi.puppetlabs.com/v3/files/puppetlabs-lvm-0.5.0.tar.gz"
 GRAFANA_TARBALL_URL="https://forgeapi.puppetlabs.com/v3/files/bfraser-grafana-2.1.0.tar.gz"
+FUEL_LIB_COMMIT="7.0"
+FUEL_LIB_TARBALL_URL="https://github.com/openstack/fuel-library/archive/${FUEL_LIB_COMMIT}.tar.gz"
 
 download_package https://s3.amazonaws.com/influxdb/influxdb_0.9.4.2_amd64.deb
 
@@ -21,3 +23,9 @@ download_puppet_module "concat" "$CONCAT_TARBALL_URL"
 download_puppet_module "stdlib" "$STDLIB_TARBALL_URL"
 download_puppet_module "inifile" "$INIFILE_TARBALL_URL"
 download_puppet_module "lvm" "$LVM_TARBALL_URL"
+
+# Extract dependent manifests from fuel-library
+rm -rf "${MODULES_DIR:?}"/l23network
+wget -qO- "${FUEL_LIB_TARBALL_URL}" | \
+    tar -C "${MODULES_DIR}" --strip-components=3 -zxvf - \
+    fuel-library-${FUEL_LIB_COMMIT}/deployment/puppet/l23network
