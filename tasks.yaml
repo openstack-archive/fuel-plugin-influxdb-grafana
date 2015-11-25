@@ -22,5 +22,6 @@
   type: puppet
   parameters:
     puppet_manifest: puppet/manifests/grafana.pp
-    puppet_modules: puppet/modules
+    # Require Puppet function 'filter_nodes' provided by the openstack module
+    puppet_modules: /etc/puppet/modules:puppet/modules
     timeout: 600
