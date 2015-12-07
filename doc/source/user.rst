@@ -98,9 +98,9 @@ running properly. On the Fuel Master node, you can retrieve the IP
 address of the node where InfluxDB is installed via the `fuel` command line::
 
     [root@fuel ~]# fuel nodes
-    id | status   | name             | cluster | ip        | mac               | roles                | pending_roles | online | group_id
-    ---|----------|------------------|---------|-----------|-------------------|----------------------|---------------|--------|---------
-    37 | ready    | Untitled (47:b7) | 38      | 10.20.0.4 | 08:00:27:54:47:b7 | influxdb_grafana     |               | True   | 38
+    id | status   | name | cluster | ip        | ... | roles             | ...
+    ---|----------|------|---------|-----------|-----|-------------------|----
+    37 | ready    | lma  | 38      | 10.20.0.4 | ... | influxdb_grafana  | ...
 
     [Skip ...]
 
