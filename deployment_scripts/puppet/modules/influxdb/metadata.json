@@ -20,6 +20,6 @@
     "description": "Puppet module for installing and configuring InfluxDB",
     "dependencies": [
         {"name": "puppetlabs/stdlib", "version_requirement": "4.x"},
-        {"name": "puppetlabs/inifile", "version_requirement": ">= 1.0.0" },
+        {"name": "puppetlabs/inifile", "version_requirement": ">= 1.0.0" }
     ]
 }
