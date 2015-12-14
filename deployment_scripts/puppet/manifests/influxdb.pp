@@ -14,6 +14,7 @@
 #
 $influxdb_grafana = hiera('influxdb_grafana')
 $directory = $influxdb_grafana['data_dir']
+$influxdb_nodes = hiera(lma::influxdb::raft_nodes)
 
 user { 'influxdb':
   ensure => present,
@@ -44,4 +45,6 @@ class { 'lma_monitoring_analytics::influxdb':
   retention_period   => $retention_period,
   replication_factor => $influxdb_grafana['replication_factor'],
   require            => File[$directory],
+  hostname           => hiera(node_name),
+  raft_cluster       => keys($influxdb_nodes),
 }
