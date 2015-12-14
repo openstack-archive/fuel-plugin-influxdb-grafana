@@ -38,8 +38,20 @@ firewall {'020 ssh':
   action => 'accept',
 }
 
+firewall { '113 corosync-input':
+  port   => 5404,
+  proto  => 'udp',
+  action => 'accept',
+}
+
+firewall { '114 corosync-output':
+  port   => 5405,
+  proto  => 'udp',
+  action => 'accept',
+}
+
 firewall { '200 influxdb':
-  port   => [8083, 8086],
+  port   => [8083, 8086, 8088],
   proto  => 'tcp',
   action => 'accept',
 }

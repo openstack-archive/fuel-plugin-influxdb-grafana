@@ -13,7 +13,7 @@
 # under the License.
 require 'spec_helper'
 
-describe 'influxdb' do
+describe 'influxdb::service' do
     let(:facts) do
         {:kernel => 'Linux', :operatingsystem => 'Ubuntu',
          :osfamily => 'Debian'}
@@ -21,10 +21,10 @@ describe 'influxdb' do
 
     describe 'with defaults' do
         it { is_expected.to compile }
-
-        it { is_expected.to contain_class('influxdb::install') }
-        it { is_expected.to contain_class('influxdb::service') }
-        it { is_expected.to contain_class('influxdb::configure') }
+        it { is_expected.to contain_service('influxdb').with(
+               'ensure' => 'running',
+               'enable' => 'true',
+               'hasrestart' => 'true'
+             ) }
     end
 end
-
