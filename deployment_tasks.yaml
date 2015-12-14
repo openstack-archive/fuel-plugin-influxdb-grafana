@@ -2,13 +2,57 @@
   type: group
   role: [influxdb_grafana]
   tasks:
+    - fuel_pkgs
     - hiera
     - globals
     - tools
     - logging
     - netconfig
+    - hosts
+    - firewall
+    - cluster
+    - cluster-haproxy
   required_for: [deploy_end]
   requires: [deploy_start]
   parameters:
     strategy:
       type: parallel
+
+- id: influxdb-firewall
+  type: puppet
+  groups: [influxdb_grafana]
+  required_for: [cluster]
+  requires: [firewall]
+  parameters:
+    puppet_manifest: "puppet/manifests/firewall.pp"
+    puppet_modules: "/etc/puppet/modules"
+    timeout: 360
+
+- id: influxdb-vip
+  type: puppet
+  groups: [influxdb_grafana]
+  requires: [cluster]
+  parameters:
+    puppet_manifest: "/etc/puppet/modules/osnailyfacter/modular/virtual_ips/virtual_ips.pp"
+    puppet_modules: "/etc/puppet/modules"
+    timeout: 3600
+
+- id: influxdb-haproxy
+  type: puppet
+  groups: [influxdb_grafana]
+  required_for: [deploy_end]
+  requires: [cluster-haproxy, influxdb-vip]
+  parameters:
+    puppet_manifest: "puppet/manifests/haproxy.pp"
+    puppet_modules: "/etc/puppet/modules"
+    timeout: 3600
+
+- id: influxdb-hiera-override
+  type: puppet
+  groups: [influxdb_grafana]
+  requires: [globals]
+  required_for: [logging]
+  parameters:
+    puppet_manifest: "puppet/manifests/hiera-override.pp"
+    puppet_modules: "/etc/puppet/modules"
+    timeout: 120
