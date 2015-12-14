@@ -14,10 +14,26 @@
 #
 # == Class: influxdb::install
 
-class influxdb::install {
+class influxdb::install (
+  $hostname     = undef,
+  $raft_cluster = undef,
+) {
 
   package { 'influxdb':
     ensure => installed,
   }
 
+  if ($hostname != undef) and ($raft_cluster != undef) {
+    $content = inline_template('<% join_option = ""
+@raft_cluster.sort.each do |n|
+    join_option = join_option + n + ":8088,"
+end -%>
+INFLUXD_OPTS="-hostname <%= hostname %> -join <%= join_option[0...-1] %>"
+')
+
+    file { '/etc/default/influxdb':
+        ensure  => present,
+        content => $content,
+    }
+  }
 }

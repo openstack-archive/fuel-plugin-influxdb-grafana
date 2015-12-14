@@ -44,4 +44,6 @@ class { 'lma_monitoring_analytics::influxdb':
   retention_period   => $retention_period,
   replication_factor => $influxdb_grafana['replication_factor'],
   require            => File[$directory],
+  hostname           => hiera(node_name),
+  raft_cluster       => hiera(lma::influxdb::raft_nodes::name),
 }
