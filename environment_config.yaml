@@ -11,16 +11,12 @@ attributes:
         error: "You must provide a number"
 
   replication_factor:
-    value: '1'
+    value: '3'
     label: 'Replication factor'
     description: 'The number of replicas'
     weight: 6
     type: "text"
     regex: *number_validation
-    # Don't expose the replication factor until clustering is supported
-    restrictions:
-      - condition: "true"
-        action: hide
 
   influxdb_rootpass:
     value: ''
