@@ -18,7 +18,7 @@ $directory = $influxdb_grafana['data_dir']
 user { 'influxdb':
   ensure => present,
   system => true,
-  shell  => '/sbin/nologin',
+  shell  => '/usr/sbin/nologin',
 }
 
 file { $directory:
