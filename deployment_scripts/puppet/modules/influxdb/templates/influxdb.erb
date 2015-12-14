@@ -1,0 +1,6 @@
+<% join_option = ""
+   @raft_nodes.sort.each do |n|
+      join_option = join_option + n + ":8088,"
+   end
+-%>
+INFLUXD_OPTS="-hostname <%= @hostname %> -join <%= join_option[0...-1] %>"

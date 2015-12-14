@@ -14,6 +14,7 @@
 #
 $influxdb_grafana = hiera('influxdb_grafana')
 $directory = $influxdb_grafana['data_dir']
+$raft_nodes = hiera(lma::influxdb::raft_nodes)
 
 user { 'influxdb':
   ensure => present,
@@ -35,6 +36,8 @@ if $influxdb_grafana['retention_period'] == 0 {
   $retention_period = sprintf('%dd', $influxdb_grafana['retention_period'])
 }
 
+# We must use hostnames for raft_hostname and raft_nodes. We cannot mixed
+# IPs and hostnames.
 class { 'lma_monitoring_analytics::influxdb':
   influxdb_rootpass  => $influxdb_grafana['influxdb_rootpass'],
   influxdb_dbname    => $influxdb_grafana['influxdb_dbname'],
@@ -44,4 +47,6 @@ class { 'lma_monitoring_analytics::influxdb':
   retention_period   => $retention_period,
   replication_factor => $influxdb_grafana['replication_factor'],
   require            => File[$directory],
+  raft_hostname      => hiera('node_name'),
+  raft_nodes         => keys($raft_nodes),
 }
