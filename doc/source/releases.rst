@@ -6,7 +6,7 @@ Release Notes
 Version 0.9.0
 -------------
 
--
+- A new dashboard for libvirt metrics.
 
 Version 0.8.0
 -------------
