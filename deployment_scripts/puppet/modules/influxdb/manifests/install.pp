@@ -14,10 +14,22 @@
 #
 # == Class: influxdb::install
 
-class influxdb::install {
+class influxdb::install (
+  $raft_cluster = undef,
+) {
 
   package { 'influxdb':
     ensure => installed,
   }
 
+  if $raft_cluster != undef {
+    $content = inline_template('
+INFLUXD_OPTS=
+    ')
+
+    file { '/etc/default/influxdb':
+        ensure  => present,
+        content => $content,
+    }
+  }
 }
