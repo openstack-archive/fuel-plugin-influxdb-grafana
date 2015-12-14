@@ -1,0 +1,631 @@
+{
+  "title": "Libvirt",
+  "originalTitle": "Libvirt",
+  "tags": [],
+  "style": "dark",
+  "timezone": "browser",
+  "editable": true,
+  "hideControls": false,
+  "sharedCrosshair": true,
+  "rows": [
+    {
+      "collapse": false,
+      "editable": true,
+      "height": "250px",
+      "panels": [
+        {
+          "aliasColors": {},
+          "bars": false,
+          "datasource": null,
+          "editable": true,
+          "error": false,
+          "fill": 1,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": 100,
+            "leftMin": 0,
+            "rightLogBase": 1,
+            "rightMax": 100,
+            "rightMin": 0,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 1,
+          "interval": ">60s",
+          "leftYAxisLabel": "%",
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "rightYAxisLabel": "%",
+          "seriesOverrides": [
+            {
+              "alias": "/virt_vcpu_time/",
+              "stack": true,
+              "yaxis": 2
+            }
+          ],
+          "span": 6,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "fields": [
+                {
+                  "func": "mean",
+                  "mathExpr": "/10000000",
+                  "name": "value"
+                }
+              ],
+              "fill": "none",
+              "groupBy": [
+                {
+                  "interval": "auto",
+                  "type": "time"
+                }
+              ],
+              "measurement": "virt_cpu_time",
+              "query": "SELECT mean(\"value\")/10000000 AS \"value\" FROM \"virt_cpu_time\" WHERE \"hostname\" =~ /$hostname$/ AND \"instance_id\" =~ /$instance_id$/ AND $timeFilter GROUP BY time($interval) fill(none)",
+              "refId": "A",
+              "tags": [
+                {
+                  "key": "hostname",
+                  "operator": "=~",
+                  "value": "/$hostname$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "instance_id",
+                  "operator": "=~",
+                  "value": "/$instance_id$/"
+                }
+              ],
+              "alias": "cpu_time"
+            },
+            {
+              "fields": [
+                {
+                  "func": "mean",
+                  "mathExpr": "/10000000",
+                  "name": "value"
+                }
+              ],
+              "fill": "none",
+              "groupBy": [
+                {
+                  "interval": "auto",
+                  "type": "time"
+                },
+                {
+                  "key": "vcpu_number",
+                  "type": "tag"
+                }
+              ],
+              "measurement": "virt_vcpu_time",
+              "query": "SELECT mean(\"value\")/10000000 AS \"value\" FROM \"virt_vcpu_time\" WHERE \"hostname\" =~ /$hostname$/ AND \"instance_id\" =~ /$instance_id$/ AND $timeFilter GROUP BY time($interval), \"vcpu_number\" fill(none)",
+              "rawQuery": false,
+              "refId": "B",
+              "tags": [
+                {
+                  "key": "hostname",
+                  "operator": "=~",
+                  "value": "/$hostname$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "instance_id",
+                  "operator": "=~",
+                  "value": "/$instance_id$/"
+                }
+              ],
+              "alias": "vcpu_time(vcpu:$tag_vcpu_number)"
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "CPU",
+          "tooltip": {
+            "shared": true,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "short"
+          ]
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "datasource": null,
+          "editable": true,
+          "error": false,
+          "fill": 1,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": 0,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": 0,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 2,
+          "interval": ">60s",
+          "leftYAxisLabel": "",
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "rightYAxisLabel": "",
+          "seriesOverrides": [],
+          "span": 6,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "fields": [
+                {
+                  "func": "mean",
+                  "mathExpr": "",
+                  "name": "value"
+                }
+              ],
+              "fill": "none",
+              "groupBy": [
+                {
+                  "interval": "auto",
+                  "type": "time"
+                }
+              ],
+              "measurement": "virt_memory_total",
+              "query": "SELECT mean(\"value\") AS \"value\" FROM \"virt_memory_total\" WHERE \"hostname\" =~ /$hostname$/ AND \"instance_id\" =~ /$instance_id$/ AND $timeFilter GROUP BY time($interval) fill(none)",
+              "refId": "A",
+              "tags": [
+                {
+                  "key": "hostname",
+                  "operator": "=~",
+                  "value": "/$hostname$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "instance_id",
+                  "operator": "=~",
+                  "value": "/$instance_id$/"
+                }
+              ],
+              "alias": "total"
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Memory",
+          "tooltip": {
+            "shared": true,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "bytes",
+            "short"
+          ]
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "datasource": null,
+          "editable": true,
+          "error": false,
+          "fill": 1,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": 0,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 3,
+          "interval": "> 60s",
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 6,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "fields": [
+                {
+                  "func": "mean",
+                  "name": "value"
+                }
+              ],
+              "fill": "none",
+              "groupBy": [
+                {
+                  "interval": "auto",
+                  "type": "time"
+                }
+              ],
+              "measurement": "virt_disk_octets_read",
+              "query": "SELECT mean(\"value\") AS \"value\" FROM \"virt_disk_octets_read\" WHERE \"hostname\" =~ /$hostname$/ AND \"instance_id\" =~ /$instance_id$/ AND \"device\" =~ /$disk$/ AND $timeFilter GROUP BY time($interval) fill(none)",
+              "refId": "A",
+              "tags": [
+                {
+                  "key": "hostname",
+                  "operator": "=~",
+                  "value": "/$hostname$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "instance_id",
+                  "operator": "=~",
+                  "value": "/$instance_id$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "device",
+                  "operator": "=~",
+                  "value": "/$disk$/"
+                }
+              ],
+              "alias": "read"
+            },
+            {
+              "fields": [
+                {
+                  "func": "mean",
+                  "name": "value"
+                }
+              ],
+              "fill": "none",
+              "groupBy": [
+                {
+                  "interval": "auto",
+                  "type": "time"
+                }
+              ],
+              "measurement": "virt_disk_octets_write",
+              "query": "SELECT mean(\"value\") AS \"value\" FROM \"virt_disk_octets_write\" WHERE \"hostname\" =~ /$hostname$/ AND \"instance_id\" =~ /$instance_id$/ AND \"device\" =~ /$disk$/ AND $timeFilter GROUP BY time($interval) fill(none)",
+              "refId": "B",
+              "tags": [
+                {
+                  "key": "hostname",
+                  "operator": "=~",
+                  "value": "/$hostname$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "instance_id",
+                  "operator": "=~",
+                  "value": "/$instance_id$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "device",
+                  "operator": "=~",
+                  "value": "/$disk$/"
+                }
+              ],
+              "alias": "written"
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Disk I/O",
+          "tooltip": {
+            "shared": true,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "short"
+          ]
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "datasource": null,
+          "editable": true,
+          "error": false,
+          "fill": 1,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": 0,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 4,
+          "interval": "> 60s",
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 6,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "fields": [
+                {
+                  "func": "mean",
+                  "name": "value"
+                }
+              ],
+              "fill": "none",
+              "groupBy": [
+                {
+                  "interval": "auto",
+                  "type": "time"
+                }
+              ],
+              "measurement": "virt_if_octets_rx",
+              "query": "SELECT mean(\"value\") AS \"value\" FROM \"virt_if_octets_rx\" WHERE \"hostname\" =~ /$hostname$/ AND \"instance_id\" =~ /$instance_id$/ AND \"interface\" =~ /$interface$/ AND $timeFilter GROUP BY time($interval) fill(none)",
+              "refId": "A",
+              "tags": [
+                {
+                  "key": "hostname",
+                  "operator": "=~",
+                  "value": "/$hostname$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "instance_id",
+                  "operator": "=~",
+                  "value": "/$instance_id$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "interface",
+                  "operator": "=~",
+                  "value": "/$interface$/"
+                }
+              ],
+              "alias": "rx"
+            },
+            {
+              "fields": [
+                {
+                  "func": "mean",
+                  "name": "value"
+                }
+              ],
+              "fill": "none",
+              "groupBy": [
+                {
+                  "interval": "auto",
+                  "type": "time"
+                }
+              ],
+              "measurement": "virt_if_octets_tx",
+              "query": "SELECT mean(\"value\") AS \"value\" FROM \"virt_if_octets_tx\" WHERE \"hostname\" =~ /$hostname$/ AND \"instance_id\" =~ /$instance_id$/ AND \"interface\" =~ /$interface$/ AND $timeFilter GROUP BY time($interval) fill(none)",
+              "refId": "B",
+              "tags": [
+                {
+                  "key": "hostname",
+                  "operator": "=~",
+                  "value": "/$hostname$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "instance_id",
+                  "operator": "=~",
+                  "value": "/$instance_id$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "interface",
+                  "operator": "=~",
+                  "value": "/$interface$/"
+                }
+              ],
+              "alias": "tx"
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Network I/O",
+          "tooltip": {
+            "shared": true,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "short"
+          ]
+        }
+      ],
+      "title": "Row"
+    }
+  ],
+  "time": {
+    "from": "now-1h",
+    "to": "now"
+  },
+  "timepicker": {
+    "now": true,
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ],
+    "time_options": [
+      "5m",
+      "15m",
+      "1h",
+      "6h",
+      "12h",
+      "24h",
+      "2d",
+      "7d",
+      "30d"
+    ]
+  },
+  "templating": {
+    "list": [
+      {
+        "allFormat": "glob",
+        "current": {
+        },
+        "datasource": null,
+        "includeAll": false,
+        "multi": false,
+        "multiFormat": "glob",
+        "name": "hostname",
+        "options": [
+        ],
+        "query": "show tag values from virt_cpu_time with key = hostname",
+        "refresh_on_load": false,
+        "regex": "",
+        "type": "query",
+        "refresh": true
+      },
+      {
+        "allFormat": "glob",
+        "current": {
+        },
+        "datasource": null,
+        "includeAll": false,
+        "multi": false,
+        "multiFormat": "glob",
+        "name": "instance_id",
+        "options": [
+        ],
+        "query": "show tag values from virt_cpu_time with key = instance_id where hostname = '$hostname'",
+        "refresh_on_load": false,
+        "type": "query",
+        "refresh": true
+      },
+      {
+        "allFormat": "glob",
+        "current": {
+        },
+        "datasource": null,
+        "includeAll": false,
+        "multi": false,
+        "multiFormat": "glob",
+        "name": "disk",
+        "options": [
+          {
+          }
+        ],
+        "query": "show tag values from virt_disk_octets_read with key = device where hostname = '$hostname' and instance_id = '$instance_id'",
+        "refresh_on_load": false,
+        "regex": "",
+        "type": "query",
+        "refresh": true
+      },
+      {
+        "allFormat": "glob",
+        "current": {
+        },
+        "datasource": null,
+        "includeAll": false,
+        "multi": false,
+        "multiFormat": "glob",
+        "name": "interface",
+        "options": [
+        ],
+        "query": "show tag values from virt_if_octets_rx with key = interface where hostname = '$hostname' and instance_id = '$instance_id'",
+        "refresh_on_load": false,
+        "type": "query",
+        "refresh": true
+      }
+    ]
+  },
+  "annotations": {
+    "list": []
+  },
+  "refresh": "10s",
+  "schemaVersion": 7,
+  "version": 15,
+  "links": []
+}
