@@ -22,6 +22,8 @@ class lma_monitoring_analytics::influxdb (
   $influxdb_dir       = $lma_monitoring_analytics::params::influxdb_dir,
   $retention_period   = $lma_monitoring_analytics::params::influxdb_retention_period,
   $replication_factor = $lma_monitoring_analytics::params::influxdb_replication_factor,
+  $raft_hostname      = undef,
+  $raft_nodes         = undef,
 ) inherits lma_monitoring_analytics::params {
 
   $configure_influxdb = $lma_monitoring_analytics::params::influxdb_script
@@ -31,11 +33,15 @@ class lma_monitoring_analytics::influxdb (
     $real_retention_period = $retention_period
   }
 
+  validate_array($raft_nodes)
+
   class { '::influxdb':
-    data_dir => "${influxdb_dir}/data",
-    meta_dir => "${influxdb_dir}/meta",
-    hh_dir   => "${influxdb_dir}/hh",
-    wal_dir  => "${influxdb_dir}/wal",
+    data_dir      => "${influxdb_dir}/data",
+    meta_dir      => "${influxdb_dir}/meta",
+    hh_dir        => "${influxdb_dir}/hh",
+    wal_dir       => "${influxdb_dir}/wal",
+    raft_hostname => $raft_hostname,
+    raft_nodes    => $raft_nodes,
   }
 
   file { $configure_influxdb:
