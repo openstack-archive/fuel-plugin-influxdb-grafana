@@ -13,7 +13,7 @@
 # under the License.
 require 'spec_helper'
 
-describe 'influxdb' do
+describe 'influxdb::configure' do
     let(:facts) do
         {:kernel => 'Linux', :operatingsystem => 'Ubuntu',
          :osfamily => 'Debian'}
@@ -21,10 +21,10 @@ describe 'influxdb' do
 
     describe 'with defaults' do
         it { is_expected.to compile }
-
-        it { is_expected.to contain_class('influxdb::install') }
-        it { is_expected.to contain_class('influxdb::service') }
-        it { is_expected.to contain_class('influxdb::configure') }
+        it { is_expected.to contain_ini_setting('http_auth_enabled') }
+        it { is_expected.to contain_ini_setting('data_dir') }
+        it { is_expected.to contain_ini_setting('wal_dir') }
+        it { is_expected.to contain_ini_setting('hh_dir') }
+        it { is_expected.to contain_ini_setting('meta_dir') }
     end
 end
-

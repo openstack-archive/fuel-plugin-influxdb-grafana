@@ -13,18 +13,23 @@
 # under the License.
 require 'spec_helper'
 
-describe 'influxdb' do
+describe 'influxdb::install' do
     let(:facts) do
         {:kernel => 'Linux', :operatingsystem => 'Ubuntu',
          :osfamily => 'Debian'}
     end
 
     describe 'with defaults' do
-        it { is_expected.to compile }
+        it { is_expected.to contain_package('influxdb').with_ensure('installed') }
+        it { is_expected.to have_file_count(0) }
+    end
 
-        it { is_expected.to contain_class('influxdb::install') }
-        it { is_expected.to contain_class('influxdb::service') }
-        it { is_expected.to contain_class('influxdb::configure') }
+    describe 'with params' do
+        let(:params) do
+            {:raft_hostname => 'node-1',
+             :raft_nodes => ['node-1', 'node-2']}
+        end
+        it { is_expected.to contain_package('influxdb').with_ensure('installed') }
+        it { is_expected.to contain_file('/etc/default/influxdb') }
     end
 end
-
