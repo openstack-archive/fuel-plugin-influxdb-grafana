@@ -14,10 +14,22 @@
 #
 # == Class: influxdb::install
 
-class influxdb::install {
+class influxdb::install (
+  $raft_hostname = undef,
+  $raft_nodes    = undef,
+) {
 
   package { 'influxdb':
     ensure => installed,
   }
 
+  if ($raft_hostname != undef) and ($raft_nodes != undef) {
+    file { '/etc/default/influxdb':
+      ensure  => present,
+      owner   => 'root',
+      group   => 'root',
+      mode    => '0644',
+      content => template('influxdb/influxdb_variables.erb')
+    }
+  }
 }

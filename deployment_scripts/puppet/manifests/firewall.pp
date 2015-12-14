@@ -39,7 +39,7 @@ firewall {'020 ssh':
 }
 
 firewall { '200 influxdb':
-  port   => [8083, 8086],
+  port   => [8083, 8086, 8088],
   proto  => 'tcp',
   action => 'accept',
 }
