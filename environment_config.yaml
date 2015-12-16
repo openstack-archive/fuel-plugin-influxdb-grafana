@@ -85,7 +85,7 @@ attributes:
   # Parameter hidden in the UI on purpose
   # this directory must match the mount point set in volumes.yaml
   data_dir:
-    value: '/opt/influxdb'
+    value: '/var/lib/influxdb'
     label: 'InfluxDB storage directory'
     description: 'Directory used by InfluxDB to store data'
     weight: 70
