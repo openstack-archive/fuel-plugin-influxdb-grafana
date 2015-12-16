@@ -19,6 +19,7 @@ class influxdb::configure (
   $config_file  = undef,
   $data_dir     = undef,
   $meta_dir     = undef,
+  $wal_dir      = undef,
   $hh_dir       = undef,
 ) {
 
@@ -38,6 +39,12 @@ class influxdb::configure (
     section => 'data',
     setting => 'dir',
     value   => "\"${data_dir}\"",
+  }
+
+  ini_setting { 'wal_dir':
+    section => 'data',
+    setting => 'wal-dir',
+    value   => "\"${wal_dir}\"",
   }
 
   ini_setting { 'hh_dir':

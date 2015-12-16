@@ -6,7 +6,7 @@ volumes:
       generator_args: [30]
     label: "InfluxDB database"
     volumes:
-      - mount: "/opt/influxdb"
+      - mount: "/var/lib/influxdb"
         type: "lv"
         name: "influxdb"
         file_system: "ext4"

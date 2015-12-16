@@ -19,6 +19,5 @@ class influxdb::service {
     ensure     => running,
     enable     => true,
     hasrestart => true,
-    status     => '/usr/bin/pgrep -u influxdb -f "/opt/influxdb/influxd "'
   }
 }
