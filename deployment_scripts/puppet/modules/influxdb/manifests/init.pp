@@ -15,9 +15,10 @@
 # == Class: influxdb
 
 class influxdb (
-  $data_dir    = $influxdb::params::data_dir,
-  $hh_dir      = $influxdb::params::hh_dir,
-  $meta_dir    = $influxdb::params::meta_dir,
+  $data_dir = $influxdb::params::data_dir,
+  $hh_dir   = $influxdb::params::hh_dir,
+  $meta_dir = $influxdb::params::meta_dir,
+  $wal_dir  = $influxdb::params::wal_dir,
 ) inherits influxdb::params {
 
   class {'influxdb::install': }
@@ -32,6 +33,7 @@ class influxdb (
     data_dir     => $data_dir,
     hh_dir       => $hh_dir,
     meta_dir     => $meta_dir,
+    wal_dir      => $wal_dir,
     notify       => Class['influxdb::service'],
   }
 }

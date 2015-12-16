@@ -17,9 +17,10 @@
 class influxdb::params {
   $auth_enabled = true
 
-  $config_file  = '/etc/opt/influxdb/influxdb.conf'
+  $config_file  = '/etc/influxdb/influxdb.conf'
 
-  $data_dir = '/opt/influxdb/data'
-  $hh_dir   = '/opt/influxdb/hh'
-  $meta_dir = '/opt/influxdb/meta'
+  $data_dir = '/var/lib/influxdb/data'
+  $hh_dir   = '/var/lib/influxdb/hh'
+  $meta_dir = '/var/lib/influxdb/meta'
+  $wal_dir  = '/var/lib/influxdb/wal'
 }
