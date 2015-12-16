@@ -20,20 +20,8 @@ class influxdb::install {
     ensure => installed,
   }
 
-  # The init script shipped by InfluxDB 0.9.4 fails because it tries to create
-  # the PID file using 'su' without specifying /bin/sh while the influxdb user
-  # has /sbin/nologin as the shell.
-  file { '/etc/init.d/influxdb':
-    ensure  => present,
-    source  => 'puppet:///modules/influxdb/init.sh',
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0755',
-    require => Package['influxdb'],
-  }
-
-  file { '/etc/logrotate.d/influxdb':
-    ensure => present,
-    source => 'puppet:///modules/influxdb/logrotate.conf',
-  }
+  #file { '/etc/logrotate.d/influxdb':
+  #  ensure => present,
+  #  source => 'puppet:///modules/influxdb/logrotate.conf',
+  #}
 }

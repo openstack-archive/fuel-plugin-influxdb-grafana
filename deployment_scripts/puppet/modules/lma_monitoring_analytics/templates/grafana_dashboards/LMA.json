@@ -1674,7 +1674,7 @@
               "tags": [
                 {
                   "operator": "=",
-                  "value": "/opt/influxdb",
+                  "value": "/var/lib/influxdb",
                   "key": "fs"
                 }
               ],
@@ -1691,14 +1691,14 @@
                 }
               ],
               "measurement": "fs_space_percent_free",
-              "query": "SELECT mean(\"value\") AS \"value\" FROM \"fs_space_percent_free\" WHERE \"fs\" = '/opt/influxdb' AND $timeFilter GROUP BY time($interval)",
+              "query": "SELECT mean(\"value\") AS \"value\" FROM \"fs_space_percent_free\" WHERE \"fs\" = '/var/lib/influxdb' AND $timeFilter GROUP BY time($interval)",
               "refId": "A"
             }
           ],
           "maxDataPoints": 100,
           "span": 2,
           "colorBackground": false,
-          "title": "Free space on /opt/influxdb",
+          "title": "Free space on /var/lib/influxdb",
           "sparkline": {
             "full": false,
             "fillColor": "rgba(31, 118, 189, 0.18)",
@@ -1738,7 +1738,7 @@
           "id": 53,
           "fill": 1,
           "span": 10,
-          "title": "Disk usage on /opt/influxdb",
+          "title": "Disk usage on /var/lib/influxdb",
           "tooltip": {
             "shared": true,
             "value_type": "individual"
@@ -1758,7 +1758,7 @@
               "tags": [
                 {
                   "operator": "=",
-                  "value": "/opt/influxdb",
+                  "value": "/var/lib/influxdb",
                   "key": "fs"
                 }
               ],
@@ -1771,7 +1771,7 @@
               "refId": "A",
               "alias": "free",
               "measurement": "fs_space_free",
-              "query": "SELECT mean(\"value\") AS \"value\" FROM \"fs_space_free\" WHERE \"fs\" = '/opt/influxdb' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") AS \"value\" FROM \"fs_space_free\" WHERE \"fs\" = '/var/lib/influxdb' AND $timeFilter GROUP BY time($interval) fill(0)",
               "groupBy": [
                 {
                   "interval": "auto",
@@ -1785,7 +1785,7 @@
               "tags": [
                 {
                   "operator": "=",
-                  "value": "/opt/influxdb",
+                  "value": "/var/lib/influxdb",
                   "key": "fs"
                 }
               ],
@@ -1798,7 +1798,7 @@
               "refId": "B",
               "alias": "used",
               "measurement": "fs_space_used",
-              "query": "SELECT mean(\"value\") AS \"value\" FROM \"fs_space_used\" WHERE \"fs\" = '/opt/influxdb' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") AS \"value\" FROM \"fs_space_used\" WHERE \"fs\" = '/var/lib/influxdb' AND $timeFilter GROUP BY time($interval) fill(0)",
               "groupBy": [
                 {
                   "interval": "auto",
@@ -1812,7 +1812,7 @@
               "tags": [
                 {
                   "operator": "=",
-                  "value": "/opt/influxdb",
+                  "value": "/var/lib/influxdb",
                   "key": "fs"
                 }
               ],
@@ -1825,7 +1825,7 @@
               "refId": "C",
               "alias": "reserved",
               "measurement": "fs_space_reserved",
-              "query": "SELECT mean(\"value\") AS \"value\" FROM \"fs_space_reserved\" WHERE \"fs\" = '/opt/influxdb' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") AS \"value\" FROM \"fs_space_reserved\" WHERE \"fs\" = '/var/lib/influxdb' AND $timeFilter GROUP BY time($interval) fill(0)",
               "groupBy": [
                 {
                   "interval": "auto",
