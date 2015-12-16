@@ -35,6 +35,7 @@ class lma_monitoring_analytics::influxdb (
     data_dir => "${influxdb_dir}/data",
     meta_dir => "${influxdb_dir}/meta",
     hh_dir   => "${influxdb_dir}/hh",
+    wal_dir  => "${influxdb_dir}/wal",
   }
 
   file { $configure_influxdb:
