@@ -32,9 +32,11 @@ class lma_monitoring_analytics::influxdb (
   }
 
   class { '::influxdb':
-    data_dir => "${influxdb_dir}/data",
-    meta_dir => "${influxdb_dir}/meta",
-    hh_dir   => "${influxdb_dir}/hh",
+    data_dir     => "${influxdb_dir}/data",
+    meta_dir     => "${influxdb_dir}/meta",
+    hh_dir       => "${influxdb_dir}/hh",
+    wal_dir      => "${influxdb_dir}/wal",
+    raft_cluster => $raft_cluster,
   }
 
   file { $configure_influxdb:

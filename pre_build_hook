@@ -12,7 +12,7 @@ GRAFANA_TARBALL_URL="https://forgeapi.puppetlabs.com/v3/files/bfraser-grafana-2.
 FUEL_LIB_COMMIT="7.0"
 FUEL_LIB_TARBALL_URL="https://github.com/openstack/fuel-library/archive/${FUEL_LIB_COMMIT}.tar.gz"
 
-download_package https://s3.amazonaws.com/influxdb/influxdb_0.9.4.2_amd64.deb
+download_package https://s3.amazonaws.com/influxdb/influxdb_0.9.6.1_amd64.deb
 
 download_package https://grafanarel.s3.amazonaws.com/builds/grafana_2.5.0_amd64.deb
 
