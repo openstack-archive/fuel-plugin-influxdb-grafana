@@ -15,14 +15,15 @@
 # == Class: lma_monitoring_analytics::grafana
 
 class lma_monitoring_analytics::grafana (
-  $admin_username    = undef,
-  $admin_password    = undef,
-  $domain            = $lma_monitoring_analytics::params::grafana_domain,
-  $http_port         = $lma_monitoring_analytics::params::listen_port,
-  $influxdb_url      = $lma_monitoring_analytics::params::influxdb_url,
-  $influxdb_username = undef,
-  $influxdb_password = undef,
-  $influxdb_database = undef,
+  $admin_username       = undef,
+  $admin_password       = undef,
+  $domain               = $lma_monitoring_analytics::params::grafana_domain,
+  $http_port            = $lma_monitoring_analytics::params::listen_port,
+  $influxdb_url         = $lma_monitoring_analytics::params::influxdb_url,
+  $influxdb_username    = undef,
+  $influxdb_password    = undef,
+  $influxdb_database    = undef,
+  $import_elasticsearch = false,
 ) inherits lma_monitoring_analytics::params {
 
   class { '::grafana':
@@ -122,5 +123,18 @@ class lma_monitoring_analytics::grafana (
       content => template('lma_monitoring_analytics/grafana_dashboards/Ceph_OSD.json'),
     },
   }
-  create_resources(grafana_dashboard, $dashboards, $dashboard_defaults)
+
+  if $import_elasticsearch {
+    $es_dashboard = {
+      'Elasticsearch' => {
+        content => template('lma_monitoring_analytics/grafana_dashboards/Elasticsearch.json'),
+      }
+    }
+  } else {
+    $es_dashboard = {}
+  }
+
+  create_resources(
+    grafana_dashboard, merge($dashboards, $es_dashboard), $dashboard_defaults
+  )
 }
