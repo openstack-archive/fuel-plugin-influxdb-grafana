@@ -25,4 +25,11 @@ describe 'lma_monitoring_analytics::grafana', :type => :class do
         it { is_expected.to contain_grafana_datasource('influxdb') }
         it { is_expected.to contain_grafana_dashboard('Main') }
     end
+
+    describe 'with Elasticsearch' do
+        let(:params) do
+            {:import_elasticsearch => true }
+        end
+        it { is_expected.to contain_grafana_dashboard('Elasticsearch') }
+    end
 end

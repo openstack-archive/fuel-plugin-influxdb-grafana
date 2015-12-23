@@ -16,11 +16,20 @@
 prepare_network_config(hiera('network_scheme', {}))
 $mgmt_address = get_network_role_property('management', 'ipaddr')
 $influxdb_grafana = hiera('influxdb_grafana')
+
+$lma_collector = hiera_hash('lma_collector', {})
+$elasticsearch_mode = $lma_collector['elasticsearch_mode']
+$import_elasticsearch = $elasticsearch_mode ? {
+  'local' => true,
+  default => false,
+}
+
 class {'lma_monitoring_analytics::grafana':
-  admin_username    => $influxdb_grafana['grafana_username'],
-  admin_password    => $influxdb_grafana['grafana_userpass'],
-  influxdb_username => $influxdb_grafana['influxdb_username'],
-  influxdb_password => $influxdb_grafana['influxdb_userpass'],
-  influxdb_database => $influxdb_grafana['influxdb_dbname'],
-  domain            => $mgmt_address,
+  admin_username       => $influxdb_grafana['grafana_username'],
+  admin_password       => $influxdb_grafana['grafana_userpass'],
+  influxdb_username    => $influxdb_grafana['influxdb_username'],
+  influxdb_password    => $influxdb_grafana['influxdb_userpass'],
+  influxdb_database    => $influxdb_grafana['influxdb_dbname'],
+  domain               => $mgmt_address,
+  import_elasticsearch => $import_elasticsearch,
 }
