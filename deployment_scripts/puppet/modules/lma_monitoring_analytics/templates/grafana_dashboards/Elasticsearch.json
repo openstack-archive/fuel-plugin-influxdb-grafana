@@ -1,0 +1,682 @@
+{
+  "version": 1,
+  "style": "dark",
+  "rows": [
+    {
+      "collapse": false,
+      "title": "Elasticsearch",
+      "editable": true,
+      "height": "200px",
+      "panels": [
+        {
+          "links": [],
+          "valueMaps": [
+            {
+              "text": "N/A",
+              "value": "null",
+              "op": "="
+            }
+          ],
+          "thresholds": "",
+          "nullPointMode": "connected",
+          "prefix": "",
+          "targets": [
+            {
+              "function": "last",
+              "tags": [
+                {
+                  "value": "elasticsearch",
+                  "key": "service"
+                }
+              ],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "last"
+                }
+              ],
+              "refId": "A",
+              "series": "/$node.lma_components.hekad.count.threads/",
+              "measurement": "lma_components_threads",
+              "query": "SELECT last(\"value\") AS \"value\" FROM \"lma_components_threads\" WHERE \"service\" = 'elasticsearch' AND \"hostname\" = '$node' AND $timeFilter GROUP BY time($interval)",
+              "groupBy": [
+                {
+                  "interval": "auto",
+                  "type": "time"
+                }
+              ]
+            }
+          ],
+          "maxDataPoints": 100,
+          "span": 2,
+          "colorBackground": false,
+          "title": "Threads",
+          "sparkline": {
+            "full": false,
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "lineColor": "rgb(31, 120, 193)",
+            "show": true
+          },
+          "id": 32,
+          "prefixFontSize": "50%",
+          "valueName": "current",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "format": "none",
+          "editable": true,
+          "cacheTimeout": null,
+          "postfix": "",
+          "interval": "> 60s",
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "datasource": null,
+          "error": false,
+          "nullText": null,
+          "postfixFontSize": "50%",
+          "colorValue": false
+        },
+        {
+          "bars": false,
+          "aliasColors": {},
+          "links": [],
+          "nullPointMode": "connected",
+          "timeFrom": null,
+          "renderer": "flot",
+          "linewidth": 1,
+          "steppedLine": false,
+          "id": 31,
+          "fill": 0,
+          "span": 3,
+          "title": "Resident Set Size",
+          "tooltip": {
+            "shared": true,
+            "value_type": "cumulative"
+          },
+          "legend": {
+            "total": false,
+            "show": false,
+            "max": true,
+            "min": true,
+            "current": true,
+            "values": false,
+            "alignAsTable": false,
+            "avg": false
+          },
+          "targets": [
+            {
+              "function": "mean",
+              "tags": [
+                {
+                  "value": "elasticsearch",
+                  "key": "service"
+                }
+              ],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "mean"
+                }
+              ],
+              "refId": "A",
+              "alias": "rss",
+              "series": "/$node.lma_components.hekad.memory.rss/",
+              "measurement": "lma_components_memory_rss",
+              "query": "SELECT mean(\"value\") AS \"value\" FROM \"lma_components_memory_rss\" WHERE \"service\" = 'elasticsearch' AND \"hostname\" = '$node' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
+                {
+                  "interval": "auto",
+                  "type": "time"
+                }
+              ],
+              "fill": "0"
+            }
+          ],
+          "seriesOverrides": [],
+          "percentage": false,
+          "type": "graph",
+          "x-axis": true,
+          "error": false,
+          "editable": true,
+          "grid": {
+            "leftMax": null,
+            "threshold2": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "threshold1": null,
+            "leftLogBase": 1,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)",
+            "rightMin": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "leftMin": 0
+          },
+          "stack": false,
+          "y-axis": true,
+          "timeShift": null,
+          "interval": "> 60s",
+          "lines": true,
+          "points": false,
+          "datasource": null,
+          "pointradius": 5,
+          "y_formats": [
+            "bytes",
+            "short"
+          ]
+        },
+        {
+          "bars": false,
+          "aliasColors": {},
+          "links": [],
+          "nullPointMode": "connected",
+          "timeFrom": null,
+          "renderer": "flot",
+          "linewidth": 1,
+          "steppedLine": false,
+          "id": 33,
+          "fill": 0,
+          "span": 3,
+          "title": "Disk I/O",
+          "tooltip": {
+            "shared": true,
+            "value_type": "cumulative"
+          },
+          "legend": {
+            "total": false,
+            "show": true,
+            "max": true,
+            "min": true,
+            "current": true,
+            "values": false,
+            "alignAsTable": false,
+            "avg": false
+          },
+          "targets": [
+            {
+              "function": "mean",
+              "tags": [
+                {
+                  "value": "elasticsearch",
+                  "key": "service"
+                }
+              ],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "mean"
+                }
+              ],
+              "refId": "A",
+              "alias": "read",
+              "series": "/$node.lma_components.hekad.disk.bytes/",
+              "measurement": "lma_components_disk_bytes_read",
+              "query": "SELECT mean(\"value\") AS \"value\" FROM \"lma_components_disk_bytes_read\" WHERE \"service\" = 'elasticsearch' AND \"hostname\" = '$node' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
+                {
+                  "interval": "auto",
+                  "type": "time"
+                }
+              ],
+              "fill": "0"
+            },
+            {
+              "function": "mean",
+              "tags": [
+                {
+                  "value": "elasticsearch",
+                  "key": "service"
+                }
+              ],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "mean"
+                }
+              ],
+              "refId": "B",
+              "alias": "write",
+              "series": "/$node.lma_components.hekad.disk.bytes/",
+              "measurement": "lma_components_disk_bytes_write",
+              "query": "SELECT mean(\"value\") AS \"value\" FROM \"lma_components_disk_bytes_write\" WHERE \"service\" = 'elasticsearch' AND \"hostname\" = '$node' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
+                {
+                  "interval": "auto",
+                  "type": "time"
+                }
+              ],
+              "fill": "0"
+            }
+          ],
+          "leftYAxisLabel": "bytes/sec",
+          "seriesOverrides": [],
+          "percentage": false,
+          "type": "graph",
+          "x-axis": true,
+          "error": false,
+          "editable": true,
+          "grid": {
+            "leftMax": null,
+            "threshold2": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "threshold1": null,
+            "leftLogBase": 1,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)",
+            "rightMin": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "leftMin": 0
+          },
+          "stack": false,
+          "y-axis": true,
+          "timeShift": null,
+          "interval": "> 60s",
+          "lines": true,
+          "points": false,
+          "datasource": null,
+          "pointradius": 5,
+          "y_formats": [
+            "bytes",
+            "short"
+          ]
+        },
+        {
+          "bars": false,
+          "aliasColors": {},
+          "links": [],
+          "nullPointMode": "connected",
+          "timeFrom": null,
+          "renderer": "flot",
+          "linewidth": 1,
+          "steppedLine": false,
+          "id": 36,
+          "fill": 1,
+          "span": 4,
+          "title": "CPU usage",
+          "tooltip": {
+            "shared": true,
+            "value_type": "individual"
+          },
+          "legend": {
+            "total": false,
+            "show": true,
+            "max": false,
+            "min": false,
+            "current": false,
+            "values": false,
+            "avg": false
+          },
+          "targets": [
+            {
+              "function": "mean",
+              "tags": [
+                {
+                  "value": "elasticsearch",
+                  "key": "service"
+                }
+              ],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "mean"
+                }
+              ],
+              "refId": "A",
+              "alias": "system",
+              "series": "/$node.lma_components.hekad.cputime/",
+              "measurement": "lma_components_cputime_syst",
+              "query": "SELECT mean(\"value\") AS \"value\" FROM \"lma_components_cputime_syst\" WHERE \"service\" = 'elasticsearch' AND \"hostname\" = '$node' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
+                {
+                  "interval": "auto",
+                  "type": "time"
+                }
+              ],
+              "fill": "0"
+            },
+            {
+              "function": "mean",
+              "tags": [
+                {
+                  "value": "elasticsearch",
+                  "key": "service"
+                }
+              ],
+              "column": "value",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "mean"
+                }
+              ],
+              "refId": "B",
+              "alias": "user",
+              "series": "/$node.lma_components.hekad.cputime/",
+              "measurement": "lma_components_cputime_user",
+              "query": "SELECT mean(\"value\") AS \"value\" FROM \"lma_components_cputime_user\" WHERE \"service\" = 'elasticsearch' AND \"hostname\" = '$node' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
+                {
+                  "interval": "auto",
+                  "type": "time"
+                }
+              ],
+              "fill": "0"
+            }
+          ],
+          "seriesOverrides": [],
+          "percentage": false,
+          "type": "graph",
+          "x-axis": true,
+          "error": false,
+          "editable": true,
+          "grid": {
+            "leftMax": null,
+            "threshold2": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "threshold1": null,
+            "leftLogBase": 1,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)",
+            "rightMin": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "leftMin": 0
+          },
+          "stack": true,
+          "y-axis": true,
+          "timeShift": null,
+          "interval": "> 60s",
+          "lines": true,
+          "points": false,
+          "datasource": null,
+          "pointradius": 5,
+          "y_formats": [
+            "percent",
+            "short"
+          ]
+        },
+        {
+          "links": [],
+          "valueMaps": [
+            {
+              "text": "N/A",
+              "value": "null",
+              "op": "="
+            }
+          ],
+          "thresholds": "",
+          "nullPointMode": "connected",
+          "prefix": "",
+          "targets": [
+            {
+              "tags": [
+                {
+                  "operator": "=",
+                  "value": "/opt/es/data",
+                  "key": "fs"
+                }
+              ],
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "mean"
+                }
+              ],
+              "groupBy": [
+                {
+                  "interval": "auto",
+                  "type": "time"
+                }
+              ],
+              "measurement": "fs_space_percent_free",
+              "query": "SELECT mean(\"value\") AS \"value\" FROM \"fs_space_percent_free\" WHERE \"fs\" = '/opt/es/data' AND \"hostname\" = '$node' AND $timeFilter GROUP BY time($interval)",
+              "refId": "A"
+            }
+          ],
+          "maxDataPoints": 100,
+          "span": 2,
+          "colorBackground": false,
+          "title": "Free space on /opt/es/data",
+          "sparkline": {
+            "full": false,
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "lineColor": "rgb(31, 120, 193)",
+            "show": true
+          },
+          "id": 58,
+          "prefixFontSize": "50%",
+          "valueName": "avg",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "format": "percent",
+          "editable": true,
+          "cacheTimeout": null,
+          "postfix": "",
+          "interval": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "datasource": null,
+          "error": false,
+          "nullText": null,
+          "postfixFontSize": "50%",
+          "colorValue": false
+        },
+        {
+          "bars": false,
+          "aliasColors": {},
+          "links": [],
+          "nullPointMode": "connected",
+          "timeFrom": null,
+          "renderer": "flot",
+          "linewidth": 2,
+          "steppedLine": false,
+          "id": 57,
+          "fill": 1,
+          "span": 10,
+          "title": "Disk usage on /opt/es/data",
+          "tooltip": {
+            "shared": true,
+            "value_type": "cumulative"
+          },
+          "legend": {
+            "total": false,
+            "show": true,
+            "max": false,
+            "min": false,
+            "current": false,
+            "values": false,
+            "alignAsTable": false,
+            "avg": false
+          },
+          "targets": [
+            {
+              "tags": [
+                {
+                  "operator": "=",
+                  "value": "/opt/es/data",
+                  "key": "fs"
+                }
+              ],
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "mean"
+                }
+              ],
+              "refId": "A",
+              "alias": "free",
+              "measurement": "fs_space_free",
+              "query": "SELECT mean(\"value\") AS \"value\" FROM \"fs_space_free\" WHERE \"fs\" = '/opt/es/data' AND \"hostname\" = '$node' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
+                {
+                  "interval": "auto",
+                  "type": "time"
+                }
+              ],
+              "fill": "0"
+            },
+            {
+              "rawQuery": false,
+              "tags": [
+                {
+                  "operator": "=",
+                  "value": "/opt/es/data",
+                  "key": "fs"
+                }
+              ],
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "mean"
+                }
+              ],
+              "refId": "B",
+              "alias": "used",
+              "measurement": "fs_space_used",
+              "query": "SELECT mean(\"value\") AS \"value\" FROM \"fs_space_used\" WHERE \"fs\" = '/opt/es/data' AND \"hostname\" = '$node' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
+                {
+                  "interval": "auto",
+                  "type": "time"
+                }
+              ],
+              "fill": "0"
+            },
+            {
+              "rawQuery": false,
+              "tags": [
+                {
+                  "operator": "=",
+                  "value": "/opt/es/data",
+                  "key": "fs"
+                }
+              ],
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "mean"
+                }
+              ],
+              "refId": "C",
+              "alias": "reserved",
+              "measurement": "fs_space_percent_reserved",
+              "query": "SELECT mean(\"value\") AS \"value\" FROM \"fs_space_percent_reserved\" WHERE \"fs\" = '/opt/es/data' AND \"hostname\" = '$node' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
+                {
+                  "interval": "auto",
+                  "type": "time"
+                }
+              ],
+              "fill": "0"
+            }
+          ],
+          "seriesOverrides": [],
+          "percentage": false,
+          "type": "graph",
+          "x-axis": true,
+          "error": false,
+          "editable": true,
+          "grid": {
+            "leftMax": null,
+            "threshold2": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "threshold1": null,
+            "leftLogBase": 1,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)",
+            "rightMin": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "leftMin": 0
+          },
+          "stack": false,
+          "y-axis": true,
+          "timeShift": null,
+          "interval": "> 60s",
+          "lines": true,
+          "points": false,
+          "datasource": null,
+          "pointradius": 5,
+          "y_formats": [
+            "bytes",
+            "short"
+          ]
+        }
+      ],
+      "showTitle": true
+    }
+  ],
+  "templating": {
+    "enable": true,
+    "list": [
+      {
+        "regex": "",
+        "name": "node",
+        "refresh_on_load": true,
+        "allFormat": "glob",
+        "refresh": true,
+        "current": {},
+        "datasource": null,
+        "query": "show tag values from lma_components_threads with key = \"hostname\"",
+        "type": "query",
+        "options": [],
+        "includeAll": false
+      }
+    ]
+  },
+  "links": [],
+  "tags": [],
+  "hideControls": false,
+  "title": "Elasticsearch",
+  "editable": true,
+  "refresh": "1m",
+  "id": null,
+  "originalTitle": "Elasticsearch",
+  "timepicker": {
+    "status": "Stable",
+    "notice": false,
+    "enable": true,
+    "collapse": false,
+    "time_options": [
+      "5m",
+      "15m",
+      "1h",
+      "6h",
+      "12h",
+      "24h",
+      "2d",
+      "7d",
+      "30d"
+    ],
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ],
+    "now": true,
+    "type": "timepicker"
+  },
+  "sharedCrosshair": true,
+  "time": {
+    "to": "now",
+    "from": "now-1h"
+  },
+  "timezone": "browser",
+  "schemaVersion": 7,
+  "annotations": {
+    "list": []
+  }
+}
