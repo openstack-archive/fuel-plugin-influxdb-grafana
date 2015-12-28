@@ -12,6 +12,7 @@ GRAFANA_TARBALL_URL="https://forgeapi.puppetlabs.com/v3/files/bfraser-grafana-2.
 # TODO(pasquier-s): use the 8.0 tag when it's available
 FUEL_LIB_COMMIT="stable/8.0"
 FUEL_LIB_TARBALL_URL="https://github.com/openstack/fuel-library/archive/${FUEL_LIB_COMMIT}.tar.gz"
+MYSQL_TARBALL_URL="https://forgeapi.puppetlabs.com/v3/files/puppetlabs-mysql-3.6.2.tar.gz"
 
 download_package https://s3.amazonaws.com/influxdb/influxdb_0.9.6.1_amd64.deb
 
@@ -24,6 +25,7 @@ download_puppet_module "concat" "$CONCAT_TARBALL_URL"
 download_puppet_module "stdlib" "$STDLIB_TARBALL_URL"
 download_puppet_module "inifile" "$INIFILE_TARBALL_URL"
 download_puppet_module "lvm" "$LVM_TARBALL_URL"
+download_puppet_module "mysql" "${MYSQL_TARBALL_URL}"
 
 # Extract dependent manifests from fuel-library
 rm -rf "${MODULES_DIR:?}"/l23network

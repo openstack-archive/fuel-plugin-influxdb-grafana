@@ -12,35 +12,51 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
-$stats_port = '1000'
+$cluster_nodes = hiera('lma::influxdb::raft_nodes')
+$stats_port    = '1000'
 $influxdb_port = '8086'
-$influxdb_nodes = hiera(lma::influxdb::raft_nodes)
+$grafana_port  = '8000'
+
+Openstack::Ha::Haproxy_service {
+  balancermember_options => 'check',
+  internal               => true,
+  internal_virtual_ip    => hiera('lma::influxdb::vip'),
+  public                 => false,
+  public_virtual_ip      => undef,
+  ipaddresses            => values($cluster_nodes),
+  server_names           => keys($cluster_nodes),
+}
 
 openstack::ha::haproxy_service { 'influxdb':
   order                  => '800',
   listen_port            => $influxdb_port,
   balancermember_port    => $influxdb_port,
-  ipaddresses            => values($influxdb_nodes),
-  server_names           => keys($influxdb_nodes),
   haproxy_config_options => {
     'option'     => ['httpchk GET /ping HTTP/1.1'],
     'http-check' => 'expect status 204',
     'balance'    => 'roundrobin',
     'mode'       => 'http',
   },
-  balancermember_options => 'check',
-  internal               => true,
-  internal_virtual_ip    => hiera(lma::influxdb::vip),
-  public                 => false,
-  public_virtual_ip      => undef,
+}
+
+# We use the load balancing algorithm called 'source' to ensure that the same
+# client IP address will always reach the same server (as long as no server
+# goes down or up). This is needed to support sticky session and to be able
+# to authenticate.
+openstack::ha::haproxy_service { 'grafana':
+  order                  => '801',
+  listen_port            => $grafana_port,
+  balancermember_port    => $grafana_port,
+  haproxy_config_options => {
+    'balance' => 'source',
+    'mode'    => 'http',
+  },
 }
 
 openstack::ha::haproxy_service { 'stats':
   order                  => '010',
   listen_port            => $stats_port,
   server_names           => undef,
-  internal_virtual_ip    => hiera(lma::influxdb::vip),
-  public_virtual_ip      => undef,
   haproxy_config_options => {
     'stats' => ['enable', 'uri /', 'refresh 5s', 'show-node',
                 'show-legends', 'hide-version'],
