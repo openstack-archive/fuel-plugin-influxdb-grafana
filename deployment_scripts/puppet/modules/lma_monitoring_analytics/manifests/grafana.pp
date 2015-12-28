@@ -15,6 +15,9 @@
 # == Class: lma_monitoring_analytics::grafana
 
 class lma_monitoring_analytics::grafana (
+  $db_host           = undef,
+  $db_user           = undef,
+  $db_password       = undef,
   $admin_username    = undef,
   $admin_password    = undef,
   $domain            = $lma_monitoring_analytics::params::grafana_domain,
@@ -25,23 +28,51 @@ class lma_monitoring_analytics::grafana (
   $influxdb_database = undef,
 ) inherits lma_monitoring_analytics::params {
 
-  class { '::grafana':
-    install_method      => 'repo',
-    version             => latest,
-    manage_package_repo => false,
-    cfg                 => {
-      server    => {
-        http_port => $http_port,
-        domain    => $domain,
+  if ($db_host == undef) or ($db_user == undef) or ($db_password == undef) {
+    class { '::grafana':
+      install_method      => 'repo',
+      version             => latest,
+      manage_package_repo => false,
+      cfg                 => {
+        server    => {
+          http_port => $http_port,
+          domain    => $domain,
+        },
+        security  => {
+          admin_user     => $admin_username,
+          admin_password => $admin_password,
+        },
+        analytics => {
+          reporting_enabled => false,
+        },
       },
-      security  => {
-        admin_user     => $admin_username,
-        admin_password => $admin_password,
+    }
+  } else {
+    class { '::grafana':
+      install_method      => 'repo',
+      version             => latest,
+      manage_package_repo => false,
+      cfg                 => {
+        server    => {
+          http_port => $http_port,
+          domain    => $domain,
+        },
+        database  => {
+          type     => 'mysql',
+          host     => $db_host,
+          name     => 'grafana',
+          user     => '$db_user',
+          password => '$db_password',
+        },
+        security  => {
+          admin_user     => $admin_username,
+          admin_password => $admin_password,
+        },
+        analytics => {
+          reporting_enabled => false,
+        },
       },
-      analytics => {
-        reporting_enabled => false,
-      },
-    },
+    }
   }
 
   grafana_datasource { 'influxdb':

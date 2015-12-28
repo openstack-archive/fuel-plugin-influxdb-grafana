@@ -16,7 +16,11 @@
 prepare_network_config(hiera('network_scheme', {}))
 $mgmt_address = get_network_role_property('management', 'ipaddr')
 $influxdb_grafana = hiera('influxdb_grafana')
+
 class {'lma_monitoring_analytics::grafana':
+  #db_host           => $influxdb_grafana['grafana_dbhost'],
+  #db_user           => $influxdb_grafana['grafana_dbuser'],
+  #db_password       => $influxdb_grafana['grafana_dbpassword'],
   admin_username    => $influxdb_grafana['grafana_username'],
   admin_password    => $influxdb_grafana['grafana_userpass'],
   influxdb_username => $influxdb_grafana['influxdb_username'],

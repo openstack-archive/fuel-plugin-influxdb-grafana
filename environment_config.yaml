@@ -62,6 +62,16 @@ attributes:
       source: '^[\S]{4,}$'
       error: "You must provide a password with at least 4 characters"
 
+  grafana_dbhost:
+    value: ''
+    label: 'MySQL Database IP and/or port'
+    description: 'The location of the MySQL cluster (ie, 1.2.3.4:3306)'
+    weight: 61
+    type: "text"
+    regex:
+      source: '^[a-zA-Z\d][a-zA-Z\d_\-.]+(:[0-9]+)?$'
+      error: "You must provide a hostname or IP"
+
   grafana_username:
     value: 'lma'
     label: 'User name'
