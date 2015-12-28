@@ -62,11 +62,57 @@ attributes:
       source: '^[\S]{4,}$'
       error: "You must provide a password with at least 4 characters"
 
+  grafana_db:
+    type: "radio"
+    value: 'local'
+    weight: 70
+    label: 'Database used by Grafana'
+    values:
+      - data: "local"
+        label: "SQlite"
+      - data: "openstack"
+        label: "Local OpenStack DB"
+      - data: "remote"
+        label: "Use an external DB"
+
+  grafana_dbhost:
+    value: ''
+    label: 'MySQL Database IP and/or port'
+    description: 'The location of the MySQL cluster (ie, 1.2.3.4:3306)'
+    weight: 71
+    type: "text"
+    restrictions:
+      - condition: "settings:influxdb_grafana.grafana_db.value != 'remote'"
+        action: "disable"
+    regex:
+      source: '^[a-zA-Z\d][a-zA-Z\d_\-.]+(:[0-9]+)?$'
+      error: "You must provide a hostname or IP"
+
+  grafana_dbuser:
+    value: ''
+    label: 'Username of grafana DB'
+    description: 'Username to manage the grafana DB'
+    weight: 72
+    type: "text"
+    restrictions:
+      - condition: "settings:influxdb_grafana.grafana_db.value != 'remote'"
+        action: "disable"
+
+  grafana_dbpassword:
+    value: ''
+    label: 'Password of grafana DB'
+    description: 'Password to manage the grafana DB'
+    weight: 73
+    type: "password"
+    restrictions:
+      - condition: "settings:influxdb_grafana.grafana_db.value != 'remote'"
+        action: "disable"
+
   grafana_username:
     value: 'lma'
     label: 'User name'
     description: 'The name of the Grafana admin user'
-    weight: 63
+    weight: 80
     type: "text"
     regex:
       source: '\S'
@@ -76,7 +122,7 @@ attributes:
     value: ''
     label: 'User password'
     description: 'The password of the Grafana admin user'
-    weight: 66
+    weight: 90
     type: "password"
     regex:
       source: '^[\S]{4,}$'
@@ -88,7 +134,7 @@ attributes:
     value: '/var/lib/influxdb'
     label: 'InfluxDB storage directory'
     description: 'Directory used by InfluxDB to store data'
-    weight: 70
+    weight: 100
     type: "text"
     restrictions:
       - condition: "true"
