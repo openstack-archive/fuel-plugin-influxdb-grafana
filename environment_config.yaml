@@ -66,7 +66,7 @@ attributes:
     value: 'lma'
     label: 'User name'
     description: 'The name of the Grafana admin user'
-    weight: 63
+    weight: 70
     type: "text"
     regex:
       source: '\S'
@@ -76,11 +76,56 @@ attributes:
     value: ''
     label: 'User password'
     description: 'The password of the Grafana admin user'
-    weight: 66
+    weight: 80
     type: "password"
     regex:
       source: '^[\S]{4,}$'
       error: "You must provide a password with at least 4 characters"
+
+  mysql_mode:
+    type: "radio"
+    value: 'local'
+    weight: 90
+    label: 'MySQL settings'
+    values:
+      - data: "local"
+        label: "Local MySQL"
+      - data: "remote"
+        label: "Remote server"
+
+  mysql_host:
+    value: ''
+    label: 'MySQL address and port'
+    description: 'IP address or fully qualified domain name of the MySQL server and port (optional, default:3306)'
+    weight: 100
+    type: "text"
+    restrictions:
+      - condition: "settings:influxdb_grafana.mysql_mode.value != 'remote'"
+        action: "disable"
+    regex:
+      source: '^[a-zA-Z\d][a-zA-Z\d_\-.]+(:[0-9]+)?$'
+      error: "You must provide a hostname or IP"
+
+  mysql_dbname:
+    value: 'grafana'
+    label: 'MySQL database'
+    description: "The name of the database. The database must be created beforehand when 'remote' mode is selected."
+    weight: 110
+    type: 'text'
+
+  mysql_username:
+    value: 'grafana'
+    label: 'MySQL username'
+    description: "The user must be provisioned beforehand when the 'remote' mode is selected."
+    weight: 120
+    type: 'text'
+
+  mysql_password:
+    value: ''
+    label: 'MySQL password'
+    description: ''
+    weight: 130
+    type: 'password'
 
   # Parameter hidden in the UI on purpose
   # this directory must match the mount point set in volumes.yaml
@@ -88,7 +133,7 @@ attributes:
     value: '/var/lib/influxdb'
     label: 'InfluxDB storage directory'
     description: 'Directory used by InfluxDB to store data'
-    weight: 70
+    weight: 200
     type: "text"
     restrictions:
       - condition: "true"
