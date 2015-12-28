@@ -15,6 +15,10 @@
 # == Class: lma_monitoring_analytics::grafana
 
 class lma_monitoring_analytics::grafana (
+  $db_host           = undef,
+  $db_name           = undef,
+  $db_username       = undef,
+  $db_password       = undef,
   $admin_username    = undef,
   $admin_password    = undef,
   $domain            = $lma_monitoring_analytics::params::grafana_domain,
@@ -25,6 +29,35 @@ class lma_monitoring_analytics::grafana (
   $influxdb_database = undef,
 ) inherits lma_monitoring_analytics::params {
 
+  if ! $db_host {
+    fail('db_host parameter is required')
+  }
+
+  if ! $db_name {
+    fail('db_name parameter is required')
+  }
+
+  if ! $db_username {
+    fail('db_username parameter is required')
+  }
+
+  if ! $db_password {
+    fail('db_password parameter is required')
+  }
+
+  validate_string($db_host)
+  validate_string($db_name)
+  validate_string($db_username)
+  validate_string($db_password)
+
+  # If no port is specified Grafana will not start. So we check if the
+  # variable contains a port value and if not, we add ':3306'.
+  if $db_host =~ /:[0-9]+$/ {
+    $full_db_host = $db_host
+  } else {
+    $full_db_host = "${db_host}:3306"
+  }
+
   class { '::grafana':
     install_method      => 'repo',
     version             => latest,
@@ -33,6 +66,13 @@ class lma_monitoring_analytics::grafana (
       server    => {
         http_port => $http_port,
         domain    => $domain,
+      },
+      database  => {
+        type     => 'mysql',
+        host     => $full_db_host,
+        name     => $db_name,
+        user     => $db_username,
+        password => $db_password,
       },
       security  => {
         admin_user     => $admin_username,
@@ -52,7 +92,7 @@ class lma_monitoring_analytics::grafana (
     database         => $influxdb_database,
     access_mode      => 'proxy',
     is_default       => true,
-    grafana_url      => "http://localhost:${http_port}",
+    grafana_url      => "http://${domain}:${http_port}",
     grafana_user     => $admin_username,
     grafana_password => $admin_password,
     require          => Class['::grafana'],
@@ -60,7 +100,7 @@ class lma_monitoring_analytics::grafana (
 
   $dashboard_defaults = {
     ensure           => present,
-    grafana_url      => "http://localhost:${http_port}",
+    grafana_url      => "http://${domain}:${http_port}",
     grafana_user     => $admin_username,
     grafana_password => $admin_password,
     require          => Class['::grafana'],
@@ -122,5 +162,6 @@ class lma_monitoring_analytics::grafana (
       content => template('lma_monitoring_analytics/grafana_dashboards/Ceph_OSD.json'),
     },
   }
+
   create_resources(grafana_dashboard, $dashboards, $dashboard_defaults)
 }
