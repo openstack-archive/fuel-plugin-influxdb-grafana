@@ -39,7 +39,3 @@ file { "${hiera_dir}/${plugin_yaml}":
   ensure  => file,
   content => "${calculated_content}\n",
 }
-
-package {'ruby-deep-merge':
-  ensure  => 'installed',
-}
