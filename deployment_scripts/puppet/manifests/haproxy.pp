@@ -15,13 +15,10 @@
 
 $influxdb_port = '8086'
 $influxdb_nodes = hiera(lma::influxdb::raft_nodes)
+$grafana_port = '8000'
+$grafana_nodes = $influxdb_nodes
 
-openstack::ha::haproxy_service { 'influxdb':
-  order                  => '800',
-  listen_port            => $influxdb_port,
-  balancermember_port    => $influxdb_port,
-  ipaddresses            => values($influxdb_nodes),
-  server_names           => keys($influxdb_nodes),
+Openstack::Ha::Haproxy_service {
   haproxy_config_options => {
     'option'  => ['httplog'],
     'balance' => 'roundrobin',
@@ -32,4 +29,20 @@ openstack::ha::haproxy_service { 'influxdb':
   internal_virtual_ip    => hiera(lma::influxdb::vip),
   public                 => false,
   public_virtual_ip      => undef,
+}
+
+openstack::ha::haproxy_service { 'influxdb':
+  order                  => '800',
+  listen_port            => $influxdb_port,
+  balancermember_port    => $influxdb_port,
+  ipaddresses            => values($influxdb_nodes),
+  server_names           => keys($influxdb_nodes),
+}
+
+openstack::ha::haproxy_service { 'grafana':
+  order                  => '801',
+  listen_port            => $grafana_port,
+  balancermember_port    => $grafana_port,
+  ipaddresses            => values($grafana_nodes),
+  server_names           => keys($grafana_nodes),
 }
