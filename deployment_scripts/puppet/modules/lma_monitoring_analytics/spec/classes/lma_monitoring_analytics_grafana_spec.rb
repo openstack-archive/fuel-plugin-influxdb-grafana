@@ -19,6 +19,26 @@ describe 'lma_monitoring_analytics::grafana', :type => :class do
     end
 
     describe 'with defaults' do
+        let (:params) do
+            {:db_host => 'localhost:3306',
+             :db_name => 'grafana',
+             :db_username => 'grafana',
+             :db_password => 'grafana'}
+        end
+        it { is_expected.to contain_package('grafana').with(
+            :ensure => 'latest'
+        )}
+        it { is_expected.to contain_grafana_datasource('influxdb') }
+        it { is_expected.to contain_grafana_dashboard('Main') }
+    end
+
+    describe 'db_host without port number' do
+        let (:params) do
+            {:db_host => 'www.example.com',
+             :db_name => 'grafana',
+             :db_username => 'grafana',
+             :db_password => 'grafana'}
+        end
         it { is_expected.to contain_package('grafana').with(
             :ensure => 'latest'
         )}
