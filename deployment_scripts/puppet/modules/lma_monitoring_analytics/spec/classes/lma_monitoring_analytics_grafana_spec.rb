@@ -18,6 +18,10 @@ describe 'lma_monitoring_analytics::grafana', :type => :class do
         {:kernel => 'Linux', :operatingsystem => 'Ubuntu', :osfamily => 'Debian'}
     end
 
+    let (:params) do
+        {:db_host => 'localhost:3306', :db_name => 'grafana', :db_username => 'grafana', :db_password => 'grafana'}
+    end
+
     describe 'with defaults' do
         it { is_expected.to contain_package('grafana').with(
             :ensure => 'latest'
