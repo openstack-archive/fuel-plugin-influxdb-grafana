@@ -15,6 +15,7 @@
 # == Class: lma_monitoring_analytics::grafana
 
 class lma_monitoring_analytics::grafana (
+  $admin_database    = undef,
   $admin_username    = undef,
   $admin_password    = undef,
   $domain            = $lma_monitoring_analytics::params::grafana_domain,
@@ -25,6 +26,13 @@ class lma_monitoring_analytics::grafana (
   $influxdb_database = undef,
 ) inherits lma_monitoring_analytics::params {
 
+  if $admin_database == undef {
+    $db_type = 'sqlite3'
+    $db_host = '127.0.0.1:8086'
+  } else {
+    $db_type = 'mysql'
+    $db_host = $admin_database
+  }
   class { '::grafana':
     install_method      => 'repo',
     version             => latest,
@@ -33,6 +41,10 @@ class lma_monitoring_analytics::grafana (
       server    => {
         http_port => $http_port,
         domain    => $domain,
+      },
+      database  => {
+        type => $db_type,
+        host => $db_host,
       },
       security  => {
         admin_user     => $admin_username,
