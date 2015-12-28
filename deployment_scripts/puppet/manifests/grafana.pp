@@ -16,11 +16,51 @@
 prepare_network_config(hiera('network_scheme', {}))
 $mgmt_address = get_network_role_property('management', 'ipaddr')
 $influxdb_grafana = hiera('influxdb_grafana')
-class {'lma_monitoring_analytics::grafana':
-  admin_username    => $influxdb_grafana['grafana_username'],
-  admin_password    => $influxdb_grafana['grafana_userpass'],
-  influxdb_username => $influxdb_grafana['influxdb_username'],
-  influxdb_password => $influxdb_grafana['influxdb_userpass'],
-  influxdb_database => $influxdb_grafana['influxdb_dbname'],
-  domain            => $mgmt_address,
+$db_mode = $influxdb_grafana['grafana_db']
+
+case $db_mode {
+  'local': {
+    class {'lma_monitoring_analytics::grafana':
+      admin_username    => $influxdb_grafana['grafana_username'],
+      admin_password    => $influxdb_grafana['grafana_userpass'],
+      influxdb_username => $influxdb_grafana['influxdb_username'],
+      influxdb_password => $influxdb_grafana['influxdb_userpass'],
+      influxdb_database => $influxdb_grafana['influxdb_dbname'],
+      domain            => $mgmt_address,
+    }
+  }
+
+  'openstack': {
+    $mysql = hiera('mysql')
+    class {'lma_monitoring_analytics::grafana':
+      db_host           => hiera(database_vip),
+      db_user           => 'root',
+      db_password       => $mysql['root_password'],
+      admin_username    => $influxdb_grafana['grafana_username'],
+      admin_password    => $influxdb_grafana['grafana_userpass'],
+      influxdb_username => $influxdb_grafana['influxdb_username'],
+      influxdb_password => $influxdb_grafana['influxdb_userpass'],
+      influxdb_database => $influxdb_grafana['influxdb_dbname'],
+      domain            => $mgmt_address,
+    }
+  }
+
+  'remote': {
+    class {'lma_monitoring_analytics::grafana':
+      db_host           => $influxdb_grafana['grafana_dbhost'],
+      db_user           => $influxdb_grafana['grafana_dbuser'],
+      db_password       => $influxdb_grafana['grafana_dbpassword'],
+      admin_username    => $influxdb_grafana['grafana_username'],
+      admin_password    => $influxdb_grafana['grafana_userpass'],
+      influxdb_username => $influxdb_grafana['influxdb_username'],
+      influxdb_password => $influxdb_grafana['influxdb_userpass'],
+      influxdb_database => $influxdb_grafana['influxdb_dbname'],
+      domain            => $mgmt_address,
+    }
+  }
+
+  default: {
+    fail("'${db_mode}']}' database not supported for Grafana")
+  }
 }
+
