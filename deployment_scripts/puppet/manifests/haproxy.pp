@@ -13,15 +13,11 @@
 #    under the License.
 #
 
+$cluster_nodes = hiera('lma::influxdb::raft_nodes')
 $influxdb_port = '8086'
-$influxdb_nodes = hiera(lma::influxdb::raft_nodes)
+$grafana_port  = '8000'
 
-openstack::ha::haproxy_service { 'influxdb':
-  order                  => '800',
-  listen_port            => $influxdb_port,
-  balancermember_port    => $influxdb_port,
-  ipaddresses            => values($influxdb_nodes),
-  server_names           => keys($influxdb_nodes),
+Openstack::Ha::Haproxy_service {
   haproxy_config_options => {
     'option'  => ['httplog'],
     'balance' => 'roundrobin',
@@ -29,7 +25,21 @@ openstack::ha::haproxy_service { 'influxdb':
   },
   balancermember_options => 'check port',
   internal               => true,
-  internal_virtual_ip    => hiera(lma::influxdb::vip),
+  internal_virtual_ip    => hiera('lma::influxdb::vip'),
   public                 => false,
   public_virtual_ip      => undef,
+  ipaddresses            => values($cluster_nodes),
+  server_names           => keys($cluster_nodes),
+}
+
+openstack::ha::haproxy_service { 'influxdb':
+  order               => '800',
+  listen_port         => $influxdb_port,
+  balancermember_port => $influxdb_port,
+}
+
+openstack::ha::haproxy_service { 'grafana':
+  order               => '801',
+  listen_port         => $grafana_port,
+  balancermember_port => $grafana_port,
 }
