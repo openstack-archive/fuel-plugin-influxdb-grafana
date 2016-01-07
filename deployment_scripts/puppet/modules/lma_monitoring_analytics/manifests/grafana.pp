@@ -23,10 +23,6 @@ class lma_monitoring_analytics::grafana (
   $admin_password    = undef,
   $domain            = $lma_monitoring_analytics::params::grafana_domain,
   $http_port         = $lma_monitoring_analytics::params::listen_port,
-  $influxdb_url      = $lma_monitoring_analytics::params::influxdb_url,
-  $influxdb_username = undef,
-  $influxdb_password = undef,
-  $influxdb_database = undef,
 ) inherits lma_monitoring_analytics::params {
 
   if ! $db_host {
@@ -83,85 +79,4 @@ class lma_monitoring_analytics::grafana (
       },
     },
   }
-
-  grafana_datasource { 'influxdb':
-    ensure           => present,
-    url              => $influxdb_url,
-    user             => $influxdb_username,
-    password         => $influxdb_password,
-    database         => $influxdb_database,
-    access_mode      => 'proxy',
-    is_default       => true,
-    grafana_url      => "http://${domain}:${http_port}",
-    grafana_user     => $admin_username,
-    grafana_password => $admin_password,
-    require          => Class['::grafana'],
-  }
-
-  $dashboard_defaults = {
-    ensure           => present,
-    grafana_url      => "http://${domain}:${http_port}",
-    grafana_user     => $admin_username,
-    grafana_password => $admin_password,
-    require          => Class['::grafana'],
-  }
-
-  $dashboards = {
-    'Main' => {
-      content => template('lma_monitoring_analytics/grafana_dashboards/Main.json'),
-    },
-    'System' => {
-      content => template('lma_monitoring_analytics/grafana_dashboards/System.json'),
-    },
-    'LMA self-monitoring' => {
-      content => template('lma_monitoring_analytics/grafana_dashboards/LMA.json'),
-    },
-    'Apache' => {
-      content => template('lma_monitoring_analytics/grafana_dashboards/Apache.json'),
-    },
-    'Cinder' => {
-      content => template('lma_monitoring_analytics/grafana_dashboards/Cinder.json'),
-    },
-    'Glance' => {
-      content => template('lma_monitoring_analytics/grafana_dashboards/Glance.json'),
-    },
-    'HAProxy' => {
-      content => template('lma_monitoring_analytics/grafana_dashboards/HAProxy.json'),
-    },
-    'Heat' => {
-      content => template('lma_monitoring_analytics/grafana_dashboards/Heat.json'),
-    },
-    'Libvirt' => {
-      content => template('lma_monitoring_analytics/grafana_dashboards/Libvirt.json'),
-    },
-    'Keystone' => {
-      content => template('lma_monitoring_analytics/grafana_dashboards/Keystone.json'),
-    },
-    'Memcached' => {
-      content => template('lma_monitoring_analytics/grafana_dashboards/Memcached.json'),
-    },
-    'MySQL' => {
-      content => template('lma_monitoring_analytics/grafana_dashboards/MySQL.json'),
-    },
-    'Memcached' => {
-      content => template('lma_monitoring_analytics/grafana_dashboards/Memcached.json'),
-    },
-    'Neutron' => {
-      content => template('lma_monitoring_analytics/grafana_dashboards/Neutron.json'),
-    },
-    'Nova' => {
-      content => template('lma_monitoring_analytics/grafana_dashboards/Nova.json'),
-    },
-    'RabbitMQ' => {
-      content => template('lma_monitoring_analytics/grafana_dashboards/RabbitMQ.json'),
-    },
-    'Ceph' => {
-      content => template('lma_monitoring_analytics/grafana_dashboards/Ceph.json'),
-    },
-    'Ceph OSD' => {
-      content => template('lma_monitoring_analytics/grafana_dashboards/Ceph_OSD.json'),
-    },
-  }
-
-  create_resources(grafana_dashboard, $dashboards, $dashboard_defaults)
 }
