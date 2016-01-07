@@ -33,3 +33,11 @@
     puppet_manifest: puppet/manifests/create_lma_db.pp
     puppet_modules: puppet/modules
     timeout: 600
+
+- role: [primary-influxdb_grafana]
+  stage: post_deployment/8100
+  type: puppet
+  parameters:
+    puppet_manifest: puppet/manifests/grafana_configuration.pp
+    puppet_modules: puppet/modules
+    timeout: 600
