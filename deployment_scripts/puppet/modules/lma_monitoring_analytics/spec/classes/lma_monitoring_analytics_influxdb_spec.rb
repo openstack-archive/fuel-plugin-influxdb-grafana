@@ -1,4 +1,4 @@
-#    Copyright 2015 Mirantis, Inc.
+#    Copyright 2016 Mirantis, Inc.
 #
 #    Licensed under the Apache License, Version 2.0 (the "License"); you may
 #    not use this file except in compliance with the License. You may obtain
@@ -11,14 +11,20 @@
 #    WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 #    License for the specific language governing permissions and limitations
 #    under the License.
-#
-# == Class lma_monitoring_analytics::params
+require 'spec_helper'
 
-class lma_monitoring_analytics::params {
-  $listen_port                 = 8000
-  $influxdb_url                = 'http://localhost:8086'
-  $influxdb_dir                = '/var/lib/influxdb'
-  $influxdb_retention_period   = 'INF'
-  $influxdb_replication_factor = 1
-  $grafana_domain              = 'localhost'
-}
+describe 'lma_monitoring_analytics::influxdb', :type => :class do
+    let(:facts) do
+        { :kernel => 'Linux',
+          :operatingsystem => 'Ubuntu',
+          :osfamily => 'Debian' }
+    end
+
+    describe 'with defaults' do
+        let(:params) do
+            {:raft_nodes => ['node-1', 'node-2'] }
+        end
+        it { is_expected.to compile }
+        it { is_expected.to contain_class('influxdb') }
+    end
+end
