@@ -24,9 +24,6 @@ $db_password = $influxdb_grafana['mysql_password']
 
 $admin_username = $influxdb_grafana['grafana_username']
 $admin_password = $influxdb_grafana['grafana_userpass']
-$influxdb_username = $influxdb_grafana['influxdb_username']
-$influxdb_password = $influxdb_grafana['influxdb_userpass']
-$influxdb_database = $influxdb_grafana['influxdb_dbname']
 
 case $db_mode {
 
@@ -60,10 +57,6 @@ host=<%= @db_vip %>
       db_password       => $db_password,
       admin_username    => $admin_username,
       admin_password    => $admin_password,
-      influxdb_url      => "http://${mgmt_vip}:8086",
-      influxdb_username => $influxdb_username,
-      influxdb_password => $influxdb_password,
-      influxdb_database => $influxdb_database,
       domain            => $mgmt_vip,
     }
   }
@@ -77,10 +70,6 @@ host=<%= @db_vip %>
       db_password       => $db_password,
       admin_username    => $admin_username,
       admin_password    => $admin_password,
-      influxdb_url      => "http://${mgmt_vip}:8086",
-      influxdb_username => $influxdb_username,
-      influxdb_password => $influxdb_password,
-      influxdb_database => $influxdb_dbname,
       domain            => $mgmt_vip,
     }
   }
