@@ -12,22 +12,11 @@
 #    License for the specific language governing permissions and limitations
 #    under the License.
 #
-# == Class: lma_monitoring_analytics::influxdb
+$influxdb_grafana = hiera('influxdb_grafana')
 
-class lma_monitoring_analytics::influxdb (
-  $dir           = $lma_monitoring_analytics::params::influxdb_dir,
-  $raft_hostname = undef,
-  $raft_nodes    = undef,
-) inherits lma_monitoring_analytics::params {
-
-  validate_array($raft_nodes)
-
-  class { '::influxdb':
-    data_dir      => "${dir}/data",
-    meta_dir      => "${dir}/meta",
-    hh_dir        => "${dir}/hh",
-    wal_dir       => "${dir}/wal",
-    raft_hostname => $raft_hostname,
-    raft_nodes    => $raft_nodes,
-  }
+lma_monitoring_analytics::influxdb_create_db { 'lma':
+  rootpass         => $influxdb_grafana['influxdb_rootpass'],
+  username         => $influxdb_grafana['influxdb_username'],
+  userpass         => $influxdb_grafana['influxdb_userpass'],
+  retention_period => $influxdb_grafana['retention_period'],
 }
