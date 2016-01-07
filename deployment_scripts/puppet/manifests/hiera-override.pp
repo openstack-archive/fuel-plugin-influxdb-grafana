@@ -8,12 +8,12 @@ if ! $network_metadata['vips'][$vip_name] {
   fail('InfluxDB VIP is not defined')
 }
 
-$influxdb_nodes = get_nodes_hash_by_roles($network_metadata, [$plugin_name])
+$influxdb_nodes = get_nodes_hash_by_roles($network_metadata, [$plugin_name, "primary-${plugin_name}"])
 $influxdb_address_map = get_node_to_ipaddr_map_by_network_role($influxdb_nodes, 'influxdb_vip')
 
 $influxdb_vip = $network_metadata['vips'][$vip_name]['ipaddr']
 
-$corosync_roles = [$plugin_name]
+$corosync_roles = [$plugin_name, "primary-${plugin_name}"]
 
 ###################
 $calculated_content = inline_template('
