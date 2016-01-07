@@ -15,44 +15,19 @@
 # == Class: lma_monitoring_analytics::influxdb
 
 class lma_monitoring_analytics::influxdb (
-  $influxdb_dbname    = undef,
-  $influxdb_username  = undef,
-  $influxdb_userpass  = undef,
-  $influxdb_rootpass  = undef,
-  $influxdb_dir       = $lma_monitoring_analytics::params::influxdb_dir,
-  $retention_period   = $lma_monitoring_analytics::params::influxdb_retention_period,
-  $replication_factor = $lma_monitoring_analytics::params::influxdb_replication_factor,
-  $raft_hostname      = undef,
-  $raft_nodes         = undef,
+  $base_directory  = $lma_monitoring_analytics::params::influxdb_dir,
+  $raft_hostname   = undef,
+  $raft_nodes      = undef,
 ) inherits lma_monitoring_analytics::params {
-
-  $configure_influxdb = $lma_monitoring_analytics::params::influxdb_script
-  if $retention_period == 0 {
-    $real_retention_period = 'INF'
-  } else {
-    $real_retention_period = $retention_period
-  }
 
   validate_array($raft_nodes)
 
   class { '::influxdb':
-    data_dir      => "${influxdb_dir}/data",
-    meta_dir      => "${influxdb_dir}/meta",
-    hh_dir        => "${influxdb_dir}/hh",
-    wal_dir       => "${influxdb_dir}/wal",
+    data_dir      => "${base_directory}/data",
+    meta_dir      => "${base_directory}/meta",
+    hh_dir        => "${base_directory}/hh",
+    wal_dir       => "${base_directory}/wal",
     raft_hostname => $raft_hostname,
     raft_nodes    => $raft_nodes,
-  }
-
-  file { $configure_influxdb:
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0740',
-    content => template('lma_monitoring_analytics/configure_influxdb.sh.erb'),
-  }
-
-  exec { 'configure_influxdb_script':
-    command => $configure_influxdb,
-    require => [File[$configure_influxdb], Service['influxdb']],
   }
 }
