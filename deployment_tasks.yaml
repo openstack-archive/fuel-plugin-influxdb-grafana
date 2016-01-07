@@ -1,3 +1,22 @@
+- id: primary-influxdb_grafana
+  type: group
+  role: [primary-influxdb_grafana]
+  tasks:
+    - fuel_pkgs
+    - hiera
+    - globals
+    - tools
+    - logging
+    - netconfig
+    - hosts
+    - cluster
+    - cluster-haproxy
+  required_for: [deploy_end]
+  requires: [deploy_start]
+  parameters:
+    strategy:
+      type: parallel
+
 - id: influxdb_grafana
   type: group
   role: [influxdb_grafana]
@@ -9,20 +28,19 @@
     - logging
     - netconfig
     - hosts
-    - firewall
     - cluster
     - cluster-haproxy
   required_for: [deploy_end]
-  requires: [deploy_start]
+  requires: [deploy_start, primary-influxdb_grafana]
   parameters:
     strategy:
       type: parallel
 
 - id: influxdb-firewall
   type: puppet
-  groups: [influxdb_grafana]
+  groups: [primary-influxdb_grafana, influxdb_grafana]
   required_for: [cluster]
-  requires: [firewall]
+  requires: [netconfig]
   parameters:
     puppet_manifest: "puppet/manifests/firewall.pp"
     puppet_modules: "/etc/puppet/modules"
@@ -30,7 +48,7 @@
 
 - id: influxdb-vip
   type: puppet
-  groups: [influxdb_grafana]
+  groups: [primary-influxdb_grafana, influxdb_grafana]
   requires: [cluster]
   parameters:
     puppet_manifest: "/etc/puppet/modules/osnailyfacter/modular/virtual_ips/virtual_ips.pp"
@@ -39,7 +57,7 @@
 
 - id: influxdb-haproxy
   type: puppet
-  groups: [influxdb_grafana]
+  groups: [primary-influxdb_grafana, influxdb_grafana]
   required_for: [deploy_end]
   requires: [cluster-haproxy, influxdb-vip]
   parameters:
@@ -49,7 +67,7 @@
 
 - id: influxdb-hiera-override
   type: puppet
-  groups: [influxdb_grafana]
+  groups: [primary-influxdb_grafana, influxdb_grafana]
   requires: [globals]
   required_for: [logging]
   parameters:

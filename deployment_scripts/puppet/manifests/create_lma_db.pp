@@ -1,4 +1,4 @@
-#    Copyright 2015 Mirantis, Inc.
+#    Copyright 2016 Mirantis, Inc.
 #
 #    Licensed under the Apache License, Version 2.0 (the "License"); you may
 #    not use this file except in compliance with the License. You may obtain
@@ -12,15 +12,14 @@
 #    License for the specific language governing permissions and limitations
 #    under the License.
 #
-# == Class lma_monitoring_analytics::params
+$influxdb_grafana = hiera('influxdb_grafana')
+$vip = hiera('lma::influxdb::vip')
 
-class lma_monitoring_analytics::params {
-  $listen_port                 = 8000
-  $influxdb_url                = 'http://localhost:8086'
-  $influxdb_create_user        = '/usr/local/bin/create_user.sh'
-  $influxdb_create_database    = '/usr/local/bin/create_db.sh'
-  $influxdb_dir                = '/var/lib/influxdb'
-  $influxdb_retention_period   = 'INF'
-  $influxdb_replication_factor = 1
-  $grafana_domain              = 'localhost'
+lma_monitoring_analytics::influxdb_database { 'lma':
+  admin_user       => 'root',
+  admin_password   => $influxdb_grafana['influxdb_rootpass'],
+  influxdb_url     => "http://${vip}:8086",
+  db_user          => $influxdb_grafana['influxdb_username'],
+  db_password      => $influxdb_grafana['influxdb_userpass'],
+  retention_period => $influxdb_grafana['retention_period'],
 }
