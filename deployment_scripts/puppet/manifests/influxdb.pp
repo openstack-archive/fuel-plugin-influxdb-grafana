@@ -39,14 +39,9 @@ if $influxdb_grafana['retention_period'] == 0 {
 # We cannot mix IP addresses and hostnames otherwise the Raft cluster won't
 # start. We decide to stick with hostnames because they are more meaningful.
 class { 'lma_monitoring_analytics::influxdb':
-  influxdb_rootpass  => $influxdb_grafana['influxdb_rootpass'],
-  influxdb_dbname    => $influxdb_grafana['influxdb_dbname'],
-  influxdb_username  => $influxdb_grafana['influxdb_username'],
-  influxdb_userpass  => $influxdb_grafana['influxdb_userpass'],
-  influxdb_dir       => $influxdb_grafana['data_dir'],
-  retention_period   => $retention_period,
-  replication_factor => $influxdb_grafana['replication_factor'],
-  require            => File[$directory],
-  raft_hostname      => hiera('node_name'),
-  raft_nodes         => keys($raft_nodes),
+  rootpass      => $influxdb_grafana['influxdb_rootpass'],
+  dir           => $influxdb_grafana['data_dir'],
+  require       => File[$directory],
+  raft_hostname => hiera('node_name'),
+  raft_nodes    => keys($raft_nodes),
 }

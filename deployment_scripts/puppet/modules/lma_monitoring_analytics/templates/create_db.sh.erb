@@ -17,30 +17,26 @@ set -eux
 
 INFLUXDB_URL="http://127.0.0.1:8086"
 
-# Setup the admin user
-curl -G "${INFLUXDB_URL}/query" \
-    --data-urlencode "q=CREATE USER root WITH PASSWORD '<%= @influxdb_rootpass %>' WITH ALL PRIVILEGES"
-
-# Create LMA user
+# Create the user
 curl -G "${INFLUXDB_URL}/query" \
     --data-urlencode "u=root" \
-    --data-urlencode "p=<%= @influxdb_rootpass %>" \
-    --data-urlencode "q=CREATE USER <%= @influxdb_username %> WITH PASSWORD '<%= @influxdb_userpass %>'"
+    --data-urlencode "p=<%= @rootpass %>" \
+    --data-urlencode "q=CREATE USER <%= @username %> WITH PASSWORD '<%= @userpass %>'"
 
-# Create LMA database
+# Create the database
 curl -G "${INFLUXDB_URL}/query" \
     --data-urlencode "u=root" \
-    --data-urlencode "p=<%= @influxdb_rootpass %>" \
-    --data-urlencode "q=CREATE DATABASE <%= @influxdb_dbname %>"
+    --data-urlencode "p=<%= @rootpass %>" \
+    --data-urlencode "q=CREATE DATABASE <%= @dbname %>"
 
-# Give all privileges to LMA for LMA DB
+# Give all privileges to user for the DB
 curl -G "${INFLUXDB_URL}/query" \
     --data-urlencode "u=root" \
-    --data-urlencode "p=<%= @influxdb_rootpass %>" \
-    --data-urlencode "q=GRANT ALL ON <%= @influxdb_dbname %> TO <%= @influxdb_username %>"
+    --data-urlencode "p=<%= @rootpass %>" \
+    --data-urlencode "q=GRANT ALL ON <%= @dbname %> TO <%= @username %>"
 
 # Define the retentation policy
 curl -G "${INFLUXDB_URL}/query" \
     --data-urlencode "u=root" \
-    --data-urlencode "p=<%= @influxdb_rootpass %>" \
-    --data-urlencode "q=ALTER RETENTION POLICY default ON <%= @influxdb_dbname %> DURATION <%= @retention_period %> REPLICATION <%= @replication_factor %>"
+    --data-urlencode "p=<%= @rootpass %>" \
+    --data-urlencode "q=ALTER RETENTION POLICY default ON <%= @dbname %> DURATION <%= @real_retention_period %> REPLICATION <%= @real_replication_factor %>"
