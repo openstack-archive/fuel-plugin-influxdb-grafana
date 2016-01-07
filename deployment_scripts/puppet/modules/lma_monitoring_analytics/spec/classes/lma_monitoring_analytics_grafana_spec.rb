@@ -28,8 +28,6 @@ describe 'lma_monitoring_analytics::grafana', :type => :class do
         it { is_expected.to contain_package('grafana').with(
             :ensure => 'latest'
         )}
-        it { is_expected.to contain_grafana_datasource('influxdb') }
-        it { is_expected.to contain_grafana_dashboard('Main') }
     end
 
     describe 'db_host without port number' do
@@ -42,7 +40,5 @@ describe 'lma_monitoring_analytics::grafana', :type => :class do
         it { is_expected.to contain_package('grafana').with(
             :ensure => 'latest'
         )}
-        it { is_expected.to contain_grafana_datasource('influxdb') }
-        it { is_expected.to contain_grafana_dashboard('Main') }
     end
 end
