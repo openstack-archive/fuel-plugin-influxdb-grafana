@@ -12,15 +12,12 @@
 #    License for the specific language governing permissions and limitations
 #    under the License.
 #
-# == Class lma_monitoring_analytics::params
+$influxdb_grafana = hiera('influxdb_grafana')
 
-class lma_monitoring_analytics::params {
-  $listen_port                 = 8000
-  $influxdb_url                = 'http://localhost:8086'
-  $influxdb_admin_script       = '/usr/local/bin/set_admin_user.sh'
-  $influxdb_create_db_script   = '/usr/local/bin/create_db.sh'
-  $influxdb_dir                = '/var/lib/influxdb'
-  $influxdb_retention_period   = 0
-  $influxdb_replication_factor = 1
-  $grafana_domain              = 'localhost'
+
+lma_monitoring_analytics::influxdb-database { 'lma':
+  influxdb_rootpass  => $influxdb_grafana['influxdb_rootpass'],
+  influxdb_dbname    => $influxdb_grafana['influxdb_dbname'],
+  influxdb_username  => $influxdb_grafana['influxdb_username'],
+  influxdb_userpass  => $influxdb_grafana['influxdb_userpass'],
 }

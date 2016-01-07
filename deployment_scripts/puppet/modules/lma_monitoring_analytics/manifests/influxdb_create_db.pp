@@ -12,15 +12,26 @@
 #    License for the specific language governing permissions and limitations
 #    under the License.
 #
-# == Class lma_monitoring_analytics::params
+# == Class: lma_monitoring_analytics::influxdb_create_db
 
-class lma_monitoring_analytics::params {
-  $listen_port                 = 8000
-  $influxdb_url                = 'http://localhost:8086'
-  $influxdb_admin_script       = '/usr/local/bin/set_admin_user.sh'
-  $influxdb_create_db_script   = '/usr/local/bin/create_db.sh'
-  $influxdb_dir                = '/var/lib/influxdb'
-  $influxdb_retention_period   = 0
-  $influxdb_replication_factor = 1
-  $grafana_domain              = 'localhost'
+define lma_monitoring_analytics::influxdb_create_db (
+  $influxdb_dbname    = undef,
+  $influxdb_username  = undef,
+  $influxdb_userpass  = undef,
+  $influxdb_rootpass  = undef,
+) {
+
+  $create_db = $lma_monitoring_analytics::params::influxdb_create_db_script
+
+  file { $create_db:
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0740',
+    content => template('lma_monitoring_analytics/create_db.sh.erb'),
+  }
+
+  exec { 'create_db_script':
+    command => $create_db,
+    require => [File[$create_db], Service['influxdb']],
+  }
 }
