@@ -16,3 +16,4 @@
          alias: "influxdb"
          node_roles:
            - "influxdb_grafana"
+           - "primary-influxdb_grafana"
