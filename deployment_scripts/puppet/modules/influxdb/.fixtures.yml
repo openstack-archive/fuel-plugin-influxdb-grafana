@@ -1,0 +1,10 @@
+fixtures:
+  repositories:
+    stdlib:
+      repo: "git://github.com/puppetlabs/puppetlabs-stdlib"
+      ref: "4.7.0"
+    inifile:
+      repo: "git://github.com/puppetlabs/puppetlabs-inifile"
+      ref: "1.4.1"
+  symlinks:
+    influxdb: "#{source_dir}"
