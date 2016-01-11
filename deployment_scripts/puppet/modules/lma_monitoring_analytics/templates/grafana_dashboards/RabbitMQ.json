@@ -1,4 +1,5 @@
 {
+  "version": 1,
   "style": "dark",
   "rows": [
     {
@@ -44,6 +45,7 @@
           "targets": [
             {
               "function": "last",
+              "dsType": "influxdb",
               "groupby_field": "",
               "rawQuery": false,
               "groupByTags": [],
@@ -55,16 +57,40 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "merge(/openstack.cinder.status/)",
+              "interval": "",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "last",
+                    "params": []
+                  }
+                ]
+              ],
+              "resultFormat": "time_series",
+              "measurement": "cluster_status",
+              "query": "SELECT last(\"value\") FROM \"cluster_status\" WHERE \"cluster_name\" = 'rabbitmq' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "last"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "null"
+                  ]
                 }
               ],
-              "interval": "",
-              "series": "merge(/openstack.cinder.status/)",
-              "measurement": "cluster_status",
-              "query": "SELECT last(value) FROM \"cluster_status\" WHERE \"cluster_name\" = 'rabbitmq' AND $timeFilter GROUP BY time($interval)",
               "condition": "",
               "fill": ""
             }
@@ -94,6 +120,7 @@
             "rgba(241, 181, 37, 0.73)",
             "rgba(225, 40, 40, 0.59)"
           ],
+          "datasource": null,
           "error": false,
           "nullText": null,
           "postfixFontSize": "50%",
@@ -114,6 +141,7 @@
           "targets": [
             {
               "function": "last",
+              "dsType": "influxdb",
               "groupByTags": [],
               "tags": [
                 {
@@ -122,16 +150,40 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "merge(/$server.rabbitmq.total_nodes/)",
+              "refId": "A",
+              "alias": "Total nodes",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "last",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "rabbitmq_total_nodes",
+              "query": "SELECT last(\"value\") FROM \"rabbitmq_total_nodes\" WHERE \"hostname\" =~ /$server/ AND $timeFilter GROUP BY time($interval) fill(null)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "last"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "null"
+                  ]
                 }
               ],
-              "alias": "Total nodes",
-              "series": "merge(/$server.rabbitmq.total_nodes/)",
-              "measurement": "rabbitmq_total_nodes",
-              "query": "SELECT last(value) FROM \"rabbitmq_total_nodes\" WHERE \"hostname\" =~ /$server/ AND $timeFilter GROUP BY time($interval)"
+              "resultFormat": "time_series"
             }
           ],
           "maxDataPoints": 100,
@@ -159,6 +211,7 @@
             "rgba(245, 150, 40, 0.73)",
             "rgba(225, 40, 40, 0.59)"
           ],
+          "datasource": null,
           "error": false,
           "nullText": null,
           "postfixFontSize": "50%",
@@ -179,6 +232,7 @@
           "targets": [
             {
               "function": "last",
+              "dsType": "influxdb",
               "groupByTags": [],
               "tags": [
                 {
@@ -187,16 +241,40 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "merge(/$server.rabbitmq.running_nodes/)",
+              "refId": "A",
+              "alias": "Running nodes",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "last",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "rabbitmq_running_nodes",
+              "query": "SELECT last(\"value\") FROM \"rabbitmq_running_nodes\" WHERE \"hostname\" =~ /$server/ AND $timeFilter GROUP BY time($interval) fill(null)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "last"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "null"
+                  ]
                 }
               ],
-              "alias": "Running nodes",
-              "series": "merge(/$server.rabbitmq.running_nodes/)",
-              "measurement": "rabbitmq_running_nodes",
-              "query": "SELECT last(value) FROM \"rabbitmq_running_nodes\" WHERE \"hostname\" =~ /$server/ AND $timeFilter GROUP BY time($interval)"
+              "resultFormat": "time_series"
             }
           ],
           "maxDataPoints": 100,
@@ -224,6 +302,7 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
+          "datasource": null,
           "error": false,
           "nullText": null,
           "postfixFontSize": "50%",
@@ -264,6 +343,7 @@
           "targets": [
             {
               "function": "last",
+              "dsType": "influxdb",
               "groupByTags": [],
               "tags": [
                 {
@@ -272,15 +352,39 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "merge(/$server.rabbitmq.consumers/)",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "last",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "rabbitmq_consumers",
+              "query": "SELECT last(\"value\") FROM \"rabbitmq_consumers\" WHERE \"hostname\" =~ /$server/ AND $timeFilter GROUP BY time($interval) fill(null)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "last"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "null"
+                  ]
                 }
               ],
-              "series": "merge(/$server.rabbitmq.consumers/)",
-              "measurement": "rabbitmq_consumers",
-              "query": "SELECT last(value) FROM \"rabbitmq_consumers\" WHERE \"hostname\" =~ /$server/ AND $timeFilter GROUP BY time($interval)"
+              "resultFormat": "time_series"
             }
           ],
           "maxDataPoints": 100,
@@ -308,6 +412,7 @@
             "rgba(245, 150, 40, 0.73)",
             "rgba(225, 40, 40, 0.59)"
           ],
+          "datasource": null,
           "error": false,
           "nullText": null,
           "postfixFontSize": "50%",
@@ -328,6 +433,7 @@
           "targets": [
             {
               "function": "last",
+              "dsType": "influxdb",
               "groupByTags": [],
               "tags": [
                 {
@@ -336,16 +442,40 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "merge(/$server.rabbitmq.queues/)",
+              "refId": "A",
+              "alias": "queues",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "last",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "rabbitmq_queues",
+              "query": "SELECT last(\"value\") FROM \"rabbitmq_queues\" WHERE \"hostname\" =~ /$server/ AND $timeFilter GROUP BY time($interval) fill(null)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "last"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "null"
+                  ]
                 }
               ],
-              "alias": "queues",
-              "series": "merge(/$server.rabbitmq.queues/)",
-              "measurement": "rabbitmq_queues",
-              "query": "SELECT last(value) FROM \"rabbitmq_queues\" WHERE \"hostname\" =~ /$server/ AND $timeFilter GROUP BY time($interval)"
+              "resultFormat": "time_series"
             }
           ],
           "maxDataPoints": 100,
@@ -373,6 +503,7 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
+          "datasource": null,
           "error": false,
           "nullText": null,
           "postfixFontSize": "50%",
@@ -393,6 +524,7 @@
           "targets": [
             {
               "function": "last",
+              "dsType": "influxdb",
               "groupByTags": [],
               "tags": [
                 {
@@ -401,16 +533,40 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "merge(/$server.rabbitmq.connections/)",
+              "refId": "A",
+              "alias": "connections",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "last",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "rabbitmq_connections",
+              "query": "SELECT last(\"value\") FROM \"rabbitmq_connections\" WHERE \"hostname\" =~ /$server/ AND $timeFilter GROUP BY time($interval) fill(null)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "last"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "null"
+                  ]
                 }
               ],
-              "alias": "connections",
-              "series": "merge(/$server.rabbitmq.connections/)",
-              "measurement": "rabbitmq_connections",
-              "query": "SELECT last(value) FROM \"rabbitmq_connections\" WHERE \"hostname\" =~ /$server/ AND $timeFilter GROUP BY time($interval)"
+              "resultFormat": "time_series"
             }
           ],
           "maxDataPoints": 100,
@@ -438,6 +594,7 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
+          "datasource": null,
           "error": false,
           "nullText": null,
           "postfixFontSize": "50%",
@@ -458,6 +615,7 @@
           "targets": [
             {
               "function": "last",
+              "dsType": "influxdb",
               "groupByTags": [],
               "tags": [
                 {
@@ -466,15 +624,39 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "merge(/$server.rabbitmq.exchanges/)",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "last",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "rabbitmq_exchanges",
+              "query": "SELECT last(\"value\") FROM \"rabbitmq_exchanges\" WHERE \"hostname\" =~ /$server/ AND $timeFilter GROUP BY time($interval) fill(null)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "last"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "null"
+                  ]
                 }
               ],
-              "series": "merge(/$server.rabbitmq.exchanges/)",
-              "measurement": "rabbitmq_exchanges",
-              "query": "SELECT last(value) FROM \"rabbitmq_exchanges\" WHERE \"hostname\" =~ /$server/ AND $timeFilter GROUP BY time($interval)"
+              "resultFormat": "time_series"
             }
           ],
           "maxDataPoints": 100,
@@ -502,6 +684,7 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
+          "datasource": null,
           "error": false,
           "nullText": null,
           "postfixFontSize": "50%",
@@ -536,23 +719,47 @@
           "targets": [
             {
               "function": "mean",
+              "dsType": "influxdb",
               "rawQuery": false,
               "groupByTags": [
                 "hostname"
               ],
               "tags": [],
               "column": "value",
-              "fields": [
+              "series": "/$server.rabbitmq.memory/",
+              "refId": "A",
+              "alias": "$tag_hostname",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "rabbitmq_unmirrored_queues",
+              "query": "SELECT mean(\"value\") FROM \"rabbitmq_unmirrored_queues\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "mean"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "alias": "$tag_hostname",
-              "series": "/$server.rabbitmq.memory/",
-              "measurement": "rabbitmq_unmirrored_queues",
-              "query": "SELECT mean(value) FROM \"rabbitmq_unmirrored_queues\" WHERE $timeFilter GROUP BY time($interval), \"hostname\" fill(0)",
-              "fill": "0"
+              "resultFormat": "time_series"
             }
           ],
           "seriesOverrides": [],
@@ -616,22 +823,46 @@
           "targets": [
             {
               "function": "mean",
+              "dsType": "influxdb",
               "groupByTags": [
                 "hostname"
               ],
               "tags": [],
               "column": "value",
-              "fields": [
+              "series": "/$server.rabbitmq.messages/",
+              "refId": "A",
+              "alias": "$tag_hostname",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "rabbitmq_messages",
+              "query": "SELECT mean(\"value\") FROM \"rabbitmq_messages\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "mean"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "alias": "$tag_hostname",
-              "series": "/$server.rabbitmq.messages/",
-              "measurement": "rabbitmq_messages",
-              "query": "SELECT mean(value) FROM \"rabbitmq_messages\" WHERE $timeFilter GROUP BY time($interval), \"hostname\" fill(0)",
-              "fill": "0"
+              "resultFormat": "time_series"
             }
           ],
           "leftYAxisLabel": "per second",
@@ -695,23 +926,47 @@
           "targets": [
             {
               "function": "mean",
+              "dsType": "influxdb",
               "rawQuery": false,
               "groupByTags": [
                 "hostname"
               ],
               "tags": [],
               "column": "value",
-              "fields": [
+              "series": "/$server.rabbitmq.memory/",
+              "refId": "A",
+              "alias": "$tag_hostname",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "rabbitmq_used_memory",
+              "query": "SELECT mean(\"value\") FROM \"rabbitmq_used_memory\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "mean"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "alias": "$tag_hostname",
-              "series": "/$server.rabbitmq.memory/",
-              "measurement": "rabbitmq_used_memory",
-              "query": "SELECT mean(value) FROM \"rabbitmq_used_memory\" WHERE $timeFilter GROUP BY time($interval), \"hostname\" fill(0)",
-              "fill": "0"
+              "resultFormat": "time_series"
             }
           ],
           "seriesOverrides": [],
@@ -774,23 +1029,47 @@
           "targets": [
             {
               "function": "mean",
+              "dsType": "influxdb",
               "rawQuery": false,
               "groupByTags": [
                 "hostname"
               ],
               "tags": [],
               "column": "value",
-              "fields": [
+              "series": "/$server.rabbitmq.memory/",
+              "refId": "A",
+              "alias": "$tag_hostname",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "rabbitmq_disk_free",
+              "query": "SELECT mean(\"value\") FROM \"rabbitmq_disk_free\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "mean"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "alias": "$tag_hostname",
-              "series": "/$server.rabbitmq.memory/",
-              "measurement": "rabbitmq_disk_free",
-              "query": "SELECT mean(value) FROM \"rabbitmq_disk_free\" WHERE $timeFilter GROUP BY time($interval), \"hostname\" fill(0)",
-              "fill": "0"
+              "resultFormat": "time_series"
             }
           ],
           "seriesOverrides": [],
@@ -856,47 +1135,44 @@
   "refresh": "1m",
   "id": null,
   "originalTitle": "RabbitMQ",
-  "version": 6,
-  "nav": [
-    {
-      "status": "Stable",
-      "notice": false,
-      "enable": true,
-      "collapse": false,
-      "time_options": [
-        "5m",
-        "15m",
-        "1h",
-        "6h",
-        "12h",
-        "24h",
-        "2d",
-        "7d",
-        "30d"
-      ],
-      "refresh_intervals": [
-        "5s",
-        "10s",
-        "30s",
-        "1m",
-        "5m",
-        "15m",
-        "30m",
-        "1h",
-        "2h",
-        "1d"
-      ],
-      "now": true,
-      "type": "timepicker"
-    }
-  ],
+  "timepicker": {
+    "status": "Stable",
+    "notice": false,
+    "enable": true,
+    "collapse": false,
+    "time_options": [
+      "5m",
+      "15m",
+      "1h",
+      "6h",
+      "12h",
+      "24h",
+      "2d",
+      "7d",
+      "30d"
+    ],
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ],
+    "now": true,
+    "type": "timepicker"
+  },
   "sharedCrosshair": true,
   "time": {
     "to": "now",
     "from": "now-1h"
   },
   "timezone": "browser",
-  "schemaVersion": 6,
+  "schemaVersion": 8,
   "annotations": {
     "list": [
       {

@@ -86,5 +86,5 @@ List of software components installed by the plugin.
 +================+=====================================+
 | InfluxDB       | v0.9.4 for Ubuntu (64-bit)          |
 +----------------+-------------------------------------+
-| Grafana        | v2.5.0 for Ubuntu (64-bit)          |
+| Grafana        | v2.6.0 for Ubuntu (64-bit)          |
 +----------------+-------------------------------------+

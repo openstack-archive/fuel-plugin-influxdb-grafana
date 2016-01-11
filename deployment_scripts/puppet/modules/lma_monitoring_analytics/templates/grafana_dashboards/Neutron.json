@@ -1,4 +1,5 @@
 {
+  "version": 1,
   "style": "dark",
   "rows": [
     {
@@ -47,6 +48,7 @@
           "targets": [
             {
               "function": "last",
+              "dsType": "influxdb",
               "groupby_field": "",
               "rawQuery": false,
               "groupByTags": [],
@@ -58,16 +60,40 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "merge(/openstack.cinder.status/)",
+              "interval": "",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "last",
+                    "params": []
+                  }
+                ]
+              ],
+              "resultFormat": "time_series",
+              "measurement": "cluster_status",
+              "query": "SELECT last(\"value\") FROM \"cluster_status\" WHERE \"cluster_name\" = 'neutron' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "last"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "null"
+                  ]
                 }
               ],
-              "interval": "",
-              "series": "merge(/openstack.cinder.status/)",
-              "measurement": "cluster_status",
-              "query": "SELECT last(value) FROM \"cluster_status\" WHERE \"cluster_name\" = 'neutron' AND $timeFilter GROUP BY time($interval)",
               "condition": "",
               "fill": ""
             }
@@ -97,6 +123,7 @@
             "rgba(241, 181, 37, 0.73)",
             "rgba(225, 40, 40, 0.59)"
           ],
+          "datasource": null,
           "error": false,
           "nullText": null,
           "postfixFontSize": "50%",
@@ -117,31 +144,52 @@
           "targets": [
             {
               "function": "count",
+              "dsType": "influxdb",
               "groupby_field": "",
               "rawQuery": false,
-              "groupByTags": [],
               "tags": [
                 {
+                  "operator": "=~",
                   "value": "/$server/",
                   "key": "hostname"
                 },
                 {
+                  "operator": "=~",
                   "value": "/^5/",
                   "key": "http_status",
                   "condition": "AND"
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "merge(/$server.openstack.cinder.http.*.5\\d\\d/)",
+              "interval": "",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "count",
+                    "params": []
+                  }
+                ]
+              ],
+              "resultFormat": "time_series",
+              "measurement": "openstack_neutron_http_responses",
+              "query": "SELECT count(\"value\") FROM \"openstack_neutron_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^5/ AND $timeFilter GROUP BY time($interval) fill(null)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "count"
+                  "type": "time",
+                  "interval": "auto",
+                  "params": [
+                    "auto"
+                  ]
                 }
               ],
-              "interval": "",
-              "series": "merge(/$server.openstack.cinder.http.*.5\\d\\d/)",
-              "measurement": "openstack_neutron_http_responses",
-              "query": "SELECT count(value) FROM \"openstack_neutron_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^5/ AND $timeFilter GROUP BY time($interval)",
               "condition": "",
               "fill": ""
             }
@@ -171,6 +219,7 @@
             "rgba(245, 150, 40, 0.73)",
             "rgba(225, 40, 40, 0.59)"
           ],
+          "datasource": null,
           "error": false,
           "nullText": null,
           "postfixFontSize": "50%",
@@ -206,6 +255,7 @@
           "targets": [
             {
               "function": "mean",
+              "dsType": "influxdb",
               "groupByTags": [],
               "tags": [
                 {
@@ -219,21 +269,45 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "merge(/$server.openstack.cinder.http.GET.*/)",
+              "interval": "",
+              "refId": "A",
+              "alias": "GET",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "openstack_neutron_http_responses",
+              "query": "SELECT mean(\"value\") FROM \"openstack_neutron_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_method\" = 'GET' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "mean"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "interval": "",
-              "alias": "GET",
-              "series": "merge(/$server.openstack.cinder.http.GET.*/)",
-              "measurement": "openstack_neutron_http_responses",
-              "query": "SELECT mean(value) FROM \"openstack_neutron_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_method\" = 'GET' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "fill": "0"
+              "resultFormat": "time_series"
             },
             {
               "function": "mean",
+              "dsType": "influxdb",
               "groupByTags": [],
               "tags": [
                 {
@@ -247,21 +321,45 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "merge(/$server.openstack.cinder.http.POST.*/)",
+              "interval": "",
+              "refId": "B",
+              "alias": "POST",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "openstack_neutron_http_responses",
+              "query": "SELECT mean(\"value\") FROM \"openstack_neutron_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_method\" = 'POST' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "mean"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "interval": "",
-              "alias": "POST",
-              "series": "merge(/$server.openstack.cinder.http.POST.*/)",
-              "measurement": "openstack_neutron_http_responses",
-              "query": "SELECT mean(value) FROM \"openstack_neutron_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_method\" = 'POST' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "fill": "0"
+              "resultFormat": "time_series"
             },
             {
               "function": "mean",
+              "dsType": "influxdb",
               "groupByTags": [],
               "tags": [
                 {
@@ -275,21 +373,45 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "merge(/$server.openstack.cinder.http.PUT.*/)",
+              "interval": "",
+              "refId": "C",
+              "alias": "PUT",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "openstack_neutron_http_responses",
+              "query": "SELECT mean(\"value\") FROM \"openstack_neutron_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_method\" = 'PUT' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "mean"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "interval": "",
-              "alias": "PUT",
-              "series": "merge(/$server.openstack.cinder.http.PUT.*/)",
-              "measurement": "openstack_neutron_http_responses",
-              "query": "SELECT mean(value) FROM \"openstack_neutron_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_method\" = 'PUT' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "fill": "0"
+              "resultFormat": "time_series"
             },
             {
               "function": "mean",
+              "dsType": "influxdb",
               "groupByTags": [],
               "tags": [
                 {
@@ -303,18 +425,41 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "merge(/$server.openstack.cinder.http.DELETE.*/)",
+              "interval": "",
+              "refId": "D",
+              "alias": "DELETE",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "openstack_neutron_http_responses",
+              "query": "SELECT mean(\"value\") FROM \"openstack_neutron_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_method\" = 'DELETE' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "mean"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "interval": "",
-              "alias": "DELETE",
-              "series": "merge(/$server.openstack.cinder.http.DELETE.*/)",
-              "measurement": "openstack_neutron_http_responses",
-              "query": "SELECT mean(value) FROM \"openstack_neutron_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_method\" = 'DELETE' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "fill": "0"
+              "resultFormat": "time_series"
             }
           ],
           "seriesOverrides": [],
@@ -377,6 +522,7 @@
           "targets": [
             {
               "function": "last",
+              "dsType": "influxdb",
               "groupByTags": [],
               "tags": [
                 {
@@ -386,17 +532,40 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "merge(/openstack.cinder.check_api/)",
+              "refId": "A",
+              "alias": "healthy",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "last",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "openstack_check_api",
+              "query": "SELECT last(\"value\") FROM \"openstack_check_api\" WHERE \"service\" = 'neutron-api' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "last"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "alias": "healthy",
-              "series": "merge(/openstack.cinder.check_api/)",
-              "measurement": "openstack_check_api",
-              "query": "SELECT last(value) FROM \"openstack_check_api\" WHERE \"service\" = 'neutron-api' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "fill": "0"
+              "resultFormat": "time_series"
             }
           ],
           "leftYAxisLabel": "",
@@ -464,6 +633,7 @@
           "targets": [
             {
               "function": "count",
+              "dsType": "influxdb",
               "rawQuery": false,
               "groupByTags": [],
               "tags": [
@@ -478,21 +648,45 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "merge(/$server.openstack.cinder.http.*.2\\d\\d/)",
+              "interval": "",
+              "refId": "A",
+              "alias": "2xx",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "count",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "openstack_neutron_http_responses",
+              "query": "SELECT count(\"value\") FROM \"openstack_neutron_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^2/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "count"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "interval": "",
-              "alias": "2xx",
-              "series": "merge(/$server.openstack.cinder.http.*.2\\d\\d/)",
-              "measurement": "openstack_neutron_http_responses",
-              "query": "SELECT count(value) FROM \"openstack_neutron_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^2/ AND $timeFilter GROUP BY time($interval) fill(0)",
-              "fill": "0"
+              "resultFormat": "time_series"
             },
             {
               "function": "count",
+              "dsType": "influxdb",
               "hide": false,
               "groupByTags": [],
               "tags": [
@@ -507,21 +701,45 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "merge(/$server.openstack.cinder.http.*.1\\d\\d/)",
+              "interval": "",
+              "refId": "B",
+              "alias": "1xx",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "count",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "openstack_neutron_http_responses",
+              "query": "SELECT count(\"value\") FROM \"openstack_neutron_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^1/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "count"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "interval": "",
-              "alias": "1xx",
-              "series": "merge(/$server.openstack.cinder.http.*.1\\d\\d/)",
-              "measurement": "openstack_neutron_http_responses",
-              "query": "SELECT count(value) FROM \"openstack_neutron_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^1/ AND $timeFilter GROUP BY time($interval) fill(0)",
-              "fill": "0"
+              "resultFormat": "time_series"
             },
             {
               "function": "count",
+              "dsType": "influxdb",
               "hide": false,
               "groupByTags": [],
               "tags": [
@@ -536,21 +754,45 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "merge(/$server.openstack.cinder.http.*.3\\d\\d/)",
+              "interval": "",
+              "refId": "C",
+              "alias": "3xx",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "count",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "openstack_neutron_http_responses",
+              "query": "SELECT count(\"value\") FROM \"openstack_neutron_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^3/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "count"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "interval": "",
-              "alias": "3xx",
-              "series": "merge(/$server.openstack.cinder.http.*.3\\d\\d/)",
-              "measurement": "openstack_neutron_http_responses",
-              "query": "SELECT count(value) FROM \"openstack_neutron_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^3/ AND $timeFilter GROUP BY time($interval) fill(0)",
-              "fill": "0"
+              "resultFormat": "time_series"
             },
             {
               "function": "count",
+              "dsType": "influxdb",
               "hide": false,
               "groupByTags": [],
               "tags": [
@@ -565,21 +807,45 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "merge(/$server.openstack.cinder.http.*.4\\d\\d/)",
+              "interval": "",
+              "refId": "D",
+              "alias": "4xx",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "count",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "openstack_neutron_http_responses",
+              "query": "SELECT count(\"value\") FROM \"openstack_neutron_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^4/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "count"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "interval": "",
-              "alias": "4xx",
-              "series": "merge(/$server.openstack.cinder.http.*.4\\d\\d/)",
-              "measurement": "openstack_neutron_http_responses",
-              "query": "SELECT count(value) FROM \"openstack_neutron_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^4/ AND $timeFilter GROUP BY time($interval) fill(0)",
-              "fill": "0"
+              "resultFormat": "time_series"
             },
             {
               "function": "count",
+              "dsType": "influxdb",
               "hide": false,
               "groupByTags": [],
               "tags": [
@@ -594,18 +860,41 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "merge(/$server.openstack.cinder.http.*.5\\d\\d/)",
+              "interval": "",
+              "refId": "E",
+              "alias": "5xx",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "count",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "openstack_neutron_http_responses",
+              "query": "SELECT count(\"value\") FROM \"openstack_neutron_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^5/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "count"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "interval": "",
-              "alias": "5xx",
-              "series": "merge(/$server.openstack.cinder.http.*.5\\d\\d/)",
-              "measurement": "openstack_neutron_http_responses",
-              "query": "SELECT count(value) FROM \"openstack_neutron_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^5/ AND $timeFilter GROUP BY time($interval) fill(0)",
-              "fill": "0"
+              "resultFormat": "time_series"
             }
           ],
           "seriesOverrides": [],
@@ -676,6 +965,7 @@
           "targets": [
             {
               "function": "mean",
+              "dsType": "influxdb",
               "groupByTags": [],
               "tags": [
                 {
@@ -689,15 +979,39 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "merge(/haproxy.backend.neutron-api.servers.up/)",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "last",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "haproxy_backend_servers",
+              "query": "SELECT last(\"value\") FROM \"haproxy_backend_servers\" WHERE \"backend\" = 'neutron-api' AND \"state\" = 'up' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "last"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "null"
+                  ]
                 }
               ],
-              "series": "merge(/haproxy.backend.neutron-api.servers.up/)",
-              "measurement": "haproxy_backend_servers",
-              "query": "SELECT last(value) FROM \"haproxy_backend_servers\" WHERE \"backend\" = 'neutron-api' AND \"state\" = 'up' AND $timeFilter GROUP BY time($interval)"
+              "resultFormat": "time_series"
             }
           ],
           "maxDataPoints": 100,
@@ -725,6 +1039,7 @@
             "rgba(255, 255, 255, 0.89)",
             "rgba(255, 255, 255, 0.97)"
           ],
+          "datasource": null,
           "error": false,
           "nullText": null,
           "postfixFontSize": "50%",
@@ -769,6 +1084,7 @@
           "targets": [
             {
               "function": "mean",
+              "dsType": "influxdb",
               "groupByTags": [],
               "tags": [
                 {
@@ -782,15 +1098,39 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "merge(/haproxy.backend.neutron-api.servers.down/)",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "last",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "haproxy_backend_servers",
+              "query": "SELECT last(\"value\") FROM \"haproxy_backend_servers\" WHERE \"backend\" = 'neutron-api' AND \"state\" = 'down' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "last"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "null"
+                  ]
                 }
               ],
-              "series": "merge(/haproxy.backend.neutron-api.servers.down/)",
-              "measurement": "haproxy_backend_servers",
-              "query": "SELECT last(value) FROM \"haproxy_backend_servers\" WHERE \"backend\" = 'neutron-api' AND \"state\" = 'down' AND $timeFilter GROUP BY time($interval)"
+              "resultFormat": "time_series"
             }
           ],
           "maxDataPoints": 100,
@@ -818,6 +1158,7 @@
             "rgba(255, 255, 255, 0.89)",
             "rgba(245, 54, 54, 0.9)"
           ],
+          "datasource": null,
           "error": false,
           "nullText": null,
           "postfixFontSize": "50%",
@@ -871,6 +1212,7 @@
           "targets": [
             {
               "function": "last",
+              "dsType": "influxdb",
               "groupByTags": [],
               "tags": [
                 {
@@ -884,15 +1226,39 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "merge(/openstack.neutron.agents.dhcp.disabled/)",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "last",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "openstack_neutron_agents",
+              "query": "SELECT last(\"value\") FROM \"openstack_neutron_agents\" WHERE \"service\" = 'dhcp' AND \"state\" = 'disabled' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "last"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "null"
+                  ]
                 }
               ],
-              "series": "merge(/openstack.neutron.agents.dhcp.disabled/)",
-              "measurement": "openstack_neutron_agents",
-              "query": "SELECT last(value) FROM \"openstack_neutron_agents\" WHERE \"service\" = 'dhcp' AND \"state\" = 'disabled' AND $timeFilter GROUP BY time($interval)",
+              "resultFormat": "time_series",
               "fill": ""
             }
           ],
@@ -921,6 +1287,7 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(245, 54, 54, 0.9)"
           ],
+          "datasource": null,
           "error": false,
           "nullText": null,
           "postfixFontSize": "50%",
@@ -941,6 +1308,7 @@
           "targets": [
             {
               "function": "last",
+              "dsType": "influxdb",
               "groupByTags": [],
               "tags": [
                 {
@@ -954,15 +1322,39 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "merge(/openstack.neutron.agents.l3.disabled/)",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "last",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "openstack_neutron_agents",
+              "query": "SELECT last(\"value\") FROM \"openstack_neutron_agents\" WHERE \"service\" = 'l3' AND \"state\" = 'disabled' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "last"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "null"
+                  ]
                 }
               ],
-              "series": "merge(/openstack.neutron.agents.l3.disabled/)",
-              "measurement": "openstack_neutron_agents",
-              "query": "SELECT last(value) FROM \"openstack_neutron_agents\" WHERE \"service\" = 'l3' AND \"state\" = 'disabled' AND $timeFilter GROUP BY time($interval)",
+              "resultFormat": "time_series",
               "fill": ""
             }
           ],
@@ -991,6 +1383,7 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(245, 54, 54, 0.9)"
           ],
+          "datasource": null,
           "error": false,
           "nullText": null,
           "postfixFontSize": "50%",
@@ -1011,6 +1404,7 @@
           "targets": [
             {
               "function": "last",
+              "dsType": "influxdb",
               "groupByTags": [],
               "tags": [
                 {
@@ -1024,15 +1418,39 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "merge(/openstack.neutron.agents.metadata.disabled/)",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "last",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "openstack_neutron_agents",
+              "query": "SELECT last(\"value\") FROM \"openstack_neutron_agents\" WHERE \"service\" = 'metadata' AND \"state\" = 'disabled' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "last"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "null"
+                  ]
                 }
               ],
-              "series": "merge(/openstack.neutron.agents.metadata.disabled/)",
-              "measurement": "openstack_neutron_agents",
-              "query": "SELECT last(value) FROM \"openstack_neutron_agents\" WHERE \"service\" = 'metadata' AND \"state\" = 'disabled' AND $timeFilter GROUP BY time($interval)",
+              "resultFormat": "time_series",
               "fill": ""
             }
           ],
@@ -1061,6 +1479,7 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(245, 54, 54, 0.9)"
           ],
+          "datasource": null,
           "error": false,
           "nullText": null,
           "postfixFontSize": "50%",
@@ -1081,6 +1500,7 @@
           "targets": [
             {
               "function": "last",
+              "dsType": "influxdb",
               "groupByTags": [],
               "tags": [
                 {
@@ -1094,15 +1514,39 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "merge(/openstack.neutron.agents.openvswitch.disabled/)",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "last",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "openstack_neutron_agents",
+              "query": "SELECT last(\"value\") FROM \"openstack_neutron_agents\" WHERE \"service\" = 'openvswitch' AND \"state\" = 'disabled' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "last"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "null"
+                  ]
                 }
               ],
-              "series": "merge(/openstack.neutron.agents.openvswitch.disabled/)",
-              "measurement": "openstack_neutron_agents",
-              "query": "SELECT last(value) FROM \"openstack_neutron_agents\" WHERE \"service\" = 'openvswitch' AND \"state\" = 'disabled' AND $timeFilter GROUP BY time($interval)",
+              "resultFormat": "time_series",
               "fill": ""
             }
           ],
@@ -1131,6 +1575,7 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(245, 54, 54, 0.9)"
           ],
+          "datasource": null,
           "error": false,
           "nullText": null,
           "postfixFontSize": "50%",
@@ -1163,6 +1608,7 @@
           "targets": [
             {
               "function": "last",
+              "dsType": "influxdb",
               "groupByTags": [],
               "tags": [
                 {
@@ -1176,15 +1622,39 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "merge(/openstack.neutron.agents.dhcp.up/)",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "last",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "openstack_neutron_agents",
+              "query": "SELECT last(\"value\") FROM \"openstack_neutron_agents\" WHERE \"service\" = 'dhcp' AND \"state\" = 'up' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "last"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "null"
+                  ]
                 }
               ],
-              "series": "merge(/openstack.neutron.agents.dhcp.up/)",
-              "measurement": "openstack_neutron_agents",
-              "query": "SELECT last(value) FROM \"openstack_neutron_agents\" WHERE \"service\" = 'dhcp' AND \"state\" = 'up' AND $timeFilter GROUP BY time($interval)",
+              "resultFormat": "time_series",
               "fill": ""
             }
           ],
@@ -1213,6 +1683,7 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(245, 54, 54, 0.9)"
           ],
+          "datasource": null,
           "error": false,
           "nullText": null,
           "postfixFontSize": "50%",
@@ -1233,6 +1704,7 @@
           "targets": [
             {
               "function": "last",
+              "dsType": "influxdb",
               "groupByTags": [],
               "tags": [
                 {
@@ -1246,15 +1718,39 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "merge(/openstack.neutron.agents.l3.up/)",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "last",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "openstack_neutron_agents",
+              "query": "SELECT last(\"value\") FROM \"openstack_neutron_agents\" WHERE \"service\" = 'l3' AND \"state\" = 'up' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "last"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "null"
+                  ]
                 }
               ],
-              "series": "merge(/openstack.neutron.agents.l3.up/)",
-              "measurement": "openstack_neutron_agents",
-              "query": "SELECT last(value) FROM \"openstack_neutron_agents\" WHERE \"service\" = 'l3' AND \"state\" = 'up' AND $timeFilter GROUP BY time($interval)",
+              "resultFormat": "time_series",
               "fill": ""
             }
           ],
@@ -1283,6 +1779,7 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(245, 54, 54, 0.9)"
           ],
+          "datasource": null,
           "error": false,
           "nullText": null,
           "postfixFontSize": "50%",
@@ -1303,6 +1800,7 @@
           "targets": [
             {
               "function": "last",
+              "dsType": "influxdb",
               "groupByTags": [],
               "tags": [
                 {
@@ -1316,15 +1814,39 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "merge(/openstack.neutron.agents.metadata.up/)",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "last",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "openstack_neutron_agents",
+              "query": "SELECT last(\"value\") FROM \"openstack_neutron_agents\" WHERE \"service\" = 'metadata' AND \"state\" = 'up' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "last"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "null"
+                  ]
                 }
               ],
-              "series": "merge(/openstack.neutron.agents.metadata.up/)",
-              "measurement": "openstack_neutron_agents",
-              "query": "SELECT last(value) FROM \"openstack_neutron_agents\" WHERE \"service\" = 'metadata' AND \"state\" = 'up' AND $timeFilter GROUP BY time($interval)",
+              "resultFormat": "time_series",
               "fill": ""
             }
           ],
@@ -1353,6 +1875,7 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(245, 54, 54, 0.9)"
           ],
+          "datasource": null,
           "error": false,
           "nullText": null,
           "postfixFontSize": "50%",
@@ -1373,6 +1896,7 @@
           "targets": [
             {
               "function": "last",
+              "dsType": "influxdb",
               "groupByTags": [],
               "tags": [
                 {
@@ -1386,15 +1910,39 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "merge(/openstack.neutron.agents.openvswitch.up/)",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "last",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "openstack_neutron_agents",
+              "query": "SELECT last(\"value\") FROM \"openstack_neutron_agents\" WHERE \"service\" = 'openvswitch' AND \"state\" = 'up' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "last"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "null"
+                  ]
                 }
               ],
-              "series": "merge(/openstack.neutron.agents.openvswitch.up/)",
-              "measurement": "openstack_neutron_agents",
-              "query": "SELECT last(value) FROM \"openstack_neutron_agents\" WHERE \"service\" = 'openvswitch' AND \"state\" = 'up' AND $timeFilter GROUP BY time($interval)",
+              "resultFormat": "time_series",
               "fill": ""
             }
           ],
@@ -1423,6 +1971,7 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(245, 54, 54, 0.9)"
           ],
+          "datasource": null,
           "error": false,
           "nullText": null,
           "postfixFontSize": "50%",
@@ -1455,6 +2004,7 @@
           "targets": [
             {
               "function": "last",
+              "dsType": "influxdb",
               "groupByTags": [],
               "tags": [
                 {
@@ -1468,15 +2018,39 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "merge(/openstack.neutron.agents.dhcp.up/)",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "last",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "openstack_neutron_agents",
+              "query": "SELECT last(\"value\") FROM \"openstack_neutron_agents\" WHERE \"service\" = 'dhcp' AND \"state\" = 'down' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "last"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "null"
+                  ]
                 }
               ],
-              "series": "merge(/openstack.neutron.agents.dhcp.up/)",
-              "measurement": "openstack_neutron_agents",
-              "query": "SELECT last(value) FROM \"openstack_neutron_agents\" WHERE \"service\" = 'dhcp' AND \"state\" = 'down' AND $timeFilter GROUP BY time($interval)",
+              "resultFormat": "time_series",
               "fill": ""
             }
           ],
@@ -1505,6 +2079,7 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(245, 54, 54, 0.9)"
           ],
+          "datasource": null,
           "error": false,
           "nullText": null,
           "postfixFontSize": "50%",
@@ -1525,6 +2100,7 @@
           "targets": [
             {
               "function": "last",
+              "dsType": "influxdb",
               "groupByTags": [],
               "tags": [
                 {
@@ -1538,15 +2114,39 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "merge(/openstack.neutron.agents.metadata.down/)",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "last",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "openstack_neutron_agents",
+              "query": "SELECT last(\"value\") FROM \"openstack_neutron_agents\" WHERE \"service\" = 'l3' AND \"state\" = 'down' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "last"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "null"
+                  ]
                 }
               ],
-              "series": "merge(/openstack.neutron.agents.metadata.down/)",
-              "measurement": "openstack_neutron_agents",
-              "query": "SELECT last(value) FROM \"openstack_neutron_agents\" WHERE \"service\" = 'l3' AND \"state\" = 'down' AND $timeFilter GROUP BY time($interval)",
+              "resultFormat": "time_series",
               "fill": ""
             }
           ],
@@ -1575,6 +2175,7 @@
             "rgba(255, 255, 255, 0.89)",
             "rgba(255, 255, 255, 0.97)"
           ],
+          "datasource": null,
           "error": false,
           "nullText": null,
           "postfixFontSize": "50%",
@@ -1595,6 +2196,7 @@
           "targets": [
             {
               "function": "last",
+              "dsType": "influxdb",
               "groupByTags": [],
               "tags": [
                 {
@@ -1608,15 +2210,39 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "merge(/openstack.neutron.agents.openvswitch.down/)",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "last",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "openstack_neutron_agents",
+              "query": "SELECT last(\"value\") FROM \"openstack_neutron_agents\" WHERE \"service\" = 'metadata' AND \"state\" = 'down' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "last"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "null"
+                  ]
                 }
               ],
-              "series": "merge(/openstack.neutron.agents.openvswitch.down/)",
-              "measurement": "openstack_neutron_agents",
-              "query": "SELECT last(value) FROM \"openstack_neutron_agents\" WHERE \"service\" = 'metadata' AND \"state\" = 'down' AND $timeFilter GROUP BY time($interval)",
+              "resultFormat": "time_series",
               "fill": ""
             }
           ],
@@ -1645,6 +2271,7 @@
             "rgba(255, 255, 255, 0.89)",
             "rgba(255, 255, 255, 0.97)"
           ],
+          "datasource": null,
           "error": false,
           "nullText": null,
           "postfixFontSize": "50%",
@@ -1665,6 +2292,7 @@
           "targets": [
             {
               "function": "last",
+              "dsType": "influxdb",
               "groupByTags": [],
               "tags": [
                 {
@@ -1678,15 +2306,39 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "merge(/openstack.neutron.agents.openvswitch.down/)",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "last",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "openstack_neutron_agents",
+              "query": "SELECT last(\"value\") FROM \"openstack_neutron_agents\" WHERE \"service\" = 'openvswitch' AND \"state\" = 'down' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "last"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "null"
+                  ]
                 }
               ],
-              "series": "merge(/openstack.neutron.agents.openvswitch.down/)",
-              "measurement": "openstack_neutron_agents",
-              "query": "SELECT last(value) FROM \"openstack_neutron_agents\" WHERE \"service\" = 'openvswitch' AND \"state\" = 'down' AND $timeFilter GROUP BY time($interval)",
+              "resultFormat": "time_series",
               "fill": ""
             }
           ],
@@ -1715,6 +2367,7 @@
             "rgba(255, 255, 255, 0.89)",
             "rgba(255, 255, 255, 0.97)"
           ],
+          "datasource": null,
           "error": false,
           "nullText": null,
           "postfixFontSize": "50%",
@@ -1744,6 +2397,7 @@
           "targets": [
             {
               "function": "last",
+              "dsType": "influxdb",
               "rawQuery": false,
               "groupByTags": [],
               "tags": [
@@ -1753,15 +2407,39 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "merge(/openstack.neutron.networks$/)",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "last",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "openstack_neutron_networks",
+              "query": "SELECT last(\"value\") FROM \"openstack_neutron_networks\" WHERE \"state\" = 'active' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "last"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "null"
+                  ]
                 }
               ],
-              "series": "merge(/openstack.neutron.networks$/)",
-              "measurement": "openstack_neutron_networks",
-              "query": "SELECT last(value) FROM \"openstack_neutron_networks\" WHERE \"state\" = 'active' AND $timeFilter GROUP BY time($interval)",
+              "resultFormat": "time_series",
               "fill": ""
             }
           ],
@@ -1791,6 +2469,7 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
+          "datasource": null,
           "error": false,
           "nullText": null,
           "postfixFontSize": "50%",
@@ -1817,22 +2496,46 @@
           "targets": [
             {
               "function": "last",
+              "dsType": "influxdb",
               "groupByTags": [
                 "state"
               ],
               "tags": [],
               "column": "value",
-              "fields": [
+              "series": "merge(/openstack.neutron.networks$/)",
+              "refId": "A",
+              "alias": "$tag_state",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "last",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "openstack_neutron_networks",
+              "query": "SELECT last(\"value\") FROM \"openstack_neutron_networks\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "last"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "alias": "$tag_state",
-              "series": "merge(/openstack.neutron.networks$/)",
-              "measurement": "openstack_neutron_networks",
-              "query": "SELECT last(value) FROM \"openstack_neutron_networks\" WHERE $timeFilter GROUP BY time($interval), \"state\" fill(0)",
-              "fill": "0"
+              "resultFormat": "time_series"
             }
           ],
           "leftYAxisLabel": "",
@@ -1891,19 +2594,44 @@
           "targets": [
             {
               "function": "last",
+              "dsType": "influxdb",
               "rawQuery": false,
               "groupByTags": [],
               "tags": [],
               "column": "value",
-              "fields": [
+              "series": "merge(/openstack.neutron.subnets$/)",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "last",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "openstack_neutron_subnets",
+              "query": "SELECT last(\"value\") FROM \"openstack_neutron_subnets\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "last"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "null"
+                  ]
                 }
               ],
-              "series": "merge(/openstack.neutron.subnets$/)",
-              "measurement": "openstack_neutron_subnets",
-              "query": "SELECT last(value) FROM \"openstack_neutron_subnets\" WHERE $timeFilter GROUP BY time($interval)"
+              "resultFormat": "time_series"
             }
           ],
           "maxDataPoints": 100,
@@ -1931,6 +2659,7 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
+          "datasource": null,
           "error": false,
           "nullText": null,
           "postfixFontSize": "50%",
@@ -1957,20 +2686,44 @@
           "targets": [
             {
               "function": "last",
+              "dsType": "influxdb",
               "groupByTags": [],
               "tags": [],
               "column": "value",
-              "fields": [
+              "series": "merge(/openstack.neutron.subnets$/)",
+              "refId": "A",
+              "alias": "number of subnets",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "last",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "openstack_neutron_subnets",
+              "query": "SELECT last(\"value\") FROM \"openstack_neutron_subnets\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "last"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "alias": "number of subnets",
-              "series": "merge(/openstack.neutron.subnets$/)",
-              "measurement": "openstack_neutron_subnets",
-              "query": "SELECT last(value) FROM \"openstack_neutron_subnets\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
-              "fill": "0"
+              "resultFormat": "time_series"
             }
           ],
           "leftYAxisLabel": "",
@@ -2029,6 +2782,7 @@
           "targets": [
             {
               "function": "last",
+              "dsType": "influxdb",
               "rawQuery": false,
               "groupByTags": [],
               "tags": [
@@ -2043,15 +2797,39 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "merge(/openstack.neutron.ports$/)",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "last",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "openstack_neutron_ports",
+              "query": "SELECT last(\"value\") FROM \"openstack_neutron_ports\" WHERE \"owner\" = 'compute' AND \"state\" = 'active' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "last"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "null"
+                  ]
                 }
               ],
-              "series": "merge(/openstack.neutron.ports$/)",
-              "measurement": "openstack_neutron_ports",
-              "query": "SELECT last(value) FROM \"openstack_neutron_ports\" WHERE \"owner\" = 'compute' AND \"state\" = 'active' AND $timeFilter GROUP BY time($interval)"
+              "resultFormat": "time_series"
             }
           ],
           "maxDataPoints": 100,
@@ -2079,6 +2857,7 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
+          "datasource": null,
           "error": false,
           "nullText": null,
           "postfixFontSize": "50%",
@@ -2105,22 +2884,46 @@
           "targets": [
             {
               "function": "last",
+              "dsType": "influxdb",
               "groupByTags": [
                 "owner"
               ],
               "tags": [],
               "column": "value",
-              "fields": [
+              "series": "merge(/openstack.neutron.ports$/)",
+              "refId": "A",
+              "alias": "$tag_owner",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "last",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "openstack_neutron_ports",
+              "query": "SELECT last(\"value\") FROM \"openstack_neutron_ports\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "last"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "alias": "$tag_owner",
-              "series": "merge(/openstack.neutron.ports$/)",
-              "measurement": "openstack_neutron_ports",
-              "query": "SELECT last(value) FROM \"openstack_neutron_ports\" WHERE $timeFilter GROUP BY time($interval), \"owner\" fill(0)",
-              "fill": "0"
+              "resultFormat": "time_series"
             }
           ],
           "leftYAxisLabel": "",
@@ -2179,6 +2982,7 @@
           "targets": [
             {
               "function": "last",
+              "dsType": "influxdb",
               "rawQuery": false,
               "groupByTags": [],
               "tags": [
@@ -2188,15 +2992,39 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "merge(/openstack.neutron.routers$/)",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "last",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "openstack_neutron_routers",
+              "query": "SELECT last(\"value\") FROM \"openstack_neutron_routers\" WHERE \"state\" = 'active' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "last"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "null"
+                  ]
                 }
               ],
-              "series": "merge(/openstack.neutron.routers$/)",
-              "measurement": "openstack_neutron_routers",
-              "query": "SELECT last(value) FROM \"openstack_neutron_routers\" WHERE \"state\" = 'active' AND $timeFilter GROUP BY time($interval)"
+              "resultFormat": "time_series"
             }
           ],
           "maxDataPoints": 100,
@@ -2225,6 +3053,7 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
+          "datasource": null,
           "error": false,
           "nullText": null,
           "postfixFontSize": "50%",
@@ -2251,22 +3080,46 @@
           "targets": [
             {
               "function": "last",
+              "dsType": "influxdb",
               "groupByTags": [
                 "state"
               ],
               "tags": [],
               "column": "value",
-              "fields": [
+              "series": "merge(/openstack.neutron.routers$/)",
+              "refId": "A",
+              "alias": "$tag_state",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "last",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "openstack_neutron_routers",
+              "query": "SELECT last(\"value\") FROM \"openstack_neutron_routers\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "last"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "alias": "$tag_state",
-              "series": "merge(/openstack.neutron.routers$/)",
-              "measurement": "openstack_neutron_routers",
-              "query": "SELECT last(value) FROM \"openstack_neutron_routers\" WHERE $timeFilter GROUP BY time($interval), \"state\" fill(0)",
-              "fill": "0"
+              "resultFormat": "time_series"
             }
           ],
           "leftYAxisLabel": "",
@@ -2325,6 +3178,7 @@
           "targets": [
             {
               "function": "last",
+              "dsType": "influxdb",
               "rawQuery": false,
               "groupByTags": [],
               "tags": [
@@ -2334,15 +3188,39 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "merge(/openstack.neutron.floatingips$/)",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "last",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "openstack_neutron_floatingips",
+              "query": "SELECT last(\"value\") FROM \"openstack_neutron_floatingips\" WHERE \"state\" = 'associated' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "last"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "null"
+                  ]
                 }
               ],
-              "series": "merge(/openstack.neutron.floatingips$/)",
-              "measurement": "openstack_neutron_floatingips",
-              "query": "SELECT last(value) FROM \"openstack_neutron_floatingips\" WHERE \"state\" = 'associated' AND $timeFilter GROUP BY time($interval)"
+              "resultFormat": "time_series"
             }
           ],
           "maxDataPoints": 100,
@@ -2370,6 +3248,7 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
+          "datasource": null,
           "error": false,
           "nullText": null,
           "postfixFontSize": "50%",
@@ -2404,22 +3283,46 @@
           "targets": [
             {
               "function": "last",
+              "dsType": "influxdb",
               "groupByTags": [
                 "state"
               ],
               "tags": [],
               "column": "value",
-              "fields": [
+              "series": "merge(/openstack.neutron.floatingips$/)",
+              "refId": "A",
+              "alias": "$tag_state",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "last",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "openstack_neutron_floatingips",
+              "query": "SELECT last(\"value\") FROM \"openstack_neutron_floatingips\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "last"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "alias": "$tag_state",
-              "series": "merge(/openstack.neutron.floatingips$/)",
-              "measurement": "openstack_neutron_floatingips",
-              "query": "SELECT last(value) FROM \"openstack_neutron_floatingips\" WHERE $timeFilter GROUP BY time($interval), \"state\" fill(0)",
-              "fill": "0"
+              "resultFormat": "time_series"
             }
           ],
           "leftYAxisLabel": "",
@@ -2484,47 +3387,44 @@
   "refresh": "1m",
   "id": null,
   "originalTitle": "Neutron",
-  "version": 3,
-  "nav": [
-    {
-      "status": "Stable",
-      "notice": false,
-      "enable": true,
-      "collapse": false,
-      "time_options": [
-        "5m",
-        "15m",
-        "1h",
-        "6h",
-        "12h",
-        "24h",
-        "2d",
-        "7d",
-        "30d"
-      ],
-      "refresh_intervals": [
-        "5s",
-        "10s",
-        "30s",
-        "1m",
-        "5m",
-        "15m",
-        "30m",
-        "1h",
-        "2h",
-        "1d"
-      ],
-      "now": true,
-      "type": "timepicker"
-    }
-  ],
+  "timepicker": {
+    "status": "Stable",
+    "notice": false,
+    "enable": true,
+    "collapse": false,
+    "time_options": [
+      "5m",
+      "15m",
+      "1h",
+      "6h",
+      "12h",
+      "24h",
+      "2d",
+      "7d",
+      "30d"
+    ],
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ],
+    "now": true,
+    "type": "timepicker"
+  },
   "sharedCrosshair": true,
   "time": {
     "to": "now",
     "from": "now-1h"
   },
   "timezone": "browser",
-  "schemaVersion": 6,
+  "schemaVersion": 8,
   "annotations": {
     "enable": true,
     "list": [

@@ -1,4 +1,5 @@
 {
+  "version": 1,
   "style": "dark",
   "rows": [
     {
@@ -44,6 +45,7 @@
           "targets": [
             {
               "function": "last",
+              "dsType": "influxdb",
               "groupby_field": "",
               "rawQuery": false,
               "groupByTags": [],
@@ -55,16 +57,40 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "merge(/openstack.cinder.status/)",
+              "interval": "",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "last",
+                    "params": []
+                  }
+                ]
+              ],
+              "resultFormat": "time_series",
+              "measurement": "cluster_status",
+              "query": "SELECT last(\"value\") FROM \"cluster_status\" WHERE \"cluster_name\" = 'memcached' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "last"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "null"
+                  ]
                 }
               ],
-              "interval": "",
-              "series": "merge(/openstack.cinder.status/)",
-              "measurement": "cluster_status",
-              "query": "SELECT last(value) FROM \"cluster_status\" WHERE \"cluster_name\" = 'memcached' AND $timeFilter GROUP BY time($interval)",
               "condition": "",
               "fill": ""
             }
@@ -94,6 +120,7 @@
             "rgba(241, 181, 37, 0.73)",
             "rgba(225, 40, 40, 0.59)"
           ],
+          "datasource": null,
           "error": false,
           "nullText": null,
           "postfixFontSize": "50%",
@@ -128,22 +155,46 @@
           "targets": [
             {
               "function": "median",
+              "dsType": "influxdb",
               "groupByTags": [
                 "hostname"
               ],
               "tags": [],
               "column": "value",
-              "fields": [
+              "series": "/memcached.items.current/",
+              "refId": "A",
+              "alias": "$tag_hostname",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "memcached_items_current",
+              "query": "SELECT mean(\"value\") FROM \"memcached_items_current\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "mean"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "alias": "$tag_hostname",
-              "series": "/memcached.items.current/",
-              "measurement": "memcached_items_current",
-              "query": "SELECT mean(value) FROM \"memcached_items_current\" WHERE $timeFilter GROUP BY time($interval), \"hostname\" fill(0)",
-              "fill": "0"
+              "resultFormat": "time_series"
             }
           ],
           "leftYAxisLabel": "",
@@ -211,22 +262,46 @@
           "targets": [
             {
               "function": "mean",
+              "dsType": "influxdb",
               "groupByTags": [
                 "hostname"
               ],
               "tags": [],
               "column": "value",
-              "fields": [
+              "series": "/memcached.df.cache.used/",
+              "refId": "A",
+              "alias": "$tag_hostname",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "memcached_df_cache_used",
+              "query": "SELECT mean(\"value\") FROM \"memcached_df_cache_used\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "mean"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "alias": "$tag_hostname",
-              "series": "/memcached.df.cache.used/",
-              "measurement": "memcached_df_cache_used",
-              "query": "SELECT mean(value) FROM \"memcached_df_cache_used\" WHERE $timeFilter GROUP BY time($interval), \"hostname\" fill(0)",
-              "fill": "0"
+              "resultFormat": "time_series"
             }
           ],
           "seriesOverrides": [],
@@ -297,39 +372,87 @@
           "targets": [
             {
               "function": "mean",
+              "dsType": "influxdb",
               "groupByTags": [],
               "tags": [],
               "column": "value",
-              "fields": [
+              "series": "merge(/memcached.command.get/)",
+              "refId": "A",
+              "alias": "get",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "memcached_command_get",
+              "query": "SELECT mean(\"value\") FROM \"memcached_command_get\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "mean"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "alias": "get",
-              "series": "merge(/memcached.command.get/)",
-              "measurement": "memcached_command_get",
-              "query": "SELECT mean(value) FROM \"memcached_command_get\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
-              "fill": "0"
+              "resultFormat": "time_series"
             },
             {
               "function": "mean",
+              "dsType": "influxdb",
               "hide": false,
               "rawQuery": false,
               "groupByTags": [],
               "tags": [],
               "column": "value",
-              "fields": [
+              "series": "merge(/memcached.command.set/)",
+              "refId": "B",
+              "alias": "set",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "memcached_command_set",
+              "query": "SELECT mean(\"value\") FROM \"memcached_command_set\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "mean"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "alias": "set",
-              "series": "merge(/memcached.command.set/)",
-              "measurement": "memcached_command_set",
-              "query": "SELECT mean(value) FROM \"memcached_command_set\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
-              "fill": "0"
+              "resultFormat": "time_series"
             }
           ],
           "leftYAxisLabel": "per second",
@@ -393,22 +516,46 @@
           "targets": [
             {
               "function": "mean",
+              "dsType": "influxdb",
               "groupByTags": [
                 "hostname"
               ],
               "tags": [],
               "column": "value",
-              "fields": [
+              "series": "/memcached.df.cache.free/",
+              "refId": "A",
+              "alias": "$tag_hostname",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "memcached_df_cache_free",
+              "query": "SELECT mean(\"value\") FROM \"memcached_df_cache_free\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "mean"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "alias": "$tag_hostname",
-              "series": "/memcached.df.cache.free/",
-              "measurement": "memcached_df_cache_free",
-              "query": "SELECT mean(value) FROM \"memcached_df_cache_free\" WHERE $timeFilter GROUP BY time($interval), \"hostname\" fill(0)",
-              "fill": "0"
+              "resultFormat": "time_series"
             }
           ],
           "seriesOverrides": [],
@@ -482,24 +629,48 @@
           "targets": [
             {
               "function": "mean",
+              "dsType": "influxdb",
               "target": "",
               "groupByTags": [
                 "hostname"
               ],
               "tags": [],
               "column": "value",
-              "fields": [
+              "series": "/memcached.percent.hitratio/",
+              "interval": "",
+              "refId": "A",
+              "alias": "$0",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "memcached_percent_hitratio",
+              "query": "SELECT mean(\"value\") FROM \"memcached_percent_hitratio\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "mean"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "interval": "",
-              "alias": "$0",
-              "series": "/memcached.percent.hitratio/",
-              "measurement": "memcached_percent_hitratio",
-              "query": "SELECT mean(value) FROM \"memcached_percent_hitratio\" WHERE $timeFilter GROUP BY time($interval), \"hostname\" fill(0)",
-              "fill": "0"
+              "resultFormat": "time_series"
             }
           ],
           "seriesOverrides": [
@@ -580,61 +751,133 @@
           "targets": [
             {
               "function": "mean",
+              "dsType": "influxdb",
               "hide": false,
               "rawQuery": false,
               "groupByTags": [],
               "tags": [],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "mean"
-                }
-              ],
-              "interval": "",
-              "alias": "hits",
               "series": "merge(/memcached.ops.hits/)",
+              "interval": "",
+              "refId": "A",
+              "alias": "hits",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "memcached_ops_hits",
-              "query": "SELECT mean(value) FROM \"memcached_ops_hits\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
-              "fill": "0"
+              "query": "SELECT mean(\"value\") FROM \"memcached_ops_hits\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
+                {
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
+                }
+              ],
+              "resultFormat": "time_series"
             },
             {
               "function": "mean",
+              "dsType": "influxdb",
               "hide": false,
               "rawQuery": false,
               "groupByTags": [],
               "tags": [],
               "column": "value",
-              "fields": [
+              "series": "merge(/memcached.ops.misses/)",
+              "interval": "",
+              "refId": "B",
+              "alias": "misses",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "memcached_ops_misses",
+              "query": "SELECT mean(\"value\") FROM \"memcached_ops_misses\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "mean"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "interval": "",
-              "alias": "misses",
-              "series": "merge(/memcached.ops.misses/)",
-              "measurement": "memcached_ops_misses",
-              "query": "SELECT mean(value) FROM \"memcached_ops_misses\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
-              "fill": "0"
+              "resultFormat": "time_series"
             },
             {
               "function": "mean",
+              "dsType": "influxdb",
               "target": "",
               "groupByTags": [],
               "tags": [],
               "column": "value",
-              "fields": [
+              "series": "merge(/memcached.ops.evictions/)",
+              "refId": "C",
+              "alias": "evictions",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "memcached_ops_evictions",
+              "query": "SELECT mean(\"value\") FROM \"memcached_ops_evictions\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "mean"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "alias": "evictions",
-              "series": "merge(/memcached.ops.evictions/)",
-              "measurement": "memcached_ops_evictions",
-              "query": "SELECT mean(value) FROM \"memcached_ops_evictions\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
-              "fill": "0"
+              "resultFormat": "time_series"
             }
           ],
           "leftYAxisLabel": "per second",
@@ -711,43 +954,93 @@
           "targets": [
             {
               "function": "mean",
+              "dsType": "influxdb",
               "rawQuery": false,
               "groupByTags": [
                 "hostname"
               ],
               "tags": [],
               "column": "value",
-              "fields": [
+              "series": "/memcached.octets.rx/",
+              "interval": "",
+              "refId": "A",
+              "alias": "$tag_hostname.tx",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "memcached_octets_tx",
+              "query": "SELECT mean(\"value\") FROM \"memcached_octets_tx\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "mean"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "null"
+                  ]
                 }
               ],
-              "interval": "",
-              "alias": "$tag_hostname.tx",
-              "series": "/memcached.octets.rx/",
-              "measurement": "memcached_octets_tx",
-              "query": "SELECT mean(value) FROM \"memcached_octets_tx\" WHERE $timeFilter GROUP BY time($interval), \"hostname\""
+              "resultFormat": "time_series"
             },
             {
               "function": "mean",
+              "dsType": "influxdb",
               "rawQuery": false,
               "groupByTags": [
                 "hostname"
               ],
               "tags": [],
               "column": "value",
-              "fields": [
+              "series": "/memcached.octets.rx/",
+              "interval": "",
+              "refId": "B",
+              "alias": "$tag_hostname.rx",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "memcached_octets_rx",
+              "query": "SELECT mean(\"value\") FROM \"memcached_octets_rx\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "mean"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "null"
+                  ]
                 }
               ],
-              "interval": "",
-              "alias": "$tag_hostname.rx",
-              "series": "/memcached.octets.rx/",
-              "measurement": "memcached_octets_rx",
-              "query": "SELECT mean(value) FROM \"memcached_octets_rx\" WHERE $timeFilter GROUP BY time($interval), \"hostname\""
+              "resultFormat": "time_series"
             }
           ],
           "seriesOverrides": [
@@ -825,23 +1118,47 @@
           "targets": [
             {
               "function": "mean",
+              "dsType": "influxdb",
               "groupByTags": [
                 "hostname"
               ],
               "tags": [],
               "column": "value",
-              "fields": [
+              "series": "/memcached.connections/",
+              "interval": "",
+              "refId": "A",
+              "alias": "$tag_hostname",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "memcached_connections_current",
+              "query": "SELECT mean(\"value\") FROM \"memcached_connections_current\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "mean"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "interval": "",
-              "alias": "$tag_hostname",
-              "series": "/memcached.connections/",
-              "measurement": "memcached_connections_current",
-              "query": "SELECT mean(value) FROM \"memcached_connections_current\" WHERE $timeFilter GROUP BY time($interval), \"hostname\" fill(0)",
-              "fill": "0"
+              "resultFormat": "time_series"
             }
           ],
           "seriesOverrides": [],
@@ -892,47 +1209,44 @@
   "refresh": "1m",
   "id": null,
   "originalTitle": "Memcached",
-  "version": 3,
-  "nav": [
-    {
-      "status": "Stable",
-      "notice": false,
-      "enable": true,
-      "collapse": false,
-      "time_options": [
-        "5m",
-        "15m",
-        "1h",
-        "6h",
-        "12h",
-        "24h",
-        "2d",
-        "7d",
-        "30d"
-      ],
-      "refresh_intervals": [
-        "5s",
-        "10s",
-        "30s",
-        "1m",
-        "5m",
-        "15m",
-        "30m",
-        "1h",
-        "2h",
-        "1d"
-      ],
-      "now": true,
-      "type": "timepicker"
-    }
-  ],
+  "timepicker": {
+    "status": "Stable",
+    "notice": false,
+    "enable": true,
+    "collapse": false,
+    "time_options": [
+      "5m",
+      "15m",
+      "1h",
+      "6h",
+      "12h",
+      "24h",
+      "2d",
+      "7d",
+      "30d"
+    ],
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ],
+    "now": true,
+    "type": "timepicker"
+  },
   "sharedCrosshair": true,
   "time": {
     "to": "now",
     "from": "now-1h"
   },
   "timezone": "browser",
-  "schemaVersion": 6,
+  "schemaVersion": 8,
   "annotations": {
     "list": [
       {

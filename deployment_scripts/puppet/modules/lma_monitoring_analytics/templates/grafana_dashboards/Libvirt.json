@@ -1,5 +1,5 @@
 {
-  "version": 4,
+  "version": 1,
   "style": "dark",
   "rows": [
     {
@@ -25,6 +25,7 @@
           "stack": false,
           "targets": [
             {
+              "dsType": "influxdb",
               "tags": [
                 {
                   "operator": "=~",
@@ -38,26 +39,48 @@
                   "condition": "AND"
                 }
               ],
-              "fields": [
-                {
-                  "mathExpr": "/10000000",
-                  "name": "value",
-                  "func": "mean"
-                }
-              ],
-              "refId": "A",
-              "alias": "cpu_time",
-              "measurement": "virt_cpu_time",
-              "query": "SELECT mean(\"value\")/10000000 AS \"value\" FROM \"virt_cpu_time\" WHERE \"hostname\" =~ /$hostname$/ AND \"instance_id\" =~ /$instance_id$/ AND $timeFilter GROUP BY time($interval) fill(none)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "none"
+                  ]
                 }
               ],
-              "fill": "none"
+              "alias": "cpu_time",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  },
+                  {
+                    "type": "math",
+                    "params": [
+                      "/10000000"
+                    ]
+                  }
+                ]
+              ],
+              "measurement": "virt_cpu_time",
+              "query": "SELECT mean(\"value\") /10000000 FROM \"virt_cpu_time\" WHERE \"hostname\" =~ /$hostname$/ AND \"instance_id\" =~ /$instance_id$/ AND $timeFilter GROUP BY time($interval) fill(none)",
+              "refId": "A",
+              "resultFormat": "time_series"
             },
             {
+              "dsType": "influxdb",
               "rawQuery": false,
               "tags": [
                 {
@@ -72,28 +95,51 @@
                   "condition": "AND"
                 }
               ],
-              "fields": [
-                {
-                  "mathExpr": "/10000000",
-                  "name": "value",
-                  "func": "mean"
-                }
-              ],
               "refId": "B",
               "alias": "vcpu_time(vcpu:$tag_vcpu_number)",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  },
+                  {
+                    "type": "math",
+                    "params": [
+                      "/10000000"
+                    ]
+                  }
+                ]
+              ],
               "measurement": "virt_vcpu_time",
-              "query": "SELECT mean(\"value\")/10000000 AS \"value\" FROM \"virt_vcpu_time\" WHERE \"hostname\" =~ /$hostname$/ AND \"instance_id\" =~ /$instance_id$/ AND $timeFilter GROUP BY time($interval), \"vcpu_number\" fill(none)",
+              "query": "SELECT mean(\"value\") /10000000 FROM \"virt_vcpu_time\" WHERE \"hostname\" =~ /$hostname$/ AND \"instance_id\" =~ /$instance_id$/ AND $timeFilter GROUP BY time($interval), \"vcpu_number\" fill(none)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
                 },
                 {
                   "type": "tag",
-                  "key": "vcpu_number"
+                  "params": [
+                    "vcpu_number"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "none"
+                  ]
                 }
               ],
-              "fill": "none"
+              "resultFormat": "time_series"
             }
           ],
           "rightYAxisLabel": "%",
@@ -163,6 +209,7 @@
           "stack": false,
           "targets": [
             {
+              "dsType": "influxdb",
               "tags": [
                 {
                   "operator": "=~",
@@ -176,24 +223,39 @@
                   "condition": "AND"
                 }
               ],
-              "fields": [
-                {
-                  "mathExpr": "",
-                  "name": "value",
-                  "func": "mean"
-                }
-              ],
-              "refId": "A",
-              "alias": "total",
-              "measurement": "virt_memory_total",
-              "query": "SELECT mean(\"value\") AS \"value\" FROM \"virt_memory_total\" WHERE \"hostname\" =~ /$hostname$/ AND \"instance_id\" =~ /$instance_id$/ AND $timeFilter GROUP BY time($interval) fill(none)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "none"
+                  ]
                 }
               ],
-              "fill": "none"
+              "alias": "total",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "virt_memory_total",
+              "query": "SELECT mean(\"value\") FROM \"virt_memory_total\" WHERE \"hostname\" =~ /$hostname$/ AND \"instance_id\" =~ /$instance_id$/ AND $timeFilter GROUP BY time($interval) fill(none)",
+              "refId": "A",
+              "resultFormat": "time_series"
             }
           ],
           "rightYAxisLabel": "",
@@ -265,6 +327,7 @@
           },
           "targets": [
             {
+              "dsType": "influxdb",
               "tags": [
                 {
                   "operator": "=~",
@@ -284,25 +347,42 @@
                   "condition": "AND"
                 }
               ],
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "mean"
-                }
-              ],
-              "refId": "A",
-              "alias": "read",
-              "measurement": "virt_disk_octets_read",
-              "query": "SELECT mean(\"value\") AS \"value\" FROM \"virt_disk_octets_read\" WHERE \"hostname\" =~ /$hostname$/ AND \"instance_id\" =~ /$instance_id$/ AND \"device\" =~ /$disk$/ AND $timeFilter GROUP BY time($interval) fill(none)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "none"
+                  ]
                 }
               ],
-              "fill": "none"
+              "alias": "read",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "virt_disk_octets_read",
+              "query": "SELECT mean(\"value\") FROM \"virt_disk_octets_read\" WHERE \"hostname\" =~ /$hostname$/ AND \"instance_id\" =~ /$instance_id$/ AND \"device\" =~ /$disk$/ AND $timeFilter GROUP BY time($interval) fill(none)",
+              "refId": "A",
+              "resultFormat": "time_series"
             },
             {
+              "dsType": "influxdb",
               "tags": [
                 {
                   "operator": "=~",
@@ -322,23 +402,39 @@
                   "condition": "AND"
                 }
               ],
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "mean"
-                }
-              ],
-              "refId": "B",
-              "alias": "written",
-              "measurement": "virt_disk_octets_write",
-              "query": "SELECT mean(\"value\") AS \"value\" FROM \"virt_disk_octets_write\" WHERE \"hostname\" =~ /$hostname$/ AND \"instance_id\" =~ /$instance_id$/ AND \"device\" =~ /$disk$/ AND $timeFilter GROUP BY time($interval) fill(none)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "none"
+                  ]
                 }
               ],
-              "fill": "none"
+              "alias": "written",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "virt_disk_octets_write",
+              "query": "SELECT mean(\"value\") FROM \"virt_disk_octets_write\" WHERE \"hostname\" =~ /$hostname$/ AND \"instance_id\" =~ /$instance_id$/ AND \"device\" =~ /$disk$/ AND $timeFilter GROUP BY time($interval) fill(none)",
+              "refId": "B",
+              "resultFormat": "time_series"
             }
           ],
           "seriesOverrides": [],
@@ -400,6 +496,7 @@
           },
           "targets": [
             {
+              "dsType": "influxdb",
               "tags": [
                 {
                   "operator": "=~",
@@ -419,25 +516,42 @@
                   "condition": "AND"
                 }
               ],
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "mean"
-                }
-              ],
-              "refId": "A",
-              "alias": "rx",
-              "measurement": "virt_if_octets_rx",
-              "query": "SELECT mean(\"value\") AS \"value\" FROM \"virt_if_octets_rx\" WHERE \"hostname\" =~ /$hostname$/ AND \"instance_id\" =~ /$instance_id$/ AND \"interface\" =~ /$interface$/ AND $timeFilter GROUP BY time($interval) fill(none)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "none"
+                  ]
                 }
               ],
-              "fill": "none"
+              "alias": "rx",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "virt_if_octets_rx",
+              "query": "SELECT mean(\"value\") FROM \"virt_if_octets_rx\" WHERE \"hostname\" =~ /$hostname$/ AND \"instance_id\" =~ /$instance_id$/ AND \"interface\" =~ /$interface$/ AND $timeFilter GROUP BY time($interval) fill(none)",
+              "refId": "A",
+              "resultFormat": "time_series"
             },
             {
+              "dsType": "influxdb",
               "tags": [
                 {
                   "operator": "=~",
@@ -457,23 +571,39 @@
                   "condition": "AND"
                 }
               ],
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "mean"
-                }
-              ],
-              "refId": "B",
-              "alias": "tx",
-              "measurement": "virt_if_octets_tx",
-              "query": "SELECT mean(\"value\") AS \"value\" FROM \"virt_if_octets_tx\" WHERE \"hostname\" =~ /$hostname$/ AND \"instance_id\" =~ /$instance_id$/ AND \"interface\" =~ /$interface$/ AND $timeFilter GROUP BY time($interval) fill(none)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "none"
+                  ]
                 }
               ],
-              "fill": "none"
+              "alias": "tx",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "virt_if_octets_tx",
+              "query": "SELECT mean(\"value\") FROM \"virt_if_octets_tx\" WHERE \"hostname\" =~ /$hostname$/ AND \"instance_id\" =~ /$instance_id$/ AND \"interface\" =~ /$interface$/ AND $timeFilter GROUP BY time($interval) fill(none)",
+              "refId": "B",
+              "resultFormat": "time_series"
             }
           ],
           "seriesOverrides": [],
@@ -615,7 +745,7 @@
     "from": "now-1h"
   },
   "timezone": "browser",
-  "schemaVersion": 7,
+  "schemaVersion": 8,
   "annotations": {
     "list": []
   }

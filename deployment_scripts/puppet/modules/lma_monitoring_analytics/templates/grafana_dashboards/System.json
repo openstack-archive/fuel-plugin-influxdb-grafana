@@ -1,4 +1,5 @@
 {
+  "version": 1,
   "style": "dark",
   "rows": [
     {
@@ -36,6 +37,7 @@
           "targets": [
             {
               "function": "mean",
+              "dsType": "influxdb",
               "rawQuery": false,
               "groupByTags": [],
               "tags": [
@@ -45,20 +47,44 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "mean"
-                }
-              ],
-              "alias": "user",
               "series": "merge(/$server.cpu.\\d+.user/)",
+              "refId": "A",
+              "alias": "user",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "cpu_user",
-              "query": "SELECT mean(value) FROM \"cpu_user\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "fill": "0"
+              "query": "SELECT mean(\"value\") FROM \"cpu_user\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
+                {
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
+                }
+              ],
+              "resultFormat": "time_series"
             },
             {
               "function": "mean",
+              "dsType": "influxdb",
               "target": "",
               "groupByTags": [],
               "tags": [
@@ -68,20 +94,44 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "mean"
-                }
-              ],
-              "alias": "idle",
               "series": "merge(/$server.cpu.\\d+.idle/)",
+              "refId": "B",
+              "alias": "idle",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "cpu_idle",
-              "query": "SELECT mean(value) FROM \"cpu_idle\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "fill": "0"
+              "query": "SELECT mean(\"value\") FROM \"cpu_idle\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
+                {
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
+                }
+              ],
+              "resultFormat": "time_series"
             },
             {
               "function": "mean",
+              "dsType": "influxdb",
               "target": "",
               "groupByTags": [],
               "tags": [
@@ -91,20 +141,44 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "mean"
-                }
-              ],
-              "alias": "interrupt",
               "series": "merge(/$server.cpu.\\d+.interrupt/)",
+              "refId": "C",
+              "alias": "interrupt",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "cpu_interrupt",
-              "query": "SELECT mean(value) FROM \"cpu_interrupt\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "fill": "0"
+              "query": "SELECT mean(\"value\") FROM \"cpu_interrupt\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
+                {
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
+                }
+              ],
+              "resultFormat": "time_series"
             },
             {
               "function": "mean",
+              "dsType": "influxdb",
               "target": "",
               "groupByTags": [],
               "tags": [
@@ -114,20 +188,44 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "mean"
-                }
-              ],
-              "alias": "nice",
               "series": "merge(/$server.cpu.\\d+.nice/)",
+              "refId": "D",
+              "alias": "nice",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "cpu_nice",
-              "query": "SELECT mean(value) FROM \"cpu_nice\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "fill": "0"
+              "query": "SELECT mean(\"value\") FROM \"cpu_nice\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
+                {
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
+                }
+              ],
+              "resultFormat": "time_series"
             },
             {
               "function": "mean",
+              "dsType": "influxdb",
               "target": "",
               "groupByTags": [],
               "tags": [
@@ -137,20 +235,44 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "mean"
-                }
-              ],
-              "alias": "system",
               "series": "merge(/$server.cpu.\\d+.system/)",
+              "refId": "E",
+              "alias": "system",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "cpu_system",
-              "query": "SELECT mean(value) FROM \"cpu_system\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "fill": "0"
+              "query": "SELECT mean(\"value\") FROM \"cpu_system\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
+                {
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
+                }
+              ],
+              "resultFormat": "time_series"
             },
             {
               "function": "mean",
+              "dsType": "influxdb",
               "target": "",
               "groupByTags": [],
               "tags": [
@@ -160,20 +282,44 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "mean"
-                }
-              ],
-              "alias": "steal",
               "series": "merge(/$server.cpu.\\d+.steal/)",
+              "refId": "F",
+              "alias": "steal",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "cpu_steal",
-              "query": "SELECT mean(value) FROM \"cpu_steal\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "fill": "0"
+              "query": "SELECT mean(\"value\") FROM \"cpu_steal\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
+                {
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
+                }
+              ],
+              "resultFormat": "time_series"
             },
             {
               "function": "mean",
+              "dsType": "influxdb",
               "target": "",
               "groupByTags": [],
               "tags": [
@@ -183,17 +329,40 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "merge(/$server.cpu.\\d+.wait/)",
+              "refId": "G",
+              "alias": "wait",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "cpu_wait",
+              "query": "SELECT mean(\"value\") FROM \"cpu_wait\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "mean"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "alias": "wait",
-              "series": "merge(/$server.cpu.\\d+.wait/)",
-              "measurement": "cpu_wait",
-              "query": "SELECT mean(value) FROM \"cpu_wait\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "fill": "0"
+              "resultFormat": "time_series"
             }
           ],
           "seriesOverrides": [],
@@ -259,6 +428,7 @@
           "targets": [
             {
               "function": "mean",
+              "dsType": "influxdb",
               "target": "randomWalk('random walk')",
               "groupByTags": [],
               "tags": [
@@ -268,21 +438,45 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "mean"
-                }
-              ],
-              "interval": "",
-              "alias": "used",
               "series": "$server.memory.used",
+              "interval": "",
+              "refId": "A",
+              "alias": "used",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "memory_used",
-              "query": "SELECT mean(value) FROM \"memory_used\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "fill": "0"
+              "query": "SELECT mean(\"value\") FROM \"memory_used\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
+                {
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
+                }
+              ],
+              "resultFormat": "time_series"
             },
             {
               "function": "mean",
+              "dsType": "influxdb",
               "target": "",
               "groupByTags": [],
               "tags": [
@@ -292,21 +486,45 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "mean"
-                }
-              ],
-              "interval": "",
-              "alias": "buffered",
               "series": "$server.memory.buffered",
+              "interval": "",
+              "refId": "B",
+              "alias": "buffered",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "memory_buffered",
-              "query": "SELECT mean(value) FROM \"memory_buffered\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "fill": "0"
+              "query": "SELECT mean(\"value\") FROM \"memory_buffered\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
+                {
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
+                }
+              ],
+              "resultFormat": "time_series"
             },
             {
               "function": "mean",
+              "dsType": "influxdb",
               "target": "",
               "groupByTags": [],
               "tags": [
@@ -316,21 +534,45 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "mean"
-                }
-              ],
-              "interval": "",
-              "alias": "cached",
               "series": "$server.memory.cached",
+              "interval": "",
+              "refId": "C",
+              "alias": "cached",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "memory_cached",
-              "query": "SELECT mean(value) FROM \"memory_cached\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "fill": "0"
+              "query": "SELECT mean(\"value\") FROM \"memory_cached\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
+                {
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
+                }
+              ],
+              "resultFormat": "time_series"
             },
             {
               "function": "mean",
+              "dsType": "influxdb",
               "target": "",
               "groupByTags": [],
               "tags": [
@@ -340,18 +582,41 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "$server.memory.free",
+              "interval": "",
+              "refId": "D",
+              "alias": "free",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "memory_free",
+              "query": "SELECT mean(\"value\") FROM \"memory_free\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "mean"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "interval": "",
-              "alias": "free",
-              "series": "$server.memory.free",
-              "measurement": "memory_free",
-              "query": "SELECT mean(value) FROM \"memory_free\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "fill": "0"
+              "resultFormat": "time_series"
             }
           ],
           "leftYAxisLabel": "",
@@ -384,7 +649,6 @@
           },
           "legend_counts": true,
           "y-axis": true,
-          "aliasYAxis": {},
           "timeShift": null,
           "interval": ">60s",
           "lines": true,
@@ -424,6 +688,7 @@
           "targets": [
             {
               "function": "mean",
+              "dsType": "influxdb",
               "groupByTags": [],
               "tags": [
                 {
@@ -432,20 +697,44 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "mean"
-                }
-              ],
-              "alias": "short",
               "series": "$server.load.shortterm",
+              "refId": "A",
+              "alias": "short",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "load_shortterm",
-              "query": "SELECT mean(value) FROM \"load_shortterm\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "fill": "0"
+              "query": "SELECT mean(\"value\") FROM \"load_shortterm\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
+                {
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
+                }
+              ],
+              "resultFormat": "time_series"
             },
             {
               "function": "mean",
+              "dsType": "influxdb",
               "groupByTags": [],
               "tags": [
                 {
@@ -454,20 +743,44 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "mean"
-                }
-              ],
-              "alias": "mid",
               "series": "$server.load.midterm",
+              "refId": "B",
+              "alias": "mid",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "load_midterm",
-              "query": "SELECT mean(value) FROM \"load_midterm\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "fill": "0"
+              "query": "SELECT mean(\"value\") FROM \"load_midterm\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
+                {
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
+                }
+              ],
+              "resultFormat": "time_series"
             },
             {
               "function": "mean",
+              "dsType": "influxdb",
               "groupByTags": [],
               "tags": [
                 {
@@ -476,17 +789,40 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "$server.load.longterm",
+              "refId": "C",
+              "alias": "long",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "load_longterm",
+              "query": "SELECT mean(\"value\") FROM \"load_longterm\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "mean"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "alias": "long",
-              "series": "$server.load.longterm",
-              "measurement": "load_longterm",
-              "query": "SELECT mean(value) FROM \"load_longterm\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "fill": "0"
+              "resultFormat": "time_series"
             }
           ],
           "seriesOverrides": [],
@@ -551,6 +887,7 @@
           "targets": [
             {
               "function": "max",
+              "dsType": "influxdb",
               "groupByTags": [],
               "tags": [
                 {
@@ -564,20 +901,44 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "$server.processes.state.blocked",
+              "refId": "A",
+              "alias": "blocked",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "max",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "processes_count",
+              "query": "SELECT max(\"value\") FROM \"processes_count\" WHERE \"hostname\" = '$server' AND \"state\" = 'blocked' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "max"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "alias": "blocked",
-              "series": "$server.processes.state.blocked",
-              "measurement": "processes_count",
-              "query": "SELECT max(value) FROM \"processes_count\" WHERE \"hostname\" = '$server' AND \"state\" = 'blocked' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "fill": "0"
+              "resultFormat": "time_series"
             },
             {
               "function": "max",
+              "dsType": "influxdb",
               "groupByTags": [],
               "tags": [
                 {
@@ -591,20 +952,44 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "$server.processes.state.paging",
+              "refId": "B",
+              "alias": "paging",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "max",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "processes_count",
+              "query": "SELECT max(\"value\") FROM \"processes_count\" WHERE \"hostname\" = '$server' AND \"state\" = 'paging' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "max"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "alias": "paging",
-              "series": "$server.processes.state.paging",
-              "measurement": "processes_count",
-              "query": "SELECT max(value) FROM \"processes_count\" WHERE \"hostname\" = '$server' AND \"state\" = 'paging' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "fill": "0"
+              "resultFormat": "time_series"
             },
             {
               "function": "max",
+              "dsType": "influxdb",
               "groupByTags": [],
               "tags": [
                 {
@@ -618,20 +1003,44 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "$server.processes.state.paging",
+              "refId": "C",
+              "alias": "running",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "max",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "processes_count",
+              "query": "SELECT max(\"value\") FROM \"processes_count\" WHERE \"hostname\" = '$server' AND \"state\" = 'running' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "max"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "alias": "running",
-              "series": "$server.processes.state.paging",
-              "measurement": "processes_count",
-              "query": "SELECT max(value) FROM \"processes_count\" WHERE \"hostname\" = '$server' AND \"state\" = 'running' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "fill": "0"
+              "resultFormat": "time_series"
             },
             {
               "function": "max",
+              "dsType": "influxdb",
               "groupByTags": [],
               "tags": [
                 {
@@ -645,20 +1054,44 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "$server.processes.state.paging",
+              "refId": "D",
+              "alias": "sleeping",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "max",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "processes_count",
+              "query": "SELECT max(\"value\") FROM \"processes_count\" WHERE \"hostname\" = '$server' AND \"state\" = 'sleeping' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "max"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "alias": "sleeping",
-              "series": "$server.processes.state.paging",
-              "measurement": "processes_count",
-              "query": "SELECT max(value) FROM \"processes_count\" WHERE \"hostname\" = '$server' AND \"state\" = 'sleeping' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "fill": "0"
+              "resultFormat": "time_series"
             },
             {
               "function": "max",
+              "dsType": "influxdb",
               "groupByTags": [],
               "tags": [
                 {
@@ -672,20 +1105,44 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "$server.processes.state.paging",
+              "refId": "E",
+              "alias": "stopped",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "max",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "processes_count",
+              "query": "SELECT max(\"value\") FROM \"processes_count\" WHERE \"hostname\" = '$server' AND \"state\" = 'stopped' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "max"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "alias": "stopped",
-              "series": "$server.processes.state.paging",
-              "measurement": "processes_count",
-              "query": "SELECT max(value) FROM \"processes_count\" WHERE \"hostname\" = '$server' AND \"state\" = 'stopped' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "fill": "0"
+              "resultFormat": "time_series"
             },
             {
               "function": "max",
+              "dsType": "influxdb",
               "groupByTags": [],
               "tags": [
                 {
@@ -699,17 +1156,40 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "$server.processes.state.paging",
+              "refId": "F",
+              "alias": "zombies",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "max",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "processes_count",
+              "query": "SELECT max(\"value\") FROM \"processes_count\" WHERE \"hostname\" = '$server' AND \"state\" = 'zombies' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "max"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "alias": "zombies",
-              "series": "$server.processes.state.paging",
-              "measurement": "processes_count",
-              "query": "SELECT max(value) FROM \"processes_count\" WHERE \"hostname\" = '$server' AND \"state\" = 'zombies' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "fill": "0"
+              "resultFormat": "time_series"
             }
           ],
           "seriesOverrides": [
@@ -777,6 +1257,7 @@
           "targets": [
             {
               "function": "max",
+              "dsType": "influxdb",
               "groupByTags": [],
               "tags": [
                 {
@@ -785,17 +1266,40 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "$server.processes.fork_rate",
+              "refId": "A",
+              "alias": "fork rate",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "max",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "processes_fork_rate",
+              "query": "SELECT max(\"value\") FROM \"processes_fork_rate\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "max"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "alias": "fork rate",
-              "series": "$server.processes.fork_rate",
-              "measurement": "processes_fork_rate",
-              "query": "SELECT max(value) FROM \"processes_fork_rate\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "fill": "0"
+              "resultFormat": "time_series"
             }
           ],
           "leftYAxisLabel": "per second",
@@ -845,6 +1349,7 @@
           "targets": [
             {
               "function": "last",
+              "dsType": "influxdb",
               "rawQuery": false,
               "groupByTags": [],
               "tags": [
@@ -854,15 +1359,39 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "$server.users",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "last",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "logged_users",
+              "query": "SELECT last(\"value\") FROM \"logged_users\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "last"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "null"
+                  ]
                 }
               ],
-              "series": "$server.users",
-              "measurement": "logged_users",
-              "query": "SELECT last(value) FROM \"logged_users\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval)"
+              "resultFormat": "time_series"
             }
           ],
           "maxDataPoints": 100,
@@ -890,6 +1419,7 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
+          "datasource": null,
           "error": false,
           "nullText": null,
           "postfixFontSize": "50%",
@@ -919,6 +1449,7 @@
           "targets": [
             {
               "function": "mean",
+              "dsType": "influxdb",
               "rawQuery": false,
               "groupByTags": [],
               "tags": [
@@ -933,15 +1464,39 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "select last(100.0*avail.value/(used.value + free.value)) from \"$server.fs.$mount.space.free\" as free inner join \"$server.fs.$mount.space.used\" as used where $timeFilter group by time($interval) order asc",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "fs_space_percent_free",
+              "query": "SELECT mean(\"value\") FROM \"fs_space_percent_free\" WHERE \"hostname\" = '$server' AND \"fs\" = '$mount' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "mean"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "null"
+                  ]
                 }
               ],
-              "series": "select last(100.0*avail.value/(used.value + free.value)) from \"$server.fs.$mount.space.free\" as free inner join \"$server.fs.$mount.space.used\" as used where $timeFilter group by time($interval) order asc",
-              "measurement": "fs_space_percent_free",
-              "query": "SELECT mean(value) FROM \"fs_space_percent_free\" WHERE \"hostname\" = '$server' AND \"fs\" = '$mount' AND $timeFilter GROUP BY time($interval)"
+              "resultFormat": "time_series"
             }
           ],
           "maxDataPoints": 100,
@@ -969,6 +1524,7 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
+          "datasource": null,
           "error": false,
           "nullText": null,
           "postfixFontSize": "50%",
@@ -1006,6 +1562,7 @@
           "targets": [
             {
               "function": "mean",
+              "dsType": "influxdb",
               "target": "randomWalk('random walk')",
               "groupByTags": [],
               "tags": [
@@ -1020,21 +1577,45 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "mean"
-                }
-              ],
-              "interval": "",
-              "alias": "used",
               "series": "$server.fs.$mount.space.used",
+              "interval": "",
+              "refId": "A",
+              "alias": "used",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "fs_space_used",
-              "query": "SELECT mean(value) FROM \"fs_space_used\" WHERE \"hostname\" = '$server' AND \"fs\" = '$mount' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "fill": "0"
+              "query": "SELECT mean(\"value\") FROM \"fs_space_used\" WHERE \"hostname\" = '$server' AND \"fs\" = '$mount' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
+                {
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
+                }
+              ],
+              "resultFormat": "time_series"
             },
             {
               "function": "mean",
+              "dsType": "influxdb",
               "target": "randomWalk('random walk')",
               "groupByTags": [],
               "tags": [
@@ -1049,21 +1630,45 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "mean"
-                }
-              ],
-              "interval": "",
-              "alias": "reserved",
               "series": "$server.fs.$mount.space.reserved",
+              "interval": "",
+              "refId": "B",
+              "alias": "reserved",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "fs_space_reserved",
-              "query": "SELECT mean(value) FROM \"fs_space_reserved\" WHERE \"hostname\" = '$server' AND \"fs\" = '$mount' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "fill": "0"
+              "query": "SELECT mean(\"value\") FROM \"fs_space_reserved\" WHERE \"hostname\" = '$server' AND \"fs\" = '$mount' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
+                {
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
+                }
+              ],
+              "resultFormat": "time_series"
             },
             {
               "function": "mean",
+              "dsType": "influxdb",
               "target": "randomWalk('random walk')",
               "groupByTags": [],
               "tags": [
@@ -1078,18 +1683,41 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "$server.fs.$mount.space.free",
+              "interval": "",
+              "refId": "C",
+              "alias": "free",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "fs_space_free",
+              "query": "SELECT mean(\"value\") FROM \"fs_space_free\" WHERE \"hostname\" = '$server' AND \"fs\" = '$mount' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "mean"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "interval": "",
-              "alias": "free",
-              "series": "$server.fs.$mount.space.free",
-              "measurement": "fs_space_free",
-              "query": "SELECT mean(value) FROM \"fs_space_free\" WHERE \"hostname\" = '$server' AND \"fs\" = '$mount' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "fill": "0"
+              "resultFormat": "time_series"
             }
           ],
           "leftYAxisLabel": "",
@@ -1122,7 +1750,6 @@
           },
           "legend_counts": true,
           "y-axis": true,
-          "aliasYAxis": {},
           "timeShift": null,
           "interval": ">60s",
           "lines": true,
@@ -1148,6 +1775,7 @@
           "targets": [
             {
               "function": "mean",
+              "dsType": "influxdb",
               "rawQuery": false,
               "groupByTags": [],
               "tags": [
@@ -1162,15 +1790,39 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "select last(100.0*avail.value/(used.value + free.value)) from \"$server.fs.$mount.space.free\" as free inner join \"$server.fs.$mount.space.used\" as used where $timeFilter group by time($interval) order asc",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "fs_inodes_percent_free",
+              "query": "SELECT mean(\"value\") FROM \"fs_inodes_percent_free\" WHERE \"hostname\" = '$server' AND \"fs\" = '$mount' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "mean"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "null"
+                  ]
                 }
               ],
-              "series": "select last(100.0*avail.value/(used.value + free.value)) from \"$server.fs.$mount.space.free\" as free inner join \"$server.fs.$mount.space.used\" as used where $timeFilter group by time($interval) order asc",
-              "measurement": "fs_inodes_percent_free",
-              "query": "SELECT mean(value) FROM \"fs_inodes_percent_free\" WHERE \"hostname\" = '$server' AND \"fs\" = '$mount' AND $timeFilter GROUP BY time($interval)"
+              "resultFormat": "time_series"
             }
           ],
           "maxDataPoints": 100,
@@ -1198,6 +1850,7 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
+          "datasource": null,
           "error": false,
           "nullText": null,
           "postfixFontSize": "50%",
@@ -1235,6 +1888,7 @@
           "targets": [
             {
               "function": "mean",
+              "dsType": "influxdb",
               "target": "randomWalk('random walk')",
               "groupByTags": [],
               "tags": [
@@ -1249,21 +1903,45 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "mean"
-                }
-              ],
-              "interval": "",
-              "alias": "used",
               "series": "$server.fs.$mount.inodes.used",
+              "interval": "",
+              "refId": "A",
+              "alias": "used",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "fs_inodes_used",
-              "query": "SELECT mean(value) FROM \"fs_inodes_used\" WHERE \"hostname\" = '$server' AND \"fs\" = '$mount' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "fill": "0"
+              "query": "SELECT mean(\"value\") FROM \"fs_inodes_used\" WHERE \"hostname\" = '$server' AND \"fs\" = '$mount' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
+                {
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
+                }
+              ],
+              "resultFormat": "time_series"
             },
             {
               "function": "mean",
+              "dsType": "influxdb",
               "target": "randomWalk('random walk')",
               "groupByTags": [],
               "tags": [
@@ -1278,21 +1956,45 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "mean"
-                }
-              ],
-              "interval": "",
-              "alias": "reserved",
               "series": "$server.fs.$mount.inodes.reserved",
+              "interval": "",
+              "refId": "B",
+              "alias": "reserved",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "fs_inodes_reserved",
-              "query": "SELECT mean(value) FROM \"fs_inodes_reserved\" WHERE \"hostname\" = '$server' AND \"fs\" = '$mount' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "fill": "0"
+              "query": "SELECT mean(\"value\") FROM \"fs_inodes_reserved\" WHERE \"hostname\" = '$server' AND \"fs\" = '$mount' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
+                {
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
+                }
+              ],
+              "resultFormat": "time_series"
             },
             {
               "function": "mean",
+              "dsType": "influxdb",
               "target": "randomWalk('random walk')",
               "groupByTags": [],
               "tags": [
@@ -1307,18 +2009,41 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "$server.fs.$mount.inodes.free",
+              "interval": "",
+              "refId": "C",
+              "alias": "free",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "fs_inodes_free",
+              "query": "SELECT mean(\"value\") FROM \"fs_inodes_free\" WHERE \"hostname\" = '$server' AND \"fs\" = '$mount' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "mean"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "interval": "",
-              "alias": "free",
-              "series": "$server.fs.$mount.inodes.free",
-              "measurement": "fs_inodes_free",
-              "query": "SELECT mean(value) FROM \"fs_inodes_free\" WHERE \"hostname\" = '$server' AND \"fs\" = '$mount' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "fill": "0"
+              "resultFormat": "time_series"
             }
           ],
           "leftYAxisLabel": "",
@@ -1351,7 +2076,6 @@
           },
           "legend_counts": true,
           "y-axis": true,
-          "aliasYAxis": {},
           "timeShift": null,
           "interval": ">60s",
           "lines": true,
@@ -1400,6 +2124,7 @@
           "targets": [
             {
               "function": "max",
+              "dsType": "influxdb",
               "groupByTags": [],
               "tags": [
                 {
@@ -1413,20 +2138,44 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "$server.disk.$disk.disk_merged.read",
+              "refId": "A",
+              "alias": "read",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "max",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "disk_merged_read",
+              "query": "SELECT max(\"value\") FROM \"disk_merged_read\" WHERE \"hostname\" = '$server' AND \"device\" = '$disk' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "max"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "alias": "read",
-              "series": "$server.disk.$disk.disk_merged.read",
-              "measurement": "disk_merged_read",
-              "query": "SELECT max(value) FROM \"disk_merged_read\" WHERE \"hostname\" = '$server' AND \"device\" = '$disk' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "fill": "0"
+              "resultFormat": "time_series"
             },
             {
               "function": "max",
+              "dsType": "influxdb",
               "groupByTags": [],
               "tags": [
                 {
@@ -1440,17 +2189,40 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "$server.disk.$disk.disk_merged.write",
+              "refId": "B",
+              "alias": "write",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "max",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "disk_merged_write",
+              "query": "SELECT max(\"value\") FROM \"disk_merged_write\" WHERE \"hostname\" = '$server' AND \"device\" = '$disk' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "max"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "alias": "write",
-              "series": "$server.disk.$disk.disk_merged.write",
-              "measurement": "disk_merged_write",
-              "query": "SELECT max(value) FROM \"disk_merged_write\" WHERE \"hostname\" = '$server' AND \"device\" = '$disk' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "fill": "0"
+              "resultFormat": "time_series"
             }
           ],
           "leftYAxisLabel": "per second",
@@ -1514,6 +2286,7 @@
           "targets": [
             {
               "function": "max",
+              "dsType": "influxdb",
               "groupByTags": [],
               "tags": [
                 {
@@ -1527,20 +2300,44 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "$server.disk.$disk.disk_ops.read",
+              "refId": "A",
+              "alias": "read",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "max",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "disk_ops_read",
+              "query": "SELECT max(\"value\") FROM \"disk_ops_read\" WHERE \"hostname\" = '$server' AND \"device\" = '$disk' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "max"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "alias": "read",
-              "series": "$server.disk.$disk.disk_ops.read",
-              "measurement": "disk_ops_read",
-              "query": "SELECT max(value) FROM \"disk_ops_read\" WHERE \"hostname\" = '$server' AND \"device\" = '$disk' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "fill": "0"
+              "resultFormat": "time_series"
             },
             {
               "function": "max",
+              "dsType": "influxdb",
               "groupByTags": [],
               "tags": [
                 {
@@ -1554,17 +2351,40 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "$server.disk.$disk.disk_ops.write",
+              "refId": "B",
+              "alias": "write",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "max",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "disk_ops_write",
+              "query": "SELECT max(\"value\") FROM \"disk_ops_write\" WHERE \"hostname\" = '$server' AND \"device\" = '$disk' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "max"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "alias": "write",
-              "series": "$server.disk.$disk.disk_ops.write",
-              "measurement": "disk_ops_write",
-              "query": "SELECT max(value) FROM \"disk_ops_write\" WHERE \"hostname\" = '$server' AND \"device\" = '$disk' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "fill": "0"
+              "resultFormat": "time_series"
             }
           ],
           "leftYAxisLabel": "per second",
@@ -1628,6 +2448,7 @@
           "targets": [
             {
               "function": "max",
+              "dsType": "influxdb",
               "groupByTags": [],
               "tags": [
                 {
@@ -1641,20 +2462,44 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "$server.disk.$disk.disk_octets.read",
+              "refId": "A",
+              "alias": "read",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "max",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "disk_octets_read",
+              "query": "SELECT max(\"value\") FROM \"disk_octets_read\" WHERE \"hostname\" = '$server' AND \"device\" = '$disk' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "max"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "alias": "read",
-              "series": "$server.disk.$disk.disk_octets.read",
-              "measurement": "disk_octets_read",
-              "query": "SELECT max(value) FROM \"disk_octets_read\" WHERE \"hostname\" = '$server' AND \"device\" = '$disk' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "fill": "0"
+              "resultFormat": "time_series"
             },
             {
               "function": "max",
+              "dsType": "influxdb",
               "groupByTags": [],
               "tags": [
                 {
@@ -1668,17 +2513,40 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "$server.disk.$disk.disk_octets.write",
+              "refId": "B",
+              "alias": "write",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "max",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "disk_octets_write",
+              "query": "SELECT max(\"value\") FROM \"disk_octets_write\" WHERE \"hostname\" = '$server' AND \"device\" = '$disk' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "max"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "alias": "write",
-              "series": "$server.disk.$disk.disk_octets.write",
-              "measurement": "disk_octets_write",
-              "query": "SELECT max(value) FROM \"disk_octets_write\" WHERE \"hostname\" = '$server' AND \"device\" = '$disk' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "fill": "0"
+              "resultFormat": "time_series"
             }
           ],
           "leftYAxisLabel": "Bytes/s",
@@ -1751,6 +2619,7 @@
           "targets": [
             {
               "function": "max",
+              "dsType": "influxdb",
               "groupByTags": [],
               "tags": [
                 {
@@ -1764,20 +2633,44 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "/$server.net.$interface.if_octets.rx/",
+              "refId": "A",
+              "alias": "rx",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "max",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "if_octets_rx",
+              "query": "SELECT max(\"value\") FROM \"if_octets_rx\" WHERE \"hostname\" = '$server' AND \"interface\" = '$interface' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "max"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "alias": "rx",
-              "series": "/$server.net.$interface.if_octets.rx/",
-              "measurement": "if_octets_rx",
-              "query": "SELECT max(value) FROM \"if_octets_rx\" WHERE \"hostname\" = '$server' AND \"interface\" = '$interface' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "fill": "0"
+              "resultFormat": "time_series"
             },
             {
               "function": "max",
+              "dsType": "influxdb",
               "groupByTags": [],
               "tags": [
                 {
@@ -1791,17 +2684,40 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "/$server.net.$interface.if_octets.tx/",
+              "refId": "B",
+              "alias": "tx",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "max",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "if_octets_tx",
+              "query": "SELECT max(\"value\") FROM \"if_octets_tx\" WHERE \"hostname\" = '$server' AND \"interface\" = '$interface' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "max"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "alias": "tx",
-              "series": "/$server.net.$interface.if_octets.tx/",
-              "measurement": "if_octets_tx",
-              "query": "SELECT max(value) FROM \"if_octets_tx\" WHERE \"hostname\" = '$server' AND \"interface\" = '$interface' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "fill": "0"
+              "resultFormat": "time_series"
             }
           ],
           "leftYAxisLabel": "Bytes/s",
@@ -1865,6 +2781,7 @@
           "targets": [
             {
               "function": "max",
+              "dsType": "influxdb",
               "groupByTags": [],
               "tags": [
                 {
@@ -1878,20 +2795,44 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "/$server.net.$interface.if_packets.rx/",
+              "refId": "A",
+              "alias": "rx",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "max",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "if_packets_rx",
+              "query": "SELECT max(\"value\") FROM \"if_packets_rx\" WHERE \"hostname\" = '$server' AND \"interface\" = '$interface' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "max"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "alias": "rx",
-              "series": "/$server.net.$interface.if_packets.rx/",
-              "measurement": "if_packets_rx",
-              "query": "SELECT max(value) FROM \"if_packets_rx\" WHERE \"hostname\" = '$server' AND \"interface\" = '$interface' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "fill": "0"
+              "resultFormat": "time_series"
             },
             {
               "function": "max",
+              "dsType": "influxdb",
               "groupByTags": [],
               "tags": [
                 {
@@ -1905,17 +2846,40 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "/$server.net.$interface.if_packets.tx/",
+              "refId": "B",
+              "alias": "tx",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "max",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "if_packets_tx",
+              "query": "SELECT max(\"value\") FROM \"if_packets_tx\" WHERE \"hostname\" = '$server' AND \"interface\" = '$interface' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "max"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "alias": "tx",
-              "series": "/$server.net.$interface.if_packets.tx/",
-              "measurement": "if_packets_tx",
-              "query": "SELECT max(value) FROM \"if_packets_tx\" WHERE \"hostname\" = '$server' AND \"interface\" = '$interface' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "fill": "0"
+              "resultFormat": "time_series"
             }
           ],
           "leftYAxisLabel": "per second",
@@ -1979,6 +2943,7 @@
           "targets": [
             {
               "function": "max",
+              "dsType": "influxdb",
               "groupByTags": [],
               "tags": [
                 {
@@ -1992,20 +2957,44 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "/$server.net.$interface.if_errors.rx/",
+              "refId": "A",
+              "alias": "rx",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "max",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "if_errors_rx",
+              "query": "SELECT max(\"value\") FROM \"if_errors_rx\" WHERE \"hostname\" = '$server' AND \"interface\" = '$interface' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "max"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "alias": "rx",
-              "series": "/$server.net.$interface.if_errors.rx/",
-              "measurement": "if_errors_rx",
-              "query": "SELECT max(value) FROM \"if_errors_rx\" WHERE \"hostname\" = '$server' AND \"interface\" = '$interface' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "fill": "0"
+              "resultFormat": "time_series"
             },
             {
               "function": "max",
+              "dsType": "influxdb",
               "groupByTags": [],
               "tags": [
                 {
@@ -2019,17 +3008,40 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "/$server.net.$interface.if_errors.tx/",
+              "refId": "B",
+              "alias": "tx",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "max",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "if_errors_tx",
+              "query": "SELECT max(\"value\") FROM \"if_errors_tx\" WHERE \"hostname\" = '$server' AND \"interface\" = '$interface' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "max"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "alias": "tx",
-              "series": "/$server.net.$interface.if_errors.tx/",
-              "measurement": "if_errors_tx",
-              "query": "SELECT max(value) FROM \"if_errors_tx\" WHERE \"hostname\" = '$server' AND \"interface\" = '$interface' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "fill": "0"
+              "resultFormat": "time_series"
             }
           ],
           "leftYAxisLabel": "per second",
@@ -2102,6 +3114,7 @@
           "targets": [
             {
               "function": "mean",
+              "dsType": "influxdb",
               "groupByTags": [],
               "tags": [
                 {
@@ -2110,20 +3123,44 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "mean"
-                }
-              ],
-              "alias": "used",
               "series": "$server.swap.used",
+              "refId": "A",
+              "alias": "used",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "swap_used",
-              "query": "SELECT mean(value) FROM \"swap_used\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "fill": "0"
+              "query": "SELECT mean(\"value\") FROM \"swap_used\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
+                {
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
+                }
+              ],
+              "resultFormat": "time_series"
             },
             {
               "function": "mean",
+              "dsType": "influxdb",
               "groupByTags": [],
               "tags": [
                 {
@@ -2132,20 +3169,44 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "mean"
-                }
-              ],
-              "alias": "cached",
               "series": "$server.swap.cached",
+              "refId": "B",
+              "alias": "cached",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "swap_cached",
-              "query": "SELECT mean(value) FROM \"swap_cached\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "fill": "0"
+              "query": "SELECT mean(\"value\") FROM \"swap_cached\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
+                {
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
+                }
+              ],
+              "resultFormat": "time_series"
             },
             {
               "function": "mean",
+              "dsType": "influxdb",
               "groupByTags": [],
               "tags": [
                 {
@@ -2154,17 +3215,40 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "$server.swap.free",
+              "refId": "C",
+              "alias": "free",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "swap_free",
+              "query": "SELECT mean(\"value\") FROM \"swap_free\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "mean"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "alias": "free",
-              "series": "$server.swap.free",
-              "measurement": "swap_free",
-              "query": "SELECT mean(value) FROM \"swap_free\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "fill": "0"
+              "resultFormat": "time_series"
             }
           ],
           "seriesOverrides": [],
@@ -2227,6 +3311,7 @@
           "targets": [
             {
               "function": "max",
+              "dsType": "influxdb",
               "groupByTags": [],
               "tags": [
                 {
@@ -2235,20 +3320,44 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "$server.swap_io.out",
+              "refId": "A",
+              "alias": "read",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "max",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "swap_io_out",
+              "query": "SELECT max(\"value\") FROM \"swap_io_out\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "max"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "alias": "read",
-              "series": "$server.swap_io.out",
-              "measurement": "swap_io_out",
-              "query": "SELECT max(value) FROM \"swap_io_out\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "fill": "0"
+              "resultFormat": "time_series"
             },
             {
               "function": "max",
+              "dsType": "influxdb",
               "groupByTags": [],
               "tags": [
                 {
@@ -2257,17 +3366,40 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "$server.swap_io.in",
+              "refId": "B",
+              "alias": "write",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "max",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "swap_io_in",
+              "query": "SELECT max(\"value\") FROM \"swap_io_in\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "max"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "alias": "write",
-              "series": "$server.swap_io.in",
-              "measurement": "swap_io_in",
-              "query": "SELECT max(value) FROM \"swap_io_in\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "fill": "0"
+              "resultFormat": "time_series"
             }
           ],
           "leftYAxisLabel": "per second",
@@ -2371,47 +3503,44 @@
   "refresh": "1m",
   "id": null,
   "originalTitle": "System",
-  "version": 0,
-  "nav": [
-    {
-      "status": "Stable",
-      "notice": false,
-      "enable": true,
-      "collapse": false,
-      "time_options": [
-        "5m",
-        "15m",
-        "1h",
-        "6h",
-        "12h",
-        "24h",
-        "2d",
-        "7d",
-        "30d"
-      ],
-      "refresh_intervals": [
-        "5s",
-        "10s",
-        "30s",
-        "1m",
-        "5m",
-        "15m",
-        "30m",
-        "1h",
-        "2h",
-        "1d"
-      ],
-      "now": true,
-      "type": "timepicker"
-    }
-  ],
+  "timepicker": {
+    "status": "Stable",
+    "notice": false,
+    "enable": true,
+    "collapse": false,
+    "time_options": [
+      "5m",
+      "15m",
+      "1h",
+      "6h",
+      "12h",
+      "24h",
+      "2d",
+      "7d",
+      "30d"
+    ],
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ],
+    "now": true,
+    "type": "timepicker"
+  },
   "sharedCrosshair": true,
   "time": {
     "to": "now",
     "from": "now-1h"
   },
   "timezone": "browser",
-  "schemaVersion": 6,
+  "schemaVersion": 8,
   "annotations": {
     "list": []
   }

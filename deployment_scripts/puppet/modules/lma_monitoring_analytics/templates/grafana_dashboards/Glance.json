@@ -1,4 +1,5 @@
 {
+  "version": 1,
   "style": "dark",
   "rows": [
     {
@@ -47,6 +48,7 @@
           "targets": [
             {
               "function": "last",
+              "dsType": "influxdb",
               "groupby_field": "",
               "rawQuery": false,
               "groupByTags": [],
@@ -58,16 +60,40 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "merge(/openstack.cinder.status/)",
+              "interval": "",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "last",
+                    "params": []
+                  }
+                ]
+              ],
+              "resultFormat": "time_series",
+              "measurement": "cluster_status",
+              "query": "SELECT last(\"value\") FROM \"cluster_status\" WHERE \"cluster_name\" = 'glance' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "last"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "null"
+                  ]
                 }
               ],
-              "interval": "",
-              "series": "merge(/openstack.cinder.status/)",
-              "measurement": "cluster_status",
-              "query": "SELECT last(value) FROM \"cluster_status\" WHERE \"cluster_name\" = 'glance' AND $timeFilter GROUP BY time($interval)",
               "condition": "",
               "fill": ""
             }
@@ -97,6 +123,7 @@
             "rgba(241, 181, 37, 0.73)",
             "rgba(225, 40, 40, 0.59)"
           ],
+          "datasource": null,
           "error": false,
           "nullText": null,
           "postfixFontSize": "50%",
@@ -117,6 +144,7 @@
           "targets": [
             {
               "function": "count",
+              "dsType": "influxdb",
               "groupby_field": "",
               "rawQuery": false,
               "groupByTags": [],
@@ -132,16 +160,40 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "merge(/$server.openstack.cinder.http.*.5\\d\\d/)",
+              "interval": "",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "count",
+                    "params": []
+                  }
+                ]
+              ],
+              "resultFormat": "time_series",
+              "measurement": "openstack_glance_http_responses",
+              "query": "SELECT count(\"value\") FROM \"openstack_glance_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^5/ AND $timeFilter GROUP BY time($interval) fill(null)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "count"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "null"
+                  ]
                 }
               ],
-              "interval": "",
-              "series": "merge(/$server.openstack.cinder.http.*.5\\d\\d/)",
-              "measurement": "openstack_glance_http_responses",
-              "query": "SELECT count(value) FROM \"openstack_glance_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^5/ AND $timeFilter GROUP BY time($interval)",
               "condition": "",
               "fill": ""
             }
@@ -171,6 +223,7 @@
             "rgba(245, 150, 40, 0.73)",
             "rgba(225, 40, 40, 0.59)"
           ],
+          "datasource": null,
           "error": false,
           "nullText": null,
           "postfixFontSize": "50%",
@@ -206,6 +259,7 @@
           "targets": [
             {
               "function": "mean",
+              "dsType": "influxdb",
               "groupByTags": [],
               "tags": [
                 {
@@ -219,21 +273,45 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "merge(/$server.openstack.cinder.http.GET.*/)",
+              "interval": "",
+              "refId": "A",
+              "alias": "GET",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "openstack_glance_http_responses",
+              "query": "SELECT mean(\"value\") FROM \"openstack_glance_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_method\" = 'GET' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "mean"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "interval": "",
-              "alias": "GET",
-              "series": "merge(/$server.openstack.cinder.http.GET.*/)",
-              "measurement": "openstack_glance_http_responses",
-              "query": "SELECT mean(value) FROM \"openstack_glance_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_method\" = 'GET' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "fill": "0"
+              "resultFormat": "time_series"
             },
             {
               "function": "mean",
+              "dsType": "influxdb",
               "groupByTags": [],
               "tags": [
                 {
@@ -247,21 +325,45 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "merge(/$server.openstack.cinder.http.POST.*/)",
+              "interval": "",
+              "refId": "B",
+              "alias": "POST",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "openstack_glance_http_responses",
+              "query": "SELECT mean(\"value\") FROM \"openstack_glance_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_method\" = 'POST' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "mean"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "interval": "",
-              "alias": "POST",
-              "series": "merge(/$server.openstack.cinder.http.POST.*/)",
-              "measurement": "openstack_glance_http_responses",
-              "query": "SELECT mean(value) FROM \"openstack_glance_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_method\" = 'POST' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "fill": "0"
+              "resultFormat": "time_series"
             },
             {
               "function": "mean",
+              "dsType": "influxdb",
               "groupByTags": [],
               "tags": [
                 {
@@ -275,21 +377,45 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "merge(/$server.openstack.cinder.http.PUT.*/)",
+              "interval": "",
+              "refId": "C",
+              "alias": "PUT",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "openstack_glance_http_responses",
+              "query": "SELECT mean(\"value\") FROM \"openstack_glance_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_method\" = 'PUT' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "mean"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "interval": "",
-              "alias": "PUT",
-              "series": "merge(/$server.openstack.cinder.http.PUT.*/)",
-              "measurement": "openstack_glance_http_responses",
-              "query": "SELECT mean(value) FROM \"openstack_glance_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_method\" = 'PUT' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "fill": "0"
+              "resultFormat": "time_series"
             },
             {
               "function": "mean",
+              "dsType": "influxdb",
               "groupByTags": [],
               "tags": [
                 {
@@ -303,18 +429,41 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "merge(/$server.openstack.cinder.http.DELETE.*/)",
+              "interval": "",
+              "refId": "D",
+              "alias": "DELETE",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "openstack_glance_http_responses",
+              "query": "SELECT mean(\"value\") FROM \"openstack_glance_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_method\" = 'DELETE' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "mean"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "interval": "",
-              "alias": "DELETE",
-              "series": "merge(/$server.openstack.cinder.http.DELETE.*/)",
-              "measurement": "openstack_glance_http_responses",
-              "query": "SELECT mean(value) FROM \"openstack_glance_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_method\" = 'DELETE' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "fill": "0"
+              "resultFormat": "time_series"
             }
           ],
           "seriesOverrides": [],
@@ -377,6 +526,7 @@
           "targets": [
             {
               "function": "last",
+              "dsType": "influxdb",
               "groupByTags": [],
               "tags": [
                 {
@@ -386,17 +536,40 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "merge(/openstack.cinder.check_api/)",
+              "refId": "A",
+              "alias": "healthy",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "last",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "openstack_check_api",
+              "query": "SELECT last(\"value\") FROM \"openstack_check_api\" WHERE \"service\" = 'glance-api' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "last"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "alias": "healthy",
-              "series": "merge(/openstack.cinder.check_api/)",
-              "measurement": "openstack_check_api",
-              "query": "SELECT last(value) FROM \"openstack_check_api\" WHERE \"service\" = 'glance-api' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "fill": "0"
+              "resultFormat": "time_series"
             }
           ],
           "leftYAxisLabel": "",
@@ -464,6 +637,7 @@
           "targets": [
             {
               "function": "count",
+              "dsType": "influxdb",
               "rawQuery": false,
               "groupByTags": [],
               "tags": [
@@ -478,21 +652,45 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "merge(/$server.openstack.cinder.http.*.2\\d\\d/)",
+              "interval": "",
+              "refId": "A",
+              "alias": "2xx",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "count",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "openstack_glance_http_responses",
+              "query": "SELECT count(\"value\") FROM \"openstack_glance_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^2/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "count"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "interval": "",
-              "alias": "2xx",
-              "series": "merge(/$server.openstack.cinder.http.*.2\\d\\d/)",
-              "measurement": "openstack_glance_http_responses",
-              "query": "SELECT count(value) FROM \"openstack_glance_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^2/ AND $timeFilter GROUP BY time($interval) fill(0)",
-              "fill": "0"
+              "resultFormat": "time_series"
             },
             {
               "function": "count",
+              "dsType": "influxdb",
               "hide": false,
               "groupByTags": [],
               "tags": [
@@ -507,21 +705,45 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "merge(/$server.openstack.cinder.http.*.1\\d\\d/)",
+              "interval": "",
+              "refId": "B",
+              "alias": "1xx",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "count",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "openstack_glance_http_responses",
+              "query": "SELECT count(\"value\") FROM \"openstack_glance_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^1/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "count"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "interval": "",
-              "alias": "1xx",
-              "series": "merge(/$server.openstack.cinder.http.*.1\\d\\d/)",
-              "measurement": "openstack_glance_http_responses",
-              "query": "SELECT count(value) FROM \"openstack_glance_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^1/ AND $timeFilter GROUP BY time($interval) fill(0)",
-              "fill": "0"
+              "resultFormat": "time_series"
             },
             {
               "function": "count",
+              "dsType": "influxdb",
               "hide": false,
               "groupByTags": [],
               "tags": [
@@ -536,21 +758,45 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "merge(/$server.openstack.cinder.http.*.3\\d\\d/)",
+              "interval": "",
+              "refId": "C",
+              "alias": "3xx",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "count",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "openstack_glance_http_responses",
+              "query": "SELECT count(\"value\") FROM \"openstack_glance_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^3/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "count"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "interval": "",
-              "alias": "3xx",
-              "series": "merge(/$server.openstack.cinder.http.*.3\\d\\d/)",
-              "measurement": "openstack_glance_http_responses",
-              "query": "SELECT count(value) FROM \"openstack_glance_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^3/ AND $timeFilter GROUP BY time($interval) fill(0)",
-              "fill": "0"
+              "resultFormat": "time_series"
             },
             {
               "function": "count",
+              "dsType": "influxdb",
               "hide": false,
               "groupByTags": [],
               "tags": [
@@ -565,21 +811,45 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "merge(/$server.openstack.cinder.http.*.4\\d\\d/)",
+              "interval": "",
+              "refId": "D",
+              "alias": "4xx",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "count",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "openstack_glance_http_responses",
+              "query": "SELECT count(\"value\") FROM \"openstack_glance_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^4/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "count"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "interval": "",
-              "alias": "4xx",
-              "series": "merge(/$server.openstack.cinder.http.*.4\\d\\d/)",
-              "measurement": "openstack_glance_http_responses",
-              "query": "SELECT count(value) FROM \"openstack_glance_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^4/ AND $timeFilter GROUP BY time($interval) fill(0)",
-              "fill": "0"
+              "resultFormat": "time_series"
             },
             {
               "function": "count",
+              "dsType": "influxdb",
               "hide": false,
               "groupByTags": [],
               "tags": [
@@ -594,18 +864,41 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "merge(/$server.openstack.cinder.http.*.5\\d\\d/)",
+              "interval": "",
+              "refId": "E",
+              "alias": "5xx",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "count",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "openstack_glance_http_responses",
+              "query": "SELECT count(\"value\") FROM \"openstack_glance_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^5/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "count"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "interval": "",
-              "alias": "5xx",
-              "series": "merge(/$server.openstack.cinder.http.*.5\\d\\d/)",
-              "measurement": "openstack_glance_http_responses",
-              "query": "SELECT count(value) FROM \"openstack_glance_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^5/ AND $timeFilter GROUP BY time($interval) fill(0)",
-              "fill": "0"
+              "resultFormat": "time_series"
             }
           ],
           "seriesOverrides": [],
@@ -676,6 +969,7 @@
           "targets": [
             {
               "function": "mean",
+              "dsType": "influxdb",
               "groupByTags": [],
               "tags": [
                 {
@@ -689,15 +983,39 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "merge(/haproxy.backend.glance-api.servers.up/)",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "last",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "haproxy_backend_servers",
+              "query": "SELECT last(\"value\") FROM \"haproxy_backend_servers\" WHERE \"backend\" = 'glance-api' AND \"state\" = 'up' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "last"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "null"
+                  ]
                 }
               ],
-              "series": "merge(/haproxy.backend.glance-api.servers.up/)",
-              "measurement": "haproxy_backend_servers",
-              "query": "SELECT last(value) FROM \"haproxy_backend_servers\" WHERE \"backend\" = 'glance-api' AND \"state\" = 'up' AND $timeFilter GROUP BY time($interval)"
+              "resultFormat": "time_series"
             }
           ],
           "maxDataPoints": 100,
@@ -725,6 +1043,7 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
+          "datasource": null,
           "error": false,
           "nullText": null,
           "postfixFontSize": "50%",
@@ -745,6 +1064,7 @@
           "targets": [
             {
               "function": "mean",
+              "dsType": "influxdb",
               "groupByTags": [],
               "tags": [
                 {
@@ -758,15 +1078,39 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "merge(/haproxy.backend.glance-registry-api.servers.up/)",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "last",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "haproxy_backend_servers",
+              "query": "SELECT last(\"value\") FROM \"haproxy_backend_servers\" WHERE \"backend\" = 'glance-registry-api' AND \"state\" = 'up' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "last"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "null"
+                  ]
                 }
               ],
-              "series": "merge(/haproxy.backend.glance-registry-api.servers.up/)",
-              "measurement": "haproxy_backend_servers",
-              "query": "SELECT last(value) FROM \"haproxy_backend_servers\" WHERE \"backend\" = 'glance-registry-api' AND \"state\" = 'up' AND $timeFilter GROUP BY time($interval)"
+              "resultFormat": "time_series"
             }
           ],
           "maxDataPoints": 100,
@@ -794,6 +1138,7 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
+          "datasource": null,
           "error": false,
           "nullText": null,
           "postfixFontSize": "50%",
@@ -838,6 +1183,7 @@
           "targets": [
             {
               "function": "mean",
+              "dsType": "influxdb",
               "groupByTags": [],
               "tags": [
                 {
@@ -851,15 +1197,39 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "merge(/haproxy.backend.glance-api.servers.down/)",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "last",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "haproxy_backend_servers",
+              "query": "SELECT last(\"value\") FROM \"haproxy_backend_servers\" WHERE \"backend\" = 'glance-api' AND \"state\" = 'down' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "last"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "null"
+                  ]
                 }
               ],
-              "series": "merge(/haproxy.backend.glance-api.servers.down/)",
-              "measurement": "haproxy_backend_servers",
-              "query": "SELECT last(value) FROM \"haproxy_backend_servers\" WHERE \"backend\" = 'glance-api' AND \"state\" = 'down' AND $timeFilter GROUP BY time($interval)"
+              "resultFormat": "time_series"
             }
           ],
           "maxDataPoints": 100,
@@ -887,6 +1257,7 @@
             "rgba(255, 255, 255, 0.89)",
             "rgba(245, 54, 54, 0.9)"
           ],
+          "datasource": null,
           "error": false,
           "nullText": null,
           "postfixFontSize": "50%",
@@ -907,6 +1278,7 @@
           "targets": [
             {
               "function": "mean",
+              "dsType": "influxdb",
               "groupByTags": [],
               "tags": [
                 {
@@ -920,15 +1292,39 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "merge(/haproxy.backend.glance-registry-api.servers.down/)",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "last",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "haproxy_backend_servers",
+              "query": "SELECT last(\"value\") FROM \"haproxy_backend_servers\" WHERE \"backend\" = 'glance-registry-api' AND \"state\" = 'down' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "last"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "null"
+                  ]
                 }
               ],
-              "series": "merge(/haproxy.backend.glance-registry-api.servers.down/)",
-              "measurement": "haproxy_backend_servers",
-              "query": "SELECT last(value) FROM \"haproxy_backend_servers\" WHERE \"backend\" = 'glance-registry-api' AND \"state\" = 'down' AND $timeFilter GROUP BY time($interval)"
+              "resultFormat": "time_series"
             }
           ],
           "maxDataPoints": 100,
@@ -956,6 +1352,7 @@
             "rgba(255, 255, 255, 0.89)",
             "rgba(245, 54, 54, 0.9)"
           ],
+          "datasource": null,
           "error": false,
           "nullText": null,
           "postfixFontSize": "50%",
@@ -997,6 +1394,7 @@
           "targets": [
             {
               "function": "last",
+              "dsType": "influxdb",
               "rawQuery": false,
               "groupByTags": [],
               "tags": [
@@ -1011,15 +1409,39 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "merge(/openstack.glance.images.public.active$/)",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "last",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "openstack_glance_images",
+              "query": "SELECT last(\"value\") FROM \"openstack_glance_images\" WHERE \"visibility\" = 'public' AND \"state\" = 'active' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "last"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "null"
+                  ]
                 }
               ],
-              "series": "merge(/openstack.glance.images.public.active$/)",
-              "measurement": "openstack_glance_images",
-              "query": "SELECT last(value) FROM \"openstack_glance_images\" WHERE \"visibility\" = 'public' AND \"state\" = 'active' AND $timeFilter GROUP BY time($interval)",
+              "resultFormat": "time_series",
               "fill": ""
             }
           ],
@@ -1048,6 +1470,7 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
+          "datasource": null,
           "error": false,
           "nullText": null,
           "postfixFontSize": "50%",
@@ -1068,6 +1491,7 @@
           "targets": [
             {
               "function": "last",
+              "dsType": "influxdb",
               "rawQuery": false,
               "groupByTags": [],
               "tags": [
@@ -1082,15 +1506,39 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "merge(/openstack.glance.images.private.active$/)",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "last",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "openstack_glance_images",
+              "query": "SELECT last(\"value\") FROM \"openstack_glance_images\" WHERE \"state\" = 'active' AND \"visibility\" = 'private' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "last"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "null"
+                  ]
                 }
               ],
-              "series": "merge(/openstack.glance.images.private.active$/)",
-              "measurement": "openstack_glance_images",
-              "query": "SELECT last(value) FROM \"openstack_glance_images\" WHERE \"state\" = 'active' AND \"visibility\" = 'private' AND $timeFilter GROUP BY time($interval)",
+              "resultFormat": "time_series",
               "fill": ""
             }
           ],
@@ -1119,6 +1567,7 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
+          "datasource": null,
           "error": false,
           "nullText": null,
           "postfixFontSize": "50%",
@@ -1153,6 +1602,7 @@
           "targets": [
             {
               "function": "last",
+              "dsType": "influxdb",
               "hide": false,
               "groupByTags": [],
               "tags": [
@@ -1167,20 +1617,44 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "merge(/openstack.glance.images.public.active$/)",
+              "refId": "A",
+              "alias": "public",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "last",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "openstack_glance_images",
+              "query": "SELECT last(\"value\") FROM \"openstack_glance_images\" WHERE \"state\" = 'active' AND \"visibility\" = 'public' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "last"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "alias": "public",
-              "series": "merge(/openstack.glance.images.public.active$/)",
-              "measurement": "openstack_glance_images",
-              "query": "SELECT last(value) FROM \"openstack_glance_images\" WHERE \"state\" = 'active' AND \"visibility\" = 'public' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "fill": "0"
+              "resultFormat": "time_series"
             },
             {
               "function": "last",
+              "dsType": "influxdb",
               "groupByTags": [],
               "tags": [
                 {
@@ -1194,17 +1668,40 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "merge(/openstack.glance.images.private.active$/)",
+              "refId": "B",
+              "alias": "private",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "last",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "openstack_glance_images",
+              "query": "SELECT last(\"value\") FROM \"openstack_glance_images\" WHERE \"state\" = 'active' AND \"state\" = 'private' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "last"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "alias": "private",
-              "series": "merge(/openstack.glance.images.private.active$/)",
-              "measurement": "openstack_glance_images",
-              "query": "SELECT last(value) FROM \"openstack_glance_images\" WHERE \"state\" = 'active' AND \"state\" = 'private' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "fill": "0"
+              "resultFormat": "time_series"
             }
           ],
           "seriesOverrides": [],
@@ -1254,6 +1751,7 @@
           "targets": [
             {
               "function": "last",
+              "dsType": "influxdb",
               "rawQuery": false,
               "groupByTags": [],
               "tags": [
@@ -1268,15 +1766,39 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "merge(/openstack.glance.images_size.public.active$/)",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "last",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "openstack_glance_images_size",
+              "query": "SELECT last(\"value\") FROM \"openstack_glance_images_size\" WHERE \"visibility\" = 'public' AND \"state\" = 'active' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "last"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "null"
+                  ]
                 }
               ],
-              "series": "merge(/openstack.glance.images_size.public.active$/)",
-              "measurement": "openstack_glance_images_size",
-              "query": "SELECT last(value) FROM \"openstack_glance_images_size\" WHERE \"visibility\" = 'public' AND \"state\" = 'active' AND $timeFilter GROUP BY time($interval)",
+              "resultFormat": "time_series",
               "fill": ""
             }
           ],
@@ -1305,6 +1827,7 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
+          "datasource": null,
           "error": false,
           "nullText": null,
           "postfixFontSize": "50%",
@@ -1325,6 +1848,7 @@
           "targets": [
             {
               "function": "last",
+              "dsType": "influxdb",
               "rawQuery": false,
               "groupByTags": [],
               "tags": [
@@ -1339,15 +1863,39 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "merge(/openstack.glance.images_size.private.active$/)",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "last",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "openstack_glance_images_size",
+              "query": "SELECT last(\"value\") FROM \"openstack_glance_images_size\" WHERE \"visibility\" = 'private' AND \"state\" = 'active' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "last"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "null"
+                  ]
                 }
               ],
-              "series": "merge(/openstack.glance.images_size.private.active$/)",
-              "measurement": "openstack_glance_images_size",
-              "query": "SELECT last(value) FROM \"openstack_glance_images_size\" WHERE \"visibility\" = 'private' AND \"state\" = 'active' AND $timeFilter GROUP BY time($interval)",
+              "resultFormat": "time_series",
               "fill": ""
             }
           ],
@@ -1376,6 +1924,7 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
+          "datasource": null,
           "error": false,
           "nullText": null,
           "postfixFontSize": "50%",
@@ -1410,6 +1959,7 @@
           "targets": [
             {
               "function": "last",
+              "dsType": "influxdb",
               "rawQuery": false,
               "groupByTags": [],
               "tags": [
@@ -1424,20 +1974,44 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "merge(/openstack.glance.images_size.public.active$/)",
+              "refId": "A",
+              "alias": "public",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "last",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "openstack_glance_images_size",
+              "query": "SELECT last(\"value\") FROM \"openstack_glance_images_size\" WHERE \"state\" = 'active' AND \"visibility\" = 'public' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "last"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "alias": "public",
-              "series": "merge(/openstack.glance.images_size.public.active$/)",
-              "measurement": "openstack_glance_images_size",
-              "query": "SELECT last(value) FROM \"openstack_glance_images_size\" WHERE \"state\" = 'active' AND \"visibility\" = 'public' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "fill": "0"
+              "resultFormat": "time_series"
             },
             {
               "function": "last",
+              "dsType": "influxdb",
               "target": "",
               "groupByTags": [],
               "tags": [
@@ -1452,17 +2026,40 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "merge(/openstack.glance.images_size.private.active$/)",
+              "refId": "B",
+              "alias": "private",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "last",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "openstack_glance_images_size",
+              "query": "SELECT last(\"value\") FROM \"openstack_glance_images_size\" WHERE \"state\" = 'active' AND \"visibility\" = 'private' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "last"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "alias": "private",
-              "series": "merge(/openstack.glance.images_size.private.active$/)",
-              "measurement": "openstack_glance_images_size",
-              "query": "SELECT last(value) FROM \"openstack_glance_images_size\" WHERE \"state\" = 'active' AND \"visibility\" = 'private' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "fill": "0"
+              "resultFormat": "time_series"
             }
           ],
           "leftYAxisLabel": "",
@@ -1512,6 +2109,7 @@
           "targets": [
             {
               "function": "last",
+              "dsType": "influxdb",
               "rawQuery": false,
               "groupByTags": [],
               "tags": [
@@ -1526,15 +2124,39 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "merge(/openstack.glance.snapshots.public.active$/)",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "last",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "openstack_glance_snapshots",
+              "query": "SELECT last(\"value\") FROM \"openstack_glance_snapshots\" WHERE \"visibility\" = 'public' AND \"state\" = 'active' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "last"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "null"
+                  ]
                 }
               ],
-              "series": "merge(/openstack.glance.snapshots.public.active$/)",
-              "measurement": "openstack_glance_snapshots",
-              "query": "SELECT last(value) FROM \"openstack_glance_snapshots\" WHERE \"visibility\" = 'public' AND \"state\" = 'active' AND $timeFilter GROUP BY time($interval)",
+              "resultFormat": "time_series",
               "fill": ""
             }
           ],
@@ -1563,6 +2185,7 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
+          "datasource": null,
           "error": false,
           "nullText": null,
           "postfixFontSize": "50%",
@@ -1583,6 +2206,7 @@
           "targets": [
             {
               "function": "last",
+              "dsType": "influxdb",
               "rawQuery": false,
               "groupByTags": [],
               "tags": [
@@ -1597,15 +2221,39 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "merge(/openstack.glance.snapshots.private.active$/)",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "last",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "openstack_glance_snapshots",
+              "query": "SELECT last(\"value\") FROM \"openstack_glance_snapshots\" WHERE \"visibility\" = 'private' AND \"state\" = 'active' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "last"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "null"
+                  ]
                 }
               ],
-              "series": "merge(/openstack.glance.snapshots.private.active$/)",
-              "measurement": "openstack_glance_snapshots",
-              "query": "SELECT last(value) FROM \"openstack_glance_snapshots\" WHERE \"visibility\" = 'private' AND \"state\" = 'active' AND $timeFilter GROUP BY time($interval)",
+              "resultFormat": "time_series",
               "fill": ""
             }
           ],
@@ -1634,6 +2282,7 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
+          "datasource": null,
           "error": false,
           "nullText": null,
           "postfixFontSize": "50%",
@@ -1668,6 +2317,7 @@
           "targets": [
             {
               "function": "last",
+              "dsType": "influxdb",
               "groupByTags": [],
               "tags": [
                 {
@@ -1676,20 +2326,44 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "merge(/openstack.glance.snapshots.public.active$/)",
+              "refId": "A",
+              "alias": "public",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "last",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "openstack_glance_snapshots",
+              "query": "SELECT last(\"value\") FROM \"openstack_glance_snapshots\" WHERE \"visibility\" = 'public' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "last"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "alias": "public",
-              "series": "merge(/openstack.glance.snapshots.public.active$/)",
-              "measurement": "openstack_glance_snapshots",
-              "query": "SELECT last(value) FROM \"openstack_glance_snapshots\" WHERE \"visibility\" = 'public' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "fill": "0"
+              "resultFormat": "time_series"
             },
             {
               "function": "last",
+              "dsType": "influxdb",
               "target": "",
               "groupByTags": [],
               "tags": [
@@ -1699,17 +2373,40 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "merge(/openstack.glance.snapshots.private.active$/)",
+              "refId": "B",
+              "alias": "private",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "last",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "openstack_glance_snapshots",
+              "query": "SELECT last(\"value\") FROM \"openstack_glance_snapshots\" WHERE \"visibility\" = 'private' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "last"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "alias": "private",
-              "series": "merge(/openstack.glance.snapshots.private.active$/)",
-              "measurement": "openstack_glance_snapshots",
-              "query": "SELECT last(value) FROM \"openstack_glance_snapshots\" WHERE \"visibility\" = 'private' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "fill": "0"
+              "resultFormat": "time_series"
             }
           ],
           "seriesOverrides": [],
@@ -1759,6 +2456,7 @@
           "targets": [
             {
               "function": "last",
+              "dsType": "influxdb",
               "rawQuery": false,
               "groupByTags": [],
               "tags": [
@@ -1773,15 +2471,39 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "merge(/openstack.glance.snapshots_size.public.active$/)",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "last",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "openstack_glance_snapshots_size",
+              "query": "SELECT last(\"value\") FROM \"openstack_glance_snapshots_size\" WHERE \"state\" = 'active' AND \"visibility\" = 'public' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "last"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "null"
+                  ]
                 }
               ],
-              "series": "merge(/openstack.glance.snapshots_size.public.active$/)",
-              "measurement": "openstack_glance_snapshots_size",
-              "query": "SELECT last(value) FROM \"openstack_glance_snapshots_size\" WHERE \"state\" = 'active' AND \"visibility\" = 'public' AND $timeFilter GROUP BY time($interval)",
+              "resultFormat": "time_series",
               "fill": ""
             }
           ],
@@ -1810,6 +2532,7 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
+          "datasource": null,
           "error": false,
           "nullText": null,
           "postfixFontSize": "50%",
@@ -1830,6 +2553,7 @@
           "targets": [
             {
               "function": "last",
+              "dsType": "influxdb",
               "rawQuery": false,
               "groupByTags": [],
               "tags": [
@@ -1844,15 +2568,39 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "merge(/openstack.glance.snapshots_size.private.active$/)",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "last",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "openstack_glance_snapshots_size",
+              "query": "SELECT last(\"value\") FROM \"openstack_glance_snapshots_size\" WHERE \"state\" = 'active' AND \"visibility\" = 'private' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "last"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "null"
+                  ]
                 }
               ],
-              "series": "merge(/openstack.glance.snapshots_size.private.active$/)",
-              "measurement": "openstack_glance_snapshots_size",
-              "query": "SELECT last(value) FROM \"openstack_glance_snapshots_size\" WHERE \"state\" = 'active' AND \"visibility\" = 'private' AND $timeFilter GROUP BY time($interval)",
+              "resultFormat": "time_series",
               "fill": ""
             }
           ],
@@ -1881,6 +2629,7 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
+          "datasource": null,
           "error": false,
           "nullText": null,
           "postfixFontSize": "50%",
@@ -1915,6 +2664,7 @@
           "targets": [
             {
               "function": "last",
+              "dsType": "influxdb",
               "groupByTags": [],
               "tags": [
                 {
@@ -1928,20 +2678,44 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "merge(/openstack.glance.snapshots_size.public.active$/)",
+              "refId": "A",
+              "alias": "public",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "last",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "openstack_glance_snapshots_size",
+              "query": "SELECT last(\"value\") FROM \"openstack_glance_snapshots_size\" WHERE \"state\" = 'active' AND \"visibility\" = 'public' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "last"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "alias": "public",
-              "series": "merge(/openstack.glance.snapshots_size.public.active$/)",
-              "measurement": "openstack_glance_snapshots_size",
-              "query": "SELECT last(value) FROM \"openstack_glance_snapshots_size\" WHERE \"state\" = 'active' AND \"visibility\" = 'public' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "fill": "0"
+              "resultFormat": "time_series"
             },
             {
               "function": "last",
+              "dsType": "influxdb",
               "target": "",
               "groupByTags": [],
               "tags": [
@@ -1956,17 +2730,40 @@
                 }
               ],
               "column": "value",
-              "fields": [
+              "series": "merge(/openstack.glance.snapshots_size.private.active$/)",
+              "refId": "B",
+              "alias": "private",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "last",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "openstack_glance_snapshots_size",
+              "query": "SELECT last(\"value\") FROM \"openstack_glance_snapshots_size\" WHERE \"state\" = 'active' AND \"visibility\" = 'private' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "groupBy": [
                 {
-                  "name": "value",
-                  "func": "last"
+                  "type": "time",
+                  "params": [
+                    "$interval"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "alias": "private",
-              "series": "merge(/openstack.glance.snapshots_size.private.active$/)",
-              "measurement": "openstack_glance_snapshots_size",
-              "query": "SELECT last(value) FROM \"openstack_glance_snapshots_size\" WHERE \"state\" = 'active' AND \"visibility\" = 'private' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "fill": "0"
+              "resultFormat": "time_series"
             }
           ],
           "seriesOverrides": [],
@@ -2030,47 +2827,44 @@
   "refresh": "1m",
   "id": null,
   "originalTitle": "Glance",
-  "version": 3,
-  "nav": [
-    {
-      "status": "Stable",
-      "notice": false,
-      "enable": true,
-      "collapse": false,
-      "time_options": [
-        "5m",
-        "15m",
-        "1h",
-        "6h",
-        "12h",
-        "24h",
-        "2d",
-        "7d",
-        "30d"
-      ],
-      "refresh_intervals": [
-        "5s",
-        "10s",
-        "30s",
-        "1m",
-        "5m",
-        "15m",
-        "30m",
-        "1h",
-        "2h",
-        "1d"
-      ],
-      "now": true,
-      "type": "timepicker"
-    }
-  ],
+  "timepicker": {
+    "status": "Stable",
+    "notice": false,
+    "enable": true,
+    "collapse": false,
+    "time_options": [
+      "5m",
+      "15m",
+      "1h",
+      "6h",
+      "12h",
+      "24h",
+      "2d",
+      "7d",
+      "30d"
+    ],
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ],
+    "now": true,
+    "type": "timepicker"
+  },
   "sharedCrosshair": true,
   "time": {
     "to": "now",
     "from": "now-1h"
   },
   "timezone": "browser",
-  "schemaVersion": 6,
+  "schemaVersion": 8,
   "annotations": {
     "enable": true,
     "list": [

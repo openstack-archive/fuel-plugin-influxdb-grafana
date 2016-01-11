@@ -34,6 +34,7 @@
           "targets": [
             {
               "function": "mean",
+              "dsType": "influxdb",
               "rawQuery": false,
               "tags": [
                 {
@@ -47,24 +48,40 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "mean"
-                }
-              ],
+              "series": "/$osd.osd.op_wip/",
               "refId": "A",
               "alias": "",
-              "series": "/$osd.osd.op_wip/",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "ceph_perf_osd_op_wip",
-              "query": "SELECT mean(\"value\") AS \"value\" FROM \"ceph_perf_osd_op_wip\" WHERE \"cluster\" =~ /$cluster/ AND \"osd\" =~ /$osd/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") FROM \"ceph_perf_osd_op_wip\" WHERE \"cluster\" =~ /$cluster/ AND \"osd\" =~ /$osd/ AND $timeFilter GROUP BY time($interval) fill(0)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "fill": "0"
+              "resultFormat": "time_series"
             }
           ],
           "leftYAxisLabel": "ops/s",
@@ -128,6 +145,7 @@
           "targets": [
             {
               "function": "derivative",
+              "dsType": "influxdb",
               "rawQuery": true,
               "tags": [
                 {
@@ -143,24 +161,35 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "first(value),1s",
-                  "func": "derivative"
-                }
-              ],
+              "series": "/$osd.osd.op$/",
               "refId": "A",
               "alias": "op",
-              "series": "/$osd.osd.op$/",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "ceph_perf_osd_op",
               "query": "SELECT derivative(first(value),1s) FROM \"ceph_perf_osd_op\" WHERE \"cluster\" =~ /$cluster/ AND \"osd\" =~ /$osd/ AND $timeFilter GROUP BY time($interval) fill(0)",
               "groupBy": [
                 {
+                  "type": "time",
                   "interval": "auto",
-                  "type": "time"
+                  "params": [
+                    "auto"
+                  ]
                 }
               ],
-              "fill": "0"
+              "resultFormat": "time_series"
             }
           ],
           "leftYAxisLabel": "ops/s",
@@ -224,6 +253,7 @@
           "targets": [
             {
               "function": "derivative",
+              "dsType": "influxdb",
               "hide": false,
               "rawQuery": true,
               "tags": [
@@ -240,28 +270,40 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "first(value,1s)",
-                  "func": "derivative"
-                }
-              ],
+              "series": "/$osd.osd.op_in_bytes/",
               "interval": "",
               "refId": "A",
               "alias": "write",
-              "series": "/$osd.osd.op_in_bytes/",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "ceph_perf_osd_op_in_bytes",
               "query": "SELECT derivative(first(value),1s) FROM \"ceph_perf_osd_op_in_bytes\" WHERE \"cluster\" =~ /$cluster/ AND \"osd\" =~ /$osd/ AND $timeFilter GROUP BY time($interval) fill(0)",
               "groupBy": [
                 {
+                  "type": "time",
                   "interval": "auto",
-                  "type": "time"
+                  "params": [
+                    "auto"
+                  ]
                 }
               ],
-              "fill": "0"
+              "resultFormat": "time_series"
             },
             {
               "function": "derivative",
+              "dsType": "influxdb",
               "rawQuery": true,
               "tags": [
                 {
@@ -277,25 +319,36 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "first(value),1s",
-                  "func": "derivative"
-                }
-              ],
+              "series": "/$osd.osd.op_out_bytes/",
               "interval": "",
               "refId": "B",
               "alias": "read",
-              "series": "/$osd.osd.op_out_bytes/",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "ceph_perf_osd_op_out_bytes",
               "query": "SELECT derivative(first(value),1s) FROM \"ceph_perf_osd_op_out_bytes\" WHERE \"cluster\" =~ /$cluster/ AND \"osd\" =~ /$osd/ AND $timeFilter GROUP BY time($interval) fill(0)",
               "groupBy": [
                 {
+                  "type": "time",
                   "interval": "auto",
-                  "type": "time"
+                  "params": [
+                    "auto"
+                  ]
                 }
               ],
-              "fill": "0"
+              "resultFormat": "time_series"
             }
           ],
           "leftYAxisLabel": "",
@@ -359,6 +412,7 @@
           "targets": [
             {
               "function": "derivative",
+              "dsType": "influxdb",
               "tags": [
                 {
                   "value": "/$cluster/",
@@ -371,24 +425,40 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "mean"
-                }
-              ],
+              "series": "/$osd.osd.op_latency$/",
               "refId": "A",
               "alias": "latency",
-              "series": "/$osd.osd.op_latency$/",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "ceph_perf_osd_op_latency",
-              "query": "SELECT mean(\"value\") AS \"value\" FROM \"ceph_perf_osd_op_latency\" WHERE \"cluster\" =~ /$cluster/ AND \"osd\" =~ /$osd/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") FROM \"ceph_perf_osd_op_latency\" WHERE \"cluster\" =~ /$cluster/ AND \"osd\" =~ /$osd/ AND $timeFilter GROUP BY time($interval) fill(0)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "fill": "0"
+              "resultFormat": "time_series"
             }
           ],
           "leftYAxisLabel": "",
@@ -460,6 +530,7 @@
           "targets": [
             {
               "function": "derivative",
+              "dsType": "influxdb",
               "rawQuery": true,
               "tags": [
                 {
@@ -475,28 +546,40 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "first(value),1s",
-                  "func": "derivative"
-                }
-              ],
+              "series": "/$osd.osd.op_r_out_bytes$/",
               "interval": "",
               "refId": "A",
               "alias": "throughput",
-              "series": "/$osd.osd.op_r_out_bytes$/",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "ceph_perf_osd_op_r_out_bytes",
               "query": "SELECT derivative(first(value),1s) FROM \"ceph_perf_osd_op_r_out_bytes\" WHERE \"cluster\" =~ /$cluster/ AND \"osd\" =~ /$osd/ AND $timeFilter GROUP BY time($interval) fill(0)",
               "groupBy": [
                 {
+                  "type": "time",
                   "interval": "auto",
-                  "type": "time"
+                  "params": [
+                    "auto"
+                  ]
                 }
               ],
-              "fill": "0"
+              "resultFormat": "time_series"
             },
             {
               "function": "derivative",
+              "dsType": "influxdb",
               "rawQuery": true,
               "tags": [
                 {
@@ -512,25 +595,36 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "first(value),1s",
-                  "func": "derivative"
-                }
-              ],
+              "series": "/$osd.osd.op_r$/",
               "interval": "",
               "refId": "B",
               "alias": "ops/s",
-              "series": "/$osd.osd.op_r$/",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "ceph_perf_osd_op_r",
               "query": "SELECT derivative(first(value),1s) FROM \"ceph_perf_osd_op_r\" WHERE \"cluster\" =~ /$cluster/ AND \"osd\" =~ /$osd/ AND $timeFilter GROUP BY time($interval) fill(0)",
               "groupBy": [
                 {
+                  "type": "time",
                   "interval": "auto",
-                  "type": "time"
+                  "params": [
+                    "auto"
+                  ]
                 }
               ],
-              "fill": "0"
+              "resultFormat": "time_series"
             }
           ],
           "leftYAxisLabel": "ops/s",
@@ -599,6 +693,7 @@
           "targets": [
             {
               "function": "derivative",
+              "dsType": "influxdb",
               "tags": [
                 {
                   "value": "ceph",
@@ -611,47 +706,80 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "mean"
-                }
-              ],
+              "series": "/$osd.osd.op_r_latency$/",
               "refId": "A",
               "alias": "latency",
-              "series": "/$osd.osd.op_r_latency$/",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "ceph_perf_osd_op_r_latency",
-              "query": "SELECT mean(\"value\") AS \"value\" FROM \"ceph_perf_osd_op_r_latency\" WHERE \"cluster\" = 'ceph' AND \"osd\" =~ /$osd/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") FROM \"ceph_perf_osd_op_r_latency\" WHERE \"cluster\" = 'ceph' AND \"osd\" =~ /$osd/ AND $timeFilter GROUP BY time($interval) fill(0)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "fill": "0"
+              "resultFormat": "time_series"
             },
             {
               "function": "derivative",
+              "dsType": "influxdb",
               "tags": [],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "mean"
-                }
-              ],
+              "series": "/$osd.osd.op_r_process_latency$/",
               "refId": "B",
               "alias": "process_latency",
-              "series": "/$osd.osd.op_r_process_latency$/",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "ceph_perf_osd_op_r_process_latency",
-              "query": "SELECT mean(\"value\") AS \"value\" FROM \"ceph_perf_osd_op_r_process_latency\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") FROM \"ceph_perf_osd_op_r_process_latency\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "fill": "0"
+              "resultFormat": "time_series"
             }
           ],
           "leftYAxisLabel": "",
@@ -723,6 +851,7 @@
           "targets": [
             {
               "function": "derivative",
+              "dsType": "influxdb",
               "rawQuery": true,
               "tags": [
                 {
@@ -738,27 +867,39 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "first(value,1s)",
-                  "func": "derivative"
-                }
-              ],
+              "series": "/$osd.osd.op_w_in_bytes$/",
               "refId": "A",
               "alias": "throughput",
-              "series": "/$osd.osd.op_w_in_bytes$/",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "ceph_perf_osd_op_w_in_bytes",
               "query": "SELECT derivative(first(value),1s) FROM \"ceph_perf_osd_op_w_in_bytes\" WHERE \"cluster\" =~ /$cluster/ AND \"osd\" =~ /$osd/ AND $timeFilter GROUP BY time($interval) fill(0)",
               "groupBy": [
                 {
+                  "type": "time",
                   "interval": "auto",
-                  "type": "time"
+                  "params": [
+                    "auto"
+                  ]
                 }
               ],
-              "fill": "0"
+              "resultFormat": "time_series"
             },
             {
               "function": "derivative",
+              "dsType": "influxdb",
               "rawQuery": true,
               "tags": [
                 {
@@ -774,27 +915,39 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "first(value),1s",
-                  "func": "derivative"
-                }
-              ],
+              "series": "/$osd.osd.op_w_in_bytes$/",
               "refId": "B",
               "alias": "ops/s",
-              "series": "/$osd.osd.op_w_in_bytes$/",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "ceph_perf_osd_op_w",
               "query": "SELECT derivative(first(value),1s) FROM \"ceph_perf_osd_op_w\" WHERE \"cluster\" =~ /$cluster/ AND \"osd\" =~ /$osd/ AND $timeFilter GROUP BY time($interval) fill(0)",
               "groupBy": [
                 {
+                  "type": "time",
                   "interval": "auto",
-                  "type": "time"
+                  "params": [
+                    "auto"
+                  ]
                 }
               ],
-              "fill": "0"
+              "resultFormat": "time_series"
             },
             {
               "function": "derivative",
+              "dsType": "influxdb",
               "rawQuery": true,
               "tags": [
                 {
@@ -810,24 +963,35 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "first(value),1s",
-                  "func": "derivative"
-                }
-              ],
+              "series": "/$osd.osd.op_w_in_bytes$/",
               "refId": "C",
               "alias": "ops rlat/s",
-              "series": "/$osd.osd.op_w_in_bytes$/",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "ceph_perf_osd_op_w_rlat",
               "query": "SELECT derivative(first(value),1s) FROM \"ceph_perf_osd_op_w_rlat\" WHERE \"cluster\" =~ /$cluster/ AND \"osd\" =~ /$osd/ AND $timeFilter GROUP BY time($interval) fill(0)",
               "groupBy": [
                 {
+                  "type": "time",
                   "interval": "auto",
-                  "type": "time"
+                  "params": [
+                    "auto"
+                  ]
                 }
               ],
-              "fill": "0"
+              "resultFormat": "time_series"
             }
           ],
           "leftYAxisLabel": "ops/s",
@@ -896,6 +1060,7 @@
           "targets": [
             {
               "function": "derivative",
+              "dsType": "influxdb",
               "tags": [
                 {
                   "value": "/$cluster/",
@@ -908,27 +1073,44 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "mean"
-                }
-              ],
+              "series": "/$osd.osd.op_w_latency$/",
               "refId": "A",
               "alias": "latency",
-              "series": "/$osd.osd.op_w_latency$/",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "ceph_perf_osd_op_w_latency",
-              "query": "SELECT mean(\"value\") AS \"value\" FROM \"ceph_perf_osd_op_w_latency\" WHERE \"cluster\" =~ /$cluster/ AND \"osd\" =~ /$osd/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") FROM \"ceph_perf_osd_op_w_latency\" WHERE \"cluster\" =~ /$cluster/ AND \"osd\" =~ /$osd/ AND $timeFilter GROUP BY time($interval) fill(0)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "fill": "0"
+              "resultFormat": "time_series"
             },
             {
               "function": "derivative",
+              "dsType": "influxdb",
               "tags": [
                 {
                   "value": "/$cluster/",
@@ -941,24 +1123,40 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "mean"
-                }
-              ],
+              "series": "/$osd.osd.op_w_process_latency$/",
               "refId": "B",
               "alias": "process_latency",
-              "series": "/$osd.osd.op_w_process_latency$/",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "ceph_perf_osd_op_w_process_latency",
-              "query": "SELECT mean(\"value\") AS \"value\" FROM \"ceph_perf_osd_op_w_process_latency\" WHERE \"cluster\" =~ /$cluster/ AND \"osd\" =~ /$osd/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") FROM \"ceph_perf_osd_op_w_process_latency\" WHERE \"cluster\" =~ /$cluster/ AND \"osd\" =~ /$osd/ AND $timeFilter GROUP BY time($interval) fill(0)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "fill": "0"
+              "resultFormat": "time_series"
             }
           ],
           "leftYAxisLabel": "",
@@ -1030,6 +1228,7 @@
           "targets": [
             {
               "function": "derivative",
+              "dsType": "influxdb",
               "rawQuery": true,
               "tags": [
                 {
@@ -1045,27 +1244,39 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "first(value),1s",
-                  "func": "derivative"
-                }
-              ],
+              "series": "/$osd.osd.op_rw_in_bytes$/",
               "refId": "A",
               "alias": "throughput",
-              "series": "/$osd.osd.op_rw_in_bytes$/",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "ceph_perf_osd_op_rw_in_bytes",
               "query": "SELECT derivative(first(value),1s) FROM \"ceph_perf_osd_op_rw_in_bytes\" WHERE \"cluster\" =~ /$cluster/ AND \"osd\" =~ /$osd/ AND $timeFilter GROUP BY time($interval) fill(0)",
               "groupBy": [
                 {
+                  "type": "time",
                   "interval": "auto",
-                  "type": "time"
+                  "params": [
+                    "auto"
+                  ]
                 }
               ],
-              "fill": "0"
+              "resultFormat": "time_series"
             },
             {
               "function": "derivative",
+              "dsType": "influxdb",
               "rawQuery": true,
               "tags": [
                 {
@@ -1081,27 +1292,39 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "first(value),1s",
-                  "func": "derivative"
-                }
-              ],
+              "series": "/$osd.osd.op_rw$/",
               "refId": "B",
               "alias": "ops/s",
-              "series": "/$osd.osd.op_rw$/",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "ceph_perf_osd_op_rw",
               "query": "SELECT derivative(first(value),1s) FROM \"ceph_perf_osd_op_rw\" WHERE \"cluster\" =~ /$cluster/ AND \"osd\" =~ /$osd/ AND $timeFilter GROUP BY time($interval) fill(0)",
               "groupBy": [
                 {
+                  "type": "time",
                   "interval": "auto",
-                  "type": "time"
+                  "params": [
+                    "auto"
+                  ]
                 }
               ],
-              "fill": "0"
+              "resultFormat": "time_series"
             },
             {
               "function": "derivative",
+              "dsType": "influxdb",
               "rawQuery": true,
               "tags": [
                 {
@@ -1117,24 +1340,35 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "first(value),1s",
-                  "func": "derivative"
-                }
-              ],
+              "series": "/$osd.osd.op_rw_rlat$/",
               "refId": "C",
               "alias": "ops rlat/s",
-              "series": "/$osd.osd.op_rw_rlat$/",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "ceph_perf_osd_op_rw_rlat",
               "query": "SELECT derivative(first(value),1s) FROM \"ceph_perf_osd_op_rw_rlat\" WHERE \"cluster\" =~ /$cluster/ AND \"osd\" =~ /$osd/ AND $timeFilter GROUP BY time($interval) fill(0)",
               "groupBy": [
                 {
+                  "type": "time",
                   "interval": "auto",
-                  "type": "time"
+                  "params": [
+                    "auto"
+                  ]
                 }
               ],
-              "fill": "0"
+              "resultFormat": "time_series"
             }
           ],
           "leftYAxisLabel": "op/s",
@@ -1203,6 +1437,7 @@
           "targets": [
             {
               "function": "derivative",
+              "dsType": "influxdb",
               "tags": [
                 {
                   "value": "/$cluster/",
@@ -1215,27 +1450,44 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "mean"
-                }
-              ],
+              "series": "/$osd.osd.op_rw_latency$/",
               "refId": "A",
               "alias": "latency",
-              "series": "/$osd.osd.op_rw_latency$/",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "ceph_perf_osd_op_rw_latency",
-              "query": "SELECT mean(\"value\") AS \"value\" FROM \"ceph_perf_osd_op_rw_latency\" WHERE \"cluster\" =~ /$cluster/ AND \"osd\" =~ /$osd/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") FROM \"ceph_perf_osd_op_rw_latency\" WHERE \"cluster\" =~ /$cluster/ AND \"osd\" =~ /$osd/ AND $timeFilter GROUP BY time($interval) fill(0)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "fill": "0"
+              "resultFormat": "time_series"
             },
             {
               "function": "derivative",
+              "dsType": "influxdb",
               "tags": [
                 {
                   "value": "/$cluster/",
@@ -1248,24 +1500,40 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "mean"
-                }
-              ],
+              "series": "/$osd.osd.op_rw_process_latency$/",
               "refId": "B",
               "alias": "process_latency",
-              "series": "/$osd.osd.op_rw_process_latency$/",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "ceph_perf_osd_op_rw_process_latency",
-              "query": "SELECT mean(\"value\") AS \"value\" FROM \"ceph_perf_osd_op_rw_process_latency\" WHERE \"cluster\" =~ /$cluster/ AND \"osd\" =~ /$osd/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") FROM \"ceph_perf_osd_op_rw_process_latency\" WHERE \"cluster\" =~ /$cluster/ AND \"osd\" =~ /$osd/ AND $timeFilter GROUP BY time($interval) fill(0)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "fill": "0"
+              "resultFormat": "time_series"
             }
           ],
           "leftYAxisLabel": "",
@@ -1337,6 +1605,7 @@
           "targets": [
             {
               "function": "mean",
+              "dsType": "influxdb",
               "tags": [
                 {
                   "value": "/$cluster/",
@@ -1349,23 +1618,39 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "mean"
-                }
-              ],
-              "refId": "A",
               "series": "/$osd.*osd.recovery_ops/",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "ceph_perf_osd_recovery_ops",
-              "query": "SELECT mean(\"value\") AS \"value\" FROM \"ceph_perf_osd_recovery_ops\" WHERE \"cluster\" =~ /$cluster/ AND \"osd\" =~ /$osd/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") FROM \"ceph_perf_osd_recovery_ops\" WHERE \"cluster\" =~ /$cluster/ AND \"osd\" =~ /$osd/ AND $timeFilter GROUP BY time($interval) fill(0)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "fill": "0"
+              "resultFormat": "time_series"
             }
           ],
           "leftYAxisLabel": "operations",
@@ -1482,7 +1767,7 @@
     "from": "now-1h"
   },
   "timezone": "browser",
-  "schemaVersion": 7,
+  "schemaVersion": 8,
   "annotations": {
     "list": []
   }

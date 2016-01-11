@@ -48,6 +48,7 @@
           "targets": [
             {
               "function": "last",
+              "dsType": "influxdb",
               "groupby_field": "",
               "rawQuery": false,
               "tags": [
@@ -58,21 +59,32 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "last"
-                }
-              ],
+              "series": "merge(/openstack.cinder.status/)",
               "interval": "",
               "refId": "A",
-              "series": "merge(/openstack.cinder.status/)",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "last",
+                    "params": []
+                  }
+                ]
+              ],
+              "resultFormat": "time_series",
               "measurement": "cluster_status",
-              "query": "SELECT last(\"value\") AS \"value\" FROM \"cluster_status\" WHERE \"cluster_name\" = 'cinder' AND $timeFilter GROUP BY time($interval)",
+              "query": "SELECT last(\"value\") FROM \"cluster_status\" WHERE \"cluster_name\" = 'cinder' AND $timeFilter GROUP BY time($interval)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
                 }
               ],
               "condition": "",
@@ -125,6 +137,7 @@
           "targets": [
             {
               "function": "count",
+              "dsType": "influxdb",
               "groupby_field": "",
               "rawQuery": false,
               "tags": [
@@ -139,21 +152,32 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "count"
-                }
-              ],
+              "series": "merge(/$server.openstack.cinder.http.*.5\\d\\d/)",
               "interval": "",
               "refId": "A",
-              "series": "merge(/$server.openstack.cinder.http.*.5\\d\\d/)",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "count",
+                    "params": []
+                  }
+                ]
+              ],
+              "resultFormat": "time_series",
               "measurement": "openstack_cinder_http_responses",
-              "query": "SELECT count(\"value\") AS \"value\" FROM \"openstack_cinder_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^5/ AND $timeFilter GROUP BY time($interval)",
+              "query": "SELECT count(\"value\") FROM \"openstack_cinder_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^5/ AND $timeFilter GROUP BY time($interval)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
                 }
               ],
               "condition": "",
@@ -221,6 +245,7 @@
           "targets": [
             {
               "function": "mean",
+              "dsType": "influxdb",
               "tags": [
                 {
                   "value": "/$server/",
@@ -233,28 +258,45 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "mean"
-                }
-              ],
+              "series": "merge(/$server.openstack.cinder.http.GET.*/)",
               "interval": "",
               "refId": "A",
               "alias": "GET",
-              "series": "merge(/$server.openstack.cinder.http.GET.*/)",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "openstack_cinder_http_responses",
-              "query": "SELECT mean(\"value\") AS \"value\" FROM \"openstack_cinder_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_method\" = 'GET' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") FROM \"openstack_cinder_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_method\" = 'GET' AND $timeFilter GROUP BY time($interval) fill(0)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "fill": "0"
+              "resultFormat": "time_series"
             },
             {
               "function": "mean",
+              "dsType": "influxdb",
               "tags": [
                 {
                   "value": "/$server/",
@@ -267,28 +309,45 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "mean"
-                }
-              ],
+              "series": "merge(/$server.openstack.cinder.http.POST.*/)",
               "interval": "",
               "refId": "B",
               "alias": "POST",
-              "series": "merge(/$server.openstack.cinder.http.POST.*/)",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "openstack_cinder_http_responses",
-              "query": "SELECT mean(\"value\") AS \"value\" FROM \"openstack_cinder_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_method\" = 'POST' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") FROM \"openstack_cinder_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_method\" = 'POST' AND $timeFilter GROUP BY time($interval) fill(0)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "fill": "0"
+              "resultFormat": "time_series"
             },
             {
               "function": "mean",
+              "dsType": "influxdb",
               "tags": [
                 {
                   "value": "/$server/",
@@ -301,28 +360,45 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "mean"
-                }
-              ],
+              "series": "merge(/$server.openstack.cinder.http.PUT.*/)",
               "interval": "",
               "refId": "C",
               "alias": "PUT",
-              "series": "merge(/$server.openstack.cinder.http.PUT.*/)",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "openstack_cinder_http_responses",
-              "query": "SELECT mean(\"value\") AS \"value\" FROM \"openstack_cinder_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_method\" = 'PUT' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") FROM \"openstack_cinder_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_method\" = 'PUT' AND $timeFilter GROUP BY time($interval) fill(0)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "fill": "0"
+              "resultFormat": "time_series"
             },
             {
               "function": "mean",
+              "dsType": "influxdb",
               "tags": [
                 {
                   "value": "/$server/",
@@ -335,25 +411,41 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "mean"
-                }
-              ],
+              "series": "merge(/$server.openstack.cinder.http.DELETE.*/)",
               "interval": "",
               "refId": "D",
               "alias": "DELETE",
-              "series": "merge(/$server.openstack.cinder.http.DELETE.*/)",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "openstack_cinder_http_responses",
-              "query": "SELECT mean(\"value\") AS \"value\" FROM \"openstack_cinder_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_method\" = 'DELETE' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") FROM \"openstack_cinder_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_method\" = 'DELETE' AND $timeFilter GROUP BY time($interval) fill(0)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "fill": "0"
+              "resultFormat": "time_series"
             }
           ],
           "seriesOverrides": [],
@@ -416,6 +508,7 @@
           "targets": [
             {
               "function": "last",
+              "dsType": "influxdb",
               "tags": [
                 {
                   "operator": "=",
@@ -424,24 +517,40 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "last"
-                }
-              ],
+              "series": "merge(/openstack.cinder.check_api/)",
               "refId": "A",
               "alias": "healthy",
-              "series": "merge(/openstack.cinder.check_api/)",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "last",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "openstack_check_api",
-              "query": "SELECT last(\"value\") AS \"value\" FROM \"openstack_check_api\" WHERE \"service\" = 'cinder-api' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT last(\"value\") FROM \"openstack_check_api\" WHERE \"service\" = 'cinder-api' AND $timeFilter GROUP BY time($interval) fill(0)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "fill": "0"
+              "resultFormat": "time_series"
             }
           ],
           "leftYAxisLabel": "",
@@ -509,6 +618,7 @@
           "targets": [
             {
               "function": "count",
+              "dsType": "influxdb",
               "rawQuery": false,
               "tags": [
                 {
@@ -522,28 +632,45 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "count"
-                }
-              ],
+              "series": "merge(/$server.openstack.cinder.http.*.2\\d\\d/)",
               "interval": "",
               "refId": "A",
               "alias": "2xx",
-              "series": "merge(/$server.openstack.cinder.http.*.2\\d\\d/)",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "count",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "openstack_cinder_http_responses",
-              "query": "SELECT count(\"value\") AS \"value\" FROM \"openstack_cinder_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^2/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT count(\"value\") FROM \"openstack_cinder_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^2/ AND $timeFilter GROUP BY time($interval) fill(0)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "fill": "0"
+              "resultFormat": "time_series"
             },
             {
               "function": "count",
+              "dsType": "influxdb",
               "hide": false,
               "tags": [
                 {
@@ -557,28 +684,45 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "count"
-                }
-              ],
+              "series": "merge(/$server.openstack.cinder.http.*.1\\d\\d/)",
               "interval": "",
               "refId": "B",
               "alias": "1xx",
-              "series": "merge(/$server.openstack.cinder.http.*.1\\d\\d/)",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "count",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "openstack_cinder_http_responses",
-              "query": "SELECT count(\"value\") AS \"value\" FROM \"openstack_cinder_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^1/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT count(\"value\") FROM \"openstack_cinder_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^1/ AND $timeFilter GROUP BY time($interval) fill(0)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "fill": "0"
+              "resultFormat": "time_series"
             },
             {
               "function": "count",
+              "dsType": "influxdb",
               "hide": false,
               "tags": [
                 {
@@ -592,28 +736,45 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "count"
-                }
-              ],
+              "series": "merge(/$server.openstack.cinder.http.*.3\\d\\d/)",
               "interval": "",
               "refId": "C",
               "alias": "3xx",
-              "series": "merge(/$server.openstack.cinder.http.*.3\\d\\d/)",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "count",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "openstack_cinder_http_responses",
-              "query": "SELECT count(\"value\") AS \"value\" FROM \"openstack_cinder_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^3/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT count(\"value\") FROM \"openstack_cinder_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^3/ AND $timeFilter GROUP BY time($interval) fill(0)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "fill": "0"
+              "resultFormat": "time_series"
             },
             {
               "function": "count",
+              "dsType": "influxdb",
               "hide": false,
               "tags": [
                 {
@@ -627,28 +788,45 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "count"
-                }
-              ],
+              "series": "merge(/$server.openstack.cinder.http.*.4\\d\\d/)",
               "interval": "",
               "refId": "D",
               "alias": "4xx",
-              "series": "merge(/$server.openstack.cinder.http.*.4\\d\\d/)",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "count",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "openstack_cinder_http_responses",
-              "query": "SELECT count(\"value\") AS \"value\" FROM \"openstack_cinder_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^4/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT count(\"value\") FROM \"openstack_cinder_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^4/ AND $timeFilter GROUP BY time($interval) fill(0)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "fill": "0"
+              "resultFormat": "time_series"
             },
             {
               "function": "count",
+              "dsType": "influxdb",
               "hide": false,
               "tags": [
                 {
@@ -662,25 +840,41 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "count"
-                }
-              ],
+              "series": "merge(/$server.openstack.cinder.http.*.5\\d\\d/)",
               "interval": "",
               "refId": "E",
               "alias": "5xx",
-              "series": "merge(/$server.openstack.cinder.http.*.5\\d\\d/)",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "count",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "openstack_cinder_http_responses",
-              "query": "SELECT count(\"value\") AS \"value\" FROM \"openstack_cinder_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^5/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT count(\"value\") FROM \"openstack_cinder_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^5/ AND $timeFilter GROUP BY time($interval) fill(0)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "fill": "0"
+              "resultFormat": "time_series"
             }
           ],
           "seriesOverrides": [],
@@ -751,6 +945,7 @@
           "targets": [
             {
               "function": "mean",
+              "dsType": "influxdb",
               "rawQuery": false,
               "tags": [
                 {
@@ -764,22 +959,33 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "last"
-                }
-              ],
-              "refId": "A",
               "series": "merge(/haproxy.backend.cinder-api.servers.up/)",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "last",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "haproxy_backend_servers",
-              "query": "SELECT last(\"value\") AS \"value\" FROM \"haproxy_backend_servers\" WHERE \"backend\" = 'cinder-api' AND \"state\" = 'up' AND $timeFilter GROUP BY time($interval)",
+              "query": "SELECT last(\"value\") FROM \"haproxy_backend_servers\" WHERE \"backend\" = 'cinder-api' AND \"state\" = 'up' AND $timeFilter GROUP BY time($interval)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
                 }
-              ]
+              ],
+              "resultFormat": "time_series"
             }
           ],
           "maxDataPoints": 100,
@@ -852,6 +1058,7 @@
           "targets": [
             {
               "function": "last",
+              "dsType": "influxdb",
               "rawQuery": false,
               "tags": [
                 {
@@ -865,22 +1072,33 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "last"
-                }
-              ],
-              "refId": "A",
               "series": "merge(/haproxy.backend.cinder-api.servers.down/)",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "last",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "haproxy_backend_servers",
-              "query": "SELECT last(\"value\") AS \"value\" FROM \"haproxy_backend_servers\" WHERE \"backend\" = 'cinder-api' AND \"state\" = 'down' AND $timeFilter GROUP BY time($interval)",
+              "query": "SELECT last(\"value\") FROM \"haproxy_backend_servers\" WHERE \"backend\" = 'cinder-api' AND \"state\" = 'down' AND $timeFilter GROUP BY time($interval)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
                 }
-              ]
+              ],
+              "resultFormat": "time_series"
             }
           ],
           "maxDataPoints": 100,
@@ -962,6 +1180,7 @@
           "targets": [
             {
               "function": "last",
+              "dsType": "influxdb",
               "rawQuery": false,
               "tags": [
                 {
@@ -975,22 +1194,33 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "last"
-                }
-              ],
-              "refId": "A",
               "series": "merge(/openstack.cinder.services.scheduler.disabled/)",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "last",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "openstack_cinder_services",
-              "query": "SELECT last(\"value\") AS \"value\" FROM \"openstack_cinder_services\" WHERE \"service\" = 'scheduler' AND \"state\" = 'disabled' AND $timeFilter GROUP BY time($interval)",
+              "query": "SELECT last(\"value\") FROM \"openstack_cinder_services\" WHERE \"service\" = 'scheduler' AND \"state\" = 'disabled' AND $timeFilter GROUP BY time($interval)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
                 }
               ],
+              "resultFormat": "time_series",
               "fill": ""
             }
           ],
@@ -1040,6 +1270,7 @@
           "targets": [
             {
               "function": "last",
+              "dsType": "influxdb",
               "rawQuery": false,
               "tags": [
                 {
@@ -1053,22 +1284,33 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "last"
-                }
-              ],
-              "refId": "A",
               "series": "merge(/openstack.cinder.services.volume.disabled/)",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "last",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "openstack_cinder_services",
-              "query": "SELECT last(\"value\") AS \"value\" FROM \"openstack_cinder_services\" WHERE \"service\" = 'volume' AND \"state\" = 'disabled' AND $timeFilter GROUP BY time($interval)",
+              "query": "SELECT last(\"value\") FROM \"openstack_cinder_services\" WHERE \"service\" = 'volume' AND \"state\" = 'disabled' AND $timeFilter GROUP BY time($interval)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
                 }
               ],
+              "resultFormat": "time_series",
               "fill": ""
             }
           ],
@@ -1118,6 +1360,7 @@
           "targets": [
             {
               "function": "last",
+              "dsType": "influxdb",
               "rawQuery": false,
               "tags": [
                 {
@@ -1131,22 +1374,33 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "last"
-                }
-              ],
-              "refId": "A",
               "series": "merge(/openstack.cinder.services.scheduler.disabled/)",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "last",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "openstack_cinder_services",
-              "query": "SELECT last(\"value\") AS \"value\" FROM \"openstack_cinder_services\" WHERE \"service\" = 'backup' AND \"state\" = 'disabled' AND $timeFilter GROUP BY time($interval)",
+              "query": "SELECT last(\"value\") FROM \"openstack_cinder_services\" WHERE \"service\" = 'backup' AND \"state\" = 'disabled' AND $timeFilter GROUP BY time($interval)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
                 }
               ],
+              "resultFormat": "time_series",
               "fill": ""
             }
           ],
@@ -1220,6 +1474,7 @@
           "targets": [
             {
               "function": "last",
+              "dsType": "influxdb",
               "rawQuery": false,
               "tags": [
                 {
@@ -1233,22 +1488,33 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "last"
-                }
-              ],
-              "refId": "A",
               "series": "merge(/openstack.cinder.services.scheduler.disabled/)",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "last",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "openstack_cinder_services",
-              "query": "SELECT last(\"value\") AS \"value\" FROM \"openstack_cinder_services\" WHERE \"service\" = 'scheduler' AND \"state\" = 'up' AND $timeFilter GROUP BY time($interval)",
+              "query": "SELECT last(\"value\") FROM \"openstack_cinder_services\" WHERE \"service\" = 'scheduler' AND \"state\" = 'up' AND $timeFilter GROUP BY time($interval)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
                 }
               ],
+              "resultFormat": "time_series",
               "fill": ""
             }
           ],
@@ -1298,6 +1564,7 @@
           "targets": [
             {
               "function": "last",
+              "dsType": "influxdb",
               "rawQuery": false,
               "tags": [
                 {
@@ -1311,22 +1578,33 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "last"
-                }
-              ],
-              "refId": "A",
               "series": "merge(/openstack.cinder.services.volume.disabled/)",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "last",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "openstack_cinder_services",
-              "query": "SELECT last(\"value\") AS \"value\" FROM \"openstack_cinder_services\" WHERE \"service\" = 'volume' AND \"state\" = 'up' AND $timeFilter GROUP BY time($interval)",
+              "query": "SELECT last(\"value\") FROM \"openstack_cinder_services\" WHERE \"service\" = 'volume' AND \"state\" = 'up' AND $timeFilter GROUP BY time($interval)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
                 }
               ],
+              "resultFormat": "time_series",
               "fill": ""
             }
           ],
@@ -1376,6 +1654,7 @@
           "targets": [
             {
               "function": "last",
+              "dsType": "influxdb",
               "rawQuery": false,
               "tags": [
                 {
@@ -1389,22 +1668,33 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "last"
-                }
-              ],
-              "refId": "A",
               "series": "merge(/openstack.cinder.services.scheduler.disabled/)",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "last",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "openstack_cinder_services",
-              "query": "SELECT last(\"value\") AS \"value\" FROM \"openstack_cinder_services\" WHERE \"service\" = 'backup' AND \"state\" = 'up' AND $timeFilter GROUP BY time($interval)",
+              "query": "SELECT last(\"value\") FROM \"openstack_cinder_services\" WHERE \"service\" = 'backup' AND \"state\" = 'up' AND $timeFilter GROUP BY time($interval)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
                 }
               ],
+              "resultFormat": "time_series",
               "fill": ""
             }
           ],
@@ -1478,6 +1768,7 @@
           "targets": [
             {
               "function": "last",
+              "dsType": "influxdb",
               "rawQuery": false,
               "tags": [
                 {
@@ -1491,22 +1782,33 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "last"
-                }
-              ],
-              "refId": "A",
               "series": "merge(/openstack.cinder.services.scheduler.disabled/)",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "last",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "openstack_cinder_services",
-              "query": "SELECT last(\"value\") AS \"value\" FROM \"openstack_cinder_services\" WHERE \"service\" = 'scheduler' AND \"state\" = 'down' AND $timeFilter GROUP BY time($interval)",
+              "query": "SELECT last(\"value\") FROM \"openstack_cinder_services\" WHERE \"service\" = 'scheduler' AND \"state\" = 'down' AND $timeFilter GROUP BY time($interval)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
                 }
               ],
+              "resultFormat": "time_series",
               "fill": ""
             }
           ],
@@ -1556,6 +1858,7 @@
           "targets": [
             {
               "function": "last",
+              "dsType": "influxdb",
               "rawQuery": false,
               "tags": [
                 {
@@ -1569,22 +1872,33 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "last"
-                }
-              ],
-              "refId": "A",
               "series": "merge(/openstack.cinder.services.volume.disabled/)",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "last",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "openstack_cinder_services",
-              "query": "SELECT last(\"value\") AS \"value\" FROM \"openstack_cinder_services\" WHERE \"service\" = 'volume' AND \"state\" = 'down' AND $timeFilter GROUP BY time($interval)",
+              "query": "SELECT last(\"value\") FROM \"openstack_cinder_services\" WHERE \"service\" = 'volume' AND \"state\" = 'down' AND $timeFilter GROUP BY time($interval)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
                 }
               ],
+              "resultFormat": "time_series",
               "fill": ""
             }
           ],
@@ -1634,6 +1948,7 @@
           "targets": [
             {
               "function": "last",
+              "dsType": "influxdb",
               "rawQuery": false,
               "tags": [
                 {
@@ -1647,22 +1962,33 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "last"
-                }
-              ],
-              "refId": "A",
               "series": "merge(/openstack.cinder.services.scheduler.disabled/)",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "last",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "openstack_cinder_services",
-              "query": "SELECT last(\"value\") AS \"value\" FROM \"openstack_cinder_services\" WHERE \"service\" = 'backup' AND \"state\" = 'down' AND $timeFilter GROUP BY time($interval)",
+              "query": "SELECT last(\"value\") FROM \"openstack_cinder_services\" WHERE \"service\" = 'backup' AND \"state\" = 'down' AND $timeFilter GROUP BY time($interval)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
                 }
               ],
+              "resultFormat": "time_series",
               "fill": ""
             }
           ],
@@ -1733,6 +2059,7 @@
           "targets": [
             {
               "function": "last",
+              "dsType": "influxdb",
               "tags": [
                 {
                   "operator": "=",
@@ -1741,22 +2068,33 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "last"
-                }
-              ],
-              "refId": "A",
               "series": "merge(/openstack.cinder.volumes.available/)",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "last",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "openstack_cinder_volumes",
-              "query": "SELECT last(\"value\") AS \"value\" FROM \"openstack_cinder_volumes\" WHERE \"state\" = 'available' AND $timeFilter GROUP BY time($interval)",
+              "query": "SELECT last(\"value\") FROM \"openstack_cinder_volumes\" WHERE \"state\" = 'available' AND $timeFilter GROUP BY time($interval)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
                 }
-              ]
+              ],
+              "resultFormat": "time_series"
             }
           ],
           "maxDataPoints": 100,
@@ -1805,6 +2143,7 @@
           "targets": [
             {
               "function": "last",
+              "dsType": "influxdb",
               "tags": [
                 {
                   "operator": "=",
@@ -1813,22 +2152,33 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "last"
-                }
-              ],
-              "refId": "A",
               "series": "merge(/openstack.cinder.volumes.in-use/)",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "last",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "openstack_cinder_volumes",
-              "query": "SELECT last(\"value\") AS \"value\" FROM \"openstack_cinder_volumes\" WHERE \"state\" = 'in-use' AND $timeFilter GROUP BY time($interval)",
+              "query": "SELECT last(\"value\") FROM \"openstack_cinder_volumes\" WHERE \"state\" = 'in-use' AND $timeFilter GROUP BY time($interval)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
                 }
               ],
+              "resultFormat": "time_series",
               "fill": ""
             }
           ],
@@ -1878,6 +2228,7 @@
           "targets": [
             {
               "function": "last",
+              "dsType": "influxdb",
               "tags": [
                 {
                   "value": "error",
@@ -1885,22 +2236,33 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "last"
-                }
-              ],
-              "refId": "A",
               "series": "merge(/openstack.cinder.volumes.error/)",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "last",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "openstack_cinder_volumes",
-              "query": "SELECT last(\"value\") AS \"value\" FROM \"openstack_cinder_volumes\" WHERE \"state\" = 'error' AND $timeFilter GROUP BY time($interval)",
+              "query": "SELECT last(\"value\") FROM \"openstack_cinder_volumes\" WHERE \"state\" = 'error' AND $timeFilter GROUP BY time($interval)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
                 }
               ],
+              "resultFormat": "time_series",
               "fill": ""
             }
           ],
@@ -1964,6 +2326,7 @@
           "targets": [
             {
               "function": "max",
+              "dsType": "influxdb",
               "hide": false,
               "tags": [
                 {
@@ -1972,27 +2335,44 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "max"
-                }
-              ],
+              "series": "merge(/openstack.cinder.volumes.available/)",
               "refId": "A",
               "alias": "available",
-              "series": "merge(/openstack.cinder.volumes.available/)",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "max",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "openstack_cinder_volumes",
-              "query": "SELECT max(\"value\") AS \"value\" FROM \"openstack_cinder_volumes\" WHERE \"state\" = 'available' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT max(\"value\") FROM \"openstack_cinder_volumes\" WHERE \"state\" = 'available' AND $timeFilter GROUP BY time($interval) fill(0)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "fill": "0"
+              "resultFormat": "time_series"
             },
             {
               "function": "max",
+              "dsType": "influxdb",
               "target": "",
               "tags": [
                 {
@@ -2001,27 +2381,44 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "max"
-                }
-              ],
+              "series": "merge(/openstack.cinder.volumes.in-use/)",
               "refId": "B",
               "alias": "in-use",
-              "series": "merge(/openstack.cinder.volumes.in-use/)",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "max",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "openstack_cinder_volumes",
-              "query": "SELECT max(\"value\") AS \"value\" FROM \"openstack_cinder_volumes\" WHERE \"state\" = 'in-use' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT max(\"value\") FROM \"openstack_cinder_volumes\" WHERE \"state\" = 'in-use' AND $timeFilter GROUP BY time($interval) fill(0)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "fill": "0"
+              "resultFormat": "time_series"
             },
             {
               "function": "max",
+              "dsType": "influxdb",
               "hide": false,
               "target": "",
               "tags": [
@@ -2031,24 +2428,40 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "max"
-                }
-              ],
+              "series": "merge(/openstack.cinder.volumes.error/)",
               "refId": "C",
               "alias": "error",
-              "series": "merge(/openstack.cinder.volumes.error/)",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "max",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "openstack_cinder_volumes",
-              "query": "SELECT max(\"value\") AS \"value\" FROM \"openstack_cinder_volumes\" WHERE \"state\" = 'error' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT max(\"value\") FROM \"openstack_cinder_volumes\" WHERE \"state\" = 'error' AND $timeFilter GROUP BY time($interval) fill(0)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "fill": "0"
+              "resultFormat": "time_series"
             }
           ],
           "seriesOverrides": [],
@@ -2098,6 +2511,7 @@
           "targets": [
             {
               "function": "last",
+              "dsType": "influxdb",
               "tags": [
                 {
                   "value": "available",
@@ -2105,22 +2519,33 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "last"
-                }
-              ],
-              "refId": "A",
               "series": "merge(/openstack.cinder.volumes_size.available/)",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "last",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "openstack_cinder_volumes_size",
-              "query": "SELECT last(\"value\") AS \"value\" FROM \"openstack_cinder_volumes_size\" WHERE \"state\" = 'available' AND $timeFilter GROUP BY time($interval)",
+              "query": "SELECT last(\"value\") FROM \"openstack_cinder_volumes_size\" WHERE \"state\" = 'available' AND $timeFilter GROUP BY time($interval)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
                 }
-              ]
+              ],
+              "resultFormat": "time_series"
             }
           ],
           "maxDataPoints": 100,
@@ -2169,6 +2594,7 @@
           "targets": [
             {
               "function": "last",
+              "dsType": "influxdb",
               "tags": [
                 {
                   "value": "in-use",
@@ -2176,22 +2602,33 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "last"
-                }
-              ],
-              "refId": "A",
               "series": "merge(/openstack.cinder.volumes_size.in-use/)",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "last",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "openstack_cinder_volumes_size",
-              "query": "SELECT last(\"value\") AS \"value\" FROM \"openstack_cinder_volumes_size\" WHERE \"state\" = 'in-use' AND $timeFilter GROUP BY time($interval)",
+              "query": "SELECT last(\"value\") FROM \"openstack_cinder_volumes_size\" WHERE \"state\" = 'in-use' AND $timeFilter GROUP BY time($interval)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
                 }
               ],
+              "resultFormat": "time_series",
               "fill": ""
             }
           ],
@@ -2241,6 +2678,7 @@
           "targets": [
             {
               "function": "last",
+              "dsType": "influxdb",
               "tags": [
                 {
                   "value": "error",
@@ -2248,22 +2686,33 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "last"
-                }
-              ],
-              "refId": "A",
               "series": "merge(/openstack.cinder.volumes_size.error/)",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "last",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "openstack_cinder_volumes_size",
-              "query": "SELECT last(\"value\") AS \"value\" FROM \"openstack_cinder_volumes_size\" WHERE \"state\" = 'error' AND $timeFilter GROUP BY time($interval)",
+              "query": "SELECT last(\"value\") FROM \"openstack_cinder_volumes_size\" WHERE \"state\" = 'error' AND $timeFilter GROUP BY time($interval)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
                 }
               ],
+              "resultFormat": "time_series",
               "fill": ""
             }
           ],
@@ -2327,6 +2776,7 @@
           "targets": [
             {
               "function": "max",
+              "dsType": "influxdb",
               "tags": [
                 {
                   "operator": "=",
@@ -2335,27 +2785,44 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "max"
-                }
-              ],
+              "series": "merge(/openstack.cinder.volumes_size.available/)",
               "refId": "A",
               "alias": "available",
-              "series": "merge(/openstack.cinder.volumes_size.available/)",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "max",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "openstack_cinder_volumes_size",
-              "query": "SELECT max(\"value\") AS \"value\" FROM \"openstack_cinder_volumes_size\" WHERE \"state\" = 'available' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT max(\"value\") FROM \"openstack_cinder_volumes_size\" WHERE \"state\" = 'available' AND $timeFilter GROUP BY time($interval) fill(0)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "fill": "0"
+              "resultFormat": "time_series"
             },
             {
               "function": "max",
+              "dsType": "influxdb",
               "tags": [
                 {
                   "operator": "=",
@@ -2364,27 +2831,44 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "max"
-                }
-              ],
+              "series": "merge(/openstack.cinder.volumes_size.in-use/)",
               "refId": "B",
               "alias": "in-use",
-              "series": "merge(/openstack.cinder.volumes_size.in-use/)",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "max",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "openstack_cinder_volumes_size",
-              "query": "SELECT max(\"value\") AS \"value\" FROM \"openstack_cinder_volumes_size\" WHERE \"state\" = 'in-use' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT max(\"value\") FROM \"openstack_cinder_volumes_size\" WHERE \"state\" = 'in-use' AND $timeFilter GROUP BY time($interval) fill(0)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "fill": "0"
+              "resultFormat": "time_series"
             },
             {
               "function": "max",
+              "dsType": "influxdb",
               "tags": [
                 {
                   "operator": "=",
@@ -2393,24 +2877,40 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "max"
-                }
-              ],
+              "series": "merge(/openstack.cinder.volumes_size.error/)",
               "refId": "C",
               "alias": "error",
-              "series": "merge(/openstack.cinder.volumes_size.error/)",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "max",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "openstack_cinder_volumes_size",
-              "query": "SELECT max(\"value\") AS \"value\" FROM \"openstack_cinder_volumes_size\" WHERE \"state\" = 'error' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT max(\"value\") FROM \"openstack_cinder_volumes_size\" WHERE \"state\" = 'error' AND $timeFilter GROUP BY time($interval) fill(0)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "fill": "0"
+              "resultFormat": "time_series"
             }
           ],
           "seriesOverrides": [],
@@ -2459,24 +2959,36 @@
           "targets": [
             {
               "function": "mean",
+              "dsType": "influxdb",
               "tags": [],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "last"
-                }
-              ],
-              "refId": "A",
               "series": "merge(/openstack.cinder.volume_creation_time/)",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "last",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "openstack_cinder_volume_creation_time",
-              "query": "SELECT last(\"value\") AS \"value\" FROM \"openstack_cinder_volume_creation_time\" WHERE $timeFilter GROUP BY time($interval)",
+              "query": "SELECT last(\"value\") FROM \"openstack_cinder_volume_creation_time\" WHERE $timeFilter GROUP BY time($interval)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
                 }
-              ]
+              ],
+              "resultFormat": "time_series"
             }
           ],
           "maxDataPoints": 100,
@@ -2554,81 +3066,132 @@
           "targets": [
             {
               "function": "mean",
+              "dsType": "influxdb",
               "hide": false,
               "rawQuery": false,
               "tags": [],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "mean"
-                }
-              ],
+              "series": "merge(/openstack.cinder.volume_creation_time/)",
               "interval": "",
               "refId": "A",
               "alias": "mean",
-              "series": "merge(/openstack.cinder.volume_creation_time/)",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "openstack_cinder_volume_creation_time",
-              "query": "SELECT mean(\"value\") AS \"value\" FROM \"openstack_cinder_volume_creation_time\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") FROM \"openstack_cinder_volume_creation_time\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "fill": "0"
+              "resultFormat": "time_series"
             },
             {
               "function": "max",
+              "dsType": "influxdb",
               "hide": false,
               "rawQuery": false,
               "tags": [],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "max"
-                }
-              ],
+              "series": "merge(/openstack.cinder.volume_creation_time/)",
               "interval": "",
               "refId": "B",
               "alias": "max",
-              "series": "merge(/openstack.cinder.volume_creation_time/)",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "max",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "openstack_cinder_volume_creation_time",
-              "query": "SELECT max(\"value\") AS \"value\" FROM \"openstack_cinder_volume_creation_time\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT max(\"value\") FROM \"openstack_cinder_volume_creation_time\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "fill": "0"
+              "resultFormat": "time_series"
             },
             {
               "function": "min",
+              "dsType": "influxdb",
               "hide": false,
               "rawQuery": false,
               "tags": [],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "min"
-                }
-              ],
+              "series": "merge(/openstack.cinder.volume_creation_time/)",
               "interval": "",
               "refId": "C",
               "alias": "min",
-              "series": "merge(/openstack.cinder.volume_creation_time/)",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "min",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "openstack_cinder_volume_creation_time",
-              "query": "SELECT min(\"value\") AS \"value\" FROM \"openstack_cinder_volume_creation_time\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT min(\"value\") FROM \"openstack_cinder_volume_creation_time\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "fill": "0"
+              "resultFormat": "time_series"
             }
           ],
           "seriesOverrides": [],
@@ -2687,6 +3250,7 @@
           "targets": [
             {
               "function": "last",
+              "dsType": "influxdb",
               "tags": [
                 {
                   "value": "available",
@@ -2694,22 +3258,33 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "last"
-                }
-              ],
-              "refId": "A",
               "series": "merge(/openstack.cinder.volumes.available/)",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "last",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "openstack_cinder_snapshots",
-              "query": "SELECT last(\"value\") AS \"value\" FROM \"openstack_cinder_snapshots\" WHERE \"state\" = 'available' AND $timeFilter GROUP BY time($interval)",
+              "query": "SELECT last(\"value\") FROM \"openstack_cinder_snapshots\" WHERE \"state\" = 'available' AND $timeFilter GROUP BY time($interval)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
                 }
-              ]
+              ],
+              "resultFormat": "time_series"
             }
           ],
           "maxDataPoints": 100,
@@ -2758,6 +3333,7 @@
           "targets": [
             {
               "function": "last",
+              "dsType": "influxdb",
               "tags": [
                 {
                   "value": "in-use",
@@ -2765,22 +3341,33 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "last"
-                }
-              ],
-              "refId": "A",
               "series": "merge(/openstack.cinder.volumes.in-use/)",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "last",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "openstack_cinder_snapshots",
-              "query": "SELECT last(\"value\") AS \"value\" FROM \"openstack_cinder_snapshots\" WHERE \"state\" = 'in-use' AND $timeFilter GROUP BY time($interval)",
+              "query": "SELECT last(\"value\") FROM \"openstack_cinder_snapshots\" WHERE \"state\" = 'in-use' AND $timeFilter GROUP BY time($interval)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
                 }
               ],
+              "resultFormat": "time_series",
               "fill": ""
             }
           ],
@@ -2830,6 +3417,7 @@
           "targets": [
             {
               "function": "last",
+              "dsType": "influxdb",
               "tags": [
                 {
                   "value": "error",
@@ -2837,22 +3425,33 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "last"
-                }
-              ],
-              "refId": "A",
               "series": "merge(/openstack.cinder.volumes.error/)",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "last",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "openstack_cinder_snapshots",
-              "query": "SELECT last(\"value\") AS \"value\" FROM \"openstack_cinder_snapshots\" WHERE \"state\" = 'error' AND $timeFilter GROUP BY time($interval)",
+              "query": "SELECT last(\"value\") FROM \"openstack_cinder_snapshots\" WHERE \"state\" = 'error' AND $timeFilter GROUP BY time($interval)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
                 }
               ],
+              "resultFormat": "time_series",
               "fill": ""
             }
           ],
@@ -2916,6 +3515,7 @@
           "targets": [
             {
               "function": "max",
+              "dsType": "influxdb",
               "hide": false,
               "tags": [
                 {
@@ -2924,27 +3524,44 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "max"
-                }
-              ],
+              "series": "merge(/openstack.cinder.volumes.available/)",
               "refId": "A",
               "alias": "available",
-              "series": "merge(/openstack.cinder.volumes.available/)",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "max",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "openstack_cinder_snapshots",
-              "query": "SELECT max(\"value\") AS \"value\" FROM \"openstack_cinder_snapshots\" WHERE \"state\" = 'available' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT max(\"value\") FROM \"openstack_cinder_snapshots\" WHERE \"state\" = 'available' AND $timeFilter GROUP BY time($interval) fill(0)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "fill": "0"
+              "resultFormat": "time_series"
             },
             {
               "function": "max",
+              "dsType": "influxdb",
               "target": "",
               "tags": [
                 {
@@ -2953,27 +3570,44 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "max"
-                }
-              ],
+              "series": "merge(/openstack.cinder.volumes.in-use/)",
               "refId": "B",
               "alias": "in-use",
-              "series": "merge(/openstack.cinder.volumes.in-use/)",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "max",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "openstack_cinder_snapshots",
-              "query": "SELECT max(\"value\") AS \"value\" FROM \"openstack_cinder_snapshots\" WHERE \"state\" = 'in-use' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT max(\"value\") FROM \"openstack_cinder_snapshots\" WHERE \"state\" = 'in-use' AND $timeFilter GROUP BY time($interval) fill(0)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "fill": "0"
+              "resultFormat": "time_series"
             },
             {
               "function": "max",
+              "dsType": "influxdb",
               "hide": false,
               "target": "",
               "tags": [
@@ -2983,24 +3617,40 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "max"
-                }
-              ],
+              "series": "merge(/openstack.cinder.volumes.error/)",
               "refId": "C",
               "alias": "error",
-              "series": "merge(/openstack.cinder.volumes.error/)",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "max",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "openstack_cinder_snapshots",
-              "query": "SELECT max(\"value\") AS \"value\" FROM \"openstack_cinder_snapshots\" WHERE \"state\" = 'error' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT max(\"value\") FROM \"openstack_cinder_snapshots\" WHERE \"state\" = 'error' AND $timeFilter GROUP BY time($interval) fill(0)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "fill": "0"
+              "resultFormat": "time_series"
             }
           ],
           "seriesOverrides": [],
@@ -3050,6 +3700,7 @@
           "targets": [
             {
               "function": "last",
+              "dsType": "influxdb",
               "tags": [
                 {
                   "value": "available",
@@ -3057,22 +3708,33 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "last"
-                }
-              ],
-              "refId": "A",
               "series": "merge(/openstack.cinder.volumes_size.available/)",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "last",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "openstack_cinder_snapshots_size",
-              "query": "SELECT last(\"value\") AS \"value\" FROM \"openstack_cinder_snapshots_size\" WHERE \"state\" = 'available' AND $timeFilter GROUP BY time($interval)",
+              "query": "SELECT last(\"value\") FROM \"openstack_cinder_snapshots_size\" WHERE \"state\" = 'available' AND $timeFilter GROUP BY time($interval)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
                 }
-              ]
+              ],
+              "resultFormat": "time_series"
             }
           ],
           "maxDataPoints": 100,
@@ -3121,6 +3783,7 @@
           "targets": [
             {
               "function": "last",
+              "dsType": "influxdb",
               "tags": [
                 {
                   "value": "in-use",
@@ -3128,22 +3791,33 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "last"
-                }
-              ],
-              "refId": "A",
               "series": "merge(/openstack.cinder.volumes_size.in-use/)",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "last",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "openstack_cinder_snapshots_size",
-              "query": "SELECT last(\"value\") AS \"value\" FROM \"openstack_cinder_snapshots_size\" WHERE \"state\" = 'in-use' AND $timeFilter GROUP BY time($interval)",
+              "query": "SELECT last(\"value\") FROM \"openstack_cinder_snapshots_size\" WHERE \"state\" = 'in-use' AND $timeFilter GROUP BY time($interval)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
                 }
               ],
+              "resultFormat": "time_series",
               "fill": ""
             }
           ],
@@ -3193,6 +3867,7 @@
           "targets": [
             {
               "function": "last",
+              "dsType": "influxdb",
               "tags": [
                 {
                   "value": "error",
@@ -3200,22 +3875,33 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "last"
-                }
-              ],
-              "refId": "A",
               "series": "merge(/openstack.cinder.volumes_size.error/)",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "last",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "openstack_cinder_snapshots_size",
-              "query": "SELECT last(\"value\") AS \"value\" FROM \"openstack_cinder_snapshots_size\" WHERE \"state\" = 'error' AND $timeFilter GROUP BY time($interval)",
+              "query": "SELECT last(\"value\") FROM \"openstack_cinder_snapshots_size\" WHERE \"state\" = 'error' AND $timeFilter GROUP BY time($interval)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
                 }
               ],
+              "resultFormat": "time_series",
               "fill": ""
             }
           ],
@@ -3279,6 +3965,7 @@
           "targets": [
             {
               "function": "max",
+              "dsType": "influxdb",
               "tags": [
                 {
                   "value": "available",
@@ -3286,27 +3973,44 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "max"
-                }
-              ],
+              "series": "merge(/openstack.cinder.volumes_size.available/)",
               "refId": "A",
               "alias": "available",
-              "series": "merge(/openstack.cinder.volumes_size.available/)",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "max",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "openstack_cinder_snapshots_size",
-              "query": "SELECT max(\"value\") AS \"value\" FROM \"openstack_cinder_snapshots_size\" WHERE \"state\" = 'available' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT max(\"value\") FROM \"openstack_cinder_snapshots_size\" WHERE \"state\" = 'available' AND $timeFilter GROUP BY time($interval) fill(0)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "fill": "0"
+              "resultFormat": "time_series"
             },
             {
               "function": "max",
+              "dsType": "influxdb",
               "tags": [
                 {
                   "value": "in-use",
@@ -3314,27 +4018,44 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "max"
-                }
-              ],
+              "series": "merge(/openstack.cinder.volumes_size.in-user/)",
               "refId": "B",
               "alias": "in-use",
-              "series": "merge(/openstack.cinder.volumes_size.in-user/)",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "max",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "openstack_cinder_snapshots_size",
-              "query": "SELECT max(\"value\") AS \"value\" FROM \"openstack_cinder_snapshots_size\" WHERE \"state\" = 'in-use' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT max(\"value\") FROM \"openstack_cinder_snapshots_size\" WHERE \"state\" = 'in-use' AND $timeFilter GROUP BY time($interval) fill(0)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "fill": "0"
+              "resultFormat": "time_series"
             },
             {
               "function": "max",
+              "dsType": "influxdb",
               "tags": [
                 {
                   "value": "error",
@@ -3342,24 +4063,40 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "max"
-                }
-              ],
+              "series": "merge(/openstack.cinder.volumes_size.error/)",
               "refId": "C",
               "alias": "error",
-              "series": "merge(/openstack.cinder.volumes_size.error/)",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "max",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "openstack_cinder_snapshots_size",
-              "query": "SELECT max(\"value\") AS \"value\" FROM \"openstack_cinder_snapshots_size\" WHERE \"state\" = 'error' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT max(\"value\") FROM \"openstack_cinder_snapshots_size\" WHERE \"state\" = 'error' AND $timeFilter GROUP BY time($interval) fill(0)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "fill": "0"
+              "resultFormat": "time_series"
             }
           ],
           "seriesOverrides": [],
@@ -3460,7 +4197,7 @@
     "from": "now-1h"
   },
   "timezone": "browser",
-  "schemaVersion": 7,
+  "schemaVersion": 8,
   "annotations": {
     "enable": true,
     "list": [

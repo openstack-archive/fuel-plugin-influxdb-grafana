@@ -40,6 +40,7 @@
           "targets": [
             {
               "function": "derivative",
+              "dsType": "influxdb",
               "hide": false,
               "rawQuery": true,
               "tags": [
@@ -56,28 +57,42 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "first(value),1s",
-                  "func": "derivative"
-                }
-              ],
+              "series": "/$node.*decoder.*count/",
               "refId": "A",
               "alias": "$tag_name",
-              "series": "/$node.*decoder.*count/",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "hekad_msg_count",
               "query": "SELECT derivative(first(value),1s) FROM \"hekad_msg_count\" WHERE \"hostname\" = '$node' AND \"type\" = 'decoder' AND $timeFilter GROUP BY time($interval), \"name\" fill(0)",
               "groupBy": [
                 {
+                  "type": "time",
                   "interval": "auto",
-                  "type": "time"
+                  "params": [
+                    "auto"
+                  ]
                 },
                 {
                   "type": "tag",
+                  "params": [
+                    "tag"
+                  ],
                   "key": "name"
                 }
               ],
-              "fill": "0"
+              "resultFormat": "time_series"
             }
           ],
           "leftYAxisLabel": "per second",
@@ -141,6 +156,7 @@
           "targets": [
             {
               "function": "mean",
+              "dsType": "influxdb",
               "tags": [
                 {
                   "value": "$node",
@@ -153,28 +169,46 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "mean"
-                }
-              ],
+              "series": "/$node.*decoder.*duration/",
               "refId": "A",
               "alias": "$tag_name",
-              "series": "/$node.*decoder.*duration/",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "hekad_msg_avg_duration",
-              "query": "SELECT mean(\"value\") AS \"value\" FROM \"hekad_msg_avg_duration\" WHERE \"hostname\" = '$node' AND \"type\" = 'decoder' AND $timeFilter GROUP BY time($interval), \"name\" fill(0)",
+              "query": "SELECT mean(\"value\") FROM \"hekad_msg_avg_duration\" WHERE \"hostname\" = '$node' AND \"type\" = 'decoder' AND $timeFilter GROUP BY time($interval), \"name\" fill(0)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
                 },
                 {
                   "type": "tag",
-                  "key": "name"
+                  "params": [
+                    "name"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "fill": "0"
+              "resultFormat": "time_series"
             }
           ],
           "leftYAxisLabel": "per message",
@@ -238,6 +272,7 @@
           "targets": [
             {
               "function": "derivative",
+              "dsType": "influxdb",
               "rawQuery": true,
               "tags": [
                 {
@@ -253,28 +288,42 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "first(value),1s",
-                  "func": "derivative"
-                }
-              ],
+              "series": "/$node.*filter.*count/",
               "refId": "A",
               "alias": "$tag_name",
-              "series": "/$node.*filter.*count/",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "hekad_msg_count",
               "query": "SELECT derivative(first(value),1s) FROM \"hekad_msg_count\" WHERE \"hostname\" = '$node' AND \"type\" = 'filter' AND $timeFilter GROUP BY time($interval), \"name\" fill(0)",
               "groupBy": [
                 {
+                  "type": "time",
                   "interval": "auto",
-                  "type": "time"
+                  "params": [
+                    "auto"
+                  ]
                 },
                 {
                   "type": "tag",
+                  "params": [
+                    "tag"
+                  ],
                   "key": "name"
                 }
               ],
-              "fill": "0"
+              "resultFormat": "time_series"
             }
           ],
           "leftYAxisLabel": "per second",
@@ -338,6 +387,7 @@
           "targets": [
             {
               "function": "mean",
+              "dsType": "influxdb",
               "tags": [
                 {
                   "value": "$node",
@@ -350,28 +400,46 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "mean"
-                }
-              ],
+              "series": "/$node.*filter.*duration/",
               "refId": "A",
               "alias": "$tag_name",
-              "series": "/$node.*filter.*duration/",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "hekad_msg_avg_duration",
-              "query": "SELECT mean(\"value\") AS \"value\" FROM \"hekad_msg_avg_duration\" WHERE \"hostname\" = '$node' AND \"type\" = 'filter' AND $timeFilter GROUP BY time($interval), \"name\" fill(0)",
+              "query": "SELECT mean(\"value\") FROM \"hekad_msg_avg_duration\" WHERE \"hostname\" = '$node' AND \"type\" = 'filter' AND $timeFilter GROUP BY time($interval), \"name\" fill(0)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
                 },
                 {
                   "type": "tag",
-                  "key": "name"
+                  "params": [
+                    "name"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "fill": "0"
+              "resultFormat": "time_series"
             }
           ],
           "leftYAxisLabel": "per message",
@@ -421,6 +489,7 @@
           "targets": [
             {
               "function": "last",
+              "dsType": "influxdb",
               "tags": [
                 {
                   "value": "$node",
@@ -433,22 +502,33 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "last"
-                }
-              ],
-              "refId": "A",
               "series": "/$node.lma_components.hekad.count.threads/",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "last",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "lma_components_threads",
-              "query": "SELECT last(\"value\") AS \"value\" FROM \"lma_components_threads\" WHERE \"hostname\" = '$node' AND \"service\" = 'hekad' AND $timeFilter GROUP BY time($interval)",
+              "query": "SELECT last(\"value\") FROM \"lma_components_threads\" WHERE \"hostname\" = '$node' AND \"service\" = 'hekad' AND $timeFilter GROUP BY time($interval)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
                 }
-              ]
+              ],
+              "resultFormat": "time_series"
             }
           ],
           "maxDataPoints": 100,
@@ -512,6 +592,7 @@
           "targets": [
             {
               "function": "mean",
+              "dsType": "influxdb",
               "tags": [
                 {
                   "value": "$node",
@@ -524,24 +605,40 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "mean"
-                }
-              ],
+              "series": "/$node.lma_components.hekad.memory.rss/",
               "refId": "A",
               "alias": "rss",
-              "series": "/$node.lma_components.hekad.memory.rss/",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "lma_components_memory_rss",
-              "query": "SELECT mean(\"value\") AS \"value\" FROM \"lma_components_memory_rss\" WHERE \"hostname\" = '$node' AND \"service\" = 'hekad' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") FROM \"lma_components_memory_rss\" WHERE \"hostname\" = '$node' AND \"service\" = 'hekad' AND $timeFilter GROUP BY time($interval) fill(0)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "fill": "0"
+              "resultFormat": "time_series"
             }
           ],
           "seriesOverrides": [],
@@ -605,6 +702,7 @@
           "targets": [
             {
               "function": "mean",
+              "dsType": "influxdb",
               "tags": [
                 {
                   "value": "$node",
@@ -617,27 +715,44 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "mean"
-                }
-              ],
+              "series": "/$node.lma_components.hekad.disk.bytes/",
               "refId": "A",
               "alias": "read",
-              "series": "/$node.lma_components.hekad.disk.bytes/",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "lma_components_disk_bytes_read",
-              "query": "SELECT mean(\"value\") AS \"value\" FROM \"lma_components_disk_bytes_read\" WHERE \"hostname\" = '$node' AND \"service\" = 'hekad' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") FROM \"lma_components_disk_bytes_read\" WHERE \"hostname\" = '$node' AND \"service\" = 'hekad' AND $timeFilter GROUP BY time($interval) fill(0)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "fill": "0"
+              "resultFormat": "time_series"
             },
             {
               "function": "mean",
+              "dsType": "influxdb",
               "tags": [
                 {
                   "value": "$node",
@@ -650,24 +765,40 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "mean"
-                }
-              ],
+              "series": "/$node.lma_components.hekad.disk.bytes/",
               "refId": "B",
               "alias": "write",
-              "series": "/$node.lma_components.hekad.disk.bytes/",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "lma_components_disk_bytes_write",
-              "query": "SELECT mean(\"value\") AS \"value\" FROM \"lma_components_disk_bytes_write\" WHERE \"hostname\" = '$node' AND \"service\" = 'hekad' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") FROM \"lma_components_disk_bytes_write\" WHERE \"hostname\" = '$node' AND \"service\" = 'hekad' AND $timeFilter GROUP BY time($interval) fill(0)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "fill": "0"
+              "resultFormat": "time_series"
             }
           ],
           "leftYAxisLabel": "bytes/sec",
@@ -731,6 +862,7 @@
           "targets": [
             {
               "function": "mean",
+              "dsType": "influxdb",
               "tags": [
                 {
                   "value": "$node",
@@ -743,27 +875,44 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "mean"
-                }
-              ],
+              "series": "/$node.lma_components.hekad.cputime/",
               "refId": "A",
               "alias": "system",
-              "series": "/$node.lma_components.hekad.cputime/",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "lma_components_cputime_syst",
-              "query": "SELECT mean(\"value\") AS \"value\" FROM \"lma_components_cputime_syst\" WHERE \"hostname\" = '$node' AND \"service\" = 'hekad' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") FROM \"lma_components_cputime_syst\" WHERE \"hostname\" = '$node' AND \"service\" = 'hekad' AND $timeFilter GROUP BY time($interval) fill(0)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "fill": "0"
+              "resultFormat": "time_series"
             },
             {
               "function": "mean",
+              "dsType": "influxdb",
               "tags": [
                 {
                   "value": "$node",
@@ -776,24 +925,40 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "mean"
-                }
-              ],
+              "series": "/$node.lma_components.hekad.cputime/",
               "refId": "B",
               "alias": "user",
-              "series": "/$node.lma_components.hekad.cputime/",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "lma_components_cputime_user",
-              "query": "SELECT mean(\"value\") AS \"value\" FROM \"lma_components_cputime_user\" WHERE \"hostname\" = '$node' AND \"service\" = 'hekad' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") FROM \"lma_components_cputime_user\" WHERE \"hostname\" = '$node' AND \"service\" = 'hekad' AND $timeFilter GROUP BY time($interval) fill(0)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "fill": "0"
+              "resultFormat": "time_series"
             }
           ],
           "seriesOverrides": [],
@@ -851,6 +1016,7 @@
           "targets": [
             {
               "function": "last",
+              "dsType": "influxdb",
               "tags": [
                 {
                   "value": "$node",
@@ -863,22 +1029,33 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "last"
-                }
-              ],
-              "refId": "A",
               "series": "/$node.lma_components.hekad.count.threads/",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "last",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "lma_components_threads",
-              "query": "SELECT last(\"value\") AS \"value\" FROM \"lma_components_threads\" WHERE \"hostname\" = '$node' AND \"service\" = 'collectd' AND $timeFilter GROUP BY time($interval)",
+              "query": "SELECT last(\"value\") FROM \"lma_components_threads\" WHERE \"hostname\" = '$node' AND \"service\" = 'collectd' AND $timeFilter GROUP BY time($interval)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
                 }
-              ]
+              ],
+              "resultFormat": "time_series"
             }
           ],
           "maxDataPoints": 100,
@@ -942,6 +1119,7 @@
           "targets": [
             {
               "function": "mean",
+              "dsType": "influxdb",
               "tags": [
                 {
                   "value": "$node",
@@ -954,24 +1132,40 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "mean"
-                }
-              ],
+              "series": "/$node.lma_components.hekad.memory.rss/",
               "refId": "A",
               "alias": "rss",
-              "series": "/$node.lma_components.hekad.memory.rss/",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "lma_components_memory_rss",
-              "query": "SELECT mean(\"value\") AS \"value\" FROM \"lma_components_memory_rss\" WHERE \"hostname\" = '$node' AND \"service\" = 'collectd' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") FROM \"lma_components_memory_rss\" WHERE \"hostname\" = '$node' AND \"service\" = 'collectd' AND $timeFilter GROUP BY time($interval) fill(0)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "fill": "0"
+              "resultFormat": "time_series"
             }
           ],
           "seriesOverrides": [],
@@ -1035,6 +1229,7 @@
           "targets": [
             {
               "function": "mean",
+              "dsType": "influxdb",
               "tags": [
                 {
                   "value": "$node",
@@ -1047,27 +1242,44 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "mean"
-                }
-              ],
+              "series": "/$node.lma_components.hekad.disk.bytes/",
               "refId": "A",
               "alias": "read",
-              "series": "/$node.lma_components.hekad.disk.bytes/",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "lma_components_disk_bytes_read",
-              "query": "SELECT mean(\"value\") AS \"value\" FROM \"lma_components_disk_bytes_read\" WHERE \"hostname\" = '$node' AND \"service\" = 'collectd' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") FROM \"lma_components_disk_bytes_read\" WHERE \"hostname\" = '$node' AND \"service\" = 'collectd' AND $timeFilter GROUP BY time($interval) fill(0)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "fill": "0"
+              "resultFormat": "time_series"
             },
             {
               "function": "mean",
+              "dsType": "influxdb",
               "tags": [
                 {
                   "value": "$node",
@@ -1080,24 +1292,40 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "mean"
-                }
-              ],
+              "series": "/$node.lma_components.hekad.disk.bytes/",
               "refId": "B",
               "alias": "write",
-              "series": "/$node.lma_components.hekad.disk.bytes/",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "lma_components_disk_bytes_write",
-              "query": "SELECT mean(\"value\") AS \"value\" FROM \"lma_components_disk_bytes_write\" WHERE \"hostname\" = '$node' AND \"service\" = 'collectd' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") FROM \"lma_components_disk_bytes_write\" WHERE \"hostname\" = '$node' AND \"service\" = 'collectd' AND $timeFilter GROUP BY time($interval) fill(0)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "fill": "0"
+              "resultFormat": "time_series"
             }
           ],
           "leftYAxisLabel": "bytes/sec",
@@ -1161,6 +1389,7 @@
           "targets": [
             {
               "function": "mean",
+              "dsType": "influxdb",
               "tags": [
                 {
                   "value": "$node",
@@ -1173,27 +1402,44 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "mean"
-                }
-              ],
+              "series": "/$node.lma_components.hekad.cputime/",
               "refId": "A",
               "alias": "system",
-              "series": "/$node.lma_components.hekad.cputime/",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "lma_components_cputime_syst",
-              "query": "SELECT mean(\"value\") AS \"value\" FROM \"lma_components_cputime_syst\" WHERE \"hostname\" = '$node' AND \"service\" = 'collectd' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") FROM \"lma_components_cputime_syst\" WHERE \"hostname\" = '$node' AND \"service\" = 'collectd' AND $timeFilter GROUP BY time($interval) fill(0)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "fill": "0"
+              "resultFormat": "time_series"
             },
             {
               "function": "mean",
+              "dsType": "influxdb",
               "tags": [
                 {
                   "value": "$node",
@@ -1206,24 +1452,40 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "mean"
-                }
-              ],
+              "series": "/$node.lma_components.hekad.cputime/",
               "refId": "B",
               "alias": "user",
-              "series": "/$node.lma_components.hekad.cputime/",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "lma_components_cputime_user",
-              "query": "SELECT mean(\"value\") AS \"value\" FROM \"lma_components_cputime_user\" WHERE \"hostname\" = '$node' AND \"service\" = 'collectd' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") FROM \"lma_components_cputime_user\" WHERE \"hostname\" = '$node' AND \"service\" = 'collectd' AND $timeFilter GROUP BY time($interval) fill(0)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "fill": "0"
+              "resultFormat": "time_series"
             }
           ],
           "seriesOverrides": [],
@@ -1281,6 +1543,7 @@
           "targets": [
             {
               "function": "last",
+              "dsType": "influxdb",
               "tags": [
                 {
                   "value": "influxd",
@@ -1288,22 +1551,33 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "last"
-                }
-              ],
-              "refId": "A",
               "series": "/$node.lma_components.hekad.count.threads/",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "last",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "lma_components_threads",
-              "query": "SELECT last(\"value\") AS \"value\" FROM \"lma_components_threads\" WHERE \"service\" = 'influxd' AND $timeFilter GROUP BY time($interval)",
+              "query": "SELECT last(\"value\") FROM \"lma_components_threads\" WHERE \"service\" = 'influxd' AND $timeFilter GROUP BY time($interval)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
                 }
-              ]
+              ],
+              "resultFormat": "time_series"
             }
           ],
           "maxDataPoints": 100,
@@ -1367,6 +1641,7 @@
           "targets": [
             {
               "function": "mean",
+              "dsType": "influxdb",
               "tags": [
                 {
                   "value": "influxd",
@@ -1374,24 +1649,40 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "mean"
-                }
-              ],
+              "series": "/$node.lma_components.hekad.memory.rss/",
               "refId": "A",
               "alias": "rss",
-              "series": "/$node.lma_components.hekad.memory.rss/",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "lma_components_memory_rss",
-              "query": "SELECT mean(\"value\") AS \"value\" FROM \"lma_components_memory_rss\" WHERE \"service\" = 'influxd' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") FROM \"lma_components_memory_rss\" WHERE \"service\" = 'influxd' AND $timeFilter GROUP BY time($interval) fill(0)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "fill": "0"
+              "resultFormat": "time_series"
             }
           ],
           "seriesOverrides": [],
@@ -1455,6 +1746,7 @@
           "targets": [
             {
               "function": "mean",
+              "dsType": "influxdb",
               "tags": [
                 {
                   "value": "influxd",
@@ -1462,27 +1754,44 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "mean"
-                }
-              ],
+              "series": "/$node.lma_components.hekad.disk.bytes/",
               "refId": "A",
               "alias": "read",
-              "series": "/$node.lma_components.hekad.disk.bytes/",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "lma_components_disk_bytes_read",
-              "query": "SELECT mean(\"value\") AS \"value\" FROM \"lma_components_disk_bytes_read\" WHERE \"service\" = 'influxd' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") FROM \"lma_components_disk_bytes_read\" WHERE \"service\" = 'influxd' AND $timeFilter GROUP BY time($interval) fill(0)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "fill": "0"
+              "resultFormat": "time_series"
             },
             {
               "function": "mean",
+              "dsType": "influxdb",
               "tags": [
                 {
                   "value": "influxd",
@@ -1490,24 +1799,40 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "mean"
-                }
-              ],
+              "series": "/$node.lma_components.hekad.disk.bytes/",
               "refId": "B",
               "alias": "write",
-              "series": "/$node.lma_components.hekad.disk.bytes/",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "lma_components_disk_bytes_write",
-              "query": "SELECT mean(\"value\") AS \"value\" FROM \"lma_components_disk_bytes_write\" WHERE \"service\" = 'influxd' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") FROM \"lma_components_disk_bytes_write\" WHERE \"service\" = 'influxd' AND $timeFilter GROUP BY time($interval) fill(0)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "fill": "0"
+              "resultFormat": "time_series"
             }
           ],
           "leftYAxisLabel": "bytes/sec",
@@ -1571,6 +1896,7 @@
           "targets": [
             {
               "function": "mean",
+              "dsType": "influxdb",
               "tags": [
                 {
                   "value": "influxd",
@@ -1578,27 +1904,44 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "mean"
-                }
-              ],
+              "series": "/$node.lma_components.hekad.cputime/",
               "refId": "A",
               "alias": "system",
-              "series": "/$node.lma_components.hekad.cputime/",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "lma_components_cputime_syst",
-              "query": "SELECT mean(\"value\") AS \"value\" FROM \"lma_components_cputime_syst\" WHERE \"service\" = 'influxd' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") FROM \"lma_components_cputime_syst\" WHERE \"service\" = 'influxd' AND $timeFilter GROUP BY time($interval) fill(0)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "fill": "0"
+              "resultFormat": "time_series"
             },
             {
               "function": "mean",
+              "dsType": "influxdb",
               "tags": [
                 {
                   "value": "influxd",
@@ -1606,24 +1949,40 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "mean"
-                }
-              ],
+              "series": "/$node.lma_components.hekad.cputime/",
               "refId": "B",
               "alias": "user",
-              "series": "/$node.lma_components.hekad.cputime/",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "lma_components_cputime_user",
-              "query": "SELECT mean(\"value\") AS \"value\" FROM \"lma_components_cputime_user\" WHERE \"service\" = 'influxd' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") FROM \"lma_components_cputime_user\" WHERE \"service\" = 'influxd' AND $timeFilter GROUP BY time($interval) fill(0)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "fill": "0"
+              "resultFormat": "time_series"
             }
           ],
           "seriesOverrides": [],
@@ -1671,6 +2030,7 @@
           "prefix": "",
           "targets": [
             {
+              "dsType": "influxdb",
               "tags": [
                 {
                   "operator": "=",
@@ -1678,21 +2038,32 @@
                   "key": "fs"
                 }
               ],
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "mean"
-                }
-              ],
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
                 }
               ],
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "fs_space_percent_free",
-              "query": "SELECT mean(\"value\") AS \"value\" FROM \"fs_space_percent_free\" WHERE \"fs\" = '/var/lib/influxdb' AND $timeFilter GROUP BY time($interval)",
-              "refId": "A"
+              "query": "SELECT mean(\"value\") FROM \"fs_space_percent_free\" WHERE \"fs\" = '/var/lib/influxdb' AND $timeFilter GROUP BY time($interval)",
+              "refId": "A",
+              "resultFormat": "time_series"
             }
           ],
           "maxDataPoints": 100,
@@ -1754,60 +2125,95 @@
           },
           "targets": [
             {
+              "dsType": "influxdb",
               "rawQuery": false,
               "tags": [
                 {
                   "operator": "=",
                   "value": "/var/lib/influxdb",
                   "key": "fs"
-                }
-              ],
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "mean"
                 }
               ],
               "refId": "A",
               "alias": "free",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "fs_space_free",
-              "query": "SELECT mean(\"value\") AS \"value\" FROM \"fs_space_free\" WHERE \"fs\" = '/var/lib/influxdb' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") FROM \"fs_space_free\" WHERE \"fs\" = '/var/lib/influxdb' AND $timeFilter GROUP BY time($interval) fill(0)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "fill": "0"
+              "resultFormat": "time_series"
             },
             {
+              "dsType": "influxdb",
               "rawQuery": false,
               "tags": [
                 {
                   "operator": "=",
                   "value": "/var/lib/influxdb",
                   "key": "fs"
-                }
-              ],
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "mean"
                 }
               ],
               "refId": "B",
               "alias": "used",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "fs_space_used",
-              "query": "SELECT mean(\"value\") AS \"value\" FROM \"fs_space_used\" WHERE \"fs\" = '/var/lib/influxdb' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") FROM \"fs_space_used\" WHERE \"fs\" = '/var/lib/influxdb' AND $timeFilter GROUP BY time($interval) fill(0)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "fill": "0"
+              "resultFormat": "time_series"
             },
             {
+              "dsType": "influxdb",
               "rawQuery": false,
               "tags": [
                 {
@@ -1816,23 +2222,39 @@
                   "key": "fs"
                 }
               ],
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "mean"
-                }
-              ],
               "refId": "C",
               "alias": "reserved",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "fs_space_reserved",
-              "query": "SELECT mean(\"value\") AS \"value\" FROM \"fs_space_reserved\" WHERE \"fs\" = '/var/lib/influxdb' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") FROM \"fs_space_reserved\" WHERE \"fs\" = '/var/lib/influxdb' AND $timeFilter GROUP BY time($interval) fill(0)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "fill": "0"
+              "resultFormat": "time_series"
             }
           ],
           "seriesOverrides": [],
@@ -1890,6 +2312,7 @@
           "targets": [
             {
               "function": "last",
+              "dsType": "influxdb",
               "tags": [
                 {
                   "value": "grafana-server",
@@ -1897,22 +2320,33 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "last"
-                }
-              ],
-              "refId": "A",
               "series": "/$node.lma_components.hekad.count.threads/",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "last",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "lma_components_threads",
-              "query": "SELECT last(\"value\") AS \"value\" FROM \"lma_components_threads\" WHERE \"service\" = 'grafana-server' AND $timeFilter GROUP BY time($interval)",
+              "query": "SELECT last(\"value\") FROM \"lma_components_threads\" WHERE \"service\" = 'grafana-server' AND $timeFilter GROUP BY time($interval)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
                 }
-              ]
+              ],
+              "resultFormat": "time_series"
             }
           ],
           "maxDataPoints": 100,
@@ -1976,6 +2410,7 @@
           "targets": [
             {
               "function": "mean",
+              "dsType": "influxdb",
               "tags": [
                 {
                   "value": "grafana-server",
@@ -1983,24 +2418,40 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "mean"
-                }
-              ],
+              "series": "/$node.lma_components.hekad.memory.rss/",
               "refId": "A",
               "alias": "rss",
-              "series": "/$node.lma_components.hekad.memory.rss/",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "lma_components_memory_rss",
-              "query": "SELECT mean(\"value\") AS \"value\" FROM \"lma_components_memory_rss\" WHERE \"service\" = 'grafana-server' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") FROM \"lma_components_memory_rss\" WHERE \"service\" = 'grafana-server' AND $timeFilter GROUP BY time($interval) fill(0)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "fill": "0"
+              "resultFormat": "time_series"
             }
           ],
           "seriesOverrides": [],
@@ -2064,6 +2515,7 @@
           "targets": [
             {
               "function": "mean",
+              "dsType": "influxdb",
               "tags": [
                 {
                   "value": "grafana-server",
@@ -2071,27 +2523,44 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "mean"
-                }
-              ],
+              "series": "/$node.lma_components.hekad.disk.bytes/",
               "refId": "A",
               "alias": "read",
-              "series": "/$node.lma_components.hekad.disk.bytes/",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "lma_components_disk_bytes_read",
-              "query": "SELECT mean(\"value\") AS \"value\" FROM \"lma_components_disk_bytes_read\" WHERE \"service\" = 'grafana-server' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") FROM \"lma_components_disk_bytes_read\" WHERE \"service\" = 'grafana-server' AND $timeFilter GROUP BY time($interval) fill(0)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "fill": "0"
+              "resultFormat": "time_series"
             },
             {
               "function": "mean",
+              "dsType": "influxdb",
               "tags": [
                 {
                   "value": "grafana-server",
@@ -2099,24 +2568,40 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "mean"
-                }
-              ],
+              "series": "/$node.lma_components.hekad.disk.bytes/",
               "refId": "B",
               "alias": "write",
-              "series": "/$node.lma_components.hekad.disk.bytes/",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "lma_components_disk_bytes_write",
-              "query": "SELECT mean(\"value\") AS \"value\" FROM \"lma_components_disk_bytes_write\" WHERE \"service\" = 'grafana-server' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") FROM \"lma_components_disk_bytes_write\" WHERE \"service\" = 'grafana-server' AND $timeFilter GROUP BY time($interval) fill(0)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "fill": "0"
+              "resultFormat": "time_series"
             }
           ],
           "leftYAxisLabel": "bytes/sec",
@@ -2180,6 +2665,7 @@
           "targets": [
             {
               "function": "mean",
+              "dsType": "influxdb",
               "tags": [
                 {
                   "value": "grafana-server",
@@ -2187,27 +2673,44 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "mean"
-                }
-              ],
+              "series": "/$node.lma_components.hekad.cputime/",
               "refId": "A",
               "alias": "system",
-              "series": "/$node.lma_components.hekad.cputime/",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "lma_components_cputime_syst",
-              "query": "SELECT mean(\"value\") AS \"value\" FROM \"lma_components_cputime_syst\" WHERE \"service\" = 'grafana-server' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") FROM \"lma_components_cputime_syst\" WHERE \"service\" = 'grafana-server' AND $timeFilter GROUP BY time($interval) fill(0)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "fill": "0"
+              "resultFormat": "time_series"
             },
             {
               "function": "mean",
+              "dsType": "influxdb",
               "tags": [
                 {
                   "value": "grafana-server",
@@ -2215,24 +2718,40 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "mean"
-                }
-              ],
+              "series": "/$node.lma_components.hekad.cputime/",
               "refId": "B",
               "alias": "user",
-              "series": "/$node.lma_components.hekad.cputime/",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "lma_components_cputime_user",
-              "query": "SELECT mean(\"value\") AS \"value\" FROM \"lma_components_cputime_user\" WHERE \"service\" = 'grafana-server' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") FROM \"lma_components_cputime_user\" WHERE \"service\" = 'grafana-server' AND $timeFilter GROUP BY time($interval) fill(0)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "fill": "0"
+              "resultFormat": "time_series"
             }
           ],
           "seriesOverrides": [],
@@ -2290,6 +2809,7 @@
           "targets": [
             {
               "function": "last",
+              "dsType": "influxdb",
               "tags": [
                 {
                   "value": "elasticsearch",
@@ -2297,22 +2817,33 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "last"
-                }
-              ],
-              "refId": "A",
               "series": "/$node.lma_components.hekad.count.threads/",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "last",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "lma_components_threads",
-              "query": "SELECT last(\"value\") AS \"value\" FROM \"lma_components_threads\" WHERE \"service\" = 'elasticsearch' AND $timeFilter GROUP BY time($interval)",
+              "query": "SELECT last(\"value\") FROM \"lma_components_threads\" WHERE \"service\" = 'elasticsearch' AND $timeFilter GROUP BY time($interval)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
                 }
-              ]
+              ],
+              "resultFormat": "time_series"
             }
           ],
           "maxDataPoints": 100,
@@ -2376,6 +2907,7 @@
           "targets": [
             {
               "function": "mean",
+              "dsType": "influxdb",
               "tags": [
                 {
                   "value": "elasticsearch",
@@ -2383,24 +2915,40 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "mean"
-                }
-              ],
+              "series": "/$node.lma_components.hekad.memory.rss/",
               "refId": "A",
               "alias": "rss",
-              "series": "/$node.lma_components.hekad.memory.rss/",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "lma_components_memory_rss",
-              "query": "SELECT mean(\"value\") AS \"value\" FROM \"lma_components_memory_rss\" WHERE \"service\" = 'elasticsearch' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") FROM \"lma_components_memory_rss\" WHERE \"service\" = 'elasticsearch' AND $timeFilter GROUP BY time($interval) fill(0)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "fill": "0"
+              "resultFormat": "time_series"
             }
           ],
           "seriesOverrides": [],
@@ -2464,6 +3012,7 @@
           "targets": [
             {
               "function": "mean",
+              "dsType": "influxdb",
               "tags": [
                 {
                   "value": "elasticsearch",
@@ -2471,27 +3020,44 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "mean"
-                }
-              ],
+              "series": "/$node.lma_components.hekad.disk.bytes/",
               "refId": "A",
               "alias": "read",
-              "series": "/$node.lma_components.hekad.disk.bytes/",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "lma_components_disk_bytes_read",
-              "query": "SELECT mean(\"value\") AS \"value\" FROM \"lma_components_disk_bytes_read\" WHERE \"service\" = 'elasticsearch' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") FROM \"lma_components_disk_bytes_read\" WHERE \"service\" = 'elasticsearch' AND $timeFilter GROUP BY time($interval) fill(0)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "fill": "0"
+              "resultFormat": "time_series"
             },
             {
               "function": "mean",
+              "dsType": "influxdb",
               "tags": [
                 {
                   "value": "elasticsearch",
@@ -2499,24 +3065,40 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "mean"
-                }
-              ],
+              "series": "/$node.lma_components.hekad.disk.bytes/",
               "refId": "B",
               "alias": "write",
-              "series": "/$node.lma_components.hekad.disk.bytes/",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "lma_components_disk_bytes_write",
-              "query": "SELECT mean(\"value\") AS \"value\" FROM \"lma_components_disk_bytes_write\" WHERE \"service\" = 'elasticsearch' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") FROM \"lma_components_disk_bytes_write\" WHERE \"service\" = 'elasticsearch' AND $timeFilter GROUP BY time($interval) fill(0)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "fill": "0"
+              "resultFormat": "time_series"
             }
           ],
           "leftYAxisLabel": "bytes/sec",
@@ -2580,6 +3162,7 @@
           "targets": [
             {
               "function": "mean",
+              "dsType": "influxdb",
               "tags": [
                 {
                   "value": "elasticsearch",
@@ -2587,27 +3170,44 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "mean"
-                }
-              ],
+              "series": "/$node.lma_components.hekad.cputime/",
               "refId": "A",
               "alias": "system",
-              "series": "/$node.lma_components.hekad.cputime/",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "lma_components_cputime_syst",
-              "query": "SELECT mean(\"value\") AS \"value\" FROM \"lma_components_cputime_syst\" WHERE \"service\" = 'elasticsearch' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") FROM \"lma_components_cputime_syst\" WHERE \"service\" = 'elasticsearch' AND $timeFilter GROUP BY time($interval) fill(0)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "fill": "0"
+              "resultFormat": "time_series"
             },
             {
               "function": "mean",
+              "dsType": "influxdb",
               "tags": [
                 {
                   "value": "elasticsearch",
@@ -2615,24 +3215,40 @@
                 }
               ],
               "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "mean"
-                }
-              ],
+              "series": "/$node.lma_components.hekad.cputime/",
               "refId": "B",
               "alias": "user",
-              "series": "/$node.lma_components.hekad.cputime/",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "lma_components_cputime_user",
-              "query": "SELECT mean(\"value\") AS \"value\" FROM \"lma_components_cputime_user\" WHERE \"service\" = 'elasticsearch' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") FROM \"lma_components_cputime_user\" WHERE \"service\" = 'elasticsearch' AND $timeFilter GROUP BY time($interval) fill(0)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "fill": "0"
+              "resultFormat": "time_series"
             }
           ],
           "seriesOverrides": [],
@@ -2680,6 +3296,7 @@
           "prefix": "",
           "targets": [
             {
+              "dsType": "influxdb",
               "tags": [
                 {
                   "operator": "=",
@@ -2687,21 +3304,32 @@
                   "key": "fs"
                 }
               ],
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "mean"
-                }
-              ],
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
                 }
               ],
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "fs_space_percent_free",
-              "query": "SELECT mean(\"value\") AS \"value\" FROM \"fs_space_percent_free\" WHERE \"fs\" = '/opt/es/data' AND $timeFilter GROUP BY time($interval)",
-              "refId": "A"
+              "query": "SELECT mean(\"value\") FROM \"fs_space_percent_free\" WHERE \"fs\" = '/opt/es/data' AND $timeFilter GROUP BY time($interval)",
+              "refId": "A",
+              "resultFormat": "time_series"
             }
           ],
           "maxDataPoints": 100,
@@ -2764,6 +3392,7 @@
           },
           "targets": [
             {
+              "dsType": "influxdb",
               "tags": [
                 {
                   "operator": "=",
@@ -2771,52 +3400,86 @@
                   "key": "fs"
                 }
               ],
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "mean"
-                }
-              ],
-              "refId": "A",
-              "alias": "free",
-              "measurement": "fs_space_free",
-              "query": "SELECT mean(\"value\") AS \"value\" FROM \"fs_space_free\" WHERE \"fs\" = '/opt/es/data' AND $timeFilter GROUP BY time($interval) fill(0)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "fill": "0"
+              "alias": "free",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
+              "measurement": "fs_space_free",
+              "query": "SELECT mean(\"value\") FROM \"fs_space_free\" WHERE \"fs\" = '/opt/es/data' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "refId": "A",
+              "resultFormat": "time_series"
             },
             {
+              "dsType": "influxdb",
               "rawQuery": false,
               "tags": [
                 {
                   "operator": "=",
                   "value": "/opt/es/data",
                   "key": "fs"
-                }
-              ],
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "mean"
                 }
               ],
               "refId": "B",
               "alias": "used",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "fs_space_used",
-              "query": "SELECT mean(\"value\") AS \"value\" FROM \"fs_space_used\" WHERE \"fs\" = '/opt/es/data' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") FROM \"fs_space_used\" WHERE \"fs\" = '/opt/es/data' AND $timeFilter GROUP BY time($interval) fill(0)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "fill": "0"
+              "resultFormat": "time_series"
             },
             {
+              "dsType": "influxdb",
               "rawQuery": false,
               "tags": [
                 {
@@ -2825,23 +3488,39 @@
                   "key": "fs"
                 }
               ],
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "mean"
-                }
-              ],
               "refId": "C",
               "alias": "reserved",
+              "select": [
+                [
+                  {
+                    "type": "field",
+                    "params": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "type": "mean",
+                    "params": []
+                  }
+                ]
+              ],
               "measurement": "fs_space_percent_reserved",
-              "query": "SELECT mean(\"value\") AS \"value\" FROM \"fs_space_percent_reserved\" WHERE \"fs\" = '/opt/es/data' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") FROM \"fs_space_percent_reserved\" WHERE \"fs\" = '/opt/es/data' AND $timeFilter GROUP BY time($interval) fill(0)",
               "groupBy": [
                 {
-                  "interval": "auto",
-                  "type": "time"
+                  "type": "time",
+                  "params": [
+                    "auto"
+                  ]
+                },
+                {
+                  "type": "fill",
+                  "params": [
+                    "0"
+                  ]
                 }
               ],
-              "fill": "0"
+              "resultFormat": "time_series"
             }
           ],
           "seriesOverrides": [],
@@ -2942,7 +3621,7 @@
     "from": "now-1h"
   },
   "timezone": "browser",
-  "schemaVersion": 7,
+  "schemaVersion": 8,
   "annotations": {
     "list": []
   }
