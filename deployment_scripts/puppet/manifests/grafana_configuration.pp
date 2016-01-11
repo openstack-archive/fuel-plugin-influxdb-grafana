@@ -13,7 +13,13 @@
 #    under the License.
 #
 
+$deployment_id = hiera('deployment_id')
+$master_ip = hiera('master_ip')
 $mgmt_vip = hiera('lma::influxdb::vip')
+$grafana_link_data = "{\"title\":\"Grafana\",\
+\"description\":\"Dashboard for visualizing metrics\",\
+\"url\":\"http://${mgmt_vip}/\"}"
+$grafana_link_created_file = '/var/cache/grafana_link_created'
 $influxdb_grafana = hiera('influxdb_grafana')
 
 $admin_username = $influxdb_grafana['grafana_username']
@@ -39,4 +45,14 @@ class {'lma_monitoring_analytics::grafana_dashboards':
   admin_username => $admin_username,
   admin_password => $admin_password,
   host           => $mgmt_vip,
+  require        => Grafana_resource['lma'],
+}
+
+exec { 'notify_grafana_url':
+  creates => $grafana_link_created_file,
+  command => "/usr/bin/curl -sL -w \"%{http_code}\" \
+-H 'Content-Type: application/json' -X POST -d '${grafana_link_data}' \
+http://${master_ip}:8000/api/clusters/${deployment_id}/plugin_links \
+-o /dev/null | /bin/grep 201 && touch ${grafana_link_created_file}",
+  require => Class['lma_monitoring_analytics::grafana_dashboards'],
 }
