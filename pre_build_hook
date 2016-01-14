@@ -9,9 +9,12 @@ STDLIB_TARBALL_URL="https://forgeapi.puppetlabs.com/v3/files/puppetlabs-stdlib-4
 INIFILE_TARBALL_URL="https://forgeapi.puppetlabs.com/v3/files/puppetlabs-inifile-1.4.1.tar.gz"
 LVM_TARBALL_URL="https://forgeapi.puppetlabs.com/v3/files/puppetlabs-lvm-0.5.0.tar.gz"
 GRAFANA_TARBALL_URL="https://forgeapi.puppetlabs.com/v3/files/bfraser-grafana-2.1.0.tar.gz"
-FUEL_LIB_COMMIT="7.0"
-FUEL_LIB_TARBALL_URL="https://github.com/openstack/fuel-library/archive/${FUEL_LIB_COMMIT}.tar.gz"
 MYSQL_TARBALL_URL="https://forgeapi.puppetlabs.com/v3/files/puppetlabs-mysql-3.6.2.tar.gz"
+FIREWALL_TARBALL_URL="https://forgeapi.puppetlabs.com/v3/files/puppetlabs-firewall-1.7.2.tar.gz"
+
+# TODO(pasquier-s): use the 8.0 tag when it's available
+FUEL_LIB_COMMIT="stable/8.0"
+FUEL_LIB_TARBALL_URL="https://github.com/openstack/fuel-library/archive/${FUEL_LIB_COMMIT}.tar.gz"
 
 download_package https://s3.amazonaws.com/influxdb/influxdb_0.9.6.1_amd64.deb
 
@@ -25,9 +28,13 @@ download_puppet_module "stdlib" "$STDLIB_TARBALL_URL"
 download_puppet_module "inifile" "$INIFILE_TARBALL_URL"
 download_puppet_module "lvm" "$LVM_TARBALL_URL"
 download_puppet_module "mysql" "${MYSQL_TARBALL_URL}"
+download_puppet_module "firewall" "$FIREWALL_TARBALL_URL"
 
 # Extract dependent manifests from fuel-library
-rm -rf "${MODULES_DIR:?}"/l23network
+rm -rf "${MODULES_DIR:?}"/{cluster,corosync,haproxy,l23network,openstack,osnailyfacter,pacemaker,pacemaker_wrappers}
 wget -qO- "${FUEL_LIB_TARBALL_URL}" | \
     tar -C "${MODULES_DIR}" --strip-components=3 -zxvf - \
-    fuel-library-${FUEL_LIB_COMMIT}/deployment/puppet/l23network
+    fuel-library-${FUEL_LIB_COMMIT/\//-}/deployment/puppet/{cluster,corosync,haproxy,l23network,openstack,osnailyfacter,pacemaker,pacemaker_wrappers}
+
+# Remove this dead link otherwise fpb fails
+rm -f "${MODULES_DIR:?}"/osnailyfacter/modular/master

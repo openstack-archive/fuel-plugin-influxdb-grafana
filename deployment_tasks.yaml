@@ -37,29 +37,31 @@
 - id: influxdb-firewall
   type: puppet
   groups: [primary-influxdb_grafana, influxdb_grafana]
+  required_for: [deploy_end]
   requires: [netconfig]
   parameters:
     puppet_manifest: "puppet/manifests/firewall.pp"
-    puppet_modules: "/etc/puppet/modules"
+    puppet_modules: "puppet/modules"
     timeout: 360
 
 - id: influxdb-cluster
   type: puppet
   groups: [primary-influxdb_grafana, influxdb_grafana]
-  required_for: [influxdb-firewall, influxdb-hiera]
-  requires: [deploy_end]
+  required_for: [cluster-haproxy]
+  requires: [influxdb-firewall]
   parameters:
     puppet_manifest: "puppet/manifests/cluster.pp"
-    puppet_modules: "/etc/puppet/modules"
+    puppet_modules: "puppet/modules"
     timeout: 360
 
 - id: influxdb-vip
   type: puppet
   groups: [primary-influxdb_grafana, influxdb_grafana]
+  required_for: [deploy_end]
   requires: [influxdb-cluster]
   parameters:
-    puppet_manifest: "/etc/puppet/modules/osnailyfacter/modular/virtual_ips/virtual_ips.pp"
-    puppet_modules: "/etc/puppet/modules"
+    puppet_manifest: "puppet/modules/osnailyfacter/modular/virtual_ips/virtual_ips.pp"
+    puppet_modules: "puppet/modules"
     timeout: 3600
 
 - id: influxdb-haproxy
@@ -69,7 +71,7 @@
   requires: [cluster-haproxy, influxdb-vip]
   parameters:
     puppet_manifest: "puppet/manifests/haproxy.pp"
-    puppet_modules: "/etc/puppet/modules"
+    puppet_modules: "puppet/modules"
     timeout: 3600
 
 - id: influxdb-hiera
@@ -79,5 +81,5 @@
   required_for: [logging]
   parameters:
     puppet_manifest: "puppet/manifests/hiera.pp"
-    puppet_modules: "/etc/puppet/modules"
+    puppet_modules: "puppet/modules"
     timeout: 120
