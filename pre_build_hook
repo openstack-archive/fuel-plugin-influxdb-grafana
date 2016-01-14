@@ -27,7 +27,7 @@ download_puppet_module "lvm" "$LVM_TARBALL_URL"
 download_puppet_module "mysql" "${MYSQL_TARBALL_URL}"
 
 # Extract dependent manifests from fuel-library
-rm -rf "${MODULES_DIR:?}"/l23network
+rm -rf "${MODULES_DIR:?}"/{cluster,corosync,haproxy,l23network,openstack,osnailyfacter,pacemaker,pacemaker_wrappers}
 wget -qO- "${FUEL_LIB_TARBALL_URL}" | \
     tar -C "${MODULES_DIR}" --strip-components=3 -zxvf - \
-    fuel-library-${FUEL_LIB_COMMIT}/deployment/puppet/l23network
+    fuel-library-${FUEL_LIB_COMMIT}/deployment/puppet/{cluster,corosync,haproxy,l23network,openstack,osnailyfacter,pacemaker,pacemaker_wrappers}
