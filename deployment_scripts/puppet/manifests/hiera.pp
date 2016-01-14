@@ -1,3 +1,18 @@
+# Copyright 2016 Mirantis, Inc.
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may
+# not use this file except in compliance with the License. You may obtain
+# a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+# License for the specific language governing permissions and limitations
+# under the License.
+#
+
 $hiera_dir = '/etc/hiera/plugins'
 $plugin_name = 'influxdb_grafana'
 $plugin_yaml = "${plugin_name}.yaml"
@@ -15,9 +30,9 @@ $influxdb_vip = $network_metadata['vips'][$vip_name]['ipaddr']
 
 $corosync_roles = [$plugin_name, "primary-${plugin_name}"]
 
-###################
-$calculated_content = inline_template('
 
+$calculated_content = inline_template('
+---
 lma::influxdb::raft_nodes:
 <% @influxdb_address_map.keys.sort.each do |k| -%>
     <%= k %>: <%= @influxdb_address_map[k] %>
@@ -25,7 +40,7 @@ lma::influxdb::raft_nodes:
 
 lma::influxdb::vip: <%= @influxdb_vip %>
 
-corosync_roles:
+lma::corosync_roles:
 <% @corosync_roles.sort.each do |crole| -%>
     - <%= crole %>
 <% end -%>

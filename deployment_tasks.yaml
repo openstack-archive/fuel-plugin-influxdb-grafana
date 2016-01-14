@@ -46,6 +46,16 @@
     puppet_modules: "/etc/puppet/modules"
     timeout: 360
 
+- id: influxdb-cluster
+  type: puppet
+  groups: [primary-influxdb_grafana, influxdb_grafana]
+  required_for: [influxdb-firewall, influxdb-hiera]
+  requires: [deploy_end]
+  parameters:
+    puppet_manifest: "puppet/manifests/cluster.pp"
+    puppet_modules: "/etc/puppet/modules"
+    timeout: 360
+
 - id: influxdb-vip
   type: puppet
   groups: [primary-influxdb_grafana, influxdb_grafana]
@@ -65,12 +75,12 @@
     puppet_modules: "/etc/puppet/modules"
     timeout: 3600
 
-- id: influxdb-hiera-override
+- id: influxdb-hiera
   type: puppet
   groups: [primary-influxdb_grafana, influxdb_grafana]
   requires: [globals]
   required_for: [logging]
   parameters:
-    puppet_manifest: "puppet/manifests/hiera-override.pp"
+    puppet_manifest: "puppet/manifests/hiera.pp"
     puppet_modules: "/etc/puppet/modules"
     timeout: 120
