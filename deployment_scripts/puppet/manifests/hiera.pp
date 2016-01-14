@@ -29,9 +29,9 @@ $influxdb_vip = $network_metadata['vips'][$vip_name]['ipaddr']
 
 $corosync_roles = [$plugin_name, "primary-${plugin_name}"]
 
-###################
-$calculated_content = inline_template('
 
+$calculated_content = inline_template('
+---
 lma::influxdb::raft_nodes:
 <% @influxdb_address_map.keys.sort.each do |k| -%>
     <%= k %>: <%= @influxdb_address_map[k] %>
@@ -39,7 +39,7 @@ lma::influxdb::raft_nodes:
 
 lma::influxdb::vip: <%= @influxdb_vip %>
 
-corosync_roles:
+lma::corosync_roles:
 <% @corosync_roles.sort.each do |crole| -%>
     - <%= crole %>
 <% end -%>
