@@ -22,4 +22,11 @@ describe 'lma_monitoring_analytics::grafana_dashboards', :type => :class do
         let (:params) do {:admin_username => 'admin', :admin_password => 'pass'} end
         it { is_expected.to contain_grafana_dashboard('Main') }
     end
+
+    describe 'with Elasticsearch enabled' do
+        let(:params) do
+            {:import_elasticsearch => true, :admin_username => 'admin', :admin_password => 'pass'}
+        end
+        it { is_expected.to contain_grafana_dashboard('Elasticsearch') }
+    end
 end
