@@ -7,7 +7,7 @@ version: '0.9.0'
 # Description
 description: Deploy InfluxDB server and the Grafana web interface.
 # Required fuel version
-fuel_version: ['7.0', '8.0']
+fuel_version: ['8.0']
 # Specify license of your plugin
 licenses: ['Apache License Version 2.0']
 # Specify author or company name
@@ -17,6 +17,7 @@ homepage: 'https://github.com/openstsack/fuel-plugin-influxdb-grafana'
 # Specify a group which your plugin implements, possible options:
 # network, storage, storage::cinder, storage::glance, hypervisor
 groups: ['monitoring']
+is_hotpluggable: false
 
 # The plugin is compatible with releases in the list
 releases:
@@ -32,4 +33,4 @@ releases:
     repository_path: repositories/ubuntu
 
 # Version of plugin package
-package_version: '3.0.0'
+package_version: '4.0.0'
