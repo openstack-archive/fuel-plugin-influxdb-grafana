@@ -14,7 +14,7 @@
   requires: [deploy_start]
   parameters:
     strategy:
-      type: parallel
+      type: one_by_one
 
 - id: influxdb_grafana
   type: group
@@ -42,7 +42,7 @@
   parameters:
     puppet_manifest: "puppet/manifests/firewall.pp"
     puppet_modules: "puppet/modules"
-    timeout: 360
+    timeout: 600
 
 - id: influxdb-cluster
   type: puppet
@@ -52,7 +52,10 @@
   parameters:
     puppet_manifest: "puppet/manifests/cluster.pp"
     puppet_modules: "puppet/modules"
-    timeout: 360
+    timeout: 600
+  # reexecute_on is needed for scale-down operations
+  reexecute_on:
+    - deploy_changes
 
 - id: influxdb-vip
   type: puppet
@@ -62,7 +65,7 @@
   parameters:
     puppet_manifest: "puppet/modules/osnailyfacter/modular/virtual_ips/virtual_ips.pp"
     puppet_modules: "puppet/modules"
-    timeout: 3600
+    timeout: 600
 
 - id: influxdb-haproxy
   type: puppet
@@ -72,7 +75,10 @@
   parameters:
     puppet_manifest: "puppet/manifests/haproxy.pp"
     puppet_modules: "puppet/modules"
-    timeout: 3600
+    timeout: 600
+  # reexecute_on is needed for scale-down operations
+  reexecute_on:
+    - deploy_changes
 
 - id: influxdb-hiera
   type: puppet
@@ -83,3 +89,6 @@
     puppet_manifest: "puppet/manifests/hiera.pp"
     puppet_modules: "puppet/modules"
     timeout: 120
+  # reexecute_on is needed for scale-down operations
+  reexecute_on:
+    - deploy_changes
