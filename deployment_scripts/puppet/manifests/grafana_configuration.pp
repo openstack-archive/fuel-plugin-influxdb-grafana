@@ -27,6 +27,13 @@ $influxdb_username = $influxdb_grafana['influxdb_username']
 $influxdb_password = $influxdb_grafana['influxdb_userpass']
 $influxdb_database = $influxdb_grafana['influxdb_dbname']
 
+$lma_collector = hiera_hash('lma_collector', {})
+$elasticsearch_mode = $lma_collector['elasticsearch_mode']
+$import_elasticsearch = $elasticsearch_mode ? {
+  'local' => true,
+  default => false,
+}
+
 grafana_datasource { 'lma':
   ensure           => present,
   url              => "http://${mgmt_vip}:8086",
@@ -41,10 +48,11 @@ grafana_datasource { 'lma':
 }
 
 class {'lma_monitoring_analytics::grafana_dashboards':
-  admin_username => $admin_username,
-  admin_password => $admin_password,
-  host           => $mgmt_vip,
-  require        => Grafana_datasource['lma'],
+  admin_username       => $admin_username,
+  admin_password       => $admin_password,
+  host                 => $mgmt_vip,
+  import_elasticsearch => $import_elasticsearch,
+  require              => Grafana_datasource['lma'],
 }
 
 exec { 'notify_grafana_url':
