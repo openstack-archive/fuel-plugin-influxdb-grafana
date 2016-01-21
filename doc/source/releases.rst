@@ -6,7 +6,7 @@ Release Notes
 Version 0.9.0
 -------------
 
-- A new dashboard for libvirt metrics.
+- A new dashboard for hypervisor metrics.
 - Upgrade to Grafana 2.6.0.
 
 Version 0.8.0
