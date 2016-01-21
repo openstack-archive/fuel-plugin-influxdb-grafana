@@ -92,3 +92,16 @@
   # reexecute_on is needed for scale-down operations
   reexecute_on:
     - deploy_changes
+
+- id: influxdb-enable-quorum
+  type: puppet
+  groups: [primary-influxdb_grafana]
+  requires: [influxdb-haproxy]
+  required_for: [deploy_end]
+  parameters:
+    puppet_manifest: "puppet/manifests/enable_quorum.pp"
+    puppet_modules: "puppet/modules"
+    timeout: 120
+  # reexecute_on is needed for scale-down operations
+  reexecute_on:
+    - deploy_changes
