@@ -19,6 +19,7 @@ class lma_monitoring_analytics::grafana_dashboards (
   $admin_password,
   $host = $lma_monitoring_analytics::params::grafana_domain,
   $port = $lma_monitoring_analytics::params::listen_port,
+  $import_elasticsearch = false,
 ) inherits lma_monitoring_analytics::params {
 
   $dashboard_defaults = {
@@ -85,5 +86,17 @@ class lma_monitoring_analytics::grafana_dashboards (
     },
   }
 
-  create_resources(grafana_dashboard, $dashboards, $dashboard_defaults)
+  if $import_elasticsearch {
+    $es_dashboard = {
+      'Elasticsearch' => {
+        content => template('lma_monitoring_analytics/grafana_dashboards/Elasticsearch.json'),
+      }
+    }
+  } else {
+    $es_dashboard = {}
+  }
+
+  create_resources(
+    grafana_dashboard, merge($dashboards, $es_dashboard), $dashboard_defaults
+  )
 }
