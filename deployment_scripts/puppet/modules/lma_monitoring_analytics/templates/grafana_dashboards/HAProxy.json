@@ -2713,7 +2713,7 @@
         "refresh": true,
         "current": {},
         "datasource": null,
-        "query": "show tag values from haproxy_backend_servers with key = backend",
+        "query": "show tag values from haproxy_backend_servers with key = backend where hostname = '$server'",
         "type": "query",
         "options": [],
         "includeAll": false
