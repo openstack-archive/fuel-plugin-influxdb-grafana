@@ -515,7 +515,7 @@
           ],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Pendding tasks",
+          "title": "Pending tasks",
           "tooltip": {
             "shared": true,
             "value_type": "cumulative"
