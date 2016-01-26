@@ -3462,7 +3462,7 @@
         "refresh": true,
         "current": {},
         "datasource": null,
-        "query": "show tag values from disk_merged_read with key=\"device\" ",
+        "query": "show tag values from disk_merged_read with key=\"device\"  where hostname = '$server'",
         "type": "query",
         "options": [],
         "includeAll": false
@@ -3475,7 +3475,7 @@
         "refresh": true,
         "current": {},
         "datasource": null,
-        "query": "show tag values from fs_inodes_free with key=\"fs\" ",
+        "query": "show tag values from fs_inodes_free with key=\"fs\"  where hostname = '$server'",
         "type": "query",
         "options": [],
         "includeAll": false
@@ -3488,7 +3488,7 @@
         "refresh": true,
         "current": {},
         "datasource": null,
-        "query": "show tag values from if_errors_rx with key=\"interface\" ",
+        "query": "show tag values from if_errors_rx with key=\"interface\"  where hostname = '$server'",
         "type": "query",
         "options": [],
         "includeAll": false
