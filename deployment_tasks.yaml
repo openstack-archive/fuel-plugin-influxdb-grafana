@@ -1,9 +1,10 @@
 - id: primary-influxdb_grafana
   type: group
   role: [primary-influxdb_grafana]
-  tasks:
-    - fuel_pkgs
+  tasks: &common_tasks
     - hiera
+    - setup_repositories
+    - fuel_pkgs
     - globals
     - tools
     - logging
@@ -19,15 +20,7 @@
 - id: influxdb_grafana
   type: group
   role: [influxdb_grafana]
-  tasks:
-    - fuel_pkgs
-    - hiera
-    - globals
-    - tools
-    - logging
-    - netconfig
-    - hosts
-    - cluster-haproxy
+  tasks: *common_tasks
   required_for: [deploy_end]
   requires: [deploy_start, primary-influxdb_grafana]
   parameters:
