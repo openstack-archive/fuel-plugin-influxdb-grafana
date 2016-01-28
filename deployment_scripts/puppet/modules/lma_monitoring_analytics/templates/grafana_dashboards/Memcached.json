@@ -1,678 +1,666 @@
 {
-  "version": 1,
-  "style": "dark",
+  "annotations": {
+    "list": [
+      {
+        "datasource": "influxdb",
+        "enable": true,
+        "iconColor": "#C0C6BE",
+        "iconSize": 13,
+        "lineColor": "rgba(255, 96, 96, 0.592157)",
+        "name": "Status",
+        "query": "select title,tags,text from annotations where $timeFilter and cluster = 'memcached'",
+        "showLine": true,
+        "tagsColumn": "tags",
+        "textColumn": "text",
+        "titleColumn": "title"
+      }
+    ]
+  },
+  "editable": true,
+  "hideControls": false,
+  "id": null,
+  "links": [],
+  "originalTitle": "Memcached",
+  "refresh": "1m",
   "rows": [
     {
-      "title": "Row1",
+      "collapse": false,
+      "editable": true,
+      "height": "250px",
       "panels": [
         {
-          "links": [],
-          "valueMaps": [
-            {
-              "text": "no data",
-              "value": "null",
-              "op": "="
-            },
-            {
-              "text": "OKAY",
-              "value": "0",
-              "op": "="
-            },
-            {
-              "text": "WARN",
-              "value": "1",
-              "op": "="
-            },
-            {
-              "text": "UNKN",
-              "value": "2",
-              "op": "="
-            },
-            {
-              "text": "CRIT",
-              "value": "3",
-              "op": "="
-            },
-            {
-              "text": "DOWN",
-              "value": "4",
-              "op": "="
-            }
-          ],
-          "thresholds": "0,1,3",
-          "nullPointMode": "connected",
-          "prefix": "",
-          "targets": [
-            {
-              "function": "last",
-              "dsType": "influxdb",
-              "groupby_field": "",
-              "rawQuery": false,
-              "groupByTags": [],
-              "tags": [
-                {
-                  "operator": "=",
-                  "value": "memcached",
-                  "key": "cluster_name"
-                }
-              ],
-              "column": "value",
-              "series": "merge(/openstack.cinder.status/)",
-              "interval": "",
-              "refId": "A",
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "last",
-                    "params": []
-                  }
-                ]
-              ],
-              "resultFormat": "time_series",
-              "measurement": "cluster_status",
-              "query": "SELECT last(\"value\") FROM \"cluster_status\" WHERE \"cluster_name\" = 'memcached' AND $timeFilter GROUP BY time($interval) fill(null)",
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "null"
-                  ]
-                }
-              ],
-              "condition": "",
-              "fill": ""
-            }
-          ],
-          "maxDataPoints": 100,
-          "span": 3,
-          "colorBackground": true,
-          "title": "",
-          "sparkline": {
-            "full": false,
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "lineColor": "rgb(31, 120, 193)",
-            "show": false
-          },
-          "id": 9,
-          "prefixFontSize": "50%",
-          "valueName": "current",
-          "type": "singlestat",
-          "valueFontSize": "80%",
-          "format": "none",
-          "editable": true,
           "cacheTimeout": null,
-          "postfix": "",
-          "interval": "> 60s",
+          "colorBackground": true,
+          "colorValue": false,
           "colors": [
             "rgba(71, 212, 59, 0.4)",
             "rgba(241, 181, 37, 0.73)",
             "rgba(225, 40, 40, 0.59)"
           ],
           "datasource": null,
+          "editable": true,
           "error": false,
-          "nullText": null,
-          "postfixFontSize": "50%",
-          "colorValue": false
-        },
-        {
-          "bars": false,
-          "aliasColors": {},
+          "format": "none",
+          "id": 9,
+          "interval": "> 60s",
           "links": [],
+          "maxDataPoints": 100,
           "nullPointMode": "connected",
-          "timeFrom": null,
-          "renderer": "flot",
-          "linewidth": 1,
-          "steppedLine": false,
-          "id": 1,
-          "fill": 0,
-          "span": 6,
-          "title": "Items",
-          "tooltip": {
-            "shared": true,
-            "value_type": "individual"
-          },
-          "legend": {
-            "total": false,
-            "show": true,
-            "max": false,
-            "min": false,
-            "current": false,
-            "values": false,
-            "avg": false
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 3,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
           },
           "targets": [
             {
-              "function": "median",
-              "dsType": "influxdb",
-              "groupByTags": [
-                "hostname"
-              ],
-              "tags": [],
               "column": "value",
-              "series": "/memcached.items.current/",
+              "condition": "",
+              "dsType": "influxdb",
+              "fill": "",
+              "function": "last",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "groupByTags": [],
+              "groupby_field": "",
+              "interval": "",
+              "measurement": "cluster_status",
+              "query": "SELECT last(\"value\") FROM \"cluster_status\" WHERE \"cluster_name\" = 'memcached' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
               "refId": "A",
-              "alias": "$tag_hostname",
+              "resultFormat": "time_series",
               "select": [
                 [
                   {
-                    "type": "field",
                     "params": [
                       "value"
-                    ]
+                    ],
+                    "type": "field"
                   },
                   {
-                    "type": "mean",
-                    "params": []
+                    "params": [],
+                    "type": "last"
                   }
                 ]
               ],
-              "measurement": "memcached_items_current",
-              "query": "SELECT mean(\"value\") FROM \"memcached_items_current\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
-              "groupBy": [
+              "series": "merge(/openstack.cinder.status/)",
+              "tags": [
                 {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "0"
-                  ]
+                  "key": "cluster_name",
+                  "operator": "=",
+                  "value": "memcached"
                 }
-              ],
-              "resultFormat": "time_series"
+              ]
             }
           ],
+          "thresholds": "0,1,3",
+          "title": "",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "no data",
+              "value": "null"
+            },
+            {
+              "op": "=",
+              "text": "OKAY",
+              "value": "0"
+            },
+            {
+              "op": "=",
+              "text": "WARN",
+              "value": "1"
+            },
+            {
+              "op": "=",
+              "text": "UNKN",
+              "value": "2"
+            },
+            {
+              "op": "=",
+              "text": "CRIT",
+              "value": "3"
+            },
+            {
+              "op": "=",
+              "text": "DOWN",
+              "value": "4"
+            }
+          ],
+          "valueName": "current"
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "datasource": null,
+          "editable": true,
+          "error": false,
+          "fill": 0,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": 0,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 1,
+          "interval": ">1m",
           "leftYAxisLabel": "",
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
           "seriesOverrides": [
             {
               "alias": "/items/"
             }
           ],
-          "percentage": false,
+          "span": 6,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "$tag_hostname",
+              "column": "value",
+              "dsType": "influxdb",
+              "function": "median",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "0"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "groupByTags": [
+                "hostname"
+              ],
+              "measurement": "memcached_items_current",
+              "query": "SELECT mean(\"value\") FROM \"memcached_items_current\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "series": "/memcached.items.current/",
+              "tags": []
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Items",
+          "tooltip": {
+            "shared": true,
+            "value_type": "individual"
+          },
           "type": "graph",
           "x-axis": true,
-          "error": false,
-          "editable": true,
-          "grid": {
-            "leftMax": null,
-            "threshold2": null,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "threshold1": null,
-            "leftLogBase": 1,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)",
-            "rightMin": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "leftMin": 0
-          },
-          "stack": false,
           "y-axis": true,
-          "timeShift": null,
-          "interval": ">1m",
-          "lines": true,
-          "points": false,
-          "datasource": null,
-          "pointradius": 5,
           "y_formats": [
             "short",
             "short"
           ]
         },
         {
-          "bars": false,
           "aliasColors": {},
+          "bars": false,
+          "datasource": null,
+          "editable": true,
+          "error": false,
+          "fill": 0,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": 0,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 2,
+          "interval": ">1m",
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
           "links": [],
           "nullPointMode": "connected",
-          "timeFrom": null,
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
           "renderer": "flot",
-          "linewidth": 1,
-          "steppedLine": false,
-          "id": 2,
-          "fill": 0,
+          "seriesOverrides": [],
           "span": 3,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "$tag_hostname",
+              "column": "value",
+              "dsType": "influxdb",
+              "function": "mean",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "0"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "groupByTags": [
+                "hostname"
+              ],
+              "measurement": "memcached_df_cache_used",
+              "query": "SELECT mean(\"value\") FROM \"memcached_df_cache_used\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "series": "/memcached.df.cache.used/",
+              "tags": []
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
           "title": "Cache used",
           "tooltip": {
             "shared": true,
             "value_type": "cumulative"
           },
-          "legend": {
-            "total": false,
-            "show": true,
-            "max": false,
-            "min": false,
-            "current": false,
-            "values": false,
-            "avg": false
-          },
-          "targets": [
-            {
-              "function": "mean",
-              "dsType": "influxdb",
-              "groupByTags": [
-                "hostname"
-              ],
-              "tags": [],
-              "column": "value",
-              "series": "/memcached.df.cache.used/",
-              "refId": "A",
-              "alias": "$tag_hostname",
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "mean",
-                    "params": []
-                  }
-                ]
-              ],
-              "measurement": "memcached_df_cache_used",
-              "query": "SELECT mean(\"value\") FROM \"memcached_df_cache_used\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "0"
-                  ]
-                }
-              ],
-              "resultFormat": "time_series"
-            }
-          ],
-          "seriesOverrides": [],
-          "percentage": false,
           "type": "graph",
           "x-axis": true,
-          "error": false,
-          "editable": true,
-          "grid": {
-            "leftMax": null,
-            "threshold2": null,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "threshold1": null,
-            "leftLogBase": 1,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)",
-            "rightMin": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "leftMin": 0
-          },
-          "stack": false,
           "y-axis": true,
-          "timeShift": null,
-          "interval": ">1m",
-          "lines": true,
-          "points": false,
-          "datasource": null,
-          "pointradius": 5,
           "y_formats": [
             "bytes",
             "bytes"
           ]
         }
       ],
-      "editable": true,
-      "collapse": false,
-      "height": "250px"
+      "title": "Row1"
     },
     {
-      "title": "New row",
+      "collapse": false,
+      "editable": true,
+      "height": "250px",
       "panels": [
         {
-          "bars": false,
           "aliasColors": {},
+          "bars": false,
+          "datasource": null,
+          "editable": true,
+          "error": false,
+          "fill": 0,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": 0,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 3,
+          "interval": ">1m",
+          "leftYAxisLabel": "per second",
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
           "links": [],
           "nullPointMode": "connected",
-          "timeFrom": null,
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
           "renderer": "flot",
-          "linewidth": 1,
-          "steppedLine": false,
-          "id": 3,
-          "fill": 0,
+          "seriesOverrides": [],
           "span": 6,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "get",
+              "column": "value",
+              "dsType": "influxdb",
+              "function": "mean",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "0"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "groupByTags": [],
+              "measurement": "memcached_command_get",
+              "query": "SELECT mean(\"value\") FROM \"memcached_command_get\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "series": "merge(/memcached.command.get/)",
+              "tags": []
+            },
+            {
+              "alias": "set",
+              "column": "value",
+              "dsType": "influxdb",
+              "function": "mean",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "0"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "groupByTags": [],
+              "hide": false,
+              "measurement": "memcached_command_set",
+              "query": "SELECT mean(\"value\") FROM \"memcached_command_set\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
+              "refId": "B",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "series": "merge(/memcached.command.set/)",
+              "tags": []
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
           "title": "Get/Set rates",
           "tooltip": {
             "shared": true,
             "value_type": "cumulative"
           },
-          "legend": {
-            "total": false,
-            "show": true,
-            "max": false,
-            "min": false,
-            "current": false,
-            "values": false,
-            "avg": false
-          },
-          "targets": [
-            {
-              "function": "mean",
-              "dsType": "influxdb",
-              "groupByTags": [],
-              "tags": [],
-              "column": "value",
-              "series": "merge(/memcached.command.get/)",
-              "refId": "A",
-              "alias": "get",
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "mean",
-                    "params": []
-                  }
-                ]
-              ],
-              "measurement": "memcached_command_get",
-              "query": "SELECT mean(\"value\") FROM \"memcached_command_get\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "0"
-                  ]
-                }
-              ],
-              "resultFormat": "time_series"
-            },
-            {
-              "function": "mean",
-              "dsType": "influxdb",
-              "hide": false,
-              "rawQuery": false,
-              "groupByTags": [],
-              "tags": [],
-              "column": "value",
-              "series": "merge(/memcached.command.set/)",
-              "refId": "B",
-              "alias": "set",
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "mean",
-                    "params": []
-                  }
-                ]
-              ],
-              "measurement": "memcached_command_set",
-              "query": "SELECT mean(\"value\") FROM \"memcached_command_set\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "0"
-                  ]
-                }
-              ],
-              "resultFormat": "time_series"
-            }
-          ],
-          "leftYAxisLabel": "per second",
-          "seriesOverrides": [],
-          "percentage": false,
           "type": "graph",
           "x-axis": true,
-          "error": false,
-          "editable": true,
-          "grid": {
-            "leftMax": null,
-            "threshold2": null,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "threshold1": null,
-            "leftLogBase": 1,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)",
-            "rightMin": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "leftMin": 0
-          },
-          "stack": false,
           "y-axis": true,
-          "timeShift": null,
-          "interval": ">1m",
-          "lines": true,
-          "points": false,
-          "datasource": null,
-          "pointradius": 5,
           "y_formats": [
             "short",
             "short"
           ]
         },
         {
-          "bars": false,
           "aliasColors": {},
+          "bars": false,
+          "datasource": null,
+          "editable": true,
+          "error": false,
+          "fill": 0,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": 0,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 8,
+          "interval": ">1m",
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
           "links": [],
           "nullPointMode": "connected",
-          "timeFrom": null,
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
           "renderer": "flot",
-          "linewidth": 1,
-          "steppedLine": false,
-          "id": 8,
-          "fill": 0,
+          "seriesOverrides": [],
           "span": 6,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "$tag_hostname",
+              "column": "value",
+              "dsType": "influxdb",
+              "function": "mean",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "0"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "groupByTags": [
+                "hostname"
+              ],
+              "measurement": "memcached_df_cache_free",
+              "query": "SELECT mean(\"value\") FROM \"memcached_df_cache_free\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "series": "/memcached.df.cache.free/",
+              "tags": []
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
           "title": "Cache free",
           "tooltip": {
             "shared": true,
             "value_type": "cumulative"
           },
-          "legend": {
-            "total": false,
-            "show": true,
-            "max": false,
-            "min": false,
-            "current": false,
-            "values": false,
-            "avg": false
-          },
-          "targets": [
-            {
-              "function": "mean",
-              "dsType": "influxdb",
-              "groupByTags": [
-                "hostname"
-              ],
-              "tags": [],
-              "column": "value",
-              "series": "/memcached.df.cache.free/",
-              "refId": "A",
-              "alias": "$tag_hostname",
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "mean",
-                    "params": []
-                  }
-                ]
-              ],
-              "measurement": "memcached_df_cache_free",
-              "query": "SELECT mean(\"value\") FROM \"memcached_df_cache_free\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "0"
-                  ]
-                }
-              ],
-              "resultFormat": "time_series"
-            }
-          ],
-          "seriesOverrides": [],
-          "percentage": false,
           "type": "graph",
           "x-axis": true,
-          "error": false,
-          "editable": true,
-          "grid": {
-            "leftMax": null,
-            "threshold2": null,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "threshold1": null,
-            "leftLogBase": 1,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)",
-            "rightMin": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "leftMin": 0
-          },
-          "stack": false,
           "y-axis": true,
-          "timeShift": null,
-          "interval": ">1m",
-          "lines": true,
-          "points": false,
-          "datasource": null,
-          "pointradius": 5,
           "y_formats": [
             "bytes",
             "bytes"
           ]
         }
       ],
-      "editable": true,
-      "collapse": false,
-      "height": "250px"
+      "title": "New row"
     },
     {
-      "title": "New row",
+      "collapse": false,
+      "editable": true,
+      "height": "250px",
       "panels": [
         {
-          "bars": false,
           "aliasColors": {
-            "hitratio.mean": "#1F78C1",
-            "hitratio.max": "#F2C96D"
+            "hitratio.max": "#F2C96D",
+            "hitratio.mean": "#1F78C1"
           },
-          "links": [],
-          "nullPointMode": "connected",
-          "timeFrom": null,
-          "renderer": "flot",
-          "linewidth": 1,
-          "steppedLine": false,
-          "id": 6,
+          "bars": false,
+          "datasource": null,
+          "editable": true,
+          "error": false,
           "fill": 0,
-          "span": 6,
-          "title": "Hits ratio",
-          "tooltip": {
-            "shared": true,
-            "value_type": "cumulative"
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": 100,
+            "leftMin": 0,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
           },
+          "id": 6,
+          "interval": ">60s",
           "legend": {
-            "total": false,
-            "show": true,
+            "avg": false,
+            "current": false,
             "max": false,
             "min": false,
-            "current": false,
-            "values": false,
-            "avg": false
+            "show": true,
+            "total": false,
+            "values": false
           },
-          "targets": [
-            {
-              "function": "mean",
-              "dsType": "influxdb",
-              "target": "",
-              "groupByTags": [
-                "hostname"
-              ],
-              "tags": [],
-              "column": "value",
-              "series": "/memcached.percent.hitratio/",
-              "interval": "",
-              "refId": "A",
-              "alias": "$0",
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "mean",
-                    "params": []
-                  }
-                ]
-              ],
-              "measurement": "memcached_percent_hitratio",
-              "query": "SELECT mean(\"value\") FROM \"memcached_percent_hitratio\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "0"
-                  ]
-                }
-              ],
-              "resultFormat": "time_series"
-            }
-          ],
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
           "seriesOverrides": [
             {
               "alias": "mean",
@@ -689,360 +677,315 @@
               "lines": false
             }
           ],
-          "percentage": false,
+          "span": 6,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "$0",
+              "column": "value",
+              "dsType": "influxdb",
+              "function": "mean",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "0"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "groupByTags": [
+                "hostname"
+              ],
+              "interval": "",
+              "measurement": "memcached_percent_hitratio",
+              "query": "SELECT mean(\"value\") FROM \"memcached_percent_hitratio\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "series": "/memcached.percent.hitratio/",
+              "tags": [],
+              "target": ""
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Hits ratio",
+          "tooltip": {
+            "shared": true,
+            "value_type": "cumulative"
+          },
           "type": "graph",
           "x-axis": true,
-          "error": false,
-          "editable": true,
-          "grid": {
-            "leftMax": 100,
-            "threshold2": null,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "threshold1": null,
-            "leftLogBase": 1,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)",
-            "rightMin": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "leftMin": 0
-          },
-          "stack": false,
           "y-axis": true,
-          "timeShift": null,
-          "interval": ">60s",
-          "lines": true,
-          "points": false,
-          "datasource": null,
-          "pointradius": 5,
           "y_formats": [
             "percent",
             "percent"
           ]
         },
         {
-          "bars": false,
           "aliasColors": {
             "eviction": "#BF1B00",
             "evictions": "#BF1B00"
           },
-          "links": [],
-          "nullPointMode": "connected",
-          "timeFrom": null,
-          "renderer": "flot",
-          "linewidth": 1,
-          "steppedLine": false,
-          "id": 5,
+          "bars": false,
+          "datasource": null,
+          "editable": true,
+          "error": false,
           "fill": 0,
-          "span": 6,
-          "title": "Cache hits stats",
-          "tooltip": {
-            "shared": true,
-            "value_type": "cumulative"
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": 0,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": 0,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
           },
+          "id": 5,
+          "interval": ">1m",
+          "leftYAxisLabel": "per second",
           "legend": {
-            "total": false,
-            "show": true,
+            "avg": false,
+            "current": false,
             "max": false,
             "min": false,
-            "current": false,
-            "values": false,
-            "avg": false
+            "show": true,
+            "total": false,
+            "values": false
           },
-          "targets": [
-            {
-              "function": "mean",
-              "dsType": "influxdb",
-              "hide": false,
-              "rawQuery": false,
-              "groupByTags": [],
-              "tags": [],
-              "column": "value",
-              "series": "merge(/memcached.ops.hits/)",
-              "interval": "",
-              "refId": "A",
-              "alias": "hits",
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "mean",
-                    "params": []
-                  }
-                ]
-              ],
-              "measurement": "memcached_ops_hits",
-              "query": "SELECT mean(\"value\") FROM \"memcached_ops_hits\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "0"
-                  ]
-                }
-              ],
-              "resultFormat": "time_series"
-            },
-            {
-              "function": "mean",
-              "dsType": "influxdb",
-              "hide": false,
-              "rawQuery": false,
-              "groupByTags": [],
-              "tags": [],
-              "column": "value",
-              "series": "merge(/memcached.ops.misses/)",
-              "interval": "",
-              "refId": "B",
-              "alias": "misses",
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "mean",
-                    "params": []
-                  }
-                ]
-              ],
-              "measurement": "memcached_ops_misses",
-              "query": "SELECT mean(\"value\") FROM \"memcached_ops_misses\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "0"
-                  ]
-                }
-              ],
-              "resultFormat": "time_series"
-            },
-            {
-              "function": "mean",
-              "dsType": "influxdb",
-              "target": "",
-              "groupByTags": [],
-              "tags": [],
-              "column": "value",
-              "series": "merge(/memcached.ops.evictions/)",
-              "refId": "C",
-              "alias": "evictions",
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "mean",
-                    "params": []
-                  }
-                ]
-              ],
-              "measurement": "memcached_ops_evictions",
-              "query": "SELECT mean(\"value\") FROM \"memcached_ops_evictions\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "0"
-                  ]
-                }
-              ],
-              "resultFormat": "time_series"
-            }
-          ],
-          "leftYAxisLabel": "per second",
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
           "seriesOverrides": [
             {
               "alias": "/evictions/",
               "yaxis": 2
             }
           ],
-          "percentage": false,
+          "span": 6,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "hits",
+              "column": "value",
+              "dsType": "influxdb",
+              "function": "mean",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "0"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "groupByTags": [],
+              "hide": false,
+              "interval": "",
+              "measurement": "memcached_ops_hits",
+              "query": "SELECT mean(\"value\") FROM \"memcached_ops_hits\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "series": "merge(/memcached.ops.hits/)",
+              "tags": []
+            },
+            {
+              "alias": "misses",
+              "column": "value",
+              "dsType": "influxdb",
+              "function": "mean",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "0"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "groupByTags": [],
+              "hide": false,
+              "interval": "",
+              "measurement": "memcached_ops_misses",
+              "query": "SELECT mean(\"value\") FROM \"memcached_ops_misses\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
+              "refId": "B",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "series": "merge(/memcached.ops.misses/)",
+              "tags": []
+            },
+            {
+              "alias": "evictions",
+              "column": "value",
+              "dsType": "influxdb",
+              "function": "mean",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "0"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "groupByTags": [],
+              "measurement": "memcached_ops_evictions",
+              "query": "SELECT mean(\"value\") FROM \"memcached_ops_evictions\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
+              "refId": "C",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "series": "merge(/memcached.ops.evictions/)",
+              "tags": [],
+              "target": ""
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Cache hits stats",
+          "tooltip": {
+            "shared": true,
+            "value_type": "cumulative"
+          },
           "type": "graph",
           "x-axis": true,
-          "error": false,
-          "editable": true,
-          "grid": {
-            "leftMax": null,
-            "threshold2": null,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "threshold1": null,
-            "leftLogBase": 1,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)",
-            "rightMin": 0,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "leftMin": 0
-          },
-          "stack": false,
           "y-axis": true,
-          "timeShift": null,
-          "interval": ">1m",
-          "lines": true,
-          "points": false,
-          "datasource": null,
-          "pointradius": 5,
           "y_formats": [
             "short",
             "short"
           ]
         }
       ],
-      "editable": true,
-      "collapse": false,
-      "height": "250px"
+      "title": "New row"
     },
     {
-      "title": "New row",
+      "collapse": false,
+      "editable": true,
+      "height": "450px",
       "panels": [
         {
-          "bars": false,
           "aliasColors": {},
-          "links": [],
-          "nullPointMode": "connected",
-          "timeFrom": null,
-          "renderer": "flot",
-          "linewidth": 1,
-          "steppedLine": false,
-          "id": 7,
+          "bars": false,
+          "datasource": null,
+          "editable": true,
+          "error": false,
           "fill": 0,
-          "span": 6,
-          "title": "Network I/O",
-          "tooltip": {
-            "shared": true,
-            "value_type": "cumulative"
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
           },
+          "id": 7,
+          "interval": ">60s",
           "legend": {
-            "total": false,
-            "show": true,
+            "avg": false,
+            "current": false,
             "max": false,
             "min": false,
-            "current": false,
-            "values": false,
-            "avg": false
+            "show": true,
+            "total": false,
+            "values": false
           },
-          "targets": [
-            {
-              "function": "mean",
-              "dsType": "influxdb",
-              "rawQuery": false,
-              "groupByTags": [
-                "hostname"
-              ],
-              "tags": [],
-              "column": "value",
-              "series": "/memcached.octets.rx/",
-              "interval": "",
-              "refId": "A",
-              "alias": "$tag_hostname.tx",
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "mean",
-                    "params": []
-                  }
-                ]
-              ],
-              "measurement": "memcached_octets_tx",
-              "query": "SELECT mean(\"value\") FROM \"memcached_octets_tx\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "null"
-                  ]
-                }
-              ],
-              "resultFormat": "time_series"
-            },
-            {
-              "function": "mean",
-              "dsType": "influxdb",
-              "rawQuery": false,
-              "groupByTags": [
-                "hostname"
-              ],
-              "tags": [],
-              "column": "value",
-              "series": "/memcached.octets.rx/",
-              "interval": "",
-              "refId": "B",
-              "alias": "$tag_hostname.rx",
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "mean",
-                    "params": []
-                  }
-                ]
-              ],
-              "measurement": "memcached_octets_rx",
-              "query": "SELECT mean(\"value\") FROM \"memcached_octets_rx\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "null"
-                  ]
-                }
-              ],
-              "resultFormat": "time_series"
-            }
-          ],
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
           "seriesOverrides": [
             {
               "alias": "max.tx",
@@ -1055,176 +998,243 @@
               "lines": false
             }
           ],
-          "percentage": false,
+          "span": 6,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "$tag_hostname.tx",
+              "column": "value",
+              "dsType": "influxdb",
+              "function": "mean",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "groupByTags": [
+                "hostname"
+              ],
+              "interval": "",
+              "measurement": "memcached_octets_tx",
+              "query": "SELECT mean(\"value\") FROM \"memcached_octets_tx\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "series": "/memcached.octets.rx/",
+              "tags": []
+            },
+            {
+              "alias": "$tag_hostname.rx",
+              "column": "value",
+              "dsType": "influxdb",
+              "function": "mean",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "groupByTags": [
+                "hostname"
+              ],
+              "interval": "",
+              "measurement": "memcached_octets_rx",
+              "query": "SELECT mean(\"value\") FROM \"memcached_octets_rx\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
+              "refId": "B",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "series": "/memcached.octets.rx/",
+              "tags": []
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Network I/O",
+          "tooltip": {
+            "shared": true,
+            "value_type": "cumulative"
+          },
           "type": "graph",
           "x-axis": true,
-          "error": false,
-          "editable": true,
-          "grid": {
-            "leftMax": null,
-            "threshold2": null,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "threshold1": null,
-            "leftLogBase": 1,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)",
-            "rightMin": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "leftMin": null
-          },
-          "stack": false,
           "y-axis": true,
-          "timeShift": null,
-          "interval": ">60s",
-          "lines": true,
-          "points": false,
-          "datasource": null,
-          "pointradius": 5,
           "y_formats": [
             "Bps",
             "short"
           ]
         },
         {
-          "bars": false,
           "aliasColors": {
             "max": "#F9E2D2",
-            "min": "#1F78C1",
-            "merged.$2": "#E24D42"
+            "merged.$2": "#E24D42",
+            "min": "#1F78C1"
           },
+          "bars": false,
+          "datasource": null,
+          "editable": true,
+          "error": false,
+          "fill": 0,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 4,
+          "interval": ">1m",
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
           "links": [],
           "nullPointMode": "null as zero",
-          "timeFrom": null,
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
           "renderer": "flot",
-          "linewidth": 1,
-          "steppedLine": false,
-          "id": 4,
-          "fill": 0,
+          "seriesOverrides": [],
           "span": 6,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "$tag_hostname",
+              "column": "value",
+              "dsType": "influxdb",
+              "function": "mean",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "0"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "groupByTags": [
+                "hostname"
+              ],
+              "interval": "",
+              "measurement": "memcached_connections_current",
+              "query": "SELECT mean(\"value\") FROM \"memcached_connections_current\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "series": "/memcached.connections/",
+              "tags": []
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
           "title": "Connections",
           "tooltip": {
             "shared": true,
             "value_type": "individual"
           },
-          "legend": {
-            "total": false,
-            "show": true,
-            "max": false,
-            "min": false,
-            "current": false,
-            "values": false,
-            "avg": false
-          },
-          "targets": [
-            {
-              "function": "mean",
-              "dsType": "influxdb",
-              "groupByTags": [
-                "hostname"
-              ],
-              "tags": [],
-              "column": "value",
-              "series": "/memcached.connections/",
-              "interval": "",
-              "refId": "A",
-              "alias": "$tag_hostname",
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "mean",
-                    "params": []
-                  }
-                ]
-              ],
-              "measurement": "memcached_connections_current",
-              "query": "SELECT mean(\"value\") FROM \"memcached_connections_current\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "0"
-                  ]
-                }
-              ],
-              "resultFormat": "time_series"
-            }
-          ],
-          "seriesOverrides": [],
-          "percentage": false,
           "type": "graph",
           "x-axis": true,
-          "error": false,
-          "editable": true,
-          "grid": {
-            "leftMax": null,
-            "threshold2": null,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "threshold1": null,
-            "leftLogBase": 1,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)",
-            "rightMin": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "leftMin": null
-          },
-          "stack": false,
           "y-axis": true,
-          "timeShift": null,
-          "interval": ">1m",
-          "lines": true,
-          "points": false,
-          "datasource": null,
-          "pointradius": 5,
           "y_formats": [
             "short",
             "short"
           ]
         }
       ],
-      "editable": true,
-      "collapse": false,
-      "height": "450px"
+      "title": "New row"
     }
   ],
+  "schemaVersion": 8,
+  "sharedCrosshair": true,
+  "style": "dark",
+  "tags": [],
   "templating": {
     "list": []
   },
-  "links": [],
-  "tags": [],
-  "hideControls": false,
-  "title": "Memcached",
-  "editable": true,
-  "refresh": "1m",
-  "id": null,
-  "originalTitle": "Memcached",
+  "time": {
+    "from": "now-1h",
+    "to": "now"
+  },
   "timepicker": {
-    "status": "Stable",
-    "notice": false,
-    "enable": true,
     "collapse": false,
-    "time_options": [
-      "5m",
-      "15m",
-      "1h",
-      "6h",
-      "12h",
-      "24h",
-      "2d",
-      "7d",
-      "30d"
-    ],
+    "enable": true,
+    "notice": false,
+    "now": true,
     "refresh_intervals": [
       "5s",
       "10s",
@@ -1237,31 +1247,21 @@
       "2h",
       "1d"
     ],
-    "now": true,
+    "status": "Stable",
+    "time_options": [
+      "5m",
+      "15m",
+      "1h",
+      "6h",
+      "12h",
+      "24h",
+      "2d",
+      "7d",
+      "30d"
+    ],
     "type": "timepicker"
   },
-  "sharedCrosshair": true,
-  "time": {
-    "to": "now",
-    "from": "now-1h"
-  },
   "timezone": "browser",
-  "schemaVersion": 8,
-  "annotations": {
-    "list": [
-      {
-        "enable": true,
-        "name": "Status",
-        "iconSize": 13,
-        "textColumn": "text",
-        "titleColumn": "title",
-        "datasource": "influxdb",
-        "lineColor": "rgba(255, 96, 96, 0.592157)",
-        "showLine": true,
-        "query": "select title,tags,text from annotations where $timeFilter and cluster = 'memcached'",
-        "tagsColumn": "tags",
-        "iconColor": "#C0C6BE"
-      }
-    ]
-  }
+  "title": "Memcached",
+  "version": 2
 }

@@ -1,3129 +1,3125 @@
 {
-  "version": 1,
-  "style": "dark",
+  "annotations": {
+    "list": []
+  },
+  "editable": true,
+  "hideControls": false,
+  "id": null,
+  "links": [],
+  "originalTitle": "Main",
+  "refresh": "1m",
   "rows": [
     {
       "collapse": false,
-      "title": "OpenStack Services",
       "editable": true,
       "height": "250px",
       "panels": [
         {
+          "cacheTimeout": null,
+          "colorBackground": true,
+          "colorValue": false,
+          "colors": [
+            "rgba(71, 212, 59, 0.4)",
+            "rgba(245, 150, 40, 0.73)",
+            "rgba(225, 40, 40, 0.59)"
+          ],
+          "datasource": null,
+          "editable": true,
+          "error": false,
+          "format": "none",
+          "id": 1,
+          "interval": "> 60s",
           "links": [
             {
-              "title": "Cinder",
-              "type": "dashboard",
               "dashboard": "Cinder",
-              "name": "Drilldown dashboard"
+              "name": "Drilldown dashboard",
+              "title": "Cinder",
+              "type": "dashboard"
             }
           ],
-          "valueMaps": [
-            {
-              "text": "no data",
-              "value": "null",
-              "op": "="
-            },
-            {
-              "text": "OKAY",
-              "value": "0",
-              "op": "="
-            },
-            {
-              "text": "WARN",
-              "value": "1",
-              "op": "="
-            },
-            {
-              "text": "UNKW",
-              "value": "2",
-              "op": "="
-            },
-            {
-              "text": "CRIT",
-              "value": "3",
-              "op": "="
-            },
-            {
-              "text": "DOWN",
-              "value": "4",
-              "op": "="
-            }
-          ],
-          "thresholds": "0,1,3",
+          "maxDataPoints": 100,
           "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
           "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 1,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
           "targets": [
             {
-              "function": "last",
+              "column": "value",
+              "condition": "",
               "dsType": "influxdb",
-              "groupby_field": "",
-              "rawQuery": false,
-              "groupByTags": [],
-              "tags": [
+              "fill": "",
+              "function": "last",
+              "groupBy": [
                 {
-                  "operator": "=",
-                  "value": "cinder",
-                  "key": "cluster_name"
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
                 }
               ],
-              "column": "value",
-              "series": "merge(/openstack.cinder.status/)",
+              "groupByTags": [],
+              "groupby_field": "",
               "interval": "",
-              "refId": "A",
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "last",
-                    "params": []
-                  }
-                ]
-              ],
-              "resultFormat": "time_series",
               "measurement": "cluster_status",
               "query": "SELECT last(\"value\") FROM \"cluster_status\" WHERE \"cluster_name\" = 'cinder' AND $timeFilter GROUP BY time($interval) fill(null)",
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "null"
-                  ]
-                }
+              "rawQuery": false,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  }
+                ]
               ],
-              "condition": "",
-              "fill": ""
+              "series": "merge(/openstack.cinder.status/)",
+              "tags": [
+                {
+                  "key": "cluster_name",
+                  "operator": "=",
+                  "value": "cinder"
+                }
+              ]
             }
           ],
-          "maxDataPoints": 100,
-          "span": 1,
-          "colorBackground": true,
+          "thresholds": "0,1,3",
           "title": "Cinder",
-          "sparkline": {
-            "full": false,
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "lineColor": "rgb(31, 120, 193)",
-            "show": false
-          },
-          "id": 1,
-          "prefixFontSize": "50%",
-          "valueName": "current",
           "type": "singlestat",
           "valueFontSize": "50%",
-          "format": "none",
-          "editable": true,
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "no data",
+              "value": "null"
+            },
+            {
+              "op": "=",
+              "text": "OKAY",
+              "value": "0"
+            },
+            {
+              "op": "=",
+              "text": "WARN",
+              "value": "1"
+            },
+            {
+              "op": "=",
+              "text": "UNKW",
+              "value": "2"
+            },
+            {
+              "op": "=",
+              "text": "CRIT",
+              "value": "3"
+            },
+            {
+              "op": "=",
+              "text": "DOWN",
+              "value": "4"
+            }
+          ],
+          "valueName": "current"
+        },
+        {
           "cacheTimeout": null,
-          "postfix": "",
-          "interval": "> 60s",
+          "colorBackground": true,
+          "colorValue": false,
           "colors": [
             "rgba(71, 212, 59, 0.4)",
             "rgba(245, 150, 40, 0.73)",
             "rgba(225, 40, 40, 0.59)"
           ],
           "datasource": null,
+          "editable": true,
           "error": false,
-          "nullText": null,
-          "postfixFontSize": "50%",
-          "colorValue": false
-        },
-        {
+          "format": "none",
+          "id": 2,
+          "interval": "> 60s",
           "links": [
             {
-              "title": "Keystone",
-              "type": "dashboard",
               "dashboard": "Keystone",
-              "name": "Drilldown dashboard"
+              "name": "Drilldown dashboard",
+              "title": "Keystone",
+              "type": "dashboard"
             }
           ],
-          "valueMaps": [
-            {
-              "text": "no data",
-              "value": "null",
-              "op": "="
-            },
-            {
-              "text": "OKAY",
-              "value": "0",
-              "op": "="
-            },
-            {
-              "text": "WARN",
-              "value": "1",
-              "op": "="
-            },
-            {
-              "text": "UNKW",
-              "value": "2",
-              "op": "="
-            },
-            {
-              "text": "CRIT",
-              "value": "3",
-              "op": "="
-            },
-            {
-              "text": "DOWN",
-              "value": "4",
-              "op": "="
-            }
-          ],
-          "thresholds": "0,1,3",
+          "maxDataPoints": 100,
           "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
           "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 1,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
           "targets": [
             {
-              "function": "last",
+              "column": "value",
+              "condition": "",
               "dsType": "influxdb",
-              "groupby_field": "",
-              "rawQuery": false,
-              "groupByTags": [],
-              "tags": [
+              "fill": "",
+              "function": "last",
+              "groupBy": [
                 {
-                  "operator": "=",
-                  "value": "keystone",
-                  "key": "cluster_name"
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
                 }
               ],
-              "column": "value",
-              "series": "merge(/openstack.keystone.status/)",
+              "groupByTags": [],
+              "groupby_field": "",
               "interval": "",
-              "refId": "A",
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "last",
-                    "params": []
-                  }
-                ]
-              ],
-              "resultFormat": "time_series",
               "measurement": "cluster_status",
               "query": "SELECT last(\"value\") FROM \"cluster_status\" WHERE \"cluster_name\" = 'keystone' AND $timeFilter GROUP BY time($interval) fill(null)",
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "null"
-                  ]
-                }
+              "rawQuery": false,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  }
+                ]
               ],
-              "condition": "",
-              "fill": ""
+              "series": "merge(/openstack.keystone.status/)",
+              "tags": [
+                {
+                  "key": "cluster_name",
+                  "operator": "=",
+                  "value": "keystone"
+                }
+              ]
             }
           ],
-          "maxDataPoints": 100,
-          "span": 1,
-          "colorBackground": true,
+          "thresholds": "0,1,3",
           "title": "Keystone",
-          "sparkline": {
-            "full": false,
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "lineColor": "rgb(31, 120, 193)",
-            "show": false
-          },
-          "id": 2,
-          "prefixFontSize": "50%",
-          "valueName": "current",
           "type": "singlestat",
           "valueFontSize": "50%",
-          "format": "none",
-          "editable": true,
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "no data",
+              "value": "null"
+            },
+            {
+              "op": "=",
+              "text": "OKAY",
+              "value": "0"
+            },
+            {
+              "op": "=",
+              "text": "WARN",
+              "value": "1"
+            },
+            {
+              "op": "=",
+              "text": "UNKW",
+              "value": "2"
+            },
+            {
+              "op": "=",
+              "text": "CRIT",
+              "value": "3"
+            },
+            {
+              "op": "=",
+              "text": "DOWN",
+              "value": "4"
+            }
+          ],
+          "valueName": "current"
+        },
+        {
           "cacheTimeout": null,
-          "postfix": "",
-          "interval": "> 60s",
+          "colorBackground": true,
+          "colorValue": false,
           "colors": [
             "rgba(71, 212, 59, 0.4)",
             "rgba(245, 150, 40, 0.73)",
             "rgba(225, 40, 40, 0.59)"
           ],
           "datasource": null,
+          "editable": true,
           "error": false,
-          "nullText": null,
-          "postfixFontSize": "50%",
-          "colorValue": false
-        },
-        {
+          "format": "none",
+          "id": 3,
+          "interval": "> 60s",
           "links": [
             {
-              "title": "Glance",
-              "type": "dashboard",
               "dashboard": "Glance",
-              "name": "Drilldown dashboard"
+              "name": "Drilldown dashboard",
+              "title": "Glance",
+              "type": "dashboard"
             }
           ],
-          "valueMaps": [
-            {
-              "text": "no data",
-              "value": "null",
-              "op": "="
-            },
-            {
-              "text": "OKAY",
-              "value": "0",
-              "op": "="
-            },
-            {
-              "text": "WARN",
-              "value": "1",
-              "op": "="
-            },
-            {
-              "text": "UNKW",
-              "value": "2",
-              "op": "="
-            },
-            {
-              "text": "CRIT",
-              "value": "3",
-              "op": "="
-            },
-            {
-              "text": "DOWN",
-              "value": "4",
-              "op": "="
-            }
-          ],
-          "thresholds": "0,1,3",
+          "maxDataPoints": 100,
           "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
           "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 1,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
           "targets": [
             {
-              "function": "last",
+              "column": "value",
+              "condition": "",
               "dsType": "influxdb",
-              "groupby_field": "",
-              "rawQuery": false,
-              "groupByTags": [],
-              "tags": [
+              "fill": "",
+              "function": "last",
+              "groupBy": [
                 {
-                  "operator": "=",
-                  "value": "glance",
-                  "key": "cluster_name"
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
                 }
               ],
-              "column": "value",
-              "series": "merge(/openstack.glance.status/)",
+              "groupByTags": [],
+              "groupby_field": "",
               "interval": "",
-              "refId": "A",
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "last",
-                    "params": []
-                  }
-                ]
-              ],
-              "resultFormat": "time_series",
               "measurement": "cluster_status",
               "query": "SELECT last(\"value\") FROM \"cluster_status\" WHERE \"cluster_name\" = 'glance' AND $timeFilter GROUP BY time($interval) fill(null)",
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "null"
-                  ]
-                }
+              "rawQuery": false,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  }
+                ]
               ],
-              "condition": "",
-              "fill": ""
+              "series": "merge(/openstack.glance.status/)",
+              "tags": [
+                {
+                  "key": "cluster_name",
+                  "operator": "=",
+                  "value": "glance"
+                }
+              ]
             }
           ],
-          "maxDataPoints": 100,
-          "span": 1,
-          "colorBackground": true,
+          "thresholds": "0,1,3",
           "title": "Glance",
-          "sparkline": {
-            "full": false,
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "lineColor": "rgb(31, 120, 193)",
-            "show": false
-          },
-          "id": 3,
-          "prefixFontSize": "50%",
-          "valueName": "current",
           "type": "singlestat",
           "valueFontSize": "50%",
-          "format": "none",
-          "editable": true,
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "no data",
+              "value": "null"
+            },
+            {
+              "op": "=",
+              "text": "OKAY",
+              "value": "0"
+            },
+            {
+              "op": "=",
+              "text": "WARN",
+              "value": "1"
+            },
+            {
+              "op": "=",
+              "text": "UNKW",
+              "value": "2"
+            },
+            {
+              "op": "=",
+              "text": "CRIT",
+              "value": "3"
+            },
+            {
+              "op": "=",
+              "text": "DOWN",
+              "value": "4"
+            }
+          ],
+          "valueName": "current"
+        },
+        {
           "cacheTimeout": null,
-          "postfix": "",
-          "interval": "> 60s",
+          "colorBackground": true,
+          "colorValue": false,
           "colors": [
             "rgba(71, 212, 59, 0.4)",
             "rgba(245, 150, 40, 0.73)",
             "rgba(225, 40, 40, 0.59)"
           ],
           "datasource": null,
+          "editable": true,
           "error": false,
-          "nullText": null,
-          "postfixFontSize": "50%",
-          "colorValue": false
-        },
-        {
+          "format": "none",
+          "id": 4,
+          "interval": "> 60s",
           "links": [
             {
-              "title": "Heat",
-              "type": "dashboard",
               "dashboard": "Heat",
-              "name": "Drilldown dashboard"
+              "name": "Drilldown dashboard",
+              "title": "Heat",
+              "type": "dashboard"
             }
           ],
-          "valueMaps": [
-            {
-              "text": "no data",
-              "value": "null",
-              "op": "="
-            },
-            {
-              "text": "OKAY",
-              "value": "0",
-              "op": "="
-            },
-            {
-              "text": "WARN",
-              "value": "1",
-              "op": "="
-            },
-            {
-              "text": "UNKW",
-              "value": "2",
-              "op": "="
-            },
-            {
-              "text": "CRIT",
-              "value": "3",
-              "op": "="
-            },
-            {
-              "text": "DOWN",
-              "value": "4",
-              "op": "="
-            }
-          ],
-          "thresholds": "0,1,3",
+          "maxDataPoints": 100,
           "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
           "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 1,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
           "targets": [
             {
-              "function": "last",
+              "column": "value",
+              "condition": "",
               "dsType": "influxdb",
-              "groupby_field": "",
-              "rawQuery": false,
-              "groupByTags": [],
-              "tags": [
+              "fill": "",
+              "function": "last",
+              "groupBy": [
                 {
-                  "operator": "=",
-                  "value": "heat",
-                  "key": "cluster_name"
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
                 }
               ],
-              "column": "value",
-              "series": "merge(/openstack.heat.status/)",
+              "groupByTags": [],
+              "groupby_field": "",
               "interval": "",
-              "refId": "A",
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "last",
-                    "params": []
-                  }
-                ]
-              ],
-              "resultFormat": "time_series",
               "measurement": "cluster_status",
               "query": "SELECT last(\"value\") FROM \"cluster_status\" WHERE \"cluster_name\" = 'heat' AND $timeFilter GROUP BY time($interval) fill(null)",
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "null"
-                  ]
-                }
+              "rawQuery": false,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  }
+                ]
               ],
-              "condition": "",
-              "fill": ""
+              "series": "merge(/openstack.heat.status/)",
+              "tags": [
+                {
+                  "key": "cluster_name",
+                  "operator": "=",
+                  "value": "heat"
+                }
+              ]
             }
           ],
-          "maxDataPoints": 100,
-          "span": 1,
-          "colorBackground": true,
+          "thresholds": "0,1,3",
           "title": "Heat",
-          "sparkline": {
-            "full": false,
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "lineColor": "rgb(31, 120, 193)",
-            "show": false
-          },
-          "id": 4,
-          "prefixFontSize": "50%",
-          "valueName": "current",
           "type": "singlestat",
           "valueFontSize": "50%",
-          "format": "none",
-          "editable": true,
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "no data",
+              "value": "null"
+            },
+            {
+              "op": "=",
+              "text": "OKAY",
+              "value": "0"
+            },
+            {
+              "op": "=",
+              "text": "WARN",
+              "value": "1"
+            },
+            {
+              "op": "=",
+              "text": "UNKW",
+              "value": "2"
+            },
+            {
+              "op": "=",
+              "text": "CRIT",
+              "value": "3"
+            },
+            {
+              "op": "=",
+              "text": "DOWN",
+              "value": "4"
+            }
+          ],
+          "valueName": "current"
+        },
+        {
           "cacheTimeout": null,
-          "postfix": "",
-          "interval": "> 60s",
+          "colorBackground": true,
+          "colorValue": false,
           "colors": [
             "rgba(71, 212, 59, 0.4)",
             "rgba(245, 150, 40, 0.73)",
             "rgba(225, 40, 40, 0.59)"
           ],
           "datasource": null,
+          "editable": true,
           "error": false,
-          "nullText": null,
-          "postfixFontSize": "50%",
-          "colorValue": false
-        },
-        {
+          "format": "none",
+          "id": 23,
+          "interval": "> 60s",
           "links": [
             {
-              "title": "Neutron",
-              "type": "dashboard",
               "dashboard": "Neutron",
-              "name": "Drilldown dashboard"
+              "name": "Drilldown dashboard",
+              "title": "Neutron",
+              "type": "dashboard"
             }
           ],
-          "valueMaps": [
-            {
-              "text": "no data",
-              "value": "null",
-              "op": "="
-            },
-            {
-              "text": "OKAY",
-              "value": "0",
-              "op": "="
-            },
-            {
-              "text": "WARN",
-              "value": "1",
-              "op": "="
-            },
-            {
-              "text": "UNKW",
-              "value": "2",
-              "op": "="
-            },
-            {
-              "text": "CRIT",
-              "value": "3",
-              "op": "="
-            },
-            {
-              "text": "DOWN",
-              "value": "4",
-              "op": "="
-            }
-          ],
-          "thresholds": "0,1,3",
+          "maxDataPoints": 100,
           "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
           "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 1,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
           "targets": [
             {
-              "function": "last",
+              "column": "value",
+              "condition": "",
               "dsType": "influxdb",
-              "groupby_field": "",
-              "rawQuery": false,
-              "groupByTags": [],
-              "tags": [
+              "fill": "",
+              "function": "last",
+              "groupBy": [
                 {
-                  "operator": "=",
-                  "value": "neutron",
-                  "key": "cluster_name"
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
                 }
               ],
-              "column": "value",
-              "series": "merge(/openstack.neutron.status/)",
+              "groupByTags": [],
+              "groupby_field": "",
               "interval": "",
-              "refId": "A",
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "last",
-                    "params": []
-                  }
-                ]
-              ],
-              "resultFormat": "time_series",
               "measurement": "cluster_status",
               "query": "SELECT last(\"value\") FROM \"cluster_status\" WHERE \"cluster_name\" = 'neutron' AND $timeFilter GROUP BY time($interval) fill(null)",
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "null"
-                  ]
-                }
+              "rawQuery": false,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  }
+                ]
               ],
-              "condition": "",
-              "fill": ""
+              "series": "merge(/openstack.neutron.status/)",
+              "tags": [
+                {
+                  "key": "cluster_name",
+                  "operator": "=",
+                  "value": "neutron"
+                }
+              ]
             }
           ],
-          "maxDataPoints": 100,
-          "span": 1,
-          "colorBackground": true,
+          "thresholds": "0,1,3",
           "title": "Neutron",
-          "sparkline": {
-            "full": false,
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "lineColor": "rgb(31, 120, 193)",
-            "show": false
-          },
-          "id": 23,
-          "prefixFontSize": "50%",
-          "valueName": "current",
           "type": "singlestat",
           "valueFontSize": "50%",
-          "format": "none",
-          "editable": true,
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "no data",
+              "value": "null"
+            },
+            {
+              "op": "=",
+              "text": "OKAY",
+              "value": "0"
+            },
+            {
+              "op": "=",
+              "text": "WARN",
+              "value": "1"
+            },
+            {
+              "op": "=",
+              "text": "UNKW",
+              "value": "2"
+            },
+            {
+              "op": "=",
+              "text": "CRIT",
+              "value": "3"
+            },
+            {
+              "op": "=",
+              "text": "DOWN",
+              "value": "4"
+            }
+          ],
+          "valueName": "current"
+        },
+        {
           "cacheTimeout": null,
-          "postfix": "",
-          "interval": "> 60s",
+          "colorBackground": true,
+          "colorValue": false,
           "colors": [
             "rgba(71, 212, 59, 0.4)",
             "rgba(245, 150, 40, 0.73)",
             "rgba(225, 40, 40, 0.59)"
           ],
           "datasource": null,
+          "editable": true,
           "error": false,
-          "nullText": null,
-          "postfixFontSize": "50%",
-          "colorValue": false
-        },
-        {
+          "format": "none",
+          "id": 5,
+          "interval": "> 60s",
           "links": [
             {
-              "title": "Nova",
-              "type": "dashboard",
               "dashboard": "Nova",
-              "name": "Drilldown dashboard"
+              "name": "Drilldown dashboard",
+              "title": "Nova",
+              "type": "dashboard"
             }
           ],
-          "valueMaps": [
-            {
-              "text": "no data",
-              "value": "null",
-              "op": "="
-            },
-            {
-              "text": "OKAY",
-              "value": "0",
-              "op": "="
-            },
-            {
-              "text": "WARN",
-              "value": "1",
-              "op": "="
-            },
-            {
-              "text": "UNKW",
-              "value": "2",
-              "op": "="
-            },
-            {
-              "text": "CRIT",
-              "value": "3",
-              "op": "="
-            },
-            {
-              "text": "DOWN",
-              "value": "4",
-              "op": "="
-            }
-          ],
-          "thresholds": "0,1,3",
+          "maxDataPoints": 100,
           "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
           "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 1,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
           "targets": [
             {
-              "function": "last",
+              "column": "value",
+              "condition": "",
               "dsType": "influxdb",
-              "groupby_field": "",
-              "rawQuery": false,
-              "groupByTags": [],
-              "tags": [
+              "fill": "",
+              "function": "last",
+              "groupBy": [
                 {
-                  "operator": "=",
-                  "value": "nova",
-                  "key": "cluster_name"
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
                 }
               ],
-              "column": "value",
-              "series": "merge(/openstack.nova.status/)",
+              "groupByTags": [],
+              "groupby_field": "",
               "interval": "",
-              "refId": "A",
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "last",
-                    "params": []
-                  }
-                ]
-              ],
-              "resultFormat": "time_series",
               "measurement": "cluster_status",
               "query": "SELECT last(\"value\") FROM \"cluster_status\" WHERE \"cluster_name\" = 'nova' AND $timeFilter GROUP BY time($interval) fill(null)",
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "null"
-                  ]
-                }
+              "rawQuery": false,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  }
+                ]
               ],
-              "condition": "",
-              "fill": ""
+              "series": "merge(/openstack.nova.status/)",
+              "tags": [
+                {
+                  "key": "cluster_name",
+                  "operator": "=",
+                  "value": "nova"
+                }
+              ]
             }
           ],
-          "maxDataPoints": 100,
-          "span": 1,
-          "colorBackground": true,
+          "thresholds": "0,1,3",
           "title": "Nova",
-          "sparkline": {
-            "full": false,
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "lineColor": "rgb(31, 120, 193)",
-            "show": false
-          },
-          "id": 5,
-          "prefixFontSize": "50%",
-          "valueName": "current",
           "type": "singlestat",
           "valueFontSize": "50%",
-          "format": "none",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "no data",
+              "value": "null"
+            },
+            {
+              "op": "=",
+              "text": "OKAY",
+              "value": "0"
+            },
+            {
+              "op": "=",
+              "text": "WARN",
+              "value": "1"
+            },
+            {
+              "op": "=",
+              "text": "UNKW",
+              "value": "2"
+            },
+            {
+              "op": "=",
+              "text": "CRIT",
+              "value": "3"
+            },
+            {
+              "op": "=",
+              "text": "DOWN",
+              "value": "4"
+            }
+          ],
+          "valueName": "current"
+        },
+        {
+          "content": "",
           "editable": true,
+          "error": false,
+          "id": 20,
+          "links": [],
+          "mode": "markdown",
+          "span": 1,
+          "style": {},
+          "title": "",
+          "type": "text"
+        },
+        {
           "cacheTimeout": null,
-          "postfix": "",
-          "interval": "> 60s",
+          "colorBackground": true,
+          "colorValue": false,
           "colors": [
             "rgba(71, 212, 59, 0.4)",
             "rgba(245, 150, 40, 0.73)",
             "rgba(225, 40, 40, 0.59)"
           ],
           "datasource": null,
-          "error": false,
-          "nullText": null,
-          "postfixFontSize": "50%",
-          "colorValue": false
-        },
-        {
-          "style": {},
-          "span": 1,
-          "links": [],
-          "title": "",
           "editable": true,
-          "content": "",
-          "mode": "markdown",
           "error": false,
-          "type": "text",
-          "id": 20
-        },
-        {
+          "format": "short",
+          "id": 16,
+          "interval": ">60s",
           "links": [
             {
-              "title": "RabbitMQ",
-              "type": "dashboard",
               "dashboard": "RabbitMQ",
-              "name": "Drilldown dashboard"
+              "name": "Drilldown dashboard",
+              "title": "RabbitMQ",
+              "type": "dashboard"
             }
           ],
-          "valueMaps": [
-            {
-              "text": "no data",
-              "value": "null",
-              "op": "="
-            },
-            {
-              "text": "OKAY",
-              "value": "0",
-              "op": "="
-            },
-            {
-              "text": "WARN",
-              "value": "1",
-              "op": "="
-            },
-            {
-              "text": "UNKW",
-              "value": "2",
-              "op": "="
-            },
-            {
-              "text": "CRIT",
-              "value": "3",
-              "op": "="
-            },
-            {
-              "text": "DOWN",
-              "value": "4",
-              "op": "="
-            }
-          ],
-          "thresholds": "0,1,3",
+          "maxDataPoints": 100,
           "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
           "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 1,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
           "targets": [
             {
-              "function": "last",
+              "column": "value",
               "dsType": "influxdb",
-              "rawQuery": false,
-              "groupByTags": [],
-              "tags": [
+              "fill": "",
+              "function": "last",
+              "groupBy": [
                 {
-                  "operator": "=",
-                  "value": "rabbitmq",
-                  "key": "cluster_name"
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
                 }
               ],
-              "column": "value",
-              "series": "merge(/\\.rabbitmq.status$/)",
+              "groupByTags": [],
               "interval": "",
-              "refId": "A",
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "last",
-                    "params": []
-                  }
-                ]
-              ],
               "measurement": "cluster_status",
               "query": "SELECT last(\"value\") FROM \"cluster_status\" WHERE \"cluster_name\" = 'rabbitmq' AND $timeFilter GROUP BY time($interval) fill(null)",
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "null"
-                  ]
-                }
-              ],
+              "rawQuery": false,
+              "refId": "A",
               "resultFormat": "time_series",
-              "fill": ""
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  }
+                ]
+              ],
+              "series": "merge(/\\.rabbitmq.status$/)",
+              "tags": [
+                {
+                  "key": "cluster_name",
+                  "operator": "=",
+                  "value": "rabbitmq"
+                }
+              ]
             }
           ],
-          "maxDataPoints": 100,
-          "span": 1,
-          "colorBackground": true,
+          "thresholds": "0,1,3",
           "title": "RabbitMQ",
-          "sparkline": {
-            "full": false,
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "lineColor": "rgb(31, 120, 193)",
-            "show": false
-          },
-          "id": 16,
-          "prefixFontSize": "50%",
-          "valueName": "current",
           "type": "singlestat",
           "valueFontSize": "50%",
-          "format": "short",
-          "editable": true,
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "no data",
+              "value": "null"
+            },
+            {
+              "op": "=",
+              "text": "OKAY",
+              "value": "0"
+            },
+            {
+              "op": "=",
+              "text": "WARN",
+              "value": "1"
+            },
+            {
+              "op": "=",
+              "text": "UNKW",
+              "value": "2"
+            },
+            {
+              "op": "=",
+              "text": "CRIT",
+              "value": "3"
+            },
+            {
+              "op": "=",
+              "text": "DOWN",
+              "value": "4"
+            }
+          ],
+          "valueName": "current"
+        },
+        {
           "cacheTimeout": null,
-          "postfix": "",
-          "interval": ">60s",
+          "colorBackground": true,
+          "colorValue": false,
           "colors": [
             "rgba(71, 212, 59, 0.4)",
             "rgba(245, 150, 40, 0.73)",
             "rgba(225, 40, 40, 0.59)"
           ],
           "datasource": null,
+          "editable": true,
           "error": false,
-          "nullText": null,
-          "postfixFontSize": "50%",
-          "colorValue": false
-        },
-        {
+          "format": "short",
+          "id": 15,
+          "interval": ">60s",
           "links": [
             {
-              "title": "MySQL",
-              "type": "dashboard",
               "dashboard": "MySQL",
-              "name": "Drilldown dashboard"
+              "name": "Drilldown dashboard",
+              "title": "MySQL",
+              "type": "dashboard"
             }
           ],
-          "valueMaps": [
-            {
-              "text": "no data",
-              "value": "null",
-              "op": "="
-            },
-            {
-              "text": "OKAY",
-              "value": "0",
-              "op": "="
-            },
-            {
-              "text": "WARN",
-              "value": "1",
-              "op": "="
-            },
-            {
-              "text": "UNKW",
-              "value": "2",
-              "op": "="
-            },
-            {
-              "text": "CRIT",
-              "value": "3",
-              "op": "="
-            },
-            {
-              "text": "DOWN",
-              "value": "4",
-              "op": "="
-            }
-          ],
-          "thresholds": "0,1,3",
+          "maxDataPoints": 100,
           "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
           "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 1,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
           "targets": [
             {
-              "function": "last",
+              "column": "value",
               "dsType": "influxdb",
-              "rawQuery": false,
-              "groupByTags": [],
-              "tags": [
+              "fill": "",
+              "function": "last",
+              "groupBy": [
                 {
-                  "operator": "=",
-                  "value": "mysql",
-                  "key": "cluster_name"
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
                 }
               ],
-              "column": "value",
-              "series": "merge(/mysql.status$/)",
+              "groupByTags": [],
               "interval": "",
-              "refId": "A",
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "last",
-                    "params": []
-                  }
-                ]
-              ],
               "measurement": "cluster_status",
               "query": "SELECT last(\"value\") FROM \"cluster_status\" WHERE \"cluster_name\" = 'mysql' AND $timeFilter GROUP BY time($interval) fill(null)",
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "null"
-                  ]
-                }
-              ],
+              "rawQuery": false,
+              "refId": "A",
               "resultFormat": "time_series",
-              "fill": ""
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  }
+                ]
+              ],
+              "series": "merge(/mysql.status$/)",
+              "tags": [
+                {
+                  "key": "cluster_name",
+                  "operator": "=",
+                  "value": "mysql"
+                }
+              ]
             }
           ],
-          "maxDataPoints": 100,
-          "span": 1,
-          "colorBackground": true,
+          "thresholds": "0,1,3",
           "title": "MySQL",
-          "sparkline": {
-            "full": false,
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "lineColor": "rgb(31, 120, 193)",
-            "show": false
-          },
-          "id": 15,
-          "prefixFontSize": "50%",
-          "valueName": "current",
           "type": "singlestat",
           "valueFontSize": "50%",
-          "format": "short",
-          "editable": true,
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "no data",
+              "value": "null"
+            },
+            {
+              "op": "=",
+              "text": "OKAY",
+              "value": "0"
+            },
+            {
+              "op": "=",
+              "text": "WARN",
+              "value": "1"
+            },
+            {
+              "op": "=",
+              "text": "UNKW",
+              "value": "2"
+            },
+            {
+              "op": "=",
+              "text": "CRIT",
+              "value": "3"
+            },
+            {
+              "op": "=",
+              "text": "DOWN",
+              "value": "4"
+            }
+          ],
+          "valueName": "current"
+        },
+        {
           "cacheTimeout": null,
-          "postfix": "",
-          "interval": ">60s",
+          "colorBackground": true,
+          "colorValue": false,
           "colors": [
             "rgba(71, 212, 59, 0.4)",
             "rgba(245, 150, 40, 0.73)",
             "rgba(225, 40, 40, 0.59)"
           ],
           "datasource": null,
+          "editable": true,
           "error": false,
-          "nullText": null,
-          "postfixFontSize": "50%",
-          "colorValue": false
-        },
-        {
+          "format": "short",
+          "id": 18,
+          "interval": ">60s",
           "links": [
             {
-              "title": "Apache",
-              "type": "dashboard",
               "dashUri": "db/apache",
+              "dashboard": "Apache",
               "name": "Drilldown dashboard",
-              "dashboard": "Apache"
+              "title": "Apache",
+              "type": "dashboard"
             }
           ],
-          "valueMaps": [
-            {
-              "text": "no data",
-              "value": "null",
-              "op": "="
-            },
-            {
-              "text": "OKAY",
-              "value": "0",
-              "op": "="
-            },
-            {
-              "text": "WARN",
-              "value": "1",
-              "op": "="
-            },
-            {
-              "text": "UNKW",
-              "value": "2",
-              "op": "="
-            },
-            {
-              "text": "CRIT",
-              "value": "3",
-              "op": "="
-            },
-            {
-              "text": "DOWN",
-              "value": "4",
-              "op": "="
-            }
-          ],
-          "thresholds": "0,1,3",
+          "maxDataPoints": 100,
           "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
           "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 1,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
           "targets": [
             {
-              "function": "last",
+              "column": "value",
               "dsType": "influxdb",
-              "rawQuery": false,
-              "groupByTags": [],
-              "tags": [
+              "fill": "",
+              "function": "last",
+              "groupBy": [
                 {
-                  "operator": "=",
-                  "value": "apache",
-                  "key": "cluster_name"
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
                 }
               ],
-              "column": "value",
-              "series": "merge(/mysql.status$/)",
+              "groupByTags": [],
               "interval": "",
-              "refId": "A",
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "last",
-                    "params": []
-                  }
-                ]
-              ],
               "measurement": "cluster_status",
               "query": "SELECT last(\"value\") FROM \"cluster_status\" WHERE \"cluster_name\" = 'apache' AND $timeFilter GROUP BY time($interval) fill(null)",
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "null"
-                  ]
-                }
-              ],
+              "rawQuery": false,
+              "refId": "A",
               "resultFormat": "time_series",
-              "fill": ""
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  }
+                ]
+              ],
+              "series": "merge(/mysql.status$/)",
+              "tags": [
+                {
+                  "key": "cluster_name",
+                  "operator": "=",
+                  "value": "apache"
+                }
+              ]
             }
           ],
-          "maxDataPoints": 100,
-          "span": 1,
-          "colorBackground": true,
+          "thresholds": "0,1,3",
           "title": "Apache",
-          "sparkline": {
-            "full": false,
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "lineColor": "rgb(31, 120, 193)",
-            "show": false
-          },
-          "id": 18,
-          "prefixFontSize": "50%",
-          "valueName": "current",
           "type": "singlestat",
           "valueFontSize": "50%",
-          "format": "short",
-          "editable": true,
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "no data",
+              "value": "null"
+            },
+            {
+              "op": "=",
+              "text": "OKAY",
+              "value": "0"
+            },
+            {
+              "op": "=",
+              "text": "WARN",
+              "value": "1"
+            },
+            {
+              "op": "=",
+              "text": "UNKW",
+              "value": "2"
+            },
+            {
+              "op": "=",
+              "text": "CRIT",
+              "value": "3"
+            },
+            {
+              "op": "=",
+              "text": "DOWN",
+              "value": "4"
+            }
+          ],
+          "valueName": "current"
+        },
+        {
           "cacheTimeout": null,
-          "postfix": "",
-          "interval": ">60s",
+          "colorBackground": true,
+          "colorValue": false,
           "colors": [
             "rgba(71, 212, 59, 0.4)",
             "rgba(245, 150, 40, 0.73)",
             "rgba(225, 40, 40, 0.59)"
           ],
           "datasource": null,
+          "editable": true,
           "error": false,
-          "nullText": null,
-          "postfixFontSize": "50%",
-          "colorValue": false
-        },
-        {
+          "format": "short",
+          "id": 10,
+          "interval": ">60s",
           "links": [
             {
-              "title": "HAProxy",
-              "type": "dashboard",
               "dashUri": "db/haproxy",
+              "dashboard": "HAProxy",
               "name": "Drilldown dashboard",
-              "dashboard": "HAProxy"
+              "title": "HAProxy",
+              "type": "dashboard"
             }
           ],
-          "valueMaps": [
-            {
-              "text": "no data",
-              "value": "null",
-              "op": "="
-            },
-            {
-              "text": "OKAY",
-              "value": "0",
-              "op": "="
-            },
-            {
-              "text": "WARN",
-              "value": "1",
-              "op": "="
-            },
-            {
-              "text": "UNKW",
-              "value": "2",
-              "op": "="
-            },
-            {
-              "text": "CRIT",
-              "value": "3",
-              "op": "="
-            },
-            {
-              "text": "DOWN",
-              "value": "4",
-              "op": "="
-            }
-          ],
-          "thresholds": "0,1,3",
+          "maxDataPoints": 100,
           "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
           "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 1,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
           "targets": [
             {
-              "function": "last",
+              "column": "value",
               "dsType": "influxdb",
-              "rawQuery": false,
-              "groupByTags": [],
-              "tags": [
+              "fill": "",
+              "function": "last",
+              "groupBy": [
                 {
-                  "operator": "=",
-                  "value": "haproxy",
-                  "key": "cluster_name"
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
                 }
               ],
-              "column": "value",
-              "series": "merge(/mysql.status$/)",
+              "groupByTags": [],
               "interval": "",
-              "refId": "A",
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "last",
-                    "params": []
-                  }
-                ]
-              ],
               "measurement": "cluster_status",
               "query": "SELECT last(\"value\") FROM \"cluster_status\" WHERE \"cluster_name\" = 'haproxy' AND $timeFilter GROUP BY time($interval) fill(null)",
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "null"
-                  ]
-                }
-              ],
-              "resultFormat": "time_series",
-              "fill": ""
-            }
-          ],
-          "maxDataPoints": 100,
-          "span": 1,
-          "colorBackground": true,
-          "title": "haproxy",
-          "sparkline": {
-            "full": false,
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "lineColor": "rgb(31, 120, 193)",
-            "show": false
-          },
-          "id": 10,
-          "prefixFontSize": "50%",
-          "valueName": "current",
-          "type": "singlestat",
-          "valueFontSize": "50%",
-          "format": "short",
-          "editable": true,
-          "cacheTimeout": null,
-          "postfix": "",
-          "interval": ">60s",
-          "colors": [
-            "rgba(71, 212, 59, 0.4)",
-            "rgba(245, 150, 40, 0.73)",
-            "rgba(225, 40, 40, 0.59)"
-          ],
-          "datasource": null,
-          "error": false,
-          "nullText": null,
-          "postfixFontSize": "50%",
-          "colorValue": false
-        },
-        {
-          "links": [
-            {
-              "title": "Memcached",
-              "type": "dashboard",
-              "dashUri": "db/memcached",
-              "name": "Drilldown dashboard",
-              "dashboard": "Memcached"
-            }
-          ],
-          "valueMaps": [
-            {
-              "text": "no data",
-              "value": "null",
-              "op": "="
-            },
-            {
-              "text": "OKAY",
-              "value": "0",
-              "op": "="
-            },
-            {
-              "text": "WARN",
-              "value": "1",
-              "op": "="
-            },
-            {
-              "text": "UNKW",
-              "value": "2",
-              "op": "="
-            },
-            {
-              "text": "CRIT",
-              "value": "3",
-              "op": "="
-            },
-            {
-              "text": "DOWN",
-              "value": "4",
-              "op": "="
-            }
-          ],
-          "thresholds": "0,1,3",
-          "nullPointMode": "connected",
-          "prefix": "",
-          "targets": [
-            {
-              "function": "last",
-              "dsType": "influxdb",
               "rawQuery": false,
-              "groupByTags": [],
-              "tags": [
-                {
-                  "operator": "=",
-                  "value": "memcached",
-                  "key": "cluster_name"
-                }
-              ],
-              "column": "value",
-              "series": "merge(/mysql.status$/)",
-              "interval": "",
               "refId": "A",
+              "resultFormat": "time_series",
               "select": [
                 [
                   {
-                    "type": "field",
                     "params": [
                       "value"
-                    ]
+                    ],
+                    "type": "field"
                   },
                   {
-                    "type": "last",
-                    "params": []
+                    "params": [],
+                    "type": "last"
                   }
                 ]
               ],
-              "measurement": "cluster_status",
-              "query": "SELECT last(\"value\") FROM \"cluster_status\" WHERE \"cluster_name\" = 'memcached' AND $timeFilter GROUP BY time($interval) fill(null)",
-              "groupBy": [
+              "series": "merge(/mysql.status$/)",
+              "tags": [
                 {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "null"
-                  ]
+                  "key": "cluster_name",
+                  "operator": "=",
+                  "value": "haproxy"
                 }
-              ],
-              "resultFormat": "time_series",
-              "fill": ""
+              ]
             }
           ],
-          "maxDataPoints": 100,
-          "span": 1,
-          "colorBackground": true,
-          "title": "memcached",
-          "sparkline": {
-            "full": false,
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "lineColor": "rgb(31, 120, 193)",
-            "show": false
-          },
-          "id": 17,
-          "prefixFontSize": "50%",
-          "valueName": "current",
+          "thresholds": "0,1,3",
+          "title": "haproxy",
           "type": "singlestat",
           "valueFontSize": "50%",
-          "format": "short",
-          "editable": true,
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "no data",
+              "value": "null"
+            },
+            {
+              "op": "=",
+              "text": "OKAY",
+              "value": "0"
+            },
+            {
+              "op": "=",
+              "text": "WARN",
+              "value": "1"
+            },
+            {
+              "op": "=",
+              "text": "UNKW",
+              "value": "2"
+            },
+            {
+              "op": "=",
+              "text": "CRIT",
+              "value": "3"
+            },
+            {
+              "op": "=",
+              "text": "DOWN",
+              "value": "4"
+            }
+          ],
+          "valueName": "current"
+        },
+        {
           "cacheTimeout": null,
-          "postfix": "",
-          "interval": ">60s",
+          "colorBackground": true,
+          "colorValue": false,
           "colors": [
             "rgba(71, 212, 59, 0.4)",
             "rgba(245, 150, 40, 0.73)",
             "rgba(225, 40, 40, 0.59)"
           ],
           "datasource": null,
+          "editable": true,
           "error": false,
+          "format": "short",
+          "id": 17,
+          "interval": ">60s",
+          "links": [
+            {
+              "dashUri": "db/memcached",
+              "dashboard": "Memcached",
+              "name": "Drilldown dashboard",
+              "title": "Memcached",
+              "type": "dashboard"
+            }
+          ],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
           "nullText": null,
+          "postfix": "",
           "postfixFontSize": "50%",
-          "colorValue": false
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 1,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "targets": [
+            {
+              "column": "value",
+              "dsType": "influxdb",
+              "fill": "",
+              "function": "last",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "groupByTags": [],
+              "interval": "",
+              "measurement": "cluster_status",
+              "query": "SELECT last(\"value\") FROM \"cluster_status\" WHERE \"cluster_name\" = 'memcached' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  }
+                ]
+              ],
+              "series": "merge(/mysql.status$/)",
+              "tags": [
+                {
+                  "key": "cluster_name",
+                  "operator": "=",
+                  "value": "memcached"
+                }
+              ]
+            }
+          ],
+          "thresholds": "0,1,3",
+          "title": "memcached",
+          "type": "singlestat",
+          "valueFontSize": "50%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "no data",
+              "value": "null"
+            },
+            {
+              "op": "=",
+              "text": "OKAY",
+              "value": "0"
+            },
+            {
+              "op": "=",
+              "text": "WARN",
+              "value": "1"
+            },
+            {
+              "op": "=",
+              "text": "UNKW",
+              "value": "2"
+            },
+            {
+              "op": "=",
+              "text": "CRIT",
+              "value": "3"
+            },
+            {
+              "op": "=",
+              "text": "DOWN",
+              "value": "4"
+            }
+          ],
+          "valueName": "current"
         }
       ],
-      "showTitle": true
+      "showTitle": true,
+      "title": "OpenStack Services"
     },
     {
       "collapse": false,
-      "title": "Virtual compute resources",
       "editable": true,
       "height": "250px",
       "panels": [
         {
-          "bars": false,
           "aliasColors": {},
+          "bars": false,
+          "datasource": null,
+          "editable": true,
+          "error": false,
+          "fill": 0,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": 0,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 11,
+          "interval": "> 60s",
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
           "links": [],
           "nullPointMode": "connected",
-          "timeFrom": null,
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
           "renderer": "flot",
-          "linewidth": 1,
-          "steppedLine": false,
-          "id": 11,
-          "fill": 0,
+          "seriesOverrides": [],
           "span": 4,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "free",
+              "column": "value",
+              "dsType": "influxdb",
+              "function": "min",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "0"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "groupByTags": [],
+              "measurement": "openstack_nova_total_free_vcpus",
+              "query": "SELECT min(\"value\") FROM \"openstack_nova_total_free_vcpus\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "min"
+                  }
+                ]
+              ],
+              "series": "merge(/.*.openstack.nova.total_free_vcpus/)",
+              "tags": []
+            },
+            {
+              "alias": "used",
+              "column": "value",
+              "dsType": "influxdb",
+              "function": "max",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "0"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "groupByTags": [],
+              "measurement": "openstack_nova_total_used_vcpus",
+              "query": "SELECT max(\"value\") FROM \"openstack_nova_total_used_vcpus\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
+              "refId": "B",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "max"
+                  }
+                ]
+              ],
+              "series": "merge(/.*.openstack.nova.total_used_vcpus/)",
+              "tags": []
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
           "title": "Number of VCPUs",
           "tooltip": {
             "shared": true,
             "value_type": "cumulative"
           },
-          "legend": {
-            "total": false,
-            "show": true,
-            "max": false,
-            "min": false,
-            "current": false,
-            "values": false,
-            "avg": false
-          },
-          "targets": [
-            {
-              "function": "min",
-              "dsType": "influxdb",
-              "rawQuery": false,
-              "groupByTags": [],
-              "tags": [],
-              "column": "value",
-              "series": "merge(/.*.openstack.nova.total_free_vcpus/)",
-              "refId": "A",
-              "alias": "free",
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "min",
-                    "params": []
-                  }
-                ]
-              ],
-              "measurement": "openstack_nova_total_free_vcpus",
-              "query": "SELECT min(\"value\") FROM \"openstack_nova_total_free_vcpus\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "0"
-                  ]
-                }
-              ],
-              "resultFormat": "time_series"
-            },
-            {
-              "function": "max",
-              "dsType": "influxdb",
-              "rawQuery": false,
-              "groupByTags": [],
-              "tags": [],
-              "column": "value",
-              "series": "merge(/.*.openstack.nova.total_used_vcpus/)",
-              "refId": "B",
-              "alias": "used",
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "max",
-                    "params": []
-                  }
-                ]
-              ],
-              "measurement": "openstack_nova_total_used_vcpus",
-              "query": "SELECT max(\"value\") FROM \"openstack_nova_total_used_vcpus\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "0"
-                  ]
-                }
-              ],
-              "resultFormat": "time_series"
-            }
-          ],
-          "seriesOverrides": [],
-          "percentage": false,
           "type": "graph",
           "x-axis": true,
-          "error": false,
-          "editable": true,
-          "grid": {
-            "leftMax": null,
-            "threshold2": null,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "threshold1": null,
-            "leftLogBase": 1,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)",
-            "rightMin": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "leftMin": 0
-          },
-          "stack": false,
           "y-axis": true,
-          "timeShift": null,
-          "interval": "> 60s",
-          "lines": true,
-          "points": false,
-          "datasource": null,
-          "pointradius": 5,
           "y_formats": [
             "short",
             "short"
           ]
         },
         {
-          "bars": false,
           "aliasColors": {},
+          "bars": false,
+          "datasource": null,
+          "editable": true,
+          "error": false,
+          "fill": 0,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": 0,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 12,
+          "interval": "> 60s",
+          "leftYAxisLabel": "",
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
           "links": [],
           "nullPointMode": "connected",
-          "timeFrom": null,
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
           "renderer": "flot",
-          "linewidth": 1,
-          "steppedLine": false,
-          "id": 12,
-          "fill": 0,
+          "seriesOverrides": [],
           "span": 4,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "free",
+              "column": "value",
+              "dsType": "influxdb",
+              "function": "mean",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "0"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "groupByTags": [],
+              "measurement": "openstack_nova_total_free_ram",
+              "query": "SELECT mean(\"value\") FROM \"openstack_nova_total_free_ram\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "series": "$server.openstack.nova.free_ram",
+              "tags": []
+            },
+            {
+              "alias": "used",
+              "column": "value",
+              "dsType": "influxdb",
+              "function": "mean",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "0"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "groupByTags": [],
+              "measurement": "openstack_nova_total_used_ram",
+              "query": "SELECT mean(\"value\") FROM \"openstack_nova_total_used_ram\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
+              "refId": "B",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "series": "$server.openstack.nova.used_ram",
+              "tags": []
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
           "title": "RAM",
           "tooltip": {
             "shared": true,
             "value_type": "cumulative"
           },
-          "legend": {
-            "total": false,
-            "show": true,
-            "max": false,
-            "min": false,
-            "current": false,
-            "values": false,
-            "avg": false
-          },
-          "targets": [
-            {
-              "function": "mean",
-              "dsType": "influxdb",
-              "rawQuery": false,
-              "groupByTags": [],
-              "tags": [],
-              "column": "value",
-              "series": "$server.openstack.nova.free_ram",
-              "refId": "A",
-              "alias": "free",
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "mean",
-                    "params": []
-                  }
-                ]
-              ],
-              "measurement": "openstack_nova_total_free_ram",
-              "query": "SELECT mean(\"value\") FROM \"openstack_nova_total_free_ram\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "0"
-                  ]
-                }
-              ],
-              "resultFormat": "time_series"
-            },
-            {
-              "function": "mean",
-              "dsType": "influxdb",
-              "rawQuery": false,
-              "groupByTags": [],
-              "tags": [],
-              "column": "value",
-              "series": "$server.openstack.nova.used_ram",
-              "refId": "B",
-              "alias": "used",
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "mean",
-                    "params": []
-                  }
-                ]
-              ],
-              "measurement": "openstack_nova_total_used_ram",
-              "query": "SELECT mean(\"value\") FROM \"openstack_nova_total_used_ram\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "0"
-                  ]
-                }
-              ],
-              "resultFormat": "time_series"
-            }
-          ],
-          "leftYAxisLabel": "",
-          "seriesOverrides": [],
-          "percentage": false,
           "type": "graph",
           "x-axis": true,
-          "error": false,
-          "editable": true,
-          "grid": {
-            "leftMax": null,
-            "threshold2": null,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "threshold1": null,
-            "leftLogBase": 1,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)",
-            "rightMin": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "leftMin": 0
-          },
-          "stack": false,
           "y-axis": true,
-          "timeShift": null,
-          "interval": "> 60s",
-          "lines": true,
-          "points": false,
-          "datasource": null,
-          "pointradius": 5,
           "y_formats": [
             "mbytes",
             "short"
           ]
         },
         {
-          "bars": false,
           "aliasColors": {},
+          "bars": false,
+          "datasource": null,
+          "editable": true,
+          "error": false,
+          "fill": 0,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": 0,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 13,
+          "interval": "> 60s",
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
           "links": [],
           "nullPointMode": "connected",
-          "timeFrom": null,
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
           "renderer": "flot",
-          "linewidth": 1,
-          "steppedLine": false,
-          "id": 13,
-          "fill": 0,
+          "seriesOverrides": [],
           "span": 4,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "free",
+              "column": "value",
+              "dsType": "influxdb",
+              "function": "mean",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "0"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "groupByTags": [],
+              "measurement": "openstack_nova_total_free_disk",
+              "query": "SELECT min(\"value\") FROM \"openstack_nova_total_free_disk\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "min"
+                  }
+                ]
+              ],
+              "series": "$server.openstack.nova.free_disk",
+              "tags": []
+            },
+            {
+              "alias": "used",
+              "column": "value",
+              "dsType": "influxdb",
+              "function": "mean",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "0"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "groupByTags": [],
+              "measurement": "openstack_nova_total_used_disk",
+              "query": "SELECT mean(\"value\") FROM \"openstack_nova_total_used_disk\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
+              "refId": "B",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "series": "$server.openstack.nova.used_disk",
+              "tags": []
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
           "title": "Disk",
           "tooltip": {
             "shared": true,
             "value_type": "cumulative"
           },
-          "legend": {
-            "total": false,
-            "show": true,
-            "max": false,
-            "min": false,
-            "current": false,
-            "values": false,
-            "avg": false
-          },
-          "targets": [
-            {
-              "function": "mean",
-              "dsType": "influxdb",
-              "rawQuery": false,
-              "groupByTags": [],
-              "tags": [],
-              "column": "value",
-              "series": "$server.openstack.nova.free_disk",
-              "refId": "A",
-              "alias": "free",
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "min",
-                    "params": []
-                  }
-                ]
-              ],
-              "measurement": "openstack_nova_total_free_disk",
-              "query": "SELECT min(\"value\") FROM \"openstack_nova_total_free_disk\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "0"
-                  ]
-                }
-              ],
-              "resultFormat": "time_series"
-            },
-            {
-              "function": "mean",
-              "dsType": "influxdb",
-              "rawQuery": false,
-              "groupByTags": [],
-              "tags": [],
-              "column": "value",
-              "series": "$server.openstack.nova.used_disk",
-              "refId": "B",
-              "alias": "used",
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "mean",
-                    "params": []
-                  }
-                ]
-              ],
-              "measurement": "openstack_nova_total_used_disk",
-              "query": "SELECT mean(\"value\") FROM \"openstack_nova_total_used_disk\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "0"
-                  ]
-                }
-              ],
-              "resultFormat": "time_series"
-            }
-          ],
-          "seriesOverrides": [],
-          "percentage": false,
           "type": "graph",
           "x-axis": true,
-          "error": false,
-          "editable": true,
-          "grid": {
-            "leftMax": null,
-            "threshold2": null,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "threshold1": null,
-            "leftLogBase": 1,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)",
-            "rightMin": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "leftMin": 0
-          },
-          "stack": false,
           "y-axis": true,
-          "timeShift": null,
-          "interval": "> 60s",
-          "lines": true,
-          "points": false,
-          "datasource": null,
-          "pointradius": 5,
           "y_formats": [
             "gbytes",
             "short"
           ]
         }
       ],
-      "showTitle": true
+      "showTitle": true,
+      "title": "Virtual compute resources"
     },
     {
       "collapse": false,
-      "title": "System",
       "editable": true,
       "height": "250px",
       "panels": [
         {
-          "bars": false,
           "aliasColors": {},
+          "bars": false,
+          "datasource": null,
+          "editable": true,
+          "error": false,
+          "fill": 0,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": 100,
+            "leftMin": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 19,
+          "interval": ">60s",
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
           "links": [],
           "nullPointMode": "connected",
-          "timeFrom": null,
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
           "renderer": "flot",
-          "linewidth": 1,
-          "steppedLine": false,
-          "id": 19,
-          "fill": 0,
+          "seriesOverrides": [],
           "span": 5,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "user",
+              "column": "value",
+              "dsType": "influxdb",
+              "function": "mean",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "0"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "groupByTags": [],
+              "measurement": "cpu_user",
+              "query": "SELECT mean(\"value\") FROM \"cpu_user\" WHERE \"hostname\" = '$controller' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "series": "merge(/$server.cpu.\\d+.user/)",
+              "tags": [
+                {
+                  "key": "hostname",
+                  "value": "$controller"
+                }
+              ]
+            },
+            {
+              "alias": "idle",
+              "column": "value",
+              "dsType": "influxdb",
+              "function": "mean",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "0"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "groupByTags": [],
+              "measurement": "cpu_idle",
+              "query": "SELECT mean(\"value\") FROM \"cpu_idle\" WHERE \"hostname\" = '$controller' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "refId": "B",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "series": "merge(/$server.cpu.\\d+.idle/)",
+              "tags": [
+                {
+                  "key": "hostname",
+                  "value": "$controller"
+                }
+              ],
+              "target": ""
+            },
+            {
+              "alias": "interrupt",
+              "column": "value",
+              "dsType": "influxdb",
+              "function": "mean",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "0"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "groupByTags": [],
+              "measurement": "cpu_interrupt",
+              "query": "SELECT mean(\"value\") FROM \"cpu_interrupt\" WHERE \"hostname\" = '$controller' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "refId": "C",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "series": "merge(/$server.cpu.\\d+.interrupt/)",
+              "tags": [
+                {
+                  "key": "hostname",
+                  "value": "$controller"
+                }
+              ],
+              "target": ""
+            },
+            {
+              "alias": "nice",
+              "column": "value",
+              "dsType": "influxdb",
+              "function": "mean",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "0"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "groupByTags": [],
+              "measurement": "cpu_nice",
+              "query": "SELECT mean(\"value\") FROM \"cpu_nice\" WHERE \"hostname\" = '$controller' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "refId": "D",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "series": "merge(/$server.cpu.\\d+.nice/)",
+              "tags": [
+                {
+                  "key": "hostname",
+                  "value": "$controller"
+                }
+              ],
+              "target": ""
+            },
+            {
+              "alias": "system",
+              "column": "value",
+              "dsType": "influxdb",
+              "function": "mean",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "0"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "groupByTags": [],
+              "measurement": "cpu_system",
+              "query": "SELECT mean(\"value\") FROM \"cpu_system\" WHERE \"hostname\" = '$controller' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "refId": "E",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "series": "merge(/$server.cpu.\\d+.system/)",
+              "tags": [
+                {
+                  "key": "hostname",
+                  "value": "$controller"
+                }
+              ],
+              "target": ""
+            },
+            {
+              "alias": "steal",
+              "column": "value",
+              "dsType": "influxdb",
+              "function": "mean",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "0"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "groupByTags": [],
+              "measurement": "cpu_steal",
+              "query": "SELECT mean(\"value\") FROM \"cpu_steal\" WHERE \"hostname\" = '$controller' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "refId": "F",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "series": "merge(/$server.cpu.\\d+.steal/)",
+              "tags": [
+                {
+                  "key": "hostname",
+                  "value": "$controller"
+                }
+              ],
+              "target": ""
+            },
+            {
+              "alias": "wait",
+              "column": "value",
+              "dsType": "influxdb",
+              "function": "mean",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "0"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "groupByTags": [],
+              "measurement": "cpu_wait",
+              "query": "SELECT mean(\"value\") FROM \"cpu_wait\" WHERE \"hostname\" = '$controller' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "refId": "G",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "series": "merge(/$server.cpu.\\d+.wait/)",
+              "tags": [
+                {
+                  "key": "hostname",
+                  "value": "$controller"
+                }
+              ],
+              "target": ""
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
           "title": "CPU on $controller",
           "tooltip": {
             "shared": true,
             "value_type": "cumulative"
           },
-          "legend": {
-            "total": false,
-            "show": true,
-            "max": false,
-            "min": false,
-            "current": false,
-            "values": false,
-            "avg": false
-          },
-          "targets": [
-            {
-              "function": "mean",
-              "dsType": "influxdb",
-              "rawQuery": false,
-              "groupByTags": [],
-              "tags": [
-                {
-                  "value": "$controller",
-                  "key": "hostname"
-                }
-              ],
-              "column": "value",
-              "series": "merge(/$server.cpu.\\d+.user/)",
-              "refId": "A",
-              "alias": "user",
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "mean",
-                    "params": []
-                  }
-                ]
-              ],
-              "measurement": "cpu_user",
-              "query": "SELECT mean(\"value\") FROM \"cpu_user\" WHERE \"hostname\" = '$controller' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "0"
-                  ]
-                }
-              ],
-              "resultFormat": "time_series"
-            },
-            {
-              "function": "mean",
-              "dsType": "influxdb",
-              "target": "",
-              "groupByTags": [],
-              "tags": [
-                {
-                  "value": "$controller",
-                  "key": "hostname"
-                }
-              ],
-              "column": "value",
-              "series": "merge(/$server.cpu.\\d+.idle/)",
-              "refId": "B",
-              "alias": "idle",
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "mean",
-                    "params": []
-                  }
-                ]
-              ],
-              "measurement": "cpu_idle",
-              "query": "SELECT mean(\"value\") FROM \"cpu_idle\" WHERE \"hostname\" = '$controller' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "0"
-                  ]
-                }
-              ],
-              "resultFormat": "time_series"
-            },
-            {
-              "function": "mean",
-              "dsType": "influxdb",
-              "target": "",
-              "groupByTags": [],
-              "tags": [
-                {
-                  "value": "$controller",
-                  "key": "hostname"
-                }
-              ],
-              "column": "value",
-              "series": "merge(/$server.cpu.\\d+.interrupt/)",
-              "refId": "C",
-              "alias": "interrupt",
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "mean",
-                    "params": []
-                  }
-                ]
-              ],
-              "measurement": "cpu_interrupt",
-              "query": "SELECT mean(\"value\") FROM \"cpu_interrupt\" WHERE \"hostname\" = '$controller' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "0"
-                  ]
-                }
-              ],
-              "resultFormat": "time_series"
-            },
-            {
-              "function": "mean",
-              "dsType": "influxdb",
-              "target": "",
-              "groupByTags": [],
-              "tags": [
-                {
-                  "value": "$controller",
-                  "key": "hostname"
-                }
-              ],
-              "column": "value",
-              "series": "merge(/$server.cpu.\\d+.nice/)",
-              "refId": "D",
-              "alias": "nice",
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "mean",
-                    "params": []
-                  }
-                ]
-              ],
-              "measurement": "cpu_nice",
-              "query": "SELECT mean(\"value\") FROM \"cpu_nice\" WHERE \"hostname\" = '$controller' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "0"
-                  ]
-                }
-              ],
-              "resultFormat": "time_series"
-            },
-            {
-              "function": "mean",
-              "dsType": "influxdb",
-              "target": "",
-              "groupByTags": [],
-              "tags": [
-                {
-                  "value": "$controller",
-                  "key": "hostname"
-                }
-              ],
-              "column": "value",
-              "series": "merge(/$server.cpu.\\d+.system/)",
-              "refId": "E",
-              "alias": "system",
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "mean",
-                    "params": []
-                  }
-                ]
-              ],
-              "measurement": "cpu_system",
-              "query": "SELECT mean(\"value\") FROM \"cpu_system\" WHERE \"hostname\" = '$controller' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "0"
-                  ]
-                }
-              ],
-              "resultFormat": "time_series"
-            },
-            {
-              "function": "mean",
-              "dsType": "influxdb",
-              "target": "",
-              "groupByTags": [],
-              "tags": [
-                {
-                  "value": "$controller",
-                  "key": "hostname"
-                }
-              ],
-              "column": "value",
-              "series": "merge(/$server.cpu.\\d+.steal/)",
-              "refId": "F",
-              "alias": "steal",
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "mean",
-                    "params": []
-                  }
-                ]
-              ],
-              "measurement": "cpu_steal",
-              "query": "SELECT mean(\"value\") FROM \"cpu_steal\" WHERE \"hostname\" = '$controller' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "0"
-                  ]
-                }
-              ],
-              "resultFormat": "time_series"
-            },
-            {
-              "function": "mean",
-              "dsType": "influxdb",
-              "target": "",
-              "groupByTags": [],
-              "tags": [
-                {
-                  "value": "$controller",
-                  "key": "hostname"
-                }
-              ],
-              "column": "value",
-              "series": "merge(/$server.cpu.\\d+.wait/)",
-              "refId": "G",
-              "alias": "wait",
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "mean",
-                    "params": []
-                  }
-                ]
-              ],
-              "measurement": "cpu_wait",
-              "query": "SELECT mean(\"value\") FROM \"cpu_wait\" WHERE \"hostname\" = '$controller' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "0"
-                  ]
-                }
-              ],
-              "resultFormat": "time_series"
-            }
-          ],
-          "seriesOverrides": [],
-          "percentage": false,
           "type": "graph",
           "x-axis": true,
-          "error": false,
-          "editable": true,
-          "grid": {
-            "leftMax": 100,
-            "threshold2": null,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "threshold1": null,
-            "leftLogBase": 1,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)",
-            "rightMin": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "leftMin": null
-          },
-          "stack": false,
           "y-axis": true,
-          "timeShift": null,
-          "interval": ">60s",
-          "lines": true,
-          "points": false,
-          "datasource": null,
-          "pointradius": 5,
           "y_formats": [
             "percent",
             "short"
           ]
         },
         {
-          "bars": false,
           "aliasColors": {},
-          "links": [],
-          "nullPointMode": "connected",
           "annotate": {
             "enable": false
           },
-          "timeFrom": null,
-          "renderer": "flot",
-          "timezone": "browser",
-          "spyable": true,
-          "linewidth": 2,
-          "steppedLine": false,
-          "id": 21,
+          "bars": false,
+          "datasource": null,
           "fill": 1,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": 0,
+            "max": null,
+            "min": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 21,
+          "interactive": true,
+          "interval": ">60s",
+          "leftYAxisLabel": "",
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "legend_counts": true,
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "connected",
+          "options": false,
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "resolution": 100,
           "scale": 1,
+          "seriesOverrides": [],
           "span": 5,
+          "spyable": true,
+          "stack": true,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "used",
+              "column": "value",
+              "dsType": "influxdb",
+              "function": "mean",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "0"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "groupByTags": [],
+              "interval": "",
+              "measurement": "memory_used",
+              "query": "SELECT mean(\"value\") FROM \"memory_used\" WHERE \"hostname\" = '$controller' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "series": "$controller.memory.used",
+              "tags": [
+                {
+                  "key": "hostname",
+                  "value": "$controller"
+                }
+              ],
+              "target": "randomWalk('random walk')"
+            },
+            {
+              "alias": "buffered",
+              "column": "value",
+              "dsType": "influxdb",
+              "function": "mean",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "0"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "groupByTags": [],
+              "interval": "",
+              "measurement": "memory_buffered",
+              "query": "SELECT mean(\"value\") FROM \"memory_buffered\" WHERE \"hostname\" = '$controller' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "refId": "B",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "series": "$controller.memory.buffered",
+              "tags": [
+                {
+                  "key": "hostname",
+                  "value": "$controller"
+                }
+              ],
+              "target": ""
+            },
+            {
+              "alias": "cached",
+              "column": "value",
+              "dsType": "influxdb",
+              "function": "mean",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "0"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "groupByTags": [],
+              "interval": "",
+              "measurement": "memory_cached",
+              "query": "SELECT mean(\"value\") FROM \"memory_cached\" WHERE \"hostname\" = '$controller' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "refId": "C",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "series": "$controller.memory.cached",
+              "tags": [
+                {
+                  "key": "hostname",
+                  "value": "$controller"
+                }
+              ],
+              "target": ""
+            },
+            {
+              "alias": "free",
+              "column": "value",
+              "dsType": "influxdb",
+              "function": "mean",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "0"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "groupByTags": [],
+              "interval": "",
+              "measurement": "memory_free",
+              "query": "SELECT mean(\"value\") FROM \"memory_free\" WHERE \"hostname\" = '$controller' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "refId": "D",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "series": "$controller.memory.free",
+              "tags": [
+                {
+                  "key": "hostname",
+                  "value": "$controller"
+                }
+              ],
+              "target": ""
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "timezone": "browser",
           "title": "Memory on $controller",
+          "tooltip": {
+            "query_as_alias": true,
+            "shared": true,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "x-axis": true,
+          "y-axis": true,
           "y_formats": [
             "bytes",
             "short"
-          ],
-          "tooltip": {
-            "shared": true,
-            "value_type": "individual",
-            "query_as_alias": true
-          },
-          "stack": true,
-          "targets": [
-            {
-              "function": "mean",
-              "dsType": "influxdb",
-              "target": "randomWalk('random walk')",
-              "groupByTags": [],
-              "tags": [
-                {
-                  "value": "$controller",
-                  "key": "hostname"
-                }
-              ],
-              "column": "value",
-              "series": "$controller.memory.used",
-              "interval": "",
-              "refId": "A",
-              "alias": "used",
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "mean",
-                    "params": []
-                  }
-                ]
-              ],
-              "measurement": "memory_used",
-              "query": "SELECT mean(\"value\") FROM \"memory_used\" WHERE \"hostname\" = '$controller' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "0"
-                  ]
-                }
-              ],
-              "resultFormat": "time_series"
-            },
-            {
-              "function": "mean",
-              "dsType": "influxdb",
-              "target": "",
-              "groupByTags": [],
-              "tags": [
-                {
-                  "value": "$controller",
-                  "key": "hostname"
-                }
-              ],
-              "column": "value",
-              "series": "$controller.memory.buffered",
-              "interval": "",
-              "refId": "B",
-              "alias": "buffered",
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "mean",
-                    "params": []
-                  }
-                ]
-              ],
-              "measurement": "memory_buffered",
-              "query": "SELECT mean(\"value\") FROM \"memory_buffered\" WHERE \"hostname\" = '$controller' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "0"
-                  ]
-                }
-              ],
-              "resultFormat": "time_series"
-            },
-            {
-              "function": "mean",
-              "dsType": "influxdb",
-              "target": "",
-              "groupByTags": [],
-              "tags": [
-                {
-                  "value": "$controller",
-                  "key": "hostname"
-                }
-              ],
-              "column": "value",
-              "series": "$controller.memory.cached",
-              "interval": "",
-              "refId": "C",
-              "alias": "cached",
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "mean",
-                    "params": []
-                  }
-                ]
-              ],
-              "measurement": "memory_cached",
-              "query": "SELECT mean(\"value\") FROM \"memory_cached\" WHERE \"hostname\" = '$controller' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "0"
-                  ]
-                }
-              ],
-              "resultFormat": "time_series"
-            },
-            {
-              "function": "mean",
-              "dsType": "influxdb",
-              "target": "",
-              "groupByTags": [],
-              "tags": [
-                {
-                  "value": "$controller",
-                  "key": "hostname"
-                }
-              ],
-              "column": "value",
-              "series": "$controller.memory.free",
-              "interval": "",
-              "refId": "D",
-              "alias": "free",
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "mean",
-                    "params": []
-                  }
-                ]
-              ],
-              "measurement": "memory_free",
-              "query": "SELECT mean(\"value\") FROM \"memory_free\" WHERE \"hostname\" = '$controller' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "0"
-                  ]
-                }
-              ],
-              "resultFormat": "time_series"
-            }
-          ],
-          "leftYAxisLabel": "",
-          "seriesOverrides": [],
-          "percentage": false,
-          "type": "graph",
-          "x-axis": true,
-          "grid": {
-            "leftMax": null,
-            "threshold2": null,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "min": null,
-            "threshold1": null,
-            "max": null,
-            "leftLogBase": 1,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)",
-            "rightMin": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "leftMin": 0
-          },
-          "legend": {
-            "total": false,
-            "show": true,
-            "max": false,
-            "min": false,
-            "current": false,
-            "values": false,
-            "avg": false
-          },
-          "legend_counts": true,
-          "y-axis": true,
-          "timeShift": null,
-          "interval": ">60s",
-          "lines": true,
-          "points": false,
-          "datasource": null,
-          "pointradius": 5,
-          "resolution": 100,
-          "options": false,
-          "interactive": true
+          ]
         },
         {
-          "links": [],
-          "valueMaps": [
-            {
-              "text": "N/A",
-              "value": "null",
-              "op": "="
-            }
-          ],
-          "thresholds": "5,10,15",
-          "nullPointMode": "connected",
-          "prefix": "",
-          "targets": [
-            {
-              "function": "mean",
-              "dsType": "influxdb",
-              "rawQuery": true,
-              "groupByTags": [],
-              "tags": [
-                {
-                  "value": "$controller",
-                  "key": "hostname"
-                },
-                {
-                  "value": "/",
-                  "key": "fs",
-                  "condition": "AND"
-                }
-              ],
-              "column": "value",
-              "series": "select last(100.0*avail.value/(used.value + free.value)) from \"$server.fs.$mount.space.free\" as free inner join \"$server.fs.$mount.space.used\" as used where $timeFilter group by time($interval) order asc",
-              "refId": "A",
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "mean",
-                    "params": []
-                  }
-                ]
-              ],
-              "measurement": "fs_space_percent_free",
-              "query": "SELECT last(value) FROM \"fs_space_percent_free\" WHERE \"hostname\" = '$controller' AND \"fs\" = '/' AND $timeFilter GROUP BY time($interval)",
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "null"
-                  ]
-                }
-              ],
-              "resultFormat": "time_series"
-            }
-          ],
-          "maxDataPoints": 100,
-          "span": 2,
-          "colorBackground": false,
-          "title": "Disk space on $controller",
-          "sparkline": {
-            "full": false,
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "lineColor": "rgb(31, 120, 193)",
-            "show": true
-          },
-          "id": 22,
-          "prefixFontSize": "50%",
-          "valueName": "current",
-          "type": "singlestat",
-          "valueFontSize": "80%",
-          "format": "percent",
-          "editable": true,
           "cacheTimeout": null,
-          "postfix": "",
-          "interval": ">60s",
+          "colorBackground": false,
+          "colorValue": true,
           "colors": [
             "rgba(245, 54, 54, 0.9)",
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
           "datasource": null,
+          "editable": true,
           "error": false,
+          "format": "percent",
+          "id": 22,
+          "interval": ">60s",
+          "links": [],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
           "nullText": null,
+          "postfix": "",
           "postfixFontSize": "50%",
-          "colorValue": true
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 2,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": true
+          },
+          "targets": [
+            {
+              "column": "value",
+              "dsType": "influxdb",
+              "function": "mean",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "groupByTags": [],
+              "measurement": "fs_space_percent_free",
+              "query": "SELECT last(value) FROM \"fs_space_percent_free\" WHERE \"hostname\" = '$controller' AND \"fs\" = '/' AND $timeFilter GROUP BY time($interval)",
+              "rawQuery": true,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "series": "select last(100.0*avail.value/(used.value + free.value)) from \"$server.fs.$mount.space.free\" as free inner join \"$server.fs.$mount.space.used\" as used where $timeFilter group by time($interval) order asc",
+              "tags": [
+                {
+                  "key": "hostname",
+                  "value": "$controller"
+                },
+                {
+                  "condition": "AND",
+                  "key": "fs",
+                  "value": "/"
+                }
+              ]
+            }
+          ],
+          "thresholds": "5,10,15",
+          "title": "Disk space on $controller",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
         }
       ],
-      "showTitle": true
+      "showTitle": true,
+      "title": "System"
     },
     {
       "collapse": false,
-      "title": "Ceph",
       "editable": true,
       "height": "250px",
       "panels": [
         {
-          "links": [
-            {
-              "title": "Ceph",
-              "type": "dashboard",
-              "dashboard": "Ceph",
-              "name": "Drilldown dashboard"
-            }
-          ],
-          "valueMaps": [
-            {
-              "text": "N/A",
-              "value": "null",
-              "op": "="
-            },
-            {
-              "text": "OKAY",
-              "value": "1",
-              "op": "="
-            },
-            {
-              "text": "WARN",
-              "value": "2",
-              "op": "="
-            },
-            {
-              "text": "FAIL",
-              "value": "3",
-              "op": "="
-            }
-          ],
-          "thresholds": "1,2,3",
-          "nullPointMode": "connected",
-          "prefix": "",
-          "targets": [
-            {
-              "function": "last",
-              "dsType": "influxdb",
-              "rawQuery": false,
-              "groupByTags": [],
-              "tags": [],
-              "column": "value",
-              "series": "merge(/ceph.cluster-ceph.health/)",
-              "refId": "A",
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "last",
-                    "params": []
-                  }
-                ]
-              ],
-              "measurement": "ceph_health",
-              "query": "SELECT last(\"value\") FROM \"ceph_health\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "null"
-                  ]
-                }
-              ],
-              "resultFormat": "time_series",
-              "fill": ""
-            }
-          ],
-          "maxDataPoints": 100,
-          "span": 2,
-          "colorBackground": true,
-          "title": "Cluster",
-          "sparkline": {
-            "full": false,
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "lineColor": "rgb(31, 120, 193)",
-            "show": false
-          },
-          "id": 8,
-          "prefixFontSize": "50%",
-          "valueName": "current",
-          "type": "singlestat",
-          "valueFontSize": "80%",
-          "format": "none",
-          "editable": true,
           "cacheTimeout": null,
-          "postfix": "",
-          "interval": ">60s",
+          "colorBackground": true,
+          "colorValue": false,
           "colors": [
             "rgba(71, 212, 59, 0.4)",
             "rgba(245, 150, 40, 0.73)",
             "rgba(225, 40, 40, 0.59)"
           ],
           "datasource": null,
+          "editable": true,
           "error": false,
-          "nullText": null,
-          "postfixFontSize": "50%",
-          "colorValue": false
-        },
-        {
-          "links": [],
-          "valueMaps": [
+          "format": "none",
+          "id": 8,
+          "interval": ">60s",
+          "links": [
             {
-              "text": "N/A",
-              "value": "null",
-              "op": "="
-            }
-          ],
-          "thresholds": "",
-          "nullPointMode": "connected",
-          "prefix": "",
-          "targets": [
-            {
-              "function": "mean",
-              "dsType": "influxdb",
-              "rawQuery": false,
-              "groupByTags": [],
-              "tags": [],
-              "column": "value",
-              "series": "",
-              "interval": "",
-              "refId": "A",
-              "alias": "",
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "mean",
-                    "params": []
-                  }
-                ]
-              ],
-              "measurement": "ceph_pool_total_percent_free",
-              "query": "SELECT mean(\"value\") FROM \"ceph_pool_total_percent_free\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "null"
-                  ]
-                }
-              ],
-              "resultFormat": "time_series"
+              "dashboard": "Ceph",
+              "name": "Drilldown dashboard",
+              "title": "Ceph",
+              "type": "dashboard"
             }
           ],
           "maxDataPoints": 100,
-          "span": 3,
-          "colorBackground": false,
-          "title": "Capacity",
-          "sparkline": {
-            "full": true,
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "lineColor": "rgb(31, 120, 193)",
-            "show": true
-          },
-          "id": 9,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
           "prefixFontSize": "50%",
-          "valueName": "current",
+          "span": 2,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "targets": [
+            {
+              "column": "value",
+              "dsType": "influxdb",
+              "fill": "",
+              "function": "last",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "groupByTags": [],
+              "measurement": "ceph_health",
+              "query": "SELECT last(\"value\") FROM \"ceph_health\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  }
+                ]
+              ],
+              "series": "merge(/ceph.cluster-ceph.health/)",
+              "tags": []
+            }
+          ],
+          "thresholds": "1,2,3",
+          "title": "Cluster",
           "type": "singlestat",
           "valueFontSize": "80%",
-          "format": "percent",
-          "editable": true,
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            },
+            {
+              "op": "=",
+              "text": "OKAY",
+              "value": "1"
+            },
+            {
+              "op": "=",
+              "text": "WARN",
+              "value": "2"
+            },
+            {
+              "op": "=",
+              "text": "FAIL",
+              "value": "3"
+            }
+          ],
+          "valueName": "current"
+        },
+        {
           "cacheTimeout": null,
-          "postfix": " free",
-          "interval": ">60s",
+          "colorBackground": false,
+          "colorValue": false,
           "colors": [
             "rgba(245, 54, 54, 0.9)",
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
           "datasource": null,
+          "editable": true,
           "error": false,
-          "nullText": null,
-          "postfixFontSize": "50%",
-          "colorValue": false
-        },
-        {
+          "format": "percent",
+          "id": 9,
+          "interval": ">60s",
           "links": [],
-          "valueMaps": [
-            {
-              "text": "N/A",
-              "value": "null",
-              "op": "="
-            }
-          ],
-          "thresholds": "",
-          "nullPointMode": "connected",
-          "prefix": "",
-          "targets": [
-            {
-              "function": "sum",
-              "dsType": "influxdb",
-              "rawQuery": false,
-              "groupByTags": [],
-              "tags": [],
-              "column": "value",
-              "series": "merge(/$controller.ceph.cluster-ceph.pool.*.objects/)",
-              "refId": "A",
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "last",
-                    "params": []
-                  }
-                ]
-              ],
-              "measurement": "ceph_objects_count",
-              "query": "SELECT last(\"value\") FROM \"ceph_objects_count\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "null"
-                  ]
-                }
-              ],
-              "resultFormat": "time_series"
-            }
-          ],
           "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": " free",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
           "span": 3,
-          "colorBackground": false,
-          "title": "",
           "sparkline": {
-            "full": false,
             "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": true,
             "lineColor": "rgb(31, 120, 193)",
             "show": true
           },
-          "id": 26,
-          "prefixFontSize": "50%",
-          "valueName": "current",
+          "targets": [
+            {
+              "alias": "",
+              "column": "value",
+              "dsType": "influxdb",
+              "function": "mean",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "groupByTags": [],
+              "interval": "",
+              "measurement": "ceph_pool_total_percent_free",
+              "query": "SELECT mean(\"value\") FROM \"ceph_pool_total_percent_free\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "series": "",
+              "tags": []
+            }
+          ],
+          "thresholds": "",
+          "title": "Capacity",
           "type": "singlestat",
           "valueFontSize": "80%",
-          "format": "short",
-          "editable": true,
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
+        },
+        {
           "cacheTimeout": null,
-          "postfix": " objects",
-          "interval": ">60s",
+          "colorBackground": false,
+          "colorValue": false,
           "colors": [
             "rgba(50, 172, 45, 0.97)",
             "rgba(237, 129, 40, 0.89)",
             "rgba(245, 54, 54, 0.9)"
           ],
           "datasource": null,
+          "editable": true,
           "error": false,
-          "nullText": null,
-          "postfixFontSize": "50%",
-          "colorValue": false
-        },
-        {
+          "format": "short",
+          "id": 26,
+          "interval": ">60s",
           "links": [],
-          "valueMaps": [
-            {
-              "text": "N/A",
-              "value": "null",
-              "op": "="
-            }
-          ],
-          "thresholds": "",
+          "maxDataPoints": 100,
           "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": " objects",
+          "postfixFontSize": "50%",
           "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 3,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": true
+          },
           "targets": [
             {
-              "function": "last",
-              "dsType": "influxdb",
-              "groupByTags": [],
-              "tags": [],
               "column": "value",
-              "series": "/$controller.ceph.cluster-ceph.osd.up/",
+              "dsType": "influxdb",
+              "function": "sum",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "groupByTags": [],
+              "measurement": "ceph_objects_count",
+              "query": "SELECT last(\"value\") FROM \"ceph_objects_count\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
               "refId": "A",
+              "resultFormat": "time_series",
               "select": [
                 [
                   {
-                    "type": "field",
                     "params": [
                       "value"
-                    ]
+                    ],
+                    "type": "field"
                   },
                   {
-                    "type": "last",
-                    "params": []
+                    "params": [],
+                    "type": "last"
                   }
                 ]
               ],
+              "series": "merge(/$controller.ceph.cluster-ceph.pool.*.objects/)",
+              "tags": []
+            }
+          ],
+          "thresholds": "",
+          "title": "",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "datasource": null,
+          "editable": true,
+          "error": false,
+          "format": "none",
+          "id": 24,
+          "interval": ">60s",
+          "links": [],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 2,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": true
+          },
+          "targets": [
+            {
+              "column": "value",
+              "dsType": "influxdb",
+              "function": "last",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "groupByTags": [],
               "measurement": "ceph_osd_count_up",
               "query": "SELECT last(\"value\") FROM \"ceph_osd_count_up\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "null"
-                  ]
-                }
-              ],
-              "resultFormat": "time_series"
-            }
-          ],
-          "maxDataPoints": 100,
-          "span": 2,
-          "colorBackground": false,
-          "title": "OSDs up",
-          "sparkline": {
-            "full": false,
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "lineColor": "rgb(31, 120, 193)",
-            "show": true
-          },
-          "id": 24,
-          "prefixFontSize": "50%",
-          "valueName": "current",
-          "type": "singlestat",
-          "valueFontSize": "80%",
-          "format": "none",
-          "editable": true,
-          "cacheTimeout": null,
-          "postfix": "",
-          "interval": ">60s",
-          "colors": [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(50, 172, 45, 0.97)"
-          ],
-          "datasource": null,
-          "error": false,
-          "nullText": null,
-          "postfixFontSize": "50%",
-          "colorValue": false
-        },
-        {
-          "links": [],
-          "valueMaps": [
-            {
-              "text": "N/A",
-              "value": "null",
-              "op": "="
-            }
-          ],
-          "thresholds": "",
-          "nullPointMode": "connected",
-          "prefix": "",
-          "targets": [
-            {
-              "function": "last",
-              "dsType": "influxdb",
-              "groupByTags": [],
-              "tags": [],
-              "column": "value",
-              "series": "/$controller.ceph.cluster-ceph.osd.down/",
               "refId": "A",
+              "resultFormat": "time_series",
               "select": [
                 [
                   {
-                    "type": "field",
                     "params": [
                       "value"
-                    ]
+                    ],
+                    "type": "field"
                   },
                   {
-                    "type": "last",
-                    "params": []
+                    "params": [],
+                    "type": "last"
                   }
                 ]
               ],
-              "measurement": "ceph_osd_count_down",
-              "query": "SELECT last(\"value\") FROM \"ceph_osd_count_down\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "null"
-                  ]
-                }
-              ],
-              "resultFormat": "time_series"
+              "series": "/$controller.ceph.cluster-ceph.osd.up/",
+              "tags": []
             }
           ],
-          "maxDataPoints": 100,
-          "span": 2,
-          "colorBackground": false,
-          "title": "OSDs down",
-          "sparkline": {
-            "full": false,
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "lineColor": "rgb(31, 120, 193)",
-            "show": true
-          },
-          "id": 25,
-          "prefixFontSize": "50%",
-          "valueName": "current",
+          "thresholds": "",
+          "title": "OSDs up",
           "type": "singlestat",
           "valueFontSize": "80%",
-          "format": "none",
-          "editable": true,
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
+        },
+        {
           "cacheTimeout": null,
-          "postfix": "",
-          "interval": ">60s",
+          "colorBackground": false,
+          "colorValue": false,
           "colors": [
             "rgba(245, 54, 54, 0.9)",
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
           "datasource": null,
+          "editable": true,
           "error": false,
+          "format": "none",
+          "id": 25,
+          "interval": ">60s",
+          "links": [],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
           "nullText": null,
+          "postfix": "",
           "postfixFontSize": "50%",
-          "colorValue": false
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 2,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": true
+          },
+          "targets": [
+            {
+              "column": "value",
+              "dsType": "influxdb",
+              "function": "last",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "groupByTags": [],
+              "measurement": "ceph_osd_count_down",
+              "query": "SELECT last(\"value\") FROM \"ceph_osd_count_down\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  }
+                ]
+              ],
+              "series": "/$controller.ceph.cluster-ceph.osd.down/",
+              "tags": []
+            }
+          ],
+          "thresholds": "",
+          "title": "OSDs down",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
         }
       ],
-      "showTitle": true
+      "showTitle": true,
+      "title": "Ceph"
     }
   ],
+  "schemaVersion": 8,
+  "sharedCrosshair": true,
+  "style": "dark",
+  "tags": [],
   "templating": {
     "enable": true,
     "list": [
       {
-        "regex": "",
-        "name": "controller",
-        "refresh_on_load": true,
         "allFormat": "regex values",
-        "refresh": true,
         "current": {},
         "datasource": null,
-        "query": "show tag values from pacemaker_local_resource_active with key = hostname",
-        "type": "query",
+        "includeAll": false,
+        "name": "controller",
         "options": [],
-        "includeAll": false
+        "query": "show tag values from pacemaker_local_resource_active with key = hostname",
+        "refresh": true,
+        "refresh_on_load": true,
+        "regex": "",
+        "type": "query"
       }
     ]
   },
-  "links": [],
-  "tags": [],
-  "hideControls": false,
-  "title": "Main",
-  "editable": true,
-  "refresh": "1m",
-  "id": null,
-  "originalTitle": "Main",
+  "time": {
+    "from": "now-1h",
+    "to": "now"
+  },
   "timepicker": {
-    "status": "Stable",
-    "notice": false,
-    "enable": true,
     "collapse": false,
-    "time_options": [
-      "5m",
-      "15m",
-      "1h",
-      "6h",
-      "12h",
-      "24h",
-      "2d",
-      "7d",
-      "30d"
-    ],
+    "enable": true,
+    "notice": false,
+    "now": true,
     "refresh_intervals": [
       "5s",
       "10s",
@@ -3136,17 +3132,21 @@
       "2h",
       "1d"
     ],
-    "now": true,
+    "status": "Stable",
+    "time_options": [
+      "5m",
+      "15m",
+      "1h",
+      "6h",
+      "12h",
+      "24h",
+      "2d",
+      "7d",
+      "30d"
+    ],
     "type": "timepicker"
   },
-  "sharedCrosshair": true,
-  "time": {
-    "to": "now",
-    "from": "now-1h"
-  },
   "timezone": "browser",
-  "schemaVersion": 8,
-  "annotations": {
-    "list": []
-  }
+  "title": "Main",
+  "version": 2
 }

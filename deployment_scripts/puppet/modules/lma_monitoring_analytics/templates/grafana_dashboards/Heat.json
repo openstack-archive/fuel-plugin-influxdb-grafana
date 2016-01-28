@@ -1,1425 +1,1436 @@
 {
-  "version": 1,
-  "style": "dark",
+  "annotations": {
+    "enable": true,
+    "list": [
+      {
+        "datasource": "influxdb",
+        "enable": true,
+        "iconColor": "#C0C6BE",
+        "iconSize": 13,
+        "lineColor": "rgba(255, 96, 96, 0.592157)",
+        "name": "Status",
+        "query": "select title,tags,text from annotations where $timeFilter and cluster = 'heat'",
+        "showLine": true,
+        "tagsColumn": "tags",
+        "textColumn": "text",
+        "titleColumn": "title"
+      }
+    ]
+  },
+  "editable": true,
+  "hideControls": false,
+  "id": null,
+  "links": [],
+  "originalTitle": "Heat",
+  "refresh": "1m",
   "rows": [
     {
       "collapse": false,
-      "title": "Service Status",
       "editable": true,
       "height": "250px",
       "panels": [
         {
-          "links": [],
-          "valueMaps": [
-            {
-              "text": "no data",
-              "value": "null",
-              "op": "="
-            },
-            {
-              "text": "OKAY",
-              "value": "0",
-              "op": "="
-            },
-            {
-              "text": "WARN",
-              "value": "1",
-              "op": "="
-            },
-            {
-              "text": "UNKW",
-              "value": "2",
-              "op": "="
-            },
-            {
-              "text": "CRIT",
-              "value": "3",
-              "op": "="
-            },
-            {
-              "text": "DOWN",
-              "value": "4",
-              "op": "="
-            }
-          ],
-          "thresholds": "0,1,3",
-          "nullPointMode": "connected",
-          "prefix": "",
-          "targets": [
-            {
-              "function": "last",
-              "dsType": "influxdb",
-              "groupby_field": "",
-              "rawQuery": false,
-              "groupByTags": [],
-              "tags": [
-                {
-                  "operator": "=",
-                  "value": "heat",
-                  "key": "cluster_name"
-                }
-              ],
-              "column": "value",
-              "series": "merge(/openstack.cinder.status/)",
-              "interval": "",
-              "refId": "A",
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "last",
-                    "params": []
-                  }
-                ]
-              ],
-              "resultFormat": "time_series",
-              "measurement": "cluster_status",
-              "query": "SELECT last(\"value\") FROM \"cluster_status\" WHERE \"cluster_name\" = 'heat' AND $timeFilter GROUP BY time($interval) fill(null)",
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "null"
-                  ]
-                }
-              ],
-              "condition": "",
-              "fill": ""
-            }
-          ],
-          "maxDataPoints": 100,
-          "span": 2,
-          "colorBackground": true,
-          "title": "",
-          "sparkline": {
-            "full": false,
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "lineColor": "rgb(31, 120, 193)",
-            "show": false
-          },
-          "id": 6,
-          "prefixFontSize": "50%",
-          "valueName": "current",
-          "type": "singlestat",
-          "valueFontSize": "80%",
-          "format": "none",
-          "editable": true,
           "cacheTimeout": null,
-          "postfix": "",
-          "interval": "> 60s",
+          "colorBackground": true,
+          "colorValue": false,
           "colors": [
             "rgba(71, 212, 59, 0.4)",
             "rgba(241, 181, 37, 0.73)",
             "rgba(225, 40, 40, 0.59)"
           ],
           "datasource": null,
+          "editable": true,
           "error": false,
-          "nullText": null,
-          "postfixFontSize": "50%",
-          "colorValue": false
-        },
-        {
+          "format": "none",
+          "id": 6,
+          "interval": "> 60s",
           "links": [],
-          "valueMaps": [
-            {
-              "text": "0",
-              "value": "null",
-              "op": "="
-            }
-          ],
-          "thresholds": "0,0,1",
+          "maxDataPoints": 100,
           "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
           "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 2,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
           "targets": [
             {
-              "function": "count",
+              "column": "value",
+              "condition": "",
               "dsType": "influxdb",
-              "groupby_field": "",
-              "rawQuery": false,
-              "groupByTags": [],
-              "tags": [
+              "fill": "",
+              "function": "last",
+              "groupBy": [
                 {
-                  "value": "/$server/",
-                  "key": "hostname"
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
                 },
                 {
-                  "value": "/^5/",
-                  "key": "http_status",
-                  "condition": "AND"
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
                 }
               ],
-              "column": "value",
-              "series": "merge(/$server.openstack.cinder.http.*.5\\d\\d/)",
+              "groupByTags": [],
+              "groupby_field": "",
               "interval": "",
+              "measurement": "cluster_status",
+              "query": "SELECT last(\"value\") FROM \"cluster_status\" WHERE \"cluster_name\" = 'heat' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
               "refId": "A",
+              "resultFormat": "time_series",
               "select": [
                 [
                   {
-                    "type": "field",
                     "params": [
                       "value"
-                    ]
+                    ],
+                    "type": "field"
                   },
                   {
-                    "type": "count",
-                    "params": []
+                    "params": [],
+                    "type": "last"
                   }
                 ]
               ],
-              "resultFormat": "time_series",
-              "measurement": "openstack_heat_http_responses",
-              "query": "SELECT count(\"value\") FROM \"openstack_heat_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^5/ AND $timeFilter GROUP BY time($interval) fill(null)",
-              "groupBy": [
+              "series": "merge(/openstack.cinder.status/)",
+              "tags": [
                 {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "null"
-                  ]
+                  "key": "cluster_name",
+                  "operator": "=",
+                  "value": "heat"
                 }
-              ],
-              "condition": "",
-              "fill": ""
+              ]
             }
           ],
-          "maxDataPoints": 100,
-          "span": 2,
-          "colorBackground": false,
-          "title": "HTTP 5xx errors",
-          "sparkline": {
-            "full": false,
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "lineColor": "rgb(31, 120, 193)",
-            "show": true
-          },
-          "id": 13,
-          "prefixFontSize": "50%",
-          "valueName": "current",
+          "thresholds": "0,1,3",
+          "title": "",
           "type": "singlestat",
           "valueFontSize": "80%",
-          "format": "none",
-          "editable": true,
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "no data",
+              "value": "null"
+            },
+            {
+              "op": "=",
+              "text": "OKAY",
+              "value": "0"
+            },
+            {
+              "op": "=",
+              "text": "WARN",
+              "value": "1"
+            },
+            {
+              "op": "=",
+              "text": "UNKW",
+              "value": "2"
+            },
+            {
+              "op": "=",
+              "text": "CRIT",
+              "value": "3"
+            },
+            {
+              "op": "=",
+              "text": "DOWN",
+              "value": "4"
+            }
+          ],
+          "valueName": "current"
+        },
+        {
           "cacheTimeout": null,
-          "postfix": "",
-          "interval": "> 60s",
+          "colorBackground": false,
+          "colorValue": false,
           "colors": [
             "rgba(71, 212, 59, 0.4)",
             "rgba(245, 150, 40, 0.73)",
             "rgba(225, 40, 40, 0.59)"
           ],
           "datasource": null,
+          "editable": true,
           "error": false,
+          "format": "none",
+          "id": 13,
+          "interval": "> 60s",
+          "links": [],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
           "nullText": null,
+          "postfix": "",
           "postfixFontSize": "50%",
-          "colorValue": false
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 2,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": true
+          },
+          "targets": [
+            {
+              "column": "value",
+              "condition": "",
+              "dsType": "influxdb",
+              "fill": "",
+              "function": "count",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "groupByTags": [],
+              "groupby_field": "",
+              "interval": "",
+              "measurement": "openstack_heat_http_responses",
+              "query": "SELECT count(\"value\") FROM \"openstack_heat_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^5/ AND $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "count"
+                  }
+                ]
+              ],
+              "series": "merge(/$server.openstack.cinder.http.*.5\\d\\d/)",
+              "tags": [
+                {
+                  "key": "hostname",
+                  "value": "/$server/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "http_status",
+                  "value": "/^5/"
+                }
+              ]
+            }
+          ],
+          "thresholds": "0,0,1",
+          "title": "HTTP 5xx errors",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "0",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
         },
         {
-          "bars": false,
           "aliasColors": {},
+          "bars": false,
+          "datasource": null,
+          "editable": true,
+          "error": false,
+          "fill": 0,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": 0,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": 0,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 7,
+          "interval": ">60s",
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": false,
+            "max": true,
+            "min": true,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
           "links": [],
           "nullPointMode": "connected",
-          "timeFrom": null,
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
           "renderer": "flot",
-          "linewidth": 1,
-          "steppedLine": false,
-          "id": 7,
-          "fill": 0,
+          "seriesOverrides": [],
           "span": 8,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "GET",
+              "column": "value",
+              "dsType": "influxdb",
+              "function": "mean",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "0"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "groupByTags": [],
+              "interval": "",
+              "measurement": "openstack_heat_http_responses",
+              "query": "SELECT mean(\"value\") FROM \"openstack_heat_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_method\" = 'GET' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "series": "merge(/$server.openstack.cinder.http.GET.*/)",
+              "tags": [
+                {
+                  "key": "hostname",
+                  "value": "/$server/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "http_method",
+                  "value": "GET"
+                }
+              ]
+            },
+            {
+              "alias": "POST",
+              "column": "value",
+              "dsType": "influxdb",
+              "function": "mean",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "0"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "groupByTags": [],
+              "interval": "",
+              "measurement": "openstack_heat_http_responses",
+              "query": "SELECT mean(\"value\") FROM \"openstack_heat_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_method\" = 'POST' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "refId": "B",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "series": "merge(/$server.openstack.cinder.http.POST.*/)",
+              "tags": [
+                {
+                  "key": "hostname",
+                  "value": "/$server/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "http_method",
+                  "value": "POST"
+                }
+              ]
+            },
+            {
+              "alias": "PUT",
+              "column": "value",
+              "dsType": "influxdb",
+              "function": "mean",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "0"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "groupByTags": [],
+              "interval": "",
+              "measurement": "openstack_heat_http_responses",
+              "query": "SELECT mean(\"value\") FROM \"openstack_heat_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_method\" = 'PUT' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "refId": "C",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "series": "merge(/$server.openstack.cinder.http.PUT.*/)",
+              "tags": [
+                {
+                  "key": "hostname",
+                  "value": "/$server/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "http_method",
+                  "value": "PUT"
+                }
+              ]
+            },
+            {
+              "alias": "DELETE",
+              "column": "value",
+              "dsType": "influxdb",
+              "function": "mean",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "0"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "groupByTags": [],
+              "interval": "",
+              "measurement": "openstack_heat_http_responses",
+              "query": "SELECT mean(\"value\") FROM \"openstack_heat_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_method\" = 'DELETE' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "refId": "D",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "series": "merge(/$server.openstack.cinder.http.DELETE.*/)",
+              "tags": [
+                {
+                  "key": "hostname",
+                  "value": "/$server/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "http_method",
+                  "value": "DELETE"
+                }
+              ]
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
           "title": "HTTP response time on $server",
           "tooltip": {
             "shared": true,
             "value_type": "cumulative"
           },
-          "legend": {
-            "total": false,
-            "show": true,
-            "max": true,
-            "min": true,
-            "current": false,
-            "values": true,
-            "alignAsTable": true,
-            "avg": true
-          },
-          "targets": [
-            {
-              "function": "mean",
-              "dsType": "influxdb",
-              "groupByTags": [],
-              "tags": [
-                {
-                  "value": "/$server/",
-                  "key": "hostname"
-                },
-                {
-                  "value": "GET",
-                  "key": "http_method",
-                  "condition": "AND"
-                }
-              ],
-              "column": "value",
-              "series": "merge(/$server.openstack.cinder.http.GET.*/)",
-              "interval": "",
-              "refId": "A",
-              "alias": "GET",
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "mean",
-                    "params": []
-                  }
-                ]
-              ],
-              "measurement": "openstack_heat_http_responses",
-              "query": "SELECT mean(\"value\") FROM \"openstack_heat_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_method\" = 'GET' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "0"
-                  ]
-                }
-              ],
-              "resultFormat": "time_series"
-            },
-            {
-              "function": "mean",
-              "dsType": "influxdb",
-              "groupByTags": [],
-              "tags": [
-                {
-                  "value": "/$server/",
-                  "key": "hostname"
-                },
-                {
-                  "value": "POST",
-                  "key": "http_method",
-                  "condition": "AND"
-                }
-              ],
-              "column": "value",
-              "series": "merge(/$server.openstack.cinder.http.POST.*/)",
-              "interval": "",
-              "refId": "B",
-              "alias": "POST",
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "mean",
-                    "params": []
-                  }
-                ]
-              ],
-              "measurement": "openstack_heat_http_responses",
-              "query": "SELECT mean(\"value\") FROM \"openstack_heat_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_method\" = 'POST' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "0"
-                  ]
-                }
-              ],
-              "resultFormat": "time_series"
-            },
-            {
-              "function": "mean",
-              "dsType": "influxdb",
-              "groupByTags": [],
-              "tags": [
-                {
-                  "value": "/$server/",
-                  "key": "hostname"
-                },
-                {
-                  "value": "PUT",
-                  "key": "http_method",
-                  "condition": "AND"
-                }
-              ],
-              "column": "value",
-              "series": "merge(/$server.openstack.cinder.http.PUT.*/)",
-              "interval": "",
-              "refId": "C",
-              "alias": "PUT",
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "mean",
-                    "params": []
-                  }
-                ]
-              ],
-              "measurement": "openstack_heat_http_responses",
-              "query": "SELECT mean(\"value\") FROM \"openstack_heat_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_method\" = 'PUT' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "0"
-                  ]
-                }
-              ],
-              "resultFormat": "time_series"
-            },
-            {
-              "function": "mean",
-              "dsType": "influxdb",
-              "groupByTags": [],
-              "tags": [
-                {
-                  "value": "/$server/",
-                  "key": "hostname"
-                },
-                {
-                  "value": "DELETE",
-                  "key": "http_method",
-                  "condition": "AND"
-                }
-              ],
-              "column": "value",
-              "series": "merge(/$server.openstack.cinder.http.DELETE.*/)",
-              "interval": "",
-              "refId": "D",
-              "alias": "DELETE",
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "mean",
-                    "params": []
-                  }
-                ]
-              ],
-              "measurement": "openstack_heat_http_responses",
-              "query": "SELECT mean(\"value\") FROM \"openstack_heat_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_method\" = 'DELETE' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "0"
-                  ]
-                }
-              ],
-              "resultFormat": "time_series"
-            }
-          ],
-          "seriesOverrides": [],
-          "percentage": false,
           "type": "graph",
           "x-axis": true,
-          "error": false,
-          "editable": true,
-          "grid": {
-            "leftMax": null,
-            "threshold2": null,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "threshold1": null,
-            "leftLogBase": 1,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)",
-            "rightMin": 0,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "leftMin": 0
-          },
-          "stack": false,
           "y-axis": true,
-          "timeShift": null,
-          "interval": ">60s",
-          "lines": true,
-          "points": false,
-          "datasource": null,
-          "pointradius": 5,
           "y_formats": [
             "s",
             "short"
           ]
         },
         {
-          "bars": false,
           "aliasColors": {},
+          "bars": false,
+          "datasource": null,
+          "editable": true,
+          "error": false,
+          "fill": 1,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": 1,
+            "leftMin": 0,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)",
+            "thresholdLine": false
+          },
+          "id": 9,
+          "interval": "> 60s",
+          "leftYAxisLabel": "",
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": false,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 2,
           "links": [],
           "nullPointMode": "connected",
-          "timeFrom": null,
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
           "renderer": "flot",
-          "linewidth": 2,
-          "steppedLine": true,
-          "id": 9,
-          "fill": 1,
+          "seriesOverrides": [],
           "span": 4,
+          "stack": false,
+          "steppedLine": true,
+          "targets": [
+            {
+              "alias": "healthy",
+              "column": "value",
+              "dsType": "influxdb",
+              "function": "last",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "0"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "groupByTags": [],
+              "measurement": "openstack_check_api",
+              "query": "SELECT last(\"value\") FROM \"openstack_check_api\" WHERE \"service\" = 'heat-api' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  }
+                ]
+              ],
+              "series": "merge(/openstack.cinder.check_api/)",
+              "tags": [
+                {
+                  "key": "service",
+                  "operator": "=",
+                  "value": "heat-api"
+                }
+              ]
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
           "title": "API Availability",
           "tooltip": {
             "shared": false,
             "value_type": "cumulative"
           },
-          "legend": {
-            "total": false,
-            "show": false,
-            "max": false,
-            "min": false,
-            "current": false,
-            "values": false,
-            "avg": false
-          },
-          "targets": [
-            {
-              "function": "last",
-              "dsType": "influxdb",
-              "groupByTags": [],
-              "tags": [
-                {
-                  "operator": "=",
-                  "value": "heat-api",
-                  "key": "service"
-                }
-              ],
-              "column": "value",
-              "series": "merge(/openstack.cinder.check_api/)",
-              "refId": "A",
-              "alias": "healthy",
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "last",
-                    "params": []
-                  }
-                ]
-              ],
-              "measurement": "openstack_check_api",
-              "query": "SELECT last(\"value\") FROM \"openstack_check_api\" WHERE \"service\" = 'heat-api' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "0"
-                  ]
-                }
-              ],
-              "resultFormat": "time_series"
-            }
-          ],
-          "leftYAxisLabel": "",
-          "seriesOverrides": [],
-          "percentage": false,
           "type": "graph",
           "x-axis": true,
-          "error": false,
-          "editable": true,
-          "grid": {
-            "leftMax": 1,
-            "threshold2": null,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "threshold1": null,
-            "leftLogBase": 1,
-            "thresholdLine": false,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)",
-            "rightMin": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "leftMin": 0
-          },
-          "stack": false,
           "y-axis": false,
-          "timeShift": null,
-          "interval": "> 60s",
-          "lines": true,
-          "points": false,
-          "datasource": null,
-          "pointradius": 5,
           "y_formats": [
             "none",
             "short"
           ]
         },
         {
-          "bars": true,
           "aliasColors": {},
+          "bars": true,
+          "datasource": null,
+          "editable": true,
+          "error": false,
+          "fill": 0,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": 0,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)",
+            "thresholdLine": false
+          },
+          "id": 8,
+          "interval": "> 60s",
+          "legend": {
+            "alignAsTable": true,
+            "avg": false,
+            "current": false,
+            "hideEmpty": false,
+            "max": true,
+            "min": true,
+            "rightSide": false,
+            "show": true,
+            "total": true,
+            "values": true
+          },
+          "lines": false,
+          "linewidth": 1,
           "links": [],
           "nullPointMode": "connected",
-          "timeFrom": null,
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
           "renderer": "flot",
-          "linewidth": 1,
-          "steppedLine": false,
-          "id": 8,
-          "fill": 0,
+          "seriesOverrides": [],
           "span": 8,
+          "stack": true,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "2xx",
+              "column": "value",
+              "dsType": "influxdb",
+              "function": "count",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "0"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "groupByTags": [],
+              "interval": "",
+              "measurement": "openstack_heat_http_responses",
+              "query": "SELECT count(\"value\") FROM \"openstack_heat_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^2/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "count"
+                  }
+                ]
+              ],
+              "series": "merge(/$server.openstack.cinder.http.*.2\\d\\d/)",
+              "tags": [
+                {
+                  "key": "hostname",
+                  "value": "/$server/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "http_status",
+                  "value": "/^2/"
+                }
+              ]
+            },
+            {
+              "alias": "1xx",
+              "column": "value",
+              "dsType": "influxdb",
+              "function": "count",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "0"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "groupByTags": [],
+              "hide": false,
+              "interval": "",
+              "measurement": "openstack_heat_http_responses",
+              "query": "SELECT count(\"value\") FROM \"openstack_heat_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^1/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "refId": "B",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "count"
+                  }
+                ]
+              ],
+              "series": "merge(/$server.openstack.cinder.http.*.1\\d\\d/)",
+              "tags": [
+                {
+                  "key": "hostname",
+                  "value": "/$server/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "http_status",
+                  "value": "/^1/"
+                }
+              ]
+            },
+            {
+              "alias": "3xx",
+              "column": "value",
+              "dsType": "influxdb",
+              "function": "count",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "0"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "groupByTags": [],
+              "hide": false,
+              "interval": "",
+              "measurement": "openstack_heat_http_responses",
+              "query": "SELECT count(\"value\") FROM \"openstack_heat_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^3/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "refId": "C",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "count"
+                  }
+                ]
+              ],
+              "series": "merge(/$server.openstack.cinder.http.*.3\\d\\d/)",
+              "tags": [
+                {
+                  "key": "hostname",
+                  "value": "/$server/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "http_status",
+                  "value": "/^3/"
+                }
+              ]
+            },
+            {
+              "alias": "4xx",
+              "column": "value",
+              "dsType": "influxdb",
+              "function": "count",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "0"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "groupByTags": [],
+              "hide": false,
+              "interval": "",
+              "measurement": "openstack_heat_http_responses",
+              "query": "SELECT count(\"value\") FROM \"openstack_heat_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^4/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "refId": "D",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "count"
+                  }
+                ]
+              ],
+              "series": "merge(/$server.openstack.cinder.http.*.4\\d\\d/)",
+              "tags": [
+                {
+                  "key": "hostname",
+                  "value": "/$server/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "http_status",
+                  "value": "/^4/"
+                }
+              ]
+            },
+            {
+              "alias": "5xx",
+              "column": "value",
+              "dsType": "influxdb",
+              "function": "count",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "0"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "groupByTags": [],
+              "hide": false,
+              "interval": "",
+              "measurement": "openstack_heat_http_responses",
+              "query": "SELECT count(\"value\") FROM \"openstack_heat_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^5/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "refId": "E",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "count"
+                  }
+                ]
+              ],
+              "series": "merge(/$server.openstack.cinder.http.*.5\\d\\d/)",
+              "tags": [
+                {
+                  "key": "hostname",
+                  "value": "/$server/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "http_status",
+                  "value": "/^5/"
+                }
+              ]
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
           "title": "Number of HTTP responses on $server",
           "tooltip": {
             "shared": true,
             "value_type": "individual"
           },
-          "legend": {
-            "rightSide": false,
-            "total": true,
-            "min": true,
-            "max": true,
-            "show": true,
-            "current": false,
-            "hideEmpty": false,
-            "values": true,
-            "alignAsTable": true,
-            "avg": false
-          },
-          "targets": [
-            {
-              "function": "count",
-              "dsType": "influxdb",
-              "rawQuery": false,
-              "groupByTags": [],
-              "tags": [
-                {
-                  "value": "/$server/",
-                  "key": "hostname"
-                },
-                {
-                  "value": "/^2/",
-                  "key": "http_status",
-                  "condition": "AND"
-                }
-              ],
-              "column": "value",
-              "series": "merge(/$server.openstack.cinder.http.*.2\\d\\d/)",
-              "interval": "",
-              "refId": "A",
-              "alias": "2xx",
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "count",
-                    "params": []
-                  }
-                ]
-              ],
-              "measurement": "openstack_heat_http_responses",
-              "query": "SELECT count(\"value\") FROM \"openstack_heat_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^2/ AND $timeFilter GROUP BY time($interval) fill(0)",
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "0"
-                  ]
-                }
-              ],
-              "resultFormat": "time_series"
-            },
-            {
-              "function": "count",
-              "dsType": "influxdb",
-              "hide": false,
-              "groupByTags": [],
-              "tags": [
-                {
-                  "value": "/$server/",
-                  "key": "hostname"
-                },
-                {
-                  "value": "/^1/",
-                  "key": "http_status",
-                  "condition": "AND"
-                }
-              ],
-              "column": "value",
-              "series": "merge(/$server.openstack.cinder.http.*.1\\d\\d/)",
-              "interval": "",
-              "refId": "B",
-              "alias": "1xx",
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "count",
-                    "params": []
-                  }
-                ]
-              ],
-              "measurement": "openstack_heat_http_responses",
-              "query": "SELECT count(\"value\") FROM \"openstack_heat_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^1/ AND $timeFilter GROUP BY time($interval) fill(0)",
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "0"
-                  ]
-                }
-              ],
-              "resultFormat": "time_series"
-            },
-            {
-              "function": "count",
-              "dsType": "influxdb",
-              "hide": false,
-              "groupByTags": [],
-              "tags": [
-                {
-                  "value": "/$server/",
-                  "key": "hostname"
-                },
-                {
-                  "value": "/^3/",
-                  "key": "http_status",
-                  "condition": "AND"
-                }
-              ],
-              "column": "value",
-              "series": "merge(/$server.openstack.cinder.http.*.3\\d\\d/)",
-              "interval": "",
-              "refId": "C",
-              "alias": "3xx",
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "count",
-                    "params": []
-                  }
-                ]
-              ],
-              "measurement": "openstack_heat_http_responses",
-              "query": "SELECT count(\"value\") FROM \"openstack_heat_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^3/ AND $timeFilter GROUP BY time($interval) fill(0)",
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "0"
-                  ]
-                }
-              ],
-              "resultFormat": "time_series"
-            },
-            {
-              "function": "count",
-              "dsType": "influxdb",
-              "hide": false,
-              "groupByTags": [],
-              "tags": [
-                {
-                  "value": "/$server/",
-                  "key": "hostname"
-                },
-                {
-                  "value": "/^4/",
-                  "key": "http_status",
-                  "condition": "AND"
-                }
-              ],
-              "column": "value",
-              "series": "merge(/$server.openstack.cinder.http.*.4\\d\\d/)",
-              "interval": "",
-              "refId": "D",
-              "alias": "4xx",
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "count",
-                    "params": []
-                  }
-                ]
-              ],
-              "measurement": "openstack_heat_http_responses",
-              "query": "SELECT count(\"value\") FROM \"openstack_heat_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^4/ AND $timeFilter GROUP BY time($interval) fill(0)",
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "0"
-                  ]
-                }
-              ],
-              "resultFormat": "time_series"
-            },
-            {
-              "function": "count",
-              "dsType": "influxdb",
-              "hide": false,
-              "groupByTags": [],
-              "tags": [
-                {
-                  "value": "/$server/",
-                  "key": "hostname"
-                },
-                {
-                  "value": "/^5/",
-                  "key": "http_status",
-                  "condition": "AND"
-                }
-              ],
-              "column": "value",
-              "series": "merge(/$server.openstack.cinder.http.*.5\\d\\d/)",
-              "interval": "",
-              "refId": "E",
-              "alias": "5xx",
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "count",
-                    "params": []
-                  }
-                ]
-              ],
-              "measurement": "openstack_heat_http_responses",
-              "query": "SELECT count(\"value\") FROM \"openstack_heat_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^5/ AND $timeFilter GROUP BY time($interval) fill(0)",
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "0"
-                  ]
-                }
-              ],
-              "resultFormat": "time_series"
-            }
-          ],
-          "seriesOverrides": [],
-          "percentage": false,
           "type": "graph",
           "x-axis": true,
-          "error": false,
-          "editable": true,
-          "grid": {
-            "leftMax": null,
-            "threshold2": null,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "threshold1": null,
-            "leftLogBase": 1,
-            "thresholdLine": false,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)",
-            "rightMin": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "leftMin": 0
-          },
-          "stack": true,
           "y-axis": true,
-          "timeShift": null,
-          "interval": "> 60s",
-          "lines": false,
-          "points": false,
-          "datasource": null,
-          "pointradius": 5,
           "y_formats": [
             "short",
             "short"
           ]
         }
       ],
-      "showTitle": true
+      "showTitle": true,
+      "title": "Service Status"
     },
     {
       "collapse": false,
-      "title": "Heat API",
       "editable": true,
       "height": "100px",
       "panels": [
         {
-          "style": {},
-          "span": 2,
-          "links": [],
-          "title": "",
-          "editable": true,
           "content": "<br />\n<h3 align=\"center\"> Up </h3>\n",
-          "mode": "html",
+          "editable": true,
           "error": false,
-          "type": "text",
-          "id": 57
+          "id": 57,
+          "links": [],
+          "mode": "html",
+          "span": 2,
+          "style": {},
+          "title": "",
+          "type": "text"
         },
         {
-          "links": [],
-          "valueMaps": [
-            {
-              "text": "N/A",
-              "value": "null",
-              "op": "="
-            }
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "rgba(71, 212, 59, 0.4)",
+            "rgba(245, 150, 40, 0.73)",
+            "rgba(225, 40, 40, 0.59)"
           ],
-          "thresholds": "0,1,1",
+          "datasource": null,
+          "editable": true,
+          "error": false,
+          "format": "none",
+          "id": 52,
+          "interval": "> 60s",
+          "links": [],
+          "maxDataPoints": 100,
           "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
           "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 2,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
           "targets": [
             {
-              "function": "last",
+              "column": "value",
               "dsType": "influxdb",
-              "groupByTags": [],
-              "tags": [
+              "fill": "",
+              "function": "last",
+              "groupBy": [
                 {
-                  "value": "heat-api",
-                  "key": "backend"
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
                 },
                 {
-                  "value": "up",
-                  "key": "state",
-                  "condition": "AND"
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
                 }
               ],
-              "column": "value",
-              "series": "merge(/haproxy.backend.heat-api.servers.up/)",
-              "refId": "A",
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "last",
-                    "params": []
-                  }
-                ]
-              ],
+              "groupByTags": [],
               "measurement": "haproxy_backend_servers",
               "query": "SELECT last(\"value\") FROM \"haproxy_backend_servers\" WHERE \"backend\" = 'heat-api' AND \"state\" = 'up' AND $timeFilter GROUP BY time($interval) fill(null)",
-              "groupBy": [
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  }
+                ]
+              ],
+              "series": "merge(/haproxy.backend.heat-api.servers.up/)",
+              "tags": [
                 {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
+                  "key": "backend",
+                  "value": "heat-api"
                 },
                 {
-                  "type": "fill",
-                  "params": [
-                    "null"
-                  ]
+                  "condition": "AND",
+                  "key": "state",
+                  "value": "up"
                 }
-              ],
-              "resultFormat": "time_series",
-              "fill": ""
+              ]
             }
           ],
-          "maxDataPoints": 100,
-          "span": 2,
-          "colorBackground": false,
+          "thresholds": "0,1,1",
           "title": "OpenStack",
-          "sparkline": {
-            "full": false,
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "lineColor": "rgb(31, 120, 193)",
-            "show": false
-          },
-          "id": 52,
-          "prefixFontSize": "50%",
-          "valueName": "current",
           "type": "singlestat",
           "valueFontSize": "80%",
-          "format": "none",
-          "editable": true,
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
+        },
+        {
           "cacheTimeout": null,
-          "postfix": "",
-          "interval": "> 60s",
+          "colorBackground": false,
+          "colorValue": false,
           "colors": [
             "rgba(71, 212, 59, 0.4)",
             "rgba(245, 150, 40, 0.73)",
             "rgba(225, 40, 40, 0.59)"
           ],
           "datasource": null,
+          "editable": true,
           "error": false,
-          "nullText": null,
-          "postfixFontSize": "50%",
-          "colorValue": false
-        },
-        {
+          "format": "none",
+          "id": 53,
+          "interval": "> 60s",
           "links": [],
-          "valueMaps": [
-            {
-              "text": "N/A",
-              "value": "null",
-              "op": "="
-            }
-          ],
-          "thresholds": "0,1,1",
+          "maxDataPoints": 100,
           "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
           "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 2,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
           "targets": [
             {
-              "function": "last",
+              "column": "value",
               "dsType": "influxdb",
-              "groupByTags": [],
-              "tags": [
+              "fill": "",
+              "function": "last",
+              "groupBy": [
                 {
-                  "value": "heat-cfn-api",
-                  "key": "backend"
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
                 },
                 {
-                  "value": "up",
-                  "key": "state",
-                  "condition": "AND"
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
                 }
               ],
-              "column": "value",
-              "series": "merge(/haproxy.backend.heat-cfn-api.servers.up/)",
-              "refId": "A",
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "last",
-                    "params": []
-                  }
-                ]
-              ],
+              "groupByTags": [],
               "measurement": "haproxy_backend_servers",
               "query": "SELECT last(\"value\") FROM \"haproxy_backend_servers\" WHERE \"backend\" = 'heat-cfn-api' AND \"state\" = 'up' AND $timeFilter GROUP BY time($interval) fill(null)",
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "null"
-                  ]
-                }
-              ],
-              "resultFormat": "time_series",
-              "fill": ""
-            }
-          ],
-          "maxDataPoints": 100,
-          "span": 2,
-          "colorBackground": false,
-          "title": "CloudFormation",
-          "sparkline": {
-            "full": false,
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "lineColor": "rgb(31, 120, 193)",
-            "show": false
-          },
-          "id": 53,
-          "prefixFontSize": "50%",
-          "valueName": "current",
-          "type": "singlestat",
-          "valueFontSize": "80%",
-          "format": "none",
-          "editable": true,
-          "cacheTimeout": null,
-          "postfix": "",
-          "interval": "> 60s",
-          "colors": [
-            "rgba(71, 212, 59, 0.4)",
-            "rgba(245, 150, 40, 0.73)",
-            "rgba(225, 40, 40, 0.59)"
-          ],
-          "datasource": null,
-          "error": false,
-          "nullText": null,
-          "postfixFontSize": "50%",
-          "colorValue": false
-        },
-        {
-          "style": {},
-          "span": 6,
-          "links": [],
-          "title": "",
-          "editable": true,
-          "content": "<br />\n<h3 align=\"center\">  </h3>",
-          "mode": "html",
-          "error": false,
-          "type": "text",
-          "id": 56
-        },
-        {
-          "style": {},
-          "span": 2,
-          "links": [],
-          "title": "",
-          "editable": true,
-          "content": "<br />\n<h3 align=\"center\"> Down </h3>\n",
-          "mode": "html",
-          "error": false,
-          "type": "text",
-          "id": 58
-        },
-        {
-          "links": [],
-          "valueMaps": [
-            {
-              "text": "N/A",
-              "value": "null",
-              "op": "="
-            }
-          ],
-          "thresholds": "0,1,1",
-          "nullPointMode": "connected",
-          "prefix": "",
-          "targets": [
-            {
-              "function": "last",
-              "dsType": "influxdb",
-              "groupByTags": [],
-              "tags": [
-                {
-                  "value": "heat-api",
-                  "key": "backend"
-                },
-                {
-                  "value": "down",
-                  "key": "state",
-                  "condition": "AND"
-                }
-              ],
-              "column": "value",
-              "series": "merge(/haproxy.backend.heat-api.servers.down/)",
               "refId": "A",
+              "resultFormat": "time_series",
               "select": [
                 [
                   {
-                    "type": "field",
                     "params": [
                       "value"
-                    ]
+                    ],
+                    "type": "field"
                   },
                   {
-                    "type": "last",
-                    "params": []
+                    "params": [],
+                    "type": "last"
                   }
                 ]
               ],
+              "series": "merge(/haproxy.backend.heat-cfn-api.servers.up/)",
+              "tags": [
+                {
+                  "key": "backend",
+                  "value": "heat-cfn-api"
+                },
+                {
+                  "condition": "AND",
+                  "key": "state",
+                  "value": "up"
+                }
+              ]
+            }
+          ],
+          "thresholds": "0,1,1",
+          "title": "CloudFormation",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
+        },
+        {
+          "content": "<br />\n<h3 align=\"center\">  </h3>",
+          "editable": true,
+          "error": false,
+          "id": 56,
+          "links": [],
+          "mode": "html",
+          "span": 6,
+          "style": {},
+          "title": "",
+          "type": "text"
+        },
+        {
+          "content": "<br />\n<h3 align=\"center\"> Down </h3>\n",
+          "editable": true,
+          "error": false,
+          "id": 58,
+          "links": [],
+          "mode": "html",
+          "span": 2,
+          "style": {},
+          "title": "",
+          "type": "text"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "rgba(255, 255, 255, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "datasource": null,
+          "editable": true,
+          "error": false,
+          "format": "none",
+          "id": 59,
+          "interval": "> 60s",
+          "links": [],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 2,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "targets": [
+            {
+              "column": "value",
+              "dsType": "influxdb",
+              "fill": "",
+              "function": "last",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "groupByTags": [],
               "measurement": "haproxy_backend_servers",
               "query": "SELECT last(\"value\") FROM \"haproxy_backend_servers\" WHERE \"backend\" = 'heat-api' AND \"state\" = 'down' AND $timeFilter GROUP BY time($interval) fill(null)",
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "null"
-                  ]
-                }
-              ],
-              "resultFormat": "time_series",
-              "fill": ""
-            }
-          ],
-          "maxDataPoints": 100,
-          "span": 2,
-          "colorBackground": false,
-          "title": "",
-          "sparkline": {
-            "full": false,
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "lineColor": "rgb(31, 120, 193)",
-            "show": false
-          },
-          "id": 59,
-          "prefixFontSize": "50%",
-          "valueName": "current",
-          "type": "singlestat",
-          "valueFontSize": "80%",
-          "format": "none",
-          "editable": true,
-          "cacheTimeout": null,
-          "postfix": "",
-          "interval": "> 60s",
-          "colors": [
-            "rgba(255, 255, 255, 0.97)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(245, 54, 54, 0.9)"
-          ],
-          "datasource": null,
-          "error": false,
-          "nullText": null,
-          "postfixFontSize": "50%",
-          "colorValue": true
-        },
-        {
-          "links": [],
-          "valueMaps": [
-            {
-              "text": "N/A",
-              "value": "null",
-              "op": "="
-            }
-          ],
-          "thresholds": "0,1,1",
-          "nullPointMode": "connected",
-          "prefix": "",
-          "targets": [
-            {
-              "function": "last",
-              "dsType": "influxdb",
-              "groupByTags": [],
-              "tags": [
-                {
-                  "value": "heat-cfn-api",
-                  "key": "backend"
-                },
-                {
-                  "value": "down",
-                  "key": "state",
-                  "condition": "AND"
-                }
-              ],
-              "column": "value",
-              "series": "merge(/haproxy.backend.heat-api.servers.down/)",
               "refId": "A",
+              "resultFormat": "time_series",
               "select": [
                 [
                   {
-                    "type": "field",
                     "params": [
                       "value"
-                    ]
+                    ],
+                    "type": "field"
                   },
                   {
-                    "type": "last",
-                    "params": []
+                    "params": [],
+                    "type": "last"
                   }
                 ]
               ],
-              "measurement": "haproxy_backend_servers",
-              "query": "SELECT last(\"value\") FROM \"haproxy_backend_servers\" WHERE \"backend\" = 'heat-cfn-api' AND \"state\" = 'down' AND $timeFilter GROUP BY time($interval) fill(null)",
-              "groupBy": [
+              "series": "merge(/haproxy.backend.heat-api.servers.down/)",
+              "tags": [
                 {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
+                  "key": "backend",
+                  "value": "heat-api"
                 },
                 {
-                  "type": "fill",
-                  "params": [
-                    "null"
-                  ]
+                  "condition": "AND",
+                  "key": "state",
+                  "value": "down"
                 }
-              ],
-              "resultFormat": "time_series",
-              "fill": ""
+              ]
             }
           ],
-          "maxDataPoints": 100,
-          "span": 2,
-          "colorBackground": false,
+          "thresholds": "0,1,1",
           "title": "",
-          "sparkline": {
-            "full": false,
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "lineColor": "rgb(31, 120, 193)",
-            "show": false
-          },
-          "id": 60,
-          "prefixFontSize": "50%",
-          "valueName": "current",
           "type": "singlestat",
           "valueFontSize": "80%",
-          "format": "none",
-          "editable": true,
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
+        },
+        {
           "cacheTimeout": null,
-          "postfix": "",
-          "interval": "> 60s",
+          "colorBackground": false,
+          "colorValue": true,
           "colors": [
             "rgba(255, 255, 255, 0.97)",
             "rgba(237, 129, 40, 0.89)",
             "rgba(245, 54, 54, 0.9)"
           ],
           "datasource": null,
+          "editable": true,
           "error": false,
+          "format": "none",
+          "id": 60,
+          "interval": "> 60s",
+          "links": [],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
           "nullText": null,
+          "postfix": "",
           "postfixFontSize": "50%",
-          "colorValue": true
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 2,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "targets": [
+            {
+              "column": "value",
+              "dsType": "influxdb",
+              "fill": "",
+              "function": "last",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "groupByTags": [],
+              "measurement": "haproxy_backend_servers",
+              "query": "SELECT last(\"value\") FROM \"haproxy_backend_servers\" WHERE \"backend\" = 'heat-cfn-api' AND \"state\" = 'down' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  }
+                ]
+              ],
+              "series": "merge(/haproxy.backend.heat-api.servers.down/)",
+              "tags": [
+                {
+                  "key": "backend",
+                  "value": "heat-cfn-api"
+                },
+                {
+                  "condition": "AND",
+                  "key": "state",
+                  "value": "down"
+                }
+              ]
+            }
+          ],
+          "thresholds": "0,1,1",
+          "title": "",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
         },
         {
-          "style": {},
-          "span": 6,
-          "links": [],
-          "title": "",
-          "editable": true,
           "content": "<br />\n<h3 align=\"center\">  </h3>",
-          "mode": "html",
+          "editable": true,
           "error": false,
-          "type": "text",
-          "id": 63
+          "id": 63,
+          "links": [],
+          "mode": "html",
+          "span": 6,
+          "style": {},
+          "title": "",
+          "type": "text"
         }
       ],
-      "showTitle": true
+      "showTitle": true,
+      "title": "Heat API"
     }
   ],
+  "schemaVersion": 8,
+  "sharedCrosshair": true,
+  "style": "dark",
+  "tags": [],
   "templating": {
     "enable": true,
     "list": [
       {
-        "regex": "",
-        "name": "server",
-        "refresh_on_load": true,
         "allFormat": "regex values",
-        "refresh": true,
         "current": {},
         "datasource": null,
-        "query": "show tag values from pacemaker_local_resource_active with key = hostname",
-        "type": "query",
+        "includeAll": true,
+        "name": "server",
         "options": [],
-        "includeAll": true
+        "query": "show tag values from pacemaker_local_resource_active with key = hostname",
+        "refresh": true,
+        "refresh_on_load": true,
+        "regex": "",
+        "type": "query"
       }
     ]
   },
-  "links": [],
-  "tags": [],
-  "hideControls": false,
-  "title": "Heat",
-  "editable": true,
-  "refresh": "1m",
-  "id": null,
-  "originalTitle": "Heat",
+  "time": {
+    "from": "now-1h",
+    "to": "now"
+  },
   "timepicker": {
-    "status": "Stable",
-    "notice": false,
-    "enable": true,
     "collapse": false,
-    "time_options": [
-      "5m",
-      "15m",
-      "1h",
-      "6h",
-      "12h",
-      "24h",
-      "2d",
-      "7d",
-      "30d"
-    ],
+    "enable": true,
+    "notice": false,
+    "now": true,
     "refresh_intervals": [
       "5s",
       "10s",
@@ -1432,32 +1443,21 @@
       "2h",
       "1d"
     ],
-    "now": true,
+    "status": "Stable",
+    "time_options": [
+      "5m",
+      "15m",
+      "1h",
+      "6h",
+      "12h",
+      "24h",
+      "2d",
+      "7d",
+      "30d"
+    ],
     "type": "timepicker"
   },
-  "sharedCrosshair": true,
-  "time": {
-    "to": "now",
-    "from": "now-1h"
-  },
   "timezone": "browser",
-  "schemaVersion": 8,
-  "annotations": {
-    "enable": true,
-    "list": [
-      {
-        "enable": true,
-        "name": "Status",
-        "iconSize": 13,
-        "textColumn": "text",
-        "titleColumn": "title",
-        "datasource": "influxdb",
-        "lineColor": "rgba(255, 96, 96, 0.592157)",
-        "showLine": true,
-        "query": "select title,tags,text from annotations where $timeFilter and cluster = 'heat'",
-        "tagsColumn": "tags",
-        "iconColor": "#C0C6BE"
-      }
-    ]
-  }
+  "title": "Heat",
+  "version": 2
 }

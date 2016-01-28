@@ -1,1524 +1,1432 @@
 {
-  "version": 0,
-  "style": "dark",
+  "annotations": {
+    "list": []
+  },
+  "editable": true,
+  "hideControls": false,
+  "id": null,
+  "links": [],
+  "originalTitle": "Hypervisor",
+  "refresh": "1m",
   "rows": [
     {
       "collapse": false,
-      "title": "Host",
       "editable": true,
       "height": "250px",
       "panels": [
         {
-          "bars": false,
           "aliasColors": {},
+          "bars": false,
+          "datasource": null,
+          "editable": true,
+          "error": false,
+          "fill": 0,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": 100,
+            "leftMin": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 8,
+          "interval": ">60s",
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
           "links": [],
           "nullPointMode": "connected",
-          "timeFrom": null,
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
           "renderer": "flot",
-          "linewidth": 1,
-          "steppedLine": false,
-          "id": 8,
-          "fill": 0,
+          "seriesOverrides": [],
           "span": 5,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "user",
+              "column": "value",
+              "dsType": "influxdb",
+              "fields": [
+                {
+                  "func": "mean",
+                  "name": "value"
+                }
+              ],
+              "function": "mean",
+              "groupBy": [
+                {
+                  "interval": "auto",
+                  "params": [
+                    "auto"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "previous"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "cpu_user",
+              "query": "SELECT mean(\"value\") FROM \"cpu_user\" WHERE \"hostname\" = '$hostname' AND $timeFilter GROUP BY time($interval) fill(previous)",
+              "rawQuery": false,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "series": "merge(/$server.cpu.\\d+.user/)",
+              "tags": [
+                {
+                  "key": "hostname",
+                  "operator": "=",
+                  "value": "$hostname"
+                }
+              ]
+            },
+            {
+              "alias": "idle",
+              "column": "value",
+              "dsType": "influxdb",
+              "fields": [
+                {
+                  "func": "mean",
+                  "name": "value"
+                }
+              ],
+              "function": "mean",
+              "groupBy": [
+                {
+                  "interval": "auto",
+                  "params": [
+                    "auto"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "previous"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "cpu_idle",
+              "query": "SELECT mean(\"value\") FROM \"cpu_idle\" WHERE \"hostname\" = '$hostname' AND $timeFilter GROUP BY time($interval) fill(previous)",
+              "refId": "B",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "series": "merge(/$server.cpu.\\d+.idle/)",
+              "tags": [
+                {
+                  "key": "hostname",
+                  "operator": "=",
+                  "value": "$hostname"
+                }
+              ],
+              "target": ""
+            },
+            {
+              "alias": "interrupt",
+              "column": "value",
+              "dsType": "influxdb",
+              "fields": [
+                {
+                  "func": "mean",
+                  "name": "value"
+                }
+              ],
+              "function": "mean",
+              "groupBy": [
+                {
+                  "interval": "auto",
+                  "params": [
+                    "auto"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "previous"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "cpu_interrupt",
+              "query": "SELECT mean(\"value\") FROM \"cpu_interrupt\" WHERE \"hostname\" = '$hostname' AND $timeFilter GROUP BY time($interval) fill(previous)",
+              "refId": "C",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "series": "merge(/$server.cpu.\\d+.interrupt/)",
+              "tags": [
+                {
+                  "key": "hostname",
+                  "operator": "=",
+                  "value": "$hostname"
+                }
+              ],
+              "target": ""
+            },
+            {
+              "alias": "nice",
+              "column": "value",
+              "dsType": "influxdb",
+              "fields": [
+                {
+                  "func": "mean",
+                  "name": "value"
+                }
+              ],
+              "function": "mean",
+              "groupBy": [
+                {
+                  "interval": "auto",
+                  "params": [
+                    "auto"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "previous"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "cpu_nice",
+              "query": "SELECT mean(\"value\") FROM \"cpu_nice\" WHERE \"hostname\" = '$hostname' AND $timeFilter GROUP BY time($interval) fill(previous)",
+              "refId": "D",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "series": "merge(/$server.cpu.\\d+.nice/)",
+              "tags": [
+                {
+                  "key": "hostname",
+                  "operator": "=",
+                  "value": "$hostname"
+                }
+              ],
+              "target": ""
+            },
+            {
+              "alias": "system",
+              "column": "value",
+              "dsType": "influxdb",
+              "fields": [
+                {
+                  "func": "mean",
+                  "name": "value"
+                }
+              ],
+              "function": "mean",
+              "groupBy": [
+                {
+                  "interval": "auto",
+                  "params": [
+                    "auto"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "previous"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "cpu_system",
+              "query": "SELECT mean(\"value\") FROM \"cpu_system\" WHERE \"hostname\" = '$hostname' AND $timeFilter GROUP BY time($interval) fill(previous)",
+              "refId": "E",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "series": "merge(/$server.cpu.\\d+.system/)",
+              "tags": [
+                {
+                  "key": "hostname",
+                  "operator": "=",
+                  "value": "$hostname"
+                }
+              ],
+              "target": ""
+            },
+            {
+              "alias": "steal",
+              "column": "value",
+              "dsType": "influxdb",
+              "fields": [
+                {
+                  "func": "mean",
+                  "name": "value"
+                }
+              ],
+              "function": "mean",
+              "groupBy": [
+                {
+                  "interval": "auto",
+                  "params": [
+                    "auto"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "previous"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "cpu_steal",
+              "query": "SELECT mean(\"value\") FROM \"cpu_steal\" WHERE \"hostname\" = '$hostname' AND $timeFilter GROUP BY time($interval) fill(previous)",
+              "refId": "F",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "series": "merge(/$server.cpu.\\d+.steal/)",
+              "tags": [
+                {
+                  "key": "hostname",
+                  "operator": "=",
+                  "value": "$hostname"
+                }
+              ],
+              "target": ""
+            },
+            {
+              "alias": "wait",
+              "column": "value",
+              "dsType": "influxdb",
+              "fields": [
+                {
+                  "func": "mean",
+                  "name": "value"
+                }
+              ],
+              "function": "mean",
+              "groupBy": [
+                {
+                  "interval": "auto",
+                  "params": [
+                    "auto"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "previous"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "cpu_wait",
+              "query": "SELECT mean(\"value\") FROM \"cpu_wait\" WHERE \"hostname\" = '$hostname' AND $timeFilter GROUP BY time($interval) fill(previous)",
+              "refId": "G",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "series": "merge(/$server.cpu.\\d+.wait/)",
+              "tags": [
+                {
+                  "key": "hostname",
+                  "operator": "=",
+                  "value": "$hostname"
+                }
+              ],
+              "target": ""
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
           "title": "CPU",
           "tooltip": {
             "shared": true,
             "value_type": "cumulative"
           },
-          "legend": {
-            "total": false,
-            "show": true,
-            "max": false,
-            "min": false,
-            "current": false,
-            "values": false,
-            "avg": false
-          },
-          "targets": [
-            {
-              "function": "mean",
-              "dsType": "influxdb",
-              "rawQuery": false,
-              "tags": [
-                {
-                  "operator": "=",
-                  "value": "$hostname",
-                  "key": "hostname"
-                }
-              ],
-              "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "mean"
-                }
-              ],
-              "refId": "A",
-              "alias": "user",
-              "series": "merge(/$server.cpu.\\d+.user/)",
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "mean",
-                    "params": []
-                  }
-                ]
-              ],
-              "measurement": "cpu_user",
-              "query": "SELECT mean(\"value\") FROM \"cpu_user\" WHERE \"hostname\" = '$hostname' AND $timeFilter GROUP BY time($interval) fill(previous)",
-              "groupBy": [
-                {
-                  "type": "time",
-                  "interval": "auto",
-                  "params": [
-                    "auto"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "previous"
-                  ]
-                }
-              ],
-              "resultFormat": "time_series"
-            },
-            {
-              "function": "mean",
-              "dsType": "influxdb",
-              "target": "",
-              "tags": [
-                {
-                  "operator": "=",
-                  "value": "$hostname",
-                  "key": "hostname"
-                }
-              ],
-              "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "mean"
-                }
-              ],
-              "refId": "B",
-              "alias": "idle",
-              "series": "merge(/$server.cpu.\\d+.idle/)",
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "mean",
-                    "params": []
-                  }
-                ]
-              ],
-              "measurement": "cpu_idle",
-              "query": "SELECT mean(\"value\") FROM \"cpu_idle\" WHERE \"hostname\" = '$hostname' AND $timeFilter GROUP BY time($interval) fill(previous)",
-              "groupBy": [
-                {
-                  "type": "time",
-                  "interval": "auto",
-                  "params": [
-                    "auto"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "previous"
-                  ]
-                }
-              ],
-              "resultFormat": "time_series"
-            },
-            {
-              "function": "mean",
-              "dsType": "influxdb",
-              "target": "",
-              "tags": [
-                {
-                  "operator": "=",
-                  "value": "$hostname",
-                  "key": "hostname"
-                }
-              ],
-              "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "mean"
-                }
-              ],
-              "refId": "C",
-              "alias": "interrupt",
-              "series": "merge(/$server.cpu.\\d+.interrupt/)",
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "mean",
-                    "params": []
-                  }
-                ]
-              ],
-              "measurement": "cpu_interrupt",
-              "query": "SELECT mean(\"value\") FROM \"cpu_interrupt\" WHERE \"hostname\" = '$hostname' AND $timeFilter GROUP BY time($interval) fill(previous)",
-              "groupBy": [
-                {
-                  "type": "time",
-                  "interval": "auto",
-                  "params": [
-                    "auto"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "previous"
-                  ]
-                }
-              ],
-              "resultFormat": "time_series"
-            },
-            {
-              "function": "mean",
-              "dsType": "influxdb",
-              "target": "",
-              "tags": [
-                {
-                  "operator": "=",
-                  "value": "$hostname",
-                  "key": "hostname"
-                }
-              ],
-              "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "mean"
-                }
-              ],
-              "refId": "D",
-              "alias": "nice",
-              "series": "merge(/$server.cpu.\\d+.nice/)",
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "mean",
-                    "params": []
-                  }
-                ]
-              ],
-              "measurement": "cpu_nice",
-              "query": "SELECT mean(\"value\") FROM \"cpu_nice\" WHERE \"hostname\" = '$hostname' AND $timeFilter GROUP BY time($interval) fill(previous)",
-              "groupBy": [
-                {
-                  "type": "time",
-                  "interval": "auto",
-                  "params": [
-                    "auto"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "previous"
-                  ]
-                }
-              ],
-              "resultFormat": "time_series"
-            },
-            {
-              "function": "mean",
-              "dsType": "influxdb",
-              "target": "",
-              "tags": [
-                {
-                  "operator": "=",
-                  "value": "$hostname",
-                  "key": "hostname"
-                }
-              ],
-              "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "mean"
-                }
-              ],
-              "refId": "E",
-              "alias": "system",
-              "series": "merge(/$server.cpu.\\d+.system/)",
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "mean",
-                    "params": []
-                  }
-                ]
-              ],
-              "measurement": "cpu_system",
-              "query": "SELECT mean(\"value\") FROM \"cpu_system\" WHERE \"hostname\" = '$hostname' AND $timeFilter GROUP BY time($interval) fill(previous)",
-              "groupBy": [
-                {
-                  "type": "time",
-                  "interval": "auto",
-                  "params": [
-                    "auto"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "previous"
-                  ]
-                }
-              ],
-              "resultFormat": "time_series"
-            },
-            {
-              "function": "mean",
-              "dsType": "influxdb",
-              "target": "",
-              "tags": [
-                {
-                  "operator": "=",
-                  "value": "$hostname",
-                  "key": "hostname"
-                }
-              ],
-              "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "mean"
-                }
-              ],
-              "refId": "F",
-              "alias": "steal",
-              "series": "merge(/$server.cpu.\\d+.steal/)",
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "mean",
-                    "params": []
-                  }
-                ]
-              ],
-              "measurement": "cpu_steal",
-              "query": "SELECT mean(\"value\") FROM \"cpu_steal\" WHERE \"hostname\" = '$hostname' AND $timeFilter GROUP BY time($interval) fill(previous)",
-              "groupBy": [
-                {
-                  "type": "time",
-                  "interval": "auto",
-                  "params": [
-                    "auto"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "previous"
-                  ]
-                }
-              ],
-              "resultFormat": "time_series"
-            },
-            {
-              "function": "mean",
-              "dsType": "influxdb",
-              "target": "",
-              "tags": [
-                {
-                  "operator": "=",
-                  "value": "$hostname",
-                  "key": "hostname"
-                }
-              ],
-              "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "mean"
-                }
-              ],
-              "refId": "G",
-              "alias": "wait",
-              "series": "merge(/$server.cpu.\\d+.wait/)",
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "mean",
-                    "params": []
-                  }
-                ]
-              ],
-              "measurement": "cpu_wait",
-              "query": "SELECT mean(\"value\") FROM \"cpu_wait\" WHERE \"hostname\" = '$hostname' AND $timeFilter GROUP BY time($interval) fill(previous)",
-              "groupBy": [
-                {
-                  "type": "time",
-                  "interval": "auto",
-                  "params": [
-                    "auto"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "previous"
-                  ]
-                }
-              ],
-              "resultFormat": "time_series"
-            }
-          ],
-          "seriesOverrides": [],
-          "percentage": false,
           "type": "graph",
           "x-axis": true,
-          "error": false,
-          "editable": true,
-          "grid": {
-            "leftMax": 100,
-            "threshold2": null,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "threshold1": null,
-            "leftLogBase": 1,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)",
-            "rightMin": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "leftMin": null
-          },
-          "stack": false,
           "y-axis": true,
-          "timeShift": null,
-          "interval": ">60s",
-          "lines": true,
-          "points": false,
-          "datasource": null,
-          "pointradius": 5,
           "y_formats": [
             "percent",
             "short"
           ]
         },
         {
-          "bars": false,
           "aliasColors": {},
-          "links": [],
-          "nullPointMode": "connected",
+          "aliasYAxis": {},
           "annotate": {
             "enable": false
           },
-          "timeFrom": null,
-          "renderer": "flot",
-          "timezone": "browser",
-          "spyable": true,
-          "linewidth": 2,
-          "steppedLine": false,
-          "id": 9,
+          "bars": false,
+          "datasource": null,
           "fill": 1,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": 0,
+            "max": null,
+            "min": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 9,
+          "interactive": true,
+          "interval": ">60s",
+          "leftYAxisLabel": "",
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "legend_counts": true,
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "connected",
+          "options": false,
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "resolution": 100,
           "scale": 1,
+          "seriesOverrides": [],
           "span": 5,
+          "spyable": true,
+          "stack": true,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "used",
+              "column": "value",
+              "dsType": "influxdb",
+              "fields": [
+                {
+                  "func": "mean",
+                  "name": "value"
+                }
+              ],
+              "function": "mean",
+              "groupBy": [
+                {
+                  "interval": "auto",
+                  "params": [
+                    "auto"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "previous"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "interval": "",
+              "measurement": "memory_used",
+              "query": "SELECT mean(\"value\") FROM \"memory_used\" WHERE \"hostname\" = '$hostname' AND $timeFilter GROUP BY time($interval) fill(previous)",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "series": "$hostname.memory.used",
+              "tags": [
+                {
+                  "key": "hostname",
+                  "operator": "=",
+                  "value": "$hostname"
+                }
+              ],
+              "target": "randomWalk('random walk')"
+            },
+            {
+              "alias": "buffered",
+              "column": "value",
+              "dsType": "influxdb",
+              "fields": [
+                {
+                  "func": "mean",
+                  "name": "value"
+                }
+              ],
+              "function": "mean",
+              "groupBy": [
+                {
+                  "interval": "auto",
+                  "params": [
+                    "auto"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "previous"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "interval": "",
+              "measurement": "memory_buffered",
+              "query": "SELECT mean(\"value\") FROM \"memory_buffered\" WHERE \"hostname\" = '$hostname' AND $timeFilter GROUP BY time($interval) fill(previous)",
+              "refId": "B",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "series": "$hostname.memory.buffered",
+              "tags": [
+                {
+                  "key": "hostname",
+                  "operator": "=",
+                  "value": "$hostname"
+                }
+              ],
+              "target": ""
+            },
+            {
+              "alias": "cached",
+              "column": "value",
+              "dsType": "influxdb",
+              "fields": [
+                {
+                  "func": "mean",
+                  "name": "value"
+                }
+              ],
+              "function": "mean",
+              "groupBy": [
+                {
+                  "interval": "auto",
+                  "params": [
+                    "auto"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "previous"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "interval": "",
+              "measurement": "memory_cached",
+              "query": "SELECT mean(\"value\") FROM \"memory_cached\" WHERE \"hostname\" = '$hostname' AND $timeFilter GROUP BY time($interval) fill(previous)",
+              "refId": "C",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "series": "$hostname.memory.cached",
+              "tags": [
+                {
+                  "key": "hostname",
+                  "operator": "=",
+                  "value": "$hostname"
+                }
+              ],
+              "target": ""
+            },
+            {
+              "alias": "free",
+              "column": "value",
+              "dsType": "influxdb",
+              "fields": [
+                {
+                  "func": "mean",
+                  "name": "value"
+                }
+              ],
+              "function": "mean",
+              "groupBy": [
+                {
+                  "interval": "auto",
+                  "params": [
+                    "auto"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "previous"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "interval": "",
+              "measurement": "memory_free",
+              "query": "SELECT mean(\"value\") FROM \"memory_free\" WHERE \"hostname\" = '$hostname' AND $timeFilter GROUP BY time($interval) fill(previous)",
+              "refId": "D",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "series": "$hostname.memory.free",
+              "tags": [
+                {
+                  "key": "hostname",
+                  "operator": "=",
+                  "value": "$hostname"
+                }
+              ],
+              "target": ""
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "timezone": "browser",
           "title": "Memory",
+          "tooltip": {
+            "query_as_alias": true,
+            "shared": true,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "x-axis": true,
+          "y-axis": true,
           "y_formats": [
             "bytes",
             "short"
-          ],
-          "tooltip": {
-            "shared": true,
-            "value_type": "individual",
-            "query_as_alias": true
-          },
-          "stack": true,
-          "targets": [
-            {
-              "function": "mean",
-              "dsType": "influxdb",
-              "target": "randomWalk('random walk')",
-              "tags": [
-                {
-                  "operator": "=",
-                  "value": "$hostname",
-                  "key": "hostname"
-                }
-              ],
-              "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "mean"
-                }
-              ],
-              "interval": "",
-              "refId": "A",
-              "alias": "used",
-              "series": "$hostname.memory.used",
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "mean",
-                    "params": []
-                  }
-                ]
-              ],
-              "measurement": "memory_used",
-              "query": "SELECT mean(\"value\") FROM \"memory_used\" WHERE \"hostname\" = '$hostname' AND $timeFilter GROUP BY time($interval) fill(previous)",
-              "groupBy": [
-                {
-                  "type": "time",
-                  "interval": "auto",
-                  "params": [
-                    "auto"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "previous"
-                  ]
-                }
-              ],
-              "resultFormat": "time_series"
-            },
-            {
-              "function": "mean",
-              "dsType": "influxdb",
-              "target": "",
-              "tags": [
-                {
-                  "operator": "=",
-                  "value": "$hostname",
-                  "key": "hostname"
-                }
-              ],
-              "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "mean"
-                }
-              ],
-              "interval": "",
-              "refId": "B",
-              "alias": "buffered",
-              "series": "$hostname.memory.buffered",
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "mean",
-                    "params": []
-                  }
-                ]
-              ],
-              "measurement": "memory_buffered",
-              "query": "SELECT mean(\"value\") FROM \"memory_buffered\" WHERE \"hostname\" = '$hostname' AND $timeFilter GROUP BY time($interval) fill(previous)",
-              "groupBy": [
-                {
-                  "type": "time",
-                  "interval": "auto",
-                  "params": [
-                    "auto"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "previous"
-                  ]
-                }
-              ],
-              "resultFormat": "time_series"
-            },
-            {
-              "function": "mean",
-              "dsType": "influxdb",
-              "target": "",
-              "tags": [
-                {
-                  "operator": "=",
-                  "value": "$hostname",
-                  "key": "hostname"
-                }
-              ],
-              "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "mean"
-                }
-              ],
-              "interval": "",
-              "refId": "C",
-              "alias": "cached",
-              "series": "$hostname.memory.cached",
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "mean",
-                    "params": []
-                  }
-                ]
-              ],
-              "measurement": "memory_cached",
-              "query": "SELECT mean(\"value\") FROM \"memory_cached\" WHERE \"hostname\" = '$hostname' AND $timeFilter GROUP BY time($interval) fill(previous)",
-              "groupBy": [
-                {
-                  "type": "time",
-                  "interval": "auto",
-                  "params": [
-                    "auto"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "previous"
-                  ]
-                }
-              ],
-              "resultFormat": "time_series"
-            },
-            {
-              "function": "mean",
-              "dsType": "influxdb",
-              "target": "",
-              "tags": [
-                {
-                  "operator": "=",
-                  "value": "$hostname",
-                  "key": "hostname"
-                }
-              ],
-              "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "mean"
-                }
-              ],
-              "interval": "",
-              "refId": "D",
-              "alias": "free",
-              "series": "$hostname.memory.free",
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "mean",
-                    "params": []
-                  }
-                ]
-              ],
-              "measurement": "memory_free",
-              "query": "SELECT mean(\"value\") FROM \"memory_free\" WHERE \"hostname\" = '$hostname' AND $timeFilter GROUP BY time($interval) fill(previous)",
-              "groupBy": [
-                {
-                  "type": "time",
-                  "interval": "auto",
-                  "params": [
-                    "auto"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "previous"
-                  ]
-                }
-              ],
-              "resultFormat": "time_series"
-            }
-          ],
-          "leftYAxisLabel": "",
-          "seriesOverrides": [],
-          "percentage": false,
-          "type": "graph",
-          "x-axis": true,
-          "grid": {
-            "leftMax": null,
-            "threshold2": null,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "min": null,
-            "threshold1": null,
-            "max": null,
-            "leftLogBase": 1,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)",
-            "rightMin": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "leftMin": 0
-          },
-          "legend": {
-            "total": false,
-            "show": true,
-            "max": false,
-            "min": false,
-            "current": false,
-            "values": false,
-            "avg": false
-          },
-          "legend_counts": true,
-          "y-axis": true,
-          "aliasYAxis": {},
-          "timeShift": null,
-          "interval": ">60s",
-          "lines": true,
-          "points": false,
-          "datasource": null,
-          "pointradius": 5,
-          "resolution": 100,
-          "options": false,
-          "interactive": true
+          ]
         },
         {
-          "links": [],
-          "valueMaps": [
-            {
-              "text": "N/A",
-              "value": "null",
-              "op": "="
-            }
-          ],
-          "thresholds": "5,10,15",
-          "nullPointMode": "connected",
-          "prefix": "",
-          "targets": [
-            {
-              "function": "mean",
-              "dsType": "influxdb",
-              "rawQuery": false,
-              "tags": [
-                {
-                  "operator": "=",
-                  "value": "$hostname",
-                  "key": "hostname"
-                },
-                {
-                  "operator": "=",
-                  "value": "/var/lib/nova",
-                  "key": "fs",
-                  "condition": "AND"
-                }
-              ],
-              "column": "value",
-              "fields": [
-                {
-                  "name": "value",
-                  "func": "last"
-                }
-              ],
-              "refId": "A",
-              "series": "select last(100.0*avail.value/(used.value + free.value)) from \"$server.fs.$mount.space.free\" as free inner join \"$server.fs.$mount.space.used\" as used where $timeFilter group by time($interval) order asc",
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "last",
-                    "params": []
-                  }
-                ]
-              ],
-              "measurement": "fs_space_percent_free",
-              "query": "SELECT last(\"value\") FROM \"fs_space_percent_free\" WHERE \"hostname\" = '$hostname' AND \"fs\" = '/var/lib/nova' AND $timeFilter GROUP BY time($interval) fill(previous)",
-              "groupBy": [
-                {
-                  "type": "time",
-                  "interval": "auto",
-                  "params": [
-                    "auto"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "previous"
-                  ]
-                }
-              ],
-              "resultFormat": "time_series"
-            }
-          ],
-          "maxDataPoints": 100,
-          "span": 2,
-          "colorBackground": false,
-          "title": "Available ephemeral storage",
-          "sparkline": {
-            "full": false,
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "lineColor": "rgb(31, 120, 193)",
-            "show": true
-          },
-          "id": 10,
-          "prefixFontSize": "50%",
-          "valueName": "current",
-          "type": "singlestat",
-          "valueFontSize": "80%",
-          "format": "percent",
-          "editable": true,
           "cacheTimeout": null,
-          "postfix": "",
-          "interval": ">60s",
+          "colorBackground": false,
+          "colorValue": true,
           "colors": [
             "rgba(245, 54, 54, 0.9)",
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
           "datasource": null,
+          "editable": true,
           "error": false,
+          "format": "percent",
+          "id": 10,
+          "interval": ">60s",
+          "links": [],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
           "nullText": null,
+          "postfix": "",
           "postfixFontSize": "50%",
-          "colorValue": true
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 2,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": true
+          },
+          "targets": [
+            {
+              "column": "value",
+              "dsType": "influxdb",
+              "fields": [
+                {
+                  "func": "last",
+                  "name": "value"
+                }
+              ],
+              "function": "mean",
+              "groupBy": [
+                {
+                  "interval": "auto",
+                  "params": [
+                    "auto"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "previous"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "fs_space_percent_free",
+              "query": "SELECT last(\"value\") FROM \"fs_space_percent_free\" WHERE \"hostname\" = '$hostname' AND \"fs\" = '/var/lib/nova' AND $timeFilter GROUP BY time($interval) fill(previous)",
+              "rawQuery": false,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  }
+                ]
+              ],
+              "series": "select last(100.0*avail.value/(used.value + free.value)) from \"$server.fs.$mount.space.free\" as free inner join \"$server.fs.$mount.space.used\" as used where $timeFilter group by time($interval) order asc",
+              "tags": [
+                {
+                  "key": "hostname",
+                  "operator": "=",
+                  "value": "$hostname"
+                },
+                {
+                  "condition": "AND",
+                  "key": "fs",
+                  "operator": "=",
+                  "value": "/var/lib/nova"
+                }
+              ]
+            }
+          ],
+          "thresholds": "5,10,15",
+          "title": "Available ephemeral storage",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
         }
       ],
-      "showTitle": true
+      "showTitle": true,
+      "title": "Host"
     },
     {
       "collapse": false,
-      "title": "Virtual Resources",
       "editable": true,
       "height": "250px",
       "panels": [
         {
-          "links": [],
-          "isNew": true,
-          "thresholds": "",
-          "nullPointMode": "connected",
-          "prefix": "",
-          "targets": [
-            {
-              "dsType": "influxdb",
-              "tags": [
-                {
-                  "operator": "=",
-                  "value": "$hostname",
-                  "key": "hostname"
-                }
-              ],
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "previous"
-                  ]
-                }
-              ],
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "last",
-                    "params": []
-                  }
-                ]
-              ],
-              "measurement": "openstack_nova_running_instances",
-              "query": "SELECT last(\"value\") FROM \"openstack_nova_running_instances\" WHERE \"hostname\" = '$hostname' AND $timeFilter GROUP BY time($interval) fill(previous)",
-              "refId": "A",
-              "resultFormat": "time_series"
-            }
-          ],
-          "maxDataPoints": 100,
-          "span": 3,
-          "colorBackground": false,
-          "title": "Running instances",
-          "valueMaps": [
-            {
-              "text": "N/A",
-              "value": "null",
-              "op": "="
-            }
-          ],
-          "sparkline": {
-            "full": false,
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "lineColor": "rgb(31, 120, 193)",
-            "show": true
-          },
-          "id": 11,
-          "prefixFontSize": "50%",
-          "valueName": "current",
-          "type": "singlestat",
-          "valueFontSize": "80%",
-          "format": "none",
-          "editable": true,
           "cacheTimeout": null,
-          "postfix": "",
-          "interval": "> 60s",
+          "colorBackground": false,
+          "colorValue": false,
           "colors": [
             "rgba(245, 54, 54, 0.9)",
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
           "datasource": null,
+          "editable": true,
           "error": false,
+          "format": "none",
+          "id": 11,
+          "interval": "> 60s",
+          "isNew": true,
+          "links": [],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
           "nullText": null,
+          "postfix": "",
           "postfixFontSize": "50%",
-          "colorValue": false
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 3,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": true
+          },
+          "targets": [
+            {
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "previous"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "openstack_nova_running_instances",
+              "query": "SELECT last(\"value\") FROM \"openstack_nova_running_instances\" WHERE \"hostname\" = '$hostname' AND $timeFilter GROUP BY time($interval) fill(previous)",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "hostname",
+                  "operator": "=",
+                  "value": "$hostname"
+                }
+              ]
+            }
+          ],
+          "thresholds": "",
+          "title": "Running instances",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
         },
         {
+          "aliasColors": {},
           "bars": false,
-          "timeFrom": null,
-          "links": [],
-          "isNew": true,
-          "nullPointMode": "connected",
-          "renderer": "flot",
-          "linewidth": 2,
-          "steppedLine": false,
-          "id": 5,
+          "datasource": null,
+          "editable": true,
+          "error": false,
           "fill": 0,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": 0,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 5,
+          "isNew": true,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
           "span": 3,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "free",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "previous"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "openstack_nova_free_vcpus",
+              "query": "SELECT mean(\"value\") FROM \"openstack_nova_free_vcpus\" WHERE \"hostname\" =~ /$hostname$/ AND $timeFilter GROUP BY time($interval) fill(previous)",
+              "refId": "B",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "hostname",
+                  "operator": "=~",
+                  "value": "/$hostname$/"
+                }
+              ]
+            },
+            {
+              "alias": "used",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "previous"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "openstack_nova_used_vcpus",
+              "query": "SELECT mean(\"value\") FROM \"openstack_nova_used_vcpus\" WHERE \"hostname\" =~ /$hostname$/ AND $timeFilter GROUP BY time($interval) fill(previous)",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "hostname",
+                  "operator": "=~",
+                  "value": "/$hostname$/"
+                }
+              ]
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
           "title": "Virtual CPUs",
           "tooltip": {
             "shared": true,
             "value_type": "cumulative"
           },
-          "legend": {
-            "total": false,
-            "show": true,
-            "max": false,
-            "min": false,
-            "current": false,
-            "values": false,
-            "avg": false
-          },
-          "targets": [
-            {
-              "dsType": "influxdb",
-              "tags": [
-                {
-                  "operator": "=~",
-                  "value": "/$hostname$/",
-                  "key": "hostname"
-                }
-              ],
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "previous"
-                  ]
-                }
-              ],
-              "alias": "free",
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "mean",
-                    "params": []
-                  }
-                ]
-              ],
-              "measurement": "openstack_nova_free_vcpus",
-              "query": "SELECT mean(\"value\") FROM \"openstack_nova_free_vcpus\" WHERE \"hostname\" =~ /$hostname$/ AND $timeFilter GROUP BY time($interval) fill(previous)",
-              "refId": "B",
-              "resultFormat": "time_series"
-            },
-            {
-              "dsType": "influxdb",
-              "tags": [
-                {
-                  "operator": "=~",
-                  "value": "/$hostname$/",
-                  "key": "hostname"
-                }
-              ],
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "previous"
-                  ]
-                }
-              ],
-              "alias": "used",
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "mean",
-                    "params": []
-                  }
-                ]
-              ],
-              "measurement": "openstack_nova_used_vcpus",
-              "query": "SELECT mean(\"value\") FROM \"openstack_nova_used_vcpus\" WHERE \"hostname\" =~ /$hostname$/ AND $timeFilter GROUP BY time($interval) fill(previous)",
-              "refId": "A",
-              "resultFormat": "time_series"
-            }
-          ],
-          "seriesOverrides": [],
-          "percentage": false,
           "type": "graph",
           "x-axis": true,
-          "error": false,
-          "editable": true,
-          "grid": {
-            "leftMax": null,
-            "threshold2": null,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "threshold1": null,
-            "leftLogBase": 1,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)",
-            "rightMin": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "leftMin": 0
-          },
-          "stack": false,
           "y-axis": true,
-          "timeShift": null,
-          "aliasColors": {},
-          "lines": true,
-          "points": false,
-          "datasource": null,
-          "pointradius": 5,
           "y_formats": [
             "short",
             "short"
           ]
         },
         {
+          "aliasColors": {},
           "bars": false,
-          "timeFrom": null,
-          "links": [],
-          "isNew": true,
-          "nullPointMode": "connected",
-          "renderer": "flot",
-          "linewidth": 2,
-          "steppedLine": false,
-          "id": 6,
+          "datasource": null,
+          "editable": true,
+          "error": false,
           "fill": 0,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": 0,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 6,
+          "isNew": true,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
           "span": 3,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "free",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "previous"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "openstack_nova_free_ram",
+              "query": "SELECT mean(\"value\") FROM \"openstack_nova_free_ram\" WHERE \"hostname\" =~ /$hostname$/ AND $timeFilter GROUP BY time($interval) fill(previous)",
+              "refId": "B",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "hostname",
+                  "operator": "=~",
+                  "value": "/$hostname$/"
+                }
+              ]
+            },
+            {
+              "alias": "used",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "previous"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "openstack_nova_used_ram",
+              "query": "SELECT mean(\"value\") FROM \"openstack_nova_used_ram\" WHERE \"hostname\" =~ /$hostname$/ AND $timeFilter GROUP BY time($interval) fill(previous)",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "hostname",
+                  "operator": "=~",
+                  "value": "/$hostname$/"
+                }
+              ]
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
           "title": "Virtual RAM",
           "tooltip": {
             "shared": true,
             "value_type": "cumulative"
           },
-          "legend": {
-            "total": false,
-            "show": true,
-            "max": false,
-            "min": false,
-            "current": false,
-            "values": false,
-            "avg": false
-          },
-          "targets": [
-            {
-              "dsType": "influxdb",
-              "tags": [
-                {
-                  "operator": "=~",
-                  "value": "/$hostname$/",
-                  "key": "hostname"
-                }
-              ],
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "previous"
-                  ]
-                }
-              ],
-              "alias": "free",
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "mean",
-                    "params": []
-                  }
-                ]
-              ],
-              "measurement": "openstack_nova_free_ram",
-              "query": "SELECT mean(\"value\") FROM \"openstack_nova_free_ram\" WHERE \"hostname\" =~ /$hostname$/ AND $timeFilter GROUP BY time($interval) fill(previous)",
-              "refId": "B",
-              "resultFormat": "time_series"
-            },
-            {
-              "dsType": "influxdb",
-              "tags": [
-                {
-                  "operator": "=~",
-                  "value": "/$hostname$/",
-                  "key": "hostname"
-                }
-              ],
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "previous"
-                  ]
-                }
-              ],
-              "alias": "used",
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "mean",
-                    "params": []
-                  }
-                ]
-              ],
-              "measurement": "openstack_nova_used_ram",
-              "query": "SELECT mean(\"value\") FROM \"openstack_nova_used_ram\" WHERE \"hostname\" =~ /$hostname$/ AND $timeFilter GROUP BY time($interval) fill(previous)",
-              "refId": "A",
-              "resultFormat": "time_series"
-            }
-          ],
-          "seriesOverrides": [],
-          "percentage": false,
           "type": "graph",
           "x-axis": true,
-          "error": false,
-          "editable": true,
-          "grid": {
-            "leftMax": null,
-            "threshold2": null,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "threshold1": null,
-            "leftLogBase": 1,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)",
-            "rightMin": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "leftMin": 0
-          },
-          "stack": false,
           "y-axis": true,
-          "timeShift": null,
-          "aliasColors": {},
-          "lines": true,
-          "points": false,
-          "datasource": null,
-          "pointradius": 5,
           "y_formats": [
             "mbytes",
             "mbytes"
           ]
         },
         {
+          "aliasColors": {},
           "bars": false,
-          "timeFrom": null,
-          "links": [],
-          "isNew": true,
-          "nullPointMode": "connected",
-          "renderer": "flot",
-          "linewidth": 2,
-          "steppedLine": false,
-          "id": 7,
+          "datasource": null,
+          "editable": true,
+          "error": false,
           "fill": 0,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": 0,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 7,
+          "isNew": true,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
           "span": 3,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "free",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "previous"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "openstack_nova_free_disk",
+              "query": "SELECT mean(\"value\") FROM \"openstack_nova_free_disk\" WHERE \"hostname\" =~ /$hostname$/ AND $timeFilter GROUP BY time($interval) fill(previous)",
+              "refId": "B",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "hostname",
+                  "operator": "=~",
+                  "value": "/$hostname$/"
+                }
+              ]
+            },
+            {
+              "alias": "used",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "previous"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "openstack_nova_used_disk",
+              "query": "SELECT mean(\"value\") FROM \"openstack_nova_used_disk\" WHERE \"hostname\" =~ /$hostname$/ AND $timeFilter GROUP BY time($interval) fill(previous)",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "hostname",
+                  "operator": "=~",
+                  "value": "/$hostname$/"
+                }
+              ]
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
           "title": "Virtual Disk",
           "tooltip": {
             "shared": true,
             "value_type": "cumulative"
           },
-          "legend": {
-            "total": false,
-            "show": true,
-            "max": false,
-            "min": false,
-            "current": false,
-            "values": false,
-            "avg": false
-          },
-          "targets": [
-            {
-              "dsType": "influxdb",
-              "tags": [
-                {
-                  "operator": "=~",
-                  "value": "/$hostname$/",
-                  "key": "hostname"
-                }
-              ],
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "previous"
-                  ]
-                }
-              ],
-              "alias": "free",
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "mean",
-                    "params": []
-                  }
-                ]
-              ],
-              "measurement": "openstack_nova_free_disk",
-              "query": "SELECT mean(\"value\") FROM \"openstack_nova_free_disk\" WHERE \"hostname\" =~ /$hostname$/ AND $timeFilter GROUP BY time($interval) fill(previous)",
-              "refId": "B",
-              "resultFormat": "time_series"
-            },
-            {
-              "dsType": "influxdb",
-              "tags": [
-                {
-                  "operator": "=~",
-                  "value": "/$hostname$/",
-                  "key": "hostname"
-                }
-              ],
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "previous"
-                  ]
-                }
-              ],
-              "alias": "used",
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "mean",
-                    "params": []
-                  }
-                ]
-              ],
-              "measurement": "openstack_nova_used_disk",
-              "query": "SELECT mean(\"value\") FROM \"openstack_nova_used_disk\" WHERE \"hostname\" =~ /$hostname$/ AND $timeFilter GROUP BY time($interval) fill(previous)",
-              "refId": "A",
-              "resultFormat": "time_series"
-            }
-          ],
-          "seriesOverrides": [],
-          "percentage": false,
           "type": "graph",
           "x-axis": true,
-          "error": false,
-          "editable": true,
-          "grid": {
-            "leftMax": null,
-            "threshold2": null,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "threshold1": null,
-            "leftLogBase": 1,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)",
-            "rightMin": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "leftMin": 0
-          },
-          "stack": false,
           "y-axis": true,
-          "timeShift": null,
-          "aliasColors": {},
-          "lines": true,
-          "points": false,
-          "datasource": null,
-          "pointradius": 5,
           "y_formats": [
             "gbytes",
             "gbytes"
           ]
         }
       ],
-      "showTitle": true
+      "showTitle": true,
+      "title": "Virtual Resources"
     },
     {
       "collapse": false,
-      "title": "Virtual instance",
       "editable": true,
       "height": "250px",
       "panels": [
         {
-          "bars": false,
           "aliasColors": {},
+          "bars": false,
+          "datasource": null,
+          "editable": true,
+          "error": false,
+          "fill": 1,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": 100,
+            "leftMin": 0,
+            "rightLogBase": 1,
+            "rightMax": 100,
+            "rightMin": 0,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 1,
+          "interval": ">60s",
+          "leftYAxisLabel": "%",
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 2,
           "links": [],
           "nullPointMode": "connected",
-          "timeFrom": null,
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
           "renderer": "flot",
-          "linewidth": 2,
-          "steppedLine": false,
-          "id": 1,
-          "fill": 1,
-          "span": 6,
-          "title": "CPU",
-          "tooltip": {
-            "shared": true,
-            "value_type": "cumulative"
-          },
-          "stack": false,
-          "targets": [
-            {
-              "dsType": "influxdb",
-              "tags": [
-                {
-                  "operator": "=~",
-                  "value": "/$hostname$/",
-                  "key": "hostname"
-                },
-                {
-                  "operator": "=~",
-                  "value": "/$instance_id$/",
-                  "key": "instance_id",
-                  "condition": "AND"
-                }
-              ],
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "auto"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "none"
-                  ]
-                }
-              ],
-              "alias": "cpu_time",
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "mean",
-                    "params": []
-                  },
-                  {
-                    "type": "math",
-                    "params": [
-                      "/10000000"
-                    ]
-                  }
-                ]
-              ],
-              "measurement": "virt_cpu_time",
-              "query": "SELECT mean(\"value\") /10000000 FROM \"virt_cpu_time\" WHERE \"hostname\" =~ /$hostname$/ AND \"instance_id\" =~ /$instance_id$/ AND $timeFilter GROUP BY time($interval) fill(none)",
-              "refId": "A",
-              "resultFormat": "time_series"
-            },
-            {
-              "dsType": "influxdb",
-              "rawQuery": false,
-              "tags": [
-                {
-                  "operator": "=~",
-                  "value": "/$hostname$/",
-                  "key": "hostname"
-                },
-                {
-                  "operator": "=~",
-                  "value": "/$instance_id$/",
-                  "key": "instance_id",
-                  "condition": "AND"
-                }
-              ],
-              "refId": "B",
-              "alias": "vcpu_time(vcpu:$tag_vcpu_number)",
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "mean",
-                    "params": []
-                  },
-                  {
-                    "type": "math",
-                    "params": [
-                      "/10000000"
-                    ]
-                  }
-                ]
-              ],
-              "measurement": "virt_vcpu_time",
-              "query": "SELECT mean(\"value\") /10000000 FROM \"virt_vcpu_time\" WHERE \"hostname\" =~ /$hostname$/ AND \"instance_id\" =~ /$instance_id$/ AND $timeFilter GROUP BY time($interval), \"vcpu_number\" fill(none)",
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "auto"
-                  ]
-                },
-                {
-                  "type": "tag",
-                  "params": [
-                    "vcpu_number"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "none"
-                  ]
-                }
-              ],
-              "resultFormat": "time_series"
-            }
-          ],
           "rightYAxisLabel": "%",
           "seriesOverrides": [
             {
@@ -1527,579 +1435,667 @@
               "yaxis": 2
             }
           ],
-          "percentage": false,
-          "type": "graph",
-          "leftYAxisLabel": "%",
-          "x-axis": true,
-          "error": false,
-          "editable": true,
-          "grid": {
-            "leftMax": 100,
-            "threshold2": null,
-            "rightLogBase": 1,
-            "rightMax": 100,
-            "threshold1": null,
-            "leftLogBase": 1,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)",
-            "rightMin": 0,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "leftMin": 0
-          },
-          "legend": {
-            "total": false,
-            "show": true,
-            "max": false,
-            "min": false,
-            "current": false,
-            "values": false,
-            "avg": false
-          },
-          "y-axis": true,
+          "span": 6,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "cpu_time",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "auto"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "none"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "virt_cpu_time",
+              "query": "SELECT mean(\"value\") /10000000 FROM \"virt_cpu_time\" WHERE \"hostname\" =~ /$hostname$/ AND \"instance_id\" =~ /$instance_id$/ AND $timeFilter GROUP BY time($interval) fill(none)",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  },
+                  {
+                    "params": [
+                      "/10000000"
+                    ],
+                    "type": "math"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "hostname",
+                  "operator": "=~",
+                  "value": "/$hostname$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "instance_id",
+                  "operator": "=~",
+                  "value": "/$instance_id$/"
+                }
+              ]
+            },
+            {
+              "alias": "vcpu_time(vcpu:$tag_vcpu_number)",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "auto"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "vcpu_number"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "none"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "virt_vcpu_time",
+              "query": "SELECT mean(\"value\") /10000000 FROM \"virt_vcpu_time\" WHERE \"hostname\" =~ /$hostname$/ AND \"instance_id\" =~ /$instance_id$/ AND $timeFilter GROUP BY time($interval), \"vcpu_number\" fill(none)",
+              "rawQuery": false,
+              "refId": "B",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  },
+                  {
+                    "params": [
+                      "/10000000"
+                    ],
+                    "type": "math"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "hostname",
+                  "operator": "=~",
+                  "value": "/$hostname$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "instance_id",
+                  "operator": "=~",
+                  "value": "/$instance_id$/"
+                }
+              ]
+            }
+          ],
+          "timeFrom": null,
           "timeShift": null,
-          "interval": ">60s",
-          "lines": true,
-          "points": false,
-          "datasource": null,
-          "pointradius": 5,
+          "title": "CPU",
+          "tooltip": {
+            "shared": true,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "x-axis": true,
+          "y-axis": true,
           "y_formats": [
             "short",
             "short"
           ]
         },
         {
-          "bars": false,
           "aliasColors": {},
+          "bars": false,
+          "datasource": null,
+          "editable": true,
+          "error": false,
+          "fill": 1,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": 0,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": 0,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 2,
+          "interval": ">60s",
+          "leftYAxisLabel": "",
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 2,
           "links": [],
           "nullPointMode": "connected",
-          "timeFrom": null,
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
           "renderer": "flot",
-          "linewidth": 2,
-          "steppedLine": false,
-          "id": 2,
-          "fill": 1,
+          "rightYAxisLabel": "",
+          "seriesOverrides": [],
           "span": 6,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "total",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "auto"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "none"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "virt_memory_total",
+              "query": "SELECT mean(\"value\") FROM \"virt_memory_total\" WHERE \"hostname\" =~ /$hostname$/ AND \"instance_id\" =~ /$instance_id$/ AND $timeFilter GROUP BY time($interval) fill(none)",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "hostname",
+                  "operator": "=~",
+                  "value": "/$hostname$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "instance_id",
+                  "operator": "=~",
+                  "value": "/$instance_id$/"
+                }
+              ]
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
           "title": "Memory",
           "tooltip": {
             "shared": true,
             "value_type": "cumulative"
           },
-          "stack": false,
-          "targets": [
-            {
-              "dsType": "influxdb",
-              "tags": [
-                {
-                  "operator": "=~",
-                  "value": "/$hostname$/",
-                  "key": "hostname"
-                },
-                {
-                  "operator": "=~",
-                  "value": "/$instance_id$/",
-                  "key": "instance_id",
-                  "condition": "AND"
-                }
-              ],
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "auto"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "none"
-                  ]
-                }
-              ],
-              "alias": "total",
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "mean",
-                    "params": []
-                  }
-                ]
-              ],
-              "measurement": "virt_memory_total",
-              "query": "SELECT mean(\"value\") FROM \"virt_memory_total\" WHERE \"hostname\" =~ /$hostname$/ AND \"instance_id\" =~ /$instance_id$/ AND $timeFilter GROUP BY time($interval) fill(none)",
-              "refId": "A",
-              "resultFormat": "time_series"
-            }
-          ],
-          "rightYAxisLabel": "",
-          "seriesOverrides": [],
-          "percentage": false,
           "type": "graph",
-          "leftYAxisLabel": "",
           "x-axis": true,
-          "error": false,
-          "editable": true,
-          "grid": {
-            "leftMax": null,
-            "threshold2": null,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "threshold1": null,
-            "leftLogBase": 1,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)",
-            "rightMin": 0,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "leftMin": 0
-          },
-          "legend": {
-            "total": false,
-            "show": true,
-            "max": false,
-            "min": false,
-            "current": false,
-            "values": false,
-            "avg": false
-          },
           "y-axis": true,
-          "timeShift": null,
-          "interval": ">60s",
-          "lines": true,
-          "points": false,
-          "datasource": null,
-          "pointradius": 5,
           "y_formats": [
             "bytes",
             "short"
           ]
         },
         {
-          "bars": false,
           "aliasColors": {},
+          "bars": false,
+          "datasource": null,
+          "editable": true,
+          "error": false,
+          "fill": 1,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": 0,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 3,
+          "interval": "> 60s",
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 2,
           "links": [],
           "nullPointMode": "connected",
-          "timeFrom": null,
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
           "renderer": "flot",
-          "linewidth": 2,
-          "steppedLine": false,
-          "id": 3,
-          "fill": 1,
+          "seriesOverrides": [],
           "span": 6,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "read",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "auto"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "none"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "virt_disk_octets_read",
+              "query": "SELECT mean(\"value\") FROM \"virt_disk_octets_read\" WHERE \"hostname\" =~ /$hostname$/ AND \"instance_id\" =~ /$instance_id$/ AND \"device\" =~ /$disk$/ AND $timeFilter GROUP BY time($interval) fill(none)",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "hostname",
+                  "operator": "=~",
+                  "value": "/$hostname$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "instance_id",
+                  "operator": "=~",
+                  "value": "/$instance_id$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "device",
+                  "operator": "=~",
+                  "value": "/$disk$/"
+                }
+              ]
+            },
+            {
+              "alias": "written",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "auto"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "none"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "virt_disk_octets_write",
+              "query": "SELECT mean(\"value\") FROM \"virt_disk_octets_write\" WHERE \"hostname\" =~ /$hostname$/ AND \"instance_id\" =~ /$instance_id$/ AND \"device\" =~ /$disk$/ AND $timeFilter GROUP BY time($interval) fill(none)",
+              "refId": "B",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "hostname",
+                  "operator": "=~",
+                  "value": "/$hostname$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "instance_id",
+                  "operator": "=~",
+                  "value": "/$instance_id$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "device",
+                  "operator": "=~",
+                  "value": "/$disk$/"
+                }
+              ]
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
           "title": "Disk I/O",
           "tooltip": {
             "shared": true,
             "value_type": "cumulative"
           },
-          "legend": {
-            "total": false,
-            "show": true,
-            "max": false,
-            "min": false,
-            "current": false,
-            "values": false,
-            "avg": false
-          },
-          "targets": [
-            {
-              "dsType": "influxdb",
-              "tags": [
-                {
-                  "operator": "=~",
-                  "value": "/$hostname$/",
-                  "key": "hostname"
-                },
-                {
-                  "operator": "=~",
-                  "value": "/$instance_id$/",
-                  "key": "instance_id",
-                  "condition": "AND"
-                },
-                {
-                  "operator": "=~",
-                  "value": "/$disk$/",
-                  "key": "device",
-                  "condition": "AND"
-                }
-              ],
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "auto"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "none"
-                  ]
-                }
-              ],
-              "alias": "read",
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "mean",
-                    "params": []
-                  }
-                ]
-              ],
-              "measurement": "virt_disk_octets_read",
-              "query": "SELECT mean(\"value\") FROM \"virt_disk_octets_read\" WHERE \"hostname\" =~ /$hostname$/ AND \"instance_id\" =~ /$instance_id$/ AND \"device\" =~ /$disk$/ AND $timeFilter GROUP BY time($interval) fill(none)",
-              "refId": "A",
-              "resultFormat": "time_series"
-            },
-            {
-              "dsType": "influxdb",
-              "tags": [
-                {
-                  "operator": "=~",
-                  "value": "/$hostname$/",
-                  "key": "hostname"
-                },
-                {
-                  "operator": "=~",
-                  "value": "/$instance_id$/",
-                  "key": "instance_id",
-                  "condition": "AND"
-                },
-                {
-                  "operator": "=~",
-                  "value": "/$disk$/",
-                  "key": "device",
-                  "condition": "AND"
-                }
-              ],
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "auto"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "none"
-                  ]
-                }
-              ],
-              "alias": "written",
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "mean",
-                    "params": []
-                  }
-                ]
-              ],
-              "measurement": "virt_disk_octets_write",
-              "query": "SELECT mean(\"value\") FROM \"virt_disk_octets_write\" WHERE \"hostname\" =~ /$hostname$/ AND \"instance_id\" =~ /$instance_id$/ AND \"device\" =~ /$disk$/ AND $timeFilter GROUP BY time($interval) fill(none)",
-              "refId": "B",
-              "resultFormat": "time_series"
-            }
-          ],
-          "seriesOverrides": [],
-          "percentage": false,
           "type": "graph",
           "x-axis": true,
-          "error": false,
-          "editable": true,
-          "grid": {
-            "leftMax": null,
-            "threshold2": null,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "threshold1": null,
-            "leftLogBase": 1,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)",
-            "rightMin": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "leftMin": 0
-          },
-          "stack": false,
           "y-axis": true,
-          "timeShift": null,
-          "interval": "> 60s",
-          "lines": true,
-          "points": false,
-          "datasource": null,
-          "pointradius": 5,
           "y_formats": [
             "Bps",
             "short"
           ]
         },
         {
-          "bars": false,
           "aliasColors": {},
+          "bars": false,
+          "datasource": null,
+          "editable": true,
+          "error": false,
+          "fill": 1,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": 0,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 4,
+          "interval": "> 60s",
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 2,
           "links": [],
           "nullPointMode": "connected",
-          "timeFrom": null,
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
           "renderer": "flot",
-          "linewidth": 2,
-          "steppedLine": false,
-          "id": 4,
-          "fill": 1,
+          "seriesOverrides": [],
           "span": 6,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "rx",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "auto"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "none"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "virt_if_octets_rx",
+              "query": "SELECT mean(\"value\") FROM \"virt_if_octets_rx\" WHERE \"hostname\" =~ /$hostname$/ AND \"instance_id\" =~ /$instance_id$/ AND \"interface\" =~ /$interface$/ AND $timeFilter GROUP BY time($interval) fill(none)",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "hostname",
+                  "operator": "=~",
+                  "value": "/$hostname$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "instance_id",
+                  "operator": "=~",
+                  "value": "/$instance_id$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "interface",
+                  "operator": "=~",
+                  "value": "/$interface$/"
+                }
+              ]
+            },
+            {
+              "alias": "tx",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "auto"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "none"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "virt_if_octets_tx",
+              "query": "SELECT mean(\"value\") FROM \"virt_if_octets_tx\" WHERE \"hostname\" =~ /$hostname$/ AND \"instance_id\" =~ /$instance_id$/ AND \"interface\" =~ /$interface$/ AND $timeFilter GROUP BY time($interval) fill(none)",
+              "refId": "B",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "hostname",
+                  "operator": "=~",
+                  "value": "/$hostname$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "instance_id",
+                  "operator": "=~",
+                  "value": "/$instance_id$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "interface",
+                  "operator": "=~",
+                  "value": "/$interface$/"
+                }
+              ]
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
           "title": "Network I/O",
           "tooltip": {
             "shared": true,
             "value_type": "cumulative"
           },
-          "legend": {
-            "total": false,
-            "show": true,
-            "max": false,
-            "min": false,
-            "current": false,
-            "values": false,
-            "avg": false
-          },
-          "targets": [
-            {
-              "dsType": "influxdb",
-              "tags": [
-                {
-                  "operator": "=~",
-                  "value": "/$hostname$/",
-                  "key": "hostname"
-                },
-                {
-                  "operator": "=~",
-                  "value": "/$instance_id$/",
-                  "key": "instance_id",
-                  "condition": "AND"
-                },
-                {
-                  "operator": "=~",
-                  "value": "/$interface$/",
-                  "key": "interface",
-                  "condition": "AND"
-                }
-              ],
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "auto"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "none"
-                  ]
-                }
-              ],
-              "alias": "rx",
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "mean",
-                    "params": []
-                  }
-                ]
-              ],
-              "measurement": "virt_if_octets_rx",
-              "query": "SELECT mean(\"value\") FROM \"virt_if_octets_rx\" WHERE \"hostname\" =~ /$hostname$/ AND \"instance_id\" =~ /$instance_id$/ AND \"interface\" =~ /$interface$/ AND $timeFilter GROUP BY time($interval) fill(none)",
-              "refId": "A",
-              "resultFormat": "time_series"
-            },
-            {
-              "dsType": "influxdb",
-              "tags": [
-                {
-                  "operator": "=~",
-                  "value": "/$hostname$/",
-                  "key": "hostname"
-                },
-                {
-                  "operator": "=~",
-                  "value": "/$instance_id$/",
-                  "key": "instance_id",
-                  "condition": "AND"
-                },
-                {
-                  "operator": "=~",
-                  "value": "/$interface$/",
-                  "key": "interface",
-                  "condition": "AND"
-                }
-              ],
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "auto"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "none"
-                  ]
-                }
-              ],
-              "alias": "tx",
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "mean",
-                    "params": []
-                  }
-                ]
-              ],
-              "measurement": "virt_if_octets_tx",
-              "query": "SELECT mean(\"value\") FROM \"virt_if_octets_tx\" WHERE \"hostname\" =~ /$hostname$/ AND \"instance_id\" =~ /$instance_id$/ AND \"interface\" =~ /$interface$/ AND $timeFilter GROUP BY time($interval) fill(none)",
-              "refId": "B",
-              "resultFormat": "time_series"
-            }
-          ],
-          "seriesOverrides": [],
-          "percentage": false,
           "type": "graph",
           "x-axis": true,
-          "error": false,
-          "editable": true,
-          "grid": {
-            "leftMax": null,
-            "threshold2": null,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "threshold1": null,
-            "leftLogBase": 1,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)",
-            "rightMin": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "leftMin": 0
-          },
-          "stack": false,
           "y-axis": true,
-          "timeShift": null,
-          "interval": "> 60s",
-          "lines": true,
-          "points": false,
-          "datasource": null,
-          "pointradius": 5,
           "y_formats": [
             "Bps",
             "short"
           ]
         }
       ],
-      "showTitle": true
+      "showTitle": true,
+      "title": "Virtual instance"
     }
   ],
+  "schemaVersion": 8,
+  "sharedCrosshair": true,
+  "style": "dark",
+  "tags": [],
   "templating": {
     "list": [
       {
-        "regex": "",
+        "allFormat": "glob",
+        "current": {},
+        "datasource": null,
+        "includeAll": false,
         "multi": false,
+        "multiFormat": "glob",
         "name": "hostname",
-        "refresh_on_load": true,
-        "allFormat": "glob",
-        "refresh": true,
         "options": [],
-        "current": {},
-        "datasource": null,
         "query": "show tag values from openstack_nova_running_instances with key = hostname",
-        "type": "query",
-        "multiFormat": "glob",
-        "includeAll": false
-      },
-      {
-        "multi": false,
-        "name": "instance_id",
-        "refresh_on_load": true,
-        "allFormat": "glob",
         "refresh": true,
-        "options": [],
-        "current": {},
-        "datasource": null,
-        "query": "show tag values from virt_cpu_time with key = instance_id where hostname = '$hostname'",
-        "type": "query",
-        "multiFormat": "glob",
-        "includeAll": false
-      },
-      {
+        "refresh_on_load": true,
         "regex": "",
-        "multi": false,
-        "name": "disk",
-        "refresh_on_load": true,
-        "allFormat": "glob",
-        "refresh": true,
-        "options": [],
-        "current": {},
-        "datasource": null,
-        "query": "show tag values from virt_disk_octets_read with key = device where hostname = '$hostname' and instance_id = '$instance_id'",
-        "type": "query",
-        "multiFormat": "glob",
-        "includeAll": false
+        "type": "query"
       },
       {
-        "multi": false,
-        "name": "interface",
-        "refresh_on_load": true,
         "allFormat": "glob",
-        "refresh": true,
-        "options": [],
         "current": {},
         "datasource": null,
-        "query": "show tag values from virt_if_octets_rx with key = interface where hostname = '$hostname' and instance_id = '$instance_id'",
-        "type": "query",
+        "includeAll": false,
+        "multi": false,
         "multiFormat": "glob",
-        "includeAll": false
+        "name": "instance_id",
+        "options": [],
+        "query": "show tag values from virt_cpu_time with key = instance_id where hostname = '$hostname'",
+        "refresh": true,
+        "refresh_on_load": true,
+        "type": "query"
+      },
+      {
+        "allFormat": "glob",
+        "current": {},
+        "datasource": null,
+        "includeAll": false,
+        "multi": false,
+        "multiFormat": "glob",
+        "name": "disk",
+        "options": [],
+        "query": "show tag values from virt_disk_octets_read with key = device where hostname = '$hostname' and instance_id = '$instance_id'",
+        "refresh": true,
+        "refresh_on_load": true,
+        "regex": "",
+        "type": "query"
+      },
+      {
+        "allFormat": "glob",
+        "current": {},
+        "datasource": null,
+        "includeAll": false,
+        "multi": false,
+        "multiFormat": "glob",
+        "name": "interface",
+        "options": [],
+        "query": "show tag values from virt_if_octets_rx with key = interface where hostname = '$hostname' and instance_id = '$instance_id'",
+        "refresh": true,
+        "refresh_on_load": true,
+        "type": "query"
       }
     ]
   },
-  "links": [],
-  "tags": [],
-  "hideControls": false,
-  "title": "Hypervisor",
-  "editable": true,
-  "refresh": "1m",
-  "id": null,
-  "originalTitle": "Hypervisor",
+  "time": {
+    "from": "now-1h",
+    "to": "now"
+  },
   "timepicker": {
-    "time_options": [
-      "5m",
-      "15m",
-      "1h",
-      "6h",
-      "12h",
-      "24h",
-      "2d",
-      "7d",
-      "30d"
-    ],
     "now": true,
     "refresh_intervals": [
       "5s",
@@ -2112,16 +2108,20 @@
       "1h",
       "2h",
       "1d"
+    ],
+    "time_options": [
+      "5m",
+      "15m",
+      "1h",
+      "6h",
+      "12h",
+      "24h",
+      "2d",
+      "7d",
+      "30d"
     ]
   },
-  "sharedCrosshair": true,
-  "time": {
-    "to": "now",
-    "from": "now-1h"
-  },
   "timezone": "browser",
-  "schemaVersion": 8,
-  "annotations": {
-    "list": []
-  }
+  "title": "Hypervisor",
+  "version": 1
 }
