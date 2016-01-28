@@ -59,6 +59,10 @@ for f in glob.glob(path):
     with open(absf) as out:
         data = json.load(out)
     for k, v in data.items():
+        if k == 'annotations':
+            for anno in v.get('list', []):
+                anno['datasource'] = 'lma'
+
         if k == 'templating':
             variables = v.get('list', [])
             for o in variables:

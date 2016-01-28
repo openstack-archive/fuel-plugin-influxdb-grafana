@@ -1770,5 +1770,5 @@
   },
   "timezone": "browser",
   "title": "Ceph OSD",
-  "version": 1
+  "version": 2
 }

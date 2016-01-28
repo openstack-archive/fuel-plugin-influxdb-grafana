@@ -2,7 +2,7 @@
   "annotations": {
     "list": [
       {
-        "datasource": "influxdb",
+        "datasource": "lma",
         "enable": true,
         "iconColor": "#C0C6BE",
         "iconSize": 13,
@@ -1189,5 +1189,5 @@
   },
   "timezone": "browser",
   "title": "RabbitMQ",
-  "version": 1
+  "version": 2
 }

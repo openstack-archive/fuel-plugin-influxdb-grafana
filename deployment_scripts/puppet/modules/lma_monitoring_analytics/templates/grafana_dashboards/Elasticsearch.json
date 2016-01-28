@@ -2,7 +2,7 @@
   "annotations": {
     "list": [
       {
-        "datasource": "influxdb",
+        "datasource": "lma",
         "enable": true,
         "iconColor": "#C0C6BE",
         "iconSize": 13,
@@ -1421,5 +1421,5 @@
   },
   "timezone": "browser",
   "title": "Elasticsearch",
-  "version": 11
+  "version": 12
 }
