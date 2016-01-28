@@ -19,7 +19,7 @@
   },
   "editable": true,
   "hideControls": false,
-  "id": null,
+  "id": 17,
   "links": [],
   "originalTitle": "Nova",
   "refresh": "1m",
@@ -1787,13 +1787,13 @@
     {
       "collapse": false,
       "editable": true,
-      "height": "100px",
+      "height": "250px",
       "panels": [
         {
-          "content": "<br />\n<h3 align=\"center\"> Disabled </h3>",
+          "content": "<br />\n<h3 align=\"center\"> Compute nodes </h3>",
           "editable": true,
           "error": false,
-          "id": 20,
+          "id": 69,
           "links": [],
           "mode": "html",
           "span": 2,
@@ -1814,7 +1814,7 @@
           "editable": true,
           "error": false,
           "format": "none",
-          "id": 16,
+          "id": 70,
           "interval": "> 60s",
           "links": [],
           "maxDataPoints": 100,
@@ -1824,7 +1824,7 @@
           "postfixFontSize": "50%",
           "prefix": "",
           "prefixFontSize": "50%",
-          "span": 2,
+          "span": 1,
           "sparkline": {
             "fillColor": "rgba(31, 118, 189, 0.18)",
             "full": false,
@@ -1839,8 +1839,9 @@
               "function": "last",
               "groupBy": [
                 {
+                  "interval": "auto",
                   "params": [
-                    "$interval"
+                    "auto"
                   ],
                   "type": "time"
                 },
@@ -1851,7 +1852,6 @@
                   "type": "fill"
                 }
               ],
-              "groupByTags": [],
               "measurement": "openstack_nova_services",
               "query": "SELECT last(\"value\") FROM \"openstack_nova_services\" WHERE \"service\" = 'compute' AND \"state\" = 'disabled' AND $timeFilter GROUP BY time($interval) fill(null)",
               "refId": "A",
@@ -1874,18 +1874,20 @@
               "tags": [
                 {
                   "key": "service",
+                  "operator": "=",
                   "value": "compute"
                 },
                 {
                   "condition": "AND",
                   "key": "state",
+                  "operator": "=",
                   "value": "disabled"
                 }
               ]
             }
           ],
           "thresholds": "0,1,1",
-          "title": "Compute nodes",
+          "title": "Disabled",
           "type": "singlestat",
           "valueFontSize": "80%",
           "valueMaps": [
@@ -1896,402 +1898,6 @@
             }
           ],
           "valueName": "current"
-        },
-        {
-          "cacheTimeout": null,
-          "colorBackground": false,
-          "colorValue": true,
-          "colors": [
-            "rgba(255, 255, 255, 0.97)",
-            "rgba(255, 255, 255, 0.89)",
-            "rgba(245, 54, 54, 0.9)"
-          ],
-          "datasource": null,
-          "editable": true,
-          "error": false,
-          "format": "none",
-          "id": 19,
-          "interval": "> 60s",
-          "links": [],
-          "maxDataPoints": 100,
-          "nullPointMode": "connected",
-          "nullText": null,
-          "postfix": "",
-          "postfixFontSize": "50%",
-          "prefix": "",
-          "prefixFontSize": "50%",
-          "span": 2,
-          "sparkline": {
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "show": false
-          },
-          "targets": [
-            {
-              "column": "value",
-              "dsType": "influxdb",
-              "fill": "",
-              "function": "last",
-              "groupBy": [
-                {
-                  "params": [
-                    "$interval"
-                  ],
-                  "type": "time"
-                },
-                {
-                  "params": [
-                    "null"
-                  ],
-                  "type": "fill"
-                }
-              ],
-              "groupByTags": [],
-              "measurement": "openstack_nova_services",
-              "query": "SELECT last(\"value\") FROM \"openstack_nova_services\" WHERE \"service\" = 'scheduler' AND \"state\" = 'disabled' AND $timeFilter GROUP BY time($interval) fill(null)",
-              "refId": "A",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "value"
-                    ],
-                    "type": "field"
-                  },
-                  {
-                    "params": [],
-                    "type": "last"
-                  }
-                ]
-              ],
-              "series": "merge(/openstack.nova.services.scheduler.disabled/)",
-              "tags": [
-                {
-                  "key": "service",
-                  "value": "scheduler"
-                },
-                {
-                  "condition": "AND",
-                  "key": "state",
-                  "value": "disabled"
-                }
-              ]
-            }
-          ],
-          "thresholds": "0,0,1",
-          "title": "Schedulers",
-          "type": "singlestat",
-          "valueFontSize": "80%",
-          "valueMaps": [
-            {
-              "op": "=",
-              "text": "N/A",
-              "value": "null"
-            }
-          ],
-          "valueName": "current"
-        },
-        {
-          "cacheTimeout": null,
-          "colorBackground": false,
-          "colorValue": true,
-          "colors": [
-            "rgba(255, 255, 255, 0.97)",
-            "rgba(255, 255, 255, 0.89)",
-            "rgba(245, 54, 54, 0.9)"
-          ],
-          "datasource": null,
-          "editable": true,
-          "error": false,
-          "format": "none",
-          "id": 17,
-          "interval": "> 60s",
-          "links": [],
-          "maxDataPoints": 100,
-          "nullPointMode": "connected",
-          "nullText": null,
-          "postfix": "",
-          "postfixFontSize": "50%",
-          "prefix": "",
-          "prefixFontSize": "50%",
-          "span": 2,
-          "sparkline": {
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "show": false
-          },
-          "targets": [
-            {
-              "column": "value",
-              "dsType": "influxdb",
-              "fill": "",
-              "function": "last",
-              "groupBy": [
-                {
-                  "params": [
-                    "$interval"
-                  ],
-                  "type": "time"
-                },
-                {
-                  "params": [
-                    "null"
-                  ],
-                  "type": "fill"
-                }
-              ],
-              "groupByTags": [],
-              "measurement": "openstack_nova_services",
-              "query": "SELECT last(\"value\") FROM \"openstack_nova_services\" WHERE \"service\" = 'conductor' AND \"state\" = 'disabled' AND $timeFilter GROUP BY time($interval) fill(null)",
-              "refId": "A",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "value"
-                    ],
-                    "type": "field"
-                  },
-                  {
-                    "params": [],
-                    "type": "last"
-                  }
-                ]
-              ],
-              "series": "merge(/openstack.nova.services.conductor.disabled/)",
-              "tags": [
-                {
-                  "key": "service",
-                  "value": "conductor"
-                },
-                {
-                  "condition": "AND",
-                  "key": "state",
-                  "value": "disabled"
-                }
-              ]
-            }
-          ],
-          "thresholds": "0,0,1",
-          "title": "Conductors",
-          "type": "singlestat",
-          "valueFontSize": "80%",
-          "valueMaps": [
-            {
-              "op": "=",
-              "text": "N/A",
-              "value": "null"
-            }
-          ],
-          "valueName": "current"
-        },
-        {
-          "cacheTimeout": null,
-          "colorBackground": false,
-          "colorValue": true,
-          "colors": [
-            "rgba(255, 255, 255, 0.97)",
-            "rgba(255, 255, 255, 0.89)",
-            "rgba(245, 54, 54, 0.9)"
-          ],
-          "datasource": null,
-          "editable": true,
-          "error": false,
-          "format": "none",
-          "id": 15,
-          "interval": "> 60s",
-          "links": [],
-          "maxDataPoints": 100,
-          "nullPointMode": "connected",
-          "nullText": null,
-          "postfix": "",
-          "postfixFontSize": "50%",
-          "prefix": "",
-          "prefixFontSize": "50%",
-          "span": 2,
-          "sparkline": {
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "show": false
-          },
-          "targets": [
-            {
-              "column": "value",
-              "dsType": "influxdb",
-              "fill": "",
-              "function": "last",
-              "groupBy": [
-                {
-                  "params": [
-                    "$interval"
-                  ],
-                  "type": "time"
-                },
-                {
-                  "params": [
-                    "null"
-                  ],
-                  "type": "fill"
-                }
-              ],
-              "groupByTags": [],
-              "measurement": "openstack_nova_services",
-              "query": "SELECT last(\"value\") FROM \"openstack_nova_services\" WHERE \"service\" = 'cert' AND \"state\" = 'disabled' AND $timeFilter GROUP BY time($interval) fill(null)",
-              "refId": "A",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "value"
-                    ],
-                    "type": "field"
-                  },
-                  {
-                    "params": [],
-                    "type": "last"
-                  }
-                ]
-              ],
-              "series": "merge(/openstack.nova.services.cert.disabled/)",
-              "tags": [
-                {
-                  "key": "service",
-                  "value": "cert"
-                },
-                {
-                  "condition": "AND",
-                  "key": "state",
-                  "value": "disabled"
-                }
-              ]
-            }
-          ],
-          "thresholds": "0,0,1",
-          "title": "Cert servers",
-          "type": "singlestat",
-          "valueFontSize": "80%",
-          "valueMaps": [
-            {
-              "op": "=",
-              "text": "N/A",
-              "value": "null"
-            }
-          ],
-          "valueName": "current"
-        },
-        {
-          "cacheTimeout": null,
-          "colorBackground": false,
-          "colorValue": true,
-          "colors": [
-            "rgba(255, 255, 255, 0.97)",
-            "rgba(255, 255, 255, 0.89)",
-            "rgba(245, 54, 54, 0.9)"
-          ],
-          "datasource": null,
-          "editable": true,
-          "error": false,
-          "format": "none",
-          "id": 18,
-          "interval": "> 60s",
-          "links": [],
-          "maxDataPoints": 100,
-          "nullPointMode": "connected",
-          "nullText": null,
-          "postfix": "",
-          "postfixFontSize": "50%",
-          "prefix": "",
-          "prefixFontSize": "50%",
-          "span": 2,
-          "sparkline": {
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "show": false
-          },
-          "targets": [
-            {
-              "column": "value",
-              "dsType": "influxdb",
-              "fill": "",
-              "function": "last",
-              "groupBy": [
-                {
-                  "params": [
-                    "$interval"
-                  ],
-                  "type": "time"
-                },
-                {
-                  "params": [
-                    "null"
-                  ],
-                  "type": "fill"
-                }
-              ],
-              "groupByTags": [],
-              "measurement": "openstack_nova_services",
-              "query": "SELECT last(\"value\") FROM \"openstack_nova_services\" WHERE \"service\" = 'consoleauth' AND \"state\" = 'disabled' AND $timeFilter GROUP BY time($interval) fill(null)",
-              "refId": "A",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "value"
-                    ],
-                    "type": "field"
-                  },
-                  {
-                    "params": [],
-                    "type": "last"
-                  }
-                ]
-              ],
-              "series": "merge(/openstack.nova.services.consoleauth.disabled/)",
-              "tags": [
-                {
-                  "key": "service",
-                  "value": "consoleauth"
-                },
-                {
-                  "condition": "AND",
-                  "key": "state",
-                  "value": "disabled"
-                }
-              ]
-            }
-          ],
-          "thresholds": "0,0,1",
-          "title": "Consoleauth",
-          "type": "singlestat",
-          "valueFontSize": "80%",
-          "valueMaps": [
-            {
-              "op": "=",
-              "text": "N/A",
-              "value": "null"
-            }
-          ],
-          "valueName": "current"
-        },
-        {
-          "content": "<br />\n<h3 align=\"center\"> Up </h3>\n",
-          "editable": true,
-          "error": false,
-          "id": 40,
-          "links": [],
-          "mode": "html",
-          "span": 2,
-          "style": {},
-          "title": "",
-          "type": "text"
         },
         {
           "cacheTimeout": null,
@@ -2306,7 +1912,7 @@
           "editable": true,
           "error": false,
           "format": "none",
-          "id": 41,
+          "id": 71,
           "interval": "> 60s",
           "links": [],
           "maxDataPoints": 100,
@@ -2316,7 +1922,7 @@
           "postfixFontSize": "50%",
           "prefix": "",
           "prefixFontSize": "50%",
-          "span": 2,
+          "span": 1,
           "sparkline": {
             "fillColor": "rgba(31, 118, 189, 0.18)",
             "full": false,
@@ -2331,8 +1937,9 @@
               "function": "last",
               "groupBy": [
                 {
+                  "interval": "auto",
                   "params": [
-                    "$interval"
+                    "auto"
                   ],
                   "type": "time"
                 },
@@ -2343,7 +1950,6 @@
                   "type": "fill"
                 }
               ],
-              "groupByTags": [],
               "measurement": "openstack_nova_services",
               "query": "SELECT last(\"value\") FROM \"openstack_nova_services\" WHERE \"service\" = 'compute' AND \"state\" = 'up' AND $timeFilter GROUP BY time($interval) fill(null)",
               "refId": "A",
@@ -2366,114 +1972,20 @@
               "tags": [
                 {
                   "key": "service",
+                  "operator": "=",
                   "value": "compute"
                 },
                 {
                   "condition": "AND",
                   "key": "state",
+                  "operator": "=",
                   "value": "up"
                 }
               ]
             }
           ],
           "thresholds": "0,0,1",
-          "title": "",
-          "type": "singlestat",
-          "valueFontSize": "80%",
-          "valueMaps": [
-            {
-              "op": "=",
-              "text": "N/A",
-              "value": "null"
-            }
-          ],
-          "valueName": "current"
-        },
-        {
-          "cacheTimeout": null,
-          "colorBackground": false,
-          "colorValue": true,
-          "colors": [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(255, 255, 255, 0.97)"
-          ],
-          "datasource": null,
-          "editable": true,
-          "error": false,
-          "format": "none",
-          "id": 42,
-          "interval": "> 60s",
-          "links": [],
-          "maxDataPoints": 100,
-          "nullPointMode": "connected",
-          "nullText": null,
-          "postfix": "",
-          "postfixFontSize": "50%",
-          "prefix": "",
-          "prefixFontSize": "50%",
-          "span": 2,
-          "sparkline": {
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "show": false
-          },
-          "targets": [
-            {
-              "column": "value",
-              "dsType": "influxdb",
-              "fill": "",
-              "function": "last",
-              "groupBy": [
-                {
-                  "params": [
-                    "$interval"
-                  ],
-                  "type": "time"
-                },
-                {
-                  "params": [
-                    "null"
-                  ],
-                  "type": "fill"
-                }
-              ],
-              "groupByTags": [],
-              "measurement": "openstack_nova_services",
-              "query": "SELECT last(\"value\") FROM \"openstack_nova_services\" WHERE \"service\" = 'scheduler' AND \"state\" = 'up' AND $timeFilter GROUP BY time($interval) fill(null)",
-              "refId": "A",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "value"
-                    ],
-                    "type": "field"
-                  },
-                  {
-                    "params": [],
-                    "type": "last"
-                  }
-                ]
-              ],
-              "series": "merge(/openstack.nova.services.scheduler.up/)",
-              "tags": [
-                {
-                  "key": "service",
-                  "value": "scheduler"
-                },
-                {
-                  "condition": "AND",
-                  "key": "state",
-                  "value": "up"
-                }
-              ]
-            }
-          ],
-          "thresholds": "0,0,1",
-          "title": "",
+          "title": "Up",
           "type": "singlestat",
           "valueFontSize": "80%",
           "valueMaps": [
@@ -2498,7 +2010,7 @@
           "editable": true,
           "error": false,
           "format": "none",
-          "id": 43,
+          "id": 72,
           "interval": "> 60s",
           "links": [],
           "maxDataPoints": 100,
@@ -2508,7 +2020,7 @@
           "postfixFontSize": "50%",
           "prefix": "",
           "prefixFontSize": "50%",
-          "span": 2,
+          "span": 1,
           "sparkline": {
             "fillColor": "rgba(31, 118, 189, 0.18)",
             "full": false,
@@ -2523,8 +2035,9 @@
               "function": "last",
               "groupBy": [
                 {
+                  "interval": "auto",
                   "params": [
-                    "$interval"
+                    "auto"
                   ],
                   "type": "time"
                 },
@@ -2535,307 +2048,6 @@
                   "type": "fill"
                 }
               ],
-              "groupByTags": [],
-              "measurement": "openstack_nova_services",
-              "query": "SELECT last(\"value\") FROM \"openstack_nova_services\" WHERE \"service\" = 'conductor' AND \"state\" = 'up' AND $timeFilter GROUP BY time($interval) fill(null)",
-              "refId": "A",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "value"
-                    ],
-                    "type": "field"
-                  },
-                  {
-                    "params": [],
-                    "type": "last"
-                  }
-                ]
-              ],
-              "series": "merge(/openstack.nova.services.conductor.up/)",
-              "tags": [
-                {
-                  "key": "service",
-                  "value": "conductor"
-                },
-                {
-                  "condition": "AND",
-                  "key": "state",
-                  "value": "up"
-                }
-              ]
-            }
-          ],
-          "thresholds": "0,1,1",
-          "title": "",
-          "type": "singlestat",
-          "valueFontSize": "80%",
-          "valueMaps": [
-            {
-              "op": "=",
-              "text": "N/A",
-              "value": "null"
-            }
-          ],
-          "valueName": "current"
-        },
-        {
-          "cacheTimeout": null,
-          "colorBackground": false,
-          "colorValue": true,
-          "colors": [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(255, 255, 255, 0.89)",
-            "rgba(255, 255, 255, 0.97)"
-          ],
-          "datasource": null,
-          "editable": true,
-          "error": false,
-          "format": "none",
-          "id": 44,
-          "interval": "> 60s",
-          "links": [],
-          "maxDataPoints": 100,
-          "nullPointMode": "connected",
-          "nullText": null,
-          "postfix": "",
-          "postfixFontSize": "50%",
-          "prefix": "",
-          "prefixFontSize": "50%",
-          "span": 2,
-          "sparkline": {
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "show": false
-          },
-          "targets": [
-            {
-              "column": "value",
-              "dsType": "influxdb",
-              "fill": "",
-              "function": "last",
-              "groupBy": [
-                {
-                  "params": [
-                    "$interval"
-                  ],
-                  "type": "time"
-                },
-                {
-                  "params": [
-                    "null"
-                  ],
-                  "type": "fill"
-                }
-              ],
-              "groupByTags": [],
-              "measurement": "openstack_nova_services",
-              "query": "SELECT last(\"value\") FROM \"openstack_nova_services\" WHERE \"service\" = 'cert' AND \"state\" = 'up' AND $timeFilter GROUP BY time($interval) fill(null)",
-              "refId": "A",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "value"
-                    ],
-                    "type": "field"
-                  },
-                  {
-                    "params": [],
-                    "type": "last"
-                  }
-                ]
-              ],
-              "series": "merge(/openstack.nova.services.cert.up/)",
-              "tags": [
-                {
-                  "key": "service",
-                  "value": "cert"
-                },
-                {
-                  "condition": "AND",
-                  "key": "state",
-                  "value": "up"
-                }
-              ]
-            }
-          ],
-          "thresholds": "0,1,1",
-          "title": "",
-          "type": "singlestat",
-          "valueFontSize": "80%",
-          "valueMaps": [
-            {
-              "op": "=",
-              "text": "N/A",
-              "value": "null"
-            }
-          ],
-          "valueName": "current"
-        },
-        {
-          "cacheTimeout": null,
-          "colorBackground": false,
-          "colorValue": true,
-          "colors": [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(255, 255, 255, 0.89)",
-            "rgba(255, 255, 255, 0.97)"
-          ],
-          "datasource": null,
-          "editable": true,
-          "error": false,
-          "format": "none",
-          "id": 45,
-          "interval": "> 60s",
-          "links": [],
-          "maxDataPoints": 100,
-          "nullPointMode": "connected",
-          "nullText": null,
-          "postfix": "",
-          "postfixFontSize": "50%",
-          "prefix": "",
-          "prefixFontSize": "50%",
-          "span": 2,
-          "sparkline": {
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "show": false
-          },
-          "targets": [
-            {
-              "column": "value",
-              "dsType": "influxdb",
-              "fill": "",
-              "function": "last",
-              "groupBy": [
-                {
-                  "params": [
-                    "$interval"
-                  ],
-                  "type": "time"
-                },
-                {
-                  "params": [
-                    "null"
-                  ],
-                  "type": "fill"
-                }
-              ],
-              "groupByTags": [],
-              "measurement": "openstack_nova_services",
-              "query": "SELECT last(\"value\") FROM \"openstack_nova_services\" WHERE \"service\" = 'consoleauth' AND \"state\" = 'up' AND $timeFilter GROUP BY time($interval) fill(null)",
-              "refId": "A",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "value"
-                    ],
-                    "type": "field"
-                  },
-                  {
-                    "params": [],
-                    "type": "last"
-                  }
-                ]
-              ],
-              "series": "merge(/openstack.nova.services.consoleauth.up/)",
-              "tags": [
-                {
-                  "key": "service",
-                  "value": "consoleauth"
-                },
-                {
-                  "condition": "AND",
-                  "key": "state",
-                  "value": "up"
-                }
-              ]
-            }
-          ],
-          "thresholds": "0,1,1",
-          "title": "",
-          "type": "singlestat",
-          "valueFontSize": "80%",
-          "valueMaps": [
-            {
-              "op": "=",
-              "text": "N/A",
-              "value": "null"
-            }
-          ],
-          "valueName": "current"
-        },
-        {
-          "content": "<br />\n<h3 align=\"center\"> Down </h3>\n",
-          "editable": true,
-          "error": false,
-          "id": 46,
-          "links": [],
-          "mode": "html",
-          "span": 2,
-          "style": {},
-          "title": "",
-          "type": "text"
-        },
-        {
-          "cacheTimeout": null,
-          "colorBackground": false,
-          "colorValue": true,
-          "colors": [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(255, 255, 255, 0.89)",
-            "rgba(255, 255, 255, 0.97)"
-          ],
-          "datasource": null,
-          "editable": true,
-          "error": false,
-          "format": "none",
-          "id": 47,
-          "interval": "> 60s",
-          "links": [],
-          "maxDataPoints": 100,
-          "nullPointMode": "connected",
-          "nullText": null,
-          "postfix": "",
-          "postfixFontSize": "50%",
-          "prefix": "",
-          "prefixFontSize": "50%",
-          "span": 2,
-          "sparkline": {
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "show": false
-          },
-          "targets": [
-            {
-              "column": "value",
-              "dsType": "influxdb",
-              "fill": "",
-              "function": "last",
-              "groupBy": [
-                {
-                  "params": [
-                    "$interval"
-                  ],
-                  "type": "time"
-                },
-                {
-                  "params": [
-                    "null"
-                  ],
-                  "type": "fill"
-                }
-              ],
-              "groupByTags": [],
               "measurement": "openstack_nova_services",
               "query": "SELECT last(\"value\") FROM \"openstack_nova_services\" WHERE \"service\" = 'compute' AND \"state\" = 'down' AND $timeFilter GROUP BY time($interval) fill(null)",
               "refId": "A",
@@ -2858,17 +2070,311 @@
               "tags": [
                 {
                   "key": "service",
+                  "operator": "=",
                   "value": "compute"
                 },
                 {
                   "condition": "AND",
                   "key": "state",
+                  "operator": "=",
                   "value": "down"
                 }
               ]
             }
           ],
           "thresholds": "1,0,0",
+          "title": "Down",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
+        },
+        {
+          "columns": [],
+          "editable": true,
+          "error": false,
+          "fontSize": "100%",
+          "hideTimeOverride": false,
+          "id": 73,
+          "interval": ">60s",
+          "isNew": true,
+          "links": [],
+          "pageSize": null,
+          "scroll": true,
+          "showHeader": true,
+          "sort": {
+            "col": 0,
+            "desc": true
+          },
+          "span": 7,
+          "styles": [
+            {
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "pattern": "Time",
+              "type": "date"
+            },
+            {
+              "colorMode": null,
+              "colors": [
+                "rgba(245, 54, 54, 0.9)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(50, 172, 45, 0.97)"
+              ],
+              "decimals": 2,
+              "pattern": "/.*/",
+              "thresholds": [],
+              "type": "string",
+              "unit": "short"
+            }
+          ],
+          "targets": [
+            {
+              "alias": "",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "openstack_nova_service",
+              "query": "SELECT state, last(value) FROM \"openstack_nova_service\" WHERE $timeFilter and service = 'compute' GROUP BY time($interval), hostname fill(0)",
+              "rawQuery": true,
+              "refId": "A",
+              "resultFormat": "table",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": []
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "History",
+          "transform": "table",
+          "type": "table"
+        },
+        {
+          "content": "<br />\n<h3 align=\"center\"> Schedulers </h3>",
+          "editable": true,
+          "error": false,
+          "id": 75,
+          "links": [],
+          "mode": "html",
+          "span": 2,
+          "style": {},
+          "title": "",
+          "type": "text"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "rgba(255, 255, 255, 0.97)",
+            "rgba(255, 255, 255, 0.89)",
+            "rgba(255, 255, 255, 0.9)"
+          ],
+          "datasource": null,
+          "editable": true,
+          "error": false,
+          "format": "none",
+          "id": 76,
+          "interval": "> 60s",
+          "links": [],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 1,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "targets": [
+            {
+              "column": "value",
+              "dsType": "influxdb",
+              "fill": "",
+              "function": "last",
+              "groupBy": [
+                {
+                  "interval": "auto",
+                  "params": [
+                    "auto"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "openstack_nova_services",
+              "query": "SELECT last(\"value\") FROM \"openstack_nova_services\" WHERE \"service\" = 'scheduler' AND \"state\" = 'disabled' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  }
+                ]
+              ],
+              "series": "merge(/openstack.nova.services.scheduler.disabled/)",
+              "tags": [
+                {
+                  "key": "service",
+                  "operator": "=",
+                  "value": "scheduler"
+                },
+                {
+                  "condition": "AND",
+                  "key": "state",
+                  "operator": "=",
+                  "value": "disabled"
+                }
+              ]
+            }
+          ],
+          "thresholds": "0,0,1",
+          "title": "",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(255, 255, 255, 0.97)"
+          ],
+          "datasource": null,
+          "editable": true,
+          "error": false,
+          "format": "none",
+          "id": 77,
+          "interval": "> 60s",
+          "links": [],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 1,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "targets": [
+            {
+              "column": "value",
+              "dsType": "influxdb",
+              "fill": "",
+              "function": "last",
+              "groupBy": [
+                {
+                  "interval": "auto",
+                  "params": [
+                    "auto"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "openstack_nova_services",
+              "query": "SELECT last(\"value\") FROM \"openstack_nova_services\" WHERE \"service\" = 'scheduler' AND \"state\" = 'up' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  }
+                ]
+              ],
+              "series": "merge(/openstack.nova.services.scheduler.up/)",
+              "tags": [
+                {
+                  "key": "service",
+                  "operator": "=",
+                  "value": "scheduler"
+                },
+                {
+                  "condition": "AND",
+                  "key": "state",
+                  "operator": "=",
+                  "value": "up"
+                }
+              ]
+            }
+          ],
+          "thresholds": "0,0,1",
           "title": "",
           "type": "singlestat",
           "valueFontSize": "80%",
@@ -2894,7 +2400,7 @@
           "editable": true,
           "error": false,
           "format": "none",
-          "id": 48,
+          "id": 78,
           "interval": "> 60s",
           "links": [],
           "maxDataPoints": 100,
@@ -2904,7 +2410,7 @@
           "postfixFontSize": "50%",
           "prefix": "",
           "prefixFontSize": "50%",
-          "span": 2,
+          "span": 1,
           "sparkline": {
             "fillColor": "rgba(31, 118, 189, 0.18)",
             "full": false,
@@ -2919,8 +2425,9 @@
               "function": "last",
               "groupBy": [
                 {
+                  "interval": "auto",
                   "params": [
-                    "$interval"
+                    "auto"
                   ],
                   "type": "time"
                 },
@@ -2931,7 +2438,6 @@
                   "type": "fill"
                 }
               ],
-              "groupByTags": [],
               "measurement": "openstack_nova_services",
               "query": "SELECT last(\"value\") FROM \"openstack_nova_services\" WHERE \"service\" = 'scheduler' AND \"state\" = 'down' AND $timeFilter GROUP BY time($interval) fill(null)",
               "refId": "A",
@@ -2954,17 +2460,311 @@
               "tags": [
                 {
                   "key": "service",
+                  "operator": "=",
                   "value": "scheduler"
                 },
                 {
                   "condition": "AND",
                   "key": "state",
+                  "operator": "=",
                   "value": "down"
                 }
               ]
             }
           ],
           "thresholds": "1,0,0",
+          "title": "",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
+        },
+        {
+          "columns": [],
+          "editable": true,
+          "error": false,
+          "fontSize": "100%",
+          "hideTimeOverride": false,
+          "id": 82,
+          "interval": ">60s",
+          "isNew": true,
+          "links": [],
+          "pageSize": null,
+          "scroll": true,
+          "showHeader": true,
+          "sort": {
+            "col": 1,
+            "desc": true
+          },
+          "span": 7,
+          "styles": [
+            {
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "pattern": "Time",
+              "type": "date"
+            },
+            {
+              "colorMode": null,
+              "colors": [
+                "rgba(245, 54, 54, 0.9)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(50, 172, 45, 0.97)"
+              ],
+              "decimals": 2,
+              "pattern": "/.*/",
+              "thresholds": [],
+              "type": "string",
+              "unit": "short"
+            }
+          ],
+          "targets": [
+            {
+              "alias": "",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "openstack_nova_service",
+              "query": "SELECT state, last(value) FROM \"openstack_nova_service\" WHERE $timeFilter and service = 'scheduler' GROUP BY time($interval), hostname fill(0)",
+              "rawQuery": true,
+              "refId": "A",
+              "resultFormat": "table",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": []
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "",
+          "transform": "table",
+          "type": "table"
+        },
+        {
+          "content": "<br />\n<h3 align=\"center\"> Conductors </h3>",
+          "editable": true,
+          "error": false,
+          "id": 83,
+          "links": [],
+          "mode": "html",
+          "span": 2,
+          "style": {},
+          "title": "",
+          "type": "text"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "rgba(255, 255, 255, 0.97)",
+            "rgba(255, 255, 255, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "datasource": null,
+          "editable": true,
+          "error": false,
+          "format": "none",
+          "id": 84,
+          "interval": "> 60s",
+          "links": [],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 1,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "targets": [
+            {
+              "column": "value",
+              "dsType": "influxdb",
+              "fill": "",
+              "function": "last",
+              "groupBy": [
+                {
+                  "interval": "auto",
+                  "params": [
+                    "auto"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "openstack_nova_services",
+              "query": "SELECT last(\"value\") FROM \"openstack_nova_services\" WHERE \"service\" = 'conductor' AND \"state\" = 'disabled' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  }
+                ]
+              ],
+              "series": "merge(/openstack.nova.services.scheduler.disabled/)",
+              "tags": [
+                {
+                  "key": "service",
+                  "operator": "=",
+                  "value": "conductor"
+                },
+                {
+                  "condition": "AND",
+                  "key": "state",
+                  "operator": "=",
+                  "value": "disabled"
+                }
+              ]
+            }
+          ],
+          "thresholds": "0,0,1",
+          "title": "",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(255, 255, 255, 0.97)"
+          ],
+          "datasource": null,
+          "editable": true,
+          "error": false,
+          "format": "none",
+          "id": 85,
+          "interval": "> 60s",
+          "links": [],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 1,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "targets": [
+            {
+              "column": "value",
+              "dsType": "influxdb",
+              "fill": "",
+              "function": "last",
+              "groupBy": [
+                {
+                  "interval": "auto",
+                  "params": [
+                    "auto"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "openstack_nova_services",
+              "query": "SELECT last(\"value\") FROM \"openstack_nova_services\" WHERE \"service\" = 'conductor' AND \"state\" = 'up' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  }
+                ]
+              ],
+              "series": "merge(/openstack.nova.services.scheduler.up/)",
+              "tags": [
+                {
+                  "key": "service",
+                  "operator": "=",
+                  "value": "conductor"
+                },
+                {
+                  "condition": "AND",
+                  "key": "state",
+                  "operator": "=",
+                  "value": "up"
+                }
+              ]
+            }
+          ],
+          "thresholds": "0,0,1",
           "title": "",
           "type": "singlestat",
           "valueFontSize": "80%",
@@ -2990,7 +2790,7 @@
           "editable": true,
           "error": false,
           "format": "none",
-          "id": 49,
+          "id": 86,
           "interval": "> 60s",
           "links": [],
           "maxDataPoints": 100,
@@ -3000,7 +2800,7 @@
           "postfixFontSize": "50%",
           "prefix": "",
           "prefixFontSize": "50%",
-          "span": 2,
+          "span": 1,
           "sparkline": {
             "fillColor": "rgba(31, 118, 189, 0.18)",
             "full": false,
@@ -3015,8 +2815,9 @@
               "function": "last",
               "groupBy": [
                 {
+                  "interval": "auto",
                   "params": [
-                    "$interval"
+                    "auto"
                   ],
                   "type": "time"
                 },
@@ -3027,7 +2828,6 @@
                   "type": "fill"
                 }
               ],
-              "groupByTags": [],
               "measurement": "openstack_nova_services",
               "query": "SELECT last(\"value\") FROM \"openstack_nova_services\" WHERE \"service\" = 'conductor' AND \"state\" = 'down' AND $timeFilter GROUP BY time($interval) fill(null)",
               "refId": "A",
@@ -3046,21 +2846,315 @@
                   }
                 ]
               ],
-              "series": "merge(/openstack.nova.services.conductor.down/)",
+              "series": "merge(/openstack.nova.services.scheduler.down/)",
               "tags": [
                 {
                   "key": "service",
+                  "operator": "=",
                   "value": "conductor"
                 },
                 {
                   "condition": "AND",
                   "key": "state",
+                  "operator": "=",
                   "value": "down"
                 }
               ]
             }
           ],
           "thresholds": "1,0,0",
+          "title": "",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
+        },
+        {
+          "columns": [],
+          "editable": true,
+          "error": false,
+          "fontSize": "100%",
+          "hideTimeOverride": false,
+          "id": 87,
+          "interval": ">60s",
+          "isNew": true,
+          "links": [],
+          "pageSize": null,
+          "scroll": true,
+          "showHeader": true,
+          "sort": {
+            "col": 0,
+            "desc": false
+          },
+          "span": 7,
+          "styles": [
+            {
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "pattern": "Time",
+              "type": "date"
+            },
+            {
+              "colorMode": null,
+              "colors": [
+                "rgba(245, 54, 54, 0.9)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(50, 172, 45, 0.97)"
+              ],
+              "decimals": 2,
+              "pattern": "/.*/",
+              "thresholds": [],
+              "type": "string",
+              "unit": "short"
+            }
+          ],
+          "targets": [
+            {
+              "alias": "",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "openstack_nova_service",
+              "query": "SELECT state, last(value) FROM \"openstack_nova_service\" WHERE $timeFilter and service = 'conductor' GROUP BY time($interval), hostname fill(0)",
+              "rawQuery": true,
+              "refId": "A",
+              "resultFormat": "table",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": []
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "",
+          "transform": "table",
+          "type": "table"
+        },
+        {
+          "content": "<br />\n<h3 align=\"center\"> Cert servers </h3>",
+          "editable": true,
+          "error": false,
+          "id": 88,
+          "links": [],
+          "mode": "html",
+          "span": 2,
+          "style": {},
+          "title": "",
+          "type": "text"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "rgba(255, 255, 255, 0.97)",
+            "rgba(255, 255, 255, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "datasource": null,
+          "editable": true,
+          "error": false,
+          "format": "none",
+          "id": 89,
+          "interval": "> 60s",
+          "links": [],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 1,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "targets": [
+            {
+              "column": "value",
+              "dsType": "influxdb",
+              "fill": "",
+              "function": "last",
+              "groupBy": [
+                {
+                  "interval": "auto",
+                  "params": [
+                    "auto"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "openstack_nova_services",
+              "query": "SELECT last(\"value\") FROM \"openstack_nova_services\" WHERE \"service\" = 'cert' AND \"state\" = 'disabled' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  }
+                ]
+              ],
+              "series": "merge(/openstack.nova.services.scheduler.disabled/)",
+              "tags": [
+                {
+                  "key": "service",
+                  "operator": "=",
+                  "value": "cert"
+                },
+                {
+                  "condition": "AND",
+                  "key": "state",
+                  "operator": "=",
+                  "value": "disabled"
+                }
+              ]
+            }
+          ],
+          "thresholds": "0,0,1",
+          "title": "",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(255, 255, 255, 0.97)"
+          ],
+          "datasource": null,
+          "editable": true,
+          "error": false,
+          "format": "none",
+          "id": 90,
+          "interval": "> 60s",
+          "links": [],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 1,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "targets": [
+            {
+              "column": "value",
+              "dsType": "influxdb",
+              "fill": "",
+              "function": "last",
+              "groupBy": [
+                {
+                  "interval": "auto",
+                  "params": [
+                    "auto"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "openstack_nova_services",
+              "query": "SELECT last(\"value\") FROM \"openstack_nova_services\" WHERE \"service\" = 'cert' AND \"state\" = 'up' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  }
+                ]
+              ],
+              "series": "merge(/openstack.nova.services.scheduler.up/)",
+              "tags": [
+                {
+                  "key": "service",
+                  "operator": "=",
+                  "value": "cert"
+                },
+                {
+                  "condition": "AND",
+                  "key": "state",
+                  "operator": "=",
+                  "value": "up"
+                }
+              ]
+            }
+          ],
+          "thresholds": "0,0,1",
           "title": "",
           "type": "singlestat",
           "valueFontSize": "80%",
@@ -3086,7 +3180,7 @@
           "editable": true,
           "error": false,
           "format": "none",
-          "id": 50,
+          "id": 91,
           "interval": "> 60s",
           "links": [],
           "maxDataPoints": 100,
@@ -3096,7 +3190,7 @@
           "postfixFontSize": "50%",
           "prefix": "",
           "prefixFontSize": "50%",
-          "span": 2,
+          "span": 1,
           "sparkline": {
             "fillColor": "rgba(31, 118, 189, 0.18)",
             "full": false,
@@ -3111,8 +3205,9 @@
               "function": "last",
               "groupBy": [
                 {
+                  "interval": "auto",
                   "params": [
-                    "$interval"
+                    "auto"
                   ],
                   "type": "time"
                 },
@@ -3123,7 +3218,6 @@
                   "type": "fill"
                 }
               ],
-              "groupByTags": [],
               "measurement": "openstack_nova_services",
               "query": "SELECT last(\"value\") FROM \"openstack_nova_services\" WHERE \"service\" = 'cert' AND \"state\" = 'down' AND $timeFilter GROUP BY time($interval) fill(null)",
               "refId": "A",
@@ -3142,21 +3236,315 @@
                   }
                 ]
               ],
-              "series": "merge(/openstack.nova.services.cert.down/)",
+              "series": "merge(/openstack.nova.services.scheduler.down/)",
               "tags": [
                 {
                   "key": "service",
+                  "operator": "=",
                   "value": "cert"
                 },
                 {
                   "condition": "AND",
                   "key": "state",
+                  "operator": "=",
                   "value": "down"
                 }
               ]
             }
           ],
           "thresholds": "1,0,0",
+          "title": "",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
+        },
+        {
+          "columns": [],
+          "editable": true,
+          "error": false,
+          "fontSize": "100%",
+          "hideTimeOverride": false,
+          "id": 92,
+          "interval": ">60s",
+          "isNew": true,
+          "links": [],
+          "pageSize": null,
+          "scroll": true,
+          "showHeader": true,
+          "sort": {
+            "col": 0,
+            "desc": false
+          },
+          "span": 7,
+          "styles": [
+            {
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "pattern": "Time",
+              "type": "date"
+            },
+            {
+              "colorMode": null,
+              "colors": [
+                "rgba(245, 54, 54, 0.9)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(50, 172, 45, 0.97)"
+              ],
+              "decimals": 2,
+              "pattern": "/.*/",
+              "thresholds": [],
+              "type": "string",
+              "unit": "short"
+            }
+          ],
+          "targets": [
+            {
+              "alias": "",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "openstack_nova_service",
+              "query": "SELECT state, last(value) FROM \"openstack_nova_service\" WHERE $timeFilter and service = 'cert' GROUP BY time($interval), hostname fill(0)",
+              "rawQuery": true,
+              "refId": "A",
+              "resultFormat": "table",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": []
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "",
+          "transform": "table",
+          "type": "table"
+        },
+        {
+          "content": "<br />\n<h3 align=\"center\"> Consoleauth </h3>",
+          "editable": true,
+          "error": false,
+          "id": 93,
+          "links": [],
+          "mode": "html",
+          "span": 2,
+          "style": {},
+          "title": "",
+          "type": "text"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "rgba(255, 255, 255, 0.97)",
+            "rgba(255, 255, 255, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "datasource": null,
+          "editable": true,
+          "error": false,
+          "format": "none",
+          "id": 94,
+          "interval": "> 60s",
+          "links": [],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 1,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "targets": [
+            {
+              "column": "value",
+              "dsType": "influxdb",
+              "fill": "",
+              "function": "last",
+              "groupBy": [
+                {
+                  "interval": "auto",
+                  "params": [
+                    "auto"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "openstack_nova_services",
+              "query": "SELECT last(\"value\") FROM \"openstack_nova_services\" WHERE \"service\" = 'consoleauth' AND \"state\" = 'disabled' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  }
+                ]
+              ],
+              "series": "merge(/openstack.nova.services.scheduler.disabled/)",
+              "tags": [
+                {
+                  "key": "service",
+                  "operator": "=",
+                  "value": "consoleauth"
+                },
+                {
+                  "condition": "AND",
+                  "key": "state",
+                  "operator": "=",
+                  "value": "disabled"
+                }
+              ]
+            }
+          ],
+          "thresholds": "0,0,1",
+          "title": "",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(255, 255, 255, 0.97)"
+          ],
+          "datasource": null,
+          "editable": true,
+          "error": false,
+          "format": "none",
+          "id": 95,
+          "interval": "> 60s",
+          "links": [],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 1,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "targets": [
+            {
+              "column": "value",
+              "dsType": "influxdb",
+              "fill": "",
+              "function": "last",
+              "groupBy": [
+                {
+                  "interval": "auto",
+                  "params": [
+                    "auto"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "openstack_nova_services",
+              "query": "SELECT last(\"value\") FROM \"openstack_nova_services\" WHERE \"service\" = 'consoleauth' AND \"state\" = 'up' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  }
+                ]
+              ],
+              "series": "merge(/openstack.nova.services.scheduler.up/)",
+              "tags": [
+                {
+                  "key": "service",
+                  "operator": "=",
+                  "value": "consoleauth"
+                },
+                {
+                  "condition": "AND",
+                  "key": "state",
+                  "operator": "=",
+                  "value": "up"
+                }
+              ]
+            }
+          ],
+          "thresholds": "0,0,1",
           "title": "",
           "type": "singlestat",
           "valueFontSize": "80%",
@@ -3182,7 +3570,7 @@
           "editable": true,
           "error": false,
           "format": "none",
-          "id": 51,
+          "id": 96,
           "interval": "> 60s",
           "links": [],
           "maxDataPoints": 100,
@@ -3192,7 +3580,7 @@
           "postfixFontSize": "50%",
           "prefix": "",
           "prefixFontSize": "50%",
-          "span": 2,
+          "span": 1,
           "sparkline": {
             "fillColor": "rgba(31, 118, 189, 0.18)",
             "full": false,
@@ -3207,8 +3595,9 @@
               "function": "last",
               "groupBy": [
                 {
+                  "interval": "auto",
                   "params": [
-                    "$interval"
+                    "auto"
                   ],
                   "type": "time"
                 },
@@ -3219,7 +3608,6 @@
                   "type": "fill"
                 }
               ],
-              "groupByTags": [],
               "measurement": "openstack_nova_services",
               "query": "SELECT last(\"value\") FROM \"openstack_nova_services\" WHERE \"service\" = 'consoleauth' AND \"state\" = 'down' AND $timeFilter GROUP BY time($interval) fill(null)",
               "refId": "A",
@@ -3238,15 +3626,17 @@
                   }
                 ]
               ],
-              "series": "merge(/openstack.nova.services.consoleauth.down/)",
+              "series": "merge(/openstack.nova.services.scheduler.down/)",
               "tags": [
                 {
                   "key": "service",
+                  "operator": "=",
                   "value": "consoleauth"
                 },
                 {
                   "condition": "AND",
                   "key": "state",
+                  "operator": "=",
                   "value": "down"
                 }
               ]
@@ -3264,6 +3654,90 @@
             }
           ],
           "valueName": "current"
+        },
+        {
+          "columns": [],
+          "editable": true,
+          "error": false,
+          "fontSize": "100%",
+          "hideTimeOverride": false,
+          "id": 98,
+          "interval": ">60s",
+          "isNew": true,
+          "links": [],
+          "pageSize": null,
+          "scroll": true,
+          "showHeader": true,
+          "sort": {
+            "col": 0,
+            "desc": true
+          },
+          "span": 7,
+          "styles": [
+            {
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "pattern": "Time",
+              "type": "date"
+            },
+            {
+              "colorMode": null,
+              "colors": [
+                "rgba(245, 54, 54, 0.9)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(50, 172, 45, 0.97)"
+              ],
+              "decimals": 2,
+              "pattern": "/.*/",
+              "thresholds": [],
+              "type": "string",
+              "unit": "short"
+            }
+          ],
+          "targets": [
+            {
+              "alias": "",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "openstack_nova_service",
+              "query": "SELECT state, last(value) FROM \"openstack_nova_service\" WHERE $timeFilter and service = 'consoleauth' GROUP BY time($interval), hostname fill(0)",
+              "rawQuery": true,
+              "refId": "A",
+              "resultFormat": "table",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": []
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "",
+          "transform": "table",
+          "type": "table"
         }
       ],
       "showTitle": true,
@@ -4538,7 +5012,7 @@
       {
         "allFormat": "regex values",
         "current": {},
-        "datasource": null,
+        "datasource": "lma",
         "includeAll": true,
         "name": "server",
         "options": [],
@@ -4587,5 +5061,5 @@
   },
   "timezone": "browser",
   "title": "Nova",
-  "version": 4
+  "version": 9
 }
