@@ -54,8 +54,8 @@ class lma_monitoring_analytics::grafana_dashboards (
     'Heat' => {
       content => template('lma_monitoring_analytics/grafana_dashboards/Heat.json'),
     },
-    'Libvirt' => {
-      content => template('lma_monitoring_analytics/grafana_dashboards/Libvirt.json'),
+    'Hypervisor' => {
+      content => template('lma_monitoring_analytics/grafana_dashboards/Hypervisor.json'),
     },
     'Keystone' => {
       content => template('lma_monitoring_analytics/grafana_dashboards/Keystone.json'),
