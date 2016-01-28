@@ -3,7 +3,7 @@
     "enable": true,
     "list": [
       {
-        "datasource": "influxdb",
+        "datasource": "lma",
         "enable": true,
         "iconColor": "#C0C6BE",
         "iconSize": 13,
@@ -2882,5 +2882,5 @@
   },
   "timezone": "browser",
   "title": "Glance",
-  "version": 1
+  "version": 2
 }
