@@ -2,7 +2,7 @@
   "annotations": {
     "list": [
       {
-        "datasource": "lma",
+        "datasource": "stacklight",
         "enable": true,
         "iconColor": "#C0C6BE",
         "iconSize": 13,
@@ -2830,5 +2830,5 @@
   },
   "timezone": "browser",
   "title": "Ceph",
-  "version": 2
+  "version": 3
 }

@@ -61,7 +61,7 @@ for f in glob.glob(path):
     for k, v in data.items():
         if k == 'annotations':
             for anno in v.get('list', []):
-                anno['datasource'] = 'lma'
+                anno['datasource'] = 'stacklight'
 
         if k == 'templating':
             variables = v.get('list', [])

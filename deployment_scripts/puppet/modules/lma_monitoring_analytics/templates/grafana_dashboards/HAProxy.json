@@ -3,7 +3,7 @@
     "enable": false,
     "list": [
       {
-        "datasource": "lma",
+        "datasource": "stacklight",
         "enable": true,
         "iconColor": "#C0C6BE",
         "iconSize": 13,
@@ -2783,5 +2783,5 @@
   },
   "timezone": "browser",
   "title": "HAProxy",
-  "version": 2
+  "version": 3
 }

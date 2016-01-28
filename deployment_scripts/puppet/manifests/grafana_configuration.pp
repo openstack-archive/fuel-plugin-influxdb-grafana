@@ -34,7 +34,7 @@ $import_elasticsearch = $elasticsearch_mode ? {
   default => false,
 }
 
-grafana_datasource { 'lma':
+grafana_datasource { 'stacklight':
   ensure           => present,
   url              => "http://${mgmt_vip}:8086",
   user             => $influxdb_username,
@@ -52,7 +52,7 @@ class {'lma_monitoring_analytics::grafana_dashboards':
   admin_password       => $admin_password,
   host                 => $mgmt_vip,
   import_elasticsearch => $import_elasticsearch,
-  require              => Grafana_datasource['lma'],
+  require              => Grafana_datasource['stacklight'],
 }
 
 exec { 'notify_grafana_url':

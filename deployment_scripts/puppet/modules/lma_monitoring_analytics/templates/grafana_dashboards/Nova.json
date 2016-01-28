@@ -3,7 +3,7 @@
     "enable": true,
     "list": [
       {
-        "datasource": "lma",
+        "datasource": "stacklight",
         "enable": true,
         "iconColor": "#C0C6BE",
         "iconSize": 13,
@@ -4587,5 +4587,5 @@
   },
   "timezone": "browser",
   "title": "Nova",
-  "version": 4
+  "version": 5
 }

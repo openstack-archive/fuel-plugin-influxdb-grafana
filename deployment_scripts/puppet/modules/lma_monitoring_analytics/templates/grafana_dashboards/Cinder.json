@@ -3,7 +3,7 @@
     "enable": true,
     "list": [
       {
-        "datasource": "lma",
+        "datasource": "stacklight",
         "enable": true,
         "iconColor": "#C0C6BE",
         "iconSize": 13,
@@ -4215,5 +4215,5 @@
   },
   "timezone": "browser",
   "title": "Cinder",
-  "version": 2
+  "version": 3
 }
