@@ -1,1150 +1,1161 @@
 {
-  "version": 1,
-  "style": "dark",
+  "annotations": {
+    "enable": false,
+    "list": [
+      {
+        "datasource": "influxdb",
+        "enable": true,
+        "iconColor": "#C0C6BE",
+        "iconSize": 13,
+        "lineColor": "rgba(255, 96, 96, 0.592157)",
+        "name": "Status",
+        "query": "select title,tags,text from annotations where $timeFilter and cluster = 'mysql'",
+        "showLine": true,
+        "tagsColumn": "tags",
+        "textColumn": "text",
+        "titleColumn": "title"
+      }
+    ]
+  },
+  "editable": true,
+  "hideControls": false,
+  "id": null,
+  "links": [],
+  "originalTitle": "MySQL",
+  "refresh": "1m",
   "rows": [
     {
-      "title": "MySQL",
+      "collapse": false,
+      "editable": true,
+      "height": "250px",
       "panels": [
         {
-          "links": [],
-          "valueMaps": [
-            {
-              "text": "no data",
-              "value": "null",
-              "op": "="
-            },
-            {
-              "text": "OKAY",
-              "value": "0",
-              "op": "="
-            },
-            {
-              "text": "WARN",
-              "value": "1",
-              "op": "="
-            },
-            {
-              "text": "UNKN",
-              "value": "2",
-              "op": "="
-            },
-            {
-              "text": "CRIT",
-              "value": "3",
-              "op": "="
-            },
-            {
-              "text": "DOWN",
-              "value": "4",
-              "op": "="
-            }
-          ],
-          "thresholds": "0,1,3",
-          "nullPointMode": "connected",
-          "prefix": "",
-          "targets": [
-            {
-              "function": "last",
-              "dsType": "influxdb",
-              "groupby_field": "",
-              "rawQuery": false,
-              "groupByTags": [],
-              "tags": [
-                {
-                  "operator": "=",
-                  "value": "mysql",
-                  "key": "cluster_name"
-                }
-              ],
-              "column": "value",
-              "series": "merge(/openstack.cinder.status/)",
-              "interval": "",
-              "refId": "A",
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "last",
-                    "params": []
-                  }
-                ]
-              ],
-              "resultFormat": "time_series",
-              "measurement": "cluster_status",
-              "query": "SELECT last(\"value\") FROM \"cluster_status\" WHERE \"cluster_name\" = 'mysql' AND $timeFilter GROUP BY time($interval) fill(null)",
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "null"
-                  ]
-                }
-              ],
-              "condition": "",
-              "fill": ""
-            }
-          ],
-          "maxDataPoints": 100,
-          "span": 3,
-          "colorBackground": true,
-          "title": "",
-          "sparkline": {
-            "full": false,
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "lineColor": "rgb(31, 120, 193)",
-            "show": false
-          },
-          "id": 26,
-          "prefixFontSize": "50%",
-          "valueName": "current",
-          "type": "singlestat",
-          "valueFontSize": "80%",
-          "format": "none",
-          "editable": true,
           "cacheTimeout": null,
-          "postfix": "",
-          "interval": "> 60s",
+          "colorBackground": true,
+          "colorValue": false,
           "colors": [
             "rgba(71, 212, 59, 0.4)",
             "rgba(241, 181, 37, 0.73)",
             "rgba(225, 40, 40, 0.59)"
           ],
           "datasource": null,
+          "editable": true,
           "error": false,
+          "format": "none",
+          "id": 26,
+          "interval": "> 60s",
+          "links": [],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
           "nullText": null,
+          "postfix": "",
           "postfixFontSize": "50%",
-          "colorValue": false
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 3,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "targets": [
+            {
+              "column": "value",
+              "condition": "",
+              "dsType": "influxdb",
+              "fill": "",
+              "function": "last",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "groupByTags": [],
+              "groupby_field": "",
+              "interval": "",
+              "measurement": "cluster_status",
+              "query": "SELECT last(\"value\") FROM \"cluster_status\" WHERE \"cluster_name\" = 'mysql' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  }
+                ]
+              ],
+              "series": "merge(/openstack.cinder.status/)",
+              "tags": [
+                {
+                  "key": "cluster_name",
+                  "operator": "=",
+                  "value": "mysql"
+                }
+              ]
+            }
+          ],
+          "thresholds": "0,1,3",
+          "title": "",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "no data",
+              "value": "null"
+            },
+            {
+              "op": "=",
+              "text": "OKAY",
+              "value": "0"
+            },
+            {
+              "op": "=",
+              "text": "WARN",
+              "value": "1"
+            },
+            {
+              "op": "=",
+              "text": "UNKN",
+              "value": "2"
+            },
+            {
+              "op": "=",
+              "text": "CRIT",
+              "value": "3"
+            },
+            {
+              "op": "=",
+              "text": "DOWN",
+              "value": "4"
+            }
+          ],
+          "valueName": "current"
         },
         {
-          "bars": false,
           "aliasColors": {},
+          "bars": false,
+          "datasource": null,
+          "editable": true,
+          "error": false,
+          "fill": 0,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": 0,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 23,
+          "interval": ">60s",
+          "leftYAxisLabel": "",
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
           "links": [],
           "nullPointMode": "connected",
-          "timeFrom": null,
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
           "renderer": "flot",
-          "linewidth": 1,
-          "steppedLine": false,
-          "id": 23,
-          "fill": 0,
+          "seriesOverrides": [],
           "span": 3,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "rx",
+              "column": "value",
+              "dsType": "influxdb",
+              "function": "mean",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "0"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "groupByTags": [],
+              "measurement": "mysql_octets_rx",
+              "query": "SELECT mean(\"value\") FROM \"mysql_octets_rx\" WHERE \"hostname\" =~ /$server/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "series": "/$server.mysql_octets/",
+              "tags": [
+                {
+                  "key": "hostname",
+                  "value": "/$server/"
+                }
+              ]
+            },
+            {
+              "alias": "tx",
+              "column": "value",
+              "dsType": "influxdb",
+              "function": "mean",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "0"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "groupByTags": [],
+              "measurement": "mysql_octets_tx",
+              "query": "SELECT mean(\"value\") FROM \"mysql_octets_tx\" WHERE \"hostname\" =~ /$server/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
+              "refId": "B",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "series": "/$server.mysql_octets/",
+              "tags": [
+                {
+                  "key": "hostname",
+                  "value": "/$server/"
+                }
+              ]
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
           "title": "Network I/O",
           "tooltip": {
             "shared": true,
             "value_type": "cumulative"
           },
-          "legend": {
-            "total": false,
-            "show": true,
-            "max": false,
-            "min": false,
-            "current": false,
-            "values": false,
-            "avg": false
-          },
-          "targets": [
-            {
-              "function": "mean",
-              "dsType": "influxdb",
-              "rawQuery": false,
-              "groupByTags": [],
-              "tags": [
-                {
-                  "value": "/$server/",
-                  "key": "hostname"
-                }
-              ],
-              "column": "value",
-              "series": "/$server.mysql_octets/",
-              "refId": "A",
-              "alias": "rx",
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "mean",
-                    "params": []
-                  }
-                ]
-              ],
-              "measurement": "mysql_octets_rx",
-              "query": "SELECT mean(\"value\") FROM \"mysql_octets_rx\" WHERE \"hostname\" =~ /$server/ AND $timeFilter GROUP BY time($interval) fill(0)",
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "0"
-                  ]
-                }
-              ],
-              "resultFormat": "time_series"
-            },
-            {
-              "function": "mean",
-              "dsType": "influxdb",
-              "rawQuery": false,
-              "groupByTags": [],
-              "tags": [
-                {
-                  "value": "/$server/",
-                  "key": "hostname"
-                }
-              ],
-              "column": "value",
-              "series": "/$server.mysql_octets/",
-              "refId": "B",
-              "alias": "tx",
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "mean",
-                    "params": []
-                  }
-                ]
-              ],
-              "measurement": "mysql_octets_tx",
-              "query": "SELECT mean(\"value\") FROM \"mysql_octets_tx\" WHERE \"hostname\" =~ /$server/ AND $timeFilter GROUP BY time($interval) fill(0)",
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "0"
-                  ]
-                }
-              ],
-              "resultFormat": "time_series"
-            }
-          ],
-          "leftYAxisLabel": "",
-          "seriesOverrides": [],
-          "percentage": false,
           "type": "graph",
           "x-axis": true,
-          "error": false,
-          "editable": true,
-          "grid": {
-            "leftMax": null,
-            "threshold2": null,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "threshold1": null,
-            "leftLogBase": 1,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)",
-            "rightMin": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "leftMin": 0
-          },
-          "stack": false,
           "y-axis": true,
-          "timeShift": null,
-          "interval": ">60s",
-          "lines": true,
-          "points": false,
-          "datasource": null,
-          "pointradius": 5,
           "y_formats": [
             "Bps",
             "short"
           ]
         },
         {
-          "bars": false,
           "aliasColors": {},
+          "bars": false,
+          "datasource": null,
+          "editable": true,
+          "error": false,
+          "fill": 0,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": 0,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 24,
+          "interval": ">60s",
+          "leftYAxisLabel": "per second",
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
           "links": [],
           "nullPointMode": "connected",
-          "timeFrom": null,
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
           "renderer": "flot",
-          "linewidth": 1,
-          "steppedLine": false,
-          "id": 24,
-          "fill": 0,
+          "seriesOverrides": [],
           "span": 3,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "immediate",
+              "column": "value",
+              "dsType": "influxdb",
+              "function": "mean",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "0"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "groupByTags": [],
+              "measurement": "mysql_locks_immediate",
+              "query": "SELECT mean(\"value\") FROM \"mysql_locks_immediate\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "series": "/$server.mysql_locks/",
+              "tags": []
+            },
+            {
+              "alias": "waited",
+              "column": "value",
+              "dsType": "influxdb",
+              "function": "mean",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "0"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "groupByTags": [],
+              "measurement": "mysql_locks_waited",
+              "query": "SELECT mean(\"value\") FROM \"mysql_locks_waited\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
+              "refId": "B",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "series": "/$server.mysql_locks/",
+              "tags": []
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
           "title": "Locks",
           "tooltip": {
             "shared": true,
             "value_type": "cumulative"
           },
-          "legend": {
-            "total": false,
-            "show": true,
-            "max": false,
-            "min": false,
-            "current": false,
-            "values": false,
-            "avg": false
-          },
-          "targets": [
-            {
-              "function": "mean",
-              "dsType": "influxdb",
-              "groupByTags": [],
-              "tags": [],
-              "column": "value",
-              "series": "/$server.mysql_locks/",
-              "refId": "A",
-              "alias": "immediate",
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "mean",
-                    "params": []
-                  }
-                ]
-              ],
-              "measurement": "mysql_locks_immediate",
-              "query": "SELECT mean(\"value\") FROM \"mysql_locks_immediate\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "0"
-                  ]
-                }
-              ],
-              "resultFormat": "time_series"
-            },
-            {
-              "function": "mean",
-              "dsType": "influxdb",
-              "groupByTags": [],
-              "tags": [],
-              "column": "value",
-              "series": "/$server.mysql_locks/",
-              "refId": "B",
-              "alias": "waited",
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "mean",
-                    "params": []
-                  }
-                ]
-              ],
-              "measurement": "mysql_locks_waited",
-              "query": "SELECT mean(\"value\") FROM \"mysql_locks_waited\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "0"
-                  ]
-                }
-              ],
-              "resultFormat": "time_series"
-            }
-          ],
-          "leftYAxisLabel": "per second",
-          "seriesOverrides": [],
-          "percentage": false,
           "type": "graph",
           "x-axis": true,
-          "error": false,
-          "editable": true,
-          "grid": {
-            "leftMax": null,
-            "threshold2": null,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "threshold1": null,
-            "leftLogBase": 1,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)",
-            "rightMin": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "leftMin": 0
-          },
-          "stack": false,
           "y-axis": true,
-          "timeShift": null,
-          "interval": ">60s",
-          "lines": true,
-          "points": false,
-          "datasource": null,
-          "pointradius": 5,
           "y_formats": [
             "short",
             "short"
           ]
         },
         {
-          "bars": false,
           "aliasColors": {},
+          "bars": false,
+          "datasource": null,
+          "editable": true,
+          "error": false,
+          "fill": 0,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": 0,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 22,
+          "interval": ">60s",
+          "leftYAxisLabel": "Thread Count",
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
           "links": [],
           "nullPointMode": "connected",
-          "timeFrom": null,
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
           "renderer": "flot",
-          "linewidth": 1,
-          "steppedLine": false,
-          "id": 22,
-          "fill": 0,
+          "seriesOverrides": [],
           "span": 3,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "cached",
+              "column": "value",
+              "dsType": "influxdb",
+              "function": "mean",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "0"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "groupByTags": [],
+              "measurement": "mysql_threads_cached",
+              "query": "SELECT mean(\"value\") FROM \"mysql_threads_cached\" WHERE \"hostname\" =~ /$server/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "series": "/$server.mysql_threads/",
+              "tags": [
+                {
+                  "key": "hostname",
+                  "value": "/$server/"
+                }
+              ]
+            },
+            {
+              "alias": "connected",
+              "column": "value",
+              "dsType": "influxdb",
+              "function": "mean",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "0"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "groupByTags": [],
+              "measurement": "mysql_threads_connected",
+              "query": "SELECT mean(\"value\") FROM \"mysql_threads_connected\" WHERE \"hostname\" =~ /$server/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
+              "refId": "B",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "series": "/$server.mysql_threads/",
+              "tags": [
+                {
+                  "key": "hostname",
+                  "value": "/$server/"
+                }
+              ]
+            },
+            {
+              "alias": "running",
+              "column": "value",
+              "dsType": "influxdb",
+              "function": "mean",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "0"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "groupByTags": [],
+              "measurement": "mysql_threads_running",
+              "query": "SELECT mean(\"value\") FROM \"mysql_threads_running\" WHERE \"hostname\" =~ /$server/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
+              "refId": "C",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "series": "/$server.mysql_threads/",
+              "tags": [
+                {
+                  "key": "hostname",
+                  "value": "/$server/"
+                }
+              ]
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
           "title": "Threads",
           "tooltip": {
             "shared": true,
             "value_type": "cumulative"
           },
-          "legend": {
-            "total": false,
-            "show": true,
-            "max": false,
-            "min": false,
-            "current": false,
-            "values": false,
-            "avg": false
-          },
-          "targets": [
-            {
-              "function": "mean",
-              "dsType": "influxdb",
-              "rawQuery": false,
-              "groupByTags": [],
-              "tags": [
-                {
-                  "value": "/$server/",
-                  "key": "hostname"
-                }
-              ],
-              "column": "value",
-              "series": "/$server.mysql_threads/",
-              "refId": "A",
-              "alias": "cached",
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "mean",
-                    "params": []
-                  }
-                ]
-              ],
-              "measurement": "mysql_threads_cached",
-              "query": "SELECT mean(\"value\") FROM \"mysql_threads_cached\" WHERE \"hostname\" =~ /$server/ AND $timeFilter GROUP BY time($interval) fill(0)",
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "0"
-                  ]
-                }
-              ],
-              "resultFormat": "time_series"
-            },
-            {
-              "function": "mean",
-              "dsType": "influxdb",
-              "rawQuery": false,
-              "groupByTags": [],
-              "tags": [
-                {
-                  "value": "/$server/",
-                  "key": "hostname"
-                }
-              ],
-              "column": "value",
-              "series": "/$server.mysql_threads/",
-              "refId": "B",
-              "alias": "connected",
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "mean",
-                    "params": []
-                  }
-                ]
-              ],
-              "measurement": "mysql_threads_connected",
-              "query": "SELECT mean(\"value\") FROM \"mysql_threads_connected\" WHERE \"hostname\" =~ /$server/ AND $timeFilter GROUP BY time($interval) fill(0)",
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "0"
-                  ]
-                }
-              ],
-              "resultFormat": "time_series"
-            },
-            {
-              "function": "mean",
-              "dsType": "influxdb",
-              "rawQuery": false,
-              "groupByTags": [],
-              "tags": [
-                {
-                  "value": "/$server/",
-                  "key": "hostname"
-                }
-              ],
-              "column": "value",
-              "series": "/$server.mysql_threads/",
-              "refId": "C",
-              "alias": "running",
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "mean",
-                    "params": []
-                  }
-                ]
-              ],
-              "measurement": "mysql_threads_running",
-              "query": "SELECT mean(\"value\") FROM \"mysql_threads_running\" WHERE \"hostname\" =~ /$server/ AND $timeFilter GROUP BY time($interval) fill(0)",
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "0"
-                  ]
-                }
-              ],
-              "resultFormat": "time_series"
-            }
-          ],
-          "leftYAxisLabel": "Thread Count",
-          "seriesOverrides": [],
-          "percentage": false,
           "type": "graph",
           "x-axis": true,
-          "error": false,
-          "editable": true,
-          "grid": {
-            "leftMax": null,
-            "threshold2": null,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "threshold1": null,
-            "leftLogBase": 1,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)",
-            "rightMin": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "leftMin": 0
-          },
-          "stack": false,
           "y-axis": true,
-          "timeShift": null,
-          "interval": ">60s",
-          "lines": true,
-          "points": false,
-          "datasource": null,
-          "pointradius": 5,
           "y_formats": [
             "short",
             "short"
           ]
         },
         {
-          "bars": false,
           "aliasColors": {},
+          "bars": false,
+          "datasource": null,
+          "editable": true,
+          "error": false,
+          "fill": 0,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": 0,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 21,
+          "interval": ">60s",
+          "leftYAxisLabel": "per second",
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
           "links": [],
           "nullPointMode": "connected",
-          "timeFrom": null,
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
           "renderer": "flot",
-          "linewidth": 1,
-          "steppedLine": false,
-          "id": 21,
-          "fill": 0,
+          "seriesOverrides": [],
           "span": 6,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "commit",
+              "column": "value",
+              "dsType": "influxdb",
+              "function": "mean",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "0"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "groupByTags": [],
+              "measurement": "mysql_commands",
+              "query": "SELECT mean(\"value\") FROM \"mysql_commands\" WHERE \"hostname\" =~ /$server/ AND \"statement\" = 'commit' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "series": "$server.mysql_commands.commit",
+              "tags": [
+                {
+                  "key": "hostname",
+                  "value": "/$server/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "statement",
+                  "value": "commit"
+                }
+              ]
+            },
+            {
+              "alias": "delete",
+              "column": "value",
+              "dsType": "influxdb",
+              "function": "mean",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "0"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "groupByTags": [],
+              "measurement": "mysql_commands",
+              "query": "SELECT mean(\"value\") FROM \"mysql_commands\" WHERE \"hostname\" =~ /$server/ AND \"statement\" = 'delete' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "refId": "B",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "series": "$server.mysql_commands.delete",
+              "tags": [
+                {
+                  "key": "hostname",
+                  "value": "/$server/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "statement",
+                  "value": "delete"
+                }
+              ]
+            },
+            {
+              "alias": "insert",
+              "column": "value",
+              "dsType": "influxdb",
+              "function": "mean",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "0"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "groupByTags": [],
+              "measurement": "mysql_commands",
+              "query": "SELECT mean(\"value\") FROM \"mysql_commands\" WHERE \"hostname\" =~ /$server/ AND \"statement\" = 'insert' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "refId": "C",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "series": "$server.mysql_commands.insert",
+              "tags": [
+                {
+                  "key": "hostname",
+                  "value": "/$server/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "statement",
+                  "value": "insert"
+                }
+              ]
+            },
+            {
+              "alias": "select",
+              "column": "value",
+              "dsType": "influxdb",
+              "function": "mean",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "0"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "groupByTags": [],
+              "measurement": "mysql_commands",
+              "query": "SELECT mean(\"value\") FROM \"mysql_commands\" WHERE \"hostname\" =~ /$server/ AND \"statement\" = 'select' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "refId": "D",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "series": "$server.mysql_commands.select",
+              "tags": [
+                {
+                  "key": "hostname",
+                  "value": "/$server/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "statement",
+                  "value": "select"
+                }
+              ]
+            },
+            {
+              "alias": "rollback",
+              "column": "value",
+              "dsType": "influxdb",
+              "function": "mean",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "0"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "groupByTags": [],
+              "measurement": "mysql_commands",
+              "query": "SELECT mean(\"value\") FROM \"mysql_commands\" WHERE \"hostname\" =~ /$server/ AND \"statement\" = 'rollback' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "refId": "E",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "series": "$server.mysql_commands.rollback",
+              "tags": [
+                {
+                  "key": "hostname",
+                  "value": "/$server/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "statement",
+                  "value": "rollback"
+                }
+              ]
+            },
+            {
+              "alias": "update",
+              "column": "value",
+              "dsType": "influxdb",
+              "function": "mean",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "0"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "groupByTags": [],
+              "measurement": "mysql_commands",
+              "query": "SELECT mean(\"value\") FROM \"mysql_commands\" WHERE \"hostname\" =~ /$server/ AND \"statement\" = 'update' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "refId": "F",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "series": "$server.mysql_commands.update",
+              "tags": [
+                {
+                  "key": "hostname",
+                  "value": "/$server/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "statement",
+                  "value": "update"
+                }
+              ]
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
           "title": "Commands",
           "tooltip": {
             "shared": true,
             "value_type": "cumulative"
           },
-          "legend": {
-            "total": false,
-            "show": true,
-            "max": false,
-            "min": false,
-            "current": false,
-            "values": false,
-            "avg": false
-          },
-          "targets": [
-            {
-              "function": "mean",
-              "dsType": "influxdb",
-              "groupByTags": [],
-              "tags": [
-                {
-                  "value": "/$server/",
-                  "key": "hostname"
-                },
-                {
-                  "value": "commit",
-                  "key": "statement",
-                  "condition": "AND"
-                }
-              ],
-              "column": "value",
-              "series": "$server.mysql_commands.commit",
-              "refId": "A",
-              "alias": "commit",
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "mean",
-                    "params": []
-                  }
-                ]
-              ],
-              "measurement": "mysql_commands",
-              "query": "SELECT mean(\"value\") FROM \"mysql_commands\" WHERE \"hostname\" =~ /$server/ AND \"statement\" = 'commit' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "0"
-                  ]
-                }
-              ],
-              "resultFormat": "time_series"
-            },
-            {
-              "function": "mean",
-              "dsType": "influxdb",
-              "groupByTags": [],
-              "tags": [
-                {
-                  "value": "/$server/",
-                  "key": "hostname"
-                },
-                {
-                  "value": "delete",
-                  "key": "statement",
-                  "condition": "AND"
-                }
-              ],
-              "column": "value",
-              "series": "$server.mysql_commands.delete",
-              "refId": "B",
-              "alias": "delete",
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "mean",
-                    "params": []
-                  }
-                ]
-              ],
-              "measurement": "mysql_commands",
-              "query": "SELECT mean(\"value\") FROM \"mysql_commands\" WHERE \"hostname\" =~ /$server/ AND \"statement\" = 'delete' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "0"
-                  ]
-                }
-              ],
-              "resultFormat": "time_series"
-            },
-            {
-              "function": "mean",
-              "dsType": "influxdb",
-              "groupByTags": [],
-              "tags": [
-                {
-                  "value": "/$server/",
-                  "key": "hostname"
-                },
-                {
-                  "value": "insert",
-                  "key": "statement",
-                  "condition": "AND"
-                }
-              ],
-              "column": "value",
-              "series": "$server.mysql_commands.insert",
-              "refId": "C",
-              "alias": "insert",
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "mean",
-                    "params": []
-                  }
-                ]
-              ],
-              "measurement": "mysql_commands",
-              "query": "SELECT mean(\"value\") FROM \"mysql_commands\" WHERE \"hostname\" =~ /$server/ AND \"statement\" = 'insert' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "0"
-                  ]
-                }
-              ],
-              "resultFormat": "time_series"
-            },
-            {
-              "function": "mean",
-              "dsType": "influxdb",
-              "groupByTags": [],
-              "tags": [
-                {
-                  "value": "/$server/",
-                  "key": "hostname"
-                },
-                {
-                  "value": "select",
-                  "key": "statement",
-                  "condition": "AND"
-                }
-              ],
-              "column": "value",
-              "series": "$server.mysql_commands.select",
-              "refId": "D",
-              "alias": "select",
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "mean",
-                    "params": []
-                  }
-                ]
-              ],
-              "measurement": "mysql_commands",
-              "query": "SELECT mean(\"value\") FROM \"mysql_commands\" WHERE \"hostname\" =~ /$server/ AND \"statement\" = 'select' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "0"
-                  ]
-                }
-              ],
-              "resultFormat": "time_series"
-            },
-            {
-              "function": "mean",
-              "dsType": "influxdb",
-              "groupByTags": [],
-              "tags": [
-                {
-                  "value": "/$server/",
-                  "key": "hostname"
-                },
-                {
-                  "value": "rollback",
-                  "key": "statement",
-                  "condition": "AND"
-                }
-              ],
-              "column": "value",
-              "series": "$server.mysql_commands.rollback",
-              "refId": "E",
-              "alias": "rollback",
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "mean",
-                    "params": []
-                  }
-                ]
-              ],
-              "measurement": "mysql_commands",
-              "query": "SELECT mean(\"value\") FROM \"mysql_commands\" WHERE \"hostname\" =~ /$server/ AND \"statement\" = 'rollback' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "0"
-                  ]
-                }
-              ],
-              "resultFormat": "time_series"
-            },
-            {
-              "function": "mean",
-              "dsType": "influxdb",
-              "groupByTags": [],
-              "tags": [
-                {
-                  "value": "/$server/",
-                  "key": "hostname"
-                },
-                {
-                  "value": "update",
-                  "key": "statement",
-                  "condition": "AND"
-                }
-              ],
-              "column": "value",
-              "series": "$server.mysql_commands.update",
-              "refId": "F",
-              "alias": "update",
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "mean",
-                    "params": []
-                  }
-                ]
-              ],
-              "measurement": "mysql_commands",
-              "query": "SELECT mean(\"value\") FROM \"mysql_commands\" WHERE \"hostname\" =~ /$server/ AND \"statement\" = 'update' AND $timeFilter GROUP BY time($interval) fill(0)",
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "0"
-                  ]
-                }
-              ],
-              "resultFormat": "time_series"
-            }
-          ],
-          "leftYAxisLabel": "per second",
-          "seriesOverrides": [],
-          "percentage": false,
           "type": "graph",
           "x-axis": true,
-          "error": false,
-          "editable": true,
-          "grid": {
-            "leftMax": null,
-            "threshold2": null,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "threshold1": null,
-            "leftLogBase": 1,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)",
-            "rightMin": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "leftMin": 0
-          },
-          "stack": false,
           "y-axis": true,
-          "timeShift": null,
-          "interval": ">60s",
-          "lines": true,
-          "points": false,
-          "datasource": null,
-          "pointradius": 5,
           "y_formats": [
             "short",
             "short"
           ]
         },
         {
-          "bars": false,
           "aliasColors": {},
+          "bars": false,
+          "datasource": null,
+          "editable": true,
+          "error": false,
+          "fill": 0,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 25,
+          "interval": "> 60s",
+          "leftYAxisLabel": "per second",
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
           "links": [],
           "nullPointMode": "connected",
-          "timeFrom": null,
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
           "renderer": "flot",
-          "linewidth": 1,
-          "steppedLine": false,
-          "id": 25,
-          "fill": 0,
+          "seriesOverrides": [],
           "span": 6,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "$tag_handler",
+              "column": "value",
+              "dsType": "influxdb",
+              "function": "mean",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "0"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "groupByTags": [
+                "handler"
+              ],
+              "measurement": "mysql_handler",
+              "query": "SELECT mean(\"value\") FROM \"mysql_handler\" WHERE \"hostname\" =~ /$server/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "series": "/$server.mysql_handler/",
+              "tags": [
+                {
+                  "key": "hostname",
+                  "value": "/$server/"
+                }
+              ]
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
           "title": "Handlers",
           "tooltip": {
             "shared": true,
             "value_type": "cumulative"
           },
-          "legend": {
-            "total": false,
-            "show": true,
-            "max": false,
-            "min": false,
-            "current": false,
-            "values": false,
-            "avg": false
-          },
-          "targets": [
-            {
-              "function": "mean",
-              "dsType": "influxdb",
-              "groupByTags": [
-                "handler"
-              ],
-              "tags": [
-                {
-                  "value": "/$server/",
-                  "key": "hostname"
-                }
-              ],
-              "column": "value",
-              "series": "/$server.mysql_handler/",
-              "refId": "A",
-              "alias": "$tag_handler",
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "mean",
-                    "params": []
-                  }
-                ]
-              ],
-              "measurement": "mysql_handler",
-              "query": "SELECT mean(\"value\") FROM \"mysql_handler\" WHERE \"hostname\" =~ /$server/ AND $timeFilter GROUP BY time($interval) fill(0)",
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "0"
-                  ]
-                }
-              ],
-              "resultFormat": "time_series"
-            }
-          ],
-          "leftYAxisLabel": "per second",
-          "seriesOverrides": [],
-          "percentage": false,
           "type": "graph",
           "x-axis": true,
-          "error": false,
-          "editable": true,
-          "grid": {
-            "leftMax": null,
-            "threshold2": null,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "threshold1": null,
-            "leftLogBase": 1,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)",
-            "rightMin": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "leftMin": null
-          },
-          "stack": false,
           "y-axis": true,
-          "timeShift": null,
-          "interval": "> 60s",
-          "lines": true,
-          "points": false,
-          "datasource": null,
-          "pointradius": 5,
           "y_formats": [
             "short",
             "short"
           ]
         }
       ],
-      "editable": true,
-      "collapse": false,
-      "height": "250px"
+      "title": "MySQL"
     }
   ],
+  "schemaVersion": 8,
+  "sharedCrosshair": true,
+  "style": "dark",
+  "tags": [],
   "templating": {
     "enable": true,
     "list": [
       {
-        "regex": "",
-        "name": "server",
-        "refresh_on_load": true,
         "allFormat": "glob",
-        "refresh": true,
         "current": {},
         "datasource": null,
-        "query": "show tag values from pacemaker_local_resource_active with key = hostname ",
-        "type": "query",
+        "includeAll": false,
+        "name": "server",
         "options": [],
-        "includeAll": false
+        "query": "show tag values from pacemaker_local_resource_active with key = hostname ",
+        "refresh": true,
+        "refresh_on_load": true,
+        "regex": "",
+        "type": "query"
       }
     ]
   },
-  "links": [],
-  "tags": [],
-  "hideControls": false,
-  "title": "MySQL",
-  "editable": true,
-  "refresh": "1m",
-  "id": null,
-  "originalTitle": "MySQL",
+  "time": {
+    "from": "now-1h",
+    "to": "now"
+  },
   "timepicker": {
-    "status": "Stable",
-    "notice": false,
-    "enable": true,
     "collapse": false,
-    "time_options": [
-      "5m",
-      "15m",
-      "1h",
-      "6h",
-      "12h",
-      "24h",
-      "2d",
-      "7d",
-      "30d"
-    ],
+    "enable": true,
+    "notice": false,
+    "now": true,
     "refresh_intervals": [
       "5s",
       "10s",
@@ -1157,32 +1168,21 @@
       "2h",
       "1d"
     ],
-    "now": true,
+    "status": "Stable",
+    "time_options": [
+      "5m",
+      "15m",
+      "1h",
+      "6h",
+      "12h",
+      "24h",
+      "2d",
+      "7d",
+      "30d"
+    ],
     "type": "timepicker"
   },
-  "sharedCrosshair": true,
-  "time": {
-    "to": "now",
-    "from": "now-1h"
-  },
   "timezone": "browser",
-  "schemaVersion": 8,
-  "annotations": {
-    "enable": false,
-    "list": [
-      {
-        "enable": true,
-        "name": "Status",
-        "iconSize": 13,
-        "textColumn": "text",
-        "titleColumn": "title",
-        "datasource": "influxdb",
-        "lineColor": "rgba(255, 96, 96, 0.592157)",
-        "showLine": true,
-        "query": "select title,tags,text from annotations where $timeFilter and cluster = 'mysql'",
-        "tagsColumn": "tags",
-        "iconColor": "#C0C6BE"
-      }
-    ]
-  }
+  "title": "MySQL",
+  "version": 1
 }
