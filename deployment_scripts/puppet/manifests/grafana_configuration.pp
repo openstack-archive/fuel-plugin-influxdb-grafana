@@ -28,6 +28,13 @@ $influxdb_password = $influxdb_grafana['influxdb_userpass']
 $influxdb_database = $influxdb_grafana['influxdb_dbname']
 
 $lma_collector = hiera_hash('lma_collector', {})
+
+$influxdb_mode = $lma_collector['influxdb_mode']
+$import_influxdb = $influxdb_mode ? {
+  'local' => true,
+  default => false,
+}
+
 $elasticsearch_mode = $lma_collector['elasticsearch_mode']
 $import_elasticsearch = $elasticsearch_mode ? {
   'local' => true,
@@ -52,6 +59,7 @@ class {'lma_monitoring_analytics::grafana_dashboards':
   admin_password       => $admin_password,
   host                 => $mgmt_vip,
   import_elasticsearch => $import_elasticsearch,
+  import_influxdb      => $import_influxdb,
   require              => Grafana_datasource['lma'],
 }
 

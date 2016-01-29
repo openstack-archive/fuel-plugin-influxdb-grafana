@@ -19,6 +19,7 @@ class lma_monitoring_analytics::grafana_dashboards (
   $admin_password,
   $host = $lma_monitoring_analytics::params::grafana_domain,
   $port = $lma_monitoring_analytics::params::listen_port,
+  $import_influxdb = false,
   $import_elasticsearch = false,
 ) inherits lma_monitoring_analytics::params {
 
@@ -86,6 +87,16 @@ class lma_monitoring_analytics::grafana_dashboards (
     },
   }
 
+  if $import_influxdb {
+    $influxdb_dashboard = {
+      'InfluxDB' => {
+        content => template('lma_monitoring_analytics/grafana_dashboards/InfluxDB.json'),
+      }
+    }
+  } else {
+    $influxdb_dashboard = {}
+  }
+
   if $import_elasticsearch {
     $es_dashboard = {
       'Elasticsearch' => {
@@ -97,6 +108,6 @@ class lma_monitoring_analytics::grafana_dashboards (
   }
 
   create_resources(
-    grafana_dashboard, merge($dashboards, $es_dashboard), $dashboard_defaults
+    grafana_dashboard, merge($dashboards, $es_dashboard, $influxdb_dashboard), $dashboard_defaults
   )
 }
