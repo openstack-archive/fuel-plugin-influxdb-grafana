@@ -19,7 +19,7 @@
   },
   "editable": true,
   "hideControls": false,
-  "id": null,
+  "id": 15,
   "links": [],
   "originalTitle": "Neutron",
   "refresh": "1m",
@@ -194,6 +194,12 @@
                     "auto"
                   ],
                   "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
                 }
               ],
               "groupby_field": "",
@@ -1204,13 +1210,13 @@
     {
       "collapse": false,
       "editable": true,
-      "height": "100px",
+      "height": "150px",
       "panels": [
         {
-          "content": "<br />\n<h3 align=\"center\"> Disabled </h3>",
+          "content": "<br />\n<h3 align=\"center\"> DHCP </h3>",
           "editable": true,
           "error": false,
-          "id": 14,
+          "id": 42,
           "links": [],
           "mode": "html",
           "span": 2,
@@ -1231,7 +1237,7 @@
           "editable": true,
           "error": false,
           "format": "none",
-          "id": 15,
+          "id": 43,
           "interval": "> 60s",
           "links": [],
           "maxDataPoints": 100,
@@ -1241,7 +1247,7 @@
           "postfixFontSize": "50%",
           "prefix": "",
           "prefixFontSize": "50%",
-          "span": 2,
+          "span": 1,
           "sparkline": {
             "fillColor": "rgba(31, 118, 189, 0.18)",
             "full": false,
@@ -1256,8 +1262,9 @@
               "function": "last",
               "groupBy": [
                 {
+                  "interval": "auto",
                   "params": [
-                    "$interval"
+                    "auto"
                   ],
                   "type": "time"
                 },
@@ -1268,7 +1275,6 @@
                   "type": "fill"
                 }
               ],
-              "groupByTags": [],
               "measurement": "openstack_neutron_agents",
               "query": "SELECT last(\"value\") FROM \"openstack_neutron_agents\" WHERE \"service\" = 'dhcp' AND \"state\" = 'disabled' AND $timeFilter GROUP BY time($interval) fill(null)",
               "refId": "A",
@@ -1291,18 +1297,20 @@
               "tags": [
                 {
                   "key": "service",
+                  "operator": "=",
                   "value": "dhcp"
                 },
                 {
                   "condition": "AND",
                   "key": "state",
+                  "operator": "=",
                   "value": "disabled"
                 }
               ]
             }
           ],
           "thresholds": "0,1,1",
-          "title": "dhcp",
+          "title": "Disabled",
           "type": "singlestat",
           "valueFontSize": "80%",
           "valueMaps": [
@@ -1327,7 +1335,7 @@
           "editable": true,
           "error": false,
           "format": "none",
-          "id": 16,
+          "id": 44,
           "interval": "> 60s",
           "links": [],
           "maxDataPoints": 100,
@@ -1337,7 +1345,7 @@
           "postfixFontSize": "50%",
           "prefix": "",
           "prefixFontSize": "50%",
-          "span": 2,
+          "span": 1,
           "sparkline": {
             "fillColor": "rgba(31, 118, 189, 0.18)",
             "full": false,
@@ -1352,8 +1360,9 @@
               "function": "last",
               "groupBy": [
                 {
+                  "interval": "auto",
                   "params": [
-                    "$interval"
+                    "auto"
                   ],
                   "type": "time"
                 },
@@ -1364,307 +1373,6 @@
                   "type": "fill"
                 }
               ],
-              "groupByTags": [],
-              "measurement": "openstack_neutron_agents",
-              "query": "SELECT last(\"value\") FROM \"openstack_neutron_agents\" WHERE \"service\" = 'l3' AND \"state\" = 'disabled' AND $timeFilter GROUP BY time($interval) fill(null)",
-              "refId": "A",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "value"
-                    ],
-                    "type": "field"
-                  },
-                  {
-                    "params": [],
-                    "type": "last"
-                  }
-                ]
-              ],
-              "series": "merge(/openstack.neutron.agents.l3.disabled/)",
-              "tags": [
-                {
-                  "key": "service",
-                  "value": "l3"
-                },
-                {
-                  "condition": "AND",
-                  "key": "state",
-                  "value": "disabled"
-                }
-              ]
-            }
-          ],
-          "thresholds": "0,1,1",
-          "title": "L3",
-          "type": "singlestat",
-          "valueFontSize": "80%",
-          "valueMaps": [
-            {
-              "op": "=",
-              "text": "N/A",
-              "value": "null"
-            }
-          ],
-          "valueName": "current"
-        },
-        {
-          "cacheTimeout": null,
-          "colorBackground": false,
-          "colorValue": false,
-          "colors": [
-            "rgba(50, 172, 45, 0.97)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(245, 54, 54, 0.9)"
-          ],
-          "datasource": null,
-          "editable": true,
-          "error": false,
-          "format": "none",
-          "id": 17,
-          "interval": "> 60s",
-          "links": [],
-          "maxDataPoints": 100,
-          "nullPointMode": "connected",
-          "nullText": null,
-          "postfix": "",
-          "postfixFontSize": "50%",
-          "prefix": "",
-          "prefixFontSize": "50%",
-          "span": 2,
-          "sparkline": {
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "show": false
-          },
-          "targets": [
-            {
-              "column": "value",
-              "dsType": "influxdb",
-              "fill": "",
-              "function": "last",
-              "groupBy": [
-                {
-                  "params": [
-                    "$interval"
-                  ],
-                  "type": "time"
-                },
-                {
-                  "params": [
-                    "null"
-                  ],
-                  "type": "fill"
-                }
-              ],
-              "groupByTags": [],
-              "measurement": "openstack_neutron_agents",
-              "query": "SELECT last(\"value\") FROM \"openstack_neutron_agents\" WHERE \"service\" = 'metadata' AND \"state\" = 'disabled' AND $timeFilter GROUP BY time($interval) fill(null)",
-              "refId": "A",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "value"
-                    ],
-                    "type": "field"
-                  },
-                  {
-                    "params": [],
-                    "type": "last"
-                  }
-                ]
-              ],
-              "series": "merge(/openstack.neutron.agents.metadata.disabled/)",
-              "tags": [
-                {
-                  "key": "service",
-                  "value": "metadata"
-                },
-                {
-                  "condition": "AND",
-                  "key": "state",
-                  "value": "disabled"
-                }
-              ]
-            }
-          ],
-          "thresholds": "0,1,1",
-          "title": "metadata",
-          "type": "singlestat",
-          "valueFontSize": "80%",
-          "valueMaps": [
-            {
-              "op": "=",
-              "text": "N/A",
-              "value": "null"
-            }
-          ],
-          "valueName": "current"
-        },
-        {
-          "cacheTimeout": null,
-          "colorBackground": false,
-          "colorValue": false,
-          "colors": [
-            "rgba(50, 172, 45, 0.97)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(245, 54, 54, 0.9)"
-          ],
-          "datasource": null,
-          "editable": true,
-          "error": false,
-          "format": "none",
-          "id": 18,
-          "interval": "> 60s",
-          "links": [],
-          "maxDataPoints": 100,
-          "nullPointMode": "connected",
-          "nullText": null,
-          "postfix": "",
-          "postfixFontSize": "50%",
-          "prefix": "",
-          "prefixFontSize": "50%",
-          "span": 3,
-          "sparkline": {
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "show": false
-          },
-          "targets": [
-            {
-              "column": "value",
-              "dsType": "influxdb",
-              "fill": "",
-              "function": "last",
-              "groupBy": [
-                {
-                  "params": [
-                    "$interval"
-                  ],
-                  "type": "time"
-                },
-                {
-                  "params": [
-                    "null"
-                  ],
-                  "type": "fill"
-                }
-              ],
-              "groupByTags": [],
-              "measurement": "openstack_neutron_agents",
-              "query": "SELECT last(\"value\") FROM \"openstack_neutron_agents\" WHERE \"service\" = 'openvswitch' AND \"state\" = 'disabled' AND $timeFilter GROUP BY time($interval) fill(null)",
-              "refId": "A",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "value"
-                    ],
-                    "type": "field"
-                  },
-                  {
-                    "params": [],
-                    "type": "last"
-                  }
-                ]
-              ],
-              "series": "merge(/openstack.neutron.agents.openvswitch.disabled/)",
-              "tags": [
-                {
-                  "key": "service",
-                  "value": "openvswitch"
-                },
-                {
-                  "condition": "AND",
-                  "key": "state",
-                  "value": "disabled"
-                }
-              ]
-            }
-          ],
-          "thresholds": "0,1,1",
-          "title": "openvswitch",
-          "type": "singlestat",
-          "valueFontSize": "80%",
-          "valueMaps": [
-            {
-              "op": "=",
-              "text": "N/A",
-              "value": "null"
-            }
-          ],
-          "valueName": "current"
-        },
-        {
-          "content": "<br />\n<h3 align=\"center\"> Up </h3>",
-          "editable": true,
-          "error": false,
-          "id": 19,
-          "links": [],
-          "mode": "html",
-          "span": 2,
-          "style": {},
-          "title": "",
-          "type": "text"
-        },
-        {
-          "cacheTimeout": null,
-          "colorBackground": false,
-          "colorValue": false,
-          "colors": [
-            "rgba(50, 172, 45, 0.97)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(245, 54, 54, 0.9)"
-          ],
-          "datasource": null,
-          "editable": true,
-          "error": false,
-          "format": "none",
-          "id": 20,
-          "interval": "> 60s",
-          "links": [],
-          "maxDataPoints": 100,
-          "nullPointMode": "connected",
-          "nullText": null,
-          "postfix": "",
-          "postfixFontSize": "50%",
-          "prefix": "",
-          "prefixFontSize": "50%",
-          "span": 2,
-          "sparkline": {
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "show": false
-          },
-          "targets": [
-            {
-              "column": "value",
-              "dsType": "influxdb",
-              "fill": "",
-              "function": "last",
-              "groupBy": [
-                {
-                  "params": [
-                    "$interval"
-                  ],
-                  "type": "time"
-                },
-                {
-                  "params": [
-                    "null"
-                  ],
-                  "type": "fill"
-                }
-              ],
-              "groupByTags": [],
               "measurement": "openstack_neutron_agents",
               "query": "SELECT last(\"value\") FROM \"openstack_neutron_agents\" WHERE \"service\" = 'dhcp' AND \"state\" = 'up' AND $timeFilter GROUP BY time($interval) fill(null)",
               "refId": "A",
@@ -1687,18 +1395,20 @@
               "tags": [
                 {
                   "key": "service",
+                  "operator": "=",
                   "value": "dhcp"
                 },
                 {
                   "condition": "AND",
                   "key": "state",
+                  "operator": "=",
                   "value": "up"
                 }
               ]
             }
           ],
           "thresholds": "0,1,1",
-          "title": "",
+          "title": "Up",
           "type": "singlestat",
           "valueFontSize": "80%",
           "valueMaps": [
@@ -1723,7 +1433,7 @@
           "editable": true,
           "error": false,
           "format": "none",
-          "id": 21,
+          "id": 45,
           "interval": "> 60s",
           "links": [],
           "maxDataPoints": 100,
@@ -1733,7 +1443,7 @@
           "postfixFontSize": "50%",
           "prefix": "",
           "prefixFontSize": "50%",
-          "span": 2,
+          "span": 1,
           "sparkline": {
             "fillColor": "rgba(31, 118, 189, 0.18)",
             "full": false,
@@ -1748,8 +1458,9 @@
               "function": "last",
               "groupBy": [
                 {
+                  "interval": "auto",
                   "params": [
-                    "$interval"
+                    "auto"
                   ],
                   "type": "time"
                 },
@@ -1760,307 +1471,6 @@
                   "type": "fill"
                 }
               ],
-              "groupByTags": [],
-              "measurement": "openstack_neutron_agents",
-              "query": "SELECT last(\"value\") FROM \"openstack_neutron_agents\" WHERE \"service\" = 'l3' AND \"state\" = 'up' AND $timeFilter GROUP BY time($interval) fill(null)",
-              "refId": "A",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "value"
-                    ],
-                    "type": "field"
-                  },
-                  {
-                    "params": [],
-                    "type": "last"
-                  }
-                ]
-              ],
-              "series": "merge(/openstack.neutron.agents.l3.up/)",
-              "tags": [
-                {
-                  "key": "service",
-                  "value": "l3"
-                },
-                {
-                  "condition": "AND",
-                  "key": "state",
-                  "value": "up"
-                }
-              ]
-            }
-          ],
-          "thresholds": "0,1,1",
-          "title": "",
-          "type": "singlestat",
-          "valueFontSize": "80%",
-          "valueMaps": [
-            {
-              "op": "=",
-              "text": "N/A",
-              "value": "null"
-            }
-          ],
-          "valueName": "current"
-        },
-        {
-          "cacheTimeout": null,
-          "colorBackground": false,
-          "colorValue": false,
-          "colors": [
-            "rgba(50, 172, 45, 0.97)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(245, 54, 54, 0.9)"
-          ],
-          "datasource": null,
-          "editable": true,
-          "error": false,
-          "format": "none",
-          "id": 22,
-          "interval": "> 60s",
-          "links": [],
-          "maxDataPoints": 100,
-          "nullPointMode": "connected",
-          "nullText": null,
-          "postfix": "",
-          "postfixFontSize": "50%",
-          "prefix": "",
-          "prefixFontSize": "50%",
-          "span": 2,
-          "sparkline": {
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "show": false
-          },
-          "targets": [
-            {
-              "column": "value",
-              "dsType": "influxdb",
-              "fill": "",
-              "function": "last",
-              "groupBy": [
-                {
-                  "params": [
-                    "$interval"
-                  ],
-                  "type": "time"
-                },
-                {
-                  "params": [
-                    "null"
-                  ],
-                  "type": "fill"
-                }
-              ],
-              "groupByTags": [],
-              "measurement": "openstack_neutron_agents",
-              "query": "SELECT last(\"value\") FROM \"openstack_neutron_agents\" WHERE \"service\" = 'metadata' AND \"state\" = 'up' AND $timeFilter GROUP BY time($interval) fill(null)",
-              "refId": "A",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "value"
-                    ],
-                    "type": "field"
-                  },
-                  {
-                    "params": [],
-                    "type": "last"
-                  }
-                ]
-              ],
-              "series": "merge(/openstack.neutron.agents.metadata.up/)",
-              "tags": [
-                {
-                  "key": "service",
-                  "value": "metadata"
-                },
-                {
-                  "condition": "AND",
-                  "key": "state",
-                  "value": "up"
-                }
-              ]
-            }
-          ],
-          "thresholds": "0,1,1",
-          "title": "",
-          "type": "singlestat",
-          "valueFontSize": "80%",
-          "valueMaps": [
-            {
-              "op": "=",
-              "text": "N/A",
-              "value": "null"
-            }
-          ],
-          "valueName": "current"
-        },
-        {
-          "cacheTimeout": null,
-          "colorBackground": false,
-          "colorValue": false,
-          "colors": [
-            "rgba(50, 172, 45, 0.97)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(245, 54, 54, 0.9)"
-          ],
-          "datasource": null,
-          "editable": true,
-          "error": false,
-          "format": "none",
-          "id": 23,
-          "interval": "> 60s",
-          "links": [],
-          "maxDataPoints": 100,
-          "nullPointMode": "connected",
-          "nullText": null,
-          "postfix": "",
-          "postfixFontSize": "50%",
-          "prefix": "",
-          "prefixFontSize": "50%",
-          "span": 3,
-          "sparkline": {
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "show": false
-          },
-          "targets": [
-            {
-              "column": "value",
-              "dsType": "influxdb",
-              "fill": "",
-              "function": "last",
-              "groupBy": [
-                {
-                  "params": [
-                    "$interval"
-                  ],
-                  "type": "time"
-                },
-                {
-                  "params": [
-                    "null"
-                  ],
-                  "type": "fill"
-                }
-              ],
-              "groupByTags": [],
-              "measurement": "openstack_neutron_agents",
-              "query": "SELECT last(\"value\") FROM \"openstack_neutron_agents\" WHERE \"service\" = 'openvswitch' AND \"state\" = 'up' AND $timeFilter GROUP BY time($interval) fill(null)",
-              "refId": "A",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "value"
-                    ],
-                    "type": "field"
-                  },
-                  {
-                    "params": [],
-                    "type": "last"
-                  }
-                ]
-              ],
-              "series": "merge(/openstack.neutron.agents.openvswitch.up/)",
-              "tags": [
-                {
-                  "key": "service",
-                  "value": "openvswitch"
-                },
-                {
-                  "condition": "AND",
-                  "key": "state",
-                  "value": "up"
-                }
-              ]
-            }
-          ],
-          "thresholds": "0,1,1",
-          "title": "",
-          "type": "singlestat",
-          "valueFontSize": "80%",
-          "valueMaps": [
-            {
-              "op": "=",
-              "text": "N/A",
-              "value": "null"
-            }
-          ],
-          "valueName": "current"
-        },
-        {
-          "content": "<br />\n<h3 align=\"center\"> Down </h3>",
-          "editable": true,
-          "error": false,
-          "id": 24,
-          "links": [],
-          "mode": "html",
-          "span": 2,
-          "style": {},
-          "title": "",
-          "type": "text"
-        },
-        {
-          "cacheTimeout": null,
-          "colorBackground": false,
-          "colorValue": false,
-          "colors": [
-            "rgba(50, 172, 45, 0.97)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(245, 54, 54, 0.9)"
-          ],
-          "datasource": null,
-          "editable": true,
-          "error": false,
-          "format": "none",
-          "id": 25,
-          "interval": "> 60s",
-          "links": [],
-          "maxDataPoints": 100,
-          "nullPointMode": "connected",
-          "nullText": null,
-          "postfix": "",
-          "postfixFontSize": "50%",
-          "prefix": "",
-          "prefixFontSize": "50%",
-          "span": 2,
-          "sparkline": {
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "show": false
-          },
-          "targets": [
-            {
-              "column": "value",
-              "dsType": "influxdb",
-              "fill": "",
-              "function": "last",
-              "groupBy": [
-                {
-                  "params": [
-                    "$interval"
-                  ],
-                  "type": "time"
-                },
-                {
-                  "params": [
-                    "null"
-                  ],
-                  "type": "fill"
-                }
-              ],
-              "groupByTags": [],
               "measurement": "openstack_neutron_agents",
               "query": "SELECT last(\"value\") FROM \"openstack_neutron_agents\" WHERE \"service\" = 'dhcp' AND \"state\" = 'down' AND $timeFilter GROUP BY time($interval) fill(null)",
               "refId": "A",
@@ -2083,12 +1493,208 @@
               "tags": [
                 {
                   "key": "service",
+                  "operator": "=",
                   "value": "dhcp"
                 },
                 {
                   "condition": "AND",
                   "key": "state",
+                  "operator": "=",
                   "value": "down"
+                }
+              ]
+            }
+          ],
+          "thresholds": "0,1,1",
+          "title": "Down",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
+        },
+        {
+          "columns": [],
+          "editable": true,
+          "error": false,
+          "fontSize": "100%",
+          "hideTimeOverride": false,
+          "id": 46,
+          "interval": ">60s",
+          "isNew": true,
+          "links": [],
+          "pageSize": null,
+          "scroll": true,
+          "showHeader": true,
+          "sort": {
+            "col": 0,
+            "desc": true
+          },
+          "span": 7,
+          "styles": [
+            {
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "pattern": "Time",
+              "type": "date"
+            },
+            {
+              "colorMode": null,
+              "colors": [
+                "rgba(245, 54, 54, 0.9)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(50, 172, 45, 0.97)"
+              ],
+              "decimals": 2,
+              "pattern": "/.*/",
+              "thresholds": [],
+              "type": "string",
+              "unit": "short"
+            }
+          ],
+          "targets": [
+            {
+              "alias": "",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "openstack_nova_service",
+              "query": "SELECT state, last(value) FROM \"openstack_neutron_agent\" WHERE $timeFilter and service = 'dhcp' GROUP BY time($interval), hostname fill(0)",
+              "rawQuery": true,
+              "refId": "A",
+              "resultFormat": "table",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": []
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "History",
+          "transform": "table",
+          "type": "table"
+        },
+        {
+          "content": "<br />\n<h3 align=\"center\"> L3 </h3>",
+          "editable": true,
+          "error": false,
+          "id": 47,
+          "links": [],
+          "mode": "html",
+          "span": 2,
+          "style": {},
+          "title": "",
+          "type": "text"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "datasource": null,
+          "editable": true,
+          "error": false,
+          "format": "none",
+          "id": 48,
+          "interval": "> 60s",
+          "links": [],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 1,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "targets": [
+            {
+              "column": "value",
+              "dsType": "influxdb",
+              "fill": "",
+              "function": "last",
+              "groupBy": [
+                {
+                  "interval": "auto",
+                  "params": [
+                    "auto"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "openstack_neutron_agents",
+              "query": "SELECT last(\"value\") FROM \"openstack_neutron_agents\" WHERE \"service\" = 'l3' AND \"state\" = 'disabled' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  }
+                ]
+              ],
+              "series": "merge(/openstack.neutron.agents.dhcp.disabled/)",
+              "tags": [
+                {
+                  "key": "service",
+                  "operator": "=",
+                  "value": "l3"
+                },
+                {
+                  "condition": "AND",
+                  "key": "state",
+                  "operator": "=",
+                  "value": "disabled"
                 }
               ]
             }
@@ -2109,17 +1715,17 @@
         {
           "cacheTimeout": null,
           "colorBackground": false,
-          "colorValue": true,
+          "colorValue": false,
           "colors": [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(255, 255, 255, 0.89)",
-            "rgba(255, 255, 255, 0.97)"
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
           ],
           "datasource": null,
           "editable": true,
           "error": false,
           "format": "none",
-          "id": 27,
+          "id": 49,
           "interval": "> 60s",
           "links": [],
           "maxDataPoints": 100,
@@ -2129,7 +1735,7 @@
           "postfixFontSize": "50%",
           "prefix": "",
           "prefixFontSize": "50%",
-          "span": 2,
+          "span": 1,
           "sparkline": {
             "fillColor": "rgba(31, 118, 189, 0.18)",
             "full": false,
@@ -2144,8 +1750,9 @@
               "function": "last",
               "groupBy": [
                 {
+                  "interval": "auto",
                   "params": [
-                    "$interval"
+                    "auto"
                   ],
                   "type": "time"
                 },
@@ -2156,7 +1763,104 @@
                   "type": "fill"
                 }
               ],
-              "groupByTags": [],
+              "measurement": "openstack_neutron_agents",
+              "query": "SELECT last(\"value\") FROM \"openstack_neutron_agents\" WHERE \"service\" = 'l3' AND \"state\" = 'up' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  }
+                ]
+              ],
+              "series": "merge(/openstack.neutron.agents.dhcp.up/)",
+              "tags": [
+                {
+                  "key": "service",
+                  "operator": "=",
+                  "value": "l3"
+                },
+                {
+                  "condition": "AND",
+                  "key": "state",
+                  "operator": "=",
+                  "value": "up"
+                }
+              ]
+            }
+          ],
+          "thresholds": "0,1,1",
+          "title": "",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "datasource": null,
+          "editable": true,
+          "error": false,
+          "format": "none",
+          "id": 50,
+          "interval": "> 60s",
+          "links": [],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 1,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "targets": [
+            {
+              "column": "value",
+              "dsType": "influxdb",
+              "fill": "",
+              "function": "last",
+              "groupBy": [
+                {
+                  "interval": "auto",
+                  "params": [
+                    "auto"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
               "measurement": "openstack_neutron_agents",
               "query": "SELECT last(\"value\") FROM \"openstack_neutron_agents\" WHERE \"service\" = 'l3' AND \"state\" = 'down' AND $timeFilter GROUP BY time($interval) fill(null)",
               "refId": "A",
@@ -2175,21 +1879,217 @@
                   }
                 ]
               ],
-              "series": "merge(/openstack.neutron.agents.metadata.down/)",
+              "series": "merge(/openstack.neutron.agents.dhcp.up/)",
               "tags": [
                 {
                   "key": "service",
+                  "operator": "=",
                   "value": "l3"
                 },
                 {
                   "condition": "AND",
                   "key": "state",
+                  "operator": "=",
                   "value": "down"
                 }
               ]
             }
           ],
-          "thresholds": "1,0,0",
+          "thresholds": "0,1,1",
+          "title": "",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
+        },
+        {
+          "columns": [],
+          "editable": true,
+          "error": false,
+          "fontSize": "100%",
+          "hideTimeOverride": false,
+          "id": 51,
+          "interval": ">60s",
+          "isNew": true,
+          "links": [],
+          "pageSize": null,
+          "scroll": true,
+          "showHeader": true,
+          "sort": {
+            "col": 0,
+            "desc": true
+          },
+          "span": 7,
+          "styles": [
+            {
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "pattern": "Time",
+              "type": "date"
+            },
+            {
+              "colorMode": null,
+              "colors": [
+                "rgba(245, 54, 54, 0.9)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(50, 172, 45, 0.97)"
+              ],
+              "decimals": 2,
+              "pattern": "/.*/",
+              "thresholds": [],
+              "type": "string",
+              "unit": "short"
+            }
+          ],
+          "targets": [
+            {
+              "alias": "",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "openstack_nova_service",
+              "query": "SELECT state, last(value) FROM \"openstack_neutron_agent\" WHERE $timeFilter and service = 'l3' GROUP BY time($interval), hostname fill(0)",
+              "rawQuery": true,
+              "refId": "A",
+              "resultFormat": "table",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": []
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "",
+          "transform": "table",
+          "type": "table"
+        },
+        {
+          "content": "<br />\n<h3 align=\"center\"> Metadata </h3>",
+          "editable": true,
+          "error": false,
+          "id": 52,
+          "links": [],
+          "mode": "html",
+          "span": 2,
+          "style": {},
+          "title": "",
+          "type": "text"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "datasource": null,
+          "editable": true,
+          "error": false,
+          "format": "none",
+          "id": 53,
+          "interval": "> 60s",
+          "links": [],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 1,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "targets": [
+            {
+              "column": "value",
+              "dsType": "influxdb",
+              "fill": "",
+              "function": "last",
+              "groupBy": [
+                {
+                  "interval": "auto",
+                  "params": [
+                    "auto"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "openstack_neutron_agents",
+              "query": "SELECT last(\"value\") FROM \"openstack_neutron_agents\" WHERE \"service\" = 'metadata' AND \"state\" = 'disabled' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  }
+                ]
+              ],
+              "series": "merge(/openstack.neutron.agents.dhcp.disabled/)",
+              "tags": [
+                {
+                  "key": "service",
+                  "operator": "=",
+                  "value": "metadata"
+                },
+                {
+                  "condition": "AND",
+                  "key": "state",
+                  "operator": "=",
+                  "value": "disabled"
+                }
+              ]
+            }
+          ],
+          "thresholds": "0,1,1",
           "title": "",
           "type": "singlestat",
           "valueFontSize": "80%",
@@ -2205,17 +2105,17 @@
         {
           "cacheTimeout": null,
           "colorBackground": false,
-          "colorValue": true,
+          "colorValue": false,
           "colors": [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(255, 255, 255, 0.89)",
-            "rgba(255, 255, 255, 0.97)"
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
           ],
           "datasource": null,
           "editable": true,
           "error": false,
           "format": "none",
-          "id": 28,
+          "id": 54,
           "interval": "> 60s",
           "links": [],
           "maxDataPoints": 100,
@@ -2225,7 +2125,7 @@
           "postfixFontSize": "50%",
           "prefix": "",
           "prefixFontSize": "50%",
-          "span": 2,
+          "span": 1,
           "sparkline": {
             "fillColor": "rgba(31, 118, 189, 0.18)",
             "full": false,
@@ -2240,8 +2140,9 @@
               "function": "last",
               "groupBy": [
                 {
+                  "interval": "auto",
                   "params": [
-                    "$interval"
+                    "auto"
                   ],
                   "type": "time"
                 },
@@ -2252,7 +2153,104 @@
                   "type": "fill"
                 }
               ],
-              "groupByTags": [],
+              "measurement": "openstack_neutron_agents",
+              "query": "SELECT last(\"value\") FROM \"openstack_neutron_agents\" WHERE \"service\" = 'metadata' AND \"state\" = 'up' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  }
+                ]
+              ],
+              "series": "merge(/openstack.neutron.agents.dhcp.up/)",
+              "tags": [
+                {
+                  "key": "service",
+                  "operator": "=",
+                  "value": "metadata"
+                },
+                {
+                  "condition": "AND",
+                  "key": "state",
+                  "operator": "=",
+                  "value": "up"
+                }
+              ]
+            }
+          ],
+          "thresholds": "0,1,1",
+          "title": "",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "datasource": null,
+          "editable": true,
+          "error": false,
+          "format": "none",
+          "id": 55,
+          "interval": "> 60s",
+          "links": [],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 1,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "targets": [
+            {
+              "column": "value",
+              "dsType": "influxdb",
+              "fill": "",
+              "function": "last",
+              "groupBy": [
+                {
+                  "interval": "auto",
+                  "params": [
+                    "auto"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
               "measurement": "openstack_neutron_agents",
               "query": "SELECT last(\"value\") FROM \"openstack_neutron_agents\" WHERE \"service\" = 'metadata' AND \"state\" = 'down' AND $timeFilter GROUP BY time($interval) fill(null)",
               "refId": "A",
@@ -2271,21 +2269,217 @@
                   }
                 ]
               ],
-              "series": "merge(/openstack.neutron.agents.openvswitch.down/)",
+              "series": "merge(/openstack.neutron.agents.dhcp.up/)",
               "tags": [
                 {
                   "key": "service",
+                  "operator": "=",
                   "value": "metadata"
                 },
                 {
                   "condition": "AND",
                   "key": "state",
+                  "operator": "=",
                   "value": "down"
                 }
               ]
             }
           ],
-          "thresholds": "1,0,0",
+          "thresholds": "0,1,1",
+          "title": "",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
+        },
+        {
+          "columns": [],
+          "editable": true,
+          "error": false,
+          "fontSize": "100%",
+          "hideTimeOverride": false,
+          "id": 56,
+          "interval": ">60s",
+          "isNew": true,
+          "links": [],
+          "pageSize": null,
+          "scroll": true,
+          "showHeader": true,
+          "sort": {
+            "col": 0,
+            "desc": true
+          },
+          "span": 7,
+          "styles": [
+            {
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "pattern": "Time",
+              "type": "date"
+            },
+            {
+              "colorMode": null,
+              "colors": [
+                "rgba(245, 54, 54, 0.9)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(50, 172, 45, 0.97)"
+              ],
+              "decimals": 2,
+              "pattern": "/.*/",
+              "thresholds": [],
+              "type": "string",
+              "unit": "short"
+            }
+          ],
+          "targets": [
+            {
+              "alias": "",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "openstack_nova_service",
+              "query": "SELECT state, last(value) FROM \"openstack_neutron_agent\" WHERE $timeFilter and service = 'metadata' GROUP BY time($interval), hostname fill(0)",
+              "rawQuery": true,
+              "refId": "A",
+              "resultFormat": "table",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": []
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "",
+          "transform": "table",
+          "type": "table"
+        },
+        {
+          "content": "<br />\n<h3 align=\"center\"> Open vSwitch </h3>",
+          "editable": true,
+          "error": false,
+          "id": 57,
+          "links": [],
+          "mode": "html",
+          "span": 2,
+          "style": {},
+          "title": "",
+          "type": "text"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "datasource": null,
+          "editable": true,
+          "error": false,
+          "format": "none",
+          "id": 58,
+          "interval": "> 60s",
+          "links": [],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 1,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "targets": [
+            {
+              "column": "value",
+              "dsType": "influxdb",
+              "fill": "",
+              "function": "last",
+              "groupBy": [
+                {
+                  "interval": "auto",
+                  "params": [
+                    "auto"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "openstack_neutron_agents",
+              "query": "SELECT last(\"value\") FROM \"openstack_neutron_agents\" WHERE \"service\" = 'openvswitch' AND \"state\" = 'disabled' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  }
+                ]
+              ],
+              "series": "merge(/openstack.neutron.agents.dhcp.disabled/)",
+              "tags": [
+                {
+                  "key": "service",
+                  "operator": "=",
+                  "value": "openvswitch"
+                },
+                {
+                  "condition": "AND",
+                  "key": "state",
+                  "operator": "=",
+                  "value": "disabled"
+                }
+              ]
+            }
+          ],
+          "thresholds": "0,1,1",
           "title": "",
           "type": "singlestat",
           "valueFontSize": "80%",
@@ -2301,17 +2495,17 @@
         {
           "cacheTimeout": null,
           "colorBackground": false,
-          "colorValue": true,
+          "colorValue": false,
           "colors": [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(255, 255, 255, 0.89)",
-            "rgba(255, 255, 255, 0.97)"
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
           ],
           "datasource": null,
           "editable": true,
           "error": false,
           "format": "none",
-          "id": 40,
+          "id": 59,
           "interval": "> 60s",
           "links": [],
           "maxDataPoints": 100,
@@ -2321,7 +2515,7 @@
           "postfixFontSize": "50%",
           "prefix": "",
           "prefixFontSize": "50%",
-          "span": 3,
+          "span": 1,
           "sparkline": {
             "fillColor": "rgba(31, 118, 189, 0.18)",
             "full": false,
@@ -2336,8 +2530,9 @@
               "function": "last",
               "groupBy": [
                 {
+                  "interval": "auto",
                   "params": [
-                    "$interval"
+                    "auto"
                   ],
                   "type": "time"
                 },
@@ -2348,7 +2543,104 @@
                   "type": "fill"
                 }
               ],
-              "groupByTags": [],
+              "measurement": "openstack_neutron_agents",
+              "query": "SELECT last(\"value\") FROM \"openstack_neutron_agents\" WHERE \"service\" = 'openvswitch' AND \"state\" = 'up' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  }
+                ]
+              ],
+              "series": "merge(/openstack.neutron.agents.dhcp.up/)",
+              "tags": [
+                {
+                  "key": "service",
+                  "operator": "=",
+                  "value": "openvswitch"
+                },
+                {
+                  "condition": "AND",
+                  "key": "state",
+                  "operator": "=",
+                  "value": "up"
+                }
+              ]
+            }
+          ],
+          "thresholds": "0,1,1",
+          "title": "",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "datasource": null,
+          "editable": true,
+          "error": false,
+          "format": "none",
+          "id": 60,
+          "interval": "> 60s",
+          "links": [],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 1,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "targets": [
+            {
+              "column": "value",
+              "dsType": "influxdb",
+              "fill": "",
+              "function": "last",
+              "groupBy": [
+                {
+                  "interval": "auto",
+                  "params": [
+                    "auto"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
               "measurement": "openstack_neutron_agents",
               "query": "SELECT last(\"value\") FROM \"openstack_neutron_agents\" WHERE \"service\" = 'openvswitch' AND \"state\" = 'down' AND $timeFilter GROUP BY time($interval) fill(null)",
               "refId": "A",
@@ -2367,21 +2659,23 @@
                   }
                 ]
               ],
-              "series": "merge(/openstack.neutron.agents.openvswitch.down/)",
+              "series": "merge(/openstack.neutron.agents.dhcp.up/)",
               "tags": [
                 {
                   "key": "service",
+                  "operator": "=",
                   "value": "openvswitch"
                 },
                 {
                   "condition": "AND",
                   "key": "state",
+                  "operator": "=",
                   "value": "down"
                 }
               ]
             }
           ],
-          "thresholds": "1,0,0",
+          "thresholds": "0,1,1",
           "title": "",
           "type": "singlestat",
           "valueFontSize": "80%",
@@ -2393,6 +2687,90 @@
             }
           ],
           "valueName": "current"
+        },
+        {
+          "columns": [],
+          "editable": true,
+          "error": false,
+          "fontSize": "100%",
+          "hideTimeOverride": false,
+          "id": 61,
+          "interval": ">60s",
+          "isNew": true,
+          "links": [],
+          "pageSize": null,
+          "scroll": true,
+          "showHeader": true,
+          "sort": {
+            "col": 0,
+            "desc": true
+          },
+          "span": 7,
+          "styles": [
+            {
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "pattern": "Time",
+              "type": "date"
+            },
+            {
+              "colorMode": null,
+              "colors": [
+                "rgba(245, 54, 54, 0.9)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(50, 172, 45, 0.97)"
+              ],
+              "decimals": 2,
+              "pattern": "/.*/",
+              "thresholds": [],
+              "type": "string",
+              "unit": "short"
+            }
+          ],
+          "targets": [
+            {
+              "alias": "",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "openstack_nova_service",
+              "query": "SELECT state, last(value) FROM \"openstack_neutron_agent\" WHERE $timeFilter and service = 'openvswitch' GROUP BY time($interval), hostname fill(0)",
+              "rawQuery": true,
+              "refId": "A",
+              "resultFormat": "table",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": []
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "",
+          "transform": "table",
+          "type": "table"
         }
       ],
       "showTitle": true,
@@ -3442,5 +3820,5 @@
   },
   "timezone": "browser",
   "title": "Neutron",
-  "version": 2
+  "version": 5
 }
