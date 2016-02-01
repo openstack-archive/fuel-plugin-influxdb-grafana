@@ -19,7 +19,7 @@
   },
   "editable": true,
   "hideControls": false,
-  "id": null,
+  "id": 5,
   "links": [],
   "originalTitle": "Cinder",
   "refresh": "1m",
@@ -1172,13 +1172,13 @@
     {
       "collapse": false,
       "editable": true,
-      "height": "100px",
+      "height": "250px",
       "panels": [
         {
-          "content": "<br />\n<h3 align=\"center\"> Disabled </h3>",
+          "content": "<br />\n<h3 align=\"center\"> Schedulers </h3>",
           "editable": true,
           "error": false,
-          "id": 31,
+          "id": 59,
           "links": [],
           "mode": "html",
           "span": 2,
@@ -1199,7 +1199,7 @@
           "editable": true,
           "error": false,
           "format": "none",
-          "id": 32,
+          "id": 60,
           "interval": "> 60s",
           "links": [],
           "maxDataPoints": 100,
@@ -1209,7 +1209,7 @@
           "postfixFontSize": "50%",
           "prefix": "",
           "prefixFontSize": "50%",
-          "span": 2,
+          "span": 1,
           "sparkline": {
             "fillColor": "rgba(31, 118, 189, 0.18)",
             "full": false,
@@ -1228,10 +1228,16 @@
                     "auto"
                   ],
                   "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
                 }
               ],
               "measurement": "openstack_cinder_services",
-              "query": "SELECT last(\"value\") FROM \"openstack_cinder_services\" WHERE \"service\" = 'scheduler' AND \"state\" = 'disabled' AND $timeFilter GROUP BY time($interval)",
+              "query": "SELECT last(\"value\") FROM \"openstack_cinder_services\" WHERE \"service\" = 'scheduler' AND \"state\" = 'disabled' AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -1253,18 +1259,20 @@
               "tags": [
                 {
                   "key": "service",
+                  "operator": "=",
                   "value": "scheduler"
                 },
                 {
                   "condition": "AND",
                   "key": "state",
+                  "operator": "=",
                   "value": "disabled"
                 }
               ]
             }
           ],
           "thresholds": "0,1,1",
-          "title": "Scheduler nodes",
+          "title": "Disabled",
           "type": "singlestat",
           "valueFontSize": "80%",
           "valueMaps": [
@@ -1281,15 +1289,15 @@
           "colorBackground": false,
           "colorValue": false,
           "colors": [
-            "rgba(71, 212, 59, 0.4)",
-            "rgba(245, 150, 40, 0.73)",
-            "rgba(225, 40, 40, 0.59)"
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
           ],
           "datasource": null,
           "editable": true,
           "error": false,
           "format": "none",
-          "id": 33,
+          "id": 61,
           "interval": "> 60s",
           "links": [],
           "maxDataPoints": 100,
@@ -1299,7 +1307,7 @@
           "postfixFontSize": "50%",
           "prefix": "",
           "prefixFontSize": "50%",
-          "span": 2,
+          "span": 1,
           "sparkline": {
             "fillColor": "rgba(31, 118, 189, 0.18)",
             "full": false,
@@ -1318,10 +1326,16 @@
                     "auto"
                   ],
                   "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
                 }
               ],
               "measurement": "openstack_cinder_services",
-              "query": "SELECT last(\"value\") FROM \"openstack_cinder_services\" WHERE \"service\" = 'volume' AND \"state\" = 'disabled' AND $timeFilter GROUP BY time($interval)",
+              "query": "SELECT last(\"value\") FROM \"openstack_cinder_services\" WHERE \"service\" = 'scheduler' AND \"state\" = 'up' AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -1339,219 +1353,407 @@
                   }
                 ]
               ],
-              "series": "merge(/openstack.cinder.services.volume.disabled/)",
+              "series": "merge(/openstack.cinder.services.scheduler.disabled/)",
               "tags": [
                 {
                   "key": "service",
+                  "operator": "=",
+                  "value": "scheduler"
+                },
+                {
+                  "condition": "AND",
+                  "key": "state",
+                  "operator": "=",
+                  "value": "up"
+                }
+              ]
+            }
+          ],
+          "thresholds": "0,1,1",
+          "title": "Up",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "datasource": null,
+          "editable": true,
+          "error": false,
+          "format": "none",
+          "id": 62,
+          "interval": "> 60s",
+          "links": [],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 1,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "targets": [
+            {
+              "column": "value",
+              "dsType": "influxdb",
+              "fill": "",
+              "function": "last",
+              "groupBy": [
+                {
+                  "params": [
+                    "auto"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "openstack_cinder_services",
+              "query": "SELECT last(\"value\") FROM \"openstack_cinder_services\" WHERE \"service\" = 'scheduler' AND \"state\" = 'down' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  }
+                ]
+              ],
+              "series": "merge(/openstack.cinder.services.scheduler.disabled/)",
+              "tags": [
+                {
+                  "key": "service",
+                  "operator": "=",
+                  "value": "scheduler"
+                },
+                {
+                  "condition": "AND",
+                  "key": "state",
+                  "operator": "=",
+                  "value": "down"
+                }
+              ]
+            }
+          ],
+          "thresholds": "0,1,1",
+          "title": "Down",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
+        },
+        {
+          "columns": [],
+          "editable": true,
+          "error": false,
+          "fontSize": "100%",
+          "hideTimeOverride": false,
+          "id": 63,
+          "interval": ">60s",
+          "isNew": true,
+          "links": [],
+          "pageSize": null,
+          "scroll": true,
+          "showHeader": true,
+          "sort": {
+            "col": 0,
+            "desc": true
+          },
+          "span": 7,
+          "styles": [
+            {
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "pattern": "Time",
+              "type": "date"
+            },
+            {
+              "colorMode": null,
+              "colors": [
+                "rgba(245, 54, 54, 0.9)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(50, 172, 45, 0.97)"
+              ],
+              "decimals": 2,
+              "pattern": "/.*/",
+              "thresholds": [],
+              "type": "string",
+              "unit": "short"
+            }
+          ],
+          "targets": [
+            {
+              "alias": "",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "openstack_nova_service",
+              "query": "SELECT state, last(value) FROM \"openstack_cinder_service\" WHERE $timeFilter and service = 'scheduler' GROUP BY time($interval), hostname fill(0)",
+              "rawQuery": true,
+              "refId": "A",
+              "resultFormat": "table",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": []
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "History",
+          "transform": "table",
+          "type": "table"
+        },
+        {
+          "content": "<br />\n<h3 align=\"center\"> Volumes </h3>",
+          "editable": true,
+          "error": false,
+          "id": 64,
+          "links": [],
+          "mode": "html",
+          "span": 2,
+          "style": {},
+          "title": "",
+          "type": "text"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "datasource": null,
+          "editable": true,
+          "error": false,
+          "format": "none",
+          "id": 65,
+          "interval": "> 60s",
+          "links": [],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 1,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "targets": [
+            {
+              "column": "value",
+              "dsType": "influxdb",
+              "fill": "",
+              "function": "last",
+              "groupBy": [
+                {
+                  "params": [
+                    "auto"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "openstack_cinder_services",
+              "query": "SELECT last(\"value\") FROM \"openstack_cinder_services\" WHERE \"service\" = 'scheduler' AND \"state\" = 'disabled' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  }
+                ]
+              ],
+              "series": "merge(/openstack.cinder.services.scheduler.disabled/)",
+              "tags": [
+                {
+                  "key": "service",
+                  "operator": "=",
+                  "value": "scheduler"
+                },
+                {
+                  "condition": "AND",
+                  "key": "state",
+                  "operator": "=",
+                  "value": "disabled"
+                }
+              ]
+            }
+          ],
+          "thresholds": "0,1,1",
+          "title": "",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "datasource": null,
+          "editable": true,
+          "error": false,
+          "format": "none",
+          "id": 66,
+          "interval": "> 60s",
+          "links": [],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 1,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "targets": [
+            {
+              "column": "value",
+              "dsType": "influxdb",
+              "fill": "",
+              "function": "last",
+              "groupBy": [
+                {
+                  "params": [
+                    "auto"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "openstack_cinder_services",
+              "query": "SELECT last(\"value\") FROM \"openstack_cinder_services\" WHERE \"service\" = 'volume' AND \"state\" = 'up' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  }
+                ]
+              ],
+              "series": "merge(/openstack.cinder.services.scheduler.disabled/)",
+              "tags": [
+                {
+                  "key": "service",
+                  "operator": "=",
                   "value": "volume"
                 },
                 {
                   "condition": "AND",
                   "key": "state",
-                  "value": "disabled"
-                }
-              ]
-            }
-          ],
-          "thresholds": "0,1,1",
-          "title": "Volume nodes",
-          "type": "singlestat",
-          "valueFontSize": "80%",
-          "valueMaps": [
-            {
-              "op": "=",
-              "text": "N/A",
-              "value": "null"
-            }
-          ],
-          "valueName": "current"
-        },
-        {
-          "cacheTimeout": null,
-          "colorBackground": false,
-          "colorValue": false,
-          "colors": [
-            "rgba(50, 172, 45, 0.97)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(245, 54, 54, 0.9)"
-          ],
-          "datasource": null,
-          "editable": true,
-          "error": false,
-          "format": "none",
-          "id": 39,
-          "interval": "> 60s",
-          "links": [],
-          "maxDataPoints": 100,
-          "nullPointMode": "connected",
-          "nullText": null,
-          "postfix": "",
-          "postfixFontSize": "50%",
-          "prefix": "",
-          "prefixFontSize": "50%",
-          "span": 2,
-          "sparkline": {
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "show": false
-          },
-          "targets": [
-            {
-              "column": "value",
-              "dsType": "influxdb",
-              "fill": "",
-              "function": "last",
-              "groupBy": [
-                {
-                  "params": [
-                    "auto"
-                  ],
-                  "type": "time"
-                }
-              ],
-              "measurement": "openstack_cinder_services",
-              "query": "SELECT last(\"value\") FROM \"openstack_cinder_services\" WHERE \"service\" = 'backup' AND \"state\" = 'disabled' AND $timeFilter GROUP BY time($interval)",
-              "rawQuery": false,
-              "refId": "A",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "value"
-                    ],
-                    "type": "field"
-                  },
-                  {
-                    "params": [],
-                    "type": "last"
-                  }
-                ]
-              ],
-              "series": "merge(/openstack.cinder.services.scheduler.disabled/)",
-              "tags": [
-                {
-                  "key": "service",
-                  "value": "backup"
-                },
-                {
-                  "condition": "AND",
-                  "key": "state",
-                  "value": "disabled"
-                }
-              ]
-            }
-          ],
-          "thresholds": "0,1,1",
-          "title": "Backup nodes",
-          "type": "singlestat",
-          "valueFontSize": "80%",
-          "valueMaps": [
-            {
-              "op": "=",
-              "text": "N/A",
-              "value": "null"
-            }
-          ],
-          "valueName": "current"
-        },
-        {
-          "content": "",
-          "editable": true,
-          "error": false,
-          "id": 38,
-          "links": [],
-          "mode": "markdown",
-          "span": 4,
-          "style": {},
-          "title": "",
-          "type": "text"
-        },
-        {
-          "content": "<br />\n<h3 align=\"center\"> Up </h3>",
-          "editable": true,
-          "error": false,
-          "id": 34,
-          "links": [],
-          "mode": "html",
-          "span": 2,
-          "style": {},
-          "title": "",
-          "type": "text"
-        },
-        {
-          "cacheTimeout": null,
-          "colorBackground": false,
-          "colorValue": false,
-          "colors": [
-            "rgba(50, 172, 45, 0.97)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(245, 54, 54, 0.9)"
-          ],
-          "datasource": null,
-          "editable": true,
-          "error": false,
-          "format": "none",
-          "id": 35,
-          "interval": "> 60s",
-          "links": [],
-          "maxDataPoints": 100,
-          "nullPointMode": "connected",
-          "nullText": null,
-          "postfix": "",
-          "postfixFontSize": "50%",
-          "prefix": "",
-          "prefixFontSize": "50%",
-          "span": 2,
-          "sparkline": {
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "show": false
-          },
-          "targets": [
-            {
-              "column": "value",
-              "dsType": "influxdb",
-              "fill": "",
-              "function": "last",
-              "groupBy": [
-                {
-                  "params": [
-                    "auto"
-                  ],
-                  "type": "time"
-                }
-              ],
-              "measurement": "openstack_cinder_services",
-              "query": "SELECT last(\"value\") FROM \"openstack_cinder_services\" WHERE \"service\" = 'scheduler' AND \"state\" = 'up' AND $timeFilter GROUP BY time($interval)",
-              "rawQuery": false,
-              "refId": "A",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "value"
-                    ],
-                    "type": "field"
-                  },
-                  {
-                    "params": [],
-                    "type": "last"
-                  }
-                ]
-              ],
-              "series": "merge(/openstack.cinder.services.scheduler.disabled/)",
-              "tags": [
-                {
-                  "key": "service",
-                  "value": "scheduler"
-                },
-                {
-                  "condition": "AND",
-                  "key": "state",
+                  "operator": "=",
                   "value": "up"
                 }
               ]
@@ -1575,96 +1777,6 @@
           "colorBackground": false,
           "colorValue": false,
           "colors": [
-            "rgba(71, 212, 59, 0.4)",
-            "rgba(245, 150, 40, 0.73)",
-            "rgba(225, 40, 40, 0.59)"
-          ],
-          "datasource": null,
-          "editable": true,
-          "error": false,
-          "format": "none",
-          "id": 36,
-          "interval": "> 60s",
-          "links": [],
-          "maxDataPoints": 100,
-          "nullPointMode": "connected",
-          "nullText": null,
-          "postfix": "",
-          "postfixFontSize": "50%",
-          "prefix": "",
-          "prefixFontSize": "50%",
-          "span": 2,
-          "sparkline": {
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "show": false
-          },
-          "targets": [
-            {
-              "column": "value",
-              "dsType": "influxdb",
-              "fill": "",
-              "function": "last",
-              "groupBy": [
-                {
-                  "params": [
-                    "auto"
-                  ],
-                  "type": "time"
-                }
-              ],
-              "measurement": "openstack_cinder_services",
-              "query": "SELECT last(\"value\") FROM \"openstack_cinder_services\" WHERE \"service\" = 'volume' AND \"state\" = 'up' AND $timeFilter GROUP BY time($interval)",
-              "rawQuery": false,
-              "refId": "A",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "value"
-                    ],
-                    "type": "field"
-                  },
-                  {
-                    "params": [],
-                    "type": "last"
-                  }
-                ]
-              ],
-              "series": "merge(/openstack.cinder.services.volume.disabled/)",
-              "tags": [
-                {
-                  "key": "service",
-                  "value": "volume"
-                },
-                {
-                  "condition": "AND",
-                  "key": "state",
-                  "value": "up"
-                }
-              ]
-            }
-          ],
-          "thresholds": "0,1,1",
-          "title": "",
-          "type": "singlestat",
-          "valueFontSize": "80%",
-          "valueMaps": [
-            {
-              "op": "=",
-              "text": "N/A",
-              "value": "null"
-            }
-          ],
-          "valueName": "current"
-        },
-        {
-          "cacheTimeout": null,
-          "colorBackground": false,
-          "colorValue": false,
-          "colors": [
             "rgba(50, 172, 45, 0.97)",
             "rgba(237, 129, 40, 0.89)",
             "rgba(245, 54, 54, 0.9)"
@@ -1673,7 +1785,7 @@
           "editable": true,
           "error": false,
           "format": "none",
-          "id": 40,
+          "id": 67,
           "interval": "> 60s",
           "links": [],
           "maxDataPoints": 100,
@@ -1683,7 +1795,7 @@
           "postfixFontSize": "50%",
           "prefix": "",
           "prefixFontSize": "50%",
-          "span": 2,
+          "span": 1,
           "sparkline": {
             "fillColor": "rgba(31, 118, 189, 0.18)",
             "full": false,
@@ -1702,10 +1814,16 @@
                     "auto"
                   ],
                   "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
                 }
               ],
               "measurement": "openstack_cinder_services",
-              "query": "SELECT last(\"value\") FROM \"openstack_cinder_services\" WHERE \"service\" = 'backup' AND \"state\" = 'up' AND $timeFilter GROUP BY time($interval)",
+              "query": "SELECT last(\"value\") FROM \"openstack_cinder_services\" WHERE \"service\" = 'volume' AND \"state\" = 'down' AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -1727,12 +1845,14 @@
               "tags": [
                 {
                   "key": "service",
-                  "value": "backup"
+                  "operator": "=",
+                  "value": "volume"
                 },
                 {
                   "condition": "AND",
                   "key": "state",
-                  "value": "up"
+                  "operator": "=",
+                  "value": "down"
                 }
               ]
             }
@@ -1751,22 +1871,94 @@
           "valueName": "current"
         },
         {
-          "content": "",
+          "columns": [],
           "editable": true,
           "error": false,
-          "id": 37,
+          "fontSize": "100%",
+          "hideTimeOverride": false,
+          "id": 68,
+          "interval": ">60s",
+          "isNew": true,
           "links": [],
-          "mode": "markdown",
-          "span": 4,
-          "style": {},
+          "pageSize": null,
+          "scroll": true,
+          "showHeader": true,
+          "sort": {
+            "col": 0,
+            "desc": true
+          },
+          "span": 7,
+          "styles": [
+            {
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "pattern": "Time",
+              "type": "date"
+            },
+            {
+              "colorMode": null,
+              "colors": [
+                "rgba(245, 54, 54, 0.9)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(50, 172, 45, 0.97)"
+              ],
+              "decimals": 2,
+              "pattern": "/.*/",
+              "thresholds": [],
+              "type": "string",
+              "unit": "short"
+            }
+          ],
+          "targets": [
+            {
+              "alias": "",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "openstack_nova_service",
+              "query": "SELECT state, last(value) FROM \"openstack_cinder_service\" WHERE $timeFilter and service = 'volume' GROUP BY time($interval), hostname fill(0)",
+              "rawQuery": true,
+              "refId": "A",
+              "resultFormat": "table",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": []
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
           "title": "",
-          "type": "text"
+          "transform": "table",
+          "type": "table"
         },
         {
-          "content": "<br />\n<h3 align=\"center\"> Down </h3>",
+          "content": "<br />\n<h3 align=\"center\"> Backups </h3>",
           "editable": true,
           "error": false,
-          "id": 41,
+          "id": 69,
           "links": [],
           "mode": "html",
           "span": 2,
@@ -1787,7 +1979,7 @@
           "editable": true,
           "error": false,
           "format": "none",
-          "id": 42,
+          "id": 70,
           "interval": "> 60s",
           "links": [],
           "maxDataPoints": 100,
@@ -1797,7 +1989,7 @@
           "postfixFontSize": "50%",
           "prefix": "",
           "prefixFontSize": "50%",
-          "span": 2,
+          "span": 1,
           "sparkline": {
             "fillColor": "rgba(31, 118, 189, 0.18)",
             "full": false,
@@ -1816,10 +2008,16 @@
                     "auto"
                   ],
                   "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
                 }
               ],
               "measurement": "openstack_cinder_services",
-              "query": "SELECT last(\"value\") FROM \"openstack_cinder_services\" WHERE \"service\" = 'scheduler' AND \"state\" = 'down' AND $timeFilter GROUP BY time($interval)",
+              "query": "SELECT last(\"value\") FROM \"openstack_cinder_services\" WHERE \"service\" = 'backup' AND \"state\" = 'disabled' AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -1841,102 +2039,14 @@
               "tags": [
                 {
                   "key": "service",
-                  "value": "scheduler"
+                  "operator": "=",
+                  "value": "backup"
                 },
                 {
                   "condition": "AND",
                   "key": "state",
-                  "value": "down"
-                }
-              ]
-            }
-          ],
-          "thresholds": "0,1,1",
-          "title": "",
-          "type": "singlestat",
-          "valueFontSize": "80%",
-          "valueMaps": [
-            {
-              "op": "=",
-              "text": "N/A",
-              "value": "null"
-            }
-          ],
-          "valueName": "current"
-        },
-        {
-          "cacheTimeout": null,
-          "colorBackground": false,
-          "colorValue": false,
-          "colors": [
-            "rgba(71, 212, 59, 0.4)",
-            "rgba(245, 150, 40, 0.73)",
-            "rgba(225, 40, 40, 0.59)"
-          ],
-          "datasource": null,
-          "editable": true,
-          "error": false,
-          "format": "none",
-          "id": 43,
-          "interval": "> 60s",
-          "links": [],
-          "maxDataPoints": 100,
-          "nullPointMode": "connected",
-          "nullText": null,
-          "postfix": "",
-          "postfixFontSize": "50%",
-          "prefix": "",
-          "prefixFontSize": "50%",
-          "span": 2,
-          "sparkline": {
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "show": false
-          },
-          "targets": [
-            {
-              "column": "value",
-              "dsType": "influxdb",
-              "fill": "",
-              "function": "last",
-              "groupBy": [
-                {
-                  "params": [
-                    "auto"
-                  ],
-                  "type": "time"
-                }
-              ],
-              "measurement": "openstack_cinder_services",
-              "query": "SELECT last(\"value\") FROM \"openstack_cinder_services\" WHERE \"service\" = 'volume' AND \"state\" = 'down' AND $timeFilter GROUP BY time($interval)",
-              "rawQuery": false,
-              "refId": "A",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "value"
-                    ],
-                    "type": "field"
-                  },
-                  {
-                    "params": [],
-                    "type": "last"
-                  }
-                ]
-              ],
-              "series": "merge(/openstack.cinder.services.volume.disabled/)",
-              "tags": [
-                {
-                  "key": "service",
-                  "value": "volume"
-                },
-                {
-                  "condition": "AND",
-                  "key": "state",
-                  "value": "down"
+                  "operator": "=",
+                  "value": "disabled"
                 }
               ]
             }
@@ -1967,7 +2077,7 @@
           "editable": true,
           "error": false,
           "format": "none",
-          "id": 44,
+          "id": 71,
           "interval": "> 60s",
           "links": [],
           "maxDataPoints": 100,
@@ -1977,7 +2087,7 @@
           "postfixFontSize": "50%",
           "prefix": "",
           "prefixFontSize": "50%",
-          "span": 2,
+          "span": 1,
           "sparkline": {
             "fillColor": "rgba(31, 118, 189, 0.18)",
             "full": false,
@@ -1996,10 +2106,16 @@
                     "auto"
                   ],
                   "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
                 }
               ],
               "measurement": "openstack_cinder_services",
-              "query": "SELECT last(\"value\") FROM \"openstack_cinder_services\" WHERE \"service\" = 'backup' AND \"state\" = 'down' AND $timeFilter GROUP BY time($interval)",
+              "query": "SELECT last(\"value\") FROM \"openstack_cinder_services\" WHERE \"service\" = 'backup' AND \"state\" = 'up' AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -2021,11 +2137,111 @@
               "tags": [
                 {
                   "key": "service",
+                  "operator": "=",
                   "value": "backup"
                 },
                 {
                   "condition": "AND",
                   "key": "state",
+                  "operator": "=",
+                  "value": "up"
+                }
+              ]
+            }
+          ],
+          "thresholds": "0,1,1",
+          "title": "",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "datasource": null,
+          "editable": true,
+          "error": false,
+          "format": "none",
+          "id": 72,
+          "interval": "> 60s",
+          "links": [],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 1,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "targets": [
+            {
+              "column": "value",
+              "dsType": "influxdb",
+              "fill": "",
+              "function": "last",
+              "groupBy": [
+                {
+                  "params": [
+                    "auto"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "openstack_cinder_services",
+              "query": "SELECT last(\"value\") FROM \"openstack_cinder_services\" WHERE \"service\" = 'backup' AND \"state\" = 'down' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  }
+                ]
+              ],
+              "series": "merge(/openstack.cinder.services.scheduler.disabled/)",
+              "tags": [
+                {
+                  "key": "service",
+                  "operator": "=",
+                  "value": "backup"
+                },
+                {
+                  "condition": "AND",
+                  "key": "state",
+                  "operator": "=",
                   "value": "down"
                 }
               ]
@@ -2045,16 +2261,88 @@
           "valueName": "current"
         },
         {
-          "content": "",
+          "columns": [],
           "editable": true,
           "error": false,
-          "id": 45,
+          "fontSize": "100%",
+          "hideTimeOverride": false,
+          "id": 73,
+          "interval": ">60s",
+          "isNew": true,
           "links": [],
-          "mode": "markdown",
-          "span": 4,
-          "style": {},
+          "pageSize": null,
+          "scroll": true,
+          "showHeader": true,
+          "sort": {
+            "col": 0,
+            "desc": true
+          },
+          "span": 7,
+          "styles": [
+            {
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "pattern": "Time",
+              "type": "date"
+            },
+            {
+              "colorMode": null,
+              "colors": [
+                "rgba(245, 54, 54, 0.9)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(50, 172, 45, 0.97)"
+              ],
+              "decimals": 2,
+              "pattern": "/.*/",
+              "thresholds": [],
+              "type": "string",
+              "unit": "short"
+            }
+          ],
+          "targets": [
+            {
+              "alias": "",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "openstack_nova_service",
+              "query": "SELECT state, last(value) FROM \"openstack_cinder_service\" WHERE $timeFilter and service = 'backup' GROUP BY time($interval), hostname fill(0)",
+              "rawQuery": true,
+              "refId": "A",
+              "resultFormat": "table",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": []
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
           "title": "",
-          "type": "text"
+          "transform": "table",
+          "type": "table"
         }
       ],
       "showTitle": true,
@@ -4215,5 +4503,5 @@
   },
   "timezone": "browser",
   "title": "Cinder",
-  "version": 2
+  "version": 10
 }
