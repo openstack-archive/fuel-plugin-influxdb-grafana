@@ -32,7 +32,7 @@ openstack::ha::haproxy_service { 'influxdb':
   listen_port            => $influxdb_port,
   balancermember_port    => $influxdb_port,
   haproxy_config_options => {
-    'option'     => ['httpchk GET /ping HTTP/1.1', 'dontlog-normal'],
+    'option'     => ['httpchk GET /ping HTTP/1.1', 'httplog', 'dontlog-normal'],
     'http-check' => 'expect status 204',
     'balance'    => 'roundrobin',
     'mode'       => 'http',
@@ -48,7 +48,7 @@ openstack::ha::haproxy_service { 'grafana':
   listen_port            => $grafana_port,
   balancermember_port    => $grafana_port,
   haproxy_config_options => {
-    'option'  => ['dontlog-normal'],
+    'option'  => ['httplog', 'dontlog-normal'],
     'balance' => 'source',
     'mode'    => 'http',
   },
