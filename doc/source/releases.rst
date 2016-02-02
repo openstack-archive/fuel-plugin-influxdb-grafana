@@ -7,7 +7,12 @@ Version 0.9.0
 -------------
 
 - A new dashboard for hypervisor metrics.
+- New dashboards for InfluxDB and Elasticsearch cluster.
 - Upgrade to Grafana 2.6.0.
+- Upgrade to InfluxDB 0.9.6.1.
+- Add supprot for InfluxDB clustering (it is in alpha state and we can use
+  at most three nodes).
+- Use MySLQ as Grafana backend to support HA.
 
 Version 0.8.0
 -------------
