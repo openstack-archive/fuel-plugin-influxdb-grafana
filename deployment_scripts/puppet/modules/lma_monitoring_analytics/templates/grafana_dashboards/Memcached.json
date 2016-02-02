@@ -104,6 +104,11 @@
               "series": "merge(/openstack.cinder.status/)",
               "tags": [
                 {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
+                {
                   "key": "cluster_name",
                   "operator": "=",
                   "value": "memcached"
@@ -221,6 +226,7 @@
               ],
               "measurement": "memcached_items_current",
               "query": "SELECT mean(\"value\") FROM \"memcached_items_current\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -238,7 +244,13 @@
                 ]
               ],
               "series": "/memcached.items.current/",
-              "tags": []
+              "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                }
+              ]
             }
           ],
           "timeFrom": null,
@@ -323,6 +335,7 @@
               ],
               "measurement": "memcached_df_cache_used",
               "query": "SELECT mean(\"value\") FROM \"memcached_df_cache_used\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -340,7 +353,13 @@
                 ]
               ],
               "series": "/memcached.df.cache.used/",
-              "tags": []
+              "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                }
+              ]
             }
           ],
           "timeFrom": null,
@@ -432,6 +451,7 @@
               "groupByTags": [],
               "measurement": "memcached_command_get",
               "query": "SELECT mean(\"value\") FROM \"memcached_command_get\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -449,7 +469,13 @@
                 ]
               ],
               "series": "merge(/memcached.command.get/)",
-              "tags": []
+              "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                }
+              ]
             },
             {
               "alias": "set",
@@ -492,7 +518,13 @@
                 ]
               ],
               "series": "merge(/memcached.command.set/)",
-              "tags": []
+              "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                }
+              ]
             }
           ],
           "timeFrom": null,
@@ -577,6 +609,7 @@
               ],
               "measurement": "memcached_df_cache_free",
               "query": "SELECT mean(\"value\") FROM \"memcached_df_cache_free\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -594,7 +627,13 @@
                 ]
               ],
               "series": "/memcached.df.cache.free/",
-              "tags": []
+              "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                }
+              ]
             }
           ],
           "timeFrom": null,
@@ -706,6 +745,7 @@
               "interval": "",
               "measurement": "memcached_percent_hitratio",
               "query": "SELECT mean(\"value\") FROM \"memcached_percent_hitratio\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -723,7 +763,13 @@
                 ]
               ],
               "series": "/memcached.percent.hitratio/",
-              "tags": [],
+              "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                }
+              ],
               "target": ""
             }
           ],
@@ -836,7 +882,13 @@
                 ]
               ],
               "series": "merge(/memcached.ops.hits/)",
-              "tags": []
+              "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                }
+              ]
             },
             {
               "alias": "misses",
@@ -880,7 +932,13 @@
                 ]
               ],
               "series": "merge(/memcached.ops.misses/)",
-              "tags": []
+              "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                }
+              ]
             },
             {
               "alias": "evictions",
@@ -904,6 +962,7 @@
               "groupByTags": [],
               "measurement": "memcached_ops_evictions",
               "query": "SELECT mean(\"value\") FROM \"memcached_ops_evictions\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "C",
               "resultFormat": "time_series",
               "select": [
@@ -921,7 +980,13 @@
                 ]
               ],
               "series": "merge(/memcached.ops.evictions/)",
-              "tags": [],
+              "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                }
+              ],
               "target": ""
             }
           ],
@@ -1045,7 +1110,13 @@
                 ]
               ],
               "series": "/memcached.octets.rx/",
-              "tags": []
+              "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                }
+              ]
             },
             {
               "alias": "$tag_hostname.rx",
@@ -1090,7 +1161,13 @@
                 ]
               ],
               "series": "/memcached.octets.rx/",
-              "tags": []
+              "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                }
+              ]
             }
           ],
           "timeFrom": null,
@@ -1180,6 +1257,7 @@
               "interval": "",
               "measurement": "memcached_connections_current",
               "query": "SELECT mean(\"value\") FROM \"memcached_connections_current\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -1197,7 +1275,13 @@
                 ]
               ],
               "series": "/memcached.connections/",
-              "tags": []
+              "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                }
+              ]
             }
           ],
           "timeFrom": null,
@@ -1224,7 +1308,21 @@
   "style": "dark",
   "tags": [],
   "templating": {
-    "list": []
+    "list": [
+      {
+        "allFormat": "regex values",
+        "current": {},
+        "datasource": null,
+        "includeAll": false,
+        "name": "environment",
+        "options": [],
+        "query": "show tag values from cpu_idle with key = environment_label",
+        "refresh": true,
+        "refresh_on_load": true,
+        "regex": "",
+        "type": "query"
+      }
+    ]
   },
   "time": {
     "from": "now-1h",
@@ -1263,5 +1361,5 @@
   },
   "timezone": "browser",
   "title": "Memcached",
-  "version": 2
+  "version": 3
 }

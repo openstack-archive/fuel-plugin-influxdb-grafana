@@ -4,7 +4,7 @@
   },
   "editable": true,
   "hideControls": false,
-  "id": 6,
+  "id": null,
   "links": [],
   "originalTitle": "LMA self-monitoring",
   "refresh": "1m",
@@ -59,6 +59,7 @@
               ],
               "measurement": "lma_components_threads",
               "query": "SELECT last(\"value\") FROM \"lma_components_threads\" WHERE \"hostname\" = '$node' AND \"service\" = 'hekad' AND $timeFilter GROUP BY time($interval)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -166,6 +167,7 @@
               ],
               "measurement": "lma_components_memory_rss",
               "query": "SELECT mean(\"value\") FROM \"lma_components_memory_rss\" WHERE \"hostname\" = '$node' AND \"service\" = 'hekad' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -276,6 +278,7 @@
               ],
               "measurement": "lma_components_disk_bytes_read",
               "query": "SELECT mean(\"value\") FROM \"lma_components_disk_bytes_read\" WHERE \"hostname\" = '$node' AND \"service\" = 'hekad' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -325,6 +328,7 @@
               ],
               "measurement": "lma_components_disk_bytes_write",
               "query": "SELECT mean(\"value\") FROM \"lma_components_disk_bytes_write\" WHERE \"hostname\" = '$node' AND \"service\" = 'hekad' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "B",
               "resultFormat": "time_series",
               "select": [
@@ -433,6 +437,7 @@
               ],
               "measurement": "lma_components_cputime_syst",
               "query": "SELECT mean(\"value\") FROM \"lma_components_cputime_syst\" WHERE \"hostname\" = '$node' AND \"service\" = 'hekad' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -482,6 +487,7 @@
               ],
               "measurement": "lma_components_cputime_user",
               "query": "SELECT mean(\"value\") FROM \"lma_components_cputime_user\" WHERE \"hostname\" = '$node' AND \"service\" = 'hekad' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "B",
               "resultFormat": "time_series",
               "select": [
@@ -605,7 +611,7 @@
               ],
               "hide": false,
               "measurement": "hekad_msg_count",
-              "query": "SELECT derivative(first(value),1s) FROM \"hekad_msg_count\" WHERE \"hostname\" = '$node' AND \"type\" = 'decoder' AND $timeFilter GROUP BY time($interval), \"name\" fill(0)",
+              "query": "SELECT derivative(first(value),1s) FROM \"hekad_msg_count\" WHERE \"hostname\" = '$node' AND \"type\" = 'decoder' AND $timeFilter AND \"environment_label\" = '$environment'GROUP BY time($interval), \"name\" fill(0)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -724,6 +730,7 @@
               ],
               "measurement": "hekad_msg_avg_duration",
               "query": "SELECT mean(\"value\") FROM \"hekad_msg_avg_duration\" WHERE \"hostname\" = '$node' AND \"type\" = 'decoder' AND $timeFilter GROUP BY time($interval), \"name\" fill(0)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -845,6 +852,7 @@
               "hide": false,
               "measurement": "hekad_memory",
               "query": "SELECT mean(\"value\") FROM \"hekad_memory\" WHERE \"hostname\" = '$node' AND \"type\" = 'decoder' AND $timeFilter GROUP BY time($interval), \"name\" fill(0)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -966,7 +974,7 @@
                 }
               ],
               "measurement": "hekad_msg_count",
-              "query": "SELECT derivative(first(value),1s) FROM \"hekad_msg_count\" WHERE \"hostname\" = '$node' AND \"type\" = 'filter' AND $timeFilter GROUP BY time($interval), \"name\" fill(0)",
+              "query": "SELECT derivative(first(value),1s) FROM \"hekad_msg_count\" WHERE \"hostname\" = '$node' AND \"type\" = 'filter' AND $timeFilter AND \"environment_label\" = '$environment'GROUP BY time($interval), \"name\" fill(0)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -1085,6 +1093,7 @@
               ],
               "measurement": "hekad_msg_avg_duration",
               "query": "SELECT mean(\"value\") FROM \"hekad_msg_avg_duration\" WHERE \"hostname\" = '$node' AND \"type\" = 'filter' AND $timeFilter GROUP BY time($interval), \"name\" fill(0)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -1206,6 +1215,7 @@
               "hide": false,
               "measurement": "hekad_memory",
               "query": "SELECT mean(\"value\") FROM \"hekad_memory\" WHERE \"hostname\" = '$node' AND \"type\" = 'filter' AND $timeFilter GROUP BY time($interval), \"name\" fill(0)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -1322,7 +1332,7 @@
               ],
               "hide": false,
               "measurement": "hekad_timer_event_count",
-              "query": "SELECT derivative(first(value),1s) AS \"first(value),1s\" FROM \"hekad_timer_event_count\" WHERE \"hostname\" = '$node' AND \"type\" = 'filter' AND $timeFilter GROUP BY time($interval), \"name\" fill(0)",
+              "query": "SELECT derivative(first(value),1s) AS \"first(value),1s\" FROM \"hekad_timer_event_count\" WHERE \"hostname\" = '$node' AND \"type\" = 'filter' AND $timeFilter AND \"environment_label\" = '$environment'GROUP BY time($interval), \"name\" fill(0)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -1441,6 +1451,7 @@
               ],
               "measurement": "hekad_timer_event_avg_duration",
               "query": "SELECT mean(\"value\") FROM \"hekad_timer_event_avg_duration\" WHERE \"hostname\" = '$node' AND \"type\" = 'filter' AND $timeFilter GROUP BY time($interval), \"name\" fill(0)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -1541,6 +1552,7 @@
               ],
               "measurement": "lma_components_threads",
               "query": "SELECT last(\"value\") FROM \"lma_components_threads\" WHERE \"hostname\" = '$node' AND \"service\" = 'collectd' AND $timeFilter GROUP BY time($interval)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -1648,6 +1660,7 @@
               ],
               "measurement": "lma_components_memory_rss",
               "query": "SELECT mean(\"value\") FROM \"lma_components_memory_rss\" WHERE \"hostname\" = '$node' AND \"service\" = 'collectd' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -1758,6 +1771,7 @@
               ],
               "measurement": "lma_components_disk_bytes_read",
               "query": "SELECT mean(\"value\") FROM \"lma_components_disk_bytes_read\" WHERE \"hostname\" = '$node' AND \"service\" = 'collectd' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -1807,6 +1821,7 @@
               ],
               "measurement": "lma_components_disk_bytes_write",
               "query": "SELECT mean(\"value\") FROM \"lma_components_disk_bytes_write\" WHERE \"hostname\" = '$node' AND \"service\" = 'collectd' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "B",
               "resultFormat": "time_series",
               "select": [
@@ -1915,6 +1930,7 @@
               ],
               "measurement": "lma_components_cputime_syst",
               "query": "SELECT mean(\"value\") FROM \"lma_components_cputime_syst\" WHERE \"hostname\" = '$node' AND \"service\" = 'collectd' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -1964,6 +1980,7 @@
               ],
               "measurement": "lma_components_cputime_user",
               "query": "SELECT mean(\"value\") FROM \"lma_components_cputime_user\" WHERE \"hostname\" = '$node' AND \"service\" = 'collectd' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "B",
               "resultFormat": "time_series",
               "select": [
@@ -2062,6 +2079,7 @@
               ],
               "measurement": "lma_components_threads",
               "query": "SELECT last(\"value\") FROM \"lma_components_threads\" WHERE \"service\" = 'influxd' AND $timeFilter GROUP BY time($interval)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -2079,6 +2097,11 @@
                 ]
               ],
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "service",
                   "value": "influxd"
@@ -2164,6 +2187,7 @@
               ],
               "measurement": "lma_components_memory_rss",
               "query": "SELECT mean(\"value\") FROM \"lma_components_memory_rss\" WHERE \"service\" = 'influxd' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -2181,6 +2205,11 @@
                 ]
               ],
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "service",
                   "value": "influxd"
@@ -2269,6 +2298,7 @@
               ],
               "measurement": "lma_components_disk_bytes_read",
               "query": "SELECT mean(\"value\") FROM \"lma_components_disk_bytes_read\" WHERE \"service\" = 'influxd' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -2286,6 +2316,11 @@
                 ]
               ],
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "service",
                   "value": "influxd"
@@ -2313,6 +2348,7 @@
               ],
               "measurement": "lma_components_disk_bytes_write",
               "query": "SELECT mean(\"value\") FROM \"lma_components_disk_bytes_write\" WHERE \"service\" = 'influxd' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "B",
               "resultFormat": "time_series",
               "select": [
@@ -2330,6 +2366,11 @@
                 ]
               ],
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "service",
                   "value": "influxd"
@@ -2416,6 +2457,7 @@
               ],
               "measurement": "lma_components_cputime_syst",
               "query": "SELECT mean(\"value\") FROM \"lma_components_cputime_syst\" WHERE \"service\" = 'influxd' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -2433,6 +2475,11 @@
                 ]
               ],
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "service",
                   "value": "influxd"
@@ -2460,6 +2507,7 @@
               ],
               "measurement": "lma_components_cputime_user",
               "query": "SELECT mean(\"value\") FROM \"lma_components_cputime_user\" WHERE \"service\" = 'influxd' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "B",
               "resultFormat": "time_series",
               "select": [
@@ -2477,6 +2525,11 @@
                 ]
               ],
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "service",
                   "value": "influxd"
@@ -2542,6 +2595,7 @@
               ],
               "measurement": "fs_space_percent_free",
               "query": "SELECT mean(\"value\") FROM \"fs_space_percent_free\" WHERE \"fs\" = '/var/lib/influxdb' AND $timeFilter GROUP BY time($interval)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -2559,6 +2613,11 @@
                 ]
               ],
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "fs",
                   "operator": "=",
@@ -2661,6 +2720,11 @@
               ],
               "tags": [
                 {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
+                {
                   "key": "fs",
                   "operator": "=",
                   "value": "/var/lib/influxdb"
@@ -2705,6 +2769,11 @@
               ],
               "tags": [
                 {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
+                {
                   "key": "fs",
                   "operator": "=",
                   "value": "/var/lib/influxdb"
@@ -2748,6 +2817,11 @@
                 ]
               ],
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "fs",
                   "operator": "=",
@@ -2825,6 +2899,7 @@
               ],
               "measurement": "lma_components_threads",
               "query": "SELECT last(\"value\") FROM \"lma_components_threads\" WHERE \"service\" = 'grafana-server' AND $timeFilter GROUP BY time($interval)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -2842,6 +2917,11 @@
                 ]
               ],
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "service",
                   "value": "grafana-server"
@@ -2927,6 +3007,7 @@
               ],
               "measurement": "lma_components_memory_rss",
               "query": "SELECT mean(\"value\") FROM \"lma_components_memory_rss\" WHERE \"service\" = 'grafana-server' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -2944,6 +3025,11 @@
                 ]
               ],
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "service",
                   "value": "grafana-server"
@@ -3032,6 +3118,7 @@
               ],
               "measurement": "lma_components_disk_bytes_read",
               "query": "SELECT mean(\"value\") FROM \"lma_components_disk_bytes_read\" WHERE \"service\" = 'grafana-server' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -3049,6 +3136,11 @@
                 ]
               ],
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "service",
                   "value": "grafana-server"
@@ -3076,6 +3168,7 @@
               ],
               "measurement": "lma_components_disk_bytes_write",
               "query": "SELECT mean(\"value\") FROM \"lma_components_disk_bytes_write\" WHERE \"service\" = 'grafana-server' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "B",
               "resultFormat": "time_series",
               "select": [
@@ -3093,6 +3186,11 @@
                 ]
               ],
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "service",
                   "value": "grafana-server"
@@ -3179,6 +3277,7 @@
               ],
               "measurement": "lma_components_cputime_syst",
               "query": "SELECT mean(\"value\") FROM \"lma_components_cputime_syst\" WHERE \"service\" = 'grafana-server' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -3196,6 +3295,11 @@
                 ]
               ],
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "service",
                   "value": "grafana-server"
@@ -3223,6 +3327,7 @@
               ],
               "measurement": "lma_components_cputime_user",
               "query": "SELECT mean(\"value\") FROM \"lma_components_cputime_user\" WHERE \"service\" = 'grafana-server' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "B",
               "resultFormat": "time_series",
               "select": [
@@ -3240,6 +3345,11 @@
                 ]
               ],
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "service",
                   "value": "grafana-server"
@@ -3274,6 +3384,19 @@
   "templating": {
     "enable": true,
     "list": [
+      {
+        "allFormat": "regex values",
+        "current": {},
+        "datasource": null,
+        "includeAll": false,
+        "name": "environment",
+        "options": [],
+        "query": "show tag values from cpu_idle with key = environment_label",
+        "refresh": true,
+        "refresh_on_load": true,
+        "regex": "",
+        "type": "query"
+      },
       {
         "allFormat": "glob",
         "current": {},
@@ -3326,5 +3449,5 @@
   },
   "timezone": "browser",
   "title": "LMA self-monitoring",
-  "version": 3
+  "version": 4
 }

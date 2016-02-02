@@ -126,6 +126,7 @@
               "groupByTags": [],
               "measurement": "cpu_idle",
               "query": "SELECT mean(\"value\") FROM \"cpu_idle\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "B",
               "resultFormat": "time_series",
               "select": [
@@ -173,6 +174,7 @@
               "groupByTags": [],
               "measurement": "cpu_interrupt",
               "query": "SELECT mean(\"value\") FROM \"cpu_interrupt\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "C",
               "resultFormat": "time_series",
               "select": [
@@ -220,6 +222,7 @@
               "groupByTags": [],
               "measurement": "cpu_nice",
               "query": "SELECT mean(\"value\") FROM \"cpu_nice\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "D",
               "resultFormat": "time_series",
               "select": [
@@ -267,6 +270,7 @@
               "groupByTags": [],
               "measurement": "cpu_system",
               "query": "SELECT mean(\"value\") FROM \"cpu_system\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "E",
               "resultFormat": "time_series",
               "select": [
@@ -314,6 +318,7 @@
               "groupByTags": [],
               "measurement": "cpu_steal",
               "query": "SELECT mean(\"value\") FROM \"cpu_steal\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "F",
               "resultFormat": "time_series",
               "select": [
@@ -361,6 +366,7 @@
               "groupByTags": [],
               "measurement": "cpu_wait",
               "query": "SELECT mean(\"value\") FROM \"cpu_wait\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "G",
               "resultFormat": "time_series",
               "select": [
@@ -478,6 +484,7 @@
               "interval": "",
               "measurement": "memory_used",
               "query": "SELECT mean(\"value\") FROM \"memory_used\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -526,6 +533,7 @@
               "interval": "",
               "measurement": "memory_buffered",
               "query": "SELECT mean(\"value\") FROM \"memory_buffered\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "B",
               "resultFormat": "time_series",
               "select": [
@@ -574,6 +582,7 @@
               "interval": "",
               "measurement": "memory_cached",
               "query": "SELECT mean(\"value\") FROM \"memory_cached\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "C",
               "resultFormat": "time_series",
               "select": [
@@ -622,6 +631,7 @@
               "interval": "",
               "measurement": "memory_free",
               "query": "SELECT mean(\"value\") FROM \"memory_free\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "D",
               "resultFormat": "time_series",
               "select": [
@@ -730,6 +740,7 @@
               "groupByTags": [],
               "measurement": "load_shortterm",
               "query": "SELECT mean(\"value\") FROM \"load_shortterm\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -776,6 +787,7 @@
               "groupByTags": [],
               "measurement": "load_midterm",
               "query": "SELECT mean(\"value\") FROM \"load_midterm\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "B",
               "resultFormat": "time_series",
               "select": [
@@ -822,6 +834,7 @@
               "groupByTags": [],
               "measurement": "load_longterm",
               "query": "SELECT mean(\"value\") FROM \"load_longterm\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "C",
               "resultFormat": "time_series",
               "select": [
@@ -934,6 +947,7 @@
               "groupByTags": [],
               "measurement": "processes_count",
               "query": "SELECT max(\"value\") FROM \"processes_count\" WHERE \"hostname\" = '$server' AND \"state\" = 'blocked' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -985,6 +999,7 @@
               "groupByTags": [],
               "measurement": "processes_count",
               "query": "SELECT max(\"value\") FROM \"processes_count\" WHERE \"hostname\" = '$server' AND \"state\" = 'paging' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "B",
               "resultFormat": "time_series",
               "select": [
@@ -1036,6 +1051,7 @@
               "groupByTags": [],
               "measurement": "processes_count",
               "query": "SELECT max(\"value\") FROM \"processes_count\" WHERE \"hostname\" = '$server' AND \"state\" = 'running' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "C",
               "resultFormat": "time_series",
               "select": [
@@ -1087,6 +1103,7 @@
               "groupByTags": [],
               "measurement": "processes_count",
               "query": "SELECT max(\"value\") FROM \"processes_count\" WHERE \"hostname\" = '$server' AND \"state\" = 'sleeping' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "D",
               "resultFormat": "time_series",
               "select": [
@@ -1138,6 +1155,7 @@
               "groupByTags": [],
               "measurement": "processes_count",
               "query": "SELECT max(\"value\") FROM \"processes_count\" WHERE \"hostname\" = '$server' AND \"state\" = 'stopped' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "E",
               "resultFormat": "time_series",
               "select": [
@@ -1189,6 +1207,7 @@
               "groupByTags": [],
               "measurement": "processes_count",
               "query": "SELECT max(\"value\") FROM \"processes_count\" WHERE \"hostname\" = '$server' AND \"state\" = 'zombies' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "F",
               "resultFormat": "time_series",
               "select": [
@@ -1300,6 +1319,7 @@
               "groupByTags": [],
               "measurement": "processes_fork_rate",
               "query": "SELECT max(\"value\") FROM \"processes_fork_rate\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -1612,6 +1632,7 @@
               "interval": "",
               "measurement": "fs_space_used",
               "query": "SELECT mean(\"value\") FROM \"fs_space_used\" WHERE \"hostname\" = '$server' AND \"fs\" = '$mount' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -1665,6 +1686,7 @@
               "interval": "",
               "measurement": "fs_space_reserved",
               "query": "SELECT mean(\"value\") FROM \"fs_space_reserved\" WHERE \"hostname\" = '$server' AND \"fs\" = '$mount' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "B",
               "resultFormat": "time_series",
               "select": [
@@ -1718,6 +1740,7 @@
               "interval": "",
               "measurement": "fs_space_free",
               "query": "SELECT mean(\"value\") FROM \"fs_space_free\" WHERE \"hostname\" = '$server' AND \"fs\" = '$mount' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "C",
               "resultFormat": "time_series",
               "select": [
@@ -1938,6 +1961,7 @@
               "interval": "",
               "measurement": "fs_inodes_used",
               "query": "SELECT mean(\"value\") FROM \"fs_inodes_used\" WHERE \"hostname\" = '$server' AND \"fs\" = '$mount' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -1991,6 +2015,7 @@
               "interval": "",
               "measurement": "fs_inodes_reserved",
               "query": "SELECT mean(\"value\") FROM \"fs_inodes_reserved\" WHERE \"hostname\" = '$server' AND \"fs\" = '$mount' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "B",
               "resultFormat": "time_series",
               "select": [
@@ -2044,6 +2069,7 @@
               "interval": "",
               "measurement": "fs_inodes_free",
               "query": "SELECT mean(\"value\") FROM \"fs_inodes_free\" WHERE \"hostname\" = '$server' AND \"fs\" = '$mount' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "C",
               "resultFormat": "time_series",
               "select": [
@@ -2167,6 +2193,7 @@
               "groupByTags": [],
               "measurement": "disk_merged_read",
               "query": "SELECT max(\"value\") FROM \"disk_merged_read\" WHERE \"hostname\" = '$server' AND \"device\" = '$disk' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -2218,6 +2245,7 @@
               "groupByTags": [],
               "measurement": "disk_merged_write",
               "query": "SELECT max(\"value\") FROM \"disk_merged_write\" WHERE \"hostname\" = '$server' AND \"device\" = '$disk' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "B",
               "resultFormat": "time_series",
               "select": [
@@ -2329,6 +2357,7 @@
               "groupByTags": [],
               "measurement": "disk_ops_read",
               "query": "SELECT max(\"value\") FROM \"disk_ops_read\" WHERE \"hostname\" = '$server' AND \"device\" = '$disk' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -2380,6 +2409,7 @@
               "groupByTags": [],
               "measurement": "disk_ops_write",
               "query": "SELECT max(\"value\") FROM \"disk_ops_write\" WHERE \"hostname\" = '$server' AND \"device\" = '$disk' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "B",
               "resultFormat": "time_series",
               "select": [
@@ -2491,6 +2521,7 @@
               "groupByTags": [],
               "measurement": "disk_octets_read",
               "query": "SELECT max(\"value\") FROM \"disk_octets_read\" WHERE \"hostname\" = '$server' AND \"device\" = '$disk' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -2542,6 +2573,7 @@
               "groupByTags": [],
               "measurement": "disk_octets_write",
               "query": "SELECT max(\"value\") FROM \"disk_octets_write\" WHERE \"hostname\" = '$server' AND \"device\" = '$disk' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "B",
               "resultFormat": "time_series",
               "select": [
@@ -2662,6 +2694,7 @@
               "groupByTags": [],
               "measurement": "if_octets_rx",
               "query": "SELECT max(\"value\") FROM \"if_octets_rx\" WHERE \"hostname\" = '$server' AND \"interface\" = '$interface' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -2713,6 +2746,7 @@
               "groupByTags": [],
               "measurement": "if_octets_tx",
               "query": "SELECT max(\"value\") FROM \"if_octets_tx\" WHERE \"hostname\" = '$server' AND \"interface\" = '$interface' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "B",
               "resultFormat": "time_series",
               "select": [
@@ -2824,6 +2858,7 @@
               "groupByTags": [],
               "measurement": "if_packets_rx",
               "query": "SELECT max(\"value\") FROM \"if_packets_rx\" WHERE \"hostname\" = '$server' AND \"interface\" = '$interface' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -2875,6 +2910,7 @@
               "groupByTags": [],
               "measurement": "if_packets_tx",
               "query": "SELECT max(\"value\") FROM \"if_packets_tx\" WHERE \"hostname\" = '$server' AND \"interface\" = '$interface' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "B",
               "resultFormat": "time_series",
               "select": [
@@ -2986,6 +3022,7 @@
               "groupByTags": [],
               "measurement": "if_errors_rx",
               "query": "SELECT max(\"value\") FROM \"if_errors_rx\" WHERE \"hostname\" = '$server' AND \"interface\" = '$interface' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -3037,6 +3074,7 @@
               "groupByTags": [],
               "measurement": "if_errors_tx",
               "query": "SELECT max(\"value\") FROM \"if_errors_tx\" WHERE \"hostname\" = '$server' AND \"interface\" = '$interface' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "B",
               "resultFormat": "time_series",
               "select": [
@@ -3156,6 +3194,7 @@
               "groupByTags": [],
               "measurement": "swap_used",
               "query": "SELECT mean(\"value\") FROM \"swap_used\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -3202,6 +3241,7 @@
               "groupByTags": [],
               "measurement": "swap_cached",
               "query": "SELECT mean(\"value\") FROM \"swap_cached\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "B",
               "resultFormat": "time_series",
               "select": [
@@ -3248,6 +3288,7 @@
               "groupByTags": [],
               "measurement": "swap_free",
               "query": "SELECT mean(\"value\") FROM \"swap_free\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "C",
               "resultFormat": "time_series",
               "select": [
@@ -3354,6 +3395,7 @@
               "groupByTags": [],
               "measurement": "swap_io_out",
               "query": "SELECT max(\"value\") FROM \"swap_io_out\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -3400,6 +3442,7 @@
               "groupByTags": [],
               "measurement": "swap_io_in",
               "query": "SELECT max(\"value\") FROM \"swap_io_in\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "B",
               "resultFormat": "time_series",
               "select": [
@@ -3452,6 +3495,19 @@
   "templating": {
     "enable": true,
     "list": [
+      {
+        "allFormat": "regex values",
+        "current": {},
+        "datasource": null,
+        "includeAll": false,
+        "name": "environment",
+        "options": [],
+        "query": "show tag values from cpu_idle with key = environment_label",
+        "refresh": true,
+        "refresh_on_load": true,
+        "regex": "",
+        "type": "query"
+      },
       {
         "allFormat": "glob",
         "current": {},
@@ -3543,5 +3599,5 @@
   },
   "timezone": "browser",
   "title": "System",
-  "version": 2
+  "version": 3
 }

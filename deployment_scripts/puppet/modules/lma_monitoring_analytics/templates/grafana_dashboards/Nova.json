@@ -19,7 +19,7 @@
   },
   "editable": true,
   "hideControls": false,
-  "id": 17,
+  "id": null,
   "links": [],
   "originalTitle": "Nova",
   "refresh": "1m",
@@ -104,6 +104,11 @@
               ],
               "series": "merge(/openstack.cinder.status/)",
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "cluster_name",
                   "operator": "=",
@@ -318,6 +323,7 @@
               "interval": "",
               "measurement": "openstack_nova_http_responses",
               "query": "SELECT mean(\"value\") FROM \"openstack_nova_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_method\" = 'GET' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -370,6 +376,7 @@
               "interval": "",
               "measurement": "openstack_nova_http_responses",
               "query": "SELECT mean(\"value\") FROM \"openstack_nova_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_method\" = 'POST' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "B",
               "resultFormat": "time_series",
               "select": [
@@ -422,6 +429,7 @@
               "interval": "",
               "measurement": "openstack_nova_http_responses",
               "query": "SELECT mean(\"value\") FROM \"openstack_nova_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_method\" = 'PUT' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "C",
               "resultFormat": "time_series",
               "select": [
@@ -474,6 +482,7 @@
               "interval": "",
               "measurement": "openstack_nova_http_responses",
               "query": "SELECT mean(\"value\") FROM \"openstack_nova_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_method\" = 'DELETE' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "D",
               "resultFormat": "time_series",
               "select": [
@@ -586,6 +595,7 @@
               "groupByTags": [],
               "measurement": "openstack_check_api",
               "query": "SELECT last(\"value\") FROM \"openstack_check_api\" WHERE \"service\" = 'nova-api' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -604,6 +614,11 @@
               ],
               "series": "merge(/openstack.cinder.check_api/)",
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "service",
                   "operator": "=",
@@ -751,6 +766,7 @@
               "interval": "",
               "measurement": "openstack_nova_http_responses",
               "query": "SELECT count(\"value\") FROM \"openstack_nova_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^1/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "B",
               "resultFormat": "time_series",
               "select": [
@@ -804,6 +820,7 @@
               "interval": "",
               "measurement": "openstack_nova_http_responses",
               "query": "SELECT count(\"value\") FROM \"openstack_nova_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^3/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "C",
               "resultFormat": "time_series",
               "select": [
@@ -857,6 +874,7 @@
               "interval": "",
               "measurement": "openstack_nova_http_responses",
               "query": "SELECT count(\"value\") FROM \"openstack_nova_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^4/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "D",
               "resultFormat": "time_series",
               "select": [
@@ -910,6 +928,7 @@
               "interval": "",
               "measurement": "openstack_nova_http_responses",
               "query": "SELECT count(\"value\") FROM \"openstack_nova_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^5/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "E",
               "resultFormat": "time_series",
               "select": [
@@ -1029,6 +1048,7 @@
               "groupByTags": [],
               "measurement": "haproxy_backend_servers",
               "query": "SELECT last(\"value\") FROM \"haproxy_backend_servers\" WHERE \"backend\" = 'nova-api' AND \"state\" = 'up' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -1047,6 +1067,11 @@
               ],
               "series": "merge(/haproxy.backend.nova-api.servers.up/)",
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "backend",
                   "value": "nova-api"
@@ -1125,6 +1150,7 @@
               "groupByTags": [],
               "measurement": "haproxy_backend_servers",
               "query": "SELECT last(\"value\") FROM \"haproxy_backend_servers\" WHERE \"backend\" = 'nova-ec2-api' AND \"state\" = 'up' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -1143,6 +1169,11 @@
               ],
               "series": "merge(/haproxy.backend.nova-ec2-api.servers.up/)",
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "backend",
                   "value": "nova-ec2-api"
@@ -1221,6 +1252,7 @@
               "groupByTags": [],
               "measurement": "haproxy_backend_servers",
               "query": "SELECT last(\"value\") FROM \"haproxy_backend_servers\" WHERE \"backend\" = 'nova-metadata-api' AND \"state\" = 'up' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -1239,6 +1271,11 @@
               ],
               "series": "merge(/haproxy.backend.nova-metadata-api.servers.up/)",
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "backend",
                   "value": "nova-metadata-api"
@@ -1317,6 +1354,7 @@
               "groupByTags": [],
               "measurement": "haproxy_backend_servers",
               "query": "SELECT last(\"value\") FROM \"haproxy_backend_servers\" WHERE \"backend\" = 'nova-novncproxy-websocket' AND \"state\" = 'up' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -1335,6 +1373,11 @@
               ],
               "series": "merge(/haproxy.backend.nova-novncproxy-websocket.servers.up/)",
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "backend",
                   "value": "nova-novncproxy-websocket"
@@ -1437,6 +1480,7 @@
               "groupByTags": [],
               "measurement": "haproxy_backend_servers",
               "query": "SELECT last(\"value\") FROM \"haproxy_backend_servers\" WHERE \"backend\" = 'nova-api' AND \"state\" = 'down' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -1455,6 +1499,11 @@
               ],
               "series": "merge(/haproxy.backend.nova-api.servers.down/)",
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "backend",
                   "value": "nova-api"
@@ -1533,6 +1582,7 @@
               "groupByTags": [],
               "measurement": "haproxy_backend_servers",
               "query": "SELECT last(\"value\") FROM \"haproxy_backend_servers\" WHERE \"backend\" = 'nova-ec2-api' AND \"state\" = 'down' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -1551,6 +1601,11 @@
               ],
               "series": "merge(/haproxy.backend.nova-ec2-api.servers.down/)",
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "backend",
                   "value": "nova-ec2-api"
@@ -1629,6 +1684,7 @@
               "groupByTags": [],
               "measurement": "haproxy_backend_servers",
               "query": "SELECT last(\"value\") FROM \"haproxy_backend_servers\" WHERE \"backend\" = 'nova-metadata-api' AND \"state\" = 'down' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -1647,6 +1703,11 @@
               ],
               "series": "merge(/haproxy.backend.nova-metadata-api.servers.down/)",
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "backend",
                   "value": "nova-metadata-api"
@@ -1725,6 +1786,7 @@
               "groupByTags": [],
               "measurement": "haproxy_backend_servers",
               "query": "SELECT last(\"value\") FROM \"haproxy_backend_servers\" WHERE \"backend\" = 'nova-novncproxy-websocket' AND \"state\" = 'down' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -1743,6 +1805,11 @@
               ],
               "series": "merge(/haproxy.backend.nova-novncproxy-websocket.servers.down/)",
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "backend",
                   "value": "nova-novncproxy-websocket"
@@ -1854,6 +1921,7 @@
               ],
               "measurement": "openstack_nova_services",
               "query": "SELECT last(\"value\") FROM \"openstack_nova_services\" WHERE \"service\" = 'compute' AND \"state\" = 'disabled' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -1872,6 +1940,11 @@
               ],
               "series": "merge(/openstack.nova.services.compute.disabled/)",
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "service",
                   "operator": "=",
@@ -1952,6 +2025,7 @@
               ],
               "measurement": "openstack_nova_services",
               "query": "SELECT last(\"value\") FROM \"openstack_nova_services\" WHERE \"service\" = 'compute' AND \"state\" = 'up' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -1970,6 +2044,11 @@
               ],
               "series": "merge(/openstack.nova.services.compute.up/)",
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "service",
                   "operator": "=",
@@ -2050,6 +2129,7 @@
               ],
               "measurement": "openstack_nova_services",
               "query": "SELECT last(\"value\") FROM \"openstack_nova_services\" WHERE \"service\" = 'compute' AND \"state\" = 'down' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -2068,6 +2148,11 @@
               ],
               "series": "merge(/openstack.nova.services.compute.down/)",
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "service",
                   "operator": "=",
@@ -2152,7 +2237,7 @@
                 }
               ],
               "measurement": "openstack_nova_service",
-              "query": "SELECT state, last(value) FROM \"openstack_nova_service\" WHERE $timeFilter and service = 'compute' GROUP BY time($interval), hostname fill(0)",
+              "query": "SELECT state, last(value) FROM \"openstack_nova_service\" WHERE $timeFilter AND \"environment_label\" = '$environment'and service = 'compute' GROUP BY time($interval), hostname fill(0)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "table",
@@ -2244,6 +2329,7 @@
               ],
               "measurement": "openstack_nova_services",
               "query": "SELECT last(\"value\") FROM \"openstack_nova_services\" WHERE \"service\" = 'scheduler' AND \"state\" = 'disabled' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -2262,6 +2348,11 @@
               ],
               "series": "merge(/openstack.nova.services.scheduler.disabled/)",
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "service",
                   "operator": "=",
@@ -2342,6 +2433,7 @@
               ],
               "measurement": "openstack_nova_services",
               "query": "SELECT last(\"value\") FROM \"openstack_nova_services\" WHERE \"service\" = 'scheduler' AND \"state\" = 'up' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -2360,6 +2452,11 @@
               ],
               "series": "merge(/openstack.nova.services.scheduler.up/)",
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "service",
                   "operator": "=",
@@ -2440,6 +2537,7 @@
               ],
               "measurement": "openstack_nova_services",
               "query": "SELECT last(\"value\") FROM \"openstack_nova_services\" WHERE \"service\" = 'scheduler' AND \"state\" = 'down' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -2458,6 +2556,11 @@
               ],
               "series": "merge(/openstack.nova.services.scheduler.down/)",
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "service",
                   "operator": "=",
@@ -2542,7 +2645,7 @@
                 }
               ],
               "measurement": "openstack_nova_service",
-              "query": "SELECT state, last(value) FROM \"openstack_nova_service\" WHERE $timeFilter and service = 'scheduler' GROUP BY time($interval), hostname fill(0)",
+              "query": "SELECT state, last(value) FROM \"openstack_nova_service\" WHERE $timeFilter AND \"environment_label\" = '$environment'and service = 'scheduler' GROUP BY time($interval), hostname fill(0)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "table",
@@ -2634,6 +2737,7 @@
               ],
               "measurement": "openstack_nova_services",
               "query": "SELECT last(\"value\") FROM \"openstack_nova_services\" WHERE \"service\" = 'conductor' AND \"state\" = 'disabled' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -2652,6 +2756,11 @@
               ],
               "series": "merge(/openstack.nova.services.scheduler.disabled/)",
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "service",
                   "operator": "=",
@@ -2732,6 +2841,7 @@
               ],
               "measurement": "openstack_nova_services",
               "query": "SELECT last(\"value\") FROM \"openstack_nova_services\" WHERE \"service\" = 'conductor' AND \"state\" = 'up' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -2750,6 +2860,11 @@
               ],
               "series": "merge(/openstack.nova.services.scheduler.up/)",
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "service",
                   "operator": "=",
@@ -2830,6 +2945,7 @@
               ],
               "measurement": "openstack_nova_services",
               "query": "SELECT last(\"value\") FROM \"openstack_nova_services\" WHERE \"service\" = 'conductor' AND \"state\" = 'down' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -2848,6 +2964,11 @@
               ],
               "series": "merge(/openstack.nova.services.scheduler.down/)",
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "service",
                   "operator": "=",
@@ -2932,7 +3053,7 @@
                 }
               ],
               "measurement": "openstack_nova_service",
-              "query": "SELECT state, last(value) FROM \"openstack_nova_service\" WHERE $timeFilter and service = 'conductor' GROUP BY time($interval), hostname fill(0)",
+              "query": "SELECT state, last(value) FROM \"openstack_nova_service\" WHERE $timeFilter AND \"environment_label\" = '$environment'and service = 'conductor' GROUP BY time($interval), hostname fill(0)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "table",
@@ -3024,6 +3145,7 @@
               ],
               "measurement": "openstack_nova_services",
               "query": "SELECT last(\"value\") FROM \"openstack_nova_services\" WHERE \"service\" = 'cert' AND \"state\" = 'disabled' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -3042,6 +3164,11 @@
               ],
               "series": "merge(/openstack.nova.services.scheduler.disabled/)",
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "service",
                   "operator": "=",
@@ -3122,6 +3249,7 @@
               ],
               "measurement": "openstack_nova_services",
               "query": "SELECT last(\"value\") FROM \"openstack_nova_services\" WHERE \"service\" = 'cert' AND \"state\" = 'up' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -3140,6 +3268,11 @@
               ],
               "series": "merge(/openstack.nova.services.scheduler.up/)",
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "service",
                   "operator": "=",
@@ -3220,6 +3353,7 @@
               ],
               "measurement": "openstack_nova_services",
               "query": "SELECT last(\"value\") FROM \"openstack_nova_services\" WHERE \"service\" = 'cert' AND \"state\" = 'down' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -3238,6 +3372,11 @@
               ],
               "series": "merge(/openstack.nova.services.scheduler.down/)",
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "service",
                   "operator": "=",
@@ -3322,7 +3461,7 @@
                 }
               ],
               "measurement": "openstack_nova_service",
-              "query": "SELECT state, last(value) FROM \"openstack_nova_service\" WHERE $timeFilter and service = 'cert' GROUP BY time($interval), hostname fill(0)",
+              "query": "SELECT state, last(value) FROM \"openstack_nova_service\" WHERE $timeFilter AND \"environment_label\" = '$environment'and service = 'cert' GROUP BY time($interval), hostname fill(0)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "table",
@@ -3414,6 +3553,7 @@
               ],
               "measurement": "openstack_nova_services",
               "query": "SELECT last(\"value\") FROM \"openstack_nova_services\" WHERE \"service\" = 'consoleauth' AND \"state\" = 'disabled' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -3432,6 +3572,11 @@
               ],
               "series": "merge(/openstack.nova.services.scheduler.disabled/)",
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "service",
                   "operator": "=",
@@ -3512,6 +3657,7 @@
               ],
               "measurement": "openstack_nova_services",
               "query": "SELECT last(\"value\") FROM \"openstack_nova_services\" WHERE \"service\" = 'consoleauth' AND \"state\" = 'up' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -3530,6 +3676,11 @@
               ],
               "series": "merge(/openstack.nova.services.scheduler.up/)",
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "service",
                   "operator": "=",
@@ -3610,6 +3761,7 @@
               ],
               "measurement": "openstack_nova_services",
               "query": "SELECT last(\"value\") FROM \"openstack_nova_services\" WHERE \"service\" = 'consoleauth' AND \"state\" = 'down' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -3628,6 +3780,11 @@
               ],
               "series": "merge(/openstack.nova.services.scheduler.down/)",
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "service",
                   "operator": "=",
@@ -3712,7 +3869,7 @@
                 }
               ],
               "measurement": "openstack_nova_service",
-              "query": "SELECT state, last(value) FROM \"openstack_nova_service\" WHERE $timeFilter and service = 'consoleauth' GROUP BY time($interval), hostname fill(0)",
+              "query": "SELECT state, last(value) FROM \"openstack_nova_service\" WHERE $timeFilter AND \"environment_label\" = '$environment'and service = 'consoleauth' GROUP BY time($interval), hostname fill(0)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "table",
@@ -3801,6 +3958,7 @@
               "groupByTags": [],
               "measurement": "openstack_nova_instances",
               "query": "SELECT last(\"value\") FROM \"openstack_nova_instances\" WHERE \"state\" = 'active' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -3819,6 +3977,11 @@
               ],
               "series": "merge(/openstack.nova.instances.active/)",
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "state",
                   "value": "active"
@@ -3906,6 +4069,7 @@
               "groupByTags": [],
               "measurement": "openstack_nova_instances",
               "query": "SELECT max(\"value\") FROM \"openstack_nova_instances\" WHERE \"state\" = 'active' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -3924,6 +4088,11 @@
               ],
               "series": "merge(/openstack.nova.instances.active/)",
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "state",
                   "value": "active"
@@ -3999,6 +4168,7 @@
               "groupByTags": [],
               "measurement": "openstack_nova_instances",
               "query": "SELECT last(\"value\") FROM \"openstack_nova_instances\" WHERE \"state\" = 'error' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -4017,6 +4187,11 @@
               ],
               "series": "merge(/openstack.nova.instances.error/)",
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "state",
                   "value": "error"
@@ -4103,6 +4278,7 @@
               "groupByTags": [],
               "measurement": "openstack_nova_instances",
               "query": "SELECT max(\"value\") FROM \"openstack_nova_instances\" WHERE \"state\" = 'error' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -4121,6 +4297,11 @@
               ],
               "series": "merge(/openstack.nova.instances.error/)",
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "state",
                   "value": "error"
@@ -4196,6 +4377,7 @@
               "groupByTags": [],
               "measurement": "openstack_nova_instance_creation_time",
               "query": "SELECT mean(\"value\") FROM \"openstack_nova_instance_creation_time\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -4213,7 +4395,13 @@
                 ]
               ],
               "series": "merge(/openstack.nova.instance_creation_time/)",
-              "tags": []
+              "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                }
+              ]
             }
           ],
           "thresholds": "",
@@ -4316,7 +4504,13 @@
                 ]
               ],
               "series": "merge(/openstack.nova.instance_creation_time/)",
-              "tags": []
+              "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                }
+              ]
             },
             {
               "alias": "max",
@@ -4359,7 +4553,13 @@
                 ]
               ],
               "series": "merge(/openstack.nova.instance_creation_time/)",
-              "tags": []
+              "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                }
+              ]
             },
             {
               "alias": "min",
@@ -4402,7 +4602,13 @@
                 ]
               ],
               "series": "merge(/openstack.nova.instance_creation_time/)",
-              "tags": []
+              "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                }
+              ]
             }
           ],
           "timeFrom": null,
@@ -4494,6 +4700,7 @@
               "groupByTags": [],
               "measurement": "openstack_nova_total_used_vcpus",
               "query": "SELECT last(\"value\") FROM \"openstack_nova_total_used_vcpus\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -4511,7 +4718,13 @@
                 ]
               ],
               "series": "merge(/openstack.nova.total_used_vcpus/)",
-              "tags": []
+              "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                }
+              ]
             }
           ],
           "thresholds": "",
@@ -4598,7 +4811,13 @@
                 ]
               ],
               "series": "merge(/openstack.nova.total_used_disk/)",
-              "tags": []
+              "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                }
+              ]
             }
           ],
           "thresholds": "",
@@ -4685,7 +4904,13 @@
                 ]
               ],
               "series": "merge(/openstack.nova.total_used_ram/)",
-              "tags": []
+              "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                }
+              ]
             }
           ],
           "thresholds": "",
@@ -4778,6 +5003,7 @@
               "groupByTags": [],
               "measurement": "openstack_nova_total_free_vcpus",
               "query": "SELECT last(\"value\") FROM \"openstack_nova_total_free_vcpus\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -4795,7 +5021,13 @@
                 ]
               ],
               "series": "merge(/openstack.nova.total_free_vcpus/)",
-              "tags": []
+              "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                }
+              ]
             }
           ],
           "thresholds": "",
@@ -4882,7 +5114,13 @@
                 ]
               ],
               "series": "merge(/openstack.nova.total_free_disk/)",
-              "tags": []
+              "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                }
+              ]
             }
           ],
           "thresholds": "",
@@ -4969,7 +5207,13 @@
                 ]
               ],
               "series": "merge(/openstack.nova.total_free_ram/)",
-              "tags": []
+              "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                }
+              ]
             }
           ],
           "thresholds": "",
@@ -5012,11 +5256,24 @@
       {
         "allFormat": "regex values",
         "current": {},
+        "datasource": null,
+        "includeAll": false,
+        "name": "environment",
+        "options": [],
+        "query": "show tag values from cpu_idle with key = environment_label",
+        "refresh": true,
+        "refresh_on_load": true,
+        "regex": "",
+        "type": "query"
+      },
+      {
+        "allFormat": "regex values",
+        "current": {},
         "datasource": "lma",
         "includeAll": true,
         "name": "server",
         "options": [],
-        "query": "show tag values from pacemaker_local_resource_active with key = hostname ",
+        "query": "show tag values from pacemaker_local_resource_active with key = hostname where environment_label = '$environment' ",
         "refresh": true,
         "refresh_on_load": true,
         "regex": "",
@@ -5061,5 +5318,5 @@
   },
   "timezone": "browser",
   "title": "Nova",
-  "version": 9
+  "version": 10
 }

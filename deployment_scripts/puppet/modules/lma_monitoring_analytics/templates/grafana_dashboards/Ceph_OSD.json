@@ -99,6 +99,11 @@
               "series": "/$osd.osd.op_wip/",
               "tags": [
                 {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
+                {
                   "key": "cluster",
                   "value": "/$cluster/"
                 },
@@ -184,7 +189,7 @@
                 }
               ],
               "measurement": "ceph_perf_osd_op",
-              "query": "SELECT derivative(first(value),1s) FROM \"ceph_perf_osd_op\" WHERE \"cluster\" =~ /$cluster/ AND \"osd\" =~ /$osd/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT derivative(first(value),1s) FROM \"ceph_perf_osd_op\" WHERE \"cluster\" =~ /$cluster/ AND \"osd\" =~ /$osd/ AND $timeFilter AND \"environment_label\" = '$environment'GROUP BY time($interval) fill(0)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -294,7 +299,7 @@
               "hide": false,
               "interval": "",
               "measurement": "ceph_perf_osd_op_in_bytes",
-              "query": "SELECT derivative(first(value),1s) FROM \"ceph_perf_osd_op_in_bytes\" WHERE \"cluster\" =~ /$cluster/ AND \"osd\" =~ /$osd/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT derivative(first(value),1s) FROM \"ceph_perf_osd_op_in_bytes\" WHERE \"cluster\" =~ /$cluster/ AND \"osd\" =~ /$osd/ AND $timeFilter AND \"environment_label\" = '$environment'GROUP BY time($interval) fill(0)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -343,7 +348,7 @@
               ],
               "interval": "",
               "measurement": "ceph_perf_osd_op_out_bytes",
-              "query": "SELECT derivative(first(value),1s) FROM \"ceph_perf_osd_op_out_bytes\" WHERE \"cluster\" =~ /$cluster/ AND \"osd\" =~ /$osd/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT derivative(first(value),1s) FROM \"ceph_perf_osd_op_out_bytes\" WHERE \"cluster\" =~ /$cluster/ AND \"osd\" =~ /$osd/ AND $timeFilter AND \"environment_label\" = '$environment'GROUP BY time($interval) fill(0)",
               "rawQuery": true,
               "refId": "B",
               "resultFormat": "time_series",
@@ -457,6 +462,7 @@
               ],
               "measurement": "ceph_perf_osd_op_latency",
               "query": "SELECT mean(\"value\") FROM \"ceph_perf_osd_op_latency\" WHERE \"cluster\" =~ /$cluster/ AND \"osd\" =~ /$osd/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -475,6 +481,11 @@
               ],
               "series": "/$osd.osd.op_latency$/",
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "cluster",
                   "value": "/$cluster/"
@@ -575,7 +586,7 @@
               ],
               "interval": "",
               "measurement": "ceph_perf_osd_op_r_out_bytes",
-              "query": "SELECT derivative(first(value),1s) FROM \"ceph_perf_osd_op_r_out_bytes\" WHERE \"cluster\" =~ /$cluster/ AND \"osd\" =~ /$osd/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT derivative(first(value),1s) FROM \"ceph_perf_osd_op_r_out_bytes\" WHERE \"cluster\" =~ /$cluster/ AND \"osd\" =~ /$osd/ AND $timeFilter AND \"environment_label\" = '$environment'GROUP BY time($interval) fill(0)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -624,7 +635,7 @@
               ],
               "interval": "",
               "measurement": "ceph_perf_osd_op_r",
-              "query": "SELECT derivative(first(value),1s) FROM \"ceph_perf_osd_op_r\" WHERE \"cluster\" =~ /$cluster/ AND \"osd\" =~ /$osd/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT derivative(first(value),1s) FROM \"ceph_perf_osd_op_r\" WHERE \"cluster\" =~ /$cluster/ AND \"osd\" =~ /$osd/ AND $timeFilter AND \"environment_label\" = '$environment'GROUP BY time($interval) fill(0)",
               "rawQuery": true,
               "refId": "B",
               "resultFormat": "time_series",
@@ -738,6 +749,7 @@
               ],
               "measurement": "ceph_perf_osd_op_r_latency",
               "query": "SELECT mean(\"value\") FROM \"ceph_perf_osd_op_r_latency\" WHERE \"cluster\" = 'ceph' AND \"osd\" =~ /$osd/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -756,6 +768,11 @@
               ],
               "series": "/$osd.osd.op_r_latency$/",
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "cluster",
                   "value": "ceph"
@@ -788,6 +805,7 @@
               ],
               "measurement": "ceph_perf_osd_op_r_process_latency",
               "query": "SELECT mean(\"value\") FROM \"ceph_perf_osd_op_r_process_latency\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "B",
               "resultFormat": "time_series",
               "select": [
@@ -805,7 +823,13 @@
                 ]
               ],
               "series": "/$osd.osd.op_r_process_latency$/",
-              "tags": []
+              "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                }
+              ]
             }
           ],
           "timeFrom": null,
@@ -895,7 +919,7 @@
                 }
               ],
               "measurement": "ceph_perf_osd_op_w_in_bytes",
-              "query": "SELECT derivative(first(value),1s) FROM \"ceph_perf_osd_op_w_in_bytes\" WHERE \"cluster\" =~ /$cluster/ AND \"osd\" =~ /$osd/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT derivative(first(value),1s) FROM \"ceph_perf_osd_op_w_in_bytes\" WHERE \"cluster\" =~ /$cluster/ AND \"osd\" =~ /$osd/ AND $timeFilter AND \"environment_label\" = '$environment'GROUP BY time($interval) fill(0)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -943,7 +967,7 @@
                 }
               ],
               "measurement": "ceph_perf_osd_op_w",
-              "query": "SELECT derivative(first(value),1s) FROM \"ceph_perf_osd_op_w\" WHERE \"cluster\" =~ /$cluster/ AND \"osd\" =~ /$osd/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT derivative(first(value),1s) FROM \"ceph_perf_osd_op_w\" WHERE \"cluster\" =~ /$cluster/ AND \"osd\" =~ /$osd/ AND $timeFilter AND \"environment_label\" = '$environment'GROUP BY time($interval) fill(0)",
               "rawQuery": true,
               "refId": "B",
               "resultFormat": "time_series",
@@ -991,7 +1015,7 @@
                 }
               ],
               "measurement": "ceph_perf_osd_op_w_rlat",
-              "query": "SELECT derivative(first(value),1s) FROM \"ceph_perf_osd_op_w_rlat\" WHERE \"cluster\" =~ /$cluster/ AND \"osd\" =~ /$osd/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT derivative(first(value),1s) FROM \"ceph_perf_osd_op_w_rlat\" WHERE \"cluster\" =~ /$cluster/ AND \"osd\" =~ /$osd/ AND $timeFilter AND \"environment_label\" = '$environment'GROUP BY time($interval) fill(0)",
               "rawQuery": true,
               "refId": "C",
               "resultFormat": "time_series",
@@ -1105,6 +1129,7 @@
               ],
               "measurement": "ceph_perf_osd_op_w_latency",
               "query": "SELECT mean(\"value\") FROM \"ceph_perf_osd_op_w_latency\" WHERE \"cluster\" =~ /$cluster/ AND \"osd\" =~ /$osd/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -1123,6 +1148,11 @@
               ],
               "series": "/$osd.osd.op_w_latency$/",
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "cluster",
                   "value": "/$cluster/"
@@ -1155,6 +1185,7 @@
               ],
               "measurement": "ceph_perf_osd_op_w_process_latency",
               "query": "SELECT mean(\"value\") FROM \"ceph_perf_osd_op_w_process_latency\" WHERE \"cluster\" =~ /$cluster/ AND \"osd\" =~ /$osd/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "B",
               "resultFormat": "time_series",
               "select": [
@@ -1173,6 +1204,11 @@
               ],
               "series": "/$osd.osd.op_w_process_latency$/",
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "cluster",
                   "value": "/$cluster/"
@@ -1272,7 +1308,7 @@
                 }
               ],
               "measurement": "ceph_perf_osd_op_rw_in_bytes",
-              "query": "SELECT derivative(first(value),1s) FROM \"ceph_perf_osd_op_rw_in_bytes\" WHERE \"cluster\" =~ /$cluster/ AND \"osd\" =~ /$osd/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT derivative(first(value),1s) FROM \"ceph_perf_osd_op_rw_in_bytes\" WHERE \"cluster\" =~ /$cluster/ AND \"osd\" =~ /$osd/ AND $timeFilter AND \"environment_label\" = '$environment'GROUP BY time($interval) fill(0)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -1320,7 +1356,7 @@
                 }
               ],
               "measurement": "ceph_perf_osd_op_rw",
-              "query": "SELECT derivative(first(value),1s) FROM \"ceph_perf_osd_op_rw\" WHERE \"cluster\" =~ /$cluster/ AND \"osd\" =~ /$osd/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT derivative(first(value),1s) FROM \"ceph_perf_osd_op_rw\" WHERE \"cluster\" =~ /$cluster/ AND \"osd\" =~ /$osd/ AND $timeFilter AND \"environment_label\" = '$environment'GROUP BY time($interval) fill(0)",
               "rawQuery": true,
               "refId": "B",
               "resultFormat": "time_series",
@@ -1368,7 +1404,7 @@
                 }
               ],
               "measurement": "ceph_perf_osd_op_rw_rlat",
-              "query": "SELECT derivative(first(value),1s) FROM \"ceph_perf_osd_op_rw_rlat\" WHERE \"cluster\" =~ /$cluster/ AND \"osd\" =~ /$osd/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT derivative(first(value),1s) FROM \"ceph_perf_osd_op_rw_rlat\" WHERE \"cluster\" =~ /$cluster/ AND \"osd\" =~ /$osd/ AND $timeFilter AND \"environment_label\" = '$environment'GROUP BY time($interval) fill(0)",
               "rawQuery": true,
               "refId": "C",
               "resultFormat": "time_series",
@@ -1482,6 +1518,7 @@
               ],
               "measurement": "ceph_perf_osd_op_rw_latency",
               "query": "SELECT mean(\"value\") FROM \"ceph_perf_osd_op_rw_latency\" WHERE \"cluster\" =~ /$cluster/ AND \"osd\" =~ /$osd/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -1500,6 +1537,11 @@
               ],
               "series": "/$osd.osd.op_rw_latency$/",
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "cluster",
                   "value": "/$cluster/"
@@ -1532,6 +1574,7 @@
               ],
               "measurement": "ceph_perf_osd_op_rw_process_latency",
               "query": "SELECT mean(\"value\") FROM \"ceph_perf_osd_op_rw_process_latency\" WHERE \"cluster\" =~ /$cluster/ AND \"osd\" =~ /$osd/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "B",
               "resultFormat": "time_series",
               "select": [
@@ -1550,6 +1593,11 @@
               ],
               "series": "/$osd.osd.op_rw_process_latency$/",
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "cluster",
                   "value": "/$cluster/"
@@ -1649,6 +1697,7 @@
               ],
               "measurement": "ceph_perf_osd_recovery_ops",
               "query": "SELECT mean(\"value\") FROM \"ceph_perf_osd_recovery_ops\" WHERE \"cluster\" =~ /$cluster/ AND \"osd\" =~ /$osd/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -1667,6 +1716,11 @@
               ],
               "series": "/$osd.*osd.recovery_ops/",
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "cluster",
                   "value": "/$cluster/"
@@ -1705,6 +1759,19 @@
   "templating": {
     "enable": true,
     "list": [
+      {
+        "allFormat": "regex values",
+        "current": {},
+        "datasource": null,
+        "includeAll": false,
+        "name": "environment",
+        "options": [],
+        "query": "show tag values from cpu_idle with key = environment_label",
+        "refresh": true,
+        "refresh_on_load": true,
+        "regex": "",
+        "type": "query"
+      },
       {
         "allFormat": "glob",
         "current": {},
@@ -1770,5 +1837,5 @@
   },
   "timezone": "browser",
   "title": "Ceph OSD",
-  "version": 2
+  "version": 3
 }

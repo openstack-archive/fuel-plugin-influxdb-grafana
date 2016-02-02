@@ -104,6 +104,11 @@
               "series": "merge(/openstack.cinder.status/)",
               "tags": [
                 {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
+                {
                   "key": "cluster_name",
                   "operator": "=",
                   "value": "rabbitmq"
@@ -202,6 +207,7 @@
               "groupByTags": [],
               "measurement": "rabbitmq_total_nodes",
               "query": "SELECT last(\"value\") FROM \"rabbitmq_total_nodes\" WHERE \"hostname\" =~ /$server/ AND $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -293,6 +299,7 @@
               "groupByTags": [],
               "measurement": "rabbitmq_running_nodes",
               "query": "SELECT last(\"value\") FROM \"rabbitmq_running_nodes\" WHERE \"hostname\" =~ /$server/ AND $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -403,6 +410,7 @@
               "groupByTags": [],
               "measurement": "rabbitmq_consumers",
               "query": "SELECT last(\"value\") FROM \"rabbitmq_consumers\" WHERE \"hostname\" =~ /$server/ AND $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -494,6 +502,7 @@
               "groupByTags": [],
               "measurement": "rabbitmq_queues",
               "query": "SELECT last(\"value\") FROM \"rabbitmq_queues\" WHERE \"hostname\" =~ /$server/ AND $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -585,6 +594,7 @@
               "groupByTags": [],
               "measurement": "rabbitmq_connections",
               "query": "SELECT last(\"value\") FROM \"rabbitmq_connections\" WHERE \"hostname\" =~ /$server/ AND $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -675,6 +685,7 @@
               "groupByTags": [],
               "measurement": "rabbitmq_exchanges",
               "query": "SELECT last(\"value\") FROM \"rabbitmq_exchanges\" WHERE \"hostname\" =~ /$server/ AND $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -799,7 +810,13 @@
                 ]
               ],
               "series": "/$server.rabbitmq.memory/",
-              "tags": []
+              "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                }
+              ]
             }
           ],
           "timeFrom": null,
@@ -885,6 +902,7 @@
               ],
               "measurement": "rabbitmq_messages",
               "query": "SELECT mean(\"value\") FROM \"rabbitmq_messages\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -902,7 +920,13 @@
                 ]
               ],
               "series": "/$server.rabbitmq.messages/",
-              "tags": []
+              "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                }
+              ]
             }
           ],
           "timeFrom": null,
@@ -1005,7 +1029,13 @@
                 ]
               ],
               "series": "/$server.rabbitmq.memory/",
-              "tags": []
+              "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                }
+              ]
             }
           ],
           "timeFrom": null,
@@ -1108,7 +1138,13 @@
                 ]
               ],
               "series": "/$server.rabbitmq.memory/",
-              "tags": []
+              "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                }
+              ]
             }
           ],
           "timeFrom": null,
@@ -1141,10 +1177,23 @@
         "allFormat": "regex values",
         "current": {},
         "datasource": null,
+        "includeAll": false,
+        "name": "environment",
+        "options": [],
+        "query": "show tag values from cpu_idle with key = environment_label",
+        "refresh": true,
+        "refresh_on_load": true,
+        "regex": "",
+        "type": "query"
+      },
+      {
+        "allFormat": "regex values",
+        "current": {},
+        "datasource": null,
         "includeAll": true,
         "name": "server",
         "options": [],
-        "query": "show tag values from pacemaker_local_resource_active with key = hostname ",
+        "query": "show tag values from pacemaker_local_resource_active with key = hostname where environment_label = '$environment' ",
         "refresh": true,
         "refresh_on_load": true,
         "regex": "",
@@ -1189,5 +1238,5 @@
   },
   "timezone": "browser",
   "title": "RabbitMQ",
-  "version": 2
+  "version": 3
 }
