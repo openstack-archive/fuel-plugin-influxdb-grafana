@@ -19,7 +19,7 @@
   },
   "editable": true,
   "hideControls": false,
-  "id": 5,
+  "id": null,
   "links": [],
   "originalTitle": "Cinder",
   "refresh": "1m",
@@ -97,6 +97,11 @@
               ],
               "series": "merge(/openstack.cinder.status/)",
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "cluster_name",
                   "operator": "=",
@@ -302,6 +307,7 @@
               "interval": "",
               "measurement": "openstack_cinder_http_responses",
               "query": "SELECT mean(\"value\") FROM \"openstack_cinder_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_method\" = 'GET' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -353,6 +359,7 @@
               "interval": "",
               "measurement": "openstack_cinder_http_responses",
               "query": "SELECT mean(\"value\") FROM \"openstack_cinder_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_method\" = 'POST' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "B",
               "resultFormat": "time_series",
               "select": [
@@ -404,6 +411,7 @@
               "interval": "",
               "measurement": "openstack_cinder_http_responses",
               "query": "SELECT mean(\"value\") FROM \"openstack_cinder_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_method\" = 'PUT' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "C",
               "resultFormat": "time_series",
               "select": [
@@ -455,6 +463,7 @@
               "interval": "",
               "measurement": "openstack_cinder_http_responses",
               "query": "SELECT mean(\"value\") FROM \"openstack_cinder_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_method\" = 'DELETE' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "D",
               "resultFormat": "time_series",
               "select": [
@@ -566,6 +575,7 @@
               ],
               "measurement": "openstack_check_api",
               "query": "SELECT last(\"value\") FROM \"openstack_check_api\" WHERE \"service\" = 'cinder-api' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -584,6 +594,11 @@
               ],
               "series": "merge(/openstack.cinder.check_api/)",
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "service",
                   "operator": "=",
@@ -729,6 +744,7 @@
               "interval": "",
               "measurement": "openstack_cinder_http_responses",
               "query": "SELECT count(\"value\") FROM \"openstack_cinder_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^1/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "B",
               "resultFormat": "time_series",
               "select": [
@@ -781,6 +797,7 @@
               "interval": "",
               "measurement": "openstack_cinder_http_responses",
               "query": "SELECT count(\"value\") FROM \"openstack_cinder_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^3/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "C",
               "resultFormat": "time_series",
               "select": [
@@ -833,6 +850,7 @@
               "interval": "",
               "measurement": "openstack_cinder_http_responses",
               "query": "SELECT count(\"value\") FROM \"openstack_cinder_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^4/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "D",
               "resultFormat": "time_series",
               "select": [
@@ -885,6 +903,7 @@
               "interval": "",
               "measurement": "openstack_cinder_http_responses",
               "query": "SELECT count(\"value\") FROM \"openstack_cinder_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^5/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "E",
               "resultFormat": "time_series",
               "select": [
@@ -1016,6 +1035,11 @@
               "series": "merge(/haproxy.backend.cinder-api.servers.up/)",
               "tags": [
                 {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
+                {
                   "key": "backend",
                   "value": "cinder-api"
                 },
@@ -1128,6 +1152,11 @@
               ],
               "series": "merge(/haproxy.backend.cinder-api.servers.down/)",
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "backend",
                   "value": "cinder-api"
@@ -1258,6 +1287,11 @@
               "series": "merge(/openstack.cinder.services.scheduler.disabled/)",
               "tags": [
                 {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
+                {
                   "key": "service",
                   "operator": "=",
                   "value": "scheduler"
@@ -1355,6 +1389,11 @@
               ],
               "series": "merge(/openstack.cinder.services.scheduler.disabled/)",
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "service",
                   "operator": "=",
@@ -1454,6 +1493,11 @@
               "series": "merge(/openstack.cinder.services.scheduler.disabled/)",
               "tags": [
                 {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
+                {
                   "key": "service",
                   "operator": "=",
                   "value": "scheduler"
@@ -1537,7 +1581,7 @@
                 }
               ],
               "measurement": "openstack_nova_service",
-              "query": "SELECT state, last(value) FROM \"openstack_cinder_service\" WHERE $timeFilter and service = 'scheduler' GROUP BY time($interval), hostname fill(0)",
+              "query": "SELECT state, last(value) FROM \"openstack_cinder_service\" WHERE $timeFilter AND \"environment_label\" = '$environment'and service = 'scheduler' GROUP BY time($interval), hostname fill(0)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "table",
@@ -1648,6 +1692,11 @@
               "series": "merge(/openstack.cinder.services.scheduler.disabled/)",
               "tags": [
                 {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
+                {
                   "key": "service",
                   "operator": "=",
                   "value": "scheduler"
@@ -1745,6 +1794,11 @@
               ],
               "series": "merge(/openstack.cinder.services.scheduler.disabled/)",
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "service",
                   "operator": "=",
@@ -1844,6 +1898,11 @@
               "series": "merge(/openstack.cinder.services.scheduler.disabled/)",
               "tags": [
                 {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
+                {
                   "key": "service",
                   "operator": "=",
                   "value": "volume"
@@ -1927,7 +1986,7 @@
                 }
               ],
               "measurement": "openstack_nova_service",
-              "query": "SELECT state, last(value) FROM \"openstack_cinder_service\" WHERE $timeFilter and service = 'volume' GROUP BY time($interval), hostname fill(0)",
+              "query": "SELECT state, last(value) FROM \"openstack_cinder_service\" WHERE $timeFilter AND \"environment_label\" = '$environment'and service = 'volume' GROUP BY time($interval), hostname fill(0)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "table",
@@ -2038,6 +2097,11 @@
               "series": "merge(/openstack.cinder.services.scheduler.disabled/)",
               "tags": [
                 {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
+                {
                   "key": "service",
                   "operator": "=",
                   "value": "backup"
@@ -2135,6 +2199,11 @@
               ],
               "series": "merge(/openstack.cinder.services.scheduler.disabled/)",
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "service",
                   "operator": "=",
@@ -2234,6 +2303,11 @@
               "series": "merge(/openstack.cinder.services.scheduler.disabled/)",
               "tags": [
                 {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
+                {
                   "key": "service",
                   "operator": "=",
                   "value": "backup"
@@ -2317,7 +2391,7 @@
                 }
               ],
               "measurement": "openstack_nova_service",
-              "query": "SELECT state, last(value) FROM \"openstack_cinder_service\" WHERE $timeFilter and service = 'backup' GROUP BY time($interval), hostname fill(0)",
+              "query": "SELECT state, last(value) FROM \"openstack_cinder_service\" WHERE $timeFilter AND \"environment_label\" = '$environment'and service = 'backup' GROUP BY time($interval), hostname fill(0)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "table",
@@ -2398,6 +2472,7 @@
               ],
               "measurement": "openstack_cinder_volumes",
               "query": "SELECT last(\"value\") FROM \"openstack_cinder_volumes\" WHERE \"state\" = 'available' AND $timeFilter GROUP BY time($interval)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -2416,6 +2491,11 @@
               ],
               "series": "merge(/openstack.cinder.volumes.available/)",
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "state",
                   "operator": "=",
@@ -2483,6 +2563,7 @@
               ],
               "measurement": "openstack_cinder_volumes",
               "query": "SELECT last(\"value\") FROM \"openstack_cinder_volumes\" WHERE \"state\" = 'in-use' AND $timeFilter GROUP BY time($interval)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -2501,6 +2582,11 @@
               ],
               "series": "merge(/openstack.cinder.volumes.in-use/)",
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "state",
                   "operator": "=",
@@ -2568,6 +2654,7 @@
               ],
               "measurement": "openstack_cinder_volumes",
               "query": "SELECT last(\"value\") FROM \"openstack_cinder_volumes\" WHERE \"state\" = 'error' AND $timeFilter GROUP BY time($interval)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -2586,6 +2673,11 @@
               ],
               "series": "merge(/openstack.cinder.volumes.error/)",
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "state",
                   "value": "error"
@@ -2672,6 +2764,7 @@
               "hide": false,
               "measurement": "openstack_cinder_volumes",
               "query": "SELECT max(\"value\") FROM \"openstack_cinder_volumes\" WHERE \"state\" = 'available' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -2690,6 +2783,11 @@
               ],
               "series": "merge(/openstack.cinder.volumes.available/)",
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "state",
                   "value": "available"
@@ -2717,6 +2815,7 @@
               ],
               "measurement": "openstack_cinder_volumes",
               "query": "SELECT max(\"value\") FROM \"openstack_cinder_volumes\" WHERE \"state\" = 'in-use' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "B",
               "resultFormat": "time_series",
               "select": [
@@ -2735,6 +2834,11 @@
               ],
               "series": "merge(/openstack.cinder.volumes.in-use/)",
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "state",
                   "value": "in-use"
@@ -2764,6 +2868,7 @@
               "hide": false,
               "measurement": "openstack_cinder_volumes",
               "query": "SELECT max(\"value\") FROM \"openstack_cinder_volumes\" WHERE \"state\" = 'error' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "C",
               "resultFormat": "time_series",
               "select": [
@@ -2782,6 +2887,11 @@
               ],
               "series": "merge(/openstack.cinder.volumes.error/)",
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "state",
                   "value": "error"
@@ -2850,6 +2960,7 @@
               ],
               "measurement": "openstack_cinder_volumes_size",
               "query": "SELECT last(\"value\") FROM \"openstack_cinder_volumes_size\" WHERE \"state\" = 'available' AND $timeFilter GROUP BY time($interval)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -2868,6 +2979,11 @@
               ],
               "series": "merge(/openstack.cinder.volumes_size.available/)",
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "state",
                   "value": "available"
@@ -2934,6 +3050,7 @@
               ],
               "measurement": "openstack_cinder_volumes_size",
               "query": "SELECT last(\"value\") FROM \"openstack_cinder_volumes_size\" WHERE \"state\" = 'in-use' AND $timeFilter GROUP BY time($interval)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -2952,6 +3069,11 @@
               ],
               "series": "merge(/openstack.cinder.volumes_size.in-use/)",
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "state",
                   "value": "in-use"
@@ -3018,6 +3140,7 @@
               ],
               "measurement": "openstack_cinder_volumes_size",
               "query": "SELECT last(\"value\") FROM \"openstack_cinder_volumes_size\" WHERE \"state\" = 'error' AND $timeFilter GROUP BY time($interval)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -3036,6 +3159,11 @@
               ],
               "series": "merge(/openstack.cinder.volumes_size.error/)",
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "state",
                   "value": "error"
@@ -3120,6 +3248,7 @@
               ],
               "measurement": "openstack_cinder_volumes_size",
               "query": "SELECT max(\"value\") FROM \"openstack_cinder_volumes_size\" WHERE \"state\" = 'available' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -3138,6 +3267,11 @@
               ],
               "series": "merge(/openstack.cinder.volumes_size.available/)",
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "state",
                   "operator": "=",
@@ -3166,6 +3300,7 @@
               ],
               "measurement": "openstack_cinder_volumes_size",
               "query": "SELECT max(\"value\") FROM \"openstack_cinder_volumes_size\" WHERE \"state\" = 'in-use' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "B",
               "resultFormat": "time_series",
               "select": [
@@ -3184,6 +3319,11 @@
               ],
               "series": "merge(/openstack.cinder.volumes_size.in-use/)",
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "state",
                   "operator": "=",
@@ -3212,6 +3352,7 @@
               ],
               "measurement": "openstack_cinder_volumes_size",
               "query": "SELECT max(\"value\") FROM \"openstack_cinder_volumes_size\" WHERE \"state\" = 'error' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "C",
               "resultFormat": "time_series",
               "select": [
@@ -3230,6 +3371,11 @@
               ],
               "series": "merge(/openstack.cinder.volumes_size.error/)",
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "state",
                   "operator": "=",
@@ -3298,6 +3444,7 @@
               ],
               "measurement": "openstack_cinder_volume_creation_time",
               "query": "SELECT last(\"value\") FROM \"openstack_cinder_volume_creation_time\" WHERE $timeFilter GROUP BY time($interval)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -3315,7 +3462,13 @@
                 ]
               ],
               "series": "merge(/openstack.cinder.volume_creation_time/)",
-              "tags": []
+              "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                }
+              ]
             }
           ],
           "thresholds": "",
@@ -3431,7 +3584,13 @@
                 ]
               ],
               "series": "merge(/openstack.cinder.volume_creation_time/)",
-              "tags": []
+              "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                }
+              ]
             },
             {
               "alias": "max",
@@ -3474,7 +3633,13 @@
                 ]
               ],
               "series": "merge(/openstack.cinder.volume_creation_time/)",
-              "tags": []
+              "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                }
+              ]
             },
             {
               "alias": "min",
@@ -3517,7 +3682,13 @@
                 ]
               ],
               "series": "merge(/openstack.cinder.volume_creation_time/)",
-              "tags": []
+              "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                }
+              ]
             }
           ],
           "timeFrom": null,
@@ -3589,6 +3760,7 @@
               ],
               "measurement": "openstack_cinder_snapshots",
               "query": "SELECT last(\"value\") FROM \"openstack_cinder_snapshots\" WHERE \"state\" = 'available' AND $timeFilter GROUP BY time($interval)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -3607,6 +3779,11 @@
               ],
               "series": "merge(/openstack.cinder.volumes.available/)",
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "state",
                   "value": "available"
@@ -3673,6 +3850,7 @@
               ],
               "measurement": "openstack_cinder_snapshots",
               "query": "SELECT last(\"value\") FROM \"openstack_cinder_snapshots\" WHERE \"state\" = 'in-use' AND $timeFilter GROUP BY time($interval)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -3691,6 +3869,11 @@
               ],
               "series": "merge(/openstack.cinder.volumes.in-use/)",
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "state",
                   "value": "in-use"
@@ -3757,6 +3940,7 @@
               ],
               "measurement": "openstack_cinder_snapshots",
               "query": "SELECT last(\"value\") FROM \"openstack_cinder_snapshots\" WHERE \"state\" = 'error' AND $timeFilter GROUP BY time($interval)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -3775,6 +3959,11 @@
               ],
               "series": "merge(/openstack.cinder.volumes.error/)",
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "state",
                   "value": "error"
@@ -3861,6 +4050,7 @@
               "hide": false,
               "measurement": "openstack_cinder_snapshots",
               "query": "SELECT max(\"value\") FROM \"openstack_cinder_snapshots\" WHERE \"state\" = 'available' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -3879,6 +4069,11 @@
               ],
               "series": "merge(/openstack.cinder.volumes.available/)",
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "state",
                   "value": "available"
@@ -3906,6 +4101,7 @@
               ],
               "measurement": "openstack_cinder_snapshots",
               "query": "SELECT max(\"value\") FROM \"openstack_cinder_snapshots\" WHERE \"state\" = 'in-use' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "B",
               "resultFormat": "time_series",
               "select": [
@@ -3924,6 +4120,11 @@
               ],
               "series": "merge(/openstack.cinder.volumes.in-use/)",
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "state",
                   "value": "in-use"
@@ -3953,6 +4154,7 @@
               "hide": false,
               "measurement": "openstack_cinder_snapshots",
               "query": "SELECT max(\"value\") FROM \"openstack_cinder_snapshots\" WHERE \"state\" = 'error' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "C",
               "resultFormat": "time_series",
               "select": [
@@ -3971,6 +4173,11 @@
               ],
               "series": "merge(/openstack.cinder.volumes.error/)",
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "state",
                   "value": "error"
@@ -4039,6 +4246,7 @@
               ],
               "measurement": "openstack_cinder_snapshots_size",
               "query": "SELECT last(\"value\") FROM \"openstack_cinder_snapshots_size\" WHERE \"state\" = 'available' AND $timeFilter GROUP BY time($interval)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -4057,6 +4265,11 @@
               ],
               "series": "merge(/openstack.cinder.volumes_size.available/)",
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "state",
                   "value": "available"
@@ -4123,6 +4336,7 @@
               ],
               "measurement": "openstack_cinder_snapshots_size",
               "query": "SELECT last(\"value\") FROM \"openstack_cinder_snapshots_size\" WHERE \"state\" = 'in-use' AND $timeFilter GROUP BY time($interval)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -4141,6 +4355,11 @@
               ],
               "series": "merge(/openstack.cinder.volumes_size.in-use/)",
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "state",
                   "value": "in-use"
@@ -4207,6 +4426,7 @@
               ],
               "measurement": "openstack_cinder_snapshots_size",
               "query": "SELECT last(\"value\") FROM \"openstack_cinder_snapshots_size\" WHERE \"state\" = 'error' AND $timeFilter GROUP BY time($interval)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -4225,6 +4445,11 @@
               ],
               "series": "merge(/openstack.cinder.volumes_size.error/)",
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "state",
                   "value": "error"
@@ -4309,6 +4534,7 @@
               ],
               "measurement": "openstack_cinder_snapshots_size",
               "query": "SELECT max(\"value\") FROM \"openstack_cinder_snapshots_size\" WHERE \"state\" = 'available' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -4327,6 +4553,11 @@
               ],
               "series": "merge(/openstack.cinder.volumes_size.available/)",
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "state",
                   "value": "available"
@@ -4354,6 +4585,7 @@
               ],
               "measurement": "openstack_cinder_snapshots_size",
               "query": "SELECT max(\"value\") FROM \"openstack_cinder_snapshots_size\" WHERE \"state\" = 'in-use' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "B",
               "resultFormat": "time_series",
               "select": [
@@ -4372,6 +4604,11 @@
               ],
               "series": "merge(/openstack.cinder.volumes_size.in-user/)",
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "state",
                   "value": "in-use"
@@ -4399,6 +4636,7 @@
               ],
               "measurement": "openstack_cinder_snapshots_size",
               "query": "SELECT max(\"value\") FROM \"openstack_cinder_snapshots_size\" WHERE \"state\" = 'error' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "C",
               "resultFormat": "time_series",
               "select": [
@@ -4417,6 +4655,11 @@
               ],
               "series": "merge(/openstack.cinder.volumes_size.error/)",
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "state",
                   "value": "error"
@@ -4455,10 +4698,23 @@
         "allFormat": "regex values",
         "current": {},
         "datasource": null,
+        "includeAll": false,
+        "name": "environment",
+        "options": [],
+        "query": "show tag values from cpu_idle with key = environment_label",
+        "refresh": true,
+        "refresh_on_load": true,
+        "regex": "",
+        "type": "query"
+      },
+      {
+        "allFormat": "regex values",
+        "current": {},
+        "datasource": null,
         "includeAll": true,
         "name": "server",
         "options": [],
-        "query": "show tag values from pacemaker_local_resource_active with key = hostname",
+        "query": "show tag values from pacemaker_local_resource_active with key = hostname where environment_label = '$environment'",
         "refresh": true,
         "refresh_on_load": true,
         "regex": "",
@@ -4503,5 +4759,5 @@
   },
   "timezone": "browser",
   "title": "Cinder",
-  "version": 10
+  "version": 11
 }

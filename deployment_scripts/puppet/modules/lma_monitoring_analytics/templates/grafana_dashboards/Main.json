@@ -97,6 +97,11 @@
               "series": "merge(/openstack.cinder.status/)",
               "tags": [
                 {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
+                {
                   "key": "cluster_name",
                   "operator": "=",
                   "value": "cinder"
@@ -224,6 +229,11 @@
               ],
               "series": "merge(/openstack.keystone.status/)",
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "cluster_name",
                   "operator": "=",
@@ -353,6 +363,11 @@
               "series": "merge(/openstack.glance.status/)",
               "tags": [
                 {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
+                {
                   "key": "cluster_name",
                   "operator": "=",
                   "value": "glance"
@@ -480,6 +495,11 @@
               ],
               "series": "merge(/openstack.heat.status/)",
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "cluster_name",
                   "operator": "=",
@@ -609,6 +629,11 @@
               "series": "merge(/openstack.neutron.status/)",
               "tags": [
                 {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
+                {
                   "key": "cluster_name",
                   "operator": "=",
                   "value": "neutron"
@@ -736,6 +761,11 @@
               ],
               "series": "merge(/openstack.nova.status/)",
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "cluster_name",
                   "operator": "=",
@@ -875,6 +905,11 @@
               "series": "merge(/\\.rabbitmq.status$/)",
               "tags": [
                 {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
+                {
                   "key": "cluster_name",
                   "operator": "=",
                   "value": "rabbitmq"
@@ -1000,6 +1035,11 @@
               ],
               "series": "merge(/mysql.status$/)",
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "cluster_name",
                   "operator": "=",
@@ -1128,6 +1168,11 @@
               "series": "merge(/mysql.status$/)",
               "tags": [
                 {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
+                {
                   "key": "cluster_name",
                   "operator": "=",
                   "value": "apache"
@@ -1255,6 +1300,11 @@
               "series": "merge(/mysql.status$/)",
               "tags": [
                 {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
+                {
                   "key": "cluster_name",
                   "operator": "=",
                   "value": "haproxy"
@@ -1381,6 +1431,11 @@
               ],
               "series": "merge(/mysql.status$/)",
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "cluster_name",
                   "operator": "=",
@@ -1519,7 +1574,13 @@
                 ]
               ],
               "series": "merge(/.*.openstack.nova.total_free_vcpus/)",
-              "tags": []
+              "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                }
+              ]
             },
             {
               "alias": "used",
@@ -1561,7 +1622,13 @@
                 ]
               ],
               "series": "merge(/.*.openstack.nova.total_used_vcpus/)",
-              "tags": []
+              "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                }
+              ]
             }
           ],
           "timeFrom": null,
@@ -1663,7 +1730,13 @@
                 ]
               ],
               "series": "$server.openstack.nova.free_ram",
-              "tags": []
+              "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                }
+              ]
             },
             {
               "alias": "used",
@@ -1705,7 +1778,13 @@
                 ]
               ],
               "series": "$server.openstack.nova.used_ram",
-              "tags": []
+              "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                }
+              ]
             }
           ],
           "timeFrom": null,
@@ -1806,7 +1885,13 @@
                 ]
               ],
               "series": "$server.openstack.nova.free_disk",
-              "tags": []
+              "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                }
+              ]
             },
             {
               "alias": "used",
@@ -1848,7 +1933,13 @@
                 ]
               ],
               "series": "$server.openstack.nova.used_disk",
-              "tags": []
+              "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                }
+              ]
             }
           ],
           "timeFrom": null,
@@ -1987,6 +2078,7 @@
               "groupByTags": [],
               "measurement": "cpu_idle",
               "query": "SELECT mean(\"value\") FROM \"cpu_idle\" WHERE \"hostname\" = '$controller' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "B",
               "resultFormat": "time_series",
               "select": [
@@ -2034,6 +2126,7 @@
               "groupByTags": [],
               "measurement": "cpu_interrupt",
               "query": "SELECT mean(\"value\") FROM \"cpu_interrupt\" WHERE \"hostname\" = '$controller' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "C",
               "resultFormat": "time_series",
               "select": [
@@ -2081,6 +2174,7 @@
               "groupByTags": [],
               "measurement": "cpu_nice",
               "query": "SELECT mean(\"value\") FROM \"cpu_nice\" WHERE \"hostname\" = '$controller' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "D",
               "resultFormat": "time_series",
               "select": [
@@ -2128,6 +2222,7 @@
               "groupByTags": [],
               "measurement": "cpu_system",
               "query": "SELECT mean(\"value\") FROM \"cpu_system\" WHERE \"hostname\" = '$controller' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "E",
               "resultFormat": "time_series",
               "select": [
@@ -2175,6 +2270,7 @@
               "groupByTags": [],
               "measurement": "cpu_steal",
               "query": "SELECT mean(\"value\") FROM \"cpu_steal\" WHERE \"hostname\" = '$controller' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "F",
               "resultFormat": "time_series",
               "select": [
@@ -2222,6 +2318,7 @@
               "groupByTags": [],
               "measurement": "cpu_wait",
               "query": "SELECT mean(\"value\") FROM \"cpu_wait\" WHERE \"hostname\" = '$controller' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "G",
               "resultFormat": "time_series",
               "select": [
@@ -2339,6 +2436,7 @@
               "interval": "",
               "measurement": "memory_used",
               "query": "SELECT mean(\"value\") FROM \"memory_used\" WHERE \"hostname\" = '$controller' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -2387,6 +2485,7 @@
               "interval": "",
               "measurement": "memory_buffered",
               "query": "SELECT mean(\"value\") FROM \"memory_buffered\" WHERE \"hostname\" = '$controller' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "B",
               "resultFormat": "time_series",
               "select": [
@@ -2435,6 +2534,7 @@
               "interval": "",
               "measurement": "memory_cached",
               "query": "SELECT mean(\"value\") FROM \"memory_cached\" WHERE \"hostname\" = '$controller' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "C",
               "resultFormat": "time_series",
               "select": [
@@ -2483,6 +2583,7 @@
               "interval": "",
               "measurement": "memory_free",
               "query": "SELECT mean(\"value\") FROM \"memory_free\" WHERE \"hostname\" = '$controller' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "D",
               "resultFormat": "time_series",
               "select": [
@@ -2577,7 +2678,7 @@
               ],
               "groupByTags": [],
               "measurement": "fs_space_percent_free",
-              "query": "SELECT last(value) FROM \"fs_space_percent_free\" WHERE \"hostname\" = '$controller' AND \"fs\" = '/' AND $timeFilter GROUP BY time($interval)",
+              "query": "SELECT last(value) FROM \"fs_space_percent_free\" WHERE \"hostname\" = '$controller' AND \"fs\" = '/' AND $timeFilter AND \"environment_label\" = '$environment'GROUP BY time($interval)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -2709,7 +2810,13 @@
                 ]
               ],
               "series": "merge(/ceph.cluster-ceph.health/)",
-              "tags": []
+              "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                }
+              ]
             }
           ],
           "thresholds": "1,2,3",
@@ -2812,7 +2919,13 @@
                 ]
               ],
               "series": "",
-              "tags": []
+              "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                }
+              ]
             }
           ],
           "thresholds": "",
@@ -2898,7 +3011,13 @@
                 ]
               ],
               "series": "merge(/$controller.ceph.cluster-ceph.pool.*.objects/)",
-              "tags": []
+              "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                }
+              ]
             }
           ],
           "thresholds": "",
@@ -2966,6 +3085,7 @@
               "groupByTags": [],
               "measurement": "ceph_osd_count_up",
               "query": "SELECT last(\"value\") FROM \"ceph_osd_count_up\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -2983,7 +3103,13 @@
                 ]
               ],
               "series": "/$controller.ceph.cluster-ceph.osd.up/",
-              "tags": []
+              "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                }
+              ]
             }
           ],
           "thresholds": "",
@@ -3051,6 +3177,7 @@
               "groupByTags": [],
               "measurement": "ceph_osd_count_down",
               "query": "SELECT last(\"value\") FROM \"ceph_osd_count_down\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -3068,7 +3195,13 @@
                 ]
               ],
               "series": "/$controller.ceph.cluster-ceph.osd.down/",
-              "tags": []
+              "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                }
+              ]
             }
           ],
           "thresholds": "",
@@ -3101,9 +3234,22 @@
         "current": {},
         "datasource": null,
         "includeAll": false,
+        "name": "environment",
+        "options": [],
+        "query": "show tag values from cpu_idle with key = environment_label",
+        "refresh": true,
+        "refresh_on_load": true,
+        "regex": "",
+        "type": "query"
+      },
+      {
+        "allFormat": "regex values",
+        "current": {},
+        "datasource": null,
+        "includeAll": false,
         "name": "controller",
         "options": [],
-        "query": "show tag values from pacemaker_local_resource_active with key = hostname",
+        "query": "show tag values from pacemaker_local_resource_active with key = hostname where environment_label = '$environment'",
         "refresh": true,
         "refresh_on_load": true,
         "regex": "",
@@ -3148,5 +3294,5 @@
   },
   "timezone": "browser",
   "title": "Main",
-  "version": 2
+  "version": 3
 }

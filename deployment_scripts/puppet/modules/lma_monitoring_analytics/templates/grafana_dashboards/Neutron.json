@@ -19,7 +19,7 @@
   },
   "editable": true,
   "hideControls": false,
-  "id": 15,
+  "id": null,
   "links": [],
   "originalTitle": "Neutron",
   "refresh": "1m",
@@ -104,6 +104,11 @@
               ],
               "series": "merge(/openstack.cinder.status/)",
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "cluster_name",
                   "operator": "=",
@@ -319,6 +324,7 @@
               "interval": "",
               "measurement": "openstack_neutron_http_responses",
               "query": "SELECT mean(\"value\") FROM \"openstack_neutron_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_method\" = 'GET' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -371,6 +377,7 @@
               "interval": "",
               "measurement": "openstack_neutron_http_responses",
               "query": "SELECT mean(\"value\") FROM \"openstack_neutron_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_method\" = 'POST' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "B",
               "resultFormat": "time_series",
               "select": [
@@ -423,6 +430,7 @@
               "interval": "",
               "measurement": "openstack_neutron_http_responses",
               "query": "SELECT mean(\"value\") FROM \"openstack_neutron_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_method\" = 'PUT' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "C",
               "resultFormat": "time_series",
               "select": [
@@ -475,6 +483,7 @@
               "interval": "",
               "measurement": "openstack_neutron_http_responses",
               "query": "SELECT mean(\"value\") FROM \"openstack_neutron_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_method\" = 'DELETE' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "D",
               "resultFormat": "time_series",
               "select": [
@@ -587,6 +596,7 @@
               "groupByTags": [],
               "measurement": "openstack_check_api",
               "query": "SELECT last(\"value\") FROM \"openstack_check_api\" WHERE \"service\" = 'neutron-api' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -605,6 +615,11 @@
               ],
               "series": "merge(/openstack.cinder.check_api/)",
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "service",
                   "operator": "=",
@@ -752,6 +767,7 @@
               "interval": "",
               "measurement": "openstack_neutron_http_responses",
               "query": "SELECT count(\"value\") FROM \"openstack_neutron_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^1/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "B",
               "resultFormat": "time_series",
               "select": [
@@ -805,6 +821,7 @@
               "interval": "",
               "measurement": "openstack_neutron_http_responses",
               "query": "SELECT count(\"value\") FROM \"openstack_neutron_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^3/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "C",
               "resultFormat": "time_series",
               "select": [
@@ -858,6 +875,7 @@
               "interval": "",
               "measurement": "openstack_neutron_http_responses",
               "query": "SELECT count(\"value\") FROM \"openstack_neutron_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^4/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "D",
               "resultFormat": "time_series",
               "select": [
@@ -911,6 +929,7 @@
               "interval": "",
               "measurement": "openstack_neutron_http_responses",
               "query": "SELECT count(\"value\") FROM \"openstack_neutron_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^5/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "E",
               "resultFormat": "time_series",
               "select": [
@@ -1029,6 +1048,7 @@
               "groupByTags": [],
               "measurement": "haproxy_backend_servers",
               "query": "SELECT last(\"value\") FROM \"haproxy_backend_servers\" WHERE \"backend\" = 'neutron-api' AND \"state\" = 'up' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -1047,6 +1067,11 @@
               ],
               "series": "merge(/haproxy.backend.neutron-api.servers.up/)",
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "backend",
                   "value": "neutron-api"
@@ -1148,6 +1173,7 @@
               "groupByTags": [],
               "measurement": "haproxy_backend_servers",
               "query": "SELECT last(\"value\") FROM \"haproxy_backend_servers\" WHERE \"backend\" = 'neutron-api' AND \"state\" = 'down' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -1166,6 +1192,11 @@
               ],
               "series": "merge(/haproxy.backend.neutron-api.servers.down/)",
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "backend",
                   "value": "neutron-api"
@@ -1277,6 +1308,7 @@
               ],
               "measurement": "openstack_neutron_agents",
               "query": "SELECT last(\"value\") FROM \"openstack_neutron_agents\" WHERE \"service\" = 'dhcp' AND \"state\" = 'disabled' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -1295,6 +1327,11 @@
               ],
               "series": "merge(/openstack.neutron.agents.dhcp.disabled/)",
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "service",
                   "operator": "=",
@@ -1375,6 +1412,7 @@
               ],
               "measurement": "openstack_neutron_agents",
               "query": "SELECT last(\"value\") FROM \"openstack_neutron_agents\" WHERE \"service\" = 'dhcp' AND \"state\" = 'up' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -1393,6 +1431,11 @@
               ],
               "series": "merge(/openstack.neutron.agents.dhcp.up/)",
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "service",
                   "operator": "=",
@@ -1473,6 +1516,7 @@
               ],
               "measurement": "openstack_neutron_agents",
               "query": "SELECT last(\"value\") FROM \"openstack_neutron_agents\" WHERE \"service\" = 'dhcp' AND \"state\" = 'down' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -1491,6 +1535,11 @@
               ],
               "series": "merge(/openstack.neutron.agents.dhcp.up/)",
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "service",
                   "operator": "=",
@@ -1575,7 +1624,7 @@
                 }
               ],
               "measurement": "openstack_nova_service",
-              "query": "SELECT state, last(value) FROM \"openstack_neutron_agent\" WHERE $timeFilter and service = 'dhcp' GROUP BY time($interval), hostname fill(0)",
+              "query": "SELECT state, last(value) FROM \"openstack_neutron_agent\" WHERE $timeFilter AND \"environment_label\" = '$environment'and service = 'dhcp' GROUP BY time($interval), hostname fill(0)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "table",
@@ -1667,6 +1716,7 @@
               ],
               "measurement": "openstack_neutron_agents",
               "query": "SELECT last(\"value\") FROM \"openstack_neutron_agents\" WHERE \"service\" = 'l3' AND \"state\" = 'disabled' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -1685,6 +1735,11 @@
               ],
               "series": "merge(/openstack.neutron.agents.dhcp.disabled/)",
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "service",
                   "operator": "=",
@@ -1765,6 +1820,7 @@
               ],
               "measurement": "openstack_neutron_agents",
               "query": "SELECT last(\"value\") FROM \"openstack_neutron_agents\" WHERE \"service\" = 'l3' AND \"state\" = 'up' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -1783,6 +1839,11 @@
               ],
               "series": "merge(/openstack.neutron.agents.dhcp.up/)",
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "service",
                   "operator": "=",
@@ -1863,6 +1924,7 @@
               ],
               "measurement": "openstack_neutron_agents",
               "query": "SELECT last(\"value\") FROM \"openstack_neutron_agents\" WHERE \"service\" = 'l3' AND \"state\" = 'down' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -1881,6 +1943,11 @@
               ],
               "series": "merge(/openstack.neutron.agents.dhcp.up/)",
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "service",
                   "operator": "=",
@@ -1965,7 +2032,7 @@
                 }
               ],
               "measurement": "openstack_nova_service",
-              "query": "SELECT state, last(value) FROM \"openstack_neutron_agent\" WHERE $timeFilter and service = 'l3' GROUP BY time($interval), hostname fill(0)",
+              "query": "SELECT state, last(value) FROM \"openstack_neutron_agent\" WHERE $timeFilter AND \"environment_label\" = '$environment'and service = 'l3' GROUP BY time($interval), hostname fill(0)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "table",
@@ -2057,6 +2124,7 @@
               ],
               "measurement": "openstack_neutron_agents",
               "query": "SELECT last(\"value\") FROM \"openstack_neutron_agents\" WHERE \"service\" = 'metadata' AND \"state\" = 'disabled' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -2075,6 +2143,11 @@
               ],
               "series": "merge(/openstack.neutron.agents.dhcp.disabled/)",
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "service",
                   "operator": "=",
@@ -2155,6 +2228,7 @@
               ],
               "measurement": "openstack_neutron_agents",
               "query": "SELECT last(\"value\") FROM \"openstack_neutron_agents\" WHERE \"service\" = 'metadata' AND \"state\" = 'up' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -2173,6 +2247,11 @@
               ],
               "series": "merge(/openstack.neutron.agents.dhcp.up/)",
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "service",
                   "operator": "=",
@@ -2253,6 +2332,7 @@
               ],
               "measurement": "openstack_neutron_agents",
               "query": "SELECT last(\"value\") FROM \"openstack_neutron_agents\" WHERE \"service\" = 'metadata' AND \"state\" = 'down' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -2271,6 +2351,11 @@
               ],
               "series": "merge(/openstack.neutron.agents.dhcp.up/)",
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "service",
                   "operator": "=",
@@ -2355,7 +2440,7 @@
                 }
               ],
               "measurement": "openstack_nova_service",
-              "query": "SELECT state, last(value) FROM \"openstack_neutron_agent\" WHERE $timeFilter and service = 'metadata' GROUP BY time($interval), hostname fill(0)",
+              "query": "SELECT state, last(value) FROM \"openstack_neutron_agent\" WHERE $timeFilter AND \"environment_label\" = '$environment'and service = 'metadata' GROUP BY time($interval), hostname fill(0)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "table",
@@ -2447,6 +2532,7 @@
               ],
               "measurement": "openstack_neutron_agents",
               "query": "SELECT last(\"value\") FROM \"openstack_neutron_agents\" WHERE \"service\" = 'openvswitch' AND \"state\" = 'disabled' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -2465,6 +2551,11 @@
               ],
               "series": "merge(/openstack.neutron.agents.dhcp.disabled/)",
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "service",
                   "operator": "=",
@@ -2545,6 +2636,7 @@
               ],
               "measurement": "openstack_neutron_agents",
               "query": "SELECT last(\"value\") FROM \"openstack_neutron_agents\" WHERE \"service\" = 'openvswitch' AND \"state\" = 'up' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -2563,6 +2655,11 @@
               ],
               "series": "merge(/openstack.neutron.agents.dhcp.up/)",
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "service",
                   "operator": "=",
@@ -2643,6 +2740,7 @@
               ],
               "measurement": "openstack_neutron_agents",
               "query": "SELECT last(\"value\") FROM \"openstack_neutron_agents\" WHERE \"service\" = 'openvswitch' AND \"state\" = 'down' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -2661,6 +2759,11 @@
               ],
               "series": "merge(/openstack.neutron.agents.dhcp.up/)",
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "service",
                   "operator": "=",
@@ -2745,7 +2848,7 @@
                 }
               ],
               "measurement": "openstack_nova_service",
-              "query": "SELECT state, last(value) FROM \"openstack_neutron_agent\" WHERE $timeFilter and service = 'openvswitch' GROUP BY time($interval), hostname fill(0)",
+              "query": "SELECT state, last(value) FROM \"openstack_neutron_agent\" WHERE $timeFilter AND \"environment_label\" = '$environment'and service = 'openvswitch' GROUP BY time($interval), hostname fill(0)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "table",
@@ -2855,6 +2958,11 @@
               "series": "merge(/openstack.neutron.networks$/)",
               "tags": [
                 {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
+                {
                   "key": "state",
                   "value": "active"
                 }
@@ -2943,6 +3051,7 @@
               ],
               "measurement": "openstack_neutron_networks",
               "query": "SELECT last(\"value\") FROM \"openstack_neutron_networks\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -2960,7 +3069,13 @@
                 ]
               ],
               "series": "merge(/openstack.neutron.networks$/)",
-              "tags": []
+              "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                }
+              ]
             }
           ],
           "timeFrom": null,
@@ -3048,7 +3163,13 @@
                 ]
               ],
               "series": "merge(/openstack.neutron.subnets$/)",
-              "tags": []
+              "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                }
+              ]
             }
           ],
           "thresholds": "",
@@ -3131,6 +3252,7 @@
               "groupByTags": [],
               "measurement": "openstack_neutron_subnets",
               "query": "SELECT last(\"value\") FROM \"openstack_neutron_subnets\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -3148,7 +3270,13 @@
                 ]
               ],
               "series": "merge(/openstack.neutron.subnets$/)",
-              "tags": []
+              "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                }
+              ]
             }
           ],
           "timeFrom": null,
@@ -3237,6 +3365,11 @@
               ],
               "series": "merge(/openstack.neutron.ports$/)",
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "owner",
                   "value": "compute"
@@ -3331,6 +3464,7 @@
               ],
               "measurement": "openstack_neutron_ports",
               "query": "SELECT last(\"value\") FROM \"openstack_neutron_ports\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -3348,7 +3482,13 @@
                 ]
               ],
               "series": "merge(/openstack.neutron.ports$/)",
-              "tags": []
+              "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                }
+              ]
             }
           ],
           "timeFrom": null,
@@ -3439,6 +3579,11 @@
               "series": "merge(/openstack.neutron.routers$/)",
               "tags": [
                 {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
+                {
                   "key": "state",
                   "value": "active"
                 }
@@ -3527,6 +3672,7 @@
               ],
               "measurement": "openstack_neutron_routers",
               "query": "SELECT last(\"value\") FROM \"openstack_neutron_routers\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -3544,7 +3690,13 @@
                 ]
               ],
               "series": "merge(/openstack.neutron.routers$/)",
-              "tags": []
+              "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                }
+              ]
             }
           ],
           "timeFrom": null,
@@ -3634,6 +3786,11 @@
               "series": "merge(/openstack.neutron.floatingips$/)",
               "tags": [
                 {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
+                {
                   "key": "state",
                   "value": "associated"
                 }
@@ -3721,6 +3878,7 @@
               ],
               "measurement": "openstack_neutron_floatingips",
               "query": "SELECT last(\"value\") FROM \"openstack_neutron_floatingips\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -3738,7 +3896,13 @@
                 ]
               ],
               "series": "merge(/openstack.neutron.floatingips$/)",
-              "tags": []
+              "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                }
+              ]
             }
           ],
           "timeFrom": null,
@@ -3772,10 +3936,23 @@
         "allFormat": "regex values",
         "current": {},
         "datasource": null,
+        "includeAll": false,
+        "name": "environment",
+        "options": [],
+        "query": "show tag values from cpu_idle with key = environment_label",
+        "refresh": true,
+        "refresh_on_load": true,
+        "regex": "",
+        "type": "query"
+      },
+      {
+        "allFormat": "regex values",
+        "current": {},
+        "datasource": null,
         "includeAll": true,
         "name": "server",
         "options": [],
-        "query": " show tag values from pacemaker_local_resource_active with key = hostname ",
+        "query": " show tag values from pacemaker_local_resource_active with key = hostname where environment_label = '$environment' ",
         "refresh": true,
         "refresh_on_load": true,
         "regex": "",

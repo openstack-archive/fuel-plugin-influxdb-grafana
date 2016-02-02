@@ -105,6 +105,11 @@
               "series": "merge(/openstack.cinder.status/)",
               "tags": [
                 {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
+                {
                   "key": "cluster_name",
                   "operator": "=",
                   "value": "heat"
@@ -317,6 +322,7 @@
               "interval": "",
               "measurement": "openstack_heat_http_responses",
               "query": "SELECT mean(\"value\") FROM \"openstack_heat_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_method\" = 'GET' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -369,6 +375,7 @@
               "interval": "",
               "measurement": "openstack_heat_http_responses",
               "query": "SELECT mean(\"value\") FROM \"openstack_heat_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_method\" = 'POST' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "B",
               "resultFormat": "time_series",
               "select": [
@@ -421,6 +428,7 @@
               "interval": "",
               "measurement": "openstack_heat_http_responses",
               "query": "SELECT mean(\"value\") FROM \"openstack_heat_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_method\" = 'PUT' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "C",
               "resultFormat": "time_series",
               "select": [
@@ -473,6 +481,7 @@
               "interval": "",
               "measurement": "openstack_heat_http_responses",
               "query": "SELECT mean(\"value\") FROM \"openstack_heat_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_method\" = 'DELETE' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "D",
               "resultFormat": "time_series",
               "select": [
@@ -585,6 +594,7 @@
               "groupByTags": [],
               "measurement": "openstack_check_api",
               "query": "SELECT last(\"value\") FROM \"openstack_check_api\" WHERE \"service\" = 'heat-api' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -603,6 +613,11 @@
               ],
               "series": "merge(/openstack.cinder.check_api/)",
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "service",
                   "operator": "=",
@@ -750,6 +765,7 @@
               "interval": "",
               "measurement": "openstack_heat_http_responses",
               "query": "SELECT count(\"value\") FROM \"openstack_heat_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^1/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "B",
               "resultFormat": "time_series",
               "select": [
@@ -803,6 +819,7 @@
               "interval": "",
               "measurement": "openstack_heat_http_responses",
               "query": "SELECT count(\"value\") FROM \"openstack_heat_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^3/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "C",
               "resultFormat": "time_series",
               "select": [
@@ -856,6 +873,7 @@
               "interval": "",
               "measurement": "openstack_heat_http_responses",
               "query": "SELECT count(\"value\") FROM \"openstack_heat_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^4/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "D",
               "resultFormat": "time_series",
               "select": [
@@ -909,6 +927,7 @@
               "interval": "",
               "measurement": "openstack_heat_http_responses",
               "query": "SELECT count(\"value\") FROM \"openstack_heat_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^5/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "E",
               "resultFormat": "time_series",
               "select": [
@@ -1028,6 +1047,7 @@
               "groupByTags": [],
               "measurement": "haproxy_backend_servers",
               "query": "SELECT last(\"value\") FROM \"haproxy_backend_servers\" WHERE \"backend\" = 'heat-api' AND \"state\" = 'up' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -1046,6 +1066,11 @@
               ],
               "series": "merge(/haproxy.backend.heat-api.servers.up/)",
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "backend",
                   "value": "heat-api"
@@ -1124,6 +1149,7 @@
               "groupByTags": [],
               "measurement": "haproxy_backend_servers",
               "query": "SELECT last(\"value\") FROM \"haproxy_backend_servers\" WHERE \"backend\" = 'heat-cfn-api' AND \"state\" = 'up' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -1142,6 +1168,11 @@
               ],
               "series": "merge(/haproxy.backend.heat-cfn-api.servers.up/)",
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "backend",
                   "value": "heat-cfn-api"
@@ -1244,6 +1275,7 @@
               "groupByTags": [],
               "measurement": "haproxy_backend_servers",
               "query": "SELECT last(\"value\") FROM \"haproxy_backend_servers\" WHERE \"backend\" = 'heat-api' AND \"state\" = 'down' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -1262,6 +1294,11 @@
               ],
               "series": "merge(/haproxy.backend.heat-api.servers.down/)",
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "backend",
                   "value": "heat-api"
@@ -1340,6 +1377,7 @@
               "groupByTags": [],
               "measurement": "haproxy_backend_servers",
               "query": "SELECT last(\"value\") FROM \"haproxy_backend_servers\" WHERE \"backend\" = 'heat-cfn-api' AND \"state\" = 'down' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -1358,6 +1396,11 @@
               ],
               "series": "merge(/haproxy.backend.heat-api.servers.down/)",
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "backend",
                   "value": "heat-cfn-api"
@@ -1411,10 +1454,23 @@
         "allFormat": "regex values",
         "current": {},
         "datasource": null,
+        "includeAll": false,
+        "name": "environment",
+        "options": [],
+        "query": "show tag values from cpu_idle with key = environment_label",
+        "refresh": true,
+        "refresh_on_load": true,
+        "regex": "",
+        "type": "query"
+      },
+      {
+        "allFormat": "regex values",
+        "current": {},
+        "datasource": null,
         "includeAll": true,
         "name": "server",
         "options": [],
-        "query": "show tag values from pacemaker_local_resource_active with key = hostname",
+        "query": "show tag values from pacemaker_local_resource_active with key = hostname where environment_label = '$environment'",
         "refresh": true,
         "refresh_on_load": true,
         "regex": "",
@@ -1459,5 +1515,5 @@
   },
   "timezone": "browser",
   "title": "Heat",
-  "version": 2
+  "version": 3
 }

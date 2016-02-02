@@ -105,6 +105,11 @@
               "series": "merge(/openstack.cinder.status/)",
               "tags": [
                 {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
+                {
                   "key": "cluster_name",
                   "operator": "=",
                   "value": "mysql"
@@ -370,6 +375,7 @@
               "groupByTags": [],
               "measurement": "mysql_locks_immediate",
               "query": "SELECT mean(\"value\") FROM \"mysql_locks_immediate\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -387,7 +393,13 @@
                 ]
               ],
               "series": "/$server.mysql_locks/",
-              "tags": []
+              "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                }
+              ]
             },
             {
               "alias": "waited",
@@ -411,6 +423,7 @@
               "groupByTags": [],
               "measurement": "mysql_locks_waited",
               "query": "SELECT mean(\"value\") FROM \"mysql_locks_waited\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "B",
               "resultFormat": "time_series",
               "select": [
@@ -428,7 +441,13 @@
                 ]
               ],
               "series": "/$server.mysql_locks/",
-              "tags": []
+              "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                }
+              ]
             }
           ],
           "timeFrom": null,
@@ -713,6 +732,7 @@
               "groupByTags": [],
               "measurement": "mysql_commands",
               "query": "SELECT mean(\"value\") FROM \"mysql_commands\" WHERE \"hostname\" =~ /$server/ AND \"statement\" = 'commit' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -764,6 +784,7 @@
               "groupByTags": [],
               "measurement": "mysql_commands",
               "query": "SELECT mean(\"value\") FROM \"mysql_commands\" WHERE \"hostname\" =~ /$server/ AND \"statement\" = 'delete' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "B",
               "resultFormat": "time_series",
               "select": [
@@ -815,6 +836,7 @@
               "groupByTags": [],
               "measurement": "mysql_commands",
               "query": "SELECT mean(\"value\") FROM \"mysql_commands\" WHERE \"hostname\" =~ /$server/ AND \"statement\" = 'insert' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "C",
               "resultFormat": "time_series",
               "select": [
@@ -866,6 +888,7 @@
               "groupByTags": [],
               "measurement": "mysql_commands",
               "query": "SELECT mean(\"value\") FROM \"mysql_commands\" WHERE \"hostname\" =~ /$server/ AND \"statement\" = 'select' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "D",
               "resultFormat": "time_series",
               "select": [
@@ -917,6 +940,7 @@
               "groupByTags": [],
               "measurement": "mysql_commands",
               "query": "SELECT mean(\"value\") FROM \"mysql_commands\" WHERE \"hostname\" =~ /$server/ AND \"statement\" = 'rollback' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "E",
               "resultFormat": "time_series",
               "select": [
@@ -968,6 +992,7 @@
               "groupByTags": [],
               "measurement": "mysql_commands",
               "query": "SELECT mean(\"value\") FROM \"mysql_commands\" WHERE \"hostname\" =~ /$server/ AND \"statement\" = 'update' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "F",
               "resultFormat": "time_series",
               "select": [
@@ -1081,6 +1106,7 @@
               ],
               "measurement": "mysql_handler",
               "query": "SELECT mean(\"value\") FROM \"mysql_handler\" WHERE \"hostname\" =~ /$server/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -1133,13 +1159,26 @@
     "enable": true,
     "list": [
       {
+        "allFormat": "regex values",
+        "current": {},
+        "datasource": null,
+        "includeAll": false,
+        "name": "environment",
+        "options": [],
+        "query": "show tag values from cpu_idle with key = environment_label",
+        "refresh": true,
+        "refresh_on_load": true,
+        "regex": "",
+        "type": "query"
+      },
+      {
         "allFormat": "glob",
         "current": {},
         "datasource": null,
         "includeAll": false,
         "name": "server",
         "options": [],
-        "query": "show tag values from pacemaker_local_resource_active with key = hostname ",
+        "query": "show tag values from pacemaker_local_resource_active with key = hostname where environment_label = '$environment' ",
         "refresh": true,
         "refresh_on_load": true,
         "regex": "",
@@ -1184,5 +1223,5 @@
   },
   "timezone": "browser",
   "title": "MySQL",
-  "version": 2
+  "version": 3
 }
