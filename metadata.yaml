@@ -17,7 +17,7 @@ homepage: 'https://github.com/openstsack/fuel-plugin-influxdb-grafana'
 # Specify a group which your plugin implements, possible options:
 # network, storage, storage::cinder, storage::glance, hypervisor
 groups: ['monitoring']
-is_hotpluggable: false
+is_hotpluggable: true
 
 # The plugin is compatible with releases in the list
 releases:
