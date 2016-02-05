@@ -1,1 +1,1 @@
-INFLUXD_OPTS="-hostname <%= @raft_hostname %> -join <%= @raft_nodes.sort.collect{|x| "#{x}:8088"}.join(',') %>"
+INFLUXD_OPTS="-join <%= @raft_nodes.sort.collect{|x| "#{x}:8091"}.join(',') %>"

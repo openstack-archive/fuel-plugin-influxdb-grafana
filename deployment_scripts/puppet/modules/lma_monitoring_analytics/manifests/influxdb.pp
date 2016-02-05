@@ -15,19 +15,21 @@
 # == Class: lma_monitoring_analytics::influxdb
 
 class lma_monitoring_analytics::influxdb (
-  $base_directory  = $lma_monitoring_analytics::params::influxdb_dir,
-  $raft_hostname   = undef,
-  $raft_nodes      = undef,
+  $base_directory = $lma_monitoring_analytics::params::influxdb_dir,
+  $hostname       = undef,
+  $raft_nodes     = undef,
 ) inherits lma_monitoring_analytics::params {
 
-  validate_array($raft_nodes)
+  if $raft_nodes {
+    validate_array($raft_nodes)
+  }
 
   class { '::influxdb':
-    data_dir      => "${base_directory}/data",
-    meta_dir      => "${base_directory}/meta",
-    hh_dir        => "${base_directory}/hh",
-    wal_dir       => "${base_directory}/wal",
-    raft_hostname => $raft_hostname,
-    raft_nodes    => $raft_nodes,
+    data_dir   => "${base_directory}/data",
+    meta_dir   => "${base_directory}/meta",
+    hh_dir     => "${base_directory}/hh",
+    wal_dir    => "${base_directory}/wal",
+    hostname   => $hostname,
+    raft_nodes => $raft_nodes,
   }
 }

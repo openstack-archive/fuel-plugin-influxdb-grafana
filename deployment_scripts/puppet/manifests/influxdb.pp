@@ -14,7 +14,17 @@
 #
 $influxdb_grafana = hiera('influxdb_grafana')
 $directory = $influxdb_grafana['data_dir']
-$raft_nodes = hiera(lma::influxdb::raft_nodes)
+
+# We set raft_nodes only for non primary node. The primary node will be
+# started as the first node and it will be the leader of the Raft cluster.
+$current_roles = hiera('roles')
+$is_primary = member($current_roles, 'primary-influxdb_grafana')
+
+if $is_primary {
+    $raft_nodes = undef
+} else {
+    $raft_nodes = keys(hiera(lma::influxdb::raft_nodes))
+}
 
 user { 'influxdb':
   ensure => present,
@@ -33,7 +43,7 @@ file { $directory:
 # start. We decide to stick with hostnames because they are more meaningful.
 class { 'lma_monitoring_analytics::influxdb':
   base_directory => $influxdb_grafana['data_dir'],
-  raft_hostname  => hiera('node_name'),
-  raft_nodes     => keys($raft_nodes),
+  hostname       => hiera('node_name'),
+  raft_nodes     => $raft_nodes,
   require        => File[$directory],
 }

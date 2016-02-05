@@ -15,16 +15,15 @@
 # == Class: influxdb
 
 class influxdb (
-  $data_dir      = $influxdb::params::data_dir,
-  $hh_dir        = $influxdb::params::hh_dir,
-  $meta_dir      = $influxdb::params::meta_dir,
-  $wal_dir       = $influxdb::params::wal_dir,
-  $raft_hostname = undef,
-  $raft_nodes    = undef,
+  $data_dir   = $influxdb::params::data_dir,
+  $hh_dir     = $influxdb::params::hh_dir,
+  $meta_dir   = $influxdb::params::meta_dir,
+  $wal_dir    = $influxdb::params::wal_dir,
+  $hostname   = undef,
+  $raft_nodes = undef,
 ) inherits influxdb::params {
 
   class {'influxdb::install':
-    raft_hostname => $raft_hostname,
     raft_nodes    => $raft_nodes,
   }
 
@@ -33,6 +32,7 @@ class influxdb (
   }
 
   class {'influxdb::configure':
+    hostname     => $hostname,
     auth_enabled => $influxdb::params::auth_enabled,
     config_file  => $influxdb::params::config_file,
     data_dir     => $data_dir,
