@@ -24,10 +24,9 @@ describe 'influxdb::install' do
         it { is_expected.to have_file_count(0) }
     end
 
-    describe 'with params' do
+    describe 'with raft nodes' do
         let(:params) do
-            {:raft_hostname => 'node-1',
-             :raft_nodes => ['node-1', 'node-2']}
+            {:raft_nodes => ['node-1', 'node-2']}
         end
         it { is_expected.to contain_package('influxdb').with_ensure('installed') }
         it { is_expected.to contain_file('/etc/default/influxdb') }

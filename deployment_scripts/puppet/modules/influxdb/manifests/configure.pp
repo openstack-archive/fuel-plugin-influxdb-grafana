@@ -15,6 +15,7 @@
 # == Class: influxdb::configure
 
 class influxdb::configure (
+  $hostname     = '',
   $auth_enabled = undef,
   $config_file  = undef,
   $data_dir     = undef,
@@ -28,11 +29,23 @@ class influxdb::configure (
     path   => $config_file,
   }
 
+  ini_setting { 'admin_bind_address':
+    section => 'admin',
+    setting => 'bind-address',
+    value   => "\"${hostname}:8083\"",
+  }
+
   # enable authentication in section [http]
   ini_setting { 'http_auth_enabled':
     section => 'http',
     setting => 'auth-enabled',
     value   => $auth_enabled,
+  }
+
+  ini_setting { 'http_bind_address':
+    section => 'http',
+    setting => 'bind-address',
+    value   => "\"${hostname}:8086\"",
   }
 
   ini_setting { 'data_dir':
@@ -51,6 +64,18 @@ class influxdb::configure (
     section => 'hinted-handoff',
     setting => 'dir',
     value   => "\"${hh_dir}\"",
+  }
+
+  ini_setting { 'meta_bind_address':
+    section => 'meta',
+    setting => 'bind-address',
+    value   => "\"${hostname}:8088\"",
+  }
+
+  ini_setting { 'meta_http_bind_address':
+    section => 'meta',
+    setting => 'http-bind-address',
+    value   => "\"${hostname}:8091\"",
   }
 
   ini_setting { 'meta_dir':

@@ -51,7 +51,7 @@ firewall { '114 corosync-output':
 }
 
 firewall { '200 influxdb':
-  port   => [8083, 8086, 8088],
+  port   => [8083, 8086, 8088, 8091],
   proto  => 'tcp',
   action => 'accept',
 }
