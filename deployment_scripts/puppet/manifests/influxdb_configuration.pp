@@ -12,6 +12,9 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
+prepare_network_config(hiera('network_scheme', {}))
+$mgmt_address = get_network_role_property('management', 'ipaddr')
+
 $influxdb_grafana = hiera('influxdb_grafana')
 
 $admin_user = 'root'
@@ -24,23 +27,23 @@ $replication_factor = $influxdb_grafana['replication_factor']
 lma_monitoring_analytics::influxdb_user { $admin_user:
   password     => $admin_password,
   admin_role   => true,
-  # We are using localhost instead of VIP to avoid race condition between
-  # the creation of the admin user and the normal user.
-  influxdb_url => 'http://127.0.0.1:8086',
+  # We are using the management IP instead of the VIP to avoid race condition
+  # between the creation of the admin user and the normal user.
+  influxdb_url => "http://${mgmt_address}:8086",
 }
 
 lma_monitoring_analytics::influxdb_user { $username:
   admin_user     => $admin_user,
   admin_password => $admin_password,
   password       => $password,
-  influxdb_url   => 'http://127.0.0.1:8086',
+  influxdb_url   => "http://${mgmt_address}:8086",
   require        => Lma_monitoring_analytics::Influxdb_user[$admin_user],
 }
 
 lma_monitoring_analytics::influxdb_database { 'lma':
   admin_user         => $admin_user,
   admin_password     => $admin_password,
-  influxdb_url       => 'http://127.0.0.1:8086',
+  influxdb_url       => "http://${mgmt_address}:8086",
   db_user            => $username,
   db_password        => $password,
   retention_period   => $retention_period,

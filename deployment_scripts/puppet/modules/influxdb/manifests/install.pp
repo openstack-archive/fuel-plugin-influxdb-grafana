@@ -15,7 +15,6 @@
 # == Class: influxdb::install
 
 class influxdb::install (
-  $raft_hostname = undef,
   $raft_nodes    = undef,
 ) {
 
@@ -23,7 +22,7 @@ class influxdb::install (
     ensure => installed,
   }
 
-  if $raft_hostname and $raft_nodes {
+  if $raft_nodes {
     file { '/etc/default/influxdb':
       ensure  => present,
       owner   => 'root',
