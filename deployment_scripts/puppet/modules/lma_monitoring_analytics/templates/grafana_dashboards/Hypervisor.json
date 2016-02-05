@@ -139,6 +139,7 @@
               ],
               "measurement": "cpu_idle",
               "query": "SELECT mean(\"value\") FROM \"cpu_idle\" WHERE \"hostname\" = '$hostname' AND $timeFilter GROUP BY time($interval) fill(previous)",
+              "rawQuery": false,
               "refId": "B",
               "resultFormat": "time_series",
               "select": [
@@ -193,6 +194,7 @@
               ],
               "measurement": "cpu_interrupt",
               "query": "SELECT mean(\"value\") FROM \"cpu_interrupt\" WHERE \"hostname\" = '$hostname' AND $timeFilter GROUP BY time($interval) fill(previous)",
+              "rawQuery": false,
               "refId": "C",
               "resultFormat": "time_series",
               "select": [
@@ -247,6 +249,7 @@
               ],
               "measurement": "cpu_nice",
               "query": "SELECT mean(\"value\") FROM \"cpu_nice\" WHERE \"hostname\" = '$hostname' AND $timeFilter GROUP BY time($interval) fill(previous)",
+              "rawQuery": false,
               "refId": "D",
               "resultFormat": "time_series",
               "select": [
@@ -301,6 +304,7 @@
               ],
               "measurement": "cpu_system",
               "query": "SELECT mean(\"value\") FROM \"cpu_system\" WHERE \"hostname\" = '$hostname' AND $timeFilter GROUP BY time($interval) fill(previous)",
+              "rawQuery": false,
               "refId": "E",
               "resultFormat": "time_series",
               "select": [
@@ -355,6 +359,7 @@
               ],
               "measurement": "cpu_steal",
               "query": "SELECT mean(\"value\") FROM \"cpu_steal\" WHERE \"hostname\" = '$hostname' AND $timeFilter GROUP BY time($interval) fill(previous)",
+              "rawQuery": false,
               "refId": "F",
               "resultFormat": "time_series",
               "select": [
@@ -409,6 +414,7 @@
               ],
               "measurement": "cpu_wait",
               "query": "SELECT mean(\"value\") FROM \"cpu_wait\" WHERE \"hostname\" = '$hostname' AND $timeFilter GROUP BY time($interval) fill(previous)",
+              "rawQuery": false,
               "refId": "G",
               "resultFormat": "time_series",
               "select": [
@@ -534,6 +540,7 @@
               "interval": "",
               "measurement": "memory_used",
               "query": "SELECT mean(\"value\") FROM \"memory_used\" WHERE \"hostname\" = '$hostname' AND $timeFilter GROUP BY time($interval) fill(previous)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -589,6 +596,7 @@
               "interval": "",
               "measurement": "memory_buffered",
               "query": "SELECT mean(\"value\") FROM \"memory_buffered\" WHERE \"hostname\" = '$hostname' AND $timeFilter GROUP BY time($interval) fill(previous)",
+              "rawQuery": false,
               "refId": "B",
               "resultFormat": "time_series",
               "select": [
@@ -644,6 +652,7 @@
               "interval": "",
               "measurement": "memory_cached",
               "query": "SELECT mean(\"value\") FROM \"memory_cached\" WHERE \"hostname\" = '$hostname' AND $timeFilter GROUP BY time($interval) fill(previous)",
+              "rawQuery": false,
               "refId": "C",
               "resultFormat": "time_series",
               "select": [
@@ -699,6 +708,7 @@
               "interval": "",
               "measurement": "memory_free",
               "query": "SELECT mean(\"value\") FROM \"memory_free\" WHERE \"hostname\" = '$hostname' AND $timeFilter GROUP BY time($interval) fill(previous)",
+              "rawQuery": false,
               "refId": "D",
               "resultFormat": "time_series",
               "select": [
@@ -906,6 +916,7 @@
               ],
               "measurement": "openstack_nova_running_instances",
               "query": "SELECT last(\"value\") FROM \"openstack_nova_running_instances\" WHERE \"hostname\" = '$hostname' AND $timeFilter GROUP BY time($interval) fill(previous)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -1006,6 +1017,7 @@
               ],
               "measurement": "openstack_nova_free_vcpus",
               "query": "SELECT mean(\"value\") FROM \"openstack_nova_free_vcpus\" WHERE \"hostname\" =~ /$hostname$/ AND $timeFilter GROUP BY time($interval) fill(previous)",
+              "rawQuery": false,
               "refId": "B",
               "resultFormat": "time_series",
               "select": [
@@ -1049,6 +1061,7 @@
               ],
               "measurement": "openstack_nova_used_vcpus",
               "query": "SELECT mean(\"value\") FROM \"openstack_nova_used_vcpus\" WHERE \"hostname\" =~ /$hostname$/ AND $timeFilter GROUP BY time($interval) fill(previous)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -1151,6 +1164,7 @@
               ],
               "measurement": "openstack_nova_free_ram",
               "query": "SELECT mean(\"value\") FROM \"openstack_nova_free_ram\" WHERE \"hostname\" =~ /$hostname$/ AND $timeFilter GROUP BY time($interval) fill(previous)",
+              "rawQuery": false,
               "refId": "B",
               "resultFormat": "time_series",
               "select": [
@@ -1194,6 +1208,7 @@
               ],
               "measurement": "openstack_nova_used_ram",
               "query": "SELECT mean(\"value\") FROM \"openstack_nova_used_ram\" WHERE \"hostname\" =~ /$hostname$/ AND $timeFilter GROUP BY time($interval) fill(previous)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -1296,6 +1311,7 @@
               ],
               "measurement": "openstack_nova_free_disk",
               "query": "SELECT mean(\"value\") FROM \"openstack_nova_free_disk\" WHERE \"hostname\" =~ /$hostname$/ AND $timeFilter GROUP BY time($interval) fill(previous)",
+              "rawQuery": false,
               "refId": "B",
               "resultFormat": "time_series",
               "select": [
@@ -1339,6 +1355,7 @@
               ],
               "measurement": "openstack_nova_used_disk",
               "query": "SELECT mean(\"value\") FROM \"openstack_nova_used_disk\" WHERE \"hostname\" =~ /$hostname$/ AND $timeFilter GROUP BY time($interval) fill(previous)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -1458,6 +1475,7 @@
               ],
               "measurement": "virt_cpu_time",
               "query": "SELECT mean(\"value\") /10000000 FROM \"virt_cpu_time\" WHERE \"hostname\" =~ /$hostname$/ AND \"instance_id\" =~ /$instance_id$/ AND $timeFilter GROUP BY time($interval) fill(none)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -1636,6 +1654,7 @@
               ],
               "measurement": "virt_memory_total",
               "query": "SELECT mean(\"value\") FROM \"virt_memory_total\" WHERE \"hostname\" =~ /$hostname$/ AND \"instance_id\" =~ /$instance_id$/ AND $timeFilter GROUP BY time($interval) fill(none)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -1744,6 +1763,7 @@
               ],
               "measurement": "virt_disk_octets_read",
               "query": "SELECT mean(\"value\") FROM \"virt_disk_octets_read\" WHERE \"hostname\" =~ /$hostname$/ AND \"instance_id\" =~ /$instance_id$/ AND \"device\" =~ /$disk$/ AND $timeFilter GROUP BY time($interval) fill(none)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -1799,6 +1819,7 @@
               ],
               "measurement": "virt_disk_octets_write",
               "query": "SELECT mean(\"value\") FROM \"virt_disk_octets_write\" WHERE \"hostname\" =~ /$hostname$/ AND \"instance_id\" =~ /$instance_id$/ AND \"device\" =~ /$disk$/ AND $timeFilter GROUP BY time($interval) fill(none)",
+              "rawQuery": false,
               "refId": "B",
               "resultFormat": "time_series",
               "select": [
@@ -1913,6 +1934,7 @@
               ],
               "measurement": "virt_if_octets_rx",
               "query": "SELECT mean(\"value\") FROM \"virt_if_octets_rx\" WHERE \"hostname\" =~ /$hostname$/ AND \"instance_id\" =~ /$instance_id$/ AND \"interface\" =~ /$interface$/ AND $timeFilter GROUP BY time($interval) fill(none)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -1968,6 +1990,7 @@
               ],
               "measurement": "virt_if_octets_tx",
               "query": "SELECT mean(\"value\") FROM \"virt_if_octets_tx\" WHERE \"hostname\" =~ /$hostname$/ AND \"instance_id\" =~ /$instance_id$/ AND \"interface\" =~ /$interface$/ AND $timeFilter GROUP BY time($interval) fill(none)",
+              "rawQuery": false,
               "refId": "B",
               "resultFormat": "time_series",
               "select": [
@@ -2032,6 +2055,19 @@
   "templating": {
     "list": [
       {
+        "allFormat": "regex values",
+        "current": {},
+        "datasource": null,
+        "includeAll": false,
+        "name": "environment",
+        "options": [],
+        "query": "show tag values from cpu_idle with key = environment_label",
+        "refresh": true,
+        "refresh_on_load": true,
+        "regex": "",
+        "type": "query"
+      },
+      {
         "allFormat": "glob",
         "current": {},
         "datasource": null,
@@ -2040,7 +2076,7 @@
         "multiFormat": "glob",
         "name": "hostname",
         "options": [],
-        "query": "show tag values from openstack_nova_running_instances with key = hostname",
+        "query": "show tag values from openstack_nova_running_instances with key = hostname where environment_label = '$environment'",
         "refresh": true,
         "refresh_on_load": true,
         "regex": "",
@@ -2123,5 +2159,5 @@
   },
   "timezone": "browser",
   "title": "Hypervisor",
-  "version": 1
+  "version": 2
 }

@@ -18,7 +18,7 @@
   },
   "editable": true,
   "hideControls": false,
-  "id": 9,
+  "id": null,
   "links": [],
   "originalTitle": "Elasticsearch",
   "refresh": "1m",
@@ -95,6 +95,11 @@
                 ]
               ],
               "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
                 {
                   "key": "cluster_name",
                   "operator": "=",
@@ -186,6 +191,7 @@
               ],
               "measurement": "elasticsearch_cluster_number_of_nodes",
               "query": "SELECT last(\"value\") FROM \"elasticsearch_cluster_number_of_nodes\" WHERE $timeFilter GROUP BY time($interval)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -202,7 +208,13 @@
                   }
                 ]
               ],
-              "tags": []
+              "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                }
+              ]
             }
           ],
           "thresholds": "",
@@ -277,6 +289,7 @@
               ],
               "measurement": "elasticsearch_cluster_active_primary_shards",
               "query": "SELECT last(\"value\") FROM \"elasticsearch_cluster_active_primary_shards\" WHERE $timeFilter GROUP BY time($interval)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -293,7 +306,13 @@
                   }
                 ]
               ],
-              "tags": []
+              "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                }
+              ]
             },
             {
               "alias": "active",
@@ -308,6 +327,7 @@
               ],
               "measurement": "elasticsearch_cluster_active_shards",
               "query": "SELECT last(\"value\") FROM \"elasticsearch_cluster_active_shards\" WHERE $timeFilter GROUP BY time($interval)",
+              "rawQuery": false,
               "refId": "B",
               "resultFormat": "time_series",
               "select": [
@@ -324,7 +344,13 @@
                   }
                 ]
               ],
-              "tags": []
+              "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                }
+              ]
             },
             {
               "alias": "relocating",
@@ -339,6 +365,7 @@
               ],
               "measurement": "elasticsearch_cluster_relocating_shards",
               "query": "SELECT last(\"value\") FROM \"elasticsearch_cluster_relocating_shards\" WHERE $timeFilter GROUP BY time($interval)",
+              "rawQuery": false,
               "refId": "C",
               "resultFormat": "time_series",
               "select": [
@@ -355,7 +382,13 @@
                   }
                 ]
               ],
-              "tags": []
+              "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                }
+              ]
             },
             {
               "alias": "unassigned",
@@ -370,6 +403,7 @@
               ],
               "measurement": "elasticsearch_cluster_unassigned_shards",
               "query": "SELECT last(\"value\") FROM \"elasticsearch_cluster_unassigned_shards\" WHERE $timeFilter GROUP BY time($interval)",
+              "rawQuery": false,
               "refId": "E",
               "resultFormat": "time_series",
               "select": [
@@ -386,7 +420,13 @@
                   }
                 ]
               ],
-              "tags": []
+              "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                }
+              ]
             },
             {
               "alias": "initializing",
@@ -401,6 +441,7 @@
               ],
               "measurement": "elasticsearch_cluster_initializing_shards",
               "query": "SELECT last(\"value\") FROM \"elasticsearch_cluster_initializing_shards\" WHERE $timeFilter GROUP BY time($interval)",
+              "rawQuery": false,
               "refId": "D",
               "resultFormat": "time_series",
               "select": [
@@ -417,7 +458,13 @@
                   }
                 ]
               ],
-              "tags": []
+              "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                }
+              ]
             }
           ],
           "timeFrom": null,
@@ -510,7 +557,13 @@
                   }
                 ]
               ],
-              "tags": []
+              "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                }
+              ]
             }
           ],
           "timeFrom": null,
@@ -582,6 +635,7 @@
               ],
               "measurement": "lma_components_threads",
               "query": "SELECT last(\"value\") FROM \"lma_components_threads\" WHERE \"service\" = 'elasticsearch' AND \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -691,6 +745,7 @@
               ],
               "measurement": "lma_components_memory_rss",
               "query": "SELECT mean(\"value\") FROM \"lma_components_memory_rss\" WHERE \"service\" = 'elasticsearch' AND \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(previous)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -803,6 +858,7 @@
               ],
               "measurement": "lma_components_disk_bytes_read",
               "query": "SELECT mean(\"value\") FROM \"lma_components_disk_bytes_read\" WHERE \"service\" = 'elasticsearch' AND \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -854,6 +910,7 @@
               ],
               "measurement": "lma_components_disk_bytes_write",
               "query": "SELECT mean(\"value\") FROM \"lma_components_disk_bytes_write\" WHERE \"service\" = 'elasticsearch' AND \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "B",
               "resultFormat": "time_series",
               "select": [
@@ -964,6 +1021,7 @@
               ],
               "measurement": "lma_components_cputime_syst",
               "query": "SELECT mean(\"value\") FROM \"lma_components_cputime_syst\" WHERE \"service\" = 'elasticsearch' AND \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -1015,6 +1073,7 @@
               ],
               "measurement": "lma_components_cputime_user",
               "query": "SELECT mean(\"value\") FROM \"lma_components_cputime_user\" WHERE \"service\" = 'elasticsearch' AND \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "B",
               "resultFormat": "time_series",
               "select": [
@@ -1104,6 +1163,7 @@
               ],
               "measurement": "fs_space_percent_free",
               "query": "SELECT mean(\"value\") FROM \"fs_space_percent_free\" WHERE \"fs\" = '/opt/es/data' AND \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -1211,6 +1271,7 @@
               ],
               "measurement": "fs_space_free",
               "query": "SELECT mean(\"value\") FROM \"fs_space_free\" WHERE \"fs\" = '/opt/es/data' AND \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -1370,13 +1431,26 @@
     "enable": true,
     "list": [
       {
+        "allFormat": "regex values",
+        "current": {},
+        "datasource": null,
+        "includeAll": false,
+        "name": "environment",
+        "options": [],
+        "query": "show tag values from cpu_idle with key = environment_label",
+        "refresh": true,
+        "refresh_on_load": true,
+        "regex": "",
+        "type": "query"
+      },
+      {
         "allFormat": "glob",
         "current": {},
         "datasource": null,
         "includeAll": false,
         "name": "server",
         "options": [],
-        "query": "show tag values from elasticsearch_cluster_health with key = \"hostname\"",
+        "query": "show tag values from elasticsearch_cluster_health with key = \"hostname\" where environment_label = '$environment'",
         "refresh": true,
         "refresh_on_load": true,
         "regex": "",
@@ -1421,5 +1495,5 @@
   },
   "timezone": "browser",
   "title": "Elasticsearch",
-  "version": 12
+  "version": 13
 }

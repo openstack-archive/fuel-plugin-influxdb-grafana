@@ -104,6 +104,11 @@
               "series": "merge(/openstack.cinder.status/)",
               "tags": [
                 {
+                  "key": "environment_label",
+                  "operator": "=",
+                  "value": "$environment"
+                },
+                {
                   "key": "cluster_name",
                   "operator": "=",
                   "value": "apache"
@@ -214,6 +219,7 @@
               "groupByTags": [],
               "measurement": "apache_requests",
               "query": "SELECT mean(\"value\") FROM \"apache_requests\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -319,6 +325,7 @@
               "groupByTags": [],
               "measurement": "apache_bytes",
               "query": "SELECT mean(\"value\") FROM \"apache_bytes\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -423,6 +430,7 @@
               "groupByTags": [],
               "measurement": "apache_connections",
               "query": "SELECT mean(\"value\") FROM \"apache_connections\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -515,6 +523,7 @@
               "groupByTags": [],
               "measurement": "apache_connections",
               "query": "SELECT last(\"value\") FROM \"apache_connections\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -621,6 +630,7 @@
               "groupByTags": [],
               "measurement": "/apache_workers/",
               "query": "SELECT mean(\"value\") FROM /apache_workers/ WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -714,6 +724,7 @@
               "groupByTags": [],
               "measurement": "apache_idle_workers",
               "query": "SELECT last(\"value\") FROM \"apache_idle_workers\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -764,13 +775,26 @@
     "enable": true,
     "list": [
       {
+        "allFormat": "regex values",
+        "current": {},
+        "datasource": null,
+        "includeAll": false,
+        "name": "environment",
+        "options": [],
+        "query": "show tag values from cpu_idle with key = environment_label",
+        "refresh": true,
+        "refresh_on_load": true,
+        "regex": "",
+        "type": "query"
+      },
+      {
         "allFormat": "glob",
         "current": {},
         "datasource": null,
         "includeAll": false,
         "name": "server",
         "options": [],
-        "query": "show tag values from apache_requests with key = hostname",
+        "query": "show tag values from apache_requests with key = hostname where environment_label = '$environment'",
         "refresh": true,
         "refresh_on_load": true,
         "regex": "",
@@ -815,5 +839,5 @@
   },
   "timezone": "browser",
   "title": "Apache",
-  "version": 2
+  "version": 3
 }
