@@ -14,10 +14,9 @@ cluster as well as textual hints about what might be the root cause of the
 fault or anomaly.
 
 The InfluxDB-Grafana Plugin is an indispensable tool to answering
-the questions "what has changed in my OpenStack environment,when and why?".
-Grafana is installed with
-a collection of predefined dashboards for each of the OpenStack services
-that are monitored.
+the questions "what has changed in my OpenStack environment, when and why?".
+Grafana is installed with a collection of predefined dashboards for each
+of the OpenStack services that are monitored.
 Among those dashboards, the *Main Dashboard* provides a single pane of glass overview
 of your OpenStack environment status.
 
@@ -33,17 +32,20 @@ as shown in the figure below.
 Requirements
 ------------
 
+
 +------------------------+--------------------------------------------------------------------------------------------+
 | **Requirement**        | **Version/Comment**                                                                        |
 +========================+============================================================================================+
 | Disk space             | At least 55GB                                                                              |
 +------------------------+--------------------------------------------------------------------------------------------+
-| Fuel                   | Mirantis OpenStack 7.0                                                                     |
+| Fuel                   | Mirantis OpenStack 8.0                                                                     |
 +------------------------+--------------------------------------------------------------------------------------------+
 | Hardware configuration | The hardware configuration (RAM, CPU, disk(s)) required by this plugin depends on the size |
-|                        | of your cloud environment and other factors like the retention policy, but a typical setup |
-|                        | would at least require a quad-core server with 8GB of RAM and access to a fast disk or     |
-|                        | disks array (ideally, SSDs).                                                               |
+|                        | of your cloud environment and other factors like the retention policy. An average          |
+|                        | setup would require a quad-core server with 8 GB of RAM and access to a 500-1000 IOPS disk.|
+|                        | Please check the `InfluxDB Hardware Sizing Guide                                           |
+|                        | <https://docs.influxdata.com/influxdb/v0.10/guides/hardware_sizing/>`_ for additional      |
+|                        | sizing information.                                                                        |
 |                        |                                                                                            |
 |                        | It is also highly recommended to use a dedicated disk for your data storage. Otherwise,    |
 |                        | The InfluxDB-Grafana Plugin will use the root filesystem by default.                       |
@@ -52,10 +54,10 @@ Requirements
 Limitations
 -----------
 
-A current limitation of this plugin is that it not possible to display in the Fuel web UI,
-the URL where the Grafana interface can be reached when the deployment has completed.
-Instructions are provided in the :ref:`user_guide` about how you can
-obtain this URL using the `fuel` command line.
+Currently, the size of an InfluxDB cluster the Fuel plugin can deploy is limited to three nodes. In addition to this,
+each node of the InfluxDB cluster is configured to run under the *meta* node role and the *data* node role. Therefore,
+it is not possible using the Fuel plugin, to separate the nodes participating in the raft consensus cluster from
+the nodes accessing the data replicas.
 
 Key terms, acronyms and abbreviations
 -------------------------------------
