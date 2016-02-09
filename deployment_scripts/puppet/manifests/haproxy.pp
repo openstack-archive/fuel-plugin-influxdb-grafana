@@ -12,7 +12,7 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
-$cluster_nodes = hiera('lma::influxdb::raft_nodes')
+$cluster_nodes = hiera('lma::influxdb::backends')
 $stats_port    = '1000'
 $influxdb_port = '8086'
 $grafana_port  = '8000'

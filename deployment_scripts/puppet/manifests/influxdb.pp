@@ -23,7 +23,7 @@ $is_primary = member($current_roles, 'primary-influxdb_grafana')
 if $is_primary {
     $raft_nodes = undef
 } else {
-    $raft_nodes = keys(hiera(lma::influxdb::raft_nodes))
+    $raft_nodes = hiera('lma::influxdb::raft_nodes')
 }
 
 user { 'influxdb':
