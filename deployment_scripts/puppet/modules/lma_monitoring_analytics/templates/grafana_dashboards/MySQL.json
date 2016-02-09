@@ -374,7 +374,7 @@
               ],
               "groupByTags": [],
               "measurement": "mysql_locks_immediate",
-              "query": "SELECT mean(\"value\") FROM \"mysql_locks_immediate\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") FROM \"mysql_locks_immediate\" WHERE \"hostname\" =~ /$server/ AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -398,6 +398,10 @@
                   "key": "environment_label",
                   "operator": "=",
                   "value": "$environment"
+                },
+                {
+                  "key": "hostname",
+                  "value": "/$server/"
                 }
               ]
             },
@@ -422,7 +426,7 @@
               ],
               "groupByTags": [],
               "measurement": "mysql_locks_waited",
-              "query": "SELECT mean(\"value\") FROM \"mysql_locks_waited\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") FROM \"mysql_locks_waited\" WHERE \"hostname\" =~ /$server/ AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "B",
               "resultFormat": "time_series",
@@ -446,6 +450,10 @@
                   "key": "environment_label",
                   "operator": "=",
                   "value": "$environment"
+                },
+                {
+                  "key": "hostname",
+                  "value": "/$server/"
                 }
               ]
             }
