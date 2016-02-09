@@ -22,7 +22,9 @@ if ! $network_metadata['vips'][$vip_name] {
   fail('InfluxDB VIP is not defined')
 }
 
-$influxdb_nodes = get_nodes_hash_by_roles($network_metadata, [$plugin_name, "primary-${plugin_name}"])
+$influxdb_leader = get_nodes_hash_by_roles($network_metadata, ["primary-${plugin_name}"])
+$influxdb_others = get_nodes_hash_by_roles($network_metadata, [$plugin_name])
+$influxdb_nodes = merge($influxdb_leader, $influxdb_others)
 $influxdb_address_map = get_node_to_ipaddr_map_by_network_role($influxdb_nodes, 'influxdb_vip')
 
 $influxdb_vip = $network_metadata['vips'][$vip_name]['ipaddr']
@@ -32,7 +34,13 @@ $corosync_roles = [$plugin_name, "primary-${plugin_name}"]
 
 $calculated_content = inline_template('
 ---
-lma::influxdb::raft_nodes:
+lma::influxdb::raft_nodes: # The first node is the leader
+    - <% @influxdb_leader.keys.first %>
+<% @influxdb_others.keys.sort.each do |k| -%>
+    - <%= k %>
+<% end -%>
+
+lma::influxdb::backends:
 <% @influxdb_address_map.keys.sort.each do |k| -%>
     <%= k %>: <%= @influxdb_address_map[k] %>
 <% end -%>
