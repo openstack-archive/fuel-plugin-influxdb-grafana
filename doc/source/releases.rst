@@ -10,8 +10,8 @@ Version 0.9.0
 - A new dashboard for InfluxDB cluster.
 - A new dashboard for Elasticsearch cluster.
 - Upgrade to Grafana 2.6.0.
-- Upgrade to InfluxDB 0.9.6.1.
-- Add support for InfluxDB clustering (alpha state).
+- Upgrade to InfluxDB 0.10.0.
+- Add support for InfluxDB clustering (beta state).
 - Use MySQL as Grafana backend to support HA.
 
 Version 0.8.0
