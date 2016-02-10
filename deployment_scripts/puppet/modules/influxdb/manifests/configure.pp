@@ -22,6 +22,7 @@ class influxdb::configure (
   $meta_dir     = undef,
   $wal_dir      = undef,
   $hh_dir       = undef,
+  $snapshot     = undef,
 ) {
 
   Ini_setting {
@@ -82,5 +83,11 @@ class influxdb::configure (
     section => 'meta',
     setting => 'dir',
     value   => "\"${meta_dir}\"",
+  }
+
+  ini_setting { 'snapshot':
+    section => 'snapshot',
+    setting => 'enabled',
+    value   => $snapshot,
   }
 }
