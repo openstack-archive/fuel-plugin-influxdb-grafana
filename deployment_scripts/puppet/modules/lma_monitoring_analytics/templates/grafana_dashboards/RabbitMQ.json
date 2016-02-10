@@ -855,7 +855,6 @@
           },
           "id": 29,
           "interval": "> 60s",
-          "leftYAxisLabel": "per second",
           "legend": {
             "avg": false,
             "current": false,
