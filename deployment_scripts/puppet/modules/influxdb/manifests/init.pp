@@ -19,6 +19,7 @@ class influxdb (
   $hh_dir     = $influxdb::params::hh_dir,
   $meta_dir   = $influxdb::params::meta_dir,
   $wal_dir    = $influxdb::params::wal_dir,
+  $snapshot   = $influxdb::params::snapshot,
   $hostname   = undef,
   $raft_nodes = undef,
 ) inherits influxdb::params {
@@ -39,6 +40,7 @@ class influxdb (
     hh_dir       => $hh_dir,
     meta_dir     => $meta_dir,
     wal_dir      => $wal_dir,
+    snapshot     => $snapshot,
     notify       => Class['influxdb::service'],
   }
 }

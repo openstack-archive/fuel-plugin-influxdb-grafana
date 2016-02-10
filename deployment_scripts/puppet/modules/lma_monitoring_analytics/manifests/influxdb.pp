@@ -29,6 +29,7 @@ class lma_monitoring_analytics::influxdb (
     meta_dir   => "${base_directory}/meta",
     hh_dir     => "${base_directory}/hh",
     wal_dir    => "${base_directory}/wal",
+    snapshot   => true,
     hostname   => $hostname,
     raft_nodes => $raft_nodes,
   }
