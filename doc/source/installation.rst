@@ -25,7 +25,7 @@ Catalog, you need to follow these steps:
     [root@fuel ~]# fuel plugins --list
     id | name                 | version | package_version
     ---|----------------------|---------|----------------
-    1  | influxdb_grafana     | 0.9.0   | 3.0.0
+    1  | influxdb_grafana     | 0.9.0   | 4.0.0
 
 InfluxDB-Grafana Fuel Plugin install from source
 ------------------------------------------------
@@ -62,7 +62,7 @@ if you need further instructions about how to build the Fuel Plugin Builder.
 
 4. Clone the plugin git repository::
 
-    [root@home ~] git clone git@github.com:stackforge/fuel-plugin-influxdb-grafana.git
+    [root@home ~] git clone https://github.com/openstack/fuel-plugin-influxdb-grafana.git 
 
 5. Check that the plugin is valid::
 
@@ -76,15 +76,13 @@ if you need further instructions about how to build the Fuel Plugin Builder.
 
     [root@fuel ~] fuel plugins --install ./fuel-plugin-influxdb-grafana/*.noarch.rpm
 
-InfluxDB-Grafana Fuel Plugin software components
-------------------------------------------------
-
-List of software components installed by the plugin.
+Software components installed by the InfluxDB-Grafana Plugin
+------------------------------------------------------------
 
 +----------------+-------------------------------------+
 | Components     | Version                             |
 +================+=====================================+
-| InfluxDB       | v0.9.4 for Ubuntu (64-bit)          |
+| InfluxDB       | v0.10.0 for Ubuntu (64-bit)         |
 +----------------+-------------------------------------+
 | Grafana        | v2.6.0 for Ubuntu (64-bit)          |
 +----------------+-------------------------------------+
