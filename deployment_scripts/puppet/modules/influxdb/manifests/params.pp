@@ -24,4 +24,6 @@ class influxdb::params {
   $hh_dir   = "${base_dir}/hh"
   $meta_dir = "${base_dir}/meta"
   $wal_dir  = "${base_dir}/wal"
+
+  $snapshot = false
 }
