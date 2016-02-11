@@ -26,7 +26,7 @@ def usage():
     Remove sections:
         templating.list[].current
         templating.list[].options
-    Override time entry to {"from": "now-1h","to": "now"}
+    Override time entry to {{"from": "now-1h","to": "now"}}
     Enable sharedCrosshair
     Increment the version
 
