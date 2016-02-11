@@ -83,7 +83,7 @@
               "groupby_field": "",
               "interval": "",
               "measurement": "cluster_status",
-              "query": "SELECT last(\"value\") FROM \"cluster_status\" WHERE \"cluster_name\" = 'rabbitmq' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "query": "SELECT last(\"value\") FROM \"cluster_status\" WHERE \"environment_label\" = '$environment' AND \"cluster_name\" = 'rabbitmq' AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -775,23 +775,27 @@
               "function": "mean",
               "groupBy": [
                 {
+                  "interval": "auto",
                   "params": [
-                    "$interval"
+                    "auto"
                   ],
                   "type": "time"
                 },
                 {
                   "params": [
-                    "0"
+                    "hostname"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "previous"
                   ],
                   "type": "fill"
                 }
               ],
-              "groupByTags": [
-                "hostname"
-              ],
               "measurement": "rabbitmq_unmirrored_queues",
-              "query": "SELECT mean(\"value\") FROM \"rabbitmq_unmirrored_queues\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") FROM \"rabbitmq_unmirrored_queues\" WHERE \"environment_label\" = '$environment' AND $timeFilter GROUP BY time($interval), \"hostname\" fill(previous)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -855,6 +859,7 @@
           },
           "id": 29,
           "interval": "> 60s",
+          "leftYAxisLabel": "per second",
           "legend": {
             "avg": false,
             "current": false,
@@ -884,23 +889,27 @@
               "function": "mean",
               "groupBy": [
                 {
+                  "interval": "auto",
                   "params": [
-                    "$interval"
+                    "auto"
                   ],
                   "type": "time"
                 },
                 {
                   "params": [
-                    "0"
+                    "hostname"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "previous"
                   ],
                   "type": "fill"
                 }
               ],
-              "groupByTags": [
-                "hostname"
-              ],
               "measurement": "rabbitmq_messages",
-              "query": "SELECT mean(\"value\") FROM \"rabbitmq_messages\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") FROM \"rabbitmq_messages\" WHERE \"environment_label\" = '$environment' AND $timeFilter GROUP BY time($interval), \"hostname\" fill(previous)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -993,23 +1002,27 @@
               "function": "mean",
               "groupBy": [
                 {
+                  "interval": "auto",
                   "params": [
-                    "$interval"
+                    "auto"
                   ],
                   "type": "time"
                 },
                 {
                   "params": [
-                    "0"
+                    "hostname"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "previous"
                   ],
                   "type": "fill"
                 }
               ],
-              "groupByTags": [
-                "hostname"
-              ],
               "measurement": "rabbitmq_used_memory",
-              "query": "SELECT mean(\"value\") FROM \"rabbitmq_used_memory\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") FROM \"rabbitmq_used_memory\" WHERE \"environment_label\" = '$environment' AND $timeFilter GROUP BY time($interval), \"hostname\" fill(previous)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -1102,23 +1115,27 @@
               "function": "mean",
               "groupBy": [
                 {
+                  "interval": "auto",
                   "params": [
-                    "$interval"
+                    "auto"
                   ],
                   "type": "time"
                 },
                 {
                   "params": [
-                    "0"
+                    "hostname"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "previous"
                   ],
                   "type": "fill"
                 }
               ],
-              "groupByTags": [
-                "hostname"
-              ],
               "measurement": "rabbitmq_disk_free",
-              "query": "SELECT mean(\"value\") FROM \"rabbitmq_disk_free\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") FROM \"rabbitmq_disk_free\" WHERE \"environment_label\" = '$environment' AND $timeFilter GROUP BY time($interval), \"hostname\" fill(previous)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -1237,5 +1254,5 @@
   },
   "timezone": "browser",
   "title": "RabbitMQ",
-  "version": 3
+  "version": 2
 }

@@ -84,7 +84,7 @@
               "groupby_field": "",
               "interval": "",
               "measurement": "cluster_status",
-              "query": "SELECT last(\"value\") FROM \"cluster_status\" WHERE \"cluster_name\" = 'mysql' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "query": "SELECT last(\"value\") FROM \"cluster_status\" WHERE \"environment_label\" = '$environment' AND \"cluster_name\" = 'mysql' AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -374,7 +374,7 @@
               ],
               "groupByTags": [],
               "measurement": "mysql_locks_immediate",
-              "query": "SELECT mean(\"value\") FROM \"mysql_locks_immediate\" WHERE \"hostname\" =~ /$server/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") FROM \"mysql_locks_immediate\" WHERE \"environment_label\" = '$environment' AND \"hostname\" =~ /$server/ AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -426,7 +426,7 @@
               ],
               "groupByTags": [],
               "measurement": "mysql_locks_waited",
-              "query": "SELECT mean(\"value\") FROM \"mysql_locks_waited\" WHERE \"hostname\" =~ /$server/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") FROM \"mysql_locks_waited\" WHERE \"environment_label\" = '$environment' AND \"hostname\" =~ /$server/ AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "B",
               "resultFormat": "time_series",
@@ -1097,23 +1097,27 @@
               "function": "mean",
               "groupBy": [
                 {
+                  "interval": "auto",
                   "params": [
-                    "$interval"
+                    "auto"
                   ],
                   "type": "time"
                 },
                 {
                   "params": [
-                    "0"
+                    "handler"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "previous"
                   ],
                   "type": "fill"
                 }
               ],
-              "groupByTags": [
-                "handler"
-              ],
               "measurement": "mysql_handler",
-              "query": "SELECT mean(\"value\") FROM \"mysql_handler\" WHERE \"hostname\" =~ /$server/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") FROM \"mysql_handler\" WHERE \"hostname\" =~ /$server/ AND $timeFilter GROUP BY time($interval), \"handler\" fill(previous)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -1135,6 +1139,7 @@
               "tags": [
                 {
                   "key": "hostname",
+                  "operator": "=~",
                   "value": "/$server/"
                 }
               ]
@@ -1231,5 +1236,5 @@
   },
   "timezone": "browser",
   "title": "MySQL",
-  "version": 3
+  "version": 2
 }

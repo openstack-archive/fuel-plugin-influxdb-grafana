@@ -185,7 +185,7 @@
               ],
               "groupByTags": [],
               "measurement": "ceph_quorum_count",
-              "query": "SELECT last(\"value\") FROM \"ceph_quorum_count\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
+              "query": "SELECT last(\"value\") FROM \"ceph_quorum_count\" WHERE \"environment_label\" = '$environment' AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -277,7 +277,7 @@
               ],
               "groupByTags": [],
               "measurement": "ceph_monitor_count",
-              "query": "SELECT last(\"value\") FROM \"ceph_monitor_count\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
+              "query": "SELECT last(\"value\") FROM \"ceph_monitor_count\" WHERE \"environment_label\" = '$environment' AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -367,7 +367,7 @@
               ],
               "groupByTags": [],
               "measurement": "ceph_objects_count",
-              "query": "SELECT last(\"value\") FROM \"ceph_objects_count\" WHERE \"cluster\" =~ /$cluster/ AND $timeFilter GROUP BY time($interval) fill(null)",
+              "query": "SELECT last(\"value\") FROM \"ceph_objects_count\" WHERE \"environment_label\" = '$environment' AND \"cluster\" =~ /$cluster/ AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -461,7 +461,7 @@
               ],
               "groupByTags": [],
               "measurement": "ceph_pg_count",
-              "query": "SELECT last(\"value\") FROM \"ceph_pg_count\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
+              "query": "SELECT last(\"value\") FROM \"ceph_pg_count\" WHERE \"environment_label\" = '$environment' AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -551,7 +551,7 @@
               ],
               "groupByTags": [],
               "measurement": "ceph_pool_total_percent_free",
-              "query": "SELECT last(\"value\") FROM \"ceph_pool_total_percent_free\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
+              "query": "SELECT last(\"value\") FROM \"ceph_pool_total_percent_free\" WHERE \"environment_label\" = '$environment' AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -657,7 +657,7 @@
               ],
               "groupByTags": [],
               "measurement": "ceph_pool_total_bytes_used",
-              "query": "SELECT mean(\"value\") FROM \"ceph_pool_total_bytes_used\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") FROM \"ceph_pool_total_bytes_used\" WHERE \"environment_label\" = '$environment' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -705,7 +705,7 @@
               ],
               "groupByTags": [],
               "measurement": "ceph_pool_total_bytes_free",
-              "query": "SELECT mean(\"value\") FROM \"ceph_pool_total_bytes_free\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") FROM \"ceph_pool_total_bytes_free\" WHERE \"environment_label\" = '$environment' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "B",
               "resultFormat": "time_series",
@@ -799,24 +799,29 @@
               "function": "max",
               "groupBy": [
                 {
+                  "interval": "auto",
                   "params": [
-                    "$interval"
+                    "auto"
                   ],
                   "type": "time"
                 },
                 {
+                  "key": "state",
                   "params": [
-                    "0"
+                    "tag"
                   ],
-                  "type": "fill"
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "state"
+                  ],
+                  "type": "tag"
                 }
-              ],
-              "groupByTags": [
-                "state"
               ],
               "hide": false,
               "measurement": "ceph_pg_state_count",
-              "query": "SELECT max(\"value\") FROM \"ceph_pg_state_count\" WHERE \"cluster\" =~ /$cluster/ AND \"hostname\" =~ /$mon/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT max(\"value\") FROM \"ceph_pg_state_count\" WHERE \"cluster\" =~ /$cluster/ AND \"hostname\" =~ /$mon/ AND $timeFilter GROUP BY time($interval), \"tag\", \"state\"",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -838,11 +843,13 @@
               "tags": [
                 {
                   "key": "cluster",
+                  "operator": "=~",
                   "value": "/$cluster/"
                 },
                 {
                   "condition": "AND",
                   "key": "hostname",
+                  "operator": "=~",
                   "value": "/$mon/"
                 }
               ]
@@ -2427,19 +2434,10 @@
               "function": "mean",
               "groupBy": [
                 {
-                  "params": [
-                    "$interval"
-                  ],
+                  "interval": "auto",
                   "type": "time"
-                },
-                {
-                  "params": [
-                    "0"
-                  ],
-                  "type": "fill"
                 }
               ],
-              "groupByTags": [],
               "measurement": "ceph_osd_space_used",
               "query": "SELECT mean(\"value\") FROM \"ceph_osd_space_used\" WHERE \"cluster\" =~ /$cluster/ AND \"hostname\" =~ /$mon/ AND \"osd\" =~ /$osd/ AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
@@ -2463,16 +2461,19 @@
               "tags": [
                 {
                   "key": "cluster",
+                  "operator": "=~",
                   "value": "/$cluster/"
                 },
                 {
                   "condition": "AND",
                   "key": "hostname",
+                  "operator": "=~",
                   "value": "/$mon/"
                 },
                 {
                   "condition": "AND",
                   "key": "osd",
+                  "operator": "=~",
                   "value": "/$osd/"
                 }
               ]
@@ -2484,19 +2485,10 @@
               "function": "mean",
               "groupBy": [
                 {
-                  "params": [
-                    "$interval"
-                  ],
+                  "interval": "auto",
                   "type": "time"
-                },
-                {
-                  "params": [
-                    "0"
-                  ],
-                  "type": "fill"
                 }
               ],
-              "groupByTags": [],
               "measurement": "ceph_osd_space_total",
               "query": "SELECT mean(\"value\") FROM \"ceph_osd_space_total\" WHERE \"cluster\" =~ /$cluster/ AND \"hostname\" =~ /$mon/ AND \"osd\" =~ /$osd/ AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
@@ -2520,16 +2512,19 @@
               "tags": [
                 {
                   "key": "cluster",
+                  "operator": "=~",
                   "value": "/$cluster/"
                 },
                 {
                   "condition": "AND",
                   "key": "hostname",
+                  "operator": "=~",
                   "value": "/$mon/"
                 },
                 {
                   "condition": "AND",
                   "key": "osd",
+                  "operator": "=~",
                   "value": "/$osd/"
                 }
               ]
@@ -2905,5 +2900,5 @@
   },
   "timezone": "browser",
   "title": "Ceph",
-  "version": 3
+  "version": 2
 }
