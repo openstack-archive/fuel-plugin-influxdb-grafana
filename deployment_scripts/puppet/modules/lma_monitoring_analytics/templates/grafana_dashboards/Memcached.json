@@ -83,7 +83,7 @@
               "groupby_field": "",
               "interval": "",
               "measurement": "cluster_status",
-              "query": "SELECT last(\"value\") FROM \"cluster_status\" WHERE \"cluster_name\" = 'memcached' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "query": "SELECT last(\"value\") FROM \"cluster_status\" WHERE \"environment_label\" = '$environment' AND \"cluster_name\" = 'memcached' AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -209,23 +209,27 @@
               "function": "median",
               "groupBy": [
                 {
+                  "interval": "auto",
                   "params": [
-                    "$interval"
+                    "auto"
                   ],
                   "type": "time"
                 },
                 {
                   "params": [
-                    "0"
+                    "hostname"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "previous"
                   ],
                   "type": "fill"
                 }
               ],
-              "groupByTags": [
-                "hostname"
-              ],
               "measurement": "memcached_items_current",
-              "query": "SELECT mean(\"value\") FROM \"memcached_items_current\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") FROM \"memcached_items_current\" WHERE \"environment_label\" = '$environment' AND $timeFilter GROUP BY time($interval), \"hostname\" fill(previous)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -318,23 +322,27 @@
               "function": "mean",
               "groupBy": [
                 {
+                  "interval": "auto",
                   "params": [
-                    "$interval"
+                    "auto"
                   ],
                   "type": "time"
                 },
                 {
                   "params": [
-                    "0"
+                    "hostname"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "previous"
                   ],
                   "type": "fill"
                 }
               ],
-              "groupByTags": [
-                "hostname"
-              ],
               "measurement": "memcached_df_cache_used",
-              "query": "SELECT mean(\"value\") FROM \"memcached_df_cache_used\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") FROM \"memcached_df_cache_used\" WHERE \"environment_label\" = '$environment' AND $timeFilter GROUP BY time($interval), \"hostname\" fill(previous)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -430,27 +438,33 @@
           "steppedLine": false,
           "targets": [
             {
-              "alias": "get",
+              "alias": "$tag_hostname.get",
               "column": "value",
               "dsType": "influxdb",
               "function": "mean",
               "groupBy": [
                 {
+                  "interval": "auto",
                   "params": [
-                    "$interval"
+                    "auto"
                   ],
                   "type": "time"
                 },
                 {
                   "params": [
-                    "0"
+                    "hostname"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "previous"
                   ],
                   "type": "fill"
                 }
               ],
-              "groupByTags": [],
               "measurement": "memcached_command_get",
-              "query": "SELECT mean(\"value\") FROM \"memcached_command_get\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") FROM \"memcached_command_get\" WHERE \"environment_label\" = '$environment' AND $timeFilter GROUP BY time($interval), \"hostname\" fill(previous)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -478,28 +492,34 @@
               ]
             },
             {
-              "alias": "set",
+              "alias": "$tag_hostname.set",
               "column": "value",
               "dsType": "influxdb",
               "function": "mean",
               "groupBy": [
                 {
+                  "interval": "auto",
                   "params": [
-                    "$interval"
+                    "auto"
                   ],
                   "type": "time"
                 },
                 {
                   "params": [
-                    "0"
+                    "hostname"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "previous"
                   ],
                   "type": "fill"
                 }
               ],
-              "groupByTags": [],
               "hide": false,
               "measurement": "memcached_command_set",
-              "query": "SELECT mean(\"value\") FROM \"memcached_command_set\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") FROM \"memcached_command_set\" WHERE \"environment_label\" = '$environment' AND $timeFilter GROUP BY time($interval), \"hostname\" fill(previous)",
               "rawQuery": false,
               "refId": "B",
               "resultFormat": "time_series",
@@ -592,23 +612,27 @@
               "function": "mean",
               "groupBy": [
                 {
+                  "interval": "auto",
                   "params": [
-                    "$interval"
+                    "auto"
                   ],
                   "type": "time"
                 },
                 {
                   "params": [
-                    "0"
+                    "hostname"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "previous"
                   ],
                   "type": "fill"
                 }
               ],
-              "groupByTags": [
-                "hostname"
-              ],
               "measurement": "memcached_df_cache_free",
-              "query": "SELECT mean(\"value\") FROM \"memcached_df_cache_free\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") FROM \"memcached_df_cache_free\" WHERE \"environment_label\" = '$environment' AND $timeFilter GROUP BY time($interval), \"hostname\" fill(previous)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -721,30 +745,34 @@
           "steppedLine": false,
           "targets": [
             {
-              "alias": "$0",
+              "alias": "$tag_hostname",
               "column": "value",
               "dsType": "influxdb",
               "function": "mean",
               "groupBy": [
                 {
+                  "interval": "auto",
                   "params": [
-                    "$interval"
+                    "auto"
                   ],
                   "type": "time"
                 },
                 {
                   "params": [
-                    "0"
+                    "hostname"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "previous"
                   ],
                   "type": "fill"
                 }
               ],
-              "groupByTags": [
-                "hostname"
-              ],
               "interval": "",
               "measurement": "memcached_percent_hitratio",
-              "query": "SELECT mean(\"value\") FROM \"memcached_percent_hitratio\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") FROM \"memcached_percent_hitratio\" WHERE \"environment_label\" = '$environment' AND $timeFilter GROUP BY time($interval), \"hostname\" fill(previous)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -841,29 +869,35 @@
           "steppedLine": false,
           "targets": [
             {
-              "alias": "hits",
+              "alias": "$tag_hostname.hits",
               "column": "value",
               "dsType": "influxdb",
               "function": "mean",
               "groupBy": [
                 {
+                  "interval": "auto",
                   "params": [
-                    "$interval"
+                    "auto"
                   ],
                   "type": "time"
                 },
                 {
                   "params": [
-                    "0"
+                    "hostname"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "previous"
                   ],
                   "type": "fill"
                 }
               ],
-              "groupByTags": [],
               "hide": false,
               "interval": "",
               "measurement": "memcached_ops_hits",
-              "query": "SELECT mean(\"value\") FROM \"memcached_ops_hits\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") FROM \"memcached_ops_hits\" WHERE \"environment_label\" = '$environment' AND $timeFilter GROUP BY time($interval), \"hostname\" fill(previous)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -891,29 +925,35 @@
               ]
             },
             {
-              "alias": "misses",
+              "alias": "$tag_hostname.misses",
               "column": "value",
               "dsType": "influxdb",
               "function": "mean",
               "groupBy": [
                 {
+                  "interval": "auto",
                   "params": [
-                    "$interval"
+                    "auto"
                   ],
                   "type": "time"
                 },
                 {
                   "params": [
-                    "0"
+                    "hostname"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "previous"
                   ],
                   "type": "fill"
                 }
               ],
-              "groupByTags": [],
               "hide": false,
               "interval": "",
               "measurement": "memcached_ops_misses",
-              "query": "SELECT mean(\"value\") FROM \"memcached_ops_misses\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") FROM \"memcached_ops_misses\" WHERE \"environment_label\" = '$environment' AND $timeFilter GROUP BY time($interval), \"hostname\" fill(previous)",
               "rawQuery": false,
               "refId": "B",
               "resultFormat": "time_series",
@@ -941,27 +981,33 @@
               ]
             },
             {
-              "alias": "evictions",
+              "alias": "$tag_hostname.evictions",
               "column": "value",
               "dsType": "influxdb",
               "function": "mean",
               "groupBy": [
                 {
+                  "interval": "auto",
                   "params": [
-                    "$interval"
+                    "auto"
                   ],
                   "type": "time"
                 },
                 {
                   "params": [
-                    "0"
+                    "hostname"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "previous"
                   ],
                   "type": "fill"
                 }
               ],
-              "groupByTags": [],
               "measurement": "memcached_ops_evictions",
-              "query": "SELECT mean(\"value\") FROM \"memcached_ops_evictions\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") FROM \"memcached_ops_evictions\" WHERE \"environment_label\" = '$environment' AND $timeFilter GROUP BY time($interval), \"hostname\" fill(previous)",
               "rawQuery": false,
               "refId": "C",
               "resultFormat": "time_series",
@@ -1074,24 +1120,28 @@
               "function": "mean",
               "groupBy": [
                 {
+                  "interval": "auto",
                   "params": [
-                    "$interval"
+                    "auto"
                   ],
                   "type": "time"
                 },
                 {
                   "params": [
-                    "null"
+                    "hostname"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "previous"
                   ],
                   "type": "fill"
                 }
               ],
-              "groupByTags": [
-                "hostname"
-              ],
               "interval": "",
               "measurement": "memcached_octets_tx",
-              "query": "SELECT mean(\"value\") FROM \"memcached_octets_tx\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
+              "query": "SELECT mean(\"value\") FROM \"memcached_octets_tx\" WHERE \"environment_label\" = '$environment' AND $timeFilter GROUP BY time($interval), \"hostname\" fill(previous)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -1125,24 +1175,28 @@
               "function": "mean",
               "groupBy": [
                 {
+                  "interval": "auto",
                   "params": [
-                    "$interval"
+                    "auto"
                   ],
                   "type": "time"
                 },
                 {
                   "params": [
-                    "null"
+                    "hostname"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "previous"
                   ],
                   "type": "fill"
                 }
               ],
-              "groupByTags": [
-                "hostname"
-              ],
               "interval": "",
               "measurement": "memcached_octets_rx",
-              "query": "SELECT mean(\"value\") FROM \"memcached_octets_rx\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
+              "query": "SELECT mean(\"value\") FROM \"memcached_octets_rx\" WHERE \"environment_label\" = '$environment' AND $timeFilter GROUP BY time($interval), \"hostname\" fill(previous)",
               "rawQuery": false,
               "refId": "B",
               "resultFormat": "time_series",
@@ -1239,24 +1293,28 @@
               "function": "mean",
               "groupBy": [
                 {
+                  "interval": "auto",
                   "params": [
-                    "$interval"
+                    "auto"
                   ],
                   "type": "time"
                 },
                 {
                   "params": [
-                    "0"
+                    "hostname"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "previous"
                   ],
                   "type": "fill"
                 }
               ],
-              "groupByTags": [
-                "hostname"
-              ],
               "interval": "",
               "measurement": "memcached_connections_current",
-              "query": "SELECT mean(\"value\") FROM \"memcached_connections_current\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") FROM \"memcached_connections_current\" WHERE \"environment_label\" = '$environment' AND $timeFilter GROUP BY time($interval), \"hostname\" fill(previous)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -1361,5 +1419,5 @@
   },
   "timezone": "browser",
   "title": "Memcached",
-  "version": 3
+  "version": 5
 }
