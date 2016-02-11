@@ -19,7 +19,7 @@
   },
   "editable": true,
   "hideControls": false,
-  "id": null,
+  "id": 13,
   "links": [],
   "originalTitle": "Cinder",
   "refresh": "1m",
@@ -77,7 +77,7 @@
               "groupby_field": "",
               "interval": "",
               "measurement": "cluster_status",
-              "query": "SELECT last(\"value\") FROM \"cluster_status\" WHERE \"cluster_name\" = 'cinder' AND $timeFilter GROUP BY time($interval)",
+              "query": "SELECT last(\"value\") FROM \"cluster_status\" WHERE \"environment_label\" = '$environment' AND \"cluster_name\" = 'cinder' AND $timeFilter GROUP BY time($interval)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -574,7 +574,7 @@
                 }
               ],
               "measurement": "openstack_check_api",
-              "query": "SELECT last(\"value\") FROM \"openstack_check_api\" WHERE \"service\" = 'cinder-api' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT last(\"value\") FROM \"openstack_check_api\" WHERE \"environment_label\" = '$environment' AND \"service\" = 'cinder-api' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -1014,7 +1014,7 @@
                 }
               ],
               "measurement": "haproxy_backend_servers",
-              "query": "SELECT last(\"value\") FROM \"haproxy_backend_servers\" WHERE \"backend\" = 'cinder-api' AND \"state\" = 'up' AND $timeFilter GROUP BY time($interval)",
+              "query": "SELECT last(\"value\") FROM \"haproxy_backend_servers\" WHERE \"environment_label\" = '$environment' AND \"backend\" = 'cinder-api' AND \"state\" = 'up' AND $timeFilter GROUP BY time($interval)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -1132,7 +1132,7 @@
                 }
               ],
               "measurement": "haproxy_backend_servers",
-              "query": "SELECT last(\"value\") FROM \"haproxy_backend_servers\" WHERE \"backend\" = 'cinder-api' AND \"state\" = 'down' AND $timeFilter GROUP BY time($interval)",
+              "query": "SELECT last(\"value\") FROM \"haproxy_backend_servers\" WHERE \"environment_label\" = '$environment' AND \"backend\" = 'cinder-api' AND \"state\" = 'down' AND $timeFilter GROUP BY time($interval)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -1266,7 +1266,7 @@
                 }
               ],
               "measurement": "openstack_cinder_services",
-              "query": "SELECT last(\"value\") FROM \"openstack_cinder_services\" WHERE \"service\" = 'scheduler' AND \"state\" = 'disabled' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "query": "SELECT last(\"value\") FROM \"openstack_cinder_services\" WHERE \"environment_label\" = '$environment' AND \"service\" = 'scheduler' AND \"state\" = 'disabled' AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -1369,7 +1369,7 @@
                 }
               ],
               "measurement": "openstack_cinder_services",
-              "query": "SELECT last(\"value\") FROM \"openstack_cinder_services\" WHERE \"service\" = 'scheduler' AND \"state\" = 'up' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "query": "SELECT last(\"value\") FROM \"openstack_cinder_services\" WHERE \"environment_label\" = '$environment' AND \"service\" = 'scheduler' AND \"state\" = 'up' AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -1472,7 +1472,7 @@
                 }
               ],
               "measurement": "openstack_cinder_services",
-              "query": "SELECT last(\"value\") FROM \"openstack_cinder_services\" WHERE \"service\" = 'scheduler' AND \"state\" = 'down' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "query": "SELECT last(\"value\") FROM \"openstack_cinder_services\" WHERE \"environment_label\" = '$environment' AND \"service\" = 'scheduler' AND \"state\" = 'down' AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -1580,8 +1580,8 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "openstack_nova_service",
-              "query": "SELECT state, last(value) FROM \"openstack_cinder_service\" WHERE $timeFilter AND \"environment_label\" = '$environment'and service = 'scheduler' GROUP BY time($interval), hostname fill(0)",
+              "measurement": "openstack_cinder_service",
+              "query": "SELECT state, last(value) FROM \"openstack_cinder_service\" WHERE $timeFilter AND \"environment_label\" = '$environment'and service = 'scheduler' GROUP BY time($interval), hostname",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "table",
@@ -1671,7 +1671,7 @@
                 }
               ],
               "measurement": "openstack_cinder_services",
-              "query": "SELECT last(\"value\") FROM \"openstack_cinder_services\" WHERE \"service\" = 'scheduler' AND \"state\" = 'disabled' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "query": "SELECT last(\"value\") FROM \"openstack_cinder_services\" WHERE \"environment_label\" = '$environment' AND \"service\" = 'scheduler' AND \"state\" = 'disabled' AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -1774,7 +1774,7 @@
                 }
               ],
               "measurement": "openstack_cinder_services",
-              "query": "SELECT last(\"value\") FROM \"openstack_cinder_services\" WHERE \"service\" = 'volume' AND \"state\" = 'up' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "query": "SELECT last(\"value\") FROM \"openstack_cinder_services\" WHERE \"environment_label\" = '$environment' AND \"service\" = 'volume' AND \"state\" = 'up' AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -1877,7 +1877,7 @@
                 }
               ],
               "measurement": "openstack_cinder_services",
-              "query": "SELECT last(\"value\") FROM \"openstack_cinder_services\" WHERE \"service\" = 'volume' AND \"state\" = 'down' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "query": "SELECT last(\"value\") FROM \"openstack_cinder_services\" WHERE \"environment_label\" = '$environment' AND \"service\" = 'volume' AND \"state\" = 'down' AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -1985,8 +1985,8 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "openstack_nova_service",
-              "query": "SELECT state, last(value) FROM \"openstack_cinder_service\" WHERE $timeFilter AND \"environment_label\" = '$environment'and service = 'volume' GROUP BY time($interval), hostname fill(0)",
+              "measurement": "openstack_cinder_service",
+              "query": "SELECT state, last(value) FROM \"openstack_cinder_service\" WHERE $timeFilter AND \"environment_label\" = '$environment'and service = 'volume' GROUP BY time($interval), hostname",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "table",
@@ -2076,7 +2076,7 @@
                 }
               ],
               "measurement": "openstack_cinder_services",
-              "query": "SELECT last(\"value\") FROM \"openstack_cinder_services\" WHERE \"service\" = 'backup' AND \"state\" = 'disabled' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "query": "SELECT last(\"value\") FROM \"openstack_cinder_services\" WHERE \"environment_label\" = '$environment' AND \"service\" = 'backup' AND \"state\" = 'disabled' AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -2179,7 +2179,7 @@
                 }
               ],
               "measurement": "openstack_cinder_services",
-              "query": "SELECT last(\"value\") FROM \"openstack_cinder_services\" WHERE \"service\" = 'backup' AND \"state\" = 'up' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "query": "SELECT last(\"value\") FROM \"openstack_cinder_services\" WHERE \"environment_label\" = '$environment' AND \"service\" = 'backup' AND \"state\" = 'up' AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -2282,7 +2282,7 @@
                 }
               ],
               "measurement": "openstack_cinder_services",
-              "query": "SELECT last(\"value\") FROM \"openstack_cinder_services\" WHERE \"service\" = 'backup' AND \"state\" = 'down' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "query": "SELECT last(\"value\") FROM \"openstack_cinder_services\" WHERE \"environment_label\" = '$environment' AND \"service\" = 'backup' AND \"state\" = 'down' AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -2390,8 +2390,8 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "openstack_nova_service",
-              "query": "SELECT state, last(value) FROM \"openstack_cinder_service\" WHERE $timeFilter AND \"environment_label\" = '$environment'and service = 'backup' GROUP BY time($interval), hostname fill(0)",
+              "measurement": "openstack_cinder_service",
+              "query": "SELECT state, last(value) FROM \"openstack_cinder_service\" WHERE $timeFilter AND \"environment_label\" = '$environment'and service = 'backup' GROUP BY time($interval), hostname",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "table",
@@ -2471,7 +2471,7 @@
                 }
               ],
               "measurement": "openstack_cinder_volumes",
-              "query": "SELECT last(\"value\") FROM \"openstack_cinder_volumes\" WHERE \"state\" = 'available' AND $timeFilter GROUP BY time($interval)",
+              "query": "SELECT last(\"value\") FROM \"openstack_cinder_volumes\" WHERE \"environment_label\" = '$environment' AND \"state\" = 'available' AND $timeFilter GROUP BY time($interval)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -2562,7 +2562,7 @@
                 }
               ],
               "measurement": "openstack_cinder_volumes",
-              "query": "SELECT last(\"value\") FROM \"openstack_cinder_volumes\" WHERE \"state\" = 'in-use' AND $timeFilter GROUP BY time($interval)",
+              "query": "SELECT last(\"value\") FROM \"openstack_cinder_volumes\" WHERE \"environment_label\" = '$environment' AND \"state\" = 'in-use' AND $timeFilter GROUP BY time($interval)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -2653,7 +2653,7 @@
                 }
               ],
               "measurement": "openstack_cinder_volumes",
-              "query": "SELECT last(\"value\") FROM \"openstack_cinder_volumes\" WHERE \"state\" = 'error' AND $timeFilter GROUP BY time($interval)",
+              "query": "SELECT last(\"value\") FROM \"openstack_cinder_volumes\" WHERE \"environment_label\" = '$environment' AND \"state\" = 'error' AND $timeFilter GROUP BY time($interval)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -2763,7 +2763,7 @@
               ],
               "hide": false,
               "measurement": "openstack_cinder_volumes",
-              "query": "SELECT max(\"value\") FROM \"openstack_cinder_volumes\" WHERE \"state\" = 'available' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT max(\"value\") FROM \"openstack_cinder_volumes\" WHERE \"environment_label\" = '$environment' AND \"state\" = 'available' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -2814,7 +2814,7 @@
                 }
               ],
               "measurement": "openstack_cinder_volumes",
-              "query": "SELECT max(\"value\") FROM \"openstack_cinder_volumes\" WHERE \"state\" = 'in-use' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT max(\"value\") FROM \"openstack_cinder_volumes\" WHERE \"environment_label\" = '$environment' AND \"state\" = 'in-use' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "B",
               "resultFormat": "time_series",
@@ -2867,7 +2867,7 @@
               ],
               "hide": false,
               "measurement": "openstack_cinder_volumes",
-              "query": "SELECT max(\"value\") FROM \"openstack_cinder_volumes\" WHERE \"state\" = 'error' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT max(\"value\") FROM \"openstack_cinder_volumes\" WHERE \"environment_label\" = '$environment' AND \"state\" = 'error' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "C",
               "resultFormat": "time_series",
@@ -2959,7 +2959,7 @@
                 }
               ],
               "measurement": "openstack_cinder_volumes_size",
-              "query": "SELECT last(\"value\") FROM \"openstack_cinder_volumes_size\" WHERE \"state\" = 'available' AND $timeFilter GROUP BY time($interval)",
+              "query": "SELECT last(\"value\") FROM \"openstack_cinder_volumes_size\" WHERE \"environment_label\" = '$environment' AND \"state\" = 'available' AND $timeFilter GROUP BY time($interval)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -3049,7 +3049,7 @@
                 }
               ],
               "measurement": "openstack_cinder_volumes_size",
-              "query": "SELECT last(\"value\") FROM \"openstack_cinder_volumes_size\" WHERE \"state\" = 'in-use' AND $timeFilter GROUP BY time($interval)",
+              "query": "SELECT last(\"value\") FROM \"openstack_cinder_volumes_size\" WHERE \"environment_label\" = '$environment' AND \"state\" = 'in-use' AND $timeFilter GROUP BY time($interval)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -3139,7 +3139,7 @@
                 }
               ],
               "measurement": "openstack_cinder_volumes_size",
-              "query": "SELECT last(\"value\") FROM \"openstack_cinder_volumes_size\" WHERE \"state\" = 'error' AND $timeFilter GROUP BY time($interval)",
+              "query": "SELECT last(\"value\") FROM \"openstack_cinder_volumes_size\" WHERE \"environment_label\" = '$environment' AND \"state\" = 'error' AND $timeFilter GROUP BY time($interval)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -3247,7 +3247,7 @@
                 }
               ],
               "measurement": "openstack_cinder_volumes_size",
-              "query": "SELECT max(\"value\") FROM \"openstack_cinder_volumes_size\" WHERE \"state\" = 'available' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT max(\"value\") FROM \"openstack_cinder_volumes_size\" WHERE \"environment_label\" = '$environment' AND \"state\" = 'available' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -3299,7 +3299,7 @@
                 }
               ],
               "measurement": "openstack_cinder_volumes_size",
-              "query": "SELECT max(\"value\") FROM \"openstack_cinder_volumes_size\" WHERE \"state\" = 'in-use' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT max(\"value\") FROM \"openstack_cinder_volumes_size\" WHERE \"environment_label\" = '$environment' AND \"state\" = 'in-use' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "B",
               "resultFormat": "time_series",
@@ -3351,7 +3351,7 @@
                 }
               ],
               "measurement": "openstack_cinder_volumes_size",
-              "query": "SELECT max(\"value\") FROM \"openstack_cinder_volumes_size\" WHERE \"state\" = 'error' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT max(\"value\") FROM \"openstack_cinder_volumes_size\" WHERE \"environment_label\" = '$environment' AND \"state\" = 'error' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "C",
               "resultFormat": "time_series",
@@ -3443,7 +3443,7 @@
                 }
               ],
               "measurement": "openstack_cinder_volume_creation_time",
-              "query": "SELECT last(\"value\") FROM \"openstack_cinder_volume_creation_time\" WHERE $timeFilter GROUP BY time($interval)",
+              "query": "SELECT last(\"value\") FROM \"openstack_cinder_volume_creation_time\" WHERE \"environment_label\" = '$environment' AND $timeFilter GROUP BY time($interval)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -3565,7 +3565,7 @@
               "hide": false,
               "interval": "",
               "measurement": "openstack_cinder_volume_creation_time",
-              "query": "SELECT mean(\"value\") FROM \"openstack_cinder_volume_creation_time\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") FROM \"openstack_cinder_volume_creation_time\" WHERE \"environment_label\" = '$environment' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -3614,7 +3614,7 @@
               "hide": false,
               "interval": "",
               "measurement": "openstack_cinder_volume_creation_time",
-              "query": "SELECT max(\"value\") FROM \"openstack_cinder_volume_creation_time\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT max(\"value\") FROM \"openstack_cinder_volume_creation_time\" WHERE \"environment_label\" = '$environment' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "B",
               "resultFormat": "time_series",
@@ -3663,7 +3663,7 @@
               "hide": false,
               "interval": "",
               "measurement": "openstack_cinder_volume_creation_time",
-              "query": "SELECT min(\"value\") FROM \"openstack_cinder_volume_creation_time\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT min(\"value\") FROM \"openstack_cinder_volume_creation_time\" WHERE \"environment_label\" = '$environment' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "C",
               "resultFormat": "time_series",
@@ -3759,7 +3759,7 @@
                 }
               ],
               "measurement": "openstack_cinder_snapshots",
-              "query": "SELECT last(\"value\") FROM \"openstack_cinder_snapshots\" WHERE \"state\" = 'available' AND $timeFilter GROUP BY time($interval)",
+              "query": "SELECT last(\"value\") FROM \"openstack_cinder_snapshots\" WHERE \"environment_label\" = '$environment' AND \"state\" = 'available' AND $timeFilter GROUP BY time($interval)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -3849,7 +3849,7 @@
                 }
               ],
               "measurement": "openstack_cinder_snapshots",
-              "query": "SELECT last(\"value\") FROM \"openstack_cinder_snapshots\" WHERE \"state\" = 'in-use' AND $timeFilter GROUP BY time($interval)",
+              "query": "SELECT last(\"value\") FROM \"openstack_cinder_snapshots\" WHERE \"environment_label\" = '$environment' AND \"state\" = 'in-use' AND $timeFilter GROUP BY time($interval)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -3939,7 +3939,7 @@
                 }
               ],
               "measurement": "openstack_cinder_snapshots",
-              "query": "SELECT last(\"value\") FROM \"openstack_cinder_snapshots\" WHERE \"state\" = 'error' AND $timeFilter GROUP BY time($interval)",
+              "query": "SELECT last(\"value\") FROM \"openstack_cinder_snapshots\" WHERE \"environment_label\" = '$environment' AND \"state\" = 'error' AND $timeFilter GROUP BY time($interval)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -4049,7 +4049,7 @@
               ],
               "hide": false,
               "measurement": "openstack_cinder_snapshots",
-              "query": "SELECT max(\"value\") FROM \"openstack_cinder_snapshots\" WHERE \"state\" = 'available' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT max(\"value\") FROM \"openstack_cinder_snapshots\" WHERE \"environment_label\" = '$environment' AND \"state\" = 'available' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -4100,7 +4100,7 @@
                 }
               ],
               "measurement": "openstack_cinder_snapshots",
-              "query": "SELECT max(\"value\") FROM \"openstack_cinder_snapshots\" WHERE \"state\" = 'in-use' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT max(\"value\") FROM \"openstack_cinder_snapshots\" WHERE \"environment_label\" = '$environment' AND \"state\" = 'in-use' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "B",
               "resultFormat": "time_series",
@@ -4153,7 +4153,7 @@
               ],
               "hide": false,
               "measurement": "openstack_cinder_snapshots",
-              "query": "SELECT max(\"value\") FROM \"openstack_cinder_snapshots\" WHERE \"state\" = 'error' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT max(\"value\") FROM \"openstack_cinder_snapshots\" WHERE \"environment_label\" = '$environment' AND \"state\" = 'error' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "C",
               "resultFormat": "time_series",
@@ -4245,7 +4245,7 @@
                 }
               ],
               "measurement": "openstack_cinder_snapshots_size",
-              "query": "SELECT last(\"value\") FROM \"openstack_cinder_snapshots_size\" WHERE \"state\" = 'available' AND $timeFilter GROUP BY time($interval)",
+              "query": "SELECT last(\"value\") FROM \"openstack_cinder_snapshots_size\" WHERE \"environment_label\" = '$environment' AND \"state\" = 'available' AND $timeFilter GROUP BY time($interval)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -4335,7 +4335,7 @@
                 }
               ],
               "measurement": "openstack_cinder_snapshots_size",
-              "query": "SELECT last(\"value\") FROM \"openstack_cinder_snapshots_size\" WHERE \"state\" = 'in-use' AND $timeFilter GROUP BY time($interval)",
+              "query": "SELECT last(\"value\") FROM \"openstack_cinder_snapshots_size\" WHERE \"environment_label\" = '$environment' AND \"state\" = 'in-use' AND $timeFilter GROUP BY time($interval)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -4425,7 +4425,7 @@
                 }
               ],
               "measurement": "openstack_cinder_snapshots_size",
-              "query": "SELECT last(\"value\") FROM \"openstack_cinder_snapshots_size\" WHERE \"state\" = 'error' AND $timeFilter GROUP BY time($interval)",
+              "query": "SELECT last(\"value\") FROM \"openstack_cinder_snapshots_size\" WHERE \"environment_label\" = '$environment' AND \"state\" = 'error' AND $timeFilter GROUP BY time($interval)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -4533,7 +4533,7 @@
                 }
               ],
               "measurement": "openstack_cinder_snapshots_size",
-              "query": "SELECT max(\"value\") FROM \"openstack_cinder_snapshots_size\" WHERE \"state\" = 'available' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT max(\"value\") FROM \"openstack_cinder_snapshots_size\" WHERE \"environment_label\" = '$environment' AND \"state\" = 'available' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -4584,7 +4584,7 @@
                 }
               ],
               "measurement": "openstack_cinder_snapshots_size",
-              "query": "SELECT max(\"value\") FROM \"openstack_cinder_snapshots_size\" WHERE \"state\" = 'in-use' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT max(\"value\") FROM \"openstack_cinder_snapshots_size\" WHERE \"environment_label\" = '$environment' AND \"state\" = 'in-use' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "B",
               "resultFormat": "time_series",
@@ -4635,7 +4635,7 @@
                 }
               ],
               "measurement": "openstack_cinder_snapshots_size",
-              "query": "SELECT max(\"value\") FROM \"openstack_cinder_snapshots_size\" WHERE \"state\" = 'error' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT max(\"value\") FROM \"openstack_cinder_snapshots_size\" WHERE \"environment_label\" = '$environment' AND \"state\" = 'error' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "C",
               "resultFormat": "time_series",
