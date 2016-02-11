@@ -113,8 +113,8 @@ attributes:
     weight: 110
     type: 'text'
     regex:
-      source: '\S'
-      error: "You must provide the name of the database"
+      source: '^[a-zA-Z0-9$_]{1,64}$'
+      error: "You must provide the name of the database (maximum lenght: 64 characters)"
 
   mysql_username:
     value: 'grafana'
@@ -123,8 +123,8 @@ attributes:
     weight: 120
     type: 'text'
     regex:
-      source: '\S'
-      error: "You must provide a username"
+      source: '^[a-zA-Z0-9$_-]{1,16}$'
+      error: "You must provide a username (maximum lenght: 16 characters)"
 
   mysql_password:
     value: ''
