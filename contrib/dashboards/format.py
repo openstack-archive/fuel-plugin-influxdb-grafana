@@ -74,6 +74,7 @@ for f in glob.glob(path):
     data['time'] = {'from': 'now-1h', 'to': 'now'}
     data['sharedCrosshair'] = True
     data['refresh'] = '1m'
+    data['id'] = None
 
     if data.get('version', None):
         data['version'] = data['version'] + 1
