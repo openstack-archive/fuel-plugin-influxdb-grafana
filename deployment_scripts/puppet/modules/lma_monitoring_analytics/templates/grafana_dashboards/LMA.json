@@ -4,7 +4,7 @@
   },
   "editable": true,
   "hideControls": false,
-  "id": 6,
+  "id": null,
   "links": [],
   "originalTitle": "LMA self-monitoring",
   "refresh": "1m",
@@ -2102,5 +2102,5 @@
   },
   "timezone": "browser",
   "title": "LMA self-monitoring",
-  "version": 4
+  "version": 5
 }

@@ -74,7 +74,7 @@
                 },
                 {
                   "params": [
-                    "null"
+                    "previous"
                   ],
                   "type": "fill"
                 }
@@ -1419,5 +1419,5 @@
   },
   "timezone": "browser",
   "title": "Memcached",
-  "version": 5
+  "version": 6
 }

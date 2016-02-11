@@ -4,7 +4,7 @@
   },
   "editable": true,
   "hideControls": false,
-  "id": 9,
+  "id": null,
   "links": [],
   "originalTitle": "InfluxDB",
   "refresh": "1m",
@@ -159,7 +159,7 @@
                 },
                 {
                   "params": [
-                    "null"
+                    "previous"
                   ],
                   "type": "fill"
                 }
@@ -208,7 +208,7 @@
                 },
                 {
                   "params": [
-                    "null"
+                    "previous"
                   ],
                   "type": "fill"
                 }
@@ -258,7 +258,7 @@
                 },
                 {
                   "params": [
-                    "null"
+                    "previous"
                   ],
                   "type": "fill"
                 }
@@ -369,7 +369,7 @@
                 },
                 {
                   "params": [
-                    "null"
+                    "previous"
                   ],
                   "type": "fill"
                 }
@@ -419,7 +419,7 @@
                 },
                 {
                   "params": [
-                    "null"
+                    "previous"
                   ],
                   "type": "fill"
                 }
@@ -524,7 +524,7 @@
                 },
                 {
                   "params": [
-                    "null"
+                    "previous"
                   ],
                   "type": "fill"
                 }
@@ -626,7 +626,7 @@
                 },
                 {
                   "params": [
-                    "null"
+                    "previous"
                   ],
                   "type": "fill"
                 }
@@ -675,7 +675,7 @@
                 },
                 {
                   "params": [
-                    "null"
+                    "previous"
                   ],
                   "type": "fill"
                 }
@@ -724,7 +724,7 @@
                 },
                 {
                   "params": [
-                    "null"
+                    "previous"
                   ],
                   "type": "fill"
                 }
@@ -834,7 +834,7 @@
                 },
                 {
                   "params": [
-                    "null"
+                    "previous"
                   ],
                   "type": "fill"
                 }
@@ -877,7 +877,7 @@
                 },
                 {
                   "params": [
-                    "null"
+                    "previous"
                   ],
                   "type": "fill"
                 }
@@ -2256,5 +2256,5 @@
   },
   "timezone": "browser",
   "title": "InfluxDB",
-  "version": 4
+  "version": 5
 }

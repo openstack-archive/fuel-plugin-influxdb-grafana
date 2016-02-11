@@ -75,7 +75,7 @@
                 },
                 {
                   "params": [
-                    "null"
+                    "previous"
                   ],
                   "type": "fill"
                 }
@@ -1236,5 +1236,5 @@
   },
   "timezone": "browser",
   "title": "MySQL",
-  "version": 2
+  "version": 3
 }

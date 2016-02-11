@@ -1837,5 +1837,5 @@
   },
   "timezone": "browser",
   "title": "Ceph OSD",
-  "version": 3
+  "version": 4
 }

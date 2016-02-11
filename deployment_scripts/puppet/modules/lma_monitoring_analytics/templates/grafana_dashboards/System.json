@@ -1404,7 +1404,7 @@
                 },
                 {
                   "params": [
-                    "null"
+                    "previous"
                   ],
                   "type": "fill"
                 }
@@ -1504,7 +1504,7 @@
                 },
                 {
                   "params": [
-                    "null"
+                    "previous"
                   ],
                   "type": "fill"
                 }
@@ -1833,7 +1833,7 @@
                 },
                 {
                   "params": [
-                    "null"
+                    "previous"
                   ],
                   "type": "fill"
                 }
@@ -3599,5 +3599,5 @@
   },
   "timezone": "browser",
   "title": "System",
-  "version": 3
+  "version": 4
 }
