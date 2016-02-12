@@ -19,6 +19,7 @@
   },
   "editable": true,
   "hideControls": false,
+  "id": null,
   "links": [],
   "originalTitle": "Nova",
   "refresh": "1m",
@@ -200,7 +201,7 @@
                 },
                 {
                   "params": [
-                    "0"
+                    "previous"
                   ],
                   "type": "fill"
                 }
@@ -313,7 +314,7 @@
                 },
                 {
                   "params": [
-                    "0"
+                    "previous"
                   ],
                   "type": "fill"
                 }
@@ -366,7 +367,7 @@
                 },
                 {
                   "params": [
-                    "0"
+                    "previous"
                   ],
                   "type": "fill"
                 }
@@ -419,7 +420,7 @@
                 },
                 {
                   "params": [
-                    "0"
+                    "previous"
                   ],
                   "type": "fill"
                 }
@@ -472,7 +473,7 @@
                 },
                 {
                   "params": [
-                    "0"
+                    "previous"
                   ],
                   "type": "fill"
                 }
@@ -586,7 +587,7 @@
                 },
                 {
                   "params": [
-                    "0"
+                    "previous"
                   ],
                   "type": "fill"
                 }
@@ -702,7 +703,7 @@
                 },
                 {
                   "params": [
-                    "0"
+                    "previous"
                   ],
                   "type": "fill"
                 }
@@ -755,7 +756,7 @@
                 },
                 {
                   "params": [
-                    "0"
+                    "previous"
                   ],
                   "type": "fill"
                 }
@@ -809,7 +810,7 @@
                 },
                 {
                   "params": [
-                    "0"
+                    "previous"
                   ],
                   "type": "fill"
                 }
@@ -863,7 +864,7 @@
                 },
                 {
                   "params": [
-                    "0"
+                    "previous"
                   ],
                   "type": "fill"
                 }
@@ -917,7 +918,7 @@
                 },
                 {
                   "params": [
-                    "0"
+                    "previous"
                   ],
                   "type": "fill"
                 }
@@ -4060,7 +4061,7 @@
                 },
                 {
                   "params": [
-                    "0"
+                    "previous"
                   ],
                   "type": "fill"
                 }
@@ -4269,7 +4270,7 @@
                 },
                 {
                   "params": [
-                    "0"
+                    "previous"
                   ],
                   "type": "fill"
                 }
@@ -4477,7 +4478,7 @@
                 },
                 {
                   "params": [
-                    "0"
+                    "previous"
                   ],
                   "type": "fill"
                 }
@@ -4526,7 +4527,7 @@
                 },
                 {
                   "params": [
-                    "0"
+                    "previous"
                   ],
                   "type": "fill"
                 }
@@ -4575,7 +4576,7 @@
                 },
                 {
                   "params": [
-                    "0"
+                    "previous"
                   ],
                   "type": "fill"
                 }
@@ -5317,5 +5318,5 @@
   },
   "timezone": "browser",
   "title": "Nova",
-  "version": 10
+  "version": 11
 }

@@ -553,7 +553,7 @@
                 },
                 {
                   "params": [
-                    "0"
+                    "previous"
                   ],
                   "type": "fill"
                 }
@@ -1731,7 +1731,7 @@
                 },
                 {
                   "params": [
-                    "0"
+                    "previous"
                   ],
                   "type": "fill"
                 }
@@ -1862,5 +1862,5 @@
   },
   "timezone": "browser",
   "title": "Keystone",
-  "version": 3
+  "version": 4
 }

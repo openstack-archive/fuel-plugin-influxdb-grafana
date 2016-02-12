@@ -4,7 +4,7 @@
   },
   "editable": true,
   "hideControls": false,
-  "id": 6,
+  "id": null,
   "links": [],
   "originalTitle": "LMA self-monitoring",
   "refresh": "1m",
@@ -160,7 +160,7 @@
                 },
                 {
                   "params": [
-                    "0"
+                    "previous"
                   ],
                   "type": "fill"
                 }
@@ -271,7 +271,7 @@
                 },
                 {
                   "params": [
-                    "0"
+                    "previous"
                   ],
                   "type": "fill"
                 }
@@ -321,7 +321,7 @@
                 },
                 {
                   "params": [
-                    "0"
+                    "previous"
                   ],
                   "type": "fill"
                 }
@@ -430,7 +430,7 @@
                 },
                 {
                   "params": [
-                    "0"
+                    "previous"
                   ],
                   "type": "fill"
                 }
@@ -480,7 +480,7 @@
                 },
                 {
                   "params": [
-                    "0"
+                    "previous"
                   ],
                   "type": "fill"
                 }
@@ -723,7 +723,7 @@
                 },
                 {
                   "params": [
-                    "0"
+                    "previous"
                   ],
                   "type": "fill"
                 }
@@ -844,7 +844,7 @@
                 },
                 {
                   "params": [
-                    "0"
+                    "previous"
                   ],
                   "type": "fill"
                 }
@@ -1086,7 +1086,7 @@
                 },
                 {
                   "params": [
-                    "0"
+                    "previous"
                   ],
                   "type": "fill"
                 }
@@ -1207,7 +1207,7 @@
                 },
                 {
                   "params": [
-                    "0"
+                    "previous"
                   ],
                   "type": "fill"
                 }
@@ -1444,7 +1444,7 @@
                 },
                 {
                   "params": [
-                    "0"
+                    "previous"
                   ],
                   "type": "fill"
                 }
@@ -1653,7 +1653,7 @@
                 },
                 {
                   "params": [
-                    "0"
+                    "previous"
                   ],
                   "type": "fill"
                 }
@@ -1764,7 +1764,7 @@
                 },
                 {
                   "params": [
-                    "0"
+                    "previous"
                   ],
                   "type": "fill"
                 }
@@ -1814,7 +1814,7 @@
                 },
                 {
                   "params": [
-                    "0"
+                    "previous"
                   ],
                   "type": "fill"
                 }
@@ -1923,7 +1923,7 @@
                 },
                 {
                   "params": [
-                    "0"
+                    "previous"
                   ],
                   "type": "fill"
                 }
@@ -1973,7 +1973,7 @@
                 },
                 {
                   "params": [
-                    "0"
+                    "previous"
                   ],
                   "type": "fill"
                 }
@@ -2102,5 +2102,5 @@
   },
   "timezone": "browser",
   "title": "LMA self-monitoring",
-  "version": 4
+  "version": 5
 }

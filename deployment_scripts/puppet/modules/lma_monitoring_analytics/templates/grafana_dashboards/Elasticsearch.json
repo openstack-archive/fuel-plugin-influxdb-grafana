@@ -851,7 +851,7 @@
                 },
                 {
                   "params": [
-                    "0"
+                    "previous"
                   ],
                   "type": "fill"
                 }
@@ -903,7 +903,7 @@
                 },
                 {
                   "params": [
-                    "0"
+                    "previous"
                   ],
                   "type": "fill"
                 }
@@ -1014,7 +1014,7 @@
                 },
                 {
                   "params": [
-                    "0"
+                    "previous"
                   ],
                   "type": "fill"
                 }
@@ -1066,7 +1066,7 @@
                 },
                 {
                   "params": [
-                    "0"
+                    "previous"
                   ],
                   "type": "fill"
                 }
@@ -1264,7 +1264,7 @@
                 },
                 {
                   "params": [
-                    "0"
+                    "previous"
                   ],
                   "type": "fill"
                 }
@@ -1314,7 +1314,7 @@
                 },
                 {
                   "params": [
-                    "0"
+                    "previous"
                   ],
                   "type": "fill"
                 }
@@ -1364,7 +1364,7 @@
                 },
                 {
                   "params": [
-                    "0"
+                    "previous"
                   ],
                   "type": "fill"
                 }
@@ -1495,5 +1495,5 @@
   },
   "timezone": "browser",
   "title": "Elasticsearch",
-  "version": 13
+  "version": 14
 }
