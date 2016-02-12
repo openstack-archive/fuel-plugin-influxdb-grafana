@@ -8,228 +8,209 @@ User Guide
 Plugin configuration
 --------------------
 
-To configure your plugin, you need to follow these steps:
+To configure the plugin, you need to follow these steps:
 
-#. `Create a new environment <http://docs.mirantis.com/openstack/fuel/fuel-7.0/user-guide.html#launch-wizard-to-create-new-environment>`_
-   with the Fuel web user interface.
+#. `Create a new environment <http://docs.mirantis.com/openstack/fuel/fuel-8.0/user-guide.html#launch-wizard-to-create-new-environment>`_
+   from the Fuel web user interface.
 
-#. Click on the Settings tab of the Fuel web UI.
+#. Click the **Settings** tab and select the **Other** category.
 
-#. Scroll down the page and select the InfluxDB-Grafana Plugin in the left column.
-   The InfluxDB-Grafana Plugin settings screen should appear as shown below.
-
-|
+#. Scroll down through the settings until you find the **InfluxDB-Grafana Server
+   Plugin** section. You should see a page like this
 
    .. image:: ../images/influx_grafana_settings.png
       :width: 800
       :align: center
 
-|
+#. Check the **InfluxDB-Grafana Plugin** box and fill-in the required fields as indicated below.
 
-#. Select the InfluxDB-Grafana Plugin checkbox and fill-in the required fields.
+   a. Specify the number of days of retention for your data.
+   b. Specify the InfluxDB admin password (called root password in the InfluxDB documentation).
+   c. Specify the database name (default is lma).
+   d. Specify the InfluxDB username and password.
+   e. Specify the Grafana username and password.
 
-   a. Specify the number of days retention period for data.
+#. With the introduction of Grafana 2.6.0, the plugin now uses a MySQL database
+   to store its configuration such as the dashboard templates.
 
-   #. Specify the InfluxDB admin password (called root password in the InfluxDB documentation).
+   a. Select **Local MySQL** if you want to create the Grafana database using the MySQL server
+      of the OpenStack control-plane. Otherwise, select **Remote server** and specify
+      the fully qualified name or IP address of the MySQL server you want to use. 
+   b. Then, specify the MySQL database name, username and password that will be used
+      to access that database.
 
-   #. Specify the database name (default is lma).
+#. Scroll down to the bottom of the page and click the **Save Settings** button when
+   you are done with the settings. 
 
-   #. Specify the InfluxDB user name and password.
-
-   #. Specify the Grafana user name and password.
-
-#. Assign the *InfluxDB Grafana* role to the node where you would like to install
-   the InfluxDB and Grafana servers as shown below.
-
-|
+#. Assign the *InfluxDB_Grafana* role to either one node (no HA) or three nodes if
+   you want to run the InfluxDB and Grafana servers in an HA cluster.
+   Note that installing the InfluxDB and Grafana servers on more than three nodes is currently
+   not possible. Similarly, installing the InfluxDB and Grafana servers on two nodes
+   only is not recommended to avoid a split-brain in the raft consensus used
+   by the InfluxDB cluster. To be also noted, that it is possible to add a new node
+   with the *InfluxDB_Grafana* role in the cluster after deployment.
 
    .. image:: ../images/influx_grafana_role.png
       :width: 800
       :align: center
 
-|
+   .. note:: You can see in the example above that the *InfluxDB_Grafana* role is assigned to
+      three different nodes along with the *Infrastructure_Alerting* role and the *Elasticsearch_Kibana*
+      role. This means that the three plugins of the LMA toolchain can be installed on the same nodes. 
 
-   .. note:: Because of a bug with Fuel 7.0 (see bug `#1496328
-      <https://bugs.launchpad.net/fuel-plugins/+bug/1496328>`_), the UI won't let
-      you assign the *InfluxDB Grafana* role if at least one node is already
-      assigned with one of the built-in roles.
+#. Clik on **Apply Changes**
 
-      To workaround this problem, you should either remove the already assigned built-in roles or use the Fuel CLI::
-
-      $ fuel --env <environment id> node set --node-id <node_id> --role=influxdb_grafana
-
-#. Adjust the disk configuration if necessary (see the `Fuel User Guide
-   <http://docs.mirantis.com/openstack/fuel/fuel-7.0/user-guide.html#disk-partitioning>`_
+#. Adjust the disk configuration for your plugin if necessary (see the `Fuel User Guide
+   <http://docs.mirantis.com/openstack/fuel/fuel-8.0/user-guide.html#disk-partitioning>`_
    for details). By default, the InfluxDB-Grafana Plugin allocates:
 
-   * 20% of the first available disk for the operating system by honoring a range of 15GB minimum to 50GB maximum.
-   * 10GB for */var/log*.
-   * At least 30 GB for the InfluxDB database in */opt/influxdb*.
+   - 20% of the first available disk for the operating system by honoring a range of 15GB minimum to 50GB maximum.
+   - 10GB for */var/log*.
+   - At least 30 GB for the InfluxDB database in */opt/influxdb*.
 
-#. `Configure your environment <http://docs.mirantis.com/openstack/fuel/fuel-7.0/user-guide.html#configure-your-environment>`_
+#. `Configure your environment <http://docs.mirantis.com/openstack/fuel/fuel-8.0/user-guide.html#configure-your-environment>`_
    as needed.
 
-#. `Verify the networks <http://docs.mirantis.com/openstack/fuel/fuel-7.0/user-guide.html#verify-networks>`_ on the Networks tab of the Fuel web UI.
+#. `Verify the networks <http://docs.mirantis.com/openstack/fuel/fuel-8.0/user-guide.html#verify-networks>`_.
 
-#. `Deploy <http://docs.mirantis.com/openstack/fuel/fuel-7.0/user-guide.html#deploy-changes>`_ your changes.
+#. And finaly, `deploy <http://docs.mirantis.com/openstack/fuel/fuel-8.0/user-guide.html#deploy-changes>`_ your changes.
 
 .. _plugin_install_verification:
 
 Plugin verification
 -------------------
 
-Be aware, that depending on the number of nodes and deployment setup,
+Be aware that depending on the number of nodes and deployment setup,
 deploying a Mirantis OpenStack environment can typically take anything
 from 30 minutes to several hours. But once your deployment is complete,
-you should see a notification that looks like the following:
+you should see a notification message indicating that you deployment is complete
+like in the figure below.
 
-|
-
-   .. image:: ../images/deployment_notification.png
-      :width: 800
-      :align: center
-
-|
+.. image:: ../images/deployment_notification.png
+   :width: 800
+   :align: center
 
 Verifying InfluxDB
 ~~~~~~~~~~~~~~~~~~
-Once your deployment has completed, you should verify that InfluxDB is
-running properly. On the Fuel Master node, you can retrieve the IP
-address of the node where InfluxDB is installed via the `fuel` command line::
+
+You should verify that the InfluxDB cluster is running properly.
+To do that, you need first to retreive the InfluxDB cluster VIP.
+Here is how to proceed.
+
+#. On the Fuel Master node, find the IP address of a node where the InfluxDB
+   server is installed using the folloing command::
 
     [root@fuel ~]# fuel nodes
-    id | status   | name | cluster | ip        | ... | roles             | ...
-    ---|----------|------|---------|-----------|-----|-------------------|----
-    37 | ready    | lma  | 38      | 10.20.0.4 | ... | influxdb_grafana  | ...
-
-    [Skip ...]
-
-On that node (node-37 in this example), the *influx* command should be
-available via the CLI. Executing *influx* will start an interactive CLI
-and automatically connect to the local InfluxDB server::
-
-    [root@node-37 ~]# /opt/influxdb/influx -database lma -password lmapass --username lma
-    Connected to http://localhost:8086 version 0.9.4.2
-    InfluxDB shell 0.9.4.2
-    >
-
-Then if you type::
-
-    > show series
-
-You should see a dump of all the time-series collected so far::
-
-    [ Skip...]
-
-    name: swap_used
-    ---------------
-    _key                                                deployment_id   hostname
-    swap_used,deployment_id=38,hostname=node-40 38              node-40
-    swap_used,deployment_id=38,hostname=node-42 38              node-42
-    swap_used,deployment_id=38,hostname=node-41 38              node-41
-    swap_used,deployment_id=38,hostname=node-43 38              node-43
-    swap_used,deployment_id=38,hostname=node-38 38              node-38
-    swap_used,deployment_id=38,hostname=node-37 38              node-37
-    swap_used,deployment_id=38,hostname=node-36 38              node-36
+    id | status   | name             | cluster | ip         | mac               | roles                 | 
+    ---|----------|------------------|---------|------------|-------------------|-----------------------|
+    1  | ready    | Untitled (fa:87) | 1       | 10.109.0.8 | 64:18:ef:86:fa:87 | influxdb_grafana, ...
+    2  | ready    | Untitled (12:aa) | 1       | 10.109.0.3 | 64:5f:c6:88:12:aa | influxdb_grafana, ...
+    3  | ready    | Untitled (4e:6e) | 1       | 10.109.0.7 | 64:ca:bf:a4:4e:6e | influxdb_grafana, ... 
 
 
-    name: total_threads_created
-    ---------------------------
-    _key                                                        deployment_id   hostname
-    total_threads_created,deployment_id=38,hostname=node-38     38              node-38
-    total_threads_created,deployment_id=38,hostname=node-37     38              node-37
-    total_threads_created,deployment_id=38,hostname=node-36     38              node-36
+#. Then `ssh` to anyone of these nodes (ex. *node-1*) and type the command::
+
+    root@node-1:~# hiera lma::influxdb::vip"
+    10.109.1.4
+
+  This tells you that the VIP of your InfluxDB cluster is *10.109.1.4*.
+
+#. With that VIP type the command::
+
+     root@node-1:~# /usr/bin/influx -database lma -password lmapass --username lma -host 10.109.1.4 -port 8086
+     Visit https://enterprise.influxdata.com to register for updates, InfluxDB server management, and monitoring.
+     Connected to http://10.109.1.4:8086 version 0.10.0
+     InfluxDB shell 0.10.0
+     >
+
+   As you can see, executing */usr/bin/influx* will start an interactive CLI and automatically connect to
+   the InfluxDB server.  Then if you type::
+
+     > show series
+
+   You should see a dump of all the time-series collected so far.
 
 Verifying Grafana
 ~~~~~~~~~~~~~~~~~
 
-The Grafana user interface runs on port 8000.
-Pointing your browser to the URL http://<HOST>:8000/ you should see the
-Grafana login page:
+From the Fuel web UI **Dashboard** view, click on the **Grafana** link as shown in the figure below.
 
-|
+.. image:: ../images/grafana_link.png
+   :width: 800
+   :align: center
+
+The first time you access Grafana, you are requested to
+authenticate using the credentials you defined in the plugin's settings.
 
 .. image:: ../images/grafana_login.png
-   :align: center
    :width: 800
+   :align: center
 
-|
-
-You should be redirected to the Grafana *Home Page*.
-The first time you access Grafana, you are requested to
-authenticate using the credentials you have defined in the settings.
-Once you have authenticated successfully, you should be automatically
-redirected to the *Home Page* from where you can select a dashboard as
+Once you have authenticated, you should be automatically
+redirected to the **Home Page** from where you can select a dashboard as
 shown below.
-
-|
 
 .. image:: ../images/grafana_home.png
    :align: center
    :width: 800
 
-|
-
 Exploring your time-series with Grafana
 ---------------------------------------
 
 The InfluxDB-Grafana Plugin comes with a collection of predefined
-dashboards you can use to visualize the time-series that are
-stored in InfluxDB. There is one primary dashboard, called the
-*Main Dashboard*, and several other dashboards that are organized
-per service name.
+dashboards you can use to visualize the time-series  stored in InfluxDB.
+
+Please check the LMA Collector documentation for a complete list of all the 
+`metrics time-serires <http://fuel-plugin-lma-collector.readthedocs.org/en/latest/dev/metrics.html#list-of-metrics>`_
+that are collected and stored in InfluxDB.
 
 The Main Dashboard
 ~~~~~~~~~~~~~~~~~~
 
-We suggest you start with the *Main Dashboard*, as shown
-below. The *Main Dashboard* provides a
-single pane of glass to visualize the health
-status of all the OpenStack services being monitored
-such as Nova or Cinder but also HAProxy, MySQL and RabbitMQ to
-name a few..
-
-|
+We suggest you start with the **Main Dashboard**, as shown
+below, as an entry to the other dashboards.
+The **Main Dashboard** provides a single pane of glass from where you can visualize the
+overall health state of your OpenStack services such as Nova and Cinder
+but also HAProxy, MySQL and RabbitMQ to name a few..
 
 .. image:: ../images/grafana_main.png
    :align: center
    :width: 800
 
-|
-
-As you can see, the *Main Dashboard* (as most dashboards) provides
+As you can see, the **Main Dashboard** (as most dashboards) provides
 a drop down menu list in the upper left corner of the window
-from where you can select a metric tag (a.k.a dimension) such as
-a controller name or device name you want to visualize.
-In the example above, we say we want to visualize the
-system time-series for *node-48*.
+from where you can pick a particular metric dimension such as
+the *controller name* or the *device name* you want to select. 
 
-Within the *OpenStack Services* row, each of the services
+In the example above, the system metrics of *node-48* are
+being displayed in the dashbaord.
+
+Within the **OpenStack Services** row, each of the services
 represented can be assigned five different states.
 
-.. note:: The precise determination of a service state depends
-   on the Global Status Evaluation (GSE) policies defined
-   for the *GSE Plugins*.
+.. note:: The precise determination of a service health state depends
+   on the correlation policies implemented for that service by a `Global Status Evaluation (GSE)
+   plugin <http://fuel-plugin-lma-collector.readthedocs.org/en/latest/user/alarms.html#cluster-policies>_.
 
 The meaning associated with a service health state is the following:
 
-* **Down**: One or several primary functions of a service
+- **Down**: One or several primary functions of a service
   cluster are failed. For example,
   all API endpoints of a service cluster like Nova
   or Cinder are failed.
-* **Critical**: One or several primary functions of a
+- **Critical**: One or several primary functions of a
   service cluster are severely degraded. The quality
   of service delivered to the end-user should be severely
   impacted.
-* **Warning**: One or several primary functions of a
+- **Warning**: One or several primary functions of a
   service cluster are slightly degraded. The quality
   of service delivered to the end-user should be slightly
   impacted.
-* **Unknown**: There is not enough data to infer the actual
+- **Unknown**: There is not enough data to infer the actual
   health state of a service cluster.
-* **Okay**: None of the above was found to be true.
+- **Okay**: None of the above was found to be true.
 
-The *Virtual Compute Resources* row provides an overview of
+The **Virtual Compute Resources** row provides an overview of
 the amount of virtual resources being used by the compute nodes
 including the number of virtual CPUs, the amount of memory
 and disk space being used as well as the amount of virtual
@@ -244,78 +225,94 @@ The "Ceph" row provides an overview of the resources usage
 and current health state of the Ceph cluster when it is deployed
 in the OpenStack environment.
 
-The *Main Dashboard* is also an entry point to access detailed
-dashboards for each of the OpenStack services being monitored.
-For example, if you click through the Nova box, you should see
-a screen like this:
+The **Main Dashboard** is also an entry point to access more detailed
+dashboards for each of the OpenStack services that are monitored.
+For example, if you click through the *Nova box*, the **Nova
+Dashboard** should be displayed.
 
-|
-
-   .. image:: ../images/grafana_nova.png
-      :align: center
-      :width: 800
-
-|
+.. image:: ../images/grafana_nova.png
+   :align: center
+   :width: 800
 
 The Nova Dashboard
 ~~~~~~~~~~~~~~~~~~
 
-The *Nova Dashboard* provides a detailed view of the
+The **Nova Dashboard** provides a detailed view of the
 Nova service's related metrics.
 
-The *Service Status* row provides information about the Nova service
+The **Service Status** row provides information about the Nova service
 cluster health state as a whole including the state of the API frontend
 (the HAProxy plubic VIP), a counter of HTTP 5xx errors,
 the HTTP requests response time and status code.
 
-The *Nova API* row provides information about the health state of
-the API backends (nova-api, ec2-api, ...), the state of the workers
-and compute nodes.
+The **Nova API** row provides information about the current health state of
+the API backends (nova-api, ec2-api, ...).
 
-The *Instance* row provides information about the number of
-active instances, instances in error and instances creation time
-statistics.
+The **Nova Services** row provides information about the current and
+historical state of the Nova *workers* and *agents*.
 
-The "Resources" row provides various virtual resources usage indicators.
+The **Instances** row provides information about the number of active
+instances in error and instances creation time statistics.
 
-The LMA Self-Monitoring Dashboard
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+The **Resources** row provides various virtual resources usage indicators.
 
-The *LMA Self-Monitoring Dashboard* is a new dashboard in LMA 0.8.
-This dashboard provides an overview of how the LMA Toolchain
-performs overall.
+Self-Monitoring Dashboards
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The *LMA Collector* row provides information about the Heka process.
-In particular, it is possible to visualize the
-processing time allocated to the Lua plugins and the amount of messages
-that have been processed as well as the amount of system resources
-consumed by the Heka process.
+The first **Self-Monitoring Dashboard** was introduced in LMA 0.8.
+The intent of the self-monitoring dashboards is to bring operational
+insights about how the monitoring system itself (the toolchain) performs overall.
 
-Again, it is possible to select a particular node using the dropdown
+The **Self-Monitoring Dashboard**, provides information about the *hekad*
+and *collectd* processes.
+In particular, it gives information about the amount of system resources
+consumed by these processes, the time allocated to the Lua plugins
+running within *hekad*, the amount of messages being processed and
+the time it takes to process those messages.
+
+Again, it is possible to select a particular node view using the drop down
 menu list.
 
-The *Collectd* row provides system resource usage information allocated
-to the *collectd* process.
+With LMA 0.9, we have introduced two new dashboards.
 
-The *InfluxDB* row provides system resource usage information allocated
-to the *InfluxDB* application.
+#. The **Elasticsearch Cluster Dasboard** provides information about
+   the overall health state of the Elasticsearch cluster including
+   the state of the shards, the number of pending tasks and various resources
+   usage metrics.
 
-The *Grafana* row provides system resource usage information allocated
-to the *Grafana* application.
+#. The **InfluxDB Cluster Dashboard** provides statistics about the InfluxDB
+   processes running in the InfluxDB cluster including various resources usage metrics.
 
-The *Elasticsearch* row provides system resource usage information allocated
-to the JVM process running the Elasticsearch application.
+
+The Hypervisor Dashboard
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+LMA 0.9 introduces a new **Hypervisor Dashboard** which brings operational
+insights about the virtual instances managed through *libvirt*.
+As shown in the figure below, the **Hypervisor Dashboard** assembles a
+view of various *libvirt* metrics. A dropdown menu list allows to pick
+a particular instance UUID running on a particular node. In the
+example below, the metrics for the instance id *ba844a75-b9db-4c2f-9cb9-0b083fe03fb7*
+running on *node-4* are displayed.
+
+.. image:: ../images/grafana_hypervisor.png
+   :align: center
+   :width: 800
+
+Check the LMA Collector documentation for additional information about the 
+`*libvirt* metrics <http://fuel-plugin-lma-collector.readthedocs.org/en/latest/dev/metrics.html#libvirt>`_
+that are displayed in the **Hypervisor Dashboard**.
 
 Other Dashboards
 ~~~~~~~~~~~~~~~~
 
-In total there are 16 different dashboards you can use to
+In total there are 19 different dashboards you can use to
 explore different time-series facettes of your OpenStack environment.
 
 Viewing Faults and Anomalies
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The LMA-Toolchain is capable of detecting a number of service-affecting
+The LMA Toolchain is capable of detecting a number of service-affecting
 conditions such as the faults and anomalies that occured in your OpenStack
 environment.
 Those conditions are reported in annotations that are displayed in
@@ -348,13 +345,9 @@ Nova has changed a state to *warning* because the system has detected
 5xx errors and that it may be due to the fact that Neutron is *down*.
 An example of what an annotation looks like is shown below.
 
-|
-
 .. image:: ../images/grafana_nova_annot.png
    :align: center
    :width: 800
-
-|
 
 Troubleshooting
 ---------------
