@@ -31,9 +31,4 @@ class influxdb::install {
     mode    => '0755',
     require => Package['influxdb'],
   }
-
-  file { '/etc/logrotate.d/influxdb':
-    ensure => present,
-    source => 'puppet:///modules/influxdb/logrotate.conf',
-  }
 }
