@@ -313,7 +313,7 @@
                 },
                 {
                   "params": [
-                    "previous"
+                    "0"
                   ],
                   "type": "fill"
                 }
@@ -366,7 +366,7 @@
                 },
                 {
                   "params": [
-                    "previous"
+                    "0"
                   ],
                   "type": "fill"
                 }
@@ -419,7 +419,7 @@
                 },
                 {
                   "params": [
-                    "previous"
+                    "0"
                   ],
                   "type": "fill"
                 }
@@ -472,7 +472,7 @@
                 },
                 {
                   "params": [
-                    "previous"
+                    "0"
                   ],
                   "type": "fill"
                 }
@@ -586,7 +586,7 @@
                 },
                 {
                   "params": [
-                    "previous"
+                    "0"
                   ],
                   "type": "fill"
                 }
@@ -702,7 +702,7 @@
                 },
                 {
                   "params": [
-                    "previous"
+                    "0"
                   ],
                   "type": "fill"
                 }
@@ -755,7 +755,7 @@
                 },
                 {
                   "params": [
-                    "previous"
+                    "0"
                   ],
                   "type": "fill"
                 }
@@ -809,7 +809,7 @@
                 },
                 {
                   "params": [
-                    "previous"
+                    "0"
                   ],
                   "type": "fill"
                 }
@@ -863,7 +863,7 @@
                 },
                 {
                   "params": [
-                    "previous"
+                    "0"
                   ],
                   "type": "fill"
                 }
@@ -917,7 +917,7 @@
                 },
                 {
                   "params": [
-                    "previous"
+                    "0"
                   ],
                   "type": "fill"
                 }
@@ -1705,7 +1705,7 @@
                 },
                 {
                   "params": [
-                    "previous"
+                    "0"
                   ],
                   "type": "fill"
                 }
@@ -1763,7 +1763,7 @@
                 },
                 {
                   "params": [
-                    "previous"
+                    "0"
                   ],
                   "type": "fill"
                 }
@@ -2084,7 +2084,7 @@
                 },
                 {
                   "params": [
-                    "previous"
+                    "0"
                   ],
                   "type": "fill"
                 }
@@ -2141,7 +2141,7 @@
                 },
                 {
                   "params": [
-                    "previous"
+                    "0"
                   ],
                   "type": "fill"
                 }
@@ -2463,7 +2463,7 @@
                 },
                 {
                   "params": [
-                    "previous"
+                    "0"
                   ],
                   "type": "fill"
                 }
@@ -2515,7 +2515,7 @@
                 },
                 {
                   "params": [
-                    "previous"
+                    "0"
                   ],
                   "type": "fill"
                 }
@@ -2831,7 +2831,7 @@
                 },
                 {
                   "params": [
-                    "previous"
+                    "0"
                   ],
                   "type": "fill"
                 }
@@ -2888,7 +2888,7 @@
                 },
                 {
                   "params": [
-                    "previous"
+                    "0"
                   ],
                   "type": "fill"
                 }
@@ -3025,5 +3025,5 @@
   },
   "timezone": "browser",
   "title": "Glance",
-  "version": 4
+  "version": 3
 }
