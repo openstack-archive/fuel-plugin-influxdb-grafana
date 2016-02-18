@@ -36,7 +36,9 @@ Requirements
 +------------------------+--------------------------------------------------------------------------------------------+
 | **Requirement**        | **Version/Comment**                                                                        |
 +========================+============================================================================================+
-| Disk space             | At least 55GB                                                                              |
+| Disk space             | The plugin’s specification requires to provision at least 15GB of disk space for the       |
+|                        | system, 10GB for the logs and 30GB for the database. As a result, the installation of the  |
+|                        | plugin will fail if there is less than 55GB of disk space available on the node.           |
 +------------------------+--------------------------------------------------------------------------------------------+
 | Fuel                   | Mirantis OpenStack 8.0                                                                     |
 +------------------------+--------------------------------------------------------------------------------------------+
