@@ -211,7 +211,7 @@
                 },
                 {
                   "params": [
-                    "previous"
+                    "0"
                   ],
                   "type": "fill"
                 }
@@ -317,7 +317,7 @@
                 },
                 {
                   "params": [
-                    "previous"
+                    "0"
                   ],
                   "type": "fill"
                 }
@@ -422,7 +422,7 @@
                 },
                 {
                   "params": [
-                    "previous"
+                    "0"
                   ],
                   "type": "fill"
                 }
@@ -622,7 +622,7 @@
                 },
                 {
                   "params": [
-                    "previous"
+                    "0"
                   ],
                   "type": "fill"
                 }
@@ -839,5 +839,5 @@
   },
   "timezone": "browser",
   "title": "Apache",
-  "version": 4
+  "version": 3
 }
