@@ -377,6 +377,22 @@ This annotation tells us that the health state of Nova is *down*
 because there is no *nova-api* service backend (viewed from HAProxy)
 that is *up*.
 
+Removing controllers from dashboards
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+When you remove a controller from the environment, it is still displayed in
+the "controller" drop-down list. To remove it from the list you need to
+modify the request that is done to InfluxDB in the *templating* section. For
+example, if you want to remove *node-1*, you need to add the following code in
+the *where* clause::
+
+     and hostname = 'node-1'
+
+
+.. image:: ../images/remove_controllers_from_templating.png
+   :align: center
+
+
 Troubleshooting
 ---------------
 
