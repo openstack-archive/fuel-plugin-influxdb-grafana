@@ -377,6 +377,28 @@ This annotation tells us that the health state of Nova is *down*
 because there is no *nova-api* service backend (viewed from HAProxy)
 that is *up*.
 
+Hiding nodes from dashboards
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+When you remove a node from the environment, it is still displayed in
+the "server" and "controller" drop-down lists. To hide it from the list
+you need to edit the associated InfluxDB query in the *templating* section.
+For example, if you want to remove *node-1*, you need to add the following
+condition to the *where* clause::
+
+    and hostname != 'node-1'
+
+
+.. image:: ../images/remove_controllers_from_templating.png
+   :align: center
+
+If you want to hide more than one node you can add more conditions like this::
+
+    and hostname != 'node-1' and hostname != 'node-2'
+
+This should be done for all dashboards that display the deleted node and you
+need to save them afterwards.
+
 Troubleshooting
 ---------------
 
