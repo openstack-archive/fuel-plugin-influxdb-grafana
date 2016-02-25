@@ -21,6 +21,9 @@ $db_username = $influxdb_grafana['mysql_username']
 $db_password = $influxdb_grafana['mysql_password']
 $admin_username = $influxdb_grafana['grafana_username']
 $admin_password = $influxdb_grafana['grafana_userpass']
+$current_roles = hiera('roles')
+$is_primary = member($current_roles, 'primary-influxdb_grafana')
+$grafana_link_created_file = '/var/cache/grafana_link_created'
 
 case $db_mode {
 
@@ -46,4 +49,10 @@ class {'lma_monitoring_analytics::grafana':
   admin_username => $admin_username,
   admin_password => $admin_password,
   domain         => $mgmt_vip,
+}
+
+unless $is_primary {
+  exec { 'notify_grafana_url':
+    command => "/usr/bin/touch ${grafana_link_created_file}",
+  }
 }
