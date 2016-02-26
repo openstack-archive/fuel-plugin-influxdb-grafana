@@ -1,3 +1,5 @@
 .bundled_gems/
 .build/
 influxdb_grafana*rpm
+.tox
+.idea
