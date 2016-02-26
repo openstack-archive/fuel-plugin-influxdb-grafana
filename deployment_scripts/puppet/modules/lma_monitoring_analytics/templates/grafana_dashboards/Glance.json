@@ -1797,11 +1797,13 @@
                 },
                 {
                   "key": "state",
+                  "operator": "=",
                   "value": "active"
                 },
                 {
                   "condition": "AND",
-                  "key": "state",
+                  "key": "visibility",
+                  "operator": "=",
                   "value": "private"
                 }
               ]
@@ -3025,5 +3027,5 @@
   },
   "timezone": "browser",
   "title": "Glance",
-  "version": 3
+  "version": 4
 }
