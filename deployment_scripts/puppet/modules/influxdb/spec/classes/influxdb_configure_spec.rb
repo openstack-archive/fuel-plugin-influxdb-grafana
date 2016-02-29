@@ -27,5 +27,6 @@ describe 'influxdb::configure' do
         it { is_expected.to contain_ini_setting('hh_dir') }
         it { is_expected.to contain_ini_setting('meta_dir') }
         it { is_expected.to contain_ini_setting('snapshot') }
+        it { is_expected.to contain_ini_setting('reporting-disabled') }
     end
 end
