@@ -15,14 +15,15 @@
 # == Class: influxdb::configure
 
 class influxdb::configure (
-  $hostname     = '',
-  $auth_enabled = undef,
-  $config_file  = undef,
-  $data_dir     = undef,
-  $meta_dir     = undef,
-  $wal_dir      = undef,
-  $hh_dir       = undef,
-  $snapshot     = undef,
+  $hostname                = '',
+  $auth_enabled            = undef,
+  $config_file             = undef,
+  $data_dir                = undef,
+  $meta_dir                = undef,
+  $wal_dir                 = undef,
+  $hh_dir                  = undef,
+  $snapshot                = undef,
+  $disable_anonymous_stats = true,
 ) {
 
   Ini_setting {
@@ -89,5 +90,10 @@ class influxdb::configure (
     section => 'snapshot',
     setting => 'enabled',
     value   => $snapshot,
+  }
+
+  ini_setting { 'reporting-disabled':
+    setting => 'reporting-disabled',
+    value   => $disable_anonymous_stats,
   }
 }
