@@ -4,7 +4,7 @@
   },
   "editable": true,
   "hideControls": false,
-  "id": 9,
+  "id": null,
   "links": [],
   "originalTitle": "InfluxDB",
   "refresh": "1m",
@@ -112,7 +112,7 @@
           "grid": {
             "leftLogBase": 1,
             "leftMax": null,
-            "leftMin": null,
+            "leftMin": 0,
             "rightLogBase": 1,
             "rightMax": null,
             "rightMin": null,
@@ -579,7 +579,7 @@
           "grid": {
             "leftLogBase": 1,
             "leftMax": null,
-            "leftMin": null,
+            "leftMin": 0,
             "rightLogBase": 1,
             "rightMax": null,
             "rightMin": null,
@@ -1099,6 +1099,7 @@
               "tags": [
                 {
                   "key": "service",
+                  "operator": "=",
                   "value": "influxd"
                 }
               ]
@@ -1865,6 +1866,7 @@
               "tags": [
                 {
                   "key": "service",
+                  "operator": "=",
                   "value": "grafana-server"
                 }
               ]
@@ -2256,5 +2258,5 @@
   },
   "timezone": "browser",
   "title": "InfluxDB",
-  "version": 4
+  "version": 5
 }
