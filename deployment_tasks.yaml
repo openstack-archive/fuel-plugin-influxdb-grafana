@@ -10,7 +10,6 @@
     - logging
     - netconfig
     - hosts
-    - cluster-haproxy
   required_for: [deploy_end]
   requires: [deploy_start]
   parameters:
@@ -40,10 +39,21 @@
 - id: influxdb-cluster
   type: puppet
   groups: [primary-influxdb_grafana, influxdb_grafana]
-  required_for: [cluster-haproxy]
+  required_for: [influxdb-cluster-haproxy]
   requires: [influxdb-firewall]
   parameters:
     puppet_manifest: "puppet/manifests/cluster.pp"
+    puppet_modules: puppet/modules:/etc/puppet/modules
+    timeout: 600
+  # reexecute_on is needed for scale-down operations
+  reexecute_on:
+    - deploy_changes
+
+- id: influxdb-cluster-haproxy
+  type: puppet
+  groups: [primary-influxdb_grafana, influxdb_grafana]
+  parameters:
+    puppet_manifest: "puppet/manifests/cluster-haproxy.pp"
     puppet_modules: puppet/modules:/etc/puppet/modules
     timeout: 600
   # reexecute_on is needed for scale-down operations
@@ -64,7 +74,7 @@
   type: puppet
   groups: [primary-influxdb_grafana, influxdb_grafana]
   required_for: [deploy_end]
-  requires: [cluster-haproxy, influxdb-vip]
+  requires: [influxdb-cluster-haproxy, influxdb-vip]
   parameters:
     puppet_manifest: "puppet/manifests/haproxy.pp"
     puppet_modules: puppet/modules:/etc/puppet/modules
