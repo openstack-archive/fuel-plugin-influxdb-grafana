@@ -10,7 +10,6 @@
     - logging
     - netconfig
     - hosts
-    - cluster-haproxy
   required_for: [deploy_end]
   requires: [deploy_start]
   parameters:
@@ -34,17 +33,28 @@
   requires: [netconfig]
   parameters:
     puppet_manifest: "puppet/manifests/firewall.pp"
-    puppet_modules: "puppet/modules"
+    puppet_modules: "puppet/modules:/etc/puppet/modules"
     timeout: 600
 
 - id: influxdb-cluster
   type: puppet
   groups: [primary-influxdb_grafana, influxdb_grafana]
-  required_for: [cluster-haproxy]
+  required_for: [influxdb-cluster-haproxy]
   requires: [influxdb-firewall]
   parameters:
     puppet_manifest: "puppet/manifests/cluster.pp"
-    puppet_modules: "puppet/modules"
+    puppet_modules: "puppet/modules:/etc/puppet/modules"
+    timeout: 600
+  # reexecute_on is needed for scale-down operations
+  reexecute_on:
+    - deploy_changes
+
+- id: influxdb-cluster-haproxy
+  type: puppet
+  groups: [primary-influxdb_grafana, influxdb_grafana]
+  parameters:
+    puppet_manifest: "puppet/manifests/cluster-haproxy.pp"
+    puppet_modules: "puppet/modules:/etc/puppet/modules"
     timeout: 600
   # reexecute_on is needed for scale-down operations
   reexecute_on:
@@ -56,18 +66,18 @@
   required_for: [deploy_end]
   requires: [influxdb-cluster]
   parameters:
-    puppet_manifest: "puppet/modules/osnailyfacter/modular/virtual_ips/virtual_ips.pp"
-    puppet_modules: "puppet/modules"
+    puppet_manifest: "/etc/puppet/modules/osnailyfacter/modular/virtual_ips/virtual_ips.pp"
+    puppet_modules: "/etc/puppet/modules"
     timeout: 600
 
 - id: influxdb-haproxy
   type: puppet
   groups: [primary-influxdb_grafana, influxdb_grafana]
   required_for: [deploy_end]
-  requires: [cluster-haproxy, influxdb-vip]
+  requires: [influxdb-cluster-haproxy, influxdb-vip]
   parameters:
     puppet_manifest: "puppet/manifests/haproxy.pp"
-    puppet_modules: "puppet/modules"
+    puppet_modules: "puppet/modules:/etc/puppet/modules"
     timeout: 600
   # reexecute_on is needed for scale-down operations
   reexecute_on:
@@ -80,7 +90,7 @@
   required_for: [logging]
   parameters:
     puppet_manifest: "puppet/manifests/hiera.pp"
-    puppet_modules: "puppet/modules"
+    puppet_modules: "puppet/modules:/etc/puppet/modules"
     timeout: 120
   # reexecute_on is needed for scale-down operations
   reexecute_on:
@@ -93,7 +103,7 @@
   required_for: [post_deployment_end]
   parameters:
     puppet_manifest: "puppet/manifests/enable_quorum.pp"
-    puppet_modules: "puppet/modules"
+    puppet_modules: "puppet/modules:/etc/puppet/modules"
     timeout: 120
   # reexecute_on is needed for scale-down operations
   reexecute_on:
