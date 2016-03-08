@@ -7,7 +7,7 @@
   type: puppet
   parameters:
     puppet_manifest: puppet/manifests/influxdb.pp
-    puppet_modules: puppet/modules
+    puppet_modules: puppet/modules:/etc/puppet/modules
     timeout: 600
 
 - role: ['influxdb_grafana']
@@ -15,7 +15,7 @@
   type: puppet
   parameters:
     puppet_manifest: puppet/manifests/influxdb.pp
-    puppet_modules: puppet/modules
+    puppet_modules: puppet/modules:/etc/puppet/modules
     timeout: 600
 
 - role: ['primary-influxdb_grafana']
@@ -23,7 +23,7 @@
   type: puppet
   parameters:
     puppet_manifest: puppet/manifests/grafana_mysql.pp
-    puppet_modules: puppet/modules
+    puppet_modules: puppet/modules:/etc/puppet/modules
     timeout: 600
 
 - role: ['influxdb_grafana', 'primary-influxdb_grafana']
@@ -31,7 +31,7 @@
   type: puppet
   parameters:
     puppet_manifest: puppet/manifests/grafana.pp
-    puppet_modules: puppet/modules
+    puppet_modules: puppet/modules:/etc/puppet/modules
     timeout: 600
 
 - role: ['primary-influxdb_grafana']
@@ -39,7 +39,7 @@
   type: puppet
   parameters:
     puppet_manifest: puppet/manifests/influxdb_configuration.pp
-    puppet_modules: puppet/modules
+    puppet_modules: puppet/modules:/etc/puppet/modules
     timeout: 600
 
 - role: ['primary-influxdb_grafana']
@@ -47,5 +47,5 @@
   type: puppet
   parameters:
     puppet_manifest: puppet/manifests/grafana_configuration.pp
-    puppet_modules: puppet/modules
+    puppet_modules: puppet/modules:/etc/puppet/modules
     timeout: 600
