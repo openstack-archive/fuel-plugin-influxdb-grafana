@@ -991,7 +991,7 @@
                 }
               ],
               "measurement": "lma_components_threads",
-              "query": "SELECT last(\"value\") FROM \"lma_components_threads\" WHERE \"service\" = 'influxd' AND $timeFilter GROUP BY time($interval)",
+              "query": "SELECT last(\"value\") FROM \"lma_components_threads\" WHERE \"service\" = 'influxd' AND \"hostname\" =~ /$server$/ AND $timeFilter GROUP BY time($interval)",
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -1011,7 +1011,14 @@
               "tags": [
                 {
                   "key": "service",
+                  "operator": "=",
                   "value": "influxd"
+                },
+                {
+                  "condition": "AND",
+                  "key": "hostname",
+                  "operator": "=~",
+                  "value": "/$server$/"
                 }
               ]
             }
@@ -1093,7 +1100,7 @@
                 }
               ],
               "measurement": "lma_components_memory_rss",
-              "query": "SELECT mean(\"value\") FROM \"lma_components_memory_rss\" WHERE \"service\" = 'influxd' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") FROM \"lma_components_memory_rss\" WHERE \"service\" = 'influxd' AND \"hostname\" =~ /$server$/ AND $timeFilter GROUP BY time($interval) fill(0)",
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -1115,6 +1122,12 @@
                   "key": "service",
                   "operator": "=",
                   "value": "influxd"
+                },
+                {
+                  "condition": "AND",
+                  "key": "hostname",
+                  "operator": "=~",
+                  "value": "/$server$/"
                 }
               ]
             }
@@ -1199,7 +1212,7 @@
                 }
               ],
               "measurement": "lma_components_disk_bytes_read",
-              "query": "SELECT mean(\"value\") FROM \"lma_components_disk_bytes_read\" WHERE \"service\" = 'influxd' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") FROM \"lma_components_disk_bytes_read\" WHERE \"service\" = 'influxd' AND \"hostname\" =~ /$server$/ AND $timeFilter GROUP BY time($interval) fill(0)",
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -1221,6 +1234,12 @@
                   "key": "service",
                   "operator": "=",
                   "value": "influxd"
+                },
+                {
+                  "condition": "AND",
+                  "key": "hostname",
+                  "operator": "=~",
+                  "value": "/$server$/"
                 }
               ]
             },
@@ -1244,7 +1263,7 @@
                 }
               ],
               "measurement": "lma_components_disk_bytes_write",
-              "query": "SELECT mean(\"value\") FROM \"lma_components_disk_bytes_write\" WHERE \"service\" = 'influxd' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") FROM \"lma_components_disk_bytes_write\" WHERE \"service\" = 'influxd' AND \"hostname\" =~ /$server$/ AND $timeFilter GROUP BY time($interval) fill(0)",
               "refId": "B",
               "resultFormat": "time_series",
               "select": [
@@ -1266,6 +1285,12 @@
                   "key": "service",
                   "operator": "=",
                   "value": "influxd"
+                },
+                {
+                  "condition": "AND",
+                  "key": "hostname",
+                  "operator": "=~",
+                  "value": "/$server$/"
                 }
               ]
             }
@@ -1348,7 +1373,7 @@
                 }
               ],
               "measurement": "lma_components_cputime_syst",
-              "query": "SELECT mean(\"value\") FROM \"lma_components_cputime_syst\" WHERE \"service\" = 'influxd' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") FROM \"lma_components_cputime_syst\" WHERE \"service\" = 'influxd' AND \"hostname\" =~ /$server$/ AND $timeFilter GROUP BY time($interval) fill(0)",
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -1370,6 +1395,12 @@
                   "key": "service",
                   "operator": "=",
                   "value": "influxd"
+                },
+                {
+                  "condition": "AND",
+                  "key": "hostname",
+                  "operator": "=~",
+                  "value": "/$server$/"
                 }
               ]
             },
@@ -1393,7 +1424,7 @@
                 }
               ],
               "measurement": "lma_components_cputime_user",
-              "query": "SELECT mean(\"value\") FROM \"lma_components_cputime_user\" WHERE \"service\" = 'influxd' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") FROM \"lma_components_cputime_user\" WHERE \"service\" = 'influxd' AND \"hostname\" =~ /$server$/ AND $timeFilter GROUP BY time($interval) fill(0)",
               "refId": "B",
               "resultFormat": "time_series",
               "select": [
@@ -1415,6 +1446,12 @@
                   "key": "service",
                   "operator": "=",
                   "value": "influxd"
+                },
+                {
+                  "condition": "AND",
+                  "key": "hostname",
+                  "operator": "=~",
+                  "value": "/$server$/"
                 }
               ]
             }
@@ -1476,7 +1513,7 @@
                 }
               ],
               "measurement": "fs_space_percent_free",
-              "query": "SELECT mean(\"value\") FROM \"fs_space_percent_free\" WHERE \"fs\" = '/var/lib/influxdb' AND $timeFilter GROUP BY time($interval)",
+              "query": "SELECT mean(\"value\") FROM \"fs_space_percent_free\" WHERE \"fs\" = '/var/lib/influxdb' AND \"hostname\" =~ /$server$/ AND $timeFilter GROUP BY time($interval)",
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -1498,6 +1535,12 @@
                   "key": "fs",
                   "operator": "=",
                   "value": "/var/lib/influxdb"
+                },
+                {
+                  "condition": "AND",
+                  "key": "hostname",
+                  "operator": "=~",
+                  "value": "/$server$/"
                 }
               ]
             }
@@ -1576,7 +1619,7 @@
                 }
               ],
               "measurement": "fs_space_free",
-              "query": "SELECT mean(\"value\") FROM \"fs_space_free\" WHERE \"fs\" = '/var/lib/influxdb' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") FROM \"fs_space_free\" WHERE \"fs\" = '/var/lib/influxdb' AND \"hostname\" =~ /$server$/ AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -1599,6 +1642,12 @@
                   "key": "fs",
                   "operator": "=",
                   "value": "/var/lib/influxdb"
+                },
+                {
+                  "condition": "AND",
+                  "key": "hostname",
+                  "operator": "=~",
+                  "value": "/$server$/"
                 }
               ]
             },
@@ -1620,7 +1669,7 @@
                 }
               ],
               "measurement": "fs_space_used",
-              "query": "SELECT mean(\"value\") FROM \"fs_space_used\" WHERE \"fs\" = '/var/lib/influxdb' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") FROM \"fs_space_used\" WHERE \"fs\" = '/var/lib/influxdb' AND \"hostname\" =~ /$server$/ AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "B",
               "resultFormat": "time_series",
@@ -1643,6 +1692,12 @@
                   "key": "fs",
                   "operator": "=",
                   "value": "/var/lib/influxdb"
+                },
+                {
+                  "condition": "AND",
+                  "key": "hostname",
+                  "operator": "=~",
+                  "value": "/$server$/"
                 }
               ]
             },
@@ -1664,7 +1719,7 @@
                 }
               ],
               "measurement": "fs_space_reserved",
-              "query": "SELECT mean(\"value\") FROM \"fs_space_reserved\" WHERE \"fs\" = '/var/lib/influxdb' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") FROM \"fs_space_reserved\" WHERE \"fs\" = '/var/lib/influxdb' AND \"hostname\" =~ /$server$/ AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "C",
               "resultFormat": "time_series",
@@ -1687,6 +1742,12 @@
                   "key": "fs",
                   "operator": "=",
                   "value": "/var/lib/influxdb"
+                },
+                {
+                  "condition": "AND",
+                  "key": "hostname",
+                  "operator": "=~",
+                  "value": "/$server$/"
                 }
               ]
             }
@@ -1758,7 +1819,7 @@
                 }
               ],
               "measurement": "lma_components_threads",
-              "query": "SELECT last(\"value\") FROM \"lma_components_threads\" WHERE \"service\" = 'grafana-server' AND $timeFilter GROUP BY time($interval)",
+              "query": "SELECT last(\"value\") FROM \"lma_components_threads\" WHERE \"service\" = 'grafana-server' AND \"hostname\" =~ /$server$/ AND $timeFilter GROUP BY time($interval)",
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -1778,7 +1839,14 @@
               "tags": [
                 {
                   "key": "service",
+                  "operator": "=",
                   "value": "grafana-server"
+                },
+                {
+                  "condition": "AND",
+                  "key": "hostname",
+                  "operator": "=~",
+                  "value": "/$server$/"
                 }
               ]
             }
@@ -1860,7 +1928,7 @@
                 }
               ],
               "measurement": "lma_components_memory_rss",
-              "query": "SELECT mean(\"value\") FROM \"lma_components_memory_rss\" WHERE \"service\" = 'grafana-server' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") FROM \"lma_components_memory_rss\" WHERE \"service\" = 'grafana-server' AND \"hostname\" =~ /$server$/ AND $timeFilter GROUP BY time($interval) fill(0)",
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -1882,6 +1950,12 @@
                   "key": "service",
                   "operator": "=",
                   "value": "grafana-server"
+                },
+                {
+                  "condition": "AND",
+                  "key": "hostname",
+                  "operator": "=~",
+                  "value": "/$server$/"
                 }
               ]
             }
@@ -1966,7 +2040,7 @@
                 }
               ],
               "measurement": "lma_components_disk_bytes_read",
-              "query": "SELECT mean(\"value\") FROM \"lma_components_disk_bytes_read\" WHERE \"service\" = 'grafana-server' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") FROM \"lma_components_disk_bytes_read\" WHERE \"service\" = 'grafana-server' AND \"hostname\" =~ /$server$/ AND $timeFilter GROUP BY time($interval) fill(0)",
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -1986,7 +2060,14 @@
               "tags": [
                 {
                   "key": "service",
+                  "operator": "=",
                   "value": "grafana-server"
+                },
+                {
+                  "condition": "AND",
+                  "key": "hostname",
+                  "operator": "=~",
+                  "value": "/$server$/"
                 }
               ]
             },
@@ -2010,7 +2091,7 @@
                 }
               ],
               "measurement": "lma_components_disk_bytes_write",
-              "query": "SELECT mean(\"value\") FROM \"lma_components_disk_bytes_write\" WHERE \"service\" = 'grafana-server' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") FROM \"lma_components_disk_bytes_write\" WHERE \"service\" = 'grafana-server' AND \"hostname\" =~ /$server$/ AND $timeFilter GROUP BY time($interval) fill(0)",
               "refId": "B",
               "resultFormat": "time_series",
               "select": [
@@ -2030,7 +2111,14 @@
               "tags": [
                 {
                   "key": "service",
+                  "operator": "=",
                   "value": "grafana-server"
+                },
+                {
+                  "condition": "AND",
+                  "key": "hostname",
+                  "operator": "=~",
+                  "value": "/$server$/"
                 }
               ]
             }
@@ -2113,7 +2201,7 @@
                 }
               ],
               "measurement": "lma_components_cputime_syst",
-              "query": "SELECT mean(\"value\") FROM \"lma_components_cputime_syst\" WHERE \"service\" = 'grafana-server' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") FROM \"lma_components_cputime_syst\" WHERE \"service\" = 'grafana-server' AND \"hostname\" =~ /$server$/ AND $timeFilter GROUP BY time($interval) fill(0)",
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -2133,7 +2221,14 @@
               "tags": [
                 {
                   "key": "service",
+                  "operator": "=",
                   "value": "grafana-server"
+                },
+                {
+                  "condition": "AND",
+                  "key": "hostname",
+                  "operator": "=~",
+                  "value": "/$server$/"
                 }
               ]
             },
@@ -2157,7 +2252,7 @@
                 }
               ],
               "measurement": "lma_components_cputime_user",
-              "query": "SELECT mean(\"value\") FROM \"lma_components_cputime_user\" WHERE \"service\" = 'grafana-server' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT mean(\"value\") FROM \"lma_components_cputime_user\" WHERE \"service\" = 'grafana-server' AND \"hostname\" =~ /$server$/ AND $timeFilter GROUP BY time($interval) fill(0)",
               "refId": "B",
               "resultFormat": "time_series",
               "select": [
@@ -2177,7 +2272,14 @@
               "tags": [
                 {
                   "key": "service",
+                  "operator": "=",
                   "value": "grafana-server"
+                },
+                {
+                  "condition": "AND",
+                  "key": "hostname",
+                  "operator": "=~",
+                  "value": "/$server$/"
                 }
               ]
             }
@@ -2272,5 +2374,5 @@
   },
   "timezone": "browser",
   "title": "InfluxDB",
-  "version": 6
+  "version": 7
 }
