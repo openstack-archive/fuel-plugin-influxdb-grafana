@@ -34,7 +34,7 @@
   requires: [netconfig]
   parameters:
     puppet_manifest: "puppet/manifests/firewall.pp"
-    puppet_modules: "puppet/modules"
+    puppet_modules: puppet/modules:/etc/puppet/modules
     timeout: 600
 
 - id: influxdb-cluster
@@ -44,7 +44,7 @@
   requires: [influxdb-firewall]
   parameters:
     puppet_manifest: "puppet/manifests/cluster.pp"
-    puppet_modules: "puppet/modules"
+    puppet_modules: puppet/modules:/etc/puppet/modules
     timeout: 600
   # reexecute_on is needed for scale-down operations
   reexecute_on:
@@ -57,7 +57,7 @@
   requires: [influxdb-cluster]
   parameters:
     puppet_manifest: "puppet/modules/osnailyfacter/modular/virtual_ips/virtual_ips.pp"
-    puppet_modules: "puppet/modules"
+    puppet_modules: puppet/modules:/etc/puppet/modules
     timeout: 600
 
 - id: influxdb-haproxy
@@ -67,7 +67,7 @@
   requires: [cluster-haproxy, influxdb-vip]
   parameters:
     puppet_manifest: "puppet/manifests/haproxy.pp"
-    puppet_modules: "puppet/modules"
+    puppet_modules: puppet/modules:/etc/puppet/modules
     timeout: 600
   # reexecute_on is needed for scale-down operations
   reexecute_on:
@@ -80,7 +80,7 @@
   required_for: [logging]
   parameters:
     puppet_manifest: "puppet/manifests/hiera.pp"
-    puppet_modules: "puppet/modules"
+    puppet_modules: puppet/modules:/etc/puppet/modules
     timeout: 120
   # reexecute_on is needed for scale-down operations
   reexecute_on:
@@ -93,7 +93,7 @@
   required_for: [post_deployment_end]
   parameters:
     puppet_manifest: "puppet/manifests/enable_quorum.pp"
-    puppet_modules: "puppet/modules"
+    puppet_modules: puppet/modules:/etc/puppet/modules
     timeout: 120
   # reexecute_on is needed for scale-down operations
   reexecute_on:
