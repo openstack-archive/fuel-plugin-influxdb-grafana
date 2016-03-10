@@ -82,7 +82,7 @@ Software components installed by the InfluxDB-Grafana Plugin
 +----------------+-------------------------------------+
 | Components     | Version                             |
 +================+=====================================+
-| InfluxDB       | v0.10.0 for Ubuntu (64-bit)         |
+| InfluxDB       | v0.10.3 for Ubuntu (64-bit)         |
 +----------------+-------------------------------------+
 | Grafana        | v2.6.0 for Ubuntu (64-bit)          |
 +----------------+-------------------------------------+
