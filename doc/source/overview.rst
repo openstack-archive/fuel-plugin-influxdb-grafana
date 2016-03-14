@@ -17,8 +17,8 @@ The InfluxDB-Grafana Plugin is an indispensable tool to answering
 the questions "what has changed in my OpenStack environment, when and why?".
 Grafana is installed with a collection of predefined dashboards for each
 of the OpenStack services that are monitored.
-Among those dashboards, the *Main Dashboard* provides a single pane of glass overview
-of your OpenStack environment status.
+Among those dashboards, the *Main Dashboard* provides a single pane of glass
+overview of your OpenStack environment status.
 
 InfluxDB and Grafana are key components
 of the `LMA Toolchain project <https://launchpad.net/lma-toolchain>`_
@@ -37,7 +37,7 @@ Requirements
 | **Requirement**        | **Version/Comment**                                                                        |
 +========================+============================================================================================+
 | Disk space             | The plugin’s specification requires to provision at least 15GB of disk space for the       |
-|                        | system, 10GB for the logs and 30GB for the database. As a result, the installation of the  |
+|                        | system, 10GB for the logs and 30GB for the database. The installation of the               |
 |                        | plugin will fail if there is less than 55GB of disk space available on the node.           |
 +------------------------+--------------------------------------------------------------------------------------------+
 | Fuel                   | Mirantis OpenStack 8.0                                                                     |
@@ -68,7 +68,7 @@ Key terms, acronyms and abbreviations
 | **Terms & acronyms** | **Definition**                                                                             |
 +======================+============================================================================================+
 | LMA Collector        | Logging, Monitoring and Alerting (LMA) Collector. A service running on each node which     |
-|                      | collects all the logs and the OpenStak notifications.                                      |
+|                      | collects all the logs and the OpenStack notifications.                                     |
 +----------------------+--------------------------------------------------------------------------------------------+
 | InfluxDB             | InfluxDB is a time-series, metrics, and analytics open-source database (MIT license).      |
 |                      | It’s written in Go and has no external dependencies.                                       |
@@ -80,7 +80,7 @@ Key terms, acronyms and abbreviations
 |                      | It's focused on providing rich ways to visualize metrics time-series, mainly though graphs |
 |                      | but supports other ways to visualize data through a pluggable panel architecture.          |
 |                      |                                                                                            |
-|                      | It currently has rich support for Graphite, InfluxDB and OpenTSDB. But supports other data |
-|                      | sources via plugins. Grafana is most commonly used for infrastructure monitoring,          |
+|                      | It currently has rich support for Graphite, InfluxDB and OpenTSDB and also supports other  |
+|                      | data sources via plugins. Grafana is most commonly used for infrastructure monitoring,     |
 |                      | application monitoring and metric analytics.                                               |
 +----------------------+--------------------------------------------------------------------------------------------+
