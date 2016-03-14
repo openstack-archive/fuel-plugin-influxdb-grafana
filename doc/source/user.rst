@@ -13,7 +13,7 @@ To configure the plugin, you need to follow these steps:
 #. `Create a new environment <http://docs.mirantis.com/openstack/fuel/fuel-8.0/user-guide.html#launch-wizard-to-create-new-environment>`_
    from the Fuel web user interface.
 
-#. Click the **Settings** tab and select the **Other** category.
+#. Click on the **Settings** tab and select the **Other** category.
 
 #. Scroll down through the settings until you find the **InfluxDB-Grafana Server
    Plugin** section. You should see a page like this
@@ -22,7 +22,7 @@ To configure the plugin, you need to follow these steps:
       :width: 800
       :align: center
 
-#. Check the **InfluxDB-Grafana Plugin** box and fill-in the required fields as indicated below.
+#. Tick the **InfluxDB-Grafana Plugin** box and fill-in the required fields as indicated below.
 
    a. Specify the number of days of retention for your data.
    b. Specify the InfluxDB admin password (called root password in the InfluxDB documentation).
@@ -49,7 +49,7 @@ To configure the plugin, you need to follow these steps:
    is not recommended to avoid split-brain situations in the Raft consensus of 
    the InfluxDB cluster as well as the *Pacemaker* cluster which is responsible of
    the VIP address failover.
-   To be also noted, that it is possible to add or remove a node
+   To be also noted, it is possible to add or remove a node
    with the *InfluxDB_Grafana* role in the cluster after deployment.
 
    .. image:: ../images/influx_grafana_role.png
@@ -60,7 +60,7 @@ To configure the plugin, you need to follow these steps:
       three different nodes along with the *Infrastructure_Alerting* role and the *Elasticsearch_Kibana*
       role. This means that the three plugins of the LMA toolchain can be installed on the same nodes. 
 
-#. Clik on **Apply Changes**
+#. Click on **Apply Changes**
 
 #. Adjust the disk configuration for your plugin if necessary (see the `Fuel User Guide
    <http://docs.mirantis.com/openstack/fuel/fuel-8.0/user-guide.html#disk-partitioning>`_
@@ -75,7 +75,7 @@ To configure the plugin, you need to follow these steps:
 
 #. `Verify the networks <http://docs.mirantis.com/openstack/fuel/fuel-8.0/user-guide.html#verify-networks>`_.
 
-#. And finaly, `deploy <http://docs.mirantis.com/openstack/fuel/fuel-8.0/user-guide.html#deploy-changes>`_ your changes.
+#. And finally, `deploy <http://docs.mirantis.com/openstack/fuel/fuel-8.0/user-guide.html#deploy-changes>`_ your changes.
 
 .. _plugin_install_verification:
 
@@ -86,7 +86,7 @@ Be aware that depending on the number of nodes and deployment setup,
 deploying a Mirantis OpenStack environment can typically take anything
 from 30 minutes to several hours. But once your deployment is complete,
 you should see a notification message indicating that you deployment is complete
-like in the figure below.
+as in the figure below.
 
 .. image:: ../images/deployment_notification.png
    :width: 800
@@ -96,18 +96,18 @@ Verifying InfluxDB
 ~~~~~~~~~~~~~~~~~~
 
 You should verify that the InfluxDB cluster is running properly.
-To do that, you need first to retreive the InfluxDB cluster VIP address.
+First, you need first to retreive the InfluxDB cluster VIP address.
 Here is how to proceed.
 
 #. On the Fuel Master node, find the IP address of a node where the InfluxDB
    server is installed using the following command::
 
     [root@fuel ~]# fuel nodes
-    id | status   | name             | cluster | ip         | mac               | roles                 |
-    ---|----------|------------------|---------|------------|-------------------|-----------------------|
-    1  | ready    | Untitled (fa:87) | 1       | 10.109.0.8 | 64:18:ef:86:fa:87 | influxdb_grafana, ... |
-    2  | ready    | Untitled (12:aa) | 1       | 10.109.0.3 | 64:5f:c6:88:12:aa | influxdb_grafana, ... |
-    3  | ready    | Untitled (4e:6e) | 1       | 10.109.0.7 | 64:ca:bf:a4:4e:6e | influxdb_grafana, ... |
+    id | status   | name             | cluster | ip         | mac | roles            |
+    ---|----------|------------------|---------|------------|-----|------------------|
+    1  | ready    | Untitled (fa:87) | 1       | 10.109.0.8 | ... | influxdb_grafana |
+    2  | ready    | Untitled (12:aa) | 1       | 10.109.0.3 | ... | influxdb_grafana |
+    3  | ready    | Untitled (4e:6e) | 1       | 10.109.0.7 | ... | influxdb_grafana |
 
 
 #. Then `ssh` to anyone of these nodes (ex. *node-1*) and type the command::
@@ -219,7 +219,7 @@ represented can be assigned five different states.
 The meaning associated with a service health state is the following:
 
 - **Down**: One or several primary functions of a service
-  cluster are failed. For example,
+  cluster has failed. For example,
   all API endpoints of a service cluster like Nova
   or Cinder are failed.
 - **Critical**: One or several primary functions of a
@@ -231,7 +231,7 @@ The meaning associated with a service health state is the following:
   of service delivered to the end-user should be slightly
   impacted.
 - **Unknown**: There is not enough data to infer the actual
-  health state of a service cluster.
+  health status of a service cluster.
 - **Okay**: None of the above was found to be true.
 
 The **Virtual Compute Resources** row provides an overview of
@@ -251,8 +251,8 @@ in the OpenStack environment.
 
 The **Main Dashboard** is also an entry point to access more detailed
 dashboards for each of the OpenStack services that are monitored.
-For example, if you click through the *Nova box*, the **Nova
-Dashboard** should be displayed.
+For example, if you click on the *Nova box*, the **Nova
+Dashboard** is displayed.
 
 .. image:: ../images/grafana_nova.png
    :align: center
@@ -266,7 +266,7 @@ Nova service's related metrics.
 
 The **Service Status** row provides information about the Nova service
 cluster health state as a whole including the state of the API frontend
-(the HAProxy plubic VIP), a counter of HTTP 5xx errors,
+(the HAProxy public VIP), a counter of HTTP 5xx errors,
 the HTTP requests response time and status code.
 
 The **Nova API** row provides information about the current health state of
@@ -299,7 +299,7 @@ menu list.
 
 With LMA 0.9, we have introduced two new dashboards.
 
-#. The **Elasticsearch Cluster Dasboard** provides information about
+#. The **Elasticsearch Cluster Dashboard** provides information about
    the overall health state of the Elasticsearch cluster including
    the state of the shards, the number of pending tasks and various resources
    usage metrics.
@@ -331,7 +331,7 @@ Other Dashboards
 ~~~~~~~~~~~~~~~~
 
 In total there are 19 different dashboards you can use to
-explore different time-series facettes of your OpenStack environment.
+explore different time-series facets of your OpenStack environment.
 
 Viewing Faults and Anomalies
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -345,27 +345,27 @@ representation of the alarm (or set of alarms) that were triggered
 by the Collectors for a service.
 In other words, the annotations contain valuable insights
 that you could use to diagnose and
-troubleshoot problems. Futhermore, with the Grafana annotations,
-the system makes a distiction between what is estimated as a
+troubleshoot problems. Furthermore, with the Grafana annotations,
+the system makes a distinction between what is estimated as a
 direct root cause versus what is estimated as an indirect
 root cause. This is internally represented in a dependency graph.
-There are first degree dependencies that are used
-to describe situations whereby the health state of an entity
+There are first degree dependencies used to describe situations
+whereby the health state of an entity
 strictly depends on the health state of another entity. For
 example Nova as a service has first degree dependencies
 with the nova-api endpoints and the nova-scheduler workers. But
 there are also second degree dependencies whereby the health
-state of an entity doesn't strictly depends on the heath state
-of another entity although it might be depending on the operation
+state of an entity doesn't strictly depends on the health state
+of another entity, although it might, depending on other operations
 being performed. For example, by default we declared that Nova
 has a second degree dependency with Neutron. As a result, the
 health state of Nova will not be directly impacted by the health
 state of Neutron but the annotation will provide
-a root cause analysis hint. For example, let's assume a situation
-where Nova has changed a state from *okay* to *critical* (because of
+a root cause analysis hint. Let's assume a situation
+where Nova has changed from *okay* to *critical* state (because of
 5xx HTTP errors) and that Neutron has been in *down* state for a while.
-In this case, the Nova dashboard will display an annotation that says
-Nova has changed a state to *warning* because the system has detected
+In this case, the Nova dashboard will display an annotation showing that
+Nova has changed to a *warning* state because the system has detected
 5xx errors and that it may be due to the fact that Neutron is *down*.
 An example of what an annotation looks like is shown below.
 
@@ -373,7 +373,7 @@ An example of what an annotation looks like is shown below.
    :align: center
    :width: 800
 
-This annotation tells us that the health state of Nova is *down*
+This annotation shows that the health state of Nova is *down*
 because there is no *nova-api* service backend (viewed from HAProxy)
 that is *up*.
 
@@ -409,7 +409,7 @@ If you get no data in Grafana, follow these troubleshooting tips.
    `LMA Collector Fuel Plugin User Guide <http://fuel-plugin-lma-collector.readthedocs.org/>`_.
 
 #. Check that the nodes are able to connect to the InfluxDB cluster via the VIP address
-   (see above for how to get the InfluxDB cluster VIP address) on port *8086*::
+   (see above how to get the InfluxDB cluster VIP address) on port *8086*::
 
      root@node-2:~# curl -I http://<VIP>:8086/ping
 
