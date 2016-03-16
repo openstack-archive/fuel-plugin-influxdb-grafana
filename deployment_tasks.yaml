@@ -1,5 +1,6 @@
 - id: primary-influxdb_grafana
   type: group
+  version: 2.0.0
   role: [primary-influxdb_grafana]
   tasks: &common_tasks
     - hiera
@@ -19,6 +20,7 @@
 
 - id: influxdb_grafana
   type: group
+  version: 2.0.0
   role: [influxdb_grafana]
   tasks: *common_tasks
   required_for: [deploy_end]
@@ -29,6 +31,7 @@
 
 - id: influxdb-firewall
   type: puppet
+  version: 2.0.0
   groups: [primary-influxdb_grafana, influxdb_grafana]
   required_for: [deploy_end]
   requires: [netconfig]
@@ -39,6 +42,7 @@
 
 - id: influxdb-cluster
   type: puppet
+  version: 2.0.0
   groups: [primary-influxdb_grafana, influxdb_grafana]
   required_for: [cluster-haproxy]
   requires: [influxdb-firewall]
@@ -52,6 +56,7 @@
 
 - id: influxdb-vip
   type: puppet
+  version: 2.0.0
   groups: [primary-influxdb_grafana, influxdb_grafana]
   required_for: [deploy_end]
   requires: [influxdb-cluster]
@@ -62,6 +67,7 @@
 
 - id: influxdb-haproxy
   type: puppet
+  version: 2.0.0
   groups: [primary-influxdb_grafana, influxdb_grafana]
   required_for: [deploy_end]
   requires: [cluster-haproxy, influxdb-vip]
@@ -75,6 +81,7 @@
 
 - id: influxdb-hiera
   type: puppet
+  version: 2.0.0
   groups: [primary-influxdb_grafana, influxdb_grafana]
   requires: [globals]
   required_for: [logging]
@@ -88,7 +95,8 @@
 
 - id: influxdb-enable-quorum
   type: puppet
-  role: [primary-influxdb_grafana]
+  version: 2.0.0
+  groups: [primary-influxdb_grafana]
   requires: [post_deployment_start]
   required_for: [post_deployment_end]
   parameters:
@@ -98,3 +106,62 @@
   # reexecute_on is needed for scale-down operations
   reexecute_on:
     - deploy_changes
+
+- id: influxdb-installation
+  type: puppet
+  version: 2.0.0
+  groups: [primary-influxdb_grafana, influxdb_grafana]
+  requires: [post_deployment_start]
+  parameters:
+    puppet_manifest: "puppet/manifests/influxdb.pp"
+    puppet_modules: puppet/modules:/etc/puppet/modules
+    timeout: 600
+
+- id: grafana-mysql-provisioning
+  type: puppet
+  version: 2.0.0
+  groups: [primary-influxdb_grafana]
+  requires: [post_deployment_start]
+  parameters:
+    puppet_manifest: "puppet/manifests/grafana_mysql.pp"
+    puppet_modules: puppet/modules:/etc/puppet/modules
+    timeout: 600
+
+- id: grafana-installation
+  type: puppet
+  version: 2.0.0
+  groups: [primary-influxdb_grafana, influxdb_grafana]
+  requires: [grafana-mysql-provisioning]
+  cross-depends:
+    - name: grafana-mysql-provisioning
+      role: [primary-influxdb_grafana]
+  parameters:
+    puppet_manifest: "puppet/manifests/grafana.pp"
+    puppet_modules: puppet/modules:/etc/puppet/modules
+    timeout: 600
+
+- id: influxdb-configuration
+  type: puppet
+  version: 2.0.0
+  groups: [primary-influxdb_grafana]
+  requires: [influxdb-installation]
+  cross-depends:
+    - name: influxdb-installation
+      role: [primary-influxdb_grafana, influxdb_grafana]
+  parameters:
+    puppet_manifest: "puppet/manifests/influxdb_configuration.pp"
+    puppet_modules: puppet/modules:/etc/puppet/modules
+    timeout: 600
+
+- id: grafana-configuration
+  type: puppet
+  version: 2.0.0
+  groups: [primary-influxdb_grafana]
+  requires: [grafana-installation]
+  cross-depends:
+    - name: grafana-installation
+      role: [primary-influxdb_grafana, influxdb_grafana]
+  parameters:
+    puppet_manifest: "puppet/manifests/grafana_configuration.pp"
+    puppet_modules: puppet/modules:/etc/puppet/modules
+    timeout: 600
