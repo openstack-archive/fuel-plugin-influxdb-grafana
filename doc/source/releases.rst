@@ -3,6 +3,14 @@
 Release Notes
 =============
 
+Version 0.8.1
+-------------
+
+* Bug fixes
+
+  * Fix the number of keystone-admin-api down (`#1533653
+    <https://bugs.launchpad.net/lma-toolchain/+bug/1533653>`_).
+
 Version 0.8.0
 -------------
 
