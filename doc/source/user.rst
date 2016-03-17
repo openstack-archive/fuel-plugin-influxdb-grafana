@@ -185,7 +185,7 @@ The InfluxDB-Grafana Plugin comes with a collection of predefined
 dashboards you can use to visualize the time-series  stored in InfluxDB.
 
 Please check the LMA Collector documentation for a complete list of all the 
-`metrics time-series <http://fuel-plugin-lma-collector.readthedocs.org/en/latest/dev/metrics.html#list-of-metrics>`_
+`metrics time-series <http://fuel-plugin-lma-collector.readthedocs.org/en/latest/appendix_b.html>`_
 that are collected and stored in InfluxDB.
 
 The Main Dashboard
@@ -207,14 +207,14 @@ from where you can pick a particular metric dimension such as
 the *controller name* or the *device name* you want to select. 
 
 In the example above, the system metrics of *node-48* are
-being displayed in the dashbaord.
+being displayed in the dashboard.
 
 Within the **OpenStack Services** row, each of the services
 represented can be assigned five different states.
 
 .. note:: The precise determination of a service health state depends
    on the correlation policies implemented for that service by a `Global Status Evaluation (GSE)
-   plugin <http://fuel-plugin-lma-collector.readthedocs.org/en/latest/user/alarms.html#cluster-policies>`_.
+   plugin <http://fuel-plugin-lma-collector.readthedocs.org/en/latest/alarms.html#cluster-policies>`_.
 
 The meaning associated with a service health state is the following:
 
@@ -324,7 +324,7 @@ running on *node-4* are displayed.
    :width: 800
 
 Check the LMA Collector documentation for additional information about the 
-`*libvirt* metrics <http://fuel-plugin-lma-collector.readthedocs.org/en/latest/dev/metrics.html#libvirt>`_
+`*libvirt* metrics <http://fuel-plugin-lma-collector.readthedocs.org/en/latest/appendix_b.html#libvirt>`_
 that are displayed in the **Hypervisor Dashboard**.
 
 Other Dashboards
