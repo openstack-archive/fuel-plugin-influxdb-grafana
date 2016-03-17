@@ -40,7 +40,7 @@ Requirements
 |                        | system, 10GB for the logs and 30GB for the database. The installation of the               |
 |                        | plugin will fail if there is less than 55GB of disk space available on the node.           |
 +------------------------+--------------------------------------------------------------------------------------------+
-| Fuel                   | Mirantis OpenStack 8.0                                                                     |
+| Mirantis OpenStack     | 8.0                                                                                        |
 +------------------------+--------------------------------------------------------------------------------------------+
 | Hardware configuration | The hardware configuration (RAM, CPU, disk(s)) required by this plugin depends on the size |
 |                        | of your cloud environment and other factors like the retention policy. An average          |
