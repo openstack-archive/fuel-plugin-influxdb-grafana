@@ -31,4 +31,9 @@ class influxdb::install {
     mode    => '0755',
     require => Package['influxdb'],
   }
+
+  # Ensure rolling upgrade (see LP #1535440)
+  file { '/etc/logrotate.d/influxdb':
+    ensure => absent,
+  }
 }
