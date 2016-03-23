@@ -8,6 +8,10 @@ Version 0.8.1
 
 * Bug fixes
 
+  * Fix the nologin path (`#1523579
+    <https://bugs.launchpad.net/lma-toolchain/+bug/1523579>`_).
+  * Remove duplicate crontab for log rotation (`#1535440
+    <https://bugs.launchpad.net/lma-toolchain/+bug/1535440>`_).
   * Fix the number of keystone-admin-api down (`#1533653
     <https://bugs.launchpad.net/lma-toolchain/+bug/1533653>`_).
 
