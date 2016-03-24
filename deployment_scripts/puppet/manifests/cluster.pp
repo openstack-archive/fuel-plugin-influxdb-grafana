@@ -13,6 +13,7 @@
 # under the License.
 
 prepare_network_config(hiera_hash('network_scheme'))
+$fuel_version = 0 + hiera('fuel_version')
 
 $corosync_nodes = corosync_nodes(
     get_nodes_hash_by_roles(
@@ -21,14 +22,25 @@ $corosync_nodes = corosync_nodes(
     ),
     'mgmt/corosync'
 )
+
 $cluster_recheck_interval = hiera('cluster_recheck_interval', '190s')
 
-class { 'cluster':
-  internal_address         => get_network_role_property('mgmt/corosync', 'ipaddr'),
-  corosync_nodes           => $corosync_nodes,
-  cluster_recheck_interval => $cluster_recheck_interval,
+if $fuel_version < 9.0 {
+  class { '::cluster':
+    internal_address         => get_network_role_property('mgmt/corosync', 'ipaddr'),
+    corosync_nodes           => $corosync_nodes,
+    cluster_recheck_interval => $cluster_recheck_interval,
+  }
+} else {
+  $corosync_nodes_processed = corosync_nodes_process($corosync_nodes)
+  class { '::cluster':
+    internal_address         => get_network_role_property('mgmt/corosync', 'ipaddr'),
+    quorum_members           => $corosync_nodes_processed['ips'],
+    unicast_addresses        => $corosync_nodes_processed['ips'],
+    quorum_members_ids       => $corosync_nodes_processed['ids'],
+    cluster_recheck_interval => $cluster_recheck_interval,
+  }
 }
-
 pcmk_nodes { 'pacemaker' :
   nodes               => $corosync_nodes,
   add_pacemaker_nodes => false,
