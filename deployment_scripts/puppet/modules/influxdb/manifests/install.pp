@@ -31,4 +31,42 @@ class influxdb::install (
       content => template('influxdb/influxdb_variables.erb')
     }
   }
+
+  # Install dedicated cron job to rotate InfluxDB logs more frequently
+  # see LP #1561605
+  $logrotate_conf = '/etc/logrotate_influxdb.conf'
+  $log_file = '/var/log/influxdb/influxd.log'
+  file { $logrotate_conf:
+    ensure  => present,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+    content => template('influxdb/logrotate.conf.erb'),
+    require => Package['influxdb'],
+  }
+  $logrotate_bin = '/usr/local/bin/logrotate_influxdb'
+  file { $logrotate_bin:
+    ensure  => present,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0755',
+    content => template('influxdb/logrotate.cron.erb'),
+    require => File[$logrotate_conf],
+  }
+  cron { 'influxdb logrotate':
+    ensure   => present,
+    command  => $logrotate_bin,
+    minute   => '*/30',
+    hour     => '*',
+    month    => '*',
+    monthday => '*',
+    require  => File[$logrotate_bin],
+  }
+  # To avoid concurrency with the daily logrotate
+  # we must remove the configuration set by the InfluxDB package
+  file { '/etc/logrotate.d/influxdb':
+    ensure  => absent,
+    require => Cron['influxdb logrotate'],
+  }
+
 }
