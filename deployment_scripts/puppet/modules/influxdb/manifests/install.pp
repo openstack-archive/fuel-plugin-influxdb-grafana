@@ -31,4 +31,26 @@ class influxdb::install (
       content => template('influxdb/influxdb_variables.erb')
     }
   }
+
+  # Install cron job to rotate InfluxDB logs hourly basis
+  # see LP #1561605
+  $logrotate_conf = '/etc/logrotate_influxdb.conf'
+  $log_file = '/var/log/influxdb/influxd.log'
+  file { $logrotate_conf:
+    ensure  => present,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+    content => template('influxdb/logrotate.conf.erb'),
+    require => Package['influxdb'],
+  }
+
+  file { '/etc/cron.hourly/logrotate_influxdb':
+    ensure  => present,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0755',
+    content => template('influxdb/logrotate.cron.erb'),
+    require => File[$logrotate_conf],
+  }
 }

@@ -1,0 +1,16 @@
+#!/bin/sh
+# managed by puppet
+
+STATUS_FILE="influxdb.status"
+# Clean non existent log file entries from status file
+cd /var/lib/logrotate
+test -e $STATUS_FILE || touch $STATUS_FILE
+head -1 $STATUS_FILE > $STATUS_FILE.clean
+sed 's/"//g' $STATUS_FILE | while read logfile date
+do
+    [ -e "$logfile" ] && echo "\"$logfile\" $date"
+done >> "${STATUS_FILE}.clean"
+mv "${STATUS_FILE}.clean" $STATUS_FILE
+
+test -x /usr/sbin/logrotate || exit 0
+/usr/sbin/logrotate --state $STATUS_FILE <%= @logrotate_conf %>
