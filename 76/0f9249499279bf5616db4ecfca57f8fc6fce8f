@@ -1,0 +1,8 @@
+Code-Review+2: Swann Croiset <scroiset@mirantis.com>
+Workflow+1: Swann Croiset <scroiset@mirantis.com>
+Verified+2: Jenkins
+Submitted-by: Jenkins
+Submitted-at: Fri, 25 Mar 2016 19:26:30 +0000
+Reviewed-on: https://review.openstack.org/297829
+Project: openstack/fuel-plugin-influxdb-grafana
+Branch: refs/heads/stable/0.9
