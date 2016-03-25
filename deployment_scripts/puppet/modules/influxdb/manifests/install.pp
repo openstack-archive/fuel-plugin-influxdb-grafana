@@ -36,4 +36,10 @@ class influxdb::install {
   file { '/etc/logrotate.d/influxdb':
     ensure => absent,
   }
+  # Fix the wrong permission set by the influxdb package
+  file { '/etc/logrotate.d/influxd':
+    ensure  => present,
+    mode    => '0644',
+    require => Package['influxdb'],
+  }
 }
