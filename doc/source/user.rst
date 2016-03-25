@@ -178,6 +178,10 @@ shown below.
    :align: center
    :width: 800
 
+.. note:: Be aware that Grafana is attached to the *management network*.
+   Your desktop machine must have access to the OpenStack environment's
+   *management network* you just created, to get access to the Grafana dashboard.
+
 Exploring your time-series with Grafana
 ---------------------------------------
 
