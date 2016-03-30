@@ -15,11 +15,12 @@
 # == Class: influxdb::configure
 
 class influxdb::configure (
-  $auth_enabled = undef,
-  $config_file  = undef,
-  $data_dir     = undef,
-  $meta_dir     = undef,
-  $hh_dir       = undef,
+  $auth_enabled     = undef,
+  $config_file      = undef,
+  $data_dir         = undef,
+  $meta_dir         = undef,
+  $hh_dir           = undef,
+  $http_log_enabled = false,
 ) {
 
   Ini_setting {
@@ -32,6 +33,12 @@ class influxdb::configure (
     section => 'http',
     setting => 'auth-enabled',
     value   => $auth_enabled,
+  }
+
+  ini_setting { 'http_log':
+    section => 'http',
+    setting => 'log-enabled',
+    value   => bool2str($http_log_enabled),
   }
 
   ini_setting { 'data_dir':
