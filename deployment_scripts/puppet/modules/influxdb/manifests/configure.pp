@@ -24,6 +24,7 @@ class influxdb::configure (
   $hh_dir                  = undef,
   $snapshot                = undef,
   $disable_anonymous_stats = true,
+  $http_log_enabled        = false,
 ) {
 
   Ini_setting {
@@ -95,5 +96,10 @@ class influxdb::configure (
   ini_setting { 'reporting-disabled':
     setting => 'reporting-disabled',
     value   => $disable_anonymous_stats,
+  }
+
+  ini_setting { 'http':
+    setting => 'log-enabled',
+    value   => $http_log_enabled,
   }
 }
