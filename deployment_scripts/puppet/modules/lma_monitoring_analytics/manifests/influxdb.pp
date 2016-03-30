@@ -45,7 +45,9 @@ class lma_monitoring_analytics::influxdb (
   }
 
   exec { 'configure_influxdb_script':
-    command => $configure_influxdb,
-    require => [File[$configure_influxdb], Service['influxdb']],
+    command   => $configure_influxdb,
+    tries     => 10,
+    try_sleep => 3,
+    require   => [File[$configure_influxdb], Service['influxdb']],
   }
 }
