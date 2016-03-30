@@ -14,6 +14,10 @@ Version 0.8.1
     <https://bugs.launchpad.net/lma-toolchain/+bug/1535440>`_).
   * Fix the number of keystone-admin-api down (`#1533653
     <https://bugs.launchpad.net/lma-toolchain/+bug/1533653>`_).
+  * Disable HTTP logs for InfluxDB (`#1561605
+    <https://bugs.launchpad.net/fuel-plugins/+bug/1561605>`_).
+  * Make idempotent the InfluxDB re-configuration (`#1563757
+    <https://bugs.launchpad.net/lma-toolchain/+bug/1563757>`_).
 
 Version 0.8.0
 -------------
