@@ -1,0 +1,12 @@
+Verified+1: Plugins CI <plugins.ci@mirantis.com>
+Code-Review-1: Denis Klepikov <dklepikov@mirantis.com>
+Code-Review+2: Simon Pasquier <spasquier@mirantis.com>
+Code-Review-1: tatyana-leontovich <tleontovich@mirantis.com>
+Code-Review+2: Patrick Petit <ppetit@mirantis.com>
+Workflow+1: Patrick Petit <ppetit@mirantis.com>
+Verified+2: Jenkins
+Submitted-by: Jenkins
+Submitted-at: Wed, 30 Mar 2016 12:51:00 +0000
+Reviewed-on: https://review.openstack.org/299312
+Project: openstack/fuel-plugin-influxdb-grafana
+Branch: refs/heads/stable/0.9
