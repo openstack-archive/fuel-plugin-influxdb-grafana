@@ -64,7 +64,7 @@ Key terms, acronyms and abbreviations
 | **Terms & acronyms** | **Definition**                                                                             |
 +======================+============================================================================================+
 | LMA Collector        | Logging, Monitoring and Alerting (LMA) Collector. A service running on each node which     |
-|                      | collects all the logs and the OpenStak notifications.                                      |
+|                      | collects all the logs and the OpenStack notifications.                                     |
 +----------------------+--------------------------------------------------------------------------------------------+
 | InfluxDB             | InfluxDB is a time-series, metrics, and analytics open-source database (MIT license).      |
 |                      | It’s written in Go and has no external dependencies.                                       |

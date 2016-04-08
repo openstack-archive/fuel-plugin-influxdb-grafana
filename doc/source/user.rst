@@ -352,7 +352,7 @@ An example of what an annotation looks like is shown below.
 
 .. image:: ../images/grafana_nova_annot.png
    :align: center
-   :width: 800
+   :width: 350pt
 
 |
 
@@ -365,7 +365,16 @@ If you get no data in Grafana, follow these troubleshooting tips.
    LMA Collector troubleshooting instructions in the
    `LMA Collector Fuel Plugin User Guide <http://fuel-plugin-lma-collector.readthedocs.org/>`_.
 
-#. Check that the nodes are able to connect to the InfluxDB server on port *8086*.
+#. Check that the nodes are able to connect to the InfluxDB server on port *8086*::
+
+     root@node-2:~# curl -I http://<InfluxDB server IP>:8086/ping
+
+   The server should return a 204 HTTP status::
+
+     HTTP/1.1 204 No Content
+     Request-Id: cdc3c545-d19d-11e5-b457-000000000000
+     X-Influxdb-Version: 0.9.4
+     Date: Fri, 12 Feb 2016 15:32:19 GMT
 
 #. Check that InfluxDB is running::
 
