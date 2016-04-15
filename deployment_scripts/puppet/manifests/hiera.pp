@@ -12,6 +12,8 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
+notice('fuel-plugin-influxdb-grafana:hiera.pp')
+
 $hiera_dir = '/etc/hiera/plugins'
 $plugin_name = 'influxdb_grafana'
 $plugin_yaml = "${plugin_name}.yaml"
