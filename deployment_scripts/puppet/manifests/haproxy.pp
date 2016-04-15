@@ -12,6 +12,8 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
+notice('fuel-plugin-influxdb-grafana: haproxy.pp')
+
 $cluster_nodes = hiera('lma::influxdb::backends')
 $stats_port    = '1000'
 $influxdb_port = '8086'
