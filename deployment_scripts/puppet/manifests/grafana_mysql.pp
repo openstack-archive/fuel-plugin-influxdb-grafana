@@ -11,7 +11,9 @@
 #    WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 #    License for the specific language governing permissions and limitations
 #    under the License.
-#
+
+notice('StackLight: influxdb-grafana/grafana_mysql.pp')
+
 $influxdb_grafana = hiera('influxdb_grafana')
 
 if $influxdb_grafana['mysql_mode'] == 'local' {
