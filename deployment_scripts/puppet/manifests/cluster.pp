@@ -12,6 +12,8 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
+notice('fuel-plugin-influxdb-grafana: cluster.pp')
+
 prepare_network_config(hiera_hash('network_scheme'))
 $fuel_version = 0 + hiera('fuel_version')
 

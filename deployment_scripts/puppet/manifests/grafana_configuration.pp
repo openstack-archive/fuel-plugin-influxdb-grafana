@@ -12,6 +12,8 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
+notice('fuel-plugin-influxdb-grafana: grafana_configuration.pp')
+
 $deployment_id = hiera('deployment_id')
 $master_ip = hiera('master_ip')
 $mgmt_vip = hiera('lma::influxdb::vip')
