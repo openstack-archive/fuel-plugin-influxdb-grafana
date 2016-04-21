@@ -19,7 +19,7 @@
   },
   "editable": true,
   "hideControls": false,
-  "id": 13,
+  "id": null,
   "links": [],
   "originalTitle": "Cinder",
   "refresh": "1m",
@@ -191,12 +191,18 @@
                     "auto"
                   ],
                   "type": "time"
+                },
+                {
+                  "params": [
+                    "0"
+                  ],
+                  "type": "fill"
                 }
               ],
               "groupby_field": "",
               "interval": "",
-              "measurement": "openstack_cinder_http_responses",
-              "query": "SELECT count(\"value\") FROM \"openstack_cinder_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^5/ AND $timeFilter GROUP BY time($interval)",
+              "measurement": "openstack_cinder_http_response_times",
+              "query": "SELECT sum(\"count\") FROM \"openstack_cinder_http_response_times\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" = '5xx' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -204,13 +210,13 @@
                 [
                   {
                     "params": [
-                      "value"
+                      "count"
                     ],
                     "type": "field"
                   },
                   {
                     "params": [],
-                    "type": "count"
+                    "type": "sum"
                   }
                 ]
               ],
@@ -218,12 +224,14 @@
               "tags": [
                 {
                   "key": "hostname",
+                  "operator": "=~",
                   "value": "/$server/"
                 },
                 {
                   "condition": "AND",
                   "key": "http_status",
-                  "value": "/^5/"
+                  "operator": "=",
+                  "value": "5xx"
                 }
               ]
             }
@@ -305,8 +313,8 @@
                 }
               ],
               "interval": "",
-              "measurement": "openstack_cinder_http_responses",
-              "query": "SELECT mean(\"value\") FROM \"openstack_cinder_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_method\" = 'GET' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "measurement": "openstack_cinder_http_response_times",
+              "query": "SELECT max(\"upper_90\") FROM \"openstack_cinder_http_response_times\" WHERE \"hostname\" =~ /$server/ AND \"http_method\" = 'GET' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -314,13 +322,13 @@
                 [
                   {
                     "params": [
-                      "value"
+                      "upper_90"
                     ],
                     "type": "field"
                   },
                   {
                     "params": [],
-                    "type": "mean"
+                    "type": "max"
                   }
                 ]
               ],
@@ -328,11 +336,13 @@
               "tags": [
                 {
                   "key": "hostname",
+                  "operator": "=~",
                   "value": "/$server/"
                 },
                 {
                   "condition": "AND",
                   "key": "http_method",
+                  "operator": "=",
                   "value": "GET"
                 }
               ]
@@ -357,8 +367,8 @@
                 }
               ],
               "interval": "",
-              "measurement": "openstack_cinder_http_responses",
-              "query": "SELECT mean(\"value\") FROM \"openstack_cinder_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_method\" = 'POST' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "measurement": "openstack_cinder_http_response_times",
+              "query": "SELECT max(\"upper_90\") FROM \"openstack_cinder_http_response_times\" WHERE \"hostname\" =~ /$server/ AND \"http_method\" = 'POST' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "B",
               "resultFormat": "time_series",
@@ -366,13 +376,13 @@
                 [
                   {
                     "params": [
-                      "value"
+                      "upper_90"
                     ],
                     "type": "field"
                   },
                   {
                     "params": [],
-                    "type": "mean"
+                    "type": "max"
                   }
                 ]
               ],
@@ -380,11 +390,13 @@
               "tags": [
                 {
                   "key": "hostname",
+                  "operator": "=~",
                   "value": "/$server/"
                 },
                 {
                   "condition": "AND",
                   "key": "http_method",
+                  "operator": "=",
                   "value": "POST"
                 }
               ]
@@ -409,8 +421,8 @@
                 }
               ],
               "interval": "",
-              "measurement": "openstack_cinder_http_responses",
-              "query": "SELECT mean(\"value\") FROM \"openstack_cinder_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_method\" = 'PUT' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "measurement": "openstack_cinder_http_response_times",
+              "query": "SELECT max(\"upper_90\") FROM \"openstack_cinder_http_response_times\" WHERE \"hostname\" =~ /$server/ AND \"http_method\" = 'PUT' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "C",
               "resultFormat": "time_series",
@@ -418,13 +430,13 @@
                 [
                   {
                     "params": [
-                      "value"
+                      "upper_90"
                     ],
                     "type": "field"
                   },
                   {
                     "params": [],
-                    "type": "mean"
+                    "type": "max"
                   }
                 ]
               ],
@@ -432,11 +444,13 @@
               "tags": [
                 {
                   "key": "hostname",
+                  "operator": "=~",
                   "value": "/$server/"
                 },
                 {
                   "condition": "AND",
                   "key": "http_method",
+                  "operator": "=",
                   "value": "PUT"
                 }
               ]
@@ -461,8 +475,8 @@
                 }
               ],
               "interval": "",
-              "measurement": "openstack_cinder_http_responses",
-              "query": "SELECT mean(\"value\") FROM \"openstack_cinder_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_method\" = 'DELETE' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "measurement": "openstack_cinder_http_response_times",
+              "query": "SELECT max(\"upper_90\") FROM \"openstack_cinder_http_response_times\" WHERE \"hostname\" =~ /$server/ AND \"http_method\" = 'DELETE' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "D",
               "resultFormat": "time_series",
@@ -470,13 +484,13 @@
                 [
                   {
                     "params": [
-                      "value"
+                      "upper_90"
                     ],
                     "type": "field"
                   },
                   {
                     "params": [],
-                    "type": "mean"
+                    "type": "max"
                   }
                 ]
               ],
@@ -484,11 +498,13 @@
               "tags": [
                 {
                   "key": "hostname",
+                  "operator": "=~",
                   "value": "/$server/"
                 },
                 {
                   "condition": "AND",
                   "key": "http_method",
+                  "operator": "=",
                   "value": "DELETE"
                 }
               ]
@@ -689,8 +705,8 @@
                 }
               ],
               "interval": "",
-              "measurement": "openstack_cinder_http_responses",
-              "query": "SELECT count(\"value\") FROM \"openstack_cinder_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^2/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "measurement": "openstack_cinder_http_response_times",
+              "query": "SELECT sum(\"count\") FROM \"openstack_cinder_http_response_times\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" = '2xx' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -698,13 +714,13 @@
                 [
                   {
                     "params": [
-                      "value"
+                      "count"
                     ],
                     "type": "field"
                   },
                   {
                     "params": [],
-                    "type": "count"
+                    "type": "sum"
                   }
                 ]
               ],
@@ -712,12 +728,14 @@
               "tags": [
                 {
                   "key": "hostname",
+                  "operator": "=~",
                   "value": "/$server/"
                 },
                 {
                   "condition": "AND",
                   "key": "http_status",
-                  "value": "/^2/"
+                  "operator": "=",
+                  "value": "2xx"
                 }
               ]
             },
@@ -742,8 +760,8 @@
               ],
               "hide": false,
               "interval": "",
-              "measurement": "openstack_cinder_http_responses",
-              "query": "SELECT count(\"value\") FROM \"openstack_cinder_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^1/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "measurement": "openstack_cinder_http_response_times",
+              "query": "SELECT sum(\"count\") FROM \"openstack_cinder_http_response_times\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" = '1xx' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "B",
               "resultFormat": "time_series",
@@ -751,13 +769,13 @@
                 [
                   {
                     "params": [
-                      "value"
+                      "count"
                     ],
                     "type": "field"
                   },
                   {
                     "params": [],
-                    "type": "count"
+                    "type": "sum"
                   }
                 ]
               ],
@@ -765,12 +783,14 @@
               "tags": [
                 {
                   "key": "hostname",
+                  "operator": "=~",
                   "value": "/$server/"
                 },
                 {
                   "condition": "AND",
                   "key": "http_status",
-                  "value": "/^1/"
+                  "operator": "=",
+                  "value": "1xx"
                 }
               ]
             },
@@ -795,8 +815,8 @@
               ],
               "hide": false,
               "interval": "",
-              "measurement": "openstack_cinder_http_responses",
-              "query": "SELECT count(\"value\") FROM \"openstack_cinder_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^3/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "measurement": "openstack_cinder_http_response_times",
+              "query": "SELECT sum(\"count\") FROM \"openstack_cinder_http_response_times\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" = '3xx' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "C",
               "resultFormat": "time_series",
@@ -804,13 +824,13 @@
                 [
                   {
                     "params": [
-                      "value"
+                      "count"
                     ],
                     "type": "field"
                   },
                   {
                     "params": [],
-                    "type": "count"
+                    "type": "sum"
                   }
                 ]
               ],
@@ -818,12 +838,14 @@
               "tags": [
                 {
                   "key": "hostname",
+                  "operator": "=~",
                   "value": "/$server/"
                 },
                 {
                   "condition": "AND",
                   "key": "http_status",
-                  "value": "/^3/"
+                  "operator": "=",
+                  "value": "3xx"
                 }
               ]
             },
@@ -848,8 +870,8 @@
               ],
               "hide": false,
               "interval": "",
-              "measurement": "openstack_cinder_http_responses",
-              "query": "SELECT count(\"value\") FROM \"openstack_cinder_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^4/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "measurement": "openstack_cinder_http_response_times",
+              "query": "SELECT sum(\"count\") FROM \"openstack_cinder_http_response_times\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" = '4xx' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "D",
               "resultFormat": "time_series",
@@ -857,13 +879,13 @@
                 [
                   {
                     "params": [
-                      "value"
+                      "count"
                     ],
                     "type": "field"
                   },
                   {
                     "params": [],
-                    "type": "count"
+                    "type": "sum"
                   }
                 ]
               ],
@@ -871,12 +893,14 @@
               "tags": [
                 {
                   "key": "hostname",
+                  "operator": "=~",
                   "value": "/$server/"
                 },
                 {
                   "condition": "AND",
                   "key": "http_status",
-                  "value": "/^4/"
+                  "operator": "=",
+                  "value": "4xx"
                 }
               ]
             },
@@ -901,8 +925,8 @@
               ],
               "hide": false,
               "interval": "",
-              "measurement": "openstack_cinder_http_responses",
-              "query": "SELECT count(\"value\") FROM \"openstack_cinder_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^5/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "measurement": "openstack_cinder_http_response_times",
+              "query": "SELECT sum(\"count\") FROM \"openstack_cinder_http_response_times\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" = '5xx' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "E",
               "resultFormat": "time_series",
@@ -910,13 +934,13 @@
                 [
                   {
                     "params": [
-                      "value"
+                      "count"
                     ],
                     "type": "field"
                   },
                   {
                     "params": [],
-                    "type": "count"
+                    "type": "sum"
                   }
                 ]
               ],
@@ -924,12 +948,14 @@
               "tags": [
                 {
                   "key": "hostname",
+                  "operator": "=~",
                   "value": "/$server/"
                 },
                 {
                   "condition": "AND",
                   "key": "http_status",
-                  "value": "/^5/"
+                  "operator": "=",
+                  "value": "5xx"
                 }
               ]
             }
@@ -4759,5 +4785,5 @@
   },
   "timezone": "browser",
   "title": "Cinder",
-  "version": 11
+  "version": 12
 }
