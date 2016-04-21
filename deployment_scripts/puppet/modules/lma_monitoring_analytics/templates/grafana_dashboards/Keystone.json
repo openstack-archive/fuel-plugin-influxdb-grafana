@@ -84,7 +84,7 @@
               "groupby_field": "",
               "interval": "",
               "measurement": "cluster_status",
-              "query": "SELECT last(\"value\") FROM \"cluster_status\" WHERE \"cluster_name\" = 'keystone' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "query": "SELECT last(\"value\") FROM \"cluster_status\" WHERE \"environment_label\" = '$environment' AND \"cluster_name\" = 'keystone' AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -189,23 +189,23 @@
               "function": "count",
               "groupBy": [
                 {
+                  "interval": "auto",
                   "params": [
-                    "$interval"
+                    "auto"
                   ],
                   "type": "time"
                 },
                 {
                   "params": [
-                    "null"
+                    "0"
                   ],
                   "type": "fill"
                 }
               ],
-              "groupByTags": [],
               "groupby_field": "",
               "interval": "",
-              "measurement": "openstack_keystone_http_responses",
-              "query": "SELECT count(\"value\") FROM \"openstack_keystone_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^5/ AND $timeFilter GROUP BY time($interval) fill(null)",
+              "measurement": "openstack_keystone_http_response_times",
+              "query": "SELECT sum(\"count\") FROM \"openstack_keystone_http_response_times\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" = '5xx' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -213,13 +213,13 @@
                 [
                   {
                     "params": [
-                      "value"
+                      "count"
                     ],
                     "type": "field"
                   },
                   {
                     "params": [],
-                    "type": "count"
+                    "type": "sum"
                   }
                 ]
               ],
@@ -227,12 +227,14 @@
               "tags": [
                 {
                   "key": "hostname",
+                  "operator": "=~",
                   "value": "/$server/"
                 },
                 {
                   "condition": "AND",
                   "key": "http_status",
-                  "value": "/^5/"
+                  "operator": "=",
+                  "value": "5xx"
                 }
               ]
             }
@@ -278,6 +280,7 @@
             "max": true,
             "min": true,
             "show": true,
+            "sortDesc": true,
             "total": false,
             "values": true
           },
@@ -302,12 +305,22 @@
               "groupBy": [
                 {
                   "interval": "auto",
+                  "params": [
+                    "auto"
+                  ],
                   "type": "time"
+                },
+                {
+                  "params": [
+                    "0"
+                  ],
+                  "type": "fill"
                 }
               ],
+              "hide": false,
               "interval": "",
-              "measurement": "openstack_keystone_http_responses",
-              "query": "SELECT mean(\"value\") FROM \"openstack_keystone_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_method\" = 'GET' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "measurement": "openstack_keystone_http_response_times",
+              "query": "SELECT max(\"percentile\") FROM \"openstack_keystone_http_response_times\" WHERE \"hostname\" =~ /$server/ AND \"http_method\" = 'GET' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -315,13 +328,13 @@
                 [
                   {
                     "params": [
-                      "value"
+                      "percentile"
                     ],
                     "type": "field"
                   },
                   {
                     "params": [],
-                    "type": "mean"
+                    "type": "max"
                   }
                 ]
               ],
@@ -348,12 +361,22 @@
               "groupBy": [
                 {
                   "interval": "auto",
+                  "params": [
+                    "auto"
+                  ],
                   "type": "time"
+                },
+                {
+                  "params": [
+                    "0"
+                  ],
+                  "type": "fill"
                 }
               ],
+              "hide": false,
               "interval": "",
-              "measurement": "openstack_keystone_http_responses",
-              "query": "SELECT mean(\"value\") FROM \"openstack_keystone_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_method\" = 'POST' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "measurement": "openstack_keystone_http_response_times",
+              "query": "SELECT max(\"percentile\") FROM \"openstack_keystone_http_response_times\" WHERE \"hostname\" =~ /$server/ AND \"http_method\" = 'POST' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "B",
               "resultFormat": "time_series",
@@ -361,13 +384,13 @@
                 [
                   {
                     "params": [
-                      "value"
+                      "percentile"
                     ],
                     "type": "field"
                   },
                   {
                     "params": [],
-                    "type": "mean"
+                    "type": "max"
                   }
                 ]
               ],
@@ -394,12 +417,16 @@
               "groupBy": [
                 {
                   "interval": "auto",
+                  "params": [
+                    "auto"
+                  ],
                   "type": "time"
                 }
               ],
+              "hide": false,
               "interval": "",
-              "measurement": "openstack_keystone_http_responses",
-              "query": "SELECT mean(\"value\") FROM \"openstack_keystone_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_method\" = 'PUT' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "measurement": "openstack_keystone_http_response_times",
+              "query": "SELECT max(\"percentile\") FROM \"openstack_keystone_http_response_times\" WHERE \"hostname\" =~ /$server/ AND \"http_method\" = 'PUT' AND $timeFilter GROUP BY time($interval)",
               "rawQuery": false,
               "refId": "C",
               "resultFormat": "time_series",
@@ -407,13 +434,13 @@
                 [
                   {
                     "params": [
-                      "value"
+                      "percentile"
                     ],
                     "type": "field"
                   },
                   {
                     "params": [],
-                    "type": "mean"
+                    "type": "max"
                   }
                 ]
               ],
@@ -440,12 +467,22 @@
               "groupBy": [
                 {
                   "interval": "auto",
+                  "params": [
+                    "auto"
+                  ],
                   "type": "time"
+                },
+                {
+                  "params": [
+                    "0"
+                  ],
+                  "type": "fill"
                 }
               ],
+              "hide": false,
               "interval": "",
-              "measurement": "openstack_keystone_http_responses",
-              "query": "SELECT mean(\"value\") FROM \"openstack_keystone_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_method\" = 'DELETE' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "measurement": "openstack_keystone_http_response_times",
+              "query": "SELECT max(\"percentile\") FROM \"openstack_keystone_http_response_times\" WHERE \"hostname\" =~ /$server/ AND \"http_method\" = 'DELETE' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "D",
               "resultFormat": "time_series",
@@ -453,13 +490,13 @@
                 [
                   {
                     "params": [
-                      "value"
+                      "percentile"
                     ],
                     "type": "field"
                   },
                   {
                     "params": [],
-                    "type": "mean"
+                    "type": "max"
                   }
                 ]
               ],
@@ -560,7 +597,7 @@
               ],
               "groupByTags": [],
               "measurement": "openstack_check_api",
-              "query": "SELECT last(\"value\") FROM \"openstack_check_api\" WHERE \"service\" = 'keystone-public-api' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT last(\"value\") FROM \"openstack_check_api\" WHERE \"environment_label\" = '$environment' AND \"service\" = 'keystone-public-api' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -663,12 +700,15 @@
               "groupBy": [
                 {
                   "interval": "auto",
+                  "params": [
+                    "auto"
+                  ],
                   "type": "time"
                 }
               ],
               "interval": "",
-              "measurement": "openstack_keystone_http_responses",
-              "query": "SELECT count(\"value\") FROM \"openstack_keystone_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^2/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "measurement": "openstack_keystone_http_response_times",
+              "query": "SELECT sum(\"count\") FROM \"openstack_keystone_http_response_times\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" = '2xx' AND $timeFilter GROUP BY time($interval)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -676,13 +716,13 @@
                 [
                   {
                     "params": [
-                      "value"
+                      "count"
                     ],
                     "type": "field"
                   },
                   {
                     "params": [],
-                    "type": "count"
+                    "type": "sum"
                   }
                 ]
               ],
@@ -696,8 +736,8 @@
                 {
                   "condition": "AND",
                   "key": "http_status",
-                  "operator": "=~",
-                  "value": "/^2/"
+                  "operator": "=",
+                  "value": "2xx"
                 }
               ]
             },
@@ -709,13 +749,16 @@
               "groupBy": [
                 {
                   "interval": "auto",
+                  "params": [
+                    "auto"
+                  ],
                   "type": "time"
                 }
               ],
               "hide": false,
               "interval": "",
-              "measurement": "openstack_keystone_http_responses",
-              "query": "SELECT count(\"value\") FROM \"openstack_keystone_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^1/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "measurement": "openstack_keystone_http_response_times",
+              "query": "SELECT sum(\"count\") FROM \"openstack_keystone_http_response_times\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" = '1xx' AND $timeFilter GROUP BY time($interval)",
               "rawQuery": false,
               "refId": "B",
               "resultFormat": "time_series",
@@ -723,13 +766,13 @@
                 [
                   {
                     "params": [
-                      "value"
+                      "count"
                     ],
                     "type": "field"
                   },
                   {
                     "params": [],
-                    "type": "count"
+                    "type": "sum"
                   }
                 ]
               ],
@@ -743,8 +786,8 @@
                 {
                   "condition": "AND",
                   "key": "http_status",
-                  "operator": "=~",
-                  "value": "/^1/"
+                  "operator": "=",
+                  "value": "1xx"
                 }
               ]
             },
@@ -756,13 +799,16 @@
               "groupBy": [
                 {
                   "interval": "auto",
+                  "params": [
+                    "auto"
+                  ],
                   "type": "time"
                 }
               ],
               "hide": false,
               "interval": "",
-              "measurement": "openstack_keystone_http_responses",
-              "query": "SELECT count(\"value\") FROM \"openstack_keystone_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^3/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "measurement": "openstack_keystone_http_response_times",
+              "query": "SELECT sum(\"count\") FROM \"openstack_keystone_http_response_times\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" = '3xx' AND $timeFilter GROUP BY time($interval)",
               "rawQuery": false,
               "refId": "C",
               "resultFormat": "time_series",
@@ -770,13 +816,13 @@
                 [
                   {
                     "params": [
-                      "value"
+                      "count"
                     ],
                     "type": "field"
                   },
                   {
                     "params": [],
-                    "type": "count"
+                    "type": "sum"
                   }
                 ]
               ],
@@ -790,8 +836,8 @@
                 {
                   "condition": "AND",
                   "key": "http_status",
-                  "operator": "=~",
-                  "value": "/^3/"
+                  "operator": "=",
+                  "value": "3xx"
                 }
               ]
             },
@@ -803,13 +849,16 @@
               "groupBy": [
                 {
                   "interval": "auto",
+                  "params": [
+                    "auto"
+                  ],
                   "type": "time"
                 }
               ],
               "hide": false,
               "interval": "",
-              "measurement": "openstack_keystone_http_responses",
-              "query": "SELECT count(\"value\") FROM \"openstack_keystone_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^4/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "measurement": "openstack_keystone_http_response_times",
+              "query": "SELECT sum(\"count\") FROM \"openstack_keystone_http_response_times\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" = '4xx' AND $timeFilter GROUP BY time($interval)",
               "rawQuery": false,
               "refId": "D",
               "resultFormat": "time_series",
@@ -817,13 +866,13 @@
                 [
                   {
                     "params": [
-                      "value"
+                      "count"
                     ],
                     "type": "field"
                   },
                   {
                     "params": [],
-                    "type": "count"
+                    "type": "sum"
                   }
                 ]
               ],
@@ -837,8 +886,8 @@
                 {
                   "condition": "AND",
                   "key": "http_status",
-                  "operator": "=~",
-                  "value": "/^4/"
+                  "operator": "=",
+                  "value": "4xx"
                 }
               ]
             },
@@ -850,13 +899,16 @@
               "groupBy": [
                 {
                   "interval": "auto",
+                  "params": [
+                    "auto"
+                  ],
                   "type": "time"
                 }
               ],
               "hide": false,
               "interval": "",
-              "measurement": "openstack_keystone_http_responses",
-              "query": "SELECT count(\"value\") FROM \"openstack_keystone_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^5/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "measurement": "openstack_keystone_http_response_times",
+              "query": "SELECT sum(\"count\") FROM \"openstack_keystone_http_response_times\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" = '5xx' AND $timeFilter GROUP BY time($interval)",
               "rawQuery": false,
               "refId": "E",
               "resultFormat": "time_series",
@@ -864,13 +916,13 @@
                 [
                   {
                     "params": [
-                      "value"
+                      "count"
                     ],
                     "type": "field"
                   },
                   {
                     "params": [],
-                    "type": "count"
+                    "type": "sum"
                   }
                 ]
               ],
@@ -884,8 +936,8 @@
                 {
                   "condition": "AND",
                   "key": "http_status",
-                  "operator": "=~",
-                  "value": "/^5/"
+                  "operator": "=",
+                  "value": "5xx"
                 }
               ]
             }
@@ -977,7 +1029,7 @@
               ],
               "groupByTags": [],
               "measurement": "haproxy_backend_servers",
-              "query": "SELECT last(\"value\") FROM \"haproxy_backend_servers\" WHERE \"backend\" = 'keystone-public-api' AND \"state\" = 'up' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "query": "SELECT last(\"value\") FROM \"haproxy_backend_servers\" WHERE \"environment_label\" = '$environment' AND \"backend\" = 'keystone-public-api' AND \"state\" = 'up' AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -1078,7 +1130,7 @@
               ],
               "groupByTags": [],
               "measurement": "haproxy_backend_servers",
-              "query": "SELECT last(\"value\") FROM \"haproxy_backend_servers\" WHERE \"backend\" = 'keystone-admin-api' AND \"state\" = 'up' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "query": "SELECT last(\"value\") FROM \"haproxy_backend_servers\" WHERE \"environment_label\" = '$environment' AND \"backend\" = 'keystone-admin-api' AND \"state\" = 'up' AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -1203,7 +1255,7 @@
               ],
               "groupByTags": [],
               "measurement": "haproxy_backend_servers",
-              "query": "SELECT last(\"value\") FROM \"haproxy_backend_servers\" WHERE \"backend\" = 'keystone-public-api' AND \"state\" = 'down' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "query": "SELECT last(\"value\") FROM \"haproxy_backend_servers\" WHERE \"environment_label\" = '$environment' AND \"backend\" = 'keystone-public-api' AND \"state\" = 'down' AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -1304,7 +1356,7 @@
               ],
               "groupByTags": [],
               "measurement": "haproxy_backend_servers",
-              "query": "SELECT last(\"value\") FROM \"haproxy_backend_servers\" WHERE \"backend\" = 'keystone-admin-api' AND \"state\" = 'down' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "query": "SELECT last(\"value\") FROM \"haproxy_backend_servers\" WHERE \"environment_label\" = '$environment' AND \"backend\" = 'keystone-admin-api' AND \"state\" = 'down' AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -1426,7 +1478,7 @@
               ],
               "groupByTags": [],
               "measurement": "openstack_keystone_users",
-              "query": "SELECT last(\"value\") FROM \"openstack_keystone_users\" WHERE \"state\" = 'enabled' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "query": "SELECT last(\"value\") FROM \"openstack_keystone_users\" WHERE \"environment_label\" = '$environment' AND \"state\" = 'enabled' AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -1524,11 +1576,14 @@
               "groupBy": [
                 {
                   "interval": "auto",
+                  "params": [
+                    "auto"
+                  ],
                   "type": "time"
                 }
               ],
               "measurement": "openstack_keystone_users",
-              "query": "SELECT last(\"value\") FROM \"openstack_keystone_users\" WHERE \"state\" = 'enabled' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT last(\"value\") FROM \"openstack_keystone_users\" WHERE \"environment_label\" = '$environment' AND \"state\" = 'enabled' AND $timeFilter GROUP BY time($interval)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -1627,7 +1682,7 @@
               ],
               "groupByTags": [],
               "measurement": "openstack_keystone_tenants",
-              "query": "SELECT last(\"value\") FROM \"openstack_keystone_tenants\" WHERE \"state\" = 'enabled' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "query": "SELECT last(\"value\") FROM \"openstack_keystone_tenants\" WHERE \"environment_label\" = '$environment' AND \"state\" = 'enabled' AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -1738,7 +1793,7 @@
               ],
               "groupByTags": [],
               "measurement": "openstack_keystone_tenants",
-              "query": "SELECT last(\"value\") FROM \"openstack_keystone_tenants\" WHERE \"state\" = 'enabled' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT last(\"value\") FROM \"openstack_keystone_tenants\" WHERE \"environment_label\" = '$environment' AND \"state\" = 'enabled' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -1862,5 +1917,5 @@
   },
   "timezone": "browser",
   "title": "Keystone",
-  "version": 3
+  "version": 4
 }
