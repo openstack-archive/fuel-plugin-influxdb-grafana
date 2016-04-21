@@ -202,3 +202,46 @@ class TestNodesInfluxdbPlugin(base_test.BaseTestInfluxdbPlugin):
         self.fuel_web.run_ostf(cluster_id=cluster_id)
 
         self.env.make_snapshot("add_remove_node_with_influxdb_grafana_plugin")
+
+    @test(depends_on=[
+        test_smoke_bvt.TestInfluxdbPlugin.deploy_ha_influxdb_grafana_plugin],
+        groups=["check_failover_influxdb_grafana",
+                "check_shutdown_influxdb_grafana_node"])
+    @log_snapshot_after_test
+    def shutdown_node_with_influxdb_grafana_plugin(self):
+        """Verify that failover for InfluxDB cluster works.
+
+        Scenario:
+            1. Revert snapshot with 9 deployed nodes in HA configuration
+            2. Connect to any influxdb_grafana node and run command:
+               "crm status"
+            3. Shutdown node were vip_influxdb was started
+            4. Check that vip_influxdb was started on another node
+            5. Check that plugin is working
+            6. Check that no data lost after shutdown
+            7. Run OSTF
+
+        Duration 30m
+        """
+        self.env.revert_snapshot("deploy_ha_influxdb_grafana_plugin")
+
+        cluster_id = self.fuel_web.get_last_created_cluster()
+
+        master_node_hostname = (
+            self.get_influxdb_master_node(cluster_id)['fqdn'])
+        devops_master_node = self.fuel_web.get_devops_node_by_nailgun_fqdn(
+            master_node_hostname)
+
+        self.hard_shutdown_node(devops_master_node)
+
+        self.wait_for_rotation_influx_master(cluster_id, master_node_hostname)
+
+        self.check_influxdb_plugin_online(cluster_id)
+
+        self.check_influxdb_nodes_count(cluster_id, 2)
+
+        # TODO(rpromyshlennikov): check no data lost
+
+        self.fuel_web.run_ostf(cluster_id=cluster_id)
+
+        self.env.make_snapshot("shutdown_node_with_influxdb_grafana_plugin")

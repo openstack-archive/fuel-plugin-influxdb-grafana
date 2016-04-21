@@ -13,6 +13,7 @@
 #    under the License.
 import os
 
+from devops.helpers import helpers
 from proboscis import asserts
 import requests
 
@@ -158,3 +159,30 @@ class BaseTestInfluxdbPlugin(base_test_case.TestBasic):
         msg = "InfluxDB nodes count expected, received instead: {}".format(
             nodes_count_responsed)
         asserts.assert_equal(nodes_count, nodes_count_responsed, msg)
+
+    def get_influxdb_master_node(self, cluster_id):
+        influx_nodes = self.fuel_web.get_nailgun_cluster_nodes_by_roles(
+            cluster_id, [self._role_name])
+        with self.fuel_web.get_ssh_for_nailgun_node(influx_nodes[0]) as remote:
+            stdout = remote.check_call(
+                'pcs status cluster | grep "Current DC:"')["stdout"][0]
+        for influx_node in influx_nodes:
+            if influx_node['fqdn'] in stdout:
+                return influx_node
+
+    def hard_shutdown_node(self, devops_node):
+        msg = 'Node {0} has not become offline after hard shutdown'.format(
+            devops_node.name)
+        logger.info('Destroy node %s', devops_node.name)
+        devops_node.destroy()
+        logger.info('Wait a %s node offline status', devops_node.name)
+        helpers.wait(lambda: not self.fuel_web.get_nailgun_node_by_devops_node(
+            devops_node)['online'], timeout=60 * 5, timeout_msg=msg)
+
+    def wait_for_rotation_influx_master(self, cluster_id, old_master):
+        logger.info('Wait a influxDB master node rotation')
+        msg = "Failed influxDB master rotation from {0}".format(old_master)
+        helpers.wait(
+            lambda: old_master != self.get_influxdb_master_node(
+                cluster_id)['fqdn'],
+            timeout=60 * 5, timeout_msg=msg)
