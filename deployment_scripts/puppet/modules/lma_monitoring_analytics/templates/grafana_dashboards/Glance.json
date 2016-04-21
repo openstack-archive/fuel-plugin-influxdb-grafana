@@ -84,7 +84,7 @@
               "groupby_field": "",
               "interval": "",
               "measurement": "cluster_status",
-              "query": "SELECT last(\"value\") FROM \"cluster_status\" WHERE \"cluster_name\" = 'glance' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "query": "SELECT last(\"value\") FROM \"cluster_status\" WHERE \"environment_label\" = '$environment' AND \"cluster_name\" = 'glance' AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -194,23 +194,23 @@
               "function": "count",
               "groupBy": [
                 {
+                  "interval": "auto",
                   "params": [
-                    "$interval"
+                    "auto"
                   ],
                   "type": "time"
                 },
                 {
                   "params": [
-                    "null"
+                    "0"
                   ],
                   "type": "fill"
                 }
               ],
-              "groupByTags": [],
               "groupby_field": "",
               "interval": "",
-              "measurement": "openstack_glance_http_responses",
-              "query": "SELECT count(\"value\") FROM \"openstack_glance_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^5/ AND $timeFilter GROUP BY time($interval) fill(null)",
+              "measurement": "openstack_glance_http_response_times",
+              "query": "SELECT sum(\"count\") FROM \"openstack_glance_http_response_times\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" = '5xx' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -218,13 +218,13 @@
                 [
                   {
                     "params": [
-                      "value"
+                      "count"
                     ],
                     "type": "field"
                   },
                   {
                     "params": [],
-                    "type": "count"
+                    "type": "sum"
                   }
                 ]
               ],
@@ -232,12 +232,14 @@
               "tags": [
                 {
                   "key": "hostname",
+                  "operator": "=~",
                   "value": "/$server/"
                 },
                 {
                   "condition": "AND",
                   "key": "http_status",
-                  "value": "/^5/"
+                  "operator": "=",
+                  "value": "5xx"
                 }
               ]
             }
@@ -306,8 +308,9 @@
               "function": "mean",
               "groupBy": [
                 {
+                  "interval": "auto",
                   "params": [
-                    "$interval"
+                    "auto"
                   ],
                   "type": "time"
                 },
@@ -318,10 +321,10 @@
                   "type": "fill"
                 }
               ],
-              "groupByTags": [],
+              "hide": false,
               "interval": "",
-              "measurement": "openstack_glance_http_responses",
-              "query": "SELECT mean(\"value\") FROM \"openstack_glance_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_method\" = 'GET' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "measurement": "openstack_glance_http_response_times",
+              "query": "SELECT max(\"percentile\") FROM \"openstack_glance_http_response_times\" WHERE \"hostname\" =~ /$server/ AND \"http_method\" = 'GET' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -329,13 +332,13 @@
                 [
                   {
                     "params": [
-                      "value"
+                      "percentile"
                     ],
                     "type": "field"
                   },
                   {
                     "params": [],
-                    "type": "mean"
+                    "type": "max"
                   }
                 ]
               ],
@@ -343,11 +346,13 @@
               "tags": [
                 {
                   "key": "hostname",
+                  "operator": "=~",
                   "value": "/$server/"
                 },
                 {
                   "condition": "AND",
                   "key": "http_method",
+                  "operator": "=",
                   "value": "GET"
                 }
               ]
@@ -359,8 +364,9 @@
               "function": "mean",
               "groupBy": [
                 {
+                  "interval": "auto",
                   "params": [
-                    "$interval"
+                    "auto"
                   ],
                   "type": "time"
                 },
@@ -371,10 +377,10 @@
                   "type": "fill"
                 }
               ],
-              "groupByTags": [],
+              "hide": false,
               "interval": "",
-              "measurement": "openstack_glance_http_responses",
-              "query": "SELECT mean(\"value\") FROM \"openstack_glance_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_method\" = 'POST' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "measurement": "openstack_glance_http_response_times",
+              "query": "SELECT max(\"percentile\") FROM \"openstack_glance_http_response_times\" WHERE \"hostname\" =~ /$server/ AND \"http_method\" = 'POST' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "B",
               "resultFormat": "time_series",
@@ -382,13 +388,13 @@
                 [
                   {
                     "params": [
-                      "value"
+                      "percentile"
                     ],
                     "type": "field"
                   },
                   {
                     "params": [],
-                    "type": "mean"
+                    "type": "max"
                   }
                 ]
               ],
@@ -396,11 +402,13 @@
               "tags": [
                 {
                   "key": "hostname",
+                  "operator": "=~",
                   "value": "/$server/"
                 },
                 {
                   "condition": "AND",
                   "key": "http_method",
+                  "operator": "=",
                   "value": "POST"
                 }
               ]
@@ -412,8 +420,9 @@
               "function": "mean",
               "groupBy": [
                 {
+                  "interval": "auto",
                   "params": [
-                    "$interval"
+                    "auto"
                   ],
                   "type": "time"
                 },
@@ -424,10 +433,10 @@
                   "type": "fill"
                 }
               ],
-              "groupByTags": [],
+              "hide": false,
               "interval": "",
-              "measurement": "openstack_glance_http_responses",
-              "query": "SELECT mean(\"value\") FROM \"openstack_glance_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_method\" = 'PUT' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "measurement": "openstack_glance_http_response_times",
+              "query": "SELECT max(\"percentile\") FROM \"openstack_glance_http_response_times\" WHERE \"hostname\" =~ /$server/ AND \"http_method\" = 'PUT' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "C",
               "resultFormat": "time_series",
@@ -435,13 +444,13 @@
                 [
                   {
                     "params": [
-                      "value"
+                      "percentile"
                     ],
                     "type": "field"
                   },
                   {
                     "params": [],
-                    "type": "mean"
+                    "type": "max"
                   }
                 ]
               ],
@@ -449,11 +458,13 @@
               "tags": [
                 {
                   "key": "hostname",
+                  "operator": "=~",
                   "value": "/$server/"
                 },
                 {
                   "condition": "AND",
                   "key": "http_method",
+                  "operator": "=",
                   "value": "PUT"
                 }
               ]
@@ -465,8 +476,9 @@
               "function": "mean",
               "groupBy": [
                 {
+                  "interval": "auto",
                   "params": [
-                    "$interval"
+                    "auto"
                   ],
                   "type": "time"
                 },
@@ -477,10 +489,10 @@
                   "type": "fill"
                 }
               ],
-              "groupByTags": [],
+              "hide": false,
               "interval": "",
-              "measurement": "openstack_glance_http_responses",
-              "query": "SELECT mean(\"value\") FROM \"openstack_glance_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_method\" = 'DELETE' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "measurement": "openstack_glance_http_response_times",
+              "query": "SELECT max(\"percentile\") FROM \"openstack_glance_http_response_times\" WHERE \"hostname\" =~ /$server/ AND \"http_method\" = 'DELETE' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "D",
               "resultFormat": "time_series",
@@ -488,13 +500,13 @@
                 [
                   {
                     "params": [
-                      "value"
+                      "percentile"
                     ],
                     "type": "field"
                   },
                   {
                     "params": [],
-                    "type": "mean"
+                    "type": "max"
                   }
                 ]
               ],
@@ -502,12 +514,70 @@
               "tags": [
                 {
                   "key": "hostname",
+                  "operator": "=~",
                   "value": "/$server/"
                 },
                 {
                   "condition": "AND",
                   "key": "http_method",
+                  "operator": "=",
                   "value": "DELETE"
+                }
+              ]
+            },
+            {
+              "alias": "PATCH",
+              "column": "value",
+              "dsType": "influxdb",
+              "function": "mean",
+              "groupBy": [
+                {
+                  "interval": "auto",
+                  "params": [
+                    "auto"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "0"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "hide": false,
+              "interval": "",
+              "measurement": "openstack_glance_http_response_times",
+              "query": "SELECT max(\"percentile\") FROM \"openstack_glance_http_response_times\" WHERE \"hostname\" =~ /$server/ AND \"http_method\" = 'PATCH' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "rawQuery": false,
+              "refId": "E",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "percentile"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "max"
+                  }
+                ]
+              ],
+              "series": "merge(/$server.openstack.cinder.http.DELETE.*/)",
+              "tags": [
+                {
+                  "key": "hostname",
+                  "operator": "=~",
+                  "value": "/$server/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "http_method",
+                  "operator": "=",
+                  "value": "PATCH"
                 }
               ]
             }
@@ -593,7 +663,7 @@
               ],
               "groupByTags": [],
               "measurement": "openstack_check_api",
-              "query": "SELECT last(\"value\") FROM \"openstack_check_api\" WHERE \"service\" = 'glance-api' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT last(\"value\") FROM \"openstack_check_api\" WHERE \"environment_label\" = '$environment' AND \"service\" = 'glance-api' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -695,8 +765,9 @@
               "function": "count",
               "groupBy": [
                 {
+                  "interval": "auto",
                   "params": [
-                    "$interval"
+                    "auto"
                   ],
                   "type": "time"
                 },
@@ -707,10 +778,9 @@
                   "type": "fill"
                 }
               ],
-              "groupByTags": [],
               "interval": "",
-              "measurement": "openstack_glance_http_responses",
-              "query": "SELECT count(\"value\") FROM \"openstack_glance_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^2/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "measurement": "openstack_glance_http_response_times",
+              "query": "SELECT sum(\"count\") FROM \"openstack_glance_http_response_times\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" = '2xx' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -718,13 +788,13 @@
                 [
                   {
                     "params": [
-                      "value"
+                      "count"
                     ],
                     "type": "field"
                   },
                   {
                     "params": [],
-                    "type": "count"
+                    "type": "sum"
                   }
                 ]
               ],
@@ -732,12 +802,14 @@
               "tags": [
                 {
                   "key": "hostname",
+                  "operator": "=~",
                   "value": "/$server/"
                 },
                 {
                   "condition": "AND",
                   "key": "http_status",
-                  "value": "/^2/"
+                  "operator": "=",
+                  "value": "2xx"
                 }
               ]
             },
@@ -748,8 +820,9 @@
               "function": "count",
               "groupBy": [
                 {
+                  "interval": "auto",
                   "params": [
-                    "$interval"
+                    "auto"
                   ],
                   "type": "time"
                 },
@@ -760,11 +833,10 @@
                   "type": "fill"
                 }
               ],
-              "groupByTags": [],
               "hide": false,
               "interval": "",
-              "measurement": "openstack_glance_http_responses",
-              "query": "SELECT count(\"value\") FROM \"openstack_glance_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^1/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "measurement": "openstack_glance_http_response_times",
+              "query": "SELECT sum(\"count\") FROM \"openstack_glance_http_response_times\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" = '1xx' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "B",
               "resultFormat": "time_series",
@@ -772,13 +844,13 @@
                 [
                   {
                     "params": [
-                      "value"
+                      "count"
                     ],
                     "type": "field"
                   },
                   {
                     "params": [],
-                    "type": "count"
+                    "type": "sum"
                   }
                 ]
               ],
@@ -786,12 +858,14 @@
               "tags": [
                 {
                   "key": "hostname",
+                  "operator": "=~",
                   "value": "/$server/"
                 },
                 {
                   "condition": "AND",
                   "key": "http_status",
-                  "value": "/^1/"
+                  "operator": "=",
+                  "value": "1xx"
                 }
               ]
             },
@@ -802,8 +876,9 @@
               "function": "count",
               "groupBy": [
                 {
+                  "interval": "auto",
                   "params": [
-                    "$interval"
+                    "auto"
                   ],
                   "type": "time"
                 },
@@ -814,11 +889,10 @@
                   "type": "fill"
                 }
               ],
-              "groupByTags": [],
               "hide": false,
               "interval": "",
-              "measurement": "openstack_glance_http_responses",
-              "query": "SELECT count(\"value\") FROM \"openstack_glance_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^3/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "measurement": "openstack_glance_http_response_times",
+              "query": "SELECT sum(\"count\") FROM \"openstack_glance_http_response_times\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" = '3xx' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "C",
               "resultFormat": "time_series",
@@ -826,13 +900,13 @@
                 [
                   {
                     "params": [
-                      "value"
+                      "count"
                     ],
                     "type": "field"
                   },
                   {
                     "params": [],
-                    "type": "count"
+                    "type": "sum"
                   }
                 ]
               ],
@@ -840,12 +914,14 @@
               "tags": [
                 {
                   "key": "hostname",
+                  "operator": "=~",
                   "value": "/$server/"
                 },
                 {
                   "condition": "AND",
                   "key": "http_status",
-                  "value": "/^3/"
+                  "operator": "=",
+                  "value": "3xx"
                 }
               ]
             },
@@ -856,8 +932,9 @@
               "function": "count",
               "groupBy": [
                 {
+                  "interval": "auto",
                   "params": [
-                    "$interval"
+                    "auto"
                   ],
                   "type": "time"
                 },
@@ -868,11 +945,10 @@
                   "type": "fill"
                 }
               ],
-              "groupByTags": [],
               "hide": false,
               "interval": "",
-              "measurement": "openstack_glance_http_responses",
-              "query": "SELECT count(\"value\") FROM \"openstack_glance_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^4/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "measurement": "openstack_glance_http_response_times",
+              "query": "SELECT sum(\"count\") FROM \"openstack_glance_http_response_times\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" = '4xx' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "D",
               "resultFormat": "time_series",
@@ -880,13 +956,13 @@
                 [
                   {
                     "params": [
-                      "value"
+                      "count"
                     ],
                     "type": "field"
                   },
                   {
                     "params": [],
-                    "type": "count"
+                    "type": "sum"
                   }
                 ]
               ],
@@ -894,12 +970,14 @@
               "tags": [
                 {
                   "key": "hostname",
+                  "operator": "=~",
                   "value": "/$server/"
                 },
                 {
                   "condition": "AND",
                   "key": "http_status",
-                  "value": "/^4/"
+                  "operator": "=",
+                  "value": "4xx"
                 }
               ]
             },
@@ -910,8 +988,9 @@
               "function": "count",
               "groupBy": [
                 {
+                  "interval": "auto",
                   "params": [
-                    "$interval"
+                    "auto"
                   ],
                   "type": "time"
                 },
@@ -922,11 +1001,10 @@
                   "type": "fill"
                 }
               ],
-              "groupByTags": [],
               "hide": false,
               "interval": "",
-              "measurement": "openstack_glance_http_responses",
-              "query": "SELECT count(\"value\") FROM \"openstack_glance_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^5/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "measurement": "openstack_glance_http_response_times",
+              "query": "SELECT sum(\"count\") FROM \"openstack_glance_http_response_times\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" = '5xx' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "E",
               "resultFormat": "time_series",
@@ -934,13 +1012,13 @@
                 [
                   {
                     "params": [
-                      "value"
+                      "count"
                     ],
                     "type": "field"
                   },
                   {
                     "params": [],
-                    "type": "count"
+                    "type": "sum"
                   }
                 ]
               ],
@@ -948,12 +1026,14 @@
               "tags": [
                 {
                   "key": "hostname",
+                  "operator": "=~",
                   "value": "/$server/"
                 },
                 {
                   "condition": "AND",
                   "key": "http_status",
-                  "value": "/^5/"
+                  "operator": "=",
+                  "value": "5xx"
                 }
               ]
             }
@@ -1045,7 +1125,7 @@
               ],
               "groupByTags": [],
               "measurement": "haproxy_backend_servers",
-              "query": "SELECT last(\"value\") FROM \"haproxy_backend_servers\" WHERE \"backend\" = 'glance-api' AND \"state\" = 'up' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "query": "SELECT last(\"value\") FROM \"haproxy_backend_servers\" WHERE \"environment_label\" = '$environment' AND \"backend\" = 'glance-api' AND \"state\" = 'up' AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -1146,7 +1226,7 @@
               ],
               "groupByTags": [],
               "measurement": "haproxy_backend_servers",
-              "query": "SELECT last(\"value\") FROM \"haproxy_backend_servers\" WHERE \"backend\" = 'glance-registry-api' AND \"state\" = 'up' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "query": "SELECT last(\"value\") FROM \"haproxy_backend_servers\" WHERE \"environment_label\" = '$environment' AND \"backend\" = 'glance-registry-api' AND \"state\" = 'up' AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -1271,7 +1351,7 @@
               ],
               "groupByTags": [],
               "measurement": "haproxy_backend_servers",
-              "query": "SELECT last(\"value\") FROM \"haproxy_backend_servers\" WHERE \"backend\" = 'glance-api' AND \"state\" = 'down' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "query": "SELECT last(\"value\") FROM \"haproxy_backend_servers\" WHERE \"environment_label\" = '$environment' AND \"backend\" = 'glance-api' AND \"state\" = 'down' AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -1372,7 +1452,7 @@
               ],
               "groupByTags": [],
               "measurement": "haproxy_backend_servers",
-              "query": "SELECT last(\"value\") FROM \"haproxy_backend_servers\" WHERE \"backend\" = 'glance-registry-api' AND \"state\" = 'down' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "query": "SELECT last(\"value\") FROM \"haproxy_backend_servers\" WHERE \"environment_label\" = '$environment' AND \"backend\" = 'glance-registry-api' AND \"state\" = 'down' AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -1495,7 +1575,7 @@
               ],
               "groupByTags": [],
               "measurement": "openstack_glance_images",
-              "query": "SELECT last(\"value\") FROM \"openstack_glance_images\" WHERE \"visibility\" = 'public' AND \"state\" = 'active' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "query": "SELECT last(\"value\") FROM \"openstack_glance_images\" WHERE \"environment_label\" = '$environment' AND \"visibility\" = 'public' AND \"state\" = 'active' AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -1597,7 +1677,7 @@
               ],
               "groupByTags": [],
               "measurement": "openstack_glance_images",
-              "query": "SELECT last(\"value\") FROM \"openstack_glance_images\" WHERE \"state\" = 'active' AND \"visibility\" = 'private' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "query": "SELECT last(\"value\") FROM \"openstack_glance_images\" WHERE \"environment_label\" = '$environment' AND \"state\" = 'active' AND \"visibility\" = 'private' AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -1713,7 +1793,7 @@
               "groupByTags": [],
               "hide": false,
               "measurement": "openstack_glance_images",
-              "query": "SELECT last(\"value\") FROM \"openstack_glance_images\" WHERE \"state\" = 'active' AND \"visibility\" = 'public' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT last(\"value\") FROM \"openstack_glance_images\" WHERE \"environment_label\" = '$environment' AND \"state\" = 'active' AND \"visibility\" = 'public' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -1770,7 +1850,7 @@
               ],
               "groupByTags": [],
               "measurement": "openstack_glance_images",
-              "query": "SELECT last(\"value\") FROM \"openstack_glance_images\" WHERE \"state\" = 'active' AND \"state\" = 'private' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT last(\"value\") FROM \"openstack_glance_images\" WHERE \"environment_label\" = '$environment' AND \"state\" = 'active' AND \"visibility\" = 'private' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "B",
               "resultFormat": "time_series",
@@ -1876,7 +1956,7 @@
               ],
               "groupByTags": [],
               "measurement": "openstack_glance_images_size",
-              "query": "SELECT last(\"value\") FROM \"openstack_glance_images_size\" WHERE \"visibility\" = 'public' AND \"state\" = 'active' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "query": "SELECT last(\"value\") FROM \"openstack_glance_images_size\" WHERE \"environment_label\" = '$environment' AND \"visibility\" = 'public' AND \"state\" = 'active' AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -1978,7 +2058,7 @@
               ],
               "groupByTags": [],
               "measurement": "openstack_glance_images_size",
-              "query": "SELECT last(\"value\") FROM \"openstack_glance_images_size\" WHERE \"visibility\" = 'private' AND \"state\" = 'active' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "query": "SELECT last(\"value\") FROM \"openstack_glance_images_size\" WHERE \"environment_label\" = '$environment' AND \"visibility\" = 'private' AND \"state\" = 'active' AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -2093,7 +2173,7 @@
               ],
               "groupByTags": [],
               "measurement": "openstack_glance_images_size",
-              "query": "SELECT last(\"value\") FROM \"openstack_glance_images_size\" WHERE \"state\" = 'active' AND \"visibility\" = 'public' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT last(\"value\") FROM \"openstack_glance_images_size\" WHERE \"environment_label\" = '$environment' AND \"state\" = 'active' AND \"visibility\" = 'public' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -2150,7 +2230,7 @@
               ],
               "groupByTags": [],
               "measurement": "openstack_glance_images_size",
-              "query": "SELECT last(\"value\") FROM \"openstack_glance_images_size\" WHERE \"state\" = 'active' AND \"visibility\" = 'private' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT last(\"value\") FROM \"openstack_glance_images_size\" WHERE \"environment_label\" = '$environment' AND \"state\" = 'active' AND \"visibility\" = 'private' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "B",
               "resultFormat": "time_series",
@@ -2255,7 +2335,7 @@
               ],
               "groupByTags": [],
               "measurement": "openstack_glance_snapshots",
-              "query": "SELECT last(\"value\") FROM \"openstack_glance_snapshots\" WHERE \"visibility\" = 'public' AND \"state\" = 'active' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "query": "SELECT last(\"value\") FROM \"openstack_glance_snapshots\" WHERE \"environment_label\" = '$environment' AND \"visibility\" = 'public' AND \"state\" = 'active' AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -2357,7 +2437,7 @@
               ],
               "groupByTags": [],
               "measurement": "openstack_glance_snapshots",
-              "query": "SELECT last(\"value\") FROM \"openstack_glance_snapshots\" WHERE \"visibility\" = 'private' AND \"state\" = 'active' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "query": "SELECT last(\"value\") FROM \"openstack_glance_snapshots\" WHERE \"environment_label\" = '$environment' AND \"visibility\" = 'private' AND \"state\" = 'active' AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -2472,7 +2552,7 @@
               ],
               "groupByTags": [],
               "measurement": "openstack_glance_snapshots",
-              "query": "SELECT last(\"value\") FROM \"openstack_glance_snapshots\" WHERE \"visibility\" = 'public' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT last(\"value\") FROM \"openstack_glance_snapshots\" WHERE \"environment_label\" = '$environment' AND \"visibility\" = 'public' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -2524,7 +2604,7 @@
               ],
               "groupByTags": [],
               "measurement": "openstack_glance_snapshots",
-              "query": "SELECT last(\"value\") FROM \"openstack_glance_snapshots\" WHERE \"visibility\" = 'private' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT last(\"value\") FROM \"openstack_glance_snapshots\" WHERE \"environment_label\" = '$environment' AND \"visibility\" = 'private' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "B",
               "resultFormat": "time_series",
@@ -2624,7 +2704,7 @@
               ],
               "groupByTags": [],
               "measurement": "openstack_glance_snapshots_size",
-              "query": "SELECT last(\"value\") FROM \"openstack_glance_snapshots_size\" WHERE \"state\" = 'active' AND \"visibility\" = 'public' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "query": "SELECT last(\"value\") FROM \"openstack_glance_snapshots_size\" WHERE \"environment_label\" = '$environment' AND \"state\" = 'active' AND \"visibility\" = 'public' AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -2726,7 +2806,7 @@
               ],
               "groupByTags": [],
               "measurement": "openstack_glance_snapshots_size",
-              "query": "SELECT last(\"value\") FROM \"openstack_glance_snapshots_size\" WHERE \"state\" = 'active' AND \"visibility\" = 'private' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "query": "SELECT last(\"value\") FROM \"openstack_glance_snapshots_size\" WHERE \"environment_label\" = '$environment' AND \"state\" = 'active' AND \"visibility\" = 'private' AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -2840,7 +2920,7 @@
               ],
               "groupByTags": [],
               "measurement": "openstack_glance_snapshots_size",
-              "query": "SELECT last(\"value\") FROM \"openstack_glance_snapshots_size\" WHERE \"state\" = 'active' AND \"visibility\" = 'public' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT last(\"value\") FROM \"openstack_glance_snapshots_size\" WHERE \"environment_label\" = '$environment' AND \"state\" = 'active' AND \"visibility\" = 'public' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -2897,7 +2977,7 @@
               ],
               "groupByTags": [],
               "measurement": "openstack_glance_snapshots_size",
-              "query": "SELECT last(\"value\") FROM \"openstack_glance_snapshots_size\" WHERE \"state\" = 'active' AND \"visibility\" = 'private' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "query": "SELECT last(\"value\") FROM \"openstack_glance_snapshots_size\" WHERE \"environment_label\" = '$environment' AND \"state\" = 'active' AND \"visibility\" = 'private' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "B",
               "resultFormat": "time_series",
@@ -3027,5 +3107,5 @@
   },
   "timezone": "browser",
   "title": "Glance",
-  "version": 4
+  "version": 5
 }

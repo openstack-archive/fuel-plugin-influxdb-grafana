@@ -19,7 +19,7 @@
   },
   "editable": true,
   "hideControls": false,
-  "id": 46,
+  "id": null,
   "links": [],
   "originalTitle": "Neutron",
   "refresh": "1m",
@@ -202,15 +202,15 @@
                 },
                 {
                   "params": [
-                    "null"
+                    "0"
                   ],
                   "type": "fill"
                 }
               ],
               "groupby_field": "",
               "interval": "",
-              "measurement": "openstack_neutron_http_responses",
-              "query": "SELECT count(\"value\") FROM \"openstack_neutron_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^5/ AND $timeFilter GROUP BY time($interval) fill(null)",
+              "measurement": "openstack_neutron_http_response_times",
+              "query": "SELECT sum(\"count\") FROM \"openstack_neutron_http_response_times\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" = '5xx' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -218,13 +218,13 @@
                 [
                   {
                     "params": [
-                      "value"
+                      "count"
                     ],
                     "type": "field"
                   },
                   {
                     "params": [],
-                    "type": "count"
+                    "type": "sum"
                   }
                 ]
               ],
@@ -238,8 +238,8 @@
                 {
                   "condition": "AND",
                   "key": "http_status",
-                  "operator": "=~",
-                  "value": "/^5/"
+                  "operator": "=",
+                  "value": "5xx"
                 }
               ]
             }
@@ -308,8 +308,9 @@
               "function": "mean",
               "groupBy": [
                 {
+                  "interval": "auto",
                   "params": [
-                    "$interval"
+                    "auto"
                   ],
                   "type": "time"
                 },
@@ -320,10 +321,9 @@
                   "type": "fill"
                 }
               ],
-              "groupByTags": [],
               "interval": "",
-              "measurement": "openstack_neutron_http_responses",
-              "query": "SELECT mean(\"value\") FROM \"openstack_neutron_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_method\" = 'GET' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "measurement": "openstack_neutron_http_response_times",
+              "query": "SELECT max(\"percentile\") FROM \"openstack_neutron_http_response_times\" WHERE \"hostname\" =~ /$server/ AND \"http_method\" = 'GET' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -331,13 +331,13 @@
                 [
                   {
                     "params": [
-                      "value"
+                      "percentile"
                     ],
                     "type": "field"
                   },
                   {
                     "params": [],
-                    "type": "mean"
+                    "type": "max"
                   }
                 ]
               ],
@@ -345,11 +345,13 @@
               "tags": [
                 {
                   "key": "hostname",
+                  "operator": "=~",
                   "value": "/$server/"
                 },
                 {
                   "condition": "AND",
                   "key": "http_method",
+                  "operator": "=",
                   "value": "GET"
                 }
               ]
@@ -361,8 +363,9 @@
               "function": "mean",
               "groupBy": [
                 {
+                  "interval": "auto",
                   "params": [
-                    "$interval"
+                    "auto"
                   ],
                   "type": "time"
                 },
@@ -373,10 +376,9 @@
                   "type": "fill"
                 }
               ],
-              "groupByTags": [],
               "interval": "",
-              "measurement": "openstack_neutron_http_responses",
-              "query": "SELECT mean(\"value\") FROM \"openstack_neutron_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_method\" = 'POST' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "measurement": "openstack_neutron_http_response_times",
+              "query": "SELECT max(\"percentile\") FROM \"openstack_neutron_http_response_times\" WHERE \"hostname\" =~ /$server/ AND \"http_method\" = 'POST' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "B",
               "resultFormat": "time_series",
@@ -384,13 +386,13 @@
                 [
                   {
                     "params": [
-                      "value"
+                      "percentile"
                     ],
                     "type": "field"
                   },
                   {
                     "params": [],
-                    "type": "mean"
+                    "type": "max"
                   }
                 ]
               ],
@@ -398,11 +400,13 @@
               "tags": [
                 {
                   "key": "hostname",
+                  "operator": "=~",
                   "value": "/$server/"
                 },
                 {
                   "condition": "AND",
                   "key": "http_method",
+                  "operator": "=",
                   "value": "POST"
                 }
               ]
@@ -414,8 +418,9 @@
               "function": "mean",
               "groupBy": [
                 {
+                  "interval": "auto",
                   "params": [
-                    "$interval"
+                    "auto"
                   ],
                   "type": "time"
                 },
@@ -426,10 +431,9 @@
                   "type": "fill"
                 }
               ],
-              "groupByTags": [],
               "interval": "",
-              "measurement": "openstack_neutron_http_responses",
-              "query": "SELECT mean(\"value\") FROM \"openstack_neutron_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_method\" = 'PUT' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "measurement": "openstack_neutron_http_response_times",
+              "query": "SELECT max(\"percentile\") FROM \"openstack_neutron_http_response_times\" WHERE \"hostname\" =~ /$server/ AND \"http_method\" = 'PUT' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "C",
               "resultFormat": "time_series",
@@ -437,13 +441,13 @@
                 [
                   {
                     "params": [
-                      "value"
+                      "percentile"
                     ],
                     "type": "field"
                   },
                   {
                     "params": [],
-                    "type": "mean"
+                    "type": "max"
                   }
                 ]
               ],
@@ -451,11 +455,13 @@
               "tags": [
                 {
                   "key": "hostname",
+                  "operator": "=~",
                   "value": "/$server/"
                 },
                 {
                   "condition": "AND",
                   "key": "http_method",
+                  "operator": "=",
                   "value": "PUT"
                 }
               ]
@@ -467,8 +473,9 @@
               "function": "mean",
               "groupBy": [
                 {
+                  "interval": "auto",
                   "params": [
-                    "$interval"
+                    "auto"
                   ],
                   "type": "time"
                 },
@@ -479,10 +486,9 @@
                   "type": "fill"
                 }
               ],
-              "groupByTags": [],
               "interval": "",
-              "measurement": "openstack_neutron_http_responses",
-              "query": "SELECT mean(\"value\") FROM \"openstack_neutron_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_method\" = 'DELETE' AND $timeFilter GROUP BY time($interval) fill(0)",
+              "measurement": "openstack_neutron_http_response_times",
+              "query": "SELECT max(\"percentile\") FROM \"openstack_neutron_http_response_times\" WHERE \"hostname\" =~ /$server/ AND \"http_method\" = 'DELETE' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "D",
               "resultFormat": "time_series",
@@ -490,13 +496,13 @@
                 [
                   {
                     "params": [
-                      "value"
+                      "percentile"
                     ],
                     "type": "field"
                   },
                   {
                     "params": [],
-                    "type": "mean"
+                    "type": "max"
                   }
                 ]
               ],
@@ -504,11 +510,13 @@
               "tags": [
                 {
                   "key": "hostname",
+                  "operator": "=~",
                   "value": "/$server/"
                 },
                 {
                   "condition": "AND",
                   "key": "http_method",
+                  "operator": "=",
                   "value": "DELETE"
                 }
               ]
@@ -697,8 +705,9 @@
               "function": "count",
               "groupBy": [
                 {
+                  "interval": "auto",
                   "params": [
-                    "$interval"
+                    "auto"
                   ],
                   "type": "time"
                 },
@@ -709,10 +718,9 @@
                   "type": "fill"
                 }
               ],
-              "groupByTags": [],
               "interval": "",
-              "measurement": "openstack_neutron_http_responses",
-              "query": "SELECT count(\"value\") FROM \"openstack_neutron_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^2/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "measurement": "openstack_neutron_http_response_times",
+              "query": "SELECT sum(\"count\") FROM \"openstack_neutron_http_response_times\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" = '2xx' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -720,13 +728,13 @@
                 [
                   {
                     "params": [
-                      "value"
+                      "count"
                     ],
                     "type": "field"
                   },
                   {
                     "params": [],
-                    "type": "count"
+                    "type": "sum"
                   }
                 ]
               ],
@@ -734,12 +742,14 @@
               "tags": [
                 {
                   "key": "hostname",
+                  "operator": "=~",
                   "value": "/$server/"
                 },
                 {
                   "condition": "AND",
                   "key": "http_status",
-                  "value": "/^2/"
+                  "operator": "=",
+                  "value": "2xx"
                 }
               ]
             },
@@ -750,8 +760,9 @@
               "function": "count",
               "groupBy": [
                 {
+                  "interval": "auto",
                   "params": [
-                    "$interval"
+                    "auto"
                   ],
                   "type": "time"
                 },
@@ -762,11 +773,10 @@
                   "type": "fill"
                 }
               ],
-              "groupByTags": [],
               "hide": false,
               "interval": "",
-              "measurement": "openstack_neutron_http_responses",
-              "query": "SELECT count(\"value\") FROM \"openstack_neutron_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^1/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "measurement": "openstack_neutron_http_response_times",
+              "query": "SELECT sum(\"count\") FROM \"openstack_neutron_http_response_times\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" = '1xx' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "B",
               "resultFormat": "time_series",
@@ -774,13 +784,13 @@
                 [
                   {
                     "params": [
-                      "value"
+                      "count"
                     ],
                     "type": "field"
                   },
                   {
                     "params": [],
-                    "type": "count"
+                    "type": "sum"
                   }
                 ]
               ],
@@ -788,12 +798,14 @@
               "tags": [
                 {
                   "key": "hostname",
+                  "operator": "=~",
                   "value": "/$server/"
                 },
                 {
                   "condition": "AND",
                   "key": "http_status",
-                  "value": "/^1/"
+                  "operator": "=",
+                  "value": "1xx"
                 }
               ]
             },
@@ -804,8 +816,9 @@
               "function": "count",
               "groupBy": [
                 {
+                  "interval": "auto",
                   "params": [
-                    "$interval"
+                    "auto"
                   ],
                   "type": "time"
                 },
@@ -816,11 +829,10 @@
                   "type": "fill"
                 }
               ],
-              "groupByTags": [],
               "hide": false,
               "interval": "",
-              "measurement": "openstack_neutron_http_responses",
-              "query": "SELECT count(\"value\") FROM \"openstack_neutron_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^3/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "measurement": "openstack_neutron_http_response_times",
+              "query": "SELECT sum(\"count\") FROM \"openstack_neutron_http_response_times\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" = '3xx' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "C",
               "resultFormat": "time_series",
@@ -828,13 +840,13 @@
                 [
                   {
                     "params": [
-                      "value"
+                      "count"
                     ],
                     "type": "field"
                   },
                   {
                     "params": [],
-                    "type": "count"
+                    "type": "sum"
                   }
                 ]
               ],
@@ -842,12 +854,14 @@
               "tags": [
                 {
                   "key": "hostname",
+                  "operator": "=~",
                   "value": "/$server/"
                 },
                 {
                   "condition": "AND",
                   "key": "http_status",
-                  "value": "/^3/"
+                  "operator": "=",
+                  "value": "3xx"
                 }
               ]
             },
@@ -858,8 +872,9 @@
               "function": "count",
               "groupBy": [
                 {
+                  "interval": "auto",
                   "params": [
-                    "$interval"
+                    "auto"
                   ],
                   "type": "time"
                 },
@@ -870,11 +885,10 @@
                   "type": "fill"
                 }
               ],
-              "groupByTags": [],
               "hide": false,
               "interval": "",
-              "measurement": "openstack_neutron_http_responses",
-              "query": "SELECT count(\"value\") FROM \"openstack_neutron_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^4/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "measurement": "openstack_neutron_http_response_times",
+              "query": "SELECT sum(\"count\") FROM \"openstack_neutron_http_response_times\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" = '4xx' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "D",
               "resultFormat": "time_series",
@@ -882,13 +896,13 @@
                 [
                   {
                     "params": [
-                      "value"
+                      "count"
                     ],
                     "type": "field"
                   },
                   {
                     "params": [],
-                    "type": "count"
+                    "type": "sum"
                   }
                 ]
               ],
@@ -896,12 +910,14 @@
               "tags": [
                 {
                   "key": "hostname",
+                  "operator": "=~",
                   "value": "/$server/"
                 },
                 {
                   "condition": "AND",
                   "key": "http_status",
-                  "value": "/^4/"
+                  "operator": "=",
+                  "value": "4xx"
                 }
               ]
             },
@@ -912,8 +928,9 @@
               "function": "count",
               "groupBy": [
                 {
+                  "interval": "auto",
                   "params": [
-                    "$interval"
+                    "auto"
                   ],
                   "type": "time"
                 },
@@ -924,11 +941,10 @@
                   "type": "fill"
                 }
               ],
-              "groupByTags": [],
               "hide": false,
               "interval": "",
-              "measurement": "openstack_neutron_http_responses",
-              "query": "SELECT count(\"value\") FROM \"openstack_neutron_http_responses\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" =~ /^5/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "measurement": "openstack_neutron_http_response_times",
+              "query": "SELECT sum(\"count\") FROM \"openstack_neutron_http_response_times\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" = '5xx' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "E",
               "resultFormat": "time_series",
@@ -936,13 +952,13 @@
                 [
                   {
                     "params": [
-                      "value"
+                      "count"
                     ],
                     "type": "field"
                   },
                   {
                     "params": [],
-                    "type": "count"
+                    "type": "sum"
                   }
                 ]
               ],
@@ -950,12 +966,14 @@
               "tags": [
                 {
                   "key": "hostname",
+                  "operator": "=~",
                   "value": "/$server/"
                 },
                 {
                   "condition": "AND",
                   "key": "http_status",
-                  "value": "/^5/"
+                  "operator": "=",
+                  "value": "5xx"
                 }
               ]
             }
@@ -3997,5 +4015,5 @@
   },
   "timezone": "browser",
   "title": "Neutron",
-  "version": 5
+  "version": 6
 }
