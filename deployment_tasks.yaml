@@ -108,13 +108,12 @@
   reexecute_on:
     - deploy_changes
 
-# Tasks definitions for post-deployment
 - id: influxdb-enable-quorum
   type: puppet
   version: 2.0.0
   role: [primary-influxdb_grafana]
-  requires: [post_deployment_start]
-  required_for: [post_deployment_end]
+  requires: [primary-influxdb_grafana, influxdb_grafana]
+  required_for: [deploy_end]
   parameters:
     puppet_manifest: "puppet/manifests/enable_quorum.pp"
     puppet_modules: puppet/modules:/etc/puppet/modules
@@ -127,8 +126,8 @@
   type: puppet
   version: 2.0.0
   role: [primary-influxdb_grafana, influxdb_grafana]
-  requires: [post_deployment_start]
-  required_for: [post_deployment_end]
+  requires: [primary-influxdb_grafana, influxdb_grafana]
+  required_for: [deploy_end]
   parameters:
     puppet_manifest: "puppet/manifests/influxdb.pp"
     puppet_modules: puppet/modules:/etc/puppet/modules
@@ -138,8 +137,10 @@
   type: puppet
   version: 2.0.0
   role: [primary-influxdb_grafana]
-  requires: [post_deployment_start, influxdb-installation]
-  required_for: [post_deployment_end]
+  requires: [influxdb-installation]
+  required_for: [deploy_end]
+  # The cross-depends parameter is required because the InfluxDB provisioning
+  # should only happen once all the InfluxDB nodes have joined the cluster.
   cross-depends:
     - name: influxdb-installation
       role: [primary-influxdb_grafana, influxdb_grafana]
@@ -152,8 +153,8 @@
   type: puppet
   version: 2.0.0
   role: [primary-influxdb_grafana]
-  requires: [post_deployment_start]
-  required_for: [post_deployment_end]
+  requires: [primary-influxdb_grafana, influxdb_grafana]
+  required_for: [deploy_end]
   parameters:
     puppet_manifest: "puppet/manifests/grafana_mysql.pp"
     puppet_modules: puppet/modules:/etc/puppet/modules
@@ -163,8 +164,13 @@
   type: puppet
   version: 2.0.0
   role: [primary-influxdb_grafana, influxdb_grafana]
-  requires: [post_deployment_start, grafana-mysql-provisioning]
-  required_for: [post_deployment_end]
+  requires: [grafana-mysql-provisioning]
+  required_for: [deploy_end]
+  # The cross-depends parameter is required because the Grafana installation
+  # should only happen once the MySQL database has been provisioned.
+  cross-depends:
+    - name: grafana-mysql-provisioning
+      role: [primary-influxdb_grafana]
   parameters:
     puppet_manifest: "puppet/manifests/grafana.pp"
     puppet_modules: puppet/modules:/etc/puppet/modules
@@ -174,8 +180,8 @@
   type: puppet
   version: 2.0.0
   role: [primary-influxdb_grafana]
-  requires: [post_deployment_start, grafana-installation]
-  required_for: [post_deployment_end]
+  requires: [grafana-installation]
+  required_for: [deploy_end]
   parameters:
     puppet_manifest: "puppet/manifests/grafana_configuration.pp"
     puppet_modules: puppet/modules:/etc/puppet/modules
