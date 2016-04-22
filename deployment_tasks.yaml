@@ -3,7 +3,33 @@
   type: group
   version: 2.0.0
   role: [primary-influxdb_grafana]
-  tasks: &common_tasks
+  tasks:
+    - hiera
+    - setup_repositories
+    - fuel_pkgs
+    - globals
+    - tools
+    - logging
+    - netconfig
+    - hosts
+    - influxdb-hiera
+    - influxdb-firewall
+    - influxdb-cluster
+    - influxdb-cluster-haproxy
+    - influxdb-vip
+    - primary-influxdb-haproxy
+    - primary-influxdb-installation
+  requires: [deploy_start]
+  required_for: [deploy_end]
+  parameters:
+    strategy:
+      type: one_by_one
+
+- id: influxdb_grafana
+  type: group
+  version: 2.0.0
+  role: [influxdb_grafana]
+  tasks:
     - hiera
     - setup_repositories
     - fuel_pkgs
@@ -18,24 +44,15 @@
     - influxdb-cluster-haproxy
     - influxdb-vip
     - influxdb-haproxy
-  requires: [deploy_start]
-  required_for: [deploy_end]
-  parameters:
-    strategy:
-      type: one_by_one
-
-- id: influxdb_grafana
-  type: group
-  version: 2.0.0
-  role: [influxdb_grafana]
-  tasks: *common_tasks
+    - influxdb-installation
   requires: [deploy_start, primary-influxdb_grafana]
   required_for: [deploy_end]
   parameters:
     strategy:
       type: parallel
 
-# Tasks definitions for deployment
+# Tasks definitions for the deployment
+######################################
 - id: influxdb-hiera
   type: puppet
   version: 2.0.0
@@ -95,6 +112,19 @@
     puppet_modules: /etc/puppet/modules
     timeout: 600
 
+- id: primary-influxdb-haproxy
+  type: puppet
+  version: 2.0.0
+  requires: [influxdb-cluster-haproxy, influxdb-vip]
+  required_for: [deploy_end]
+  parameters:
+    puppet_manifest: "puppet/manifests/haproxy.pp"
+    puppet_modules: puppet/modules:/etc/puppet/modules
+    timeout: 600
+  # reexecute_on is needed for scale-down operations
+  reexecute_on:
+    - deploy_changes
+
 - id: influxdb-haproxy
   type: puppet
   version: 2.0.0
@@ -108,13 +138,32 @@
   reexecute_on:
     - deploy_changes
 
-# Tasks definitions for post-deployment
+- id: primary-influxdb-installation
+  type: puppet
+  version: 2.0.0
+  requires: [primary-influxdb-haproxy]
+  required_for: [deploy_end]
+  parameters:
+    puppet_manifest: "puppet/manifests/influxdb.pp"
+    puppet_modules: puppet/modules:/etc/puppet/modules
+    timeout: 600
+
+- id: influxdb-installation
+  type: puppet
+  version: 2.0.0
+  requires: [influxdb-haproxy]
+  required_for: [deploy_end]
+  parameters:
+    puppet_manifest: "puppet/manifests/influxdb.pp"
+    puppet_modules: puppet/modules:/etc/puppet/modules
+    timeout: 600
+
 - id: influxdb-enable-quorum
   type: puppet
   version: 2.0.0
   role: [primary-influxdb_grafana]
-  requires: [post_deployment_start]
-  required_for: [post_deployment_end]
+  requires: [primary-influxdb-haproxy, influxdb-haproxy]
+  required_for: [deploy_end]
   parameters:
     puppet_manifest: "puppet/manifests/enable_quorum.pp"
     puppet_modules: puppet/modules:/etc/puppet/modules
@@ -123,25 +172,16 @@
   reexecute_on:
     - deploy_changes
 
-- id: influxdb-installation
-  type: puppet
-  version: 2.0.0
-  role: [primary-influxdb_grafana, influxdb_grafana]
-  requires: [post_deployment_start]
-  required_for: [post_deployment_end]
-  parameters:
-    puppet_manifest: "puppet/manifests/influxdb.pp"
-    puppet_modules: puppet/modules:/etc/puppet/modules
-    timeout: 600
-
 - id: influxdb-configuration
   type: puppet
   version: 2.0.0
   role: [primary-influxdb_grafana]
-  requires: [post_deployment_start, influxdb-installation]
-  required_for: [post_deployment_end]
+  requires: [primary-influxdb-installation, influxdb-installation]
+  required_for: [deploy_end]
+  # The cross-depends parameter is required because the InfluxDB provisioning
+  # should only happen once all the InfluxDB nodes have joined the cluster.
   cross-depends:
-    - name: influxdb-installation
+    - name: /(primary-)?influxdb-installation/
       role: [primary-influxdb_grafana, influxdb_grafana]
   parameters:
     puppet_manifest: "puppet/manifests/influxdb_configuration.pp"
@@ -152,8 +192,8 @@
   type: puppet
   version: 2.0.0
   role: [primary-influxdb_grafana]
-  requires: [post_deployment_start]
-  required_for: [post_deployment_end]
+  requires: [primary-influxdb-haproxy, influxdb-haproxy]
+  required_for: [deploy_end]
   parameters:
     puppet_manifest: "puppet/manifests/grafana_mysql.pp"
     puppet_modules: puppet/modules:/etc/puppet/modules
@@ -163,8 +203,13 @@
   type: puppet
   version: 2.0.0
   role: [primary-influxdb_grafana, influxdb_grafana]
-  requires: [post_deployment_start, grafana-mysql-provisioning]
-  required_for: [post_deployment_end]
+  requires: [grafana-mysql-provisioning]
+  required_for: [deploy_end]
+  # The cross-depends parameter is required because the Grafana installation
+  # should only happen once the MySQL database has been provisioned.
+  cross-depends:
+    - name: grafana-mysql-provisioning
+      role: [primary-influxdb_grafana]
   parameters:
     puppet_manifest: "puppet/manifests/grafana.pp"
     puppet_modules: puppet/modules:/etc/puppet/modules
@@ -174,8 +219,8 @@
   type: puppet
   version: 2.0.0
   role: [primary-influxdb_grafana]
-  requires: [post_deployment_start, grafana-installation]
-  required_for: [post_deployment_end]
+  requires: [grafana-installation]
+  required_for: [deploy_end]
   parameters:
     puppet_manifest: "puppet/manifests/grafana_configuration.pp"
     puppet_modules: puppet/modules:/etc/puppet/modules
