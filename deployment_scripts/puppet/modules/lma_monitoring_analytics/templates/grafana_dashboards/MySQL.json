@@ -1191,7 +1191,7 @@
         "includeAll": false,
         "name": "server",
         "options": [],
-        "query": "show tag values from pacemaker_local_resource_active with key = hostname where environment_label = '$environment' ",
+        "query": "show tag values from mysql_commands with key = hostname where environment_label = '$environment' ",
         "refresh": true,
         "refresh_on_load": true,
         "regex": "",
