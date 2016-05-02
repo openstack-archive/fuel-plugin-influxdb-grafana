@@ -14,15 +14,11 @@
 
 notice('fuel-plugin-influxdb-grafana: influxdb.pp')
 
-$influxdb_grafana = hiera('influxdb_grafana')
-$directory = $influxdb_grafana['data_dir']
+$data_directory = hiera('lma::influxdb::data_dir')
 
-# We set raft_nodes only for non primary node. The primary node will be
+# We set raft_nodes only for the non-primary node. The primary node will be
 # started as the first node and it will be the leader of the Raft cluster.
-$current_roles = hiera('roles')
-$is_primary = member($current_roles, 'primary-influxdb_grafana')
-
-if $is_primary {
+if hiera('lma::influxdb::is_leader') {
     $raft_nodes = undef
 } else {
     $raft_nodes = hiera('lma::influxdb::raft_nodes')
@@ -34,7 +30,7 @@ user { 'influxdb':
   shell  => '/usr/sbin/nologin',
 }
 
-file { $directory:
+file { $data_directory:
   ensure  => 'directory',
   owner   => 'influxdb',
   group   => 'influxdb',
@@ -42,10 +38,11 @@ file { $directory:
 }
 
 # We cannot mix IP addresses and hostnames otherwise the Raft cluster won't
-# start. We decide to stick with hostnames because they are more meaningful.
+# start. We have to stick with IP addresses because hostnames map to the
+# managament network space.
 class { 'lma_monitoring_analytics::influxdb':
-  base_directory => $influxdb_grafana['data_dir'],
-  hostname       => hiera('node_name'),
+  base_directory => $data_directory,
+  hostname       => hiera('lma::influxdb::listen_address'),
   raft_nodes     => $raft_nodes,
-  require        => File[$directory],
+  require        => File[$data_directory],
 }

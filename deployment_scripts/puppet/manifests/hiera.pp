@@ -14,49 +14,45 @@
 
 notice('fuel-plugin-influxdb-grafana: hiera.pp')
 
-$hiera_dir = '/etc/hiera/plugins'
-$plugin_name = 'influxdb_grafana'
-$plugin_yaml = "${plugin_name}.yaml"
-$vip_name = 'influxdb'
+# Initialize network-related variables
+$network_scheme   = hiera('network_scheme')
+$network_metadata = hiera('network_metadata')
+prepare_network_config($network_scheme)
 
-$network_metadata = hiera_hash('network_metadata')
+$influxdb_grafana = hiera('influxdb_grafana')
+$hiera_file = '/etc/hiera/plugins/influxdb_grafana.yaml'
+$listen_address = get_network_role_property('influxdb_vip', 'ipaddr')
+$vip_name = 'influxdb'
 if ! $network_metadata['vips'][$vip_name] {
   fail('InfluxDB VIP is not defined')
 }
-
-$influxdb_leader = get_nodes_hash_by_roles($network_metadata, ["primary-${plugin_name}"])
-$influxdb_others = get_nodes_hash_by_roles($network_metadata, [$plugin_name])
-$influxdb_nodes = merge($influxdb_leader, $influxdb_others)
-$influxdb_address_map = get_node_to_ipaddr_map_by_network_role($influxdb_nodes, 'influxdb_vip')
-
 $influxdb_vip = $network_metadata['vips'][$vip_name]['ipaddr']
 
-$corosync_roles = [$plugin_name, "primary-${plugin_name}"]
+$influxdb_leader = get_nodes_hash_by_roles($network_metadata, ['primary-influxdb_grafana'])
+$leader_ip_address = values_at(values(get_node_to_ipaddr_map_by_network_role($influxdb_leader, 'influxdb_vip')), 0)
 
+$influxdb_others = get_nodes_hash_by_roles($network_metadata, ['influxdb_grafana'])
+$others_ip_addresses = sort(values(get_node_to_ipaddr_map_by_network_role($influxdb_others, 'influxdb_vip')))
 
 $calculated_content = inline_template('
 ---
+lma::influxdb::data_dir: "<%= @influxdb_grafana["data_dir"] %>"
+lma::influxdb::listen_address: "<%= @listen_adress %>"
+lma::influxdb::influxdb_port: 8086
+lma::influxdb::grafana_port: 8000
+lma::influxdb::raft_leader: <%= @leader_ip_address == @listen_address ? "true" : "false" %>
 lma::influxdb::raft_nodes: # The first node is the leader
-    - <%= @influxdb_leader.keys.first %>
-<% @influxdb_others.keys.sort.each do |k| -%>
-    - <%= k %>
+    - "<%= @leader_ip_address %>"
+<% @others_ip_addresses.each do |x| -%>
+    - "<%= x %>"
 <% end -%>
-
-lma::influxdb::backends:
-<% @influxdb_address_map.keys.sort.each do |k| -%>
-    <%= k %>: <%= @influxdb_address_map[k] %>
-<% end -%>
-
 lma::influxdb::vip: <%= @influxdb_vip %>
-
 lma::corosync_roles:
-<% @corosync_roles.sort.each do |crole| -%>
-    - <%= crole %>
-<% end -%>
-
+    - primary-influxdb_grafana
+    - influxdb_grafana
 ')
 
-file { "${hiera_dir}/${plugin_yaml}":
+file { $hiera_file:
   ensure  => file,
   content => "${calculated_content}\n",
 }

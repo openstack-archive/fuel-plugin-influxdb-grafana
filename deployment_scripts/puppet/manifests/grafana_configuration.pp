@@ -16,10 +16,12 @@ notice('fuel-plugin-influxdb-grafana: grafana_configuration.pp')
 
 $deployment_id = hiera('deployment_id')
 $master_ip = hiera('master_ip')
-$mgmt_vip = hiera('lma::influxdb::vip')
+$vip = hiera('lma::influxdb::vip')
+$grafana_port = hiera('lma::influxdb::grafana_port')
+$influxdb_port = hiera('lma::influxdb::influxdb_port')
 $grafana_link_data = "{\"title\":\"Grafana\",\
 \"description\":\"Dashboard for visualizing metrics\",\
-\"url\":\"http://${mgmt_vip}:8000/\"}"
+\"url\":\"http://${vip}:${grafana_port}/\"}"
 $grafana_link_created_file = '/var/cache/grafana_link_created'
 $influxdb_grafana = hiera('influxdb_grafana')
 
@@ -45,13 +47,13 @@ $import_elasticsearch = $elasticsearch_mode ? {
 
 grafana_datasource { 'lma':
   ensure           => present,
-  url              => "http://${mgmt_vip}:8086",
+  url              => "http://${vip}:${influxdb_port}",
   user             => $influxdb_username,
   password         => $influxdb_password,
   database         => $influxdb_database,
   access_mode      => 'proxy',
   is_default       => true,
-  grafana_url      => "http://${mgmt_vip}:8000",
+  grafana_url      => "http://${vip}:${grafana_port}",
   grafana_user     => $admin_username,
   grafana_password => $admin_password,
 }
@@ -59,7 +61,7 @@ grafana_datasource { 'lma':
 class {'lma_monitoring_analytics::grafana_dashboards':
   admin_username       => $admin_username,
   admin_password       => $admin_password,
-  host                 => $mgmt_vip,
+  host                 => $vip,
   import_elasticsearch => $import_elasticsearch,
   import_influxdb      => $import_influxdb,
   require              => Grafana_datasource['lma'],
