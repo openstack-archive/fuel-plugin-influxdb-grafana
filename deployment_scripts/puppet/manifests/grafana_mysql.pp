@@ -15,9 +15,11 @@
 notice('fuel-plugin-influxdb-grafana: grafana_mysql.pp')
 
 $influxdb_grafana = hiera('influxdb_grafana')
+$is_mysql_server = roles_include(['standalone-database',
+                                  'primary-standalone-database'])
 
 if $influxdb_grafana['mysql_mode'] == 'local' {
-    $mysql  = hiera('mysql')
+    $mysql  = hiera_hash('mysql')
     $db_vip = hiera('database_vip')
     $db_admin_user = 'root'
     $db_admin_pass = $mysql['root_password']
@@ -35,17 +37,30 @@ host=<%= @db_vip %>
     file { $db_options_file:
       ensure  => file,
       content => $db_file_content,
+      replace => false,
+      notify  => Exec['remove_db_options_file'],
+    }
+
+    if $is_mysql_server {
+      # The detach_database plugin installs a mysql-client-X.Y that may not be
+      # compatible with the mysql-client meta-package that is installed by
+      # mysql Puppet module. To avoid this issue we use the client that is
+      # installed by the detach_database plugin.
+      class { '::mysql::client':
+        package_manage => false,
+      }
     }
 
     mysql::db { $db_name:
       user     => $db_username,
       password => $db_password,
-      host     => $db_vip,
+      host     => '%',
       require  => File[$db_options_file],
     }
 
     exec { 'remove_db_options_file':
-      command => "/bin/rm -f ${db_options_file}",
-      require => Mysql::Db[$db_name],
+      command     => "/bin/rm -f ${db_options_file}",
+      refreshonly => true,
+      require     => Mysql::Db[$db_name],
     }
 }
