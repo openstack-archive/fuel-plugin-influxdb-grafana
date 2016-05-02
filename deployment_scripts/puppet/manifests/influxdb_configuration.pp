@@ -14,8 +14,11 @@
 
 notice('fuel-plugin-influxdb-grafana: influxdb_configuration.pp')
 
-prepare_network_config(hiera('network_scheme', {}))
-$mgmt_address = get_network_role_property('management', 'ipaddr')
+# We are using the local IP address instead of the VIP to avoid race condition
+# between the creation of the admin user and the normal user.
+$local_address = hiera('lma::influxdb::listen_address')
+$local_port = hiera('lma::influxdb::influxdb_port')
+$influxdb_url = "http://${local_address}:${influxdb_port}"
 
 $influxdb_grafana = hiera('influxdb_grafana')
 
@@ -29,23 +32,21 @@ $replication_factor = $influxdb_grafana['replication_factor']
 lma_monitoring_analytics::influxdb_user { $admin_user:
   password     => $admin_password,
   admin_role   => true,
-  # We are using the management IP instead of the VIP to avoid race condition
-  # between the creation of the admin user and the normal user.
-  influxdb_url => "http://${mgmt_address}:8086",
+  influxdb_url => $influxdb_url,
 }
 
 lma_monitoring_analytics::influxdb_user { $username:
   admin_user     => $admin_user,
   admin_password => $admin_password,
   password       => $password,
-  influxdb_url   => "http://${mgmt_address}:8086",
+  influxdb_url   => $influxdb_url,
   require        => Lma_monitoring_analytics::Influxdb_user[$admin_user],
 }
 
 lma_monitoring_analytics::influxdb_database { 'lma':
   admin_user         => $admin_user,
   admin_password     => $admin_password,
-  influxdb_url       => "http://${mgmt_address}:8086",
+  influxdb_url       => $influxdb_url,
   db_user            => $username,
   db_password        => $password,
   retention_period   => $retention_period,
