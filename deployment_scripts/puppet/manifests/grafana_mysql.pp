@@ -15,9 +15,11 @@
 notice('fuel-plugin-influxdb-grafana: grafana_mysql.pp')
 
 $influxdb_grafana = hiera('influxdb_grafana')
+$is_mysql_server = roles_include(['standalone-database',
+                                  'primary-standalone-database'])
 
 if $influxdb_grafana['mysql_mode'] == 'local' {
-    $mysql  = hiera('mysql')
+    $mysql  = hiera_hash('mysql')
     $db_vip = hiera('database_vip')
     $db_admin_user = 'root'
     $db_admin_pass = $mysql['root_password']
@@ -32,9 +34,26 @@ host=<%= @db_vip %>
     $db_username = $influxdb_grafana['mysql_username']
     $db_password = $influxdb_grafana['mysql_password']
 
+    exec { 'test_and_backup_db_options_file':
+      path    => '/usr/bin:/usr/sbin:/bin',
+      command => "mv ${db_options_file} ${db_options_file}.fp-bak",
+      onlyif  => "test -e ${db_options_file}",
+    }
+
     file { $db_options_file:
       ensure  => file,
       content => $db_file_content,
+      require => Exec['test_and_backup_db_options_file'],
+    }
+
+    if $is_mysql_server {
+      # The plugin detach database installs a mysql-client-X.Y that may not be
+      # compatible with the mysql-client metadata that is installed by mysql
+      # module. So in this case we just use the client that is installed by
+      # the detach database plugin.
+      class { '::mysql::client':
+        package_manage => false,
+      }
     }
 
     mysql::db { $db_name:
@@ -47,5 +66,12 @@ host=<%= @db_vip %>
     exec { 'remove_db_options_file':
       command => "/bin/rm -f ${db_options_file}",
       require => Mysql::Db[$db_name],
+    }
+
+    exec { 'test_and_restore_backup_db_options_file':
+      path    => '/usr/bin:/usr/sbin:/bin',
+      command => "mv ${db_options_file}.fp-bak ${db_options_file}",
+      onlyif  => "test -e ${db_options_file}.fp-bak",
+      require => Exec['remove_db_options_file'],
     }
 }
