@@ -22,13 +22,15 @@ class lma_monitoring_analytics::grafana (
   $admin_username    = undef,
   $admin_password    = undef,
   $domain            = $lma_monitoring_analytics::params::grafana_domain,
-  $http_port         = $lma_monitoring_analytics::params::listen_port,
+  $http_address      = $lma_monitoring_analytics::params::grafana_address,
+  $http_port         = $lma_monitoring_analytics::params::grafana_port,
 ) inherits lma_monitoring_analytics::params {
 
   validate_string($db_host)
   validate_string($db_name)
   validate_string($db_username)
   validate_string($db_password)
+  validate_string($http_address)
 
   # If no port is specified Grafana will not start. So we check if the
   # variable contains a port value and if not, we add ':3306'.
@@ -43,9 +45,9 @@ class lma_monitoring_analytics::grafana (
     version             => latest,
     manage_package_repo => false,
     cfg                 => {
-      server    => {
-        http_port => $http_port,
-        domain    => $domain,
+        http_address => $http_address,
+        http_port    => $http_port,
+        domain       => $domain,
       },
       database  => {
         type     => 'mysql',

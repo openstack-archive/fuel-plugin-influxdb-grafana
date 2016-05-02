@@ -14,8 +14,6 @@
 
 notice('fuel-plugin-influxdb-grafana: grafana.pp')
 
-$mgmt_vip = hiera('lma::influxdb::vip')
-
 $influxdb_grafana = hiera('influxdb_grafana')
 $db_mode = $influxdb_grafana['mysql_mode']
 $db_name = $influxdb_grafana['mysql_dbname']
@@ -39,7 +37,6 @@ case $db_mode {
   }
 }
 
-
 class {'lma_monitoring_analytics::grafana':
   db_host        => $db_host,
   db_name        => $db_name,
@@ -47,5 +44,6 @@ class {'lma_monitoring_analytics::grafana':
   db_password    => $db_password,
   admin_username => $admin_username,
   admin_password => $admin_password,
-  domain         => $mgmt_vip,
+  domain         => hiera('lma::influxdb::vip'),
+  http_port      => hiera('lma::influxdb::grafana_port')
 }

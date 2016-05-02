@@ -18,7 +18,7 @@ class lma_monitoring_analytics::grafana_dashboards (
   $admin_username,
   $admin_password,
   $host = $lma_monitoring_analytics::params::grafana_domain,
-  $port = $lma_monitoring_analytics::params::listen_port,
+  $port = $lma_monitoring_analytics::params::grafana_port,
   $import_influxdb = false,
   $import_elasticsearch = false,
 ) inherits lma_monitoring_analytics::params {
