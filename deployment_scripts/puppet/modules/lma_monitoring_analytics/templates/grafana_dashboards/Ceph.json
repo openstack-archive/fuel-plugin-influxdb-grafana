@@ -2608,8 +2608,8 @@
                 }
               ],
               "groupByTags": [],
-              "measurement": "ceph_osd_latency_appply",
-              "query": "SELECT mean(\"value\") FROM \"ceph_osd_latency_appply\" WHERE \"cluster\" =~ /$cluster/ AND \"hostname\" =~ /$mon/ AND \"osd\" =~ /$osd/ AND $timeFilter GROUP BY time($interval) fill(0)",
+              "measurement": "ceph_osd_latency_apply",
+              "query": "SELECT mean(\"value\") FROM \"ceph_osd_latency_apply\" WHERE \"cluster\" =~ /$cluster/ AND \"hostname\" =~ /$mon/ AND \"osd\" =~ /$osd/ AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
