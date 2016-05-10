@@ -14,10 +14,11 @@
 
 notice('fuel-plugin-influxdb-grafana: haproxy.pp')
 
-$cluster_nodes = hiera('lma::influxdb::backends')
+$nodes_ips = hiera('lma::influxdb::raft_nodes')
+$nodes_names = prefix(range(1, size($nodes_ips)), 'server_')
 $stats_port    = '1000'
-$influxdb_port = '8086'
-$grafana_port  = '8000'
+$influxdb_port = hiera('lma::influxdb::influxdb_port')
+$grafana_port  = hiera('lma::influxdb::grafana_port')
 
 Openstack::Ha::Haproxy_service {
   balancermember_options => 'check',
@@ -25,8 +26,8 @@ Openstack::Ha::Haproxy_service {
   internal_virtual_ip    => hiera('lma::influxdb::vip'),
   public                 => false,
   public_virtual_ip      => undef,
-  ipaddresses            => values($cluster_nodes),
-  server_names           => keys($cluster_nodes),
+  ipaddresses            => $nodes_ips,
+  server_names           => $nodes_names,
 }
 
 openstack::ha::haproxy_service { 'influxdb':
