@@ -143,10 +143,10 @@
   version: 2.0.0
   role: [primary-influxdb_grafana]
   requires: [post_deployment_start]
-  # We use update_hosts as an anchor to order the post-deployment tasks executed
+  # We use upload_nodes_info as an anchor to order the post-deployment tasks executed
   # by this plugin and the LMA collector plugin. The dependency chain is:
-  # influxdb-configuration -> update_hosts -> (LMA collector tasks)
-  required_for: [post_deployment_end, update_hosts]
+  # influxdb-configuration -> upload_nodes_info -> (LMA collector tasks)
+  required_for: [post_deployment_end, upload_nodes_info]
   parameters:
     puppet_manifest: "puppet/manifests/influxdb_configuration.pp"
     puppet_modules: puppet/modules:/etc/puppet/modules
@@ -184,8 +184,8 @@
   version: 2.0.0
   role: [primary-influxdb_grafana]
   requires: [post_deployment_start, grafana-installation]
-  # See comment above regarding the update_hosts dependency
-  required_for: [post_deployment_end, update_hosts]
+  # See comment above regarding the upload_nodes_info dependency
+  required_for: [post_deployment_end, upload_nodes_info]
   parameters:
     puppet_manifest: "puppet/manifests/grafana_configuration.pp"
     puppet_modules: puppet/modules:/etc/puppet/modules
