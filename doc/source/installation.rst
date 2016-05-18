@@ -62,7 +62,7 @@ if you need further instructions about how to build the Fuel Plugin Builder.
 
 4. Clone the plugin git repository::
 
-    [root@home ~] git clone https://github.com/openstack/fuel-plugin-influxdb-grafana.git 
+    [root@home ~] git clone https://github.com/openstack/fuel-plugin-influxdb-grafana.git
 
 5. Check that the plugin is valid::
 
@@ -84,5 +84,5 @@ Software components installed by the InfluxDB-Grafana Plugin
 +================+=====================================+
 | InfluxDB       | v0.10.3 for Ubuntu (64-bit)         |
 +----------------+-------------------------------------+
-| Grafana        | v2.6.0 for Ubuntu (64-bit)          |
+| Grafana        | v3.0.3 for Ubuntu (64-bit)          |
 +----------------+-------------------------------------+
