@@ -163,16 +163,31 @@
     puppet_modules: puppet/modules:/etc/puppet/modules
     timeout: 600
 
+# Start Grafana only on the primary node since it will take care of the SQL
+# migrations.
+# See https://bugs.launchpad.net/lma-toolchain/+bug/1578183 for details
+- id: primary-grafana-installation
+  type: puppet
+  version: 2.0.0
+  role: [primary-influxdb_grafana]
+  requires: [post_deployment_start, grafana-mysql-provisioning]
+  required_for: [post_deployment_end]
+  parameters:
+    puppet_manifest: "puppet/manifests/grafana.pp"
+    puppet_modules: puppet/modules:/etc/puppet/modules
+    timeout: 600
+
 - id: grafana-installation
   type: puppet
   version: 2.0.0
-  role: [primary-influxdb_grafana, influxdb_grafana]
-  requires: [post_deployment_start, grafana-mysql-provisioning]
+  role: [influxdb_grafana]
+  requires: [post_deployment_start, primary-grafana-installation]
   required_for: [post_deployment_end]
-  # The cross-depends parameter is required because the Grafana installation
-  # should only happen once the MySQL database has been provisioned.
+  # The cross-depends parameter is required because the installation on the
+  # secondary nodes should only happen once the Grafana service has been
+  # started on the primary.
   cross-depends:
-    - name: grafana-mysql-provisioning
+    - name: primary-grafana-installation
       role: [primary-influxdb_grafana]
   parameters:
     puppet_manifest: "puppet/manifests/grafana.pp"
