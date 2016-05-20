@@ -77,6 +77,16 @@ To configure the plugin, you need to follow these steps:
 
 #. And finally, `deploy <http://docs.mirantis.com/openstack/fuel/fuel-8.0/user-guide.html#deploy-changes>`_ your changes.
 
+
+.. note:: By default, the InfluxDB/Grafana cluster is deployed on the Fuel
+   management network. If this behavior doesn't meet your needs, you can
+   leverage the `network templates
+   <https://docs.mirantis.com/openstack/fuel/fuel-8.0/operations.html#using-networking-templates>`_
+   to use a different network instead. Please refer to the
+   `Elasticsearch/Kibana plugin
+   <http://fuel-plugin-elasticsearch-kibana.readthedocs.io/>`_ for more
+   information.
+
 .. _plugin_install_verification:
 
 Plugin verification
@@ -178,7 +188,7 @@ shown below.
    :align: center
    :width: 800
 
-.. note:: Be aware that Grafana is attached to the *management network*.
+.. note:: Be aware that by default, Grafana is attached to the *management network*.
    Your desktop machine must have access to the OpenStack environment's
    *management network* you just created, to get access to the Grafana dashboard.
 
