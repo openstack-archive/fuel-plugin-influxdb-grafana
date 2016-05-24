@@ -198,9 +198,8 @@
   type: puppet
   version: 2.0.0
   role: [primary-influxdb_grafana]
-  requires: [post_deployment_start, grafana-installation]
-  # See comment above regarding the upload_nodes_info dependency
-  required_for: [post_deployment_end, upload_nodes_info]
+  requires: [post_deployment_start, primary-grafana-installation]
+  required_for: [post_deployment_end]
   parameters:
     puppet_manifest: "puppet/manifests/grafana_configuration.pp"
     puppet_modules: puppet/modules:/etc/puppet/modules
