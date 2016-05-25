@@ -15,8 +15,8 @@
 notice('fuel-plugin-influxdb-grafana: hiera.pp')
 
 # Initialize network-related variables
-$network_scheme   = hiera('network_scheme')
-$network_metadata = hiera('network_metadata')
+$network_scheme   = hiera_hash('network_scheme')
+$network_metadata = hiera_hash('network_metadata')
 prepare_network_config($network_scheme)
 
 $influxdb_grafana = hiera('influxdb_grafana')
