@@ -42,6 +42,13 @@
           "editable": true,
           "error": false,
           "format": "none",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "id": 6,
           "interval": "> 60s",
           "links": [],
@@ -84,6 +91,7 @@
               "groupby_field": "",
               "interval": "",
               "measurement": "cluster_status",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"cluster_status\" WHERE \"environment_label\" = '$environment' AND \"cluster_name\" = 'nova' AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
@@ -117,7 +125,7 @@
               ]
             }
           ],
-          "thresholds": "0,1,3",
+          "thresholds": "1,3",
           "title": "",
           "type": "singlestat",
           "valueFontSize": "80%",
@@ -168,6 +176,13 @@
           "editable": true,
           "error": false,
           "format": "none",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "id": 13,
           "interval": "> 60s",
           "links": [],
@@ -209,6 +224,7 @@
               "groupby_field": "",
               "interval": "",
               "measurement": "openstack_nova_http_response_times",
+              "policy": "default",
               "query": "SELECT sum(\"count\") FROM \"openstack_nova_http_response_times\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" = '5xx' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "A",
@@ -243,7 +259,7 @@
               ]
             }
           ],
-          "thresholds": "0,0,1",
+          "thresholds": "0,1",
           "title": "HTTP 5xx errors",
           "type": "singlestat",
           "valueFontSize": "80%",
@@ -264,12 +280,6 @@
           "error": false,
           "fill": 0,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": 0,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": 0,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -323,6 +333,7 @@
               "hide": false,
               "interval": "",
               "measurement": "openstack_nova_http_response_times",
+              "policy": "default",
               "query": "SELECT max(\"upper_90\") FROM \"openstack_nova_http_response_times\" WHERE \"hostname\" =~ /$server/ AND \"http_method\" = 'GET' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "A",
@@ -379,6 +390,7 @@
               "hide": false,
               "interval": "",
               "measurement": "openstack_nova_http_response_times",
+              "policy": "default",
               "query": "SELECT max(\"upper_90\") FROM \"openstack_nova_http_response_times\" WHERE \"hostname\" =~ /$server/ AND \"http_method\" = 'POST' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "B",
@@ -435,6 +447,7 @@
               "hide": false,
               "interval": "",
               "measurement": "openstack_nova_http_response_times",
+              "policy": "default",
               "query": "SELECT max(\"upper_90\") FROM \"openstack_nova_http_response_times\" WHERE \"hostname\" =~ /$server/ AND \"http_method\" = 'PUT' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "C",
@@ -491,6 +504,7 @@
               "hide": false,
               "interval": "",
               "measurement": "openstack_nova_http_response_times",
+              "policy": "default",
               "query": "SELECT max(\"upper_90\") FROM \"openstack_nova_http_response_times\" WHERE \"hostname\" =~ /$server/ AND \"http_method\" = 'DELETE' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "D",
@@ -529,15 +543,29 @@
           "timeShift": null,
           "title": "HTTP response time on $server",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "value_type": "cumulative"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "s",
-            "short"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "s",
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            }
           ]
         },
         {
@@ -548,12 +576,6 @@
           "error": false,
           "fill": 1,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": 1,
-            "leftMin": 0,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -562,7 +584,6 @@
           },
           "id": 9,
           "interval": "> 60s",
-          "leftYAxisLabel": "",
           "legend": {
             "avg": false,
             "current": false,
@@ -606,6 +627,7 @@
               ],
               "groupByTags": [],
               "measurement": "openstack_check_api",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"openstack_check_api\" WHERE \"environment_label\" = '$environment' AND \"service\" = 'nova-api' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "A",
@@ -643,15 +665,30 @@
           "timeShift": null,
           "title": "API Availability",
           "tooltip": {
+            "msResolution": false,
             "shared": false,
             "value_type": "cumulative"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": false,
-          "y_formats": [
-            "none",
-            "short"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "none",
+              "label": "",
+              "logBase": 1,
+              "max": 1,
+              "min": 0,
+              "show": false
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": false
+            }
           ]
         },
         {
@@ -662,12 +699,6 @@
           "error": false,
           "fill": 0,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": 0,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -723,6 +754,7 @@
               ],
               "interval": "",
               "measurement": "openstack_nova_http_response_times",
+              "policy": "default",
               "query": "SELECT sum(\"count\") FROM \"openstack_nova_http_response_times\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" = '2xx' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "A",
@@ -779,6 +811,7 @@
               "hide": false,
               "interval": "",
               "measurement": "openstack_nova_http_response_times",
+              "policy": "default",
               "query": "SELECT sum(\"count\") FROM \"openstack_nova_http_response_times\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" = '1xx' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "B",
@@ -835,6 +868,7 @@
               "hide": false,
               "interval": "",
               "measurement": "openstack_nova_http_response_times",
+              "policy": "default",
               "query": "SELECT sum(\"count\") FROM \"openstack_nova_http_response_times\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" = '3xx' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "C",
@@ -891,6 +925,7 @@
               "hide": false,
               "interval": "",
               "measurement": "openstack_nova_http_response_times",
+              "policy": "default",
               "query": "SELECT sum(\"count\") FROM \"openstack_nova_http_response_times\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" = '4xx' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "D",
@@ -947,6 +982,7 @@
               "hide": false,
               "interval": "",
               "measurement": "openstack_nova_http_response_times",
+              "policy": "default",
               "query": "SELECT sum(\"count\") FROM \"openstack_nova_http_response_times\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" = '5xx' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "E",
@@ -985,15 +1021,29 @@
           "timeShift": null,
           "title": "Number of HTTP responses on $server",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "value_type": "individual"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "short",
-            "short"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         }
       ],
@@ -1030,6 +1080,13 @@
           "editable": true,
           "error": false,
           "format": "none",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "id": 52,
           "interval": "> 60s",
           "links": [],
@@ -1069,6 +1126,7 @@
               ],
               "groupByTags": [],
               "measurement": "haproxy_backend_servers",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"haproxy_backend_servers\" WHERE \"environment_label\" = '$environment' AND \"backend\" = 'nova-api' AND \"state\" = 'up' AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
@@ -1106,7 +1164,7 @@
               ]
             }
           ],
-          "thresholds": "0,1,1",
+          "thresholds": "1,1",
           "title": "OpenStack",
           "type": "singlestat",
           "valueFontSize": "80%",
@@ -1132,108 +1190,13 @@
           "editable": true,
           "error": false,
           "format": "none",
-          "id": 53,
-          "interval": "> 60s",
-          "links": [],
-          "maxDataPoints": 100,
-          "nullPointMode": "connected",
-          "nullText": null,
-          "postfix": "",
-          "postfixFontSize": "50%",
-          "prefix": "",
-          "prefixFontSize": "50%",
-          "span": 2,
-          "sparkline": {
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "show": false
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
           },
-          "targets": [
-            {
-              "column": "value",
-              "dsType": "influxdb",
-              "fill": "",
-              "function": "last",
-              "groupBy": [
-                {
-                  "params": [
-                    "$interval"
-                  ],
-                  "type": "time"
-                },
-                {
-                  "params": [
-                    "null"
-                  ],
-                  "type": "fill"
-                }
-              ],
-              "groupByTags": [],
-              "measurement": "haproxy_backend_servers",
-              "query": "SELECT last(\"value\") FROM \"haproxy_backend_servers\" WHERE \"environment_label\" = '$environment' AND \"backend\" = 'nova-ec2-api' AND \"state\" = 'up' AND $timeFilter GROUP BY time($interval) fill(null)",
-              "rawQuery": false,
-              "refId": "A",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "value"
-                    ],
-                    "type": "field"
-                  },
-                  {
-                    "params": [],
-                    "type": "last"
-                  }
-                ]
-              ],
-              "series": "merge(/haproxy.backend.nova-ec2-api.servers.up/)",
-              "tags": [
-                {
-                  "key": "environment_label",
-                  "operator": "=",
-                  "value": "$environment"
-                },
-                {
-                  "key": "backend",
-                  "value": "nova-ec2-api"
-                },
-                {
-                  "condition": "AND",
-                  "key": "state",
-                  "value": "up"
-                }
-              ]
-            }
-          ],
-          "thresholds": "0,1,1",
-          "title": "EC2",
-          "type": "singlestat",
-          "valueFontSize": "80%",
-          "valueMaps": [
-            {
-              "op": "=",
-              "text": "N/A",
-              "value": "null"
-            }
-          ],
-          "valueName": "current"
-        },
-        {
-          "cacheTimeout": null,
-          "colorBackground": false,
-          "colorValue": false,
-          "colors": [
-            "rgba(71, 212, 59, 0.4)",
-            "rgba(245, 150, 40, 0.73)",
-            "rgba(225, 40, 40, 0.59)"
-          ],
-          "datasource": null,
-          "editable": true,
-          "error": false,
-          "format": "none",
           "id": 54,
           "interval": "> 60s",
           "links": [],
@@ -1273,6 +1236,7 @@
               ],
               "groupByTags": [],
               "measurement": "haproxy_backend_servers",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"haproxy_backend_servers\" WHERE \"environment_label\" = '$environment' AND \"backend\" = 'nova-metadata-api' AND \"state\" = 'up' AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
@@ -1310,7 +1274,7 @@
               ]
             }
           ],
-          "thresholds": "0,1,1",
+          "thresholds": "1,1",
           "title": "Metadata",
           "type": "singlestat",
           "valueFontSize": "80%",
@@ -1336,6 +1300,13 @@
           "editable": true,
           "error": false,
           "format": "none",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "id": 55,
           "interval": "> 60s",
           "links": [],
@@ -1375,6 +1346,7 @@
               ],
               "groupByTags": [],
               "measurement": "haproxy_backend_servers",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"haproxy_backend_servers\" WHERE \"environment_label\" = '$environment' AND \"backend\" = 'nova-novncproxy-websocket' AND \"state\" = 'up' AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
@@ -1412,7 +1384,7 @@
               ]
             }
           ],
-          "thresholds": "0,1,1",
+          "thresholds": "1,1",
           "title": "NoVNC proxy",
           "type": "singlestat",
           "valueFontSize": "80%",
@@ -1432,7 +1404,7 @@
           "id": 56,
           "links": [],
           "mode": "html",
-          "span": 2,
+          "span": 4,
           "style": {},
           "title": "",
           "type": "text"
@@ -1462,6 +1434,13 @@
           "editable": true,
           "error": false,
           "format": "none",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "id": 59,
           "interval": "> 60s",
           "links": [],
@@ -1501,6 +1480,7 @@
               ],
               "groupByTags": [],
               "measurement": "haproxy_backend_servers",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"haproxy_backend_servers\" WHERE \"environment_label\" = '$environment' AND \"backend\" = 'nova-api' AND \"state\" = 'down' AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
@@ -1538,7 +1518,7 @@
               ]
             }
           ],
-          "thresholds": "0,1,1",
+          "thresholds": "1,1",
           "title": "",
           "type": "singlestat",
           "valueFontSize": "80%",
@@ -1564,108 +1544,13 @@
           "editable": true,
           "error": false,
           "format": "none",
-          "id": 60,
-          "interval": "> 60s",
-          "links": [],
-          "maxDataPoints": 100,
-          "nullPointMode": "connected",
-          "nullText": null,
-          "postfix": "",
-          "postfixFontSize": "50%",
-          "prefix": "",
-          "prefixFontSize": "50%",
-          "span": 2,
-          "sparkline": {
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "show": false
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
           },
-          "targets": [
-            {
-              "column": "value",
-              "dsType": "influxdb",
-              "fill": "",
-              "function": "last",
-              "groupBy": [
-                {
-                  "params": [
-                    "$interval"
-                  ],
-                  "type": "time"
-                },
-                {
-                  "params": [
-                    "null"
-                  ],
-                  "type": "fill"
-                }
-              ],
-              "groupByTags": [],
-              "measurement": "haproxy_backend_servers",
-              "query": "SELECT last(\"value\") FROM \"haproxy_backend_servers\" WHERE \"environment_label\" = '$environment' AND \"backend\" = 'nova-ec2-api' AND \"state\" = 'down' AND $timeFilter GROUP BY time($interval) fill(null)",
-              "rawQuery": false,
-              "refId": "A",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "value"
-                    ],
-                    "type": "field"
-                  },
-                  {
-                    "params": [],
-                    "type": "last"
-                  }
-                ]
-              ],
-              "series": "merge(/haproxy.backend.nova-ec2-api.servers.down/)",
-              "tags": [
-                {
-                  "key": "environment_label",
-                  "operator": "=",
-                  "value": "$environment"
-                },
-                {
-                  "key": "backend",
-                  "value": "nova-ec2-api"
-                },
-                {
-                  "condition": "AND",
-                  "key": "state",
-                  "value": "down"
-                }
-              ]
-            }
-          ],
-          "thresholds": "0,1,1",
-          "title": "",
-          "type": "singlestat",
-          "valueFontSize": "80%",
-          "valueMaps": [
-            {
-              "op": "=",
-              "text": "N/A",
-              "value": "null"
-            }
-          ],
-          "valueName": "current"
-        },
-        {
-          "cacheTimeout": null,
-          "colorBackground": false,
-          "colorValue": true,
-          "colors": [
-            "rgba(255, 255, 255, 0.97)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(245, 54, 54, 0.9)"
-          ],
-          "datasource": null,
-          "editable": true,
-          "error": false,
-          "format": "none",
           "id": 61,
           "interval": "> 60s",
           "links": [],
@@ -1705,6 +1590,7 @@
               ],
               "groupByTags": [],
               "measurement": "haproxy_backend_servers",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"haproxy_backend_servers\" WHERE \"environment_label\" = '$environment' AND \"backend\" = 'nova-metadata-api' AND \"state\" = 'down' AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
@@ -1742,7 +1628,7 @@
               ]
             }
           ],
-          "thresholds": "0,1,1",
+          "thresholds": "1,1",
           "title": "",
           "type": "singlestat",
           "valueFontSize": "80%",
@@ -1768,6 +1654,13 @@
           "editable": true,
           "error": false,
           "format": "none",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "id": 62,
           "interval": "> 60s",
           "links": [],
@@ -1807,6 +1700,7 @@
               ],
               "groupByTags": [],
               "measurement": "haproxy_backend_servers",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"haproxy_backend_servers\" WHERE \"environment_label\" = '$environment' AND \"backend\" = 'nova-novncproxy-websocket' AND \"state\" = 'down' AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
@@ -1844,7 +1738,7 @@
               ]
             }
           ],
-          "thresholds": "0,1,1",
+          "thresholds": "1,1",
           "title": "",
           "type": "singlestat",
           "valueFontSize": "80%",
@@ -1864,7 +1758,7 @@
           "id": 63,
           "links": [],
           "mode": "html",
-          "span": 2,
+          "span": 4,
           "style": {},
           "title": "",
           "type": "text"
@@ -1903,6 +1797,13 @@
           "editable": true,
           "error": false,
           "format": "none",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "id": 70,
           "interval": "> 60s",
           "links": [],
@@ -1942,6 +1843,7 @@
                 }
               ],
               "measurement": "openstack_nova_services",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"openstack_nova_services\" WHERE \"environment_label\" = '$environment' AND \"service\" = 'compute' AND \"state\" = 'disabled' AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
@@ -1981,7 +1883,7 @@
               ]
             }
           ],
-          "thresholds": "0,1,1",
+          "thresholds": "1,1",
           "title": "Disabled",
           "type": "singlestat",
           "valueFontSize": "80%",
@@ -2007,6 +1909,13 @@
           "editable": true,
           "error": false,
           "format": "none",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "id": 71,
           "interval": "> 60s",
           "links": [],
@@ -2046,6 +1955,7 @@
                 }
               ],
               "measurement": "openstack_nova_services",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"openstack_nova_services\" WHERE \"environment_label\" = '$environment' AND \"service\" = 'compute' AND \"state\" = 'up' AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
@@ -2085,7 +1995,7 @@
               ]
             }
           ],
-          "thresholds": "0,0,1",
+          "thresholds": "0,1",
           "title": "Up",
           "type": "singlestat",
           "valueFontSize": "80%",
@@ -2111,6 +2021,13 @@
           "editable": true,
           "error": false,
           "format": "none",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "id": 72,
           "interval": "> 60s",
           "links": [],
@@ -2150,6 +2067,7 @@
                 }
               ],
               "measurement": "openstack_nova_services",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"openstack_nova_services\" WHERE \"environment_label\" = '$environment' AND \"service\" = 'compute' AND \"state\" = 'down' AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
@@ -2189,7 +2107,7 @@
               ]
             }
           ],
-          "thresholds": "1,0,0",
+          "thresholds": "0,0",
           "title": "Down",
           "type": "singlestat",
           "valueFontSize": "80%",
@@ -2259,6 +2177,7 @@
                 }
               ],
               "measurement": "openstack_nova_service",
+              "policy": "default",
               "query": "SELECT state, last(value) FROM \"openstack_nova_service\" WHERE $timeFilter AND \"environment_label\" = '$environment'and service = 'compute' GROUP BY time($interval), hostname",
               "rawQuery": true,
               "refId": "A",
@@ -2311,6 +2230,13 @@
           "editable": true,
           "error": false,
           "format": "none",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "id": 76,
           "interval": "> 60s",
           "links": [],
@@ -2350,6 +2276,7 @@
                 }
               ],
               "measurement": "openstack_nova_services",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"openstack_nova_services\" WHERE \"environment_label\" = '$environment' AND \"service\" = 'scheduler' AND \"state\" = 'disabled' AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
@@ -2389,7 +2316,7 @@
               ]
             }
           ],
-          "thresholds": "0,0,1",
+          "thresholds": "0,1",
           "title": "",
           "type": "singlestat",
           "valueFontSize": "80%",
@@ -2415,6 +2342,13 @@
           "editable": true,
           "error": false,
           "format": "none",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "id": 77,
           "interval": "> 60s",
           "links": [],
@@ -2454,6 +2388,7 @@
                 }
               ],
               "measurement": "openstack_nova_services",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"openstack_nova_services\" WHERE \"environment_label\" = '$environment' AND \"service\" = 'scheduler' AND \"state\" = 'up' AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
@@ -2493,7 +2428,7 @@
               ]
             }
           ],
-          "thresholds": "0,0,1",
+          "thresholds": "0,1",
           "title": "",
           "type": "singlestat",
           "valueFontSize": "80%",
@@ -2519,6 +2454,13 @@
           "editable": true,
           "error": false,
           "format": "none",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "id": 78,
           "interval": "> 60s",
           "links": [],
@@ -2558,6 +2500,7 @@
                 }
               ],
               "measurement": "openstack_nova_services",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"openstack_nova_services\" WHERE \"environment_label\" = '$environment' AND \"service\" = 'scheduler' AND \"state\" = 'down' AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
@@ -2597,7 +2540,7 @@
               ]
             }
           ],
-          "thresholds": "1,0,0",
+          "thresholds": "0,0",
           "title": "",
           "type": "singlestat",
           "valueFontSize": "80%",
@@ -2667,6 +2610,7 @@
                 }
               ],
               "measurement": "openstack_nova_service",
+              "policy": "default",
               "query": "SELECT state, last(value) FROM \"openstack_nova_service\" WHERE $timeFilter AND \"environment_label\" = '$environment'and service = 'scheduler' GROUP BY time($interval), hostname",
               "rawQuery": true,
               "refId": "A",
@@ -2719,6 +2663,13 @@
           "editable": true,
           "error": false,
           "format": "none",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "id": 84,
           "interval": "> 60s",
           "links": [],
@@ -2758,6 +2709,7 @@
                 }
               ],
               "measurement": "openstack_nova_services",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"openstack_nova_services\" WHERE \"environment_label\" = '$environment' AND \"service\" = 'conductor' AND \"state\" = 'disabled' AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
@@ -2797,7 +2749,7 @@
               ]
             }
           ],
-          "thresholds": "0,0,1",
+          "thresholds": "0,1",
           "title": "",
           "type": "singlestat",
           "valueFontSize": "80%",
@@ -2823,6 +2775,13 @@
           "editable": true,
           "error": false,
           "format": "none",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "id": 85,
           "interval": "> 60s",
           "links": [],
@@ -2862,6 +2821,7 @@
                 }
               ],
               "measurement": "openstack_nova_services",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"openstack_nova_services\" WHERE \"environment_label\" = '$environment' AND \"service\" = 'conductor' AND \"state\" = 'up' AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
@@ -2901,7 +2861,7 @@
               ]
             }
           ],
-          "thresholds": "0,0,1",
+          "thresholds": "0,1",
           "title": "",
           "type": "singlestat",
           "valueFontSize": "80%",
@@ -2927,6 +2887,13 @@
           "editable": true,
           "error": false,
           "format": "none",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "id": 86,
           "interval": "> 60s",
           "links": [],
@@ -2966,6 +2933,7 @@
                 }
               ],
               "measurement": "openstack_nova_services",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"openstack_nova_services\" WHERE \"environment_label\" = '$environment' AND \"service\" = 'conductor' AND \"state\" = 'down' AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
@@ -3005,7 +2973,7 @@
               ]
             }
           ],
-          "thresholds": "1,0,0",
+          "thresholds": "0,0",
           "title": "",
           "type": "singlestat",
           "valueFontSize": "80%",
@@ -3075,6 +3043,7 @@
                 }
               ],
               "measurement": "openstack_nova_service",
+              "policy": "default",
               "query": "SELECT state, last(value) FROM \"openstack_nova_service\" WHERE $timeFilter AND \"environment_label\" = '$environment'and service = 'conductor' GROUP BY time($interval), hostname",
               "rawQuery": true,
               "refId": "A",
@@ -3127,6 +3096,13 @@
           "editable": true,
           "error": false,
           "format": "none",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "id": 89,
           "interval": "> 60s",
           "links": [],
@@ -3166,6 +3142,7 @@
                 }
               ],
               "measurement": "openstack_nova_services",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"openstack_nova_services\" WHERE \"environment_label\" = '$environment' AND \"service\" = 'cert' AND \"state\" = 'disabled' AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
@@ -3205,7 +3182,7 @@
               ]
             }
           ],
-          "thresholds": "0,0,1",
+          "thresholds": "0,1",
           "title": "",
           "type": "singlestat",
           "valueFontSize": "80%",
@@ -3231,6 +3208,13 @@
           "editable": true,
           "error": false,
           "format": "none",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "id": 90,
           "interval": "> 60s",
           "links": [],
@@ -3270,6 +3254,7 @@
                 }
               ],
               "measurement": "openstack_nova_services",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"openstack_nova_services\" WHERE \"environment_label\" = '$environment' AND \"service\" = 'cert' AND \"state\" = 'up' AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
@@ -3309,7 +3294,7 @@
               ]
             }
           ],
-          "thresholds": "0,0,1",
+          "thresholds": "0,1",
           "title": "",
           "type": "singlestat",
           "valueFontSize": "80%",
@@ -3335,6 +3320,13 @@
           "editable": true,
           "error": false,
           "format": "none",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "id": 91,
           "interval": "> 60s",
           "links": [],
@@ -3374,6 +3366,7 @@
                 }
               ],
               "measurement": "openstack_nova_services",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"openstack_nova_services\" WHERE \"environment_label\" = '$environment' AND \"service\" = 'cert' AND \"state\" = 'down' AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
@@ -3413,7 +3406,7 @@
               ]
             }
           ],
-          "thresholds": "1,0,0",
+          "thresholds": "0,0",
           "title": "",
           "type": "singlestat",
           "valueFontSize": "80%",
@@ -3483,6 +3476,7 @@
                 }
               ],
               "measurement": "openstack_nova_service",
+              "policy": "default",
               "query": "SELECT state, last(value) FROM \"openstack_nova_service\" WHERE $timeFilter AND \"environment_label\" = '$environment'and service = 'cert' GROUP BY time($interval), hostname",
               "rawQuery": true,
               "refId": "A",
@@ -3535,6 +3529,13 @@
           "editable": true,
           "error": false,
           "format": "none",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "id": 94,
           "interval": "> 60s",
           "links": [],
@@ -3574,6 +3575,7 @@
                 }
               ],
               "measurement": "openstack_nova_services",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"openstack_nova_services\" WHERE \"environment_label\" = '$environment' AND \"service\" = 'consoleauth' AND \"state\" = 'disabled' AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
@@ -3613,7 +3615,7 @@
               ]
             }
           ],
-          "thresholds": "0,0,1",
+          "thresholds": "0,1",
           "title": "",
           "type": "singlestat",
           "valueFontSize": "80%",
@@ -3639,6 +3641,13 @@
           "editable": true,
           "error": false,
           "format": "none",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "id": 95,
           "interval": "> 60s",
           "links": [],
@@ -3678,6 +3687,7 @@
                 }
               ],
               "measurement": "openstack_nova_services",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"openstack_nova_services\" WHERE \"environment_label\" = '$environment' AND \"service\" = 'consoleauth' AND \"state\" = 'up' AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
@@ -3717,7 +3727,7 @@
               ]
             }
           ],
-          "thresholds": "0,0,1",
+          "thresholds": "0,1",
           "title": "",
           "type": "singlestat",
           "valueFontSize": "80%",
@@ -3743,6 +3753,13 @@
           "editable": true,
           "error": false,
           "format": "none",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "id": 96,
           "interval": "> 60s",
           "links": [],
@@ -3782,6 +3799,7 @@
                 }
               ],
               "measurement": "openstack_nova_services",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"openstack_nova_services\" WHERE \"environment_label\" = '$environment' AND \"service\" = 'consoleauth' AND \"state\" = 'down' AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
@@ -3821,7 +3839,7 @@
               ]
             }
           ],
-          "thresholds": "1,0,0",
+          "thresholds": "0,0",
           "title": "",
           "type": "singlestat",
           "valueFontSize": "80%",
@@ -3891,6 +3909,7 @@
                 }
               ],
               "measurement": "openstack_nova_service",
+              "policy": "default",
               "query": "SELECT state, last(value) FROM \"openstack_nova_service\" WHERE $timeFilter AND \"environment_label\" = '$environment'and service = 'consoleauth' GROUP BY time($interval), hostname",
               "rawQuery": true,
               "refId": "A",
@@ -3940,6 +3959,13 @@
           "editable": true,
           "error": false,
           "format": "none",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "id": 27,
           "interval": "> 60s",
           "links": [],
@@ -3979,6 +4005,7 @@
               ],
               "groupByTags": [],
               "measurement": "openstack_nova_instances",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"openstack_nova_instances\" WHERE \"environment_label\" = '$environment' AND \"state\" = 'active' AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
@@ -4033,12 +4060,6 @@
           "error": false,
           "fill": 0,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": 0,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -4046,7 +4067,6 @@
           },
           "id": 64,
           "interval": ">60s",
-          "leftYAxisLabel": "number of instances",
           "legend": {
             "avg": false,
             "current": true,
@@ -4090,6 +4110,7 @@
               ],
               "groupByTags": [],
               "measurement": "openstack_nova_instances",
+              "policy": "default",
               "query": "SELECT max(\"value\") FROM \"openstack_nova_instances\" WHERE \"environment_label\" = '$environment' AND \"state\" = 'active' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "A",
@@ -4126,15 +4147,30 @@
           "timeShift": null,
           "title": "",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "value_type": "cumulative"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "short",
-            "short"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": "number of instances",
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         },
         {
@@ -4150,6 +4186,13 @@
           "editable": true,
           "error": false,
           "format": "none",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "id": 39,
           "interval": "> 60s",
           "links": [],
@@ -4189,6 +4232,7 @@
               ],
               "groupByTags": [],
               "measurement": "openstack_nova_instances",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"openstack_nova_instances\" WHERE \"environment_label\" = '$environment' AND \"state\" = 'error' AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
@@ -4242,12 +4286,6 @@
           "error": false,
           "fill": 0,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": 0,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -4255,7 +4293,6 @@
           },
           "id": 65,
           "interval": ">60s",
-          "leftYAxisLabel": "number of instances",
           "legend": {
             "avg": false,
             "current": true,
@@ -4299,6 +4336,7 @@
               ],
               "groupByTags": [],
               "measurement": "openstack_nova_instances",
+              "policy": "default",
               "query": "SELECT max(\"value\") FROM \"openstack_nova_instances\" WHERE \"environment_label\" = '$environment' AND \"state\" = 'error' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "A",
@@ -4335,15 +4373,30 @@
           "timeShift": null,
           "title": "",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "value_type": "cumulative"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "short",
-            "short"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": "number of instances",
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         },
         {
@@ -4359,6 +4412,13 @@
           "editable": true,
           "error": false,
           "format": "s",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "id": 68,
           "interval": ">1m",
           "links": [],
@@ -4398,6 +4458,7 @@
               ],
               "groupByTags": [],
               "measurement": "openstack_nova_instance_creation_time",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"openstack_nova_instance_creation_time\" WHERE \"environment_label\" = '$environment' AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
@@ -4447,12 +4508,6 @@
           "error": false,
           "fill": 0,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": 0,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -4460,7 +4515,6 @@
           },
           "id": 28,
           "interval": ">60s",
-          "leftYAxisLabel": "creation time",
           "legend": {
             "alignAsTable": false,
             "avg": false,
@@ -4507,6 +4561,7 @@
               ],
               "groupByTags": [],
               "measurement": "openstack_nova_instance_creation_time",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"openstack_nova_instance_creation_time\" WHERE \"environment_label\" = '$environment' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "A",
@@ -4556,6 +4611,7 @@
               ],
               "groupByTags": [],
               "measurement": "openstack_nova_instance_creation_time",
+              "policy": "default",
               "query": "SELECT max(\"value\") FROM \"openstack_nova_instance_creation_time\" WHERE \"environment_label\" = '$environment' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "B",
@@ -4605,6 +4661,7 @@
               ],
               "groupByTags": [],
               "measurement": "openstack_nova_instance_creation_time",
+              "policy": "default",
               "query": "SELECT min(\"value\") FROM \"openstack_nova_instance_creation_time\" WHERE \"environment_label\" = '$environment' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "C",
@@ -4637,15 +4694,30 @@
           "timeShift": null,
           "title": "",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "value_type": "cumulative"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "s",
-            "short"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "s",
+              "label": "creation time",
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         }
       ],
@@ -4682,6 +4754,13 @@
           "editable": true,
           "error": false,
           "format": "none",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "id": 32,
           "interval": "> 60s",
           "links": [],
@@ -4721,6 +4800,7 @@
               ],
               "groupByTags": [],
               "measurement": "openstack_nova_total_used_vcpus",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"openstack_nova_total_used_vcpus\" WHERE \"environment_label\" = '$environment' AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
@@ -4775,6 +4855,13 @@
           "editable": true,
           "error": false,
           "format": "gbytes",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "id": 30,
           "interval": "> 60s",
           "links": [],
@@ -4814,6 +4901,7 @@
               ],
               "groupByTags": [],
               "measurement": "openstack_nova_total_used_disk",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"openstack_nova_total_used_disk\" WHERE \"environment_label\" = '$environment' AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
@@ -4868,6 +4956,13 @@
           "editable": true,
           "error": false,
           "format": "mbytes",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "id": 31,
           "interval": "> 60s",
           "links": [],
@@ -4907,6 +5002,7 @@
               ],
               "groupByTags": [],
               "measurement": "openstack_nova_total_used_ram",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"openstack_nova_total_used_ram\" WHERE \"environment_label\" = '$environment' AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
@@ -4985,6 +5081,13 @@
           "editable": true,
           "error": false,
           "format": "none",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "id": 37,
           "interval": "> 60s",
           "links": [],
@@ -5024,6 +5127,7 @@
               ],
               "groupByTags": [],
               "measurement": "openstack_nova_total_free_vcpus",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"openstack_nova_total_free_vcpus\" WHERE \"environment_label\" = '$environment' AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
@@ -5078,6 +5182,13 @@
           "editable": true,
           "error": false,
           "format": "gbytes",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "id": 33,
           "interval": "> 60s",
           "links": [],
@@ -5117,6 +5228,7 @@
               ],
               "groupByTags": [],
               "measurement": "openstack_nova_total_free_disk",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"openstack_nova_total_free_disk\" WHERE \"environment_label\" = '$environment' AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
@@ -5171,6 +5283,13 @@
           "editable": true,
           "error": false,
           "format": "mbytes",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "id": 36,
           "interval": "> 60s",
           "links": [],
@@ -5210,6 +5329,7 @@
               ],
               "groupByTags": [],
               "measurement": "openstack_nova_total_free_ram",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"openstack_nova_total_free_ram\" WHERE \"environment_label\" = '$environment' AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
@@ -5268,7 +5388,7 @@
       "title": "Resources"
     }
   ],
-  "schemaVersion": 8,
+  "schemaVersion": 12,
   "sharedCrosshair": true,
   "style": "dark",
   "tags": [],
@@ -5279,11 +5399,12 @@
         "allFormat": "regex values",
         "current": {},
         "datasource": null,
+        "hide": 0,
         "includeAll": false,
         "name": "environment",
         "options": [],
         "query": "show tag values from cpu_idle with key = environment_label",
-        "refresh": true,
+        "refresh": 1,
         "refresh_on_load": true,
         "regex": "",
         "type": "query"
@@ -5292,11 +5413,12 @@
         "allFormat": "regex values",
         "current": {},
         "datasource": "lma",
+        "hide": 0,
         "includeAll": true,
         "name": "server",
         "options": [],
         "query": "show tag values from pacemaker_local_resource_active with key = hostname where environment_label = '$environment' ",
-        "refresh": true,
+        "refresh": 1,
         "refresh_on_load": true,
         "regex": "",
         "type": "query"
@@ -5340,5 +5462,5 @@
   },
   "timezone": "browser",
   "title": "Nova",
-  "version": 12
+  "version": 4
 }
