@@ -2765,7 +2765,7 @@
         "includeAll": false,
         "name": "service",
         "options": [],
-        "query": "show tag values from haproxy_backend_servers with key = backend where hostname = '$server'",
+        "query": "show tag values from haproxy_backend_servers with key = backend where hostname = '$server' and environment_label = '$environment'",
         "refresh": true,
         "refresh_on_load": true,
         "regex": "",
