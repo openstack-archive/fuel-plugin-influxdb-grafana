@@ -2091,7 +2091,7 @@
         "multiFormat": "glob",
         "name": "instance_id",
         "options": [],
-        "query": "show tag values from virt_cpu_time with key = instance_id where hostname = '$hostname'",
+        "query": "show tag values from virt_cpu_time with key = instance_id where hostname = '$hostname' and environment_label = '$environment'",
         "refresh": true,
         "refresh_on_load": true,
         "type": "query"
@@ -2105,7 +2105,7 @@
         "multiFormat": "glob",
         "name": "disk",
         "options": [],
-        "query": "show tag values from virt_disk_octets_read with key = device where hostname = '$hostname' and instance_id = '$instance_id'",
+        "query": "show tag values from virt_disk_octets_read with key = device where hostname = '$hostname' and instance_id = '$instance_id' and environment_label = '$environment'",
         "refresh": true,
         "refresh_on_load": true,
         "regex": "",
@@ -2120,7 +2120,7 @@
         "multiFormat": "glob",
         "name": "interface",
         "options": [],
-        "query": "show tag values from virt_if_octets_rx with key = interface where hostname = '$hostname' and instance_id = '$instance_id'",
+        "query": "show tag values from virt_if_octets_rx with key = interface where hostname = '$hostname' and instance_id = '$instance_id' and environment_label = '$environment'",
         "refresh": true,
         "refresh_on_load": true,
         "type": "query"
