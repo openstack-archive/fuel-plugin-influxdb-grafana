@@ -45,5 +45,6 @@ class {'lma_monitoring_analytics::grafana':
   admin_username => $admin_username,
   admin_password => $admin_password,
   domain         => hiera('lma::influxdb::vip'),
-  http_port      => hiera('lma::influxdb::grafana_port')
+  http_port      => hiera('lma::influxdb::grafana_port'),
+  version        => '3.0.4-1464167696',
 }
