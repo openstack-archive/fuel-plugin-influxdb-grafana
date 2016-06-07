@@ -8,7 +8,7 @@ CONCAT_TARBALL_URL="https://forgeapi.puppetlabs.com/v3/files/puppetlabs-concat-1
 STDLIB_TARBALL_URL="https://forgeapi.puppetlabs.com/v3/files/puppetlabs-stdlib-4.7.0.tar.gz"
 INIFILE_TARBALL_URL="https://forgeapi.puppetlabs.com/v3/files/puppetlabs-inifile-1.4.1.tar.gz"
 LVM_TARBALL_URL="https://forgeapi.puppetlabs.com/v3/files/puppetlabs-lvm-0.5.0.tar.gz"
-GRAFANA_TARBALL_URL="https://forgeapi.puppetlabs.com/v3/files/bfraser-grafana-2.1.0.tar.gz"
+GRAFANA_TARBALL_URL="https://forgeapi.puppetlabs.com/v3/files/bfraser-grafana-2.5.0.tar.gz"
 MYSQL_TARBALL_URL="https://forgeapi.puppetlabs.com/v3/files/puppetlabs-mysql-3.6.2.tar.gz"
 FIREWALL_TARBALL_URL="https://forgeapi.puppetlabs.com/v3/files/puppetlabs-firewall-1.7.2.tar.gz"
 
