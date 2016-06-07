@@ -42,7 +42,7 @@ class lma_monitoring_analytics::grafana (
 
   class { '::grafana':
     install_method      => 'repo',
-    version             => latest,
+    version             => '3.0.4-1464167696',
     manage_package_repo => false,
     cfg                 => {
       server    => {
