@@ -41,11 +41,37 @@ class lma_monitoring_analytics::grafana (
     $full_db_host = "${db_host}:3306"
   }
 
+  # The user and group are provisioned before creating the log directory, this
+  # works since the Grafana package uses the same user/group pair (this is
+  # the case per default).
+  # This doesn't work if the user/group used by the init script are changed to
+  # the Grafana launch, unfortunatly the grafana module doesn't provide ability
+  # to configure them.
+  user { 'grafana':
+    ensure => present,
+  }
+  group { 'grafana':
+    ensure => present,
+  }
+
+  # Assume that /var/log already exists
+  $log_dir = '/var/log/grafana'
+  file { $log_dir:
+    ensure  => 'directory',
+    owner   => 'grafana',
+    group   => 'grafana',
+    mode    => '0655',
+    require => [User['grafana'], Group['grafana']],
+  }
+
   class { '::grafana':
     install_method      => 'repo',
     version             => $version,
     manage_package_repo => false,
     cfg                 => {
+      path      => {
+        logs => $log_dir,
+      },
       server    => {
         http_address => $http_address,
         http_port    => $http_port,
@@ -66,5 +92,17 @@ class lma_monitoring_analytics::grafana (
         reporting_enabled => false,
       },
     },
+    require             => File[$log_dir],
+  }
+
+  # The following template used $log_dir variable.
+  $logrotate_conf = '/etc/logrotate.d/grafana.conf'
+  file { $logrotate_conf:
+    ensure  => present,
+    content => template('lma_monitoring_analytics/logrotate.conf.erb'),
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+    require => Class['::grafana'],
   }
 }
