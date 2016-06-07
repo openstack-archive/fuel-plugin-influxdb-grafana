@@ -24,6 +24,7 @@ class lma_monitoring_analytics::grafana (
   $domain            = $lma_monitoring_analytics::params::grafana_domain,
   $http_address      = $lma_monitoring_analytics::params::grafana_address,
   $http_port         = $lma_monitoring_analytics::params::grafana_port,
+  $version           = '3.0.4-1464167696',
 ) inherits lma_monitoring_analytics::params {
 
   validate_string($db_host)
@@ -42,7 +43,7 @@ class lma_monitoring_analytics::grafana (
 
   class { '::grafana':
     install_method      => 'repo',
-    version             => latest,
+    version             => $version,
     manage_package_repo => false,
     cfg                 => {
       server    => {

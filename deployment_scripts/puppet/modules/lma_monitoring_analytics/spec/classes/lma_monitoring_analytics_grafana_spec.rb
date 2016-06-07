@@ -26,7 +26,7 @@ describe 'lma_monitoring_analytics::grafana', :type => :class do
              :db_password => 'grafana'}
         end
         it { is_expected.to contain_package('grafana').with(
-            :ensure => 'latest'
+            :ensure => '3.0.4-1464167696'
         )}
     end
 
@@ -38,7 +38,7 @@ describe 'lma_monitoring_analytics::grafana', :type => :class do
              :db_password => 'grafana'}
         end
         it { is_expected.to contain_package('grafana').with(
-            :ensure => 'latest'
+            :ensure => '3.0.4-1464167696'
         )}
     end
 end
