@@ -67,4 +67,13 @@ class lma_monitoring_analytics::grafana (
       },
     },
   }
+
+  file { '/etc/logrotate.d/grafana.conf':
+    ensure  => present,
+    content => template('lma_monitoring_analytics/logrotate.conf.erb'),
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+    require => Class['::grafana'],
+  }
 }

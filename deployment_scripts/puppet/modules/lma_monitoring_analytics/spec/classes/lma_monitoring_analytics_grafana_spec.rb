@@ -28,6 +28,8 @@ describe 'lma_monitoring_analytics::grafana', :type => :class do
         it { is_expected.to contain_package('grafana').with(
             :ensure => 'latest'
         )}
+
+        it { is_expected.to  contain_file('/etc/logrotate.d/grafana.conf') }
     end
 
     describe 'db_host without port number' do
