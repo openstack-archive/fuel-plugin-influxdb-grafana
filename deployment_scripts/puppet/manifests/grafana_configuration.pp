@@ -19,12 +19,17 @@ $master_ip = hiera('master_ip')
 $vip = hiera('lma::influxdb::vip')
 $grafana_port = hiera('lma::influxdb::grafana_port')
 $influxdb_port = hiera('lma::influxdb::influxdb_port')
-$grafana_link_data = "{\"title\":\"Grafana\",\
-\"description\":\"Dashboard for visualizing metrics\",\
-\"url\":\"http://${vip}:${grafana_port}/\"}"
-$grafana_link_created_file = '/var/cache/grafana_link_created'
 $influxdb_grafana = hiera('influxdb_grafana')
+if $influxdb_grafana['tls_enabled'] {
+  $protocol = 'https'
+} else {
+  $protocol = 'http'
+}
 
+$grafana_link_data = "{\"title\":\"Grafana\",\
+\"description\":\"Dashboard for visualizing metrics (${vip})\",\
+\"url\":\"${protocol}://${influxdb_grafana['grafana_hostname']}:${grafana_port}/\"}"
+$grafana_link_created_file = '/var/cache/grafana_link_created'
 $admin_username = $influxdb_grafana['grafana_username']
 $admin_password = $influxdb_grafana['grafana_userpass']
 $influxdb_username = $influxdb_grafana['influxdb_username']
@@ -32,7 +37,6 @@ $influxdb_password = $influxdb_grafana['influxdb_userpass']
 $influxdb_database = $influxdb_grafana['influxdb_dbname']
 
 $lma_collector = hiera_hash('lma_collector', {})
-
 $influxdb_mode = $lma_collector['influxdb_mode']
 $import_influxdb = $influxdb_mode ? {
   'local' => true,
@@ -53,7 +57,7 @@ grafana_datasource { 'lma':
   database         => $influxdb_database,
   access_mode      => 'proxy',
   is_default       => true,
-  grafana_url      => "http://${vip}:${grafana_port}",
+  grafana_url      => "${protocol}://${vip}:${grafana_port}",
   grafana_user     => $admin_username,
   grafana_password => $admin_password,
 }
@@ -61,6 +65,7 @@ grafana_datasource { 'lma':
 class {'lma_monitoring_analytics::grafana_dashboards':
   admin_username       => $admin_username,
   admin_password       => $admin_password,
+  protocol             => $protocol,
   host                 => $vip,
   import_elasticsearch => $import_elasticsearch,
   import_influxdb      => $import_influxdb,
