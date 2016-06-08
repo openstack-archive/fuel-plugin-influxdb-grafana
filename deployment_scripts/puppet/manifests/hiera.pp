@@ -35,6 +35,32 @@ $leader_ip_address = $leader_ip_addresses[0]
 $influxdb_others = get_nodes_hash_by_roles($network_metadata, ['influxdb_grafana'])
 $others_ip_addresses = sort(values(get_node_to_ipaddr_map_by_network_role($influxdb_others, 'influxdb_vip')))
 
+$tls_enabled = $influxdb_grafana['tls_enabled']
+if $tls_enabled {
+  $grafana_hostname = $influxdb_grafana['grafana_hostname']
+  $cert_base_dir = '/etc/haproxy'
+  $cert_dir = "${cert_base_dir}/certs"
+  $cert_file_path = "${cert_dir}/${influxdb_grafana['grafana_ssl_cert']['name']}"
+
+  file { $cert_base_dir:
+    ensure => directory,
+    mode   => '0755'
+  }
+
+  file { $cert_dir:
+    ensure  => directory,
+    mode    => '0700',
+    require => File[$cert_base_dir]
+  }
+
+  file { $cert_file_path:
+    ensure  => present,
+    mode    => '0440',
+    content => $influxdb_grafana['grafana_ssl_cert']['content'],
+    require => File[$cert_dir]
+  }
+}
+
 $calculated_content = inline_template('
 ---
 lma::influxdb::data_dir: "/var/lib/influxdb"
@@ -51,6 +77,12 @@ lma::influxdb::vip: <%= @influxdb_vip %>
 lma::corosync_roles:
     - primary-influxdb_grafana
     - influxdb_grafana
+
+lma::grafana::tls_enabled: <%= @tls_enabled %>
+<% if @tls_enabled -%>
+lma::grafana::hostname: "<%= @grafana_hostname %>"
+lma::grafana::cert_file_path: "<%= @cert_file_path %>"
+<% end -%>
 ')
 
 file { $hiera_file:
