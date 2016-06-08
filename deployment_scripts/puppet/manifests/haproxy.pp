@@ -19,6 +19,7 @@ $nodes_names = prefix(range(1, size($nodes_ips)), 'server_')
 $stats_port    = '1000'
 $influxdb_port = hiera('lma::influxdb::influxdb_port')
 $grafana_port  = hiera('lma::influxdb::grafana_port')
+$influxdb_grafana = hiera_hash('influxdb_grafana')
 
 Openstack::Ha::Haproxy_service {
   balancermember_options => 'check',
@@ -46,15 +47,59 @@ openstack::ha::haproxy_service { 'influxdb':
 # client IP address will always reach the same server (as long as no server
 # goes down or up). This is needed to support sticky session and to be able
 # to authenticate.
-openstack::ha::haproxy_service { 'grafana':
-  order                  => '801',
-  listen_port            => $grafana_port,
-  balancermember_port    => $grafana_port,
-  haproxy_config_options => {
-    'option'  => ['httplog', 'dontlog-normal'],
-    'balance' => 'source',
-    'mode'    => 'http',
-  },
+if $influxdb_grafana['enable_tls'] {
+
+  $cert_file = $influxdb_grafana['cert_file_path']
+
+  file {$cert_file:
+    ensure  => present,
+    content => "${influxdb_grafana['grafana_ssl_cert']['content']}"
+  }
+
+  # We don't use the resource openstack::ha::haproxy_service because we cannot
+  # modify the parameter used to configure SSL in HAProxy and we are not using
+  # the same parameters than the ones used for OpenStack services.
+  include openstack::ha::haproxy_restart
+
+  $virtual_ip = hiera('lma::influxdb::vip')
+
+  $bind_address = suffix(any2array($virtual_ip), ":${grafana_port}")
+  $bind = array_to_hash($bind_address, ['ssl', 'crt', $cert_file])
+
+  # Configure HAProxy to listen
+  haproxy::listen { 'grafana':
+    order       => '801',
+    bind        => $bind,
+    options     => {
+      'option'  => ['httplog', 'dontlog-normal'],
+      'balance' => 'source',
+      'mode'    => 'http',
+    },
+    use_include => true,
+    notify      => Exec['haproxy-restart'],
+  }
+
+  haproxy::balancermember { 'grafana':
+    order             => '801',
+    listening_service => $name,
+    server_names      => $nodes_names,
+    ipaddresses       => $nodes_ips,
+    ports             => $grafana_port,
+    options           => 'check',
+    use_include       => true,
+    notify            => Exec['haproxy-restart'],
+  }
+} else {
+  openstack::ha::haproxy_service { 'grafana':
+    order                  => '801',
+    listen_port            => $grafana_port,
+    balancermember_port    => $grafana_port,
+    haproxy_config_options => {
+      'option'  => ['httplog', 'dontlog-normal'],
+      'balance' => 'source',
+      'mode'    => 'http',
+    },
+  }
 }
 
 openstack::ha::haproxy_service { 'stats':
