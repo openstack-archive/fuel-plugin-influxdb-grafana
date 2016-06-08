@@ -13,6 +13,7 @@
     - netconfig
     - hosts
     - influxdb-hiera
+    - grafana-validate-certificate
     - influxdb-firewall
     - influxdb-cluster
     - influxdb-cluster-haproxy
@@ -46,6 +47,19 @@
   required_for: [logging]
   parameters:
     puppet_manifest: "puppet/manifests/hiera.pp"
+    puppet_modules: puppet/modules:/etc/puppet/modules
+    timeout: 120
+  # reexecute_on is needed for scale-down operations
+  reexecute_on:
+    - deploy_changes
+
+- id: grafana-validate-certificate
+  type: puppet
+  version: 2.0.0
+  requires: [influxdb-hiera]
+  required_for: [influxdb-firewall]
+  parameters:
+    puppet_manifest: "puppet/manifests/validate_certificate.pp"
     puppet_modules: puppet/modules:/etc/puppet/modules
     timeout: 120
   # reexecute_on is needed for scale-down operations
