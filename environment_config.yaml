@@ -82,6 +82,33 @@ attributes:
       source: '^[\S]{4,}$'
       error: "You must provide a password with at least 4 characters"
 
+  tls_enabled:
+    value: false
+    label: 'Enable TLS for Grafana'
+    description: ''
+    weight: 82
+    type: "checkbox"
+
+  grafana_hostname:
+    value: 'grafana.fuel.local'
+    label: 'DNS hostname for Grafana'
+    description: 'Your DNS entries should point to this name'
+    weight: 84
+    type: "text"
+    restrictions:
+      - condition: "settings:influxdb_grafana.tls_enabled.value == false"
+        action: "hide"
+
+  grafana_ssl_cert:
+    value: ''
+    label: 'Certificate for Grafana'
+    description: 'Certificate and private key data, concatenated into a single file'
+    weight: 86
+    type: "file"
+    restrictions:
+      - condition: "settings:influxdb_grafana.tls_enabled.value == false"
+        action: "hide"
+
   mysql_mode:
     type: "radio"
     value: 'local'

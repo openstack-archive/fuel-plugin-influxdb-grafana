@@ -51,6 +51,8 @@ lma::influxdb::vip: <%= @influxdb_vip %>
 lma::corosync_roles:
     - primary-influxdb_grafana
     - influxdb_grafana
+
+lma::grafana::cert_file_path: "/etc/haproxy/conf.d/grafana.pem"
 ')
 
 file { $hiera_file:
