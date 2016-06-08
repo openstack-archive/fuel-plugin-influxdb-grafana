@@ -15,6 +15,7 @@
 require 'cgi'
 require 'json'
 require 'net/http'
+require 'net/https'
 
 class Puppet::Provider::Grafana < Puppet::Provider
     # Helper methods
@@ -78,8 +79,16 @@ class Puppet::Provider::Grafana < Puppet::Provider
             request.basic_auth resource[:grafana_user], resource[:grafana_password]
         end
 
-        return Net::HTTP.start(self.grafana_host, self.grafana_port) do |http|
-            http.request(request)
+        if self.grafana_scheme == "https"
+            return Net::HTTP.start(self.grafana_host, self.grafana_port,
+                                   :use_ssl => true,
+                                   :verify_mode => OpenSSL::SSL::VERIFY_NONE) do |https|
+                                       https.request(request)
+                                   end
+        else
+            return Net::HTTP.start(self.grafana_host, self.grafana_port) do |http|
+                http.request(request)
+            end
         end
     end
 end
