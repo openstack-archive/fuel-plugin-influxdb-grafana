@@ -78,9 +78,11 @@ class Puppet::Provider::Grafana < Puppet::Provider
             request.basic_auth resource[:grafana_user], resource[:grafana_password]
         end
 
-        return Net::HTTP.start(self.grafana_host, self.grafana_port) do |http|
-            http.request(request)
-        end
+        return Net::HTTP.start(self.grafana_host, self.grafana_port,
+                               :use_ssl => self.grafana_scheme == "https",
+                               :verify_mode => OpenSSL::SSL::VERIFY_NONE) do |http|
+                                   http.request(request)
+                               end
     end
 end
 
