@@ -17,6 +17,7 @@
 class lma_monitoring_analytics::grafana_dashboards (
   $admin_username,
   $admin_password,
+  $protocol = $lma_monitoring_analytics::params::protocol,
   $host = $lma_monitoring_analytics::params::grafana_domain,
   $port = $lma_monitoring_analytics::params::grafana_port,
   $import_influxdb = false,
@@ -25,7 +26,7 @@ class lma_monitoring_analytics::grafana_dashboards (
 
   $dashboard_defaults = {
     ensure           => present,
-    grafana_url      => "http://${host}:${port}",
+    grafana_url      => "${protocol}://${host}:${port}",
     grafana_user     => $admin_username,
     grafana_password => $admin_password,
   }
