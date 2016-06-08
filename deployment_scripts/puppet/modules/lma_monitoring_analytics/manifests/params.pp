@@ -22,4 +22,5 @@ class lma_monitoring_analytics::params {
   $grafana_domain              = 'localhost'
   $grafana_address             = ''
   $grafana_port                = 8000
+  $protocol                    = 'http'
 }
