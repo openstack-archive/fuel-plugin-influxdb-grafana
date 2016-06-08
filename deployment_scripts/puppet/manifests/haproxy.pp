@@ -19,6 +19,7 @@ $nodes_names = prefix(range(1, size($nodes_ips)), 'server_')
 $stats_port    = '1000'
 $influxdb_port = hiera('lma::influxdb::influxdb_port')
 $grafana_port  = hiera('lma::influxdb::grafana_port')
+$lma_collector = hiera_hash('lma_collector')
 
 Openstack::Ha::Haproxy_service {
   balancermember_options => 'check',
@@ -46,15 +47,45 @@ openstack::ha::haproxy_service { 'influxdb':
 # client IP address will always reach the same server (as long as no server
 # goes down or up). This is needed to support sticky session and to be able
 # to authenticate.
-openstack::ha::haproxy_service { 'grafana':
-  order                  => '801',
-  listen_port            => $grafana_port,
-  balancermember_port    => $grafana_port,
-  haproxy_config_options => {
-    'option'  => ['httplog', 'dontlog-normal'],
-    'balance' => 'source',
-    'mode'    => 'http',
-  },
+if $lma_collector['enable_tls'] {
+  $cert_file = '/etc/haproxy/conf.d/grafana.pem'
+
+  host {$lma_collector['grafana_hostname']:
+    ensure => present,
+    ip     => hiera('lma::influxdb::vip')
+  }
+
+  file {$cert_file:
+    ensure  => present,
+    content => "${lma_collector['grafana_ssl_cert']['content']}${lma_collector['ssl_private_key']['content']}"
+  }
+
+  openstack::ha::haproxy_service { 'grafana-ssl':
+    order                  => '801',
+    internal               => false,
+    public                 => true,
+    public_virtual_ip      => hiera('lma::influxdb::vip'),
+    public_ssl             => true,
+    public_ssl_path        => $cert_file,
+    listen_port            => $grafana_port,
+    balancermember_port    => $grafana_port,
+    haproxy_config_options => {
+      'option'  => ['httplog', 'dontlog-normal'],
+      'balance' => 'source',
+      'mode'    => 'http',
+    },
+  }
+} else {
+  openstack::ha::haproxy_service { 'grafana':
+    order                  => '801',
+    listen_port            => $grafana_port,
+    balancermember_port    => $grafana_port,
+    haproxy_config_options => {
+      'option'  => ['httplog', 'dontlog-normal'],
+      'balance' => 'source',
+      'mode'    => 'http',
+    },
+  }
 }
 
 openstack::ha::haproxy_service { 'stats':
