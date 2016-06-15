@@ -3,7 +3,33 @@
   type: group
   version: 2.0.0
   role: [primary-influxdb_grafana]
-  tasks: &common_tasks
+  tasks:
+    - hiera
+    - setup_repositories
+    - fuel_pkgs
+    - globals
+    - tools
+    - logging
+    - netconfig
+    - hosts
+    - influxdb-hiera
+    - influxdb-firewall
+    - influxdb-cluster
+    - influxdb-cluster-haproxy
+    - influxdb-vip
+    - influxdb-haproxy
+    - primary-influxdb-installation
+  requires: [deploy_start]
+  required_for: [deploy_end]
+  parameters:
+    strategy:
+      type: one_by_one
+
+- id: influxdb_grafana
+  type: group
+  version: 2.0.0
+  role: [influxdb_grafana]
+  tasks:
     - hiera
     - setup_repositories
     - fuel_pkgs
@@ -19,17 +45,6 @@
     - influxdb-vip
     - influxdb-haproxy
     - influxdb-installation
-  requires: [deploy_start]
-  required_for: [deploy_end]
-  parameters:
-    strategy:
-      type: one_by_one
-
-- id: influxdb_grafana
-  type: group
-  version: 2.0.0
-  role: [influxdb_grafana]
-  tasks: *common_tasks
   requires: [deploy_start, primary-influxdb_grafana]
   required_for: [deploy_end]
   parameters:
@@ -111,11 +126,27 @@
   reexecute_on:
     - deploy_changes
 
-- id: influxdb-installation
+- id: primary-influxdb-installation
   type: puppet
   version: 2.0.0
   requires: [influxdb-haproxy]
   required_for: [deploy_end]
+  parameters:
+    puppet_manifest: "puppet/manifests/influxdb.pp"
+    puppet_modules: puppet/modules:/etc/puppet/modules
+    timeout: 600
+
+- id: influxdb-installation
+  type: puppet
+  version: 2.0.0
+  requires: [influxdb-haproxy, primary-influxdb-installation]
+  required_for: [deploy_end]
+  # The cross-depends parameter is required because the installation on the
+  # secondary nodes should only happen once the InfluxDB service has been
+  # started on the primary.
+  cross-depends:
+    - name: primary-influxdb-installation
+      role: [primary-influxdb_grafana]
   parameters:
     puppet_manifest: "puppet/manifests/influxdb.pp"
     puppet_modules: puppet/modules:/etc/puppet/modules
