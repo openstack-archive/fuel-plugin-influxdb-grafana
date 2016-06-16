@@ -66,7 +66,7 @@ attributes:
     value: 'lma'
     label: 'User name'
     description: 'The name of the Grafana admin user'
-    weight: 70
+    weight: 62
     type: "text"
     regex:
       source: '\S'
@@ -76,24 +76,148 @@ attributes:
     value: ''
     label: 'User password'
     description: 'The password of the Grafana admin user'
-    weight: 80
+    weight: 64
     type: "password"
     regex:
       source: '^[\S]{4,}$'
       error: "You must provide a password with at least 4 characters"
 
+  ldap_enabled:
+    value: false
+    label: 'Use LDAP for Grafana authentication'
+    description: ''
+    weight: 70
+    type: "checkbox"
+
+  ldap_server_hosts:
+    value: 'localhost:389'
+    label: 'Bind DN'
+    description: 'DN used to bind to the server when searching for entries'
+    weight: 80
+    type: "text"
+    restrictions:
+      - condition: "settings:influxdb_grafana.ldap_enabled.value == false"
+        action: hide
+
+  ldap_mode:
+    type: "radio"
+    value: 'ldap'
+    weight: 90
+    label: 'LDAP mode'
+    values:
+      - data: "ldap"
+        label: "LDAP"
+      - data: "ldaps"
+        label: "LDAP over SSL"
+    restrictions:
+      - condition: "settings:influxdb_grafana.ldap_enabled.value == false"
+        action: hide
+
+  ldap_bind_dn:
+    value: 'dc=grafana,dc=org'
+    label: 'Bind DN'
+    description: 'DN used to bind to the server when searching for entries'
+    weight: 100
+    type: "text"
+    restrictions:
+      - condition: "settings:influxdb_grafana.ldap_enabled.value == false"
+        action: hide
+
+  ldap_bind_password:
+    value: ''
+    label: 'Bind password'
+    description: 'password to use in conjunction with the bind DN'
+    weight: 110
+    type: "password"
+    regex:
+      source: '^[\S]{4,}$'
+      error: "You must provide a password with at least 4 characters"
+    restrictions:
+      - condition: "settings:influxdb_grafana.ldap_enabled.value == false"
+        action: hide
+
+  ldap_search_base_dn:
+    value: 'dc=grafana,dc=org'
+    label: 'Search base DN'
+    description: 'The DN of the directory where search for user should start from'
+    weight: 120
+    type: "text"
+    restrictions:
+      - condition: "settings:influxdb_grafana.ldap_enabled.value == false"
+        action: hide
+
+  ldap_search_filter:
+    value: '(uid=%s)'
+    label: 'User search filter'
+    description: 'A valid LDAP search filter'
+    weight: 130
+    type: "text"
+    restrictions:
+      - condition: "settings:influxdb_grafana.ldap_enabled.value == false"
+        action: hide
+
+  ldap_group_search_base_dn:
+    value: 'ou=groups,dc=grafana,dc=org'
+    label: 'Group search base DN'
+    description: 'The DN of the directory where search for group should start from'
+    weight: 140
+    type: "text"
+    restrictions:
+      - condition: "settings:influxdb_grafana.ldap_enabled.value == false"
+        action: hide
+
+  ldap_group_search_filter:
+    value: '(&(objectClass=posixGroup)(memberUid=%s)'
+    label: 'Group search filter'
+    description: 'A valid LDAP search filter'
+    weight: 150
+    type: "text"
+    restrictions:
+      - condition: "settings:influxdb_grafana.ldap_enabled.value == false"
+        action: hide
+
+  ldap_admin_group_dn:
+    value: 'grafana_admins'
+    label: 'Group that maps to Admins role'
+    description: ''
+    weight: 160
+    type: "text"
+    restrictions:
+      - condition: "settings:influxdb_grafana.ldap_enabled.value == false"
+        action: hide
+
+  ldap_editor_group_dn:
+    value: 'grafana_editors'
+    label: 'Group that maps to Editors role'
+    description: ''
+    weight: 170
+    type: "text"
+    restrictions:
+      - condition: "settings:influxdb_grafana.ldap_enabled.value == false"
+        action: hide
+
+  ldap_viewer_group_dn:
+    value: 'grafana_viewers'
+    label: 'Group that maps to Viewers role'
+    description: ''
+    weight: 180
+    type: "text"
+    restrictions:
+      - condition: "settings:influxdb_grafana.ldap_enabled.value == false"
+        action: hide
+
   tls_enabled:
     value: false
     label: 'Enable TLS for Grafana'
     description: ''
-    weight: 82
+    weight: 210
     type: "checkbox"
 
   grafana_hostname:
     value: 'grafana.fuel.local'
     label: 'DNS hostname for Grafana'
     description: 'Your DNS entries should point to this name'
-    weight: 84
+    weight: 220
     type: "text"
     restrictions:
       - condition: "settings:influxdb_grafana.tls_enabled.value == false"
@@ -103,7 +227,7 @@ attributes:
     value: ''
     label: 'Certificate for Grafana'
     description: 'Certificate and private key data, concatenated into a single file'
-    weight: 86
+    weight: 230
     type: "file"
     restrictions:
       - condition: "settings:influxdb_grafana.tls_enabled.value == false"
@@ -112,7 +236,7 @@ attributes:
   mysql_mode:
     type: "radio"
     value: 'local'
-    weight: 90
+    weight: 240
     label: 'MySQL settings'
     values:
       - data: "local"
@@ -124,7 +248,7 @@ attributes:
     value: ''
     label: 'MySQL address and port'
     description: 'IP address or fully qualified domain name of the MySQL server and port. E.g. example.com:3307. Specifying the port is optional, the default value is 3306.'
-    weight: 100
+    weight: 250
     type: "text"
     restrictions:
       - condition: "settings:influxdb_grafana.mysql_mode.value != 'remote'"
@@ -137,7 +261,7 @@ attributes:
     value: 'grafana'
     label: 'MySQL database'
     description: "The name of the database. The database must be created beforehand when 'remote' mode is selected."
-    weight: 110
+    weight: 260
     type: 'text'
     regex:
       source: '^[a-zA-Z0-9$_]{1,64}$'
@@ -147,7 +271,7 @@ attributes:
     value: 'grafana'
     label: 'MySQL username'
     description: "The user must be provisioned beforehand when the 'remote' mode is selected."
-    weight: 120
+    weight: 270
     type: 'text'
     regex:
       source: '^[a-zA-Z0-9$_-]{1,16}$'
@@ -157,7 +281,7 @@ attributes:
     value: ''
     label: 'MySQL password'
     description: ''
-    weight: 130
+    weight: 280
     type: 'password'
     regex:
       source: '^[\S]{4,}$'
