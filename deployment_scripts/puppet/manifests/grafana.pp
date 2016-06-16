@@ -22,6 +22,26 @@ $db_password = $influxdb_grafana['mysql_password']
 $admin_username = $influxdb_grafana['grafana_username']
 $admin_password = $influxdb_grafana['grafana_userpass']
 
+$ldap_enabled = hiera('lma::grafana::ldap::enabled')
+if $ldap_enabled {
+  $ldap_parameters = {
+    servers               => hiera('lma::grafana::ldap::servers', ''),
+    protocol              => hiera('lma::grafana::ldap::protocol', ''),
+    port                  => hiera('lma::grafana::ldap::server_port', ''),
+    bind_dn               => hiera('lma::grafana::ldap::bind_dn', ''),
+    bind_password         => hiera('lma::grafana::ldap::bind_password', ''),
+    search_base_dn        => hiera('lma::grafana::ldap::search_base_dn', ''),
+    search_filter         => hiera('lma::grafana::ldap::search_filter', ''),
+    authorization_enabled => hiera('lma::grafana::ldap::authorization_enabled'),
+    group_search_base_dns => hiera('lma::grafana::ldap::group_search_base_dn'),
+    group_search_filter   => hiera('lma::grafana::ldap::group_search_filter'),
+    admin_group_dn        => hiera('lma::grafana::ldap::admin_group_dn', ''),
+    viewer_group_dn       => hiera('lma::grafana::ldap::viewer_group_dn', ''),
+  }
+} else {
+  $ldap_parameters = undef
+}
+
 case $db_mode {
 
   'local': {
@@ -38,13 +58,15 @@ case $db_mode {
 }
 
 class {'lma_monitoring_analytics::grafana':
-  db_host        => $db_host,
-  db_name        => $db_name,
-  db_username    => $db_username,
-  db_password    => $db_password,
-  admin_username => $admin_username,
-  admin_password => $admin_password,
-  domain         => hiera('lma::influxdb::vip'),
-  http_port      => hiera('lma::influxdb::grafana_port'),
-  version        => '3.0.4-1464167696',
+  db_host         => $db_host,
+  db_name         => $db_name,
+  db_username     => $db_username,
+  db_password     => $db_password,
+  admin_username  => $admin_username,
+  admin_password  => $admin_password,
+  domain          => hiera('lma::influxdb::vip'),
+  http_port       => hiera('lma::influxdb::grafana_port'),
+  version         => '3.0.4-1464167696',
+  ldap_enabled    => $ldap_enabled,
+  ldap_parameters => $ldap_parameters,
 }
