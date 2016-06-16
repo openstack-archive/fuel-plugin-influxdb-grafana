@@ -24,6 +24,8 @@ class lma_monitoring_analytics::grafana (
   $domain            = $lma_monitoring_analytics::params::grafana_domain,
   $http_address      = $lma_monitoring_analytics::params::grafana_address,
   $http_port         = $lma_monitoring_analytics::params::grafana_port,
+  $ldap_enabled      = false,
+  $ldap_parameters   = undef,
   $version           = 'latest',
 ) inherits lma_monitoring_analytics::params {
 
@@ -32,6 +34,9 @@ class lma_monitoring_analytics::grafana (
   validate_string($db_username)
   validate_string($db_password)
   validate_string($http_address)
+  if $ldap_enabled {
+    validate_hash($ldap_parameters)
+  }
 
   # If no port is specified Grafana will not start. So we check if the
   # variable contains a port value and if not, we add ':3306'.
@@ -41,31 +46,62 @@ class lma_monitoring_analytics::grafana (
     $full_db_host = "${db_host}:3306"
   }
 
+  $ldap_configuration_file = '/etc/grafana/ldap.toml'
+
   class { '::grafana':
     install_method      => 'repo',
     version             => $version,
     manage_package_repo => false,
     cfg                 => {
-      server    => {
+      server      => {
         http_address => $http_address,
         http_port    => $http_port,
         domain       => $domain,
       },
-      database  => {
+      database    => {
         type     => 'mysql',
         host     => $full_db_host,
         name     => $db_name,
         user     => $db_username,
         password => $db_password,
       },
-      security  => {
+      'auth.ldap' => {
+        enabled     => $ldap_enabled,
+        config_file => $ldap_configuration_file,
+      },
+      security    => {
         admin_user     => $admin_username,
         admin_password => $admin_password,
       },
-      analytics => {
+      analytics   => {
         reporting_enabled => false,
       },
     },
+  }
+
+  if $ldap_enabled {
+
+    # Following parameters are used in ldap.toml.erb
+    $ldap_servers               = $ldap_parameters['servers']
+    $ldap_protocol              = $ldap_parameters['protocol']
+    $ldap_server_port           = $ldap_parameters['port']
+    $ldap_bind_dn               = $ldap_parameters['bind_dn']
+    $ldap_bind_password         = $ldap_parameters['bind_password']
+    $ldap_user_search_base_dns  = $ldap_parameters['user_search_base_dns']
+    $ldap_user_search_filter    = $ldap_parameters['user_search_filter']
+    $ldap_authorization_enabled = $ldap_parameters['authorization_enabled']
+    $ldap_group_search_base_dns = $ldap_parameters['group_search_base_dns']
+    $ldap_group_search_filter   = $ldap_parameters['group_search_filter']
+    $ldap_admin_group_dn        = $ldap_parameters['admin_group_dn']
+    $ldap_viewer_group_dn       = $ldap_parameters['viewer_group_dn']
+
+    file { $ldap_configuration_file:
+      owner   => 'root',
+      group   => 'grafana',
+      mode    => '0640',
+      content => template('lma_monitoring_analytics/ldap.toml.erb'),
+      notify  => Service['grafana-server'],
+    }
   }
 
   file { '/etc/logrotate.d/grafana.conf':
