@@ -22,6 +22,27 @@ $db_password = $influxdb_grafana['mysql_password']
 $admin_username = $influxdb_grafana['grafana_username']
 $admin_password = $influxdb_grafana['grafana_userpass']
 
+$ldap_enabled = $influxdb_grafana['ldap_enabled']
+if $ldap_enabled {
+  $ldap_parameters = undef
+} else {
+  $ldap_parameters = {
+    servers               => $influxdb_grafana['ldap_servers'],
+    protocol              => $influxdb_grafana['ldap_protocol'],
+    port                  => $influxdb_grafana['ldap_server_port'],
+    bind_dn               => $influxdb_grafana['ldap_bind_dn'],
+    bind_password         => $influxdb_grafana['ldap_bind_password'],
+    search_base_dn        => $influxdb_grafana['ldap_search_base_dn'],
+    search_filter         => $influxdb_grafana['ldap_search_filter'],
+    auhtorization_enabled => $influxdb_grafana['ldap_authorizatin_enabled'],
+    group_search_base_dns => $influxdb_grafana['ldap_group_search_base_dn'],
+    group_search_filter   => $influxdb_grafana['ldap_group_search_filter'],
+    admin_group_dn        => $influxdb_grafana['ldap_admin_group_dn'],
+    editor_group_dn       => $influxdb_grafana['ldap_editor_group_dn'],
+    viewer_group_dn       => $influxdb_grafana['ldap_viewer_port'],
+  }
+}
+
 case $db_mode {
 
   'local': {
@@ -38,13 +59,15 @@ case $db_mode {
 }
 
 class {'lma_monitoring_analytics::grafana':
-  db_host        => $db_host,
-  db_name        => $db_name,
-  db_username    => $db_username,
-  db_password    => $db_password,
-  admin_username => $admin_username,
-  admin_password => $admin_password,
-  domain         => hiera('lma::influxdb::vip'),
-  http_port      => hiera('lma::influxdb::grafana_port'),
-  version        => '3.0.4-1464167696',
+  db_host         => $db_host,
+  db_name         => $db_name,
+  db_username     => $db_username,
+  db_password     => $db_password,
+  admin_username  => $admin_username,
+  admin_password  => $admin_password,
+  domain          => hiera('lma::influxdb::vip'),
+  http_port       => hiera('lma::influxdb::grafana_port'),
+  version         => '3.0.4-1464167696',
+  ldap_enabled    => $ldap_enabled,
+  ldap_parameters => $ldap_parameters,
 }
