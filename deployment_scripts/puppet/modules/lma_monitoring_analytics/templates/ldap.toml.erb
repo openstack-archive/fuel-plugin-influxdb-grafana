@@ -1,0 +1,42 @@
+[[servers]]
+host = "<%= @ldap_servers %>"
+port = <%= @ldap_server_port %>
+
+<% if @ldap_protocol.downcase() == 'ldaps' -%>
+use_ssl = true
+<% else -%>
+use_ssl = false
+<% end -%>
+
+ssl_skip_verify = true
+bind_dn = "<%= @ldap_bind_dn %>"
+bind_password = "<%= @ldap_bind_password %>"
+search_base_dns = [<%= @ldap_user_search_base_dns.split(' ').collect{|x| "\"#{x}\"" }.join(',') %>]
+search_filter = "<%= @ldap_user_search_filter %>"
+
+# In POSIX LDAP schemas, without memberOf attribute a secondary query must be
+# made for groups. This is done by enabling group_search_filter below. We must
+# also set member_of="cn".
+group_search_base_dns = [<%= @ldap_group_search_base_dns.split(' ').collect{|x| "\"#{x}\"" }.join(',') %>]
+group_search_filter = "<%= @ldap_group_search_filter %>"
+
+[servers.attributes]
+name = "givenName"
+surname = "sn"
+username = "cn"
+member_of = "cn"
+email =  "email"
+
+<% if @ldap_authorization_enabled -%>
+[[servers.group_mappings]]
+group_dn = "<%= @ldap_admin_group_dn %>"
+org_role = "Admin"
+
+[[servers.group_mappings]]
+group_dn = "<%= @ldap_viewer_group_dn %>"
+org_role = "Viewer"
+<% else -%>
+[[servers.group_mappings]]
+group_dn = "*"
+org_role = "Admin"
+<% end -%>
