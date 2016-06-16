@@ -61,6 +61,20 @@ if $tls_enabled {
   }
 }
 
+$ldap_enabled               = $influxdb_grafana['ldap_enabled']
+$ldap_protocol              = $influxdb_grafana['ldap_protocol']
+$ldap_servers               = $influxdb_grafana['ldap_servers']
+$ldap_port                  = $influxdb_grafana['ldap_server_port']
+$ldap_bind_dn               = $influxdb_grafana['ldap_bind_dn']
+$ldap_bind_password         = $influxdb_grafana['ldap_bind_password']
+$ldap_user_search_base_dns  = $influxdb_grafana['ldap_user_search_base_dns']
+$ldap_user_search_filter    = $influxdb_grafana['ldap_user_search_filter']
+$ldap_authorization_enabled = $influxdb_grafana['ldap_authorization_enabled']
+$ldap_group_search_base_dns = $influxdb_grafana['ldap_group_search_base_dns']
+$ldap_group_search_filter   = $influxdb_grafana['ldap_group_search_filter']
+$ldap_admin_group_dn        = $influxdb_grafana['ldap_admin_group_dn']
+$ldap_viewer_group_dn       = $influxdb_grafana['ldap_viewer_group_dn']
+
 $calculated_content = inline_template('
 ---
 lma::influxdb::data_dir: "/var/lib/influxdb"
@@ -82,6 +96,32 @@ lma::grafana::tls::enabled: <%= @tls_enabled %>
 <% if @tls_enabled -%>
 lma::grafana::tls::hostname: "<%= @grafana_hostname %>"
 lma::grafana::tls::cert_file_path: "<%= @cert_file_path %>"
+<% end -%>
+
+lma::grafana::ldap::enabled: <%= @ldap_enabled %>
+lma::grafana::ldap::authorization_enabled: <%= @ldap_authorization_enabled %>
+<% if @ldap_enabled -%>
+lma::grafana::ldap::servers: <%= @ldap_servers %>
+lma::grafana::ldap::protocol: <%= @ldap_protocol %>
+<% if @ldap_port != "" -%>
+lma::grafana::ldap::port: <%= @ldap_port %>
+<% else -%>
+<% if @ldap_protocol == "ldap" -%>
+lma::grafana::ldap::port: 389
+<% else -%>
+lma::grafana::ldap::port: 636
+<% end -%>
+<% end -%>
+lma::grafana::ldap::bind_dn: <%= @ldap_bind_dn %>
+lma::grafana::ldap::bind_password: <%= @ldap_bind_password %>
+lma::grafana::ldap::user_search_base_dns: <%= @ldap_user_search_base_dns %>
+lma::grafana::ldap::user_search_filter: <%= @ldap_user_search_filter %>
+lma::grafana::ldap::group_search_base_dns: <%= @ldap_group_search_base_dns %>
+lma::grafana::ldap::group_search_filter: <%= @ldap_group_search_filter %>
+<% if @ldap_authorization_enabled -%>
+lma::grafana::ldap::admin_group_dn:<%= @ldap_admin_group_dn %>
+lma::grafana::ldap::viewer_group_dn: <%= @ldap_viewer_group_dn %>
+<% end -%>
 <% end -%>
 ')
 
