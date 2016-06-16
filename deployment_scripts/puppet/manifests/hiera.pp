@@ -37,7 +37,7 @@ $others_ip_addresses = sort(values(get_node_to_ipaddr_map_by_network_role($influ
 
 $calculated_content = inline_template('
 ---
-lma::influxdb::data_dir: "<%= @influxdb_grafana["data_dir"] %>"
+lma::influxdb::data_dir: "/var/lib/influxdb"
 lma::influxdb::listen_address: "<%= @listen_address %>"
 lma::influxdb::influxdb_port: 8086
 lma::influxdb::grafana_port: 8000

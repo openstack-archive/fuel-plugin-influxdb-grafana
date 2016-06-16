@@ -135,15 +135,3 @@ attributes:
     regex:
       source: '^[\S]{4,}$'
       error: "You must provide a password with at least 4 characters"
-
-  # Parameter hidden in the UI on purpose
-  # this directory must match the mount point set in volumes.yaml
-  data_dir:
-    value: '/var/lib/influxdb'
-    label: 'InfluxDB storage directory'
-    description: 'Directory used by InfluxDB to store data'
-    weight: 200
-    type: "text"
-    restrictions:
-      - condition: "true"
-        action: hide
