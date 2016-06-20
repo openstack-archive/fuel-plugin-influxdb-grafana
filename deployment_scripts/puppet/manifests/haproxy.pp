@@ -16,7 +16,6 @@ notice('fuel-plugin-influxdb-grafana: haproxy.pp')
 
 $nodes_ips = hiera('lma::influxdb::raft_nodes')
 $nodes_names = prefix(range(1, size($nodes_ips)), 'server_')
-$stats_port    = '1000'
 $influxdb_port = hiera('lma::influxdb::influxdb_port')
 $grafana_port  = hiera('lma::influxdb::grafana_port')
 
@@ -54,16 +53,5 @@ openstack::ha::haproxy_service { 'grafana':
     'option'  => ['httplog', 'dontlog-normal'],
     'balance' => 'source',
     'mode'    => 'http',
-  },
-}
-
-openstack::ha::haproxy_service { 'stats':
-  order                  => '010',
-  listen_port            => $stats_port,
-  server_names           => undef,
-  haproxy_config_options => {
-    'stats' => ['enable', 'uri /', 'refresh 5s', 'show-node',
-                'show-legends', 'hide-version'],
-    'mode'  => 'http',
   },
 }
