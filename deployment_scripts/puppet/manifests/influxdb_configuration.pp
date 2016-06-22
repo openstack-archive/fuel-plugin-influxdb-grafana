@@ -20,14 +20,12 @@ $local_address = hiera('lma::influxdb::listen_address')
 $local_port = hiera('lma::influxdb::influxdb_port')
 $influxdb_url = "http://${local_address}:${local_port}"
 
-$influxdb_grafana = hiera('influxdb_grafana')
-
-$admin_user = 'root'
-$admin_password = $influxdb_grafana['influxdb_rootpass']
-$username = $influxdb_grafana['influxdb_username']
-$password = $influxdb_grafana['influxdb_userpass']
-$retention_period = $influxdb_grafana['retention_period']
-$replication_factor = $influxdb_grafana['replication_factor']
+$admin_user = hiera('lma::influxdb::admin_username')
+$admin_password = hiera('lma::influxdb::admin_password')
+$username = hiera('lma::influxdb::username')
+$password = hiera('lma::influxdb::password')
+$retention_period = hiera('lma::influxdb::retention_period')
+$replication_factor = hiera('lma::influxdb::replication_factor')
 
 lma_monitoring_analytics::influxdb_user { $admin_user:
   password     => $admin_password,
