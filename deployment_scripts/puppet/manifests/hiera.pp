@@ -35,6 +35,24 @@ $leader_ip_address = $leader_ip_addresses[0]
 $influxdb_others = get_nodes_hash_by_roles($network_metadata, ['influxdb_grafana'])
 $others_ip_addresses = sort(values(get_node_to_ipaddr_map_by_network_role($influxdb_others, 'influxdb_vip')))
 
+$influxdb_admin_username = 'root'
+$influxdb_admin_password = $influxdb_grafana['influxdb_rootpass']
+$influxdb_username = $influxdb_grafana['influxdb_username']
+$influxdb_password = $influxdb_grafana['influxdb_userpass']
+$influxdb_dbname   = $influxdb_grafana['influxdb_dbname']
+
+$retention_period = $influxdb_grafana['retention_period']
+$replication_factor = $influxdb_grafana['replication_factor']
+
+# Parameters related to MySql
+$host = $influxdb_grafana['mysql_host']
+$db_mode = $influxdb_grafana['mysql_mode']
+$db_name = $influxdb_grafana['mysql_dbname']
+$db_username = $influxdb_grafana['mysql_username']
+$db_password = $influxdb_grafana['mysql_password']
+$admin_username = $influxdb_grafana['grafana_username']
+$admin_password = $influxdb_grafana['grafana_userpass']
+
 $tls_enabled = $influxdb_grafana['tls_enabled']
 if $tls_enabled {
   $grafana_hostname = $influxdb_grafana['grafana_hostname']
@@ -91,6 +109,23 @@ lma::influxdb::vip: <%= @influxdb_vip %>
 lma::corosync_roles:
     - primary-influxdb_grafana
     - influxdb_grafana
+
+lma::influxdb::retention_period: <%= @retention_period %>
+lma::influxdb::replication_factor: <%= @replication_factor %>
+
+lma::influxdb::admin_username: <%= influxdb_admin_username %>
+lma::influxdb::admin_password: <%= influxdb_admin_password %>
+lma::influxdb::username: <%= @influxdb_username %>
+lma::influxdb::password: <%= @influxdb_userpass %>
+lma::influxdb::dbname: <%= @influxdb_dbname %>
+
+lma::grafana::mysql::host: <%= @host %>
+lma::grafana::mysql::mode: <%= @db_mode %>
+lma::grafana::mysql::dbname: <%= @db_name %>
+lma::grafana::mysql::username: <%= @db_username %>
+lma::grafana::mysql::password: <%= @db_password %>
+lma::grafana::mysql::admin_username: <%= @admin_username %>
+lma::grafana::mysql::admin_password: <%= @admin_password %>
 
 lma::grafana::tls::enabled: <%= @tls_enabled %>
 <% if @tls_enabled -%>
