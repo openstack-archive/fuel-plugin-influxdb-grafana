@@ -19,14 +19,14 @@ class lma_monitoring_analytics::grafana (
   $db_name,
   $db_username,
   $db_password,
-  $admin_username    = undef,
-  $admin_password    = undef,
-  $domain            = $lma_monitoring_analytics::params::grafana_domain,
-  $http_address      = $lma_monitoring_analytics::params::grafana_address,
-  $http_port         = $lma_monitoring_analytics::params::grafana_port,
-  $ldap_enabled      = false,
-  $ldap_parameters   = undef,
-  $version           = 'latest',
+  $admin_username  = undef,
+  $admin_password  = undef,
+  $domain          = $lma_monitoring_analytics::params::grafana_domain,
+  $http_address    = $lma_monitoring_analytics::params::grafana_address,
+  $http_port       = $lma_monitoring_analytics::params::grafana_port,
+  $ldap_enabled    = false,
+  $ldap_parameters = undef,
+  $version         = 'latest',
 ) inherits lma_monitoring_analytics::params {
 
   validate_string($db_host)
