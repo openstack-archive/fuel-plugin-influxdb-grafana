@@ -19,13 +19,13 @@ $master_ip = hiera('master_ip')
 $vip = hiera('lma::influxdb::vip')
 $grafana_port = hiera('lma::influxdb::grafana_port')
 $influxdb_port = hiera('lma::influxdb::influxdb_port')
-$influxdb_grafana = hiera('influxdb_grafana')
 $grafana_link_created_file = '/var/cache/grafana_link_created'
-$admin_username = $influxdb_grafana['grafana_username']
-$admin_password = $influxdb_grafana['grafana_userpass']
-$influxdb_username = $influxdb_grafana['influxdb_username']
-$influxdb_password = $influxdb_grafana['influxdb_userpass']
-$influxdb_database = $influxdb_grafana['influxdb_dbname']
+
+$admin_username = hiera('lma::grafana::mysql::admin_username')
+$admin_password = hiera('lma::grafana::mysql::admin_password')
+$influxdb_username = hiera('lma::influxdb::username')
+$influxdb_password = hiera('lma::influxdb::password')
+$influxdb_database = hiera('lma::influxdb::dbname')
 
 $lma_collector = hiera_hash('lma_collector', {})
 $influxdb_mode = $lma_collector['influxdb_mode']
