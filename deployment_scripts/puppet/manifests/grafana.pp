@@ -14,13 +14,8 @@
 
 notice('fuel-plugin-influxdb-grafana: grafana.pp')
 
-$influxdb_grafana = hiera('influxdb_grafana')
-$db_mode = $influxdb_grafana['mysql_mode']
-$db_name = $influxdb_grafana['mysql_dbname']
-$db_username = $influxdb_grafana['mysql_username']
-$db_password = $influxdb_grafana['mysql_password']
-$admin_username = $influxdb_grafana['grafana_username']
-$admin_password = $influxdb_grafana['grafana_userpass']
+$db_host = hiera('lma::grafana::mysql::host')
+$db_mode = hiera('lma::grafana::mysql::mode')
 
 $ldap_enabled = hiera('lma::grafana::ldap::enabled')
 if $ldap_enabled {
@@ -49,7 +44,7 @@ case $db_mode {
   }
 
   'remote': {
-    $db_host = $influxdb_grafana['mysql_host']
+    $db_host = hiera('lma::grafana::mysql::host')
   }
 
   default: {
@@ -58,15 +53,13 @@ case $db_mode {
 }
 
 class {'lma_monitoring_analytics::grafana':
-  db_host         => $db_host,
-  db_name         => $db_name,
-  db_username     => $db_username,
-  db_password     => $db_password,
-  admin_username  => $admin_username,
-  admin_password  => $admin_password,
-  domain          => hiera('lma::influxdb::vip'),
-  http_port       => hiera('lma::influxdb::grafana_port'),
-  version         => '3.0.4-1464167696',
-  ldap_enabled    => $ldap_enabled,
-  ldap_parameters => $ldap_parameters,
+  db_host        => $db_host,
+  db_name        => hiera('lma::grafana::mysql::dbname'),
+  db_username    => hiera('lma::grafana::mysql::username'),
+  db_password    => hiera('lma::grafana::mysql::password'),
+  admin_username => hiera('lma::grafana::mysql::admin_username'),
+  admin_password => hiera('lma::grafana::mysql::admin_userpass'),
+  domain         => hiera('lma::influxdb::vip'),
+  http_port      => hiera('lma::influxdb::grafana_port'),
+  version        => '3.0.4-1464167696',
 }
