@@ -14,11 +14,10 @@
 
 notice('fuel-plugin-influxdb-grafana: grafana_mysql.pp')
 
-$influxdb_grafana = hiera('influxdb_grafana')
 $is_mysql_server = roles_include(['standalone-database',
                                   'primary-standalone-database'])
 
-if $influxdb_grafana['mysql_mode'] == 'local' {
+if hiera('lma::grafana::mysql::mode') == 'local' {
     $mysql  = hiera_hash('mysql')
     $db_vip = hiera('database_vip')
     $db_admin_user = 'root'
@@ -30,9 +29,9 @@ user=<%= @db_admin_user %>
 password=<%= @db_admin_pass %>
 host=<%= @db_vip %>
 ')
-    $db_name = $influxdb_grafana['mysql_dbname']
-    $db_username = $influxdb_grafana['mysql_username']
-    $db_password = $influxdb_grafana['mysql_password']
+    $db_name = hiera('lma::grafana::mysql::dbname')
+    $db_username = hiera('lma::grafana::mysql::username')
+    $db_password = hiera('lma::grafana::mysql::password')
 
     file { $db_options_file:
       ensure  => file,
