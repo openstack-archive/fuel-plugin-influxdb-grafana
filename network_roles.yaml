@@ -1,19 +1,28 @@
-# Unique network role name
+# Network and virtual IP address for the InfluxDB service
 - id: "influxdb_vip"
-  # Role mapping to network
   default_mapping: "management"
   properties:
-    # Should be true if network role requires subnet being set
     subnet: true
-    # Should be true if network role requires gateway being set
     gateway: false
-    # List of VIPs to be allocated
     vip:
-         # Unique VIP name
        - name: "influxdb"
-         # Optional linux namespace for VIP
          namespace: "haproxy"
          alias: "influxdb"
+         node_roles:
+           - "influxdb_grafana"
+           - "primary-influxdb_grafana"
+# Network and virtual IP address for the Grafana service
+# TODO(pasquier-s): expose the Grafana service on this virtual IP address
+# instead of influxdb
+- id: "grafana"
+  default_mapping: "management"
+  properties:
+    subnet: true
+    gateway: false
+    vip:
+       - name: "grafana"
+         namespace: "haproxy"
+         alias: "grafana"
          node_roles:
            - "influxdb_grafana"
            - "primary-influxdb_grafana"
