@@ -191,6 +191,9 @@ attributes:
     description: 'If empty, the default value is 389 for LDAP and 636 for LDAPS.'
     weight: 200
     type: "text"
+    regex:
+        source: '^\d{0,5}$'
+        error: "You must provide a valid port number"
     restrictions:
       - condition: "settings:influxdb_grafana.ldap_enabled.value == false"
         action: hide

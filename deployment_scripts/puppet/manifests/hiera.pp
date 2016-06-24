@@ -90,7 +90,7 @@ $ldap_group_search_filter   = $influxdb_grafana['ldap_group_search_filter']
 $ldap_admin_group_dn        = $influxdb_grafana['ldap_admin_group_dn']
 $ldap_viewer_group_dn       = $influxdb_grafana['ldap_viewer_group_dn']
 
-if empty($ldap_port) {
+if ! $influxdb_grafana['ldap_server_port'] {
   if downcase($ldap_protocol) == 'ldap' {
     $ldap_port = 389
   } else {
