@@ -136,6 +136,7 @@ lma::grafana::mysql::password: <%= @db_password %>
 lma::grafana::mysql::admin_username: <%= @admin_username %>
 lma::grafana::mysql::admin_password: <%= @admin_password %>
 
+lma::grafana::haproxy_service: grafana
 lma::grafana::tls::enabled: <%= @tls_enabled %>
 <% if @tls_enabled -%>
 lma::grafana::tls::hostname: "<%= @grafana_hostname %>"

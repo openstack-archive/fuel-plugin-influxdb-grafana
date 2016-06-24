@@ -63,3 +63,10 @@ class {'lma_monitoring_analytics::grafana':
   ldap_enabled    => $ldap_enabled,
   ldap_parameters => $ldap_parameters,
 }
+
+# Make sure that the Grafana service is ready to serve requests before exiting
+haproxy_backend_status { 'grafana':
+  name    => hiera('lma::grafana::haproxy_service'),
+  socket  => '/var/lib/haproxy/stats',
+  require => Class['lma_monitoring_analytics::grafana'],
+}

@@ -46,8 +46,9 @@ openstack::ha::haproxy_service { 'influxdb':
 # client IP address will always reach the same server (as long as no server
 # goes down or up). This is needed to support sticky session and to be able
 # to authenticate.
+$grafana_haproxy_service = hiera('lma::grafana::haproxy_service')
 if hiera('lma::grafana::tls::enabled') {
-  openstack::ha::haproxy_service { 'grafana':
+  openstack::ha::haproxy_service { $grafana_haproxy_service:
     order                  => '801',
     internal_ssl           => true,
     internal_ssl_path      => hiera('lma::grafana::tls::cert_file_path'),
@@ -60,7 +61,7 @@ if hiera('lma::grafana::tls::enabled') {
     },
   }
 } else {
-  openstack::ha::haproxy_service { 'grafana':
+  openstack::ha::haproxy_service { $grafana_haproxy_service:
     order                  => '801',
     listen_port            => $grafana_port,
     balancermember_port    => $grafana_port,
