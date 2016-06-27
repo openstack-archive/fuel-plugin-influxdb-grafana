@@ -54,7 +54,7 @@ class {'lma_monitoring_analytics::grafana':
   db_host         => $db_host,
   db_name         => hiera('lma::grafana::mysql::dbname'),
   db_username     => hiera('lma::grafana::mysql::username'),
-  db_password     => hiera('lma::grafana::mysql::password'),
+  db_password     => rstrip(hiera('lma::grafana::mysql::password')),
   admin_username  => hiera('lma::grafana::mysql::admin_username'),
   admin_password  => hiera('lma::grafana::mysql::admin_password'),
   domain          => hiera('lma::influxdb::vip'),
