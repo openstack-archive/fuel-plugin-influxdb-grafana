@@ -31,7 +31,7 @@ host=<%= @db_vip %>
 ')
     $db_name = hiera('lma::grafana::mysql::dbname')
     $db_username = hiera('lma::grafana::mysql::username')
-    $db_password = hiera('lma::grafana::mysql::password')
+    $db_password = rstrip(hiera('lma::grafana::mysql::password'))
 
     file { $db_options_file:
       ensure  => file,
