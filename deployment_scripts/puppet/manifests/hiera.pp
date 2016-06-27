@@ -132,7 +132,9 @@ lma::grafana::mysql::host: <%= @host %>
 lma::grafana::mysql::mode: <%= @db_mode %>
 lma::grafana::mysql::dbname: <%= @db_name %>
 lma::grafana::mysql::username: <%= @db_username %>
-lma::grafana::mysql::password: <%= @db_password %>
+# MySQL password must be a string representation, see bug/1596438
+lma::grafana::mysql::password: >
+    <%= @db_password %>
 lma::grafana::mysql::admin_username: <%= @admin_username %>
 lma::grafana::mysql::admin_password: <%= @admin_password %>
 
