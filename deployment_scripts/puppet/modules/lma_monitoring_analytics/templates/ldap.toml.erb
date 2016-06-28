@@ -14,11 +14,12 @@ bind_password = "<%= @ldap_bind_password %>"
 search_base_dns = [<%= @ldap_user_search_base_dns.split(' ').collect{|x| "\"#{x}\"" }.join(',') %>]
 search_filter = "<%= @ldap_user_search_filter %>"
 
+<% if @ldap_authorization_enabled -%>
 # In POSIX LDAP schemas, without memberOf attribute a secondary query must be
-# made for groups. This is done by enabling group_search_filter below. We must
-# also set member_of="cn".
+# made for groups. This is done by enabling group_search_filter below.
 group_search_base_dns = [<%= @ldap_group_search_base_dns.split(' ').collect{|x| "\"#{x}\"" }.join(',') %>]
 group_search_filter = "<%= @ldap_group_search_filter %>"
+<% end -%>
 
 [servers.attributes]
 name = "givenName"
