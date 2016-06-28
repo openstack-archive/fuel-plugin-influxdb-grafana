@@ -11,7 +11,8 @@ attributes:
         error: "You must provide a number"
 
   influxdb_rootpass:
-    value: ''
+    value:
+      generator: 'password'
     label: 'Root password'
     description: 'The password of the InfluxDB root user'
     weight: 30
@@ -41,7 +42,8 @@ attributes:
       error: "You must provide a username"
 
   influxdb_userpass:
-    value: ''
+    value:
+      generator: 'password'
     label: 'User password'
     description: 'The password of the InfluxDB user'
     weight: 60
@@ -61,7 +63,8 @@ attributes:
       error: "You must provide a username"
 
   grafana_userpass:
-    value: ''
+    value:
+      generator: 'password'
     label: 'User password'
     description: 'The password of the Grafana admin user'
     weight: 80
@@ -115,7 +118,8 @@ attributes:
       error: "You must provide a username (maximum length: 16 characters)"
 
   mysql_password:
-    value: ''
+    value:
+      generator: 'password'
     label: 'MySQL password'
     description: ''
     weight: 130
