@@ -246,7 +246,7 @@ attributes:
         action: hide
 
   ldap_group_search_filter:
-    value: '(&(objectClass=posixGroup)(memberUid=%s)'
+    value: '(&(objectClass=posixGroup)(memberUid=%s))'
     label: 'Group search filter'
     description: 'A valid LDAP search filter.'
     weight: 260
