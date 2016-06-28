@@ -41,8 +41,8 @@ if $ldap_enabled {
     user_search_base_dns  => hiera('lma::grafana::ldap::user_search_base_dns'),
     user_search_filter    => hiera('lma::grafana::ldap::user_search_filter'),
     authorization_enabled => hiera('lma::grafana::ldap::authorization_enabled'),
-    group_search_base_dns => hiera('lma::grafana::ldap::group_search_base_dns'),
-    group_search_filter   => hiera('lma::grafana::ldap::group_search_filter'),
+    group_search_base_dns => hiera('lma::grafana::ldap::group_search_base_dns', ''),
+    group_search_filter   => hiera('lma::grafana::ldap::group_search_filter', ''),
     admin_group_dn        => hiera('lma::grafana::ldap::admin_group_dn', ''),
     viewer_group_dn       => hiera('lma::grafana::ldap::viewer_group_dn', ''),
   }
