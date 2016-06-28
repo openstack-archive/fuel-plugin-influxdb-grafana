@@ -181,9 +181,14 @@ attributes:
     description: 'Specify one or several LDAP servers separated by space.'
     weight: 190
     type: "text"
+    regex:
+      source: '^\w[\w\-\s.]+$'
+      error: "You must provide a hostname or IP"
     restrictions:
       - condition: "settings:influxdb_grafana.ldap_enabled.value == false"
         action: hide
+      - condition: "settings:influxdb_grafana.ldap_enabled.value == false"
+        action: disable
 
   ldap_server_port:
     value: ''
@@ -197,6 +202,8 @@ attributes:
     restrictions:
       - condition: "settings:influxdb_grafana.ldap_enabled.value == false"
         action: hide
+      - condition: "settings:influxdb_grafana.ldap_enabled.value == false"
+        action: disable
 
   ldap_bind_dn:
     value: ''
@@ -204,9 +211,14 @@ attributes:
     description: 'DN used to bind to the server when searching for entries.'
     weight: 210
     type: "text"
+    regex: &not_empty_parameter
+      source: '\S'
+      error: "Invalid value"
     restrictions:
       - condition: "settings:influxdb_grafana.ldap_enabled.value == false"
         action: hide
+      - condition: "settings:influxdb_grafana.ldap_enabled.value == false"
+        action: disable
 
   ldap_bind_password:
     value: ''
@@ -214,9 +226,12 @@ attributes:
     description: 'Password to use in conjunction with the bind DN.'
     weight: 220
     type: "password"
+    regex: *not_empty_parameter
     restrictions:
       - condition: "settings:influxdb_grafana.ldap_enabled.value == false"
         action: hide
+      - condition: "settings:influxdb_grafana.ldap_enabled.value == false"
+        action: disable
 
   ldap_user_search_base_dns:
     value: ''
@@ -224,9 +239,12 @@ attributes:
     description: 'The base DN to search for users.'
     weight: 230
     type: "text"
+    regex: *not_empty_parameter
     restrictions:
       - condition: "settings:influxdb_grafana.ldap_enabled.value == false"
         action: hide
+      - condition: "settings:influxdb_grafana.ldap_enabled.value == false"
+        action: disable
 
   ldap_user_search_filter:
     value: '(uid=%s)'
@@ -234,9 +252,12 @@ attributes:
     description: 'A valid LDAP search filter.'
     weight: 240
     type: "text"
+    regex: *not_empty_parameter
     restrictions:
       - condition: "settings:influxdb_grafana.ldap_enabled.value == false"
         action: hide
+      - condition: "settings:influxdb_grafana.ldap_enabled.value == false"
+        action: disable
 
   ldap_authorization_enabled:
     value: false
@@ -254,9 +275,12 @@ attributes:
     description: 'The base DN to search for groups.'
     weight: 260
     type: "text"
+    regex: *not_empty_parameter
     restrictions:
       - condition: "settings:influxdb_grafana.ldap_enabled.value == false"
         action: hide
+      - condition: "settings:influxdb_grafana.ldap_enabled.value == false"
+        action: disable
       - condition: "settings:influxdb_grafana.ldap_authorization_enabled.value == false"
         action: disable
 
@@ -266,9 +290,12 @@ attributes:
     description: 'A valid LDAP search filter.'
     weight: 270
     type: "text"
+    regex: *not_empty_parameter
     restrictions:
       - condition: "settings:influxdb_grafana.ldap_enabled.value == false"
         action: hide
+      - condition: "settings:influxdb_grafana.ldap_enabled.value == false"
+        action: disable
       - condition: "settings:influxdb_grafana.ldap_authorization_enabled.value == false"
         action: disable
 
@@ -278,9 +305,12 @@ attributes:
     description: ''
     weight: 280
     type: "text"
+    regex: *not_empty_parameter
     restrictions:
       - condition: "settings:influxdb_grafana.ldap_enabled.value == false"
         action: hide
+      - condition: "settings:influxdb_grafana.ldap_enabled.value == false"
+        action: disable
       - condition: "settings:influxdb_grafana.ldap_authorization_enabled.value == false"
         action: disable
 
@@ -290,9 +320,12 @@ attributes:
     description: ''
     weight: 290
     type: "text"
+    regex: *not_empty_parameter
     restrictions:
       - condition: "settings:influxdb_grafana.ldap_enabled.value == false"
         action: hide
+      - condition: "settings:influxdb_grafana.ldap_enabled.value == false"
+        action: disable
       - condition: "settings:influxdb_grafana.ldap_authorization_enabled.value == false"
         action: disable
   # LDAP Settings: END
