@@ -156,7 +156,7 @@ lma::grafana::ldap::user_search_filter: <%= @ldap_user_search_filter %>
 lma::grafana::ldap::group_search_base_dns: <%= @ldap_group_search_base_dns %>
 lma::grafana::ldap::group_search_filter: <%= @ldap_group_search_filter %>
 <% if @ldap_authorization_enabled -%>
-lma::grafana::ldap::admin_group_dn:<%= @ldap_admin_group_dn %>
+lma::grafana::ldap::admin_group_dn: <%= @ldap_admin_group_dn %>
 lma::grafana::ldap::viewer_group_dn: <%= @ldap_viewer_group_dn %>
 <% end -%>
 <% end -%>
