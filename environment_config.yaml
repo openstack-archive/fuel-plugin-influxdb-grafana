@@ -238,35 +238,39 @@ attributes:
       - condition: "settings:influxdb_grafana.ldap_enabled.value == false"
         action: hide
 
-  ldap_group_search_base_dns:
-    value: ''
-    label: 'Group search base DN'
-    description: 'The base DN to search for groups.'
+  ldap_authorization_enabled:
+    value: false
+    label: 'Enable group-based authorization'
+    description: 'It allows to associate the users with the admin or read-only role. Otherwise all users are assigned to admin role.'
     weight: 250
-    type: "text"
+    type: "checkbox"
     restrictions:
       - condition: "settings:influxdb_grafana.ldap_enabled.value == false"
         action: hide
 
-  ldap_group_search_filter:
-    value: '(&(objectClass=posixGroup)(memberUid=%s))'
-    label: 'Group search filter'
-    description: 'A valid LDAP search filter.'
+  ldap_group_search_base_dns:
+    value: ''
+    label: 'Group search base DN'
+    description: 'The base DN to search for groups.'
     weight: 260
     type: "text"
     restrictions:
       - condition: "settings:influxdb_grafana.ldap_enabled.value == false"
         action: hide
+      - condition: "settings:influxdb_grafana.ldap_authorization_enabled.value == false"
+        action: disable
 
-  ldap_authorization_enabled:
-    value: false
-    label: 'Enable group-based authorization'
-    description: 'It allows to associate the users with the admin or read-only role. Otherwise all users are assigned to admin role.'
+  ldap_group_search_filter:
+    value: '(&(objectClass=posixGroup)(memberUid=%s))'
+    label: 'Group search filter'
+    description: 'A valid LDAP search filter.'
     weight: 270
-    type: "checkbox"
+    type: "text"
     restrictions:
       - condition: "settings:influxdb_grafana.ldap_enabled.value == false"
         action: hide
+      - condition: "settings:influxdb_grafana.ldap_authorization_enabled.value == false"
+        action: disable
 
   ldap_admin_group_dn:
     value: ''
