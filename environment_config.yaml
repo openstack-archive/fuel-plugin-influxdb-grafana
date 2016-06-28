@@ -174,6 +174,8 @@ attributes:
     restrictions:
       - condition: "settings:influxdb_grafana.ldap_enabled.value == false"
         action: hide
+      - condition: "settings:influxdb_grafana.ldap_enabled.value == false"
+        action: disable
 
   ldap_servers:
     value: ''
@@ -184,6 +186,8 @@ attributes:
     restrictions:
       - condition: "settings:influxdb_grafana.ldap_enabled.value == false"
         action: hide
+      - condition: "settings:influxdb_grafana.ldap_enabled.value == false"
+        action: disable
 
   ldap_server_port:
     value: ''
@@ -197,6 +201,8 @@ attributes:
     restrictions:
       - condition: "settings:influxdb_grafana.ldap_enabled.value == false"
         action: hide
+      - condition: "settings:influxdb_grafana.ldap_enabled.value == false"
+        action: disable
 
   ldap_bind_dn:
     value: ''
@@ -207,6 +213,8 @@ attributes:
     restrictions:
       - condition: "settings:influxdb_grafana.ldap_enabled.value == false"
         action: hide
+      - condition: "settings:influxdb_grafana.ldap_enabled.value == false"
+        action: disable
 
   ldap_bind_password:
     value: ''
@@ -217,6 +225,8 @@ attributes:
     restrictions:
       - condition: "settings:influxdb_grafana.ldap_enabled.value == false"
         action: hide
+      - condition: "settings:influxdb_grafana.ldap_enabled.value == false"
+        action: disable
 
   ldap_user_search_base_dns:
     value: ''
@@ -227,6 +237,8 @@ attributes:
     restrictions:
       - condition: "settings:influxdb_grafana.ldap_enabled.value == false"
         action: hide
+      - condition: "settings:influxdb_grafana.ldap_enabled.value == false"
+        action: disable
 
   ldap_user_search_filter:
     value: '(uid=%s)'
@@ -237,6 +249,8 @@ attributes:
     restrictions:
       - condition: "settings:influxdb_grafana.ldap_enabled.value == false"
         action: hide
+      - condition: "settings:influxdb_grafana.ldap_enabled.value == false"
+        action: disable
 
   ldap_group_search_base_dns:
     value: ''
@@ -247,6 +261,8 @@ attributes:
     restrictions:
       - condition: "settings:influxdb_grafana.ldap_enabled.value == false"
         action: hide
+      - condition: "settings:influxdb_grafana.ldap_enabled.value == false"
+        action: disable
 
   ldap_group_search_filter:
     value: '(&(objectClass=posixGroup)(memberUid=%s)'
@@ -257,6 +273,8 @@ attributes:
     restrictions:
       - condition: "settings:influxdb_grafana.ldap_enabled.value == false"
         action: hide
+      - condition: "settings:influxdb_grafana.ldap_enabled.value == false"
+        action: disable
 
   ldap_authorization_enabled:
     value: false
@@ -277,6 +295,8 @@ attributes:
     restrictions:
       - condition: "settings:influxdb_grafana.ldap_enabled.value == false"
         action: hide
+      - condition: "settings:influxdb_grafana.ldap_enabled.value == false"
+        action: disable
       - condition: "settings:influxdb_grafana.ldap_authorization_enabled.value == false"
         action: disable
 
@@ -289,6 +309,8 @@ attributes:
     restrictions:
       - condition: "settings:influxdb_grafana.ldap_enabled.value == false"
         action: hide
+      - condition: "settings:influxdb_grafana.ldap_enabled.value == false"
+        action: disable
       - condition: "settings:influxdb_grafana.ldap_authorization_enabled.value == false"
         action: disable
   # LDAP Settings: END
