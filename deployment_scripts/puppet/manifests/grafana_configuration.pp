@@ -44,7 +44,7 @@ if hiera('lma::grafana::tls::enabled') {
   $protocol = 'https'
   $grafana_hostname = hiera('lma::grafana::tls::hostname')
   $grafana_link_data = "{\"title\":\"Grafana\",\
-  \"description\":\"Dashboard for visualizing metrics (${grafana_hostname}: ${vip})\",\
+  \"description\":\"Dashboard for visualizing metrics (${grafana_hostname}: ${protocol}://${vip}:${grafana_port})\",\
   \"url\":\"${protocol}://${grafana_hostname}:${grafana_port}/\"}"
 } else {
   $protocol = 'http'
