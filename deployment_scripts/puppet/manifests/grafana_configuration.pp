@@ -17,7 +17,6 @@ notice('fuel-plugin-influxdb-grafana: grafana_configuration.pp')
 $deployment_id = hiera('deployment_id')
 $master_ip = hiera('master_ip')
 $vip = hiera('lma::influxdb::vip')
-$grafana_port = hiera('lma::influxdb::grafana_port')
 $influxdb_port = hiera('lma::influxdb::influxdb_port')
 $grafana_link_created_file = '/var/cache/grafana_link_created'
 
@@ -44,13 +43,13 @@ if hiera('lma::grafana::tls::enabled') {
   $protocol = 'https'
   $grafana_hostname = hiera('lma::grafana::tls::hostname')
   $grafana_link_data = "{\"title\":\"Grafana\",\
-  \"description\":\"Dashboard for visualizing metrics (${grafana_hostname}: ${protocol}://${vip}:${grafana_port})\",\
-  \"url\":\"${protocol}://${grafana_hostname}:${grafana_port}/\"}"
+  \"description\":\"Dashboard for visualizing metrics (${grafana_hostname}: ${protocol}://${vip})\",\
+  \"url\":\"${protocol}://${grafana_hostname}/\"}"
 } else {
   $protocol = 'http'
   $grafana_link_data = "{\"title\":\"Grafana\",\
   \"description\":\"Dashboard for visualizing metrics\",\
-  \"url\":\"${protocol}://${vip}:${grafana_port}/\"}"
+  \"url\":\"${protocol}://${vip}\"}"
 }
 
 grafana_datasource { 'lma':
@@ -61,7 +60,7 @@ grafana_datasource { 'lma':
   database         => $influxdb_database,
   access_mode      => 'proxy',
   is_default       => true,
-  grafana_url      => "${protocol}://${vip}:${grafana_port}",
+  grafana_url      => "${protocol}://${vip}",
   grafana_user     => $admin_username,
   grafana_password => $admin_password,
 }
@@ -71,6 +70,7 @@ class {'lma_monitoring_analytics::grafana_dashboards':
   admin_password       => $admin_password,
   protocol             => $protocol,
   host                 => $vip,
+  port                 => hiera('lma::influxdb::grafana_frontend_port'),
   import_elasticsearch => $import_elasticsearch,
   import_influxdb      => $import_influxdb,
   require              => Grafana_datasource['lma'],

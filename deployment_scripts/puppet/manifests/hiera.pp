@@ -106,6 +106,11 @@ lma::influxdb::data_dir: "/var/lib/influxdb"
 lma::influxdb::listen_address: "<%= @listen_address %>"
 lma::influxdb::influxdb_port: 8086
 lma::influxdb::grafana_port: 8000
+<% if @tls_enabled -%>
+lma::influxdb::grafana_frontend_port: 443
+<% else -%>
+lma::influxdb::grafana_frontend_port: 80
+<% end -%>
 lma::influxdb::raft_leader: <%= @leader_ip_address == @listen_address ? "true" : "false" %>
 lma::influxdb::raft_nodes: # The first node is the leader
     - "<%= @leader_ip_address %>"
