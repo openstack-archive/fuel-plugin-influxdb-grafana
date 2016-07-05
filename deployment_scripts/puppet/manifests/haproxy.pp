@@ -18,6 +18,7 @@ $nodes_ips = hiera('lma::influxdb::raft_nodes')
 $nodes_names = prefix(range(1, size($nodes_ips)), 'server_')
 $influxdb_port = hiera('lma::influxdb::influxdb_port')
 $grafana_port  = hiera('lma::influxdb::grafana_port')
+$grafana_frontend_port = hiera('lma::influxdb::grafana_frontend_port')
 $influxdb_grafana = hiera_hash('influxdb_grafana')
 
 Openstack::Ha::Haproxy_service {
@@ -52,7 +53,7 @@ if hiera('lma::grafana::tls::enabled') {
     order                  => '801',
     internal_ssl           => true,
     internal_ssl_path      => hiera('lma::grafana::tls::cert_file_path'),
-    listen_port            => $grafana_port,
+    listen_port            => $grafana_frontend_port,
     balancermember_port    => $grafana_port,
     haproxy_config_options => {
       'option'  => ['httplog', 'dontlog-normal'],
@@ -63,7 +64,7 @@ if hiera('lma::grafana::tls::enabled') {
 } else {
   openstack::ha::haproxy_service { $grafana_haproxy_service:
     order                  => '801',
-    listen_port            => $grafana_port,
+    listen_port            => $grafana_frontend_port,
     balancermember_port    => $grafana_port,
     haproxy_config_options => {
       'option'  => ['httplog', 'dontlog-normal'],
