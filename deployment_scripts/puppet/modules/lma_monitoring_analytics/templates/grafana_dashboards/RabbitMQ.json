@@ -41,6 +41,13 @@
           "editable": true,
           "error": false,
           "format": "none",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "id": 34,
           "interval": "> 60s",
           "links": [],
@@ -83,6 +90,7 @@
               "groupby_field": "",
               "interval": "",
               "measurement": "cluster_status",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"cluster_status\" WHERE \"environment_label\" = '$environment' AND \"cluster_name\" = 'rabbitmq' AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
@@ -116,7 +124,7 @@
               ]
             }
           ],
-          "thresholds": "0,1,3",
+          "thresholds": "1,3",
           "title": "",
           "type": "singlestat",
           "valueFontSize": "80%",
@@ -159,98 +167,6 @@
           "colorBackground": false,
           "colorValue": false,
           "colors": [
-            "rgba(71, 212, 59, 0.4)",
-            "rgba(245, 150, 40, 0.73)",
-            "rgba(225, 40, 40, 0.59)"
-          ],
-          "datasource": null,
-          "editable": true,
-          "error": false,
-          "format": "none",
-          "id": 26,
-          "interval": "> 60s",
-          "links": [],
-          "maxDataPoints": 100,
-          "nullPointMode": "connected",
-          "nullText": null,
-          "postfix": "",
-          "postfixFontSize": "50%",
-          "prefix": "",
-          "prefixFontSize": "50%",
-          "span": 3,
-          "sparkline": {
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "show": true
-          },
-          "targets": [
-            {
-              "alias": "Total nodes",
-              "column": "value",
-              "dsType": "influxdb",
-              "function": "last",
-              "groupBy": [
-                {
-                  "params": [
-                    "$interval"
-                  ],
-                  "type": "time"
-                },
-                {
-                  "params": [
-                    "null"
-                  ],
-                  "type": "fill"
-                }
-              ],
-              "groupByTags": [],
-              "measurement": "rabbitmq_total_nodes",
-              "query": "SELECT last(\"value\") FROM \"rabbitmq_total_nodes\" WHERE \"hostname\" =~ /$server/ AND $timeFilter GROUP BY time($interval) fill(null)",
-              "rawQuery": false,
-              "refId": "A",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "value"
-                    ],
-                    "type": "field"
-                  },
-                  {
-                    "params": [],
-                    "type": "last"
-                  }
-                ]
-              ],
-              "series": "merge(/$server.rabbitmq.total_nodes/)",
-              "tags": [
-                {
-                  "key": "hostname",
-                  "value": "/$server/"
-                }
-              ]
-            }
-          ],
-          "thresholds": "",
-          "title": "Nodes",
-          "type": "singlestat",
-          "valueFontSize": "80%",
-          "valueMaps": [
-            {
-              "op": "=",
-              "text": "N/A",
-              "value": "null"
-            }
-          ],
-          "valueName": "current"
-        },
-        {
-          "cacheTimeout": null,
-          "colorBackground": false,
-          "colorValue": false,
-          "colors": [
             "rgba(245, 54, 54, 0.9)",
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
@@ -259,6 +175,13 @@
           "editable": true,
           "error": false,
           "format": "none",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "id": 27,
           "interval": "> 60s",
           "links": [],
@@ -298,6 +221,7 @@
               ],
               "groupByTags": [],
               "measurement": "rabbitmq_running_nodes",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"rabbitmq_running_nodes\" WHERE \"hostname\" =~ /$server/ AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
@@ -320,7 +244,14 @@
               "tags": [
                 {
                   "key": "hostname",
+                  "operator": "=~",
                   "value": "/$server/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "environment_label",
+                  "operator": "=~",
+                  "value": "/^$environment$/"
                 }
               ]
             }
@@ -339,117 +270,6 @@
           "valueName": "current"
         },
         {
-          "content": "",
-          "editable": true,
-          "error": false,
-          "id": 35,
-          "links": [],
-          "mode": "markdown",
-          "span": 3,
-          "style": {},
-          "title": "",
-          "type": "text"
-        }
-      ],
-      "title": ""
-    },
-    {
-      "collapse": false,
-      "editable": true,
-      "height": "250px",
-      "panels": [
-        {
-          "cacheTimeout": null,
-          "colorBackground": false,
-          "colorValue": false,
-          "colors": [
-            "rgba(71, 212, 59, 0.4)",
-            "rgba(245, 150, 40, 0.73)",
-            "rgba(225, 40, 40, 0.59)"
-          ],
-          "datasource": null,
-          "editable": true,
-          "error": false,
-          "format": "none",
-          "id": 32,
-          "interval": "> 60s",
-          "links": [],
-          "maxDataPoints": 100,
-          "nullPointMode": "connected",
-          "nullText": null,
-          "postfix": "",
-          "postfixFontSize": "50%",
-          "prefix": "",
-          "prefixFontSize": "50%",
-          "span": 3,
-          "sparkline": {
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "show": true
-          },
-          "targets": [
-            {
-              "column": "value",
-              "dsType": "influxdb",
-              "function": "last",
-              "groupBy": [
-                {
-                  "params": [
-                    "$interval"
-                  ],
-                  "type": "time"
-                },
-                {
-                  "params": [
-                    "null"
-                  ],
-                  "type": "fill"
-                }
-              ],
-              "groupByTags": [],
-              "measurement": "rabbitmq_consumers",
-              "query": "SELECT last(\"value\") FROM \"rabbitmq_consumers\" WHERE \"hostname\" =~ /$server/ AND $timeFilter GROUP BY time($interval) fill(null)",
-              "rawQuery": false,
-              "refId": "A",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "value"
-                    ],
-                    "type": "field"
-                  },
-                  {
-                    "params": [],
-                    "type": "last"
-                  }
-                ]
-              ],
-              "series": "merge(/$server.rabbitmq.consumers/)",
-              "tags": [
-                {
-                  "key": "hostname",
-                  "value": "/$server/"
-                }
-              ]
-            }
-          ],
-          "thresholds": "",
-          "title": "Consumers",
-          "type": "singlestat",
-          "valueFontSize": "80%",
-          "valueMaps": [
-            {
-              "op": "=",
-              "text": "N/A",
-              "value": "null"
-            }
-          ],
-          "valueName": "current"
-        },
-        {
           "cacheTimeout": null,
           "colorBackground": false,
           "colorValue": false,
@@ -462,98 +282,13 @@
           "editable": true,
           "error": false,
           "format": "none",
-          "id": 30,
-          "interval": "> 60s",
-          "links": [],
-          "maxDataPoints": 100,
-          "nullPointMode": "connected",
-          "nullText": null,
-          "postfix": "",
-          "postfixFontSize": "50%",
-          "prefix": "",
-          "prefixFontSize": "50%",
-          "span": 3,
-          "sparkline": {
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "show": true
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
           },
-          "targets": [
-            {
-              "alias": "queues",
-              "column": "value",
-              "dsType": "influxdb",
-              "function": "last",
-              "groupBy": [
-                {
-                  "params": [
-                    "$interval"
-                  ],
-                  "type": "time"
-                },
-                {
-                  "params": [
-                    "null"
-                  ],
-                  "type": "fill"
-                }
-              ],
-              "groupByTags": [],
-              "measurement": "rabbitmq_queues",
-              "query": "SELECT last(\"value\") FROM \"rabbitmq_queues\" WHERE \"hostname\" =~ /$server/ AND $timeFilter GROUP BY time($interval) fill(null)",
-              "rawQuery": false,
-              "refId": "A",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "value"
-                    ],
-                    "type": "field"
-                  },
-                  {
-                    "params": [],
-                    "type": "last"
-                  }
-                ]
-              ],
-              "series": "merge(/$server.rabbitmq.queues/)",
-              "tags": [
-                {
-                  "key": "hostname",
-                  "value": "/$server/"
-                }
-              ]
-            }
-          ],
-          "thresholds": "",
-          "title": "Queues",
-          "type": "singlestat",
-          "valueFontSize": "80%",
-          "valueMaps": [
-            {
-              "op": "=",
-              "text": "N/A",
-              "value": "null"
-            }
-          ],
-          "valueName": "current"
-        },
-        {
-          "cacheTimeout": null,
-          "colorBackground": false,
-          "colorValue": false,
-          "colors": [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(50, 172, 45, 0.97)"
-          ],
-          "datasource": null,
-          "editable": true,
-          "error": false,
-          "format": "none",
           "id": 31,
           "interval": "> 60s",
           "links": [],
@@ -593,6 +328,7 @@
               ],
               "groupByTags": [],
               "measurement": "rabbitmq_connections",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"rabbitmq_connections\" WHERE \"hostname\" =~ /$server/ AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
@@ -615,7 +351,14 @@
               "tags": [
                 {
                   "key": "hostname",
+                  "operator": "=~",
                   "value": "/$server/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "environment_label",
+                  "operator": "=~",
+                  "value": "/^$environment$/"
                 }
               ]
             }
@@ -646,6 +389,352 @@
           "editable": true,
           "error": false,
           "format": "none",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
+          "id": 30,
+          "interval": "> 60s",
+          "links": [],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 3,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": true
+          },
+          "targets": [
+            {
+              "alias": "queues",
+              "column": "value",
+              "dsType": "influxdb",
+              "function": "last",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "groupByTags": [],
+              "measurement": "rabbitmq_queues",
+              "policy": "default",
+              "query": "SELECT last(\"value\") FROM \"rabbitmq_queues\" WHERE \"hostname\" =~ /$server/ AND $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  }
+                ]
+              ],
+              "series": "merge(/$server.rabbitmq.queues/)",
+              "tags": [
+                {
+                  "key": "hostname",
+                  "operator": "=~",
+                  "value": "/$server/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "environment_label",
+                  "operator": "=~",
+                  "value": "/^$environment$/"
+                }
+              ]
+            }
+          ],
+          "thresholds": "",
+          "title": "Queues",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
+        }
+      ],
+      "title": ""
+    },
+    {
+      "collapse": false,
+      "editable": true,
+      "height": "250px",
+      "panels": [
+        {
+          "content": "",
+          "editable": true,
+          "error": false,
+          "id": 35,
+          "links": [],
+          "mode": "markdown",
+          "span": 3,
+          "style": {},
+          "title": "",
+          "type": "text"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "rgba(71, 212, 59, 0.4)",
+            "rgba(245, 150, 40, 0.73)",
+            "rgba(225, 40, 40, 0.59)"
+          ],
+          "datasource": null,
+          "editable": true,
+          "error": false,
+          "format": "none",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
+          "id": 32,
+          "interval": "> 60s",
+          "links": [],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 3,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": true
+          },
+          "targets": [
+            {
+              "column": "value",
+              "dsType": "influxdb",
+              "function": "last",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "groupByTags": [],
+              "measurement": "rabbitmq_consumers",
+              "policy": "default",
+              "query": "SELECT last(\"value\") FROM \"rabbitmq_consumers\" WHERE \"hostname\" =~ /$server/ AND $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  }
+                ]
+              ],
+              "series": "merge(/$server.rabbitmq.consumers/)",
+              "tags": [
+                {
+                  "key": "hostname",
+                  "operator": "=~",
+                  "value": "/$server/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "environment_label",
+                  "operator": "=~",
+                  "value": "/^$environment$/"
+                }
+              ]
+            }
+          ],
+          "thresholds": "",
+          "title": "Consumers",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "datasource": null,
+          "editable": true,
+          "error": false,
+          "format": "none",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
+          "id": 39,
+          "interval": "> 60s",
+          "links": [],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 3,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": true
+          },
+          "targets": [
+            {
+              "column": "value",
+              "dsType": "influxdb",
+              "function": "last",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "groupByTags": [],
+              "measurement": "rabbitmq_channels",
+              "policy": "default",
+              "query": "SELECT last(\"value\") FROM \"rabbitmq_exchanges\" WHERE \"hostname\" =~ /$server/ AND $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  }
+                ]
+              ],
+              "series": "merge(/$server.rabbitmq.exchanges/)",
+              "tags": [
+                {
+                  "key": "hostname",
+                  "operator": "=~",
+                  "value": "/$server/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "environment_label",
+                  "operator": "=~",
+                  "value": "/^$environment$/"
+                }
+              ]
+            }
+          ],
+          "thresholds": "",
+          "title": "Channels",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "datasource": null,
+          "editable": true,
+          "error": false,
+          "format": "none",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "id": 33,
           "interval": "> 60s",
           "links": [],
@@ -684,6 +773,7 @@
               ],
               "groupByTags": [],
               "measurement": "rabbitmq_exchanges",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"rabbitmq_exchanges\" WHERE \"hostname\" =~ /$server/ AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
@@ -706,7 +796,14 @@
               "tags": [
                 {
                   "key": "hostname",
+                  "operator": "=~",
                   "value": "/$server/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "environment_label",
+                  "operator": "=~",
+                  "value": "/^$environment$/"
                 }
               ]
             }
@@ -728,130 +825,10 @@
           "aliasColors": {},
           "bars": false,
           "datasource": null,
-          "decimals": 0,
           "editable": true,
           "error": false,
           "fill": 0,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": 0,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": 0,
-            "threshold1": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2": null,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
-          "id": 37,
-          "interval": "> 60s",
-          "legend": {
-            "avg": false,
-            "current": false,
-            "max": false,
-            "min": false,
-            "show": true,
-            "total": false,
-            "values": false
-          },
-          "lines": true,
-          "linewidth": 1,
-          "links": [],
-          "nullPointMode": "connected",
-          "percentage": false,
-          "pointradius": 5,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "span": 6,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "alias": "$tag_hostname",
-              "column": "value",
-              "dsType": "influxdb",
-              "function": "mean",
-              "groupBy": [
-                {
-                  "interval": "auto",
-                  "params": [
-                    "auto"
-                  ],
-                  "type": "time"
-                },
-                {
-                  "params": [
-                    "hostname"
-                  ],
-                  "type": "tag"
-                },
-                {
-                  "params": [
-                    "previous"
-                  ],
-                  "type": "fill"
-                }
-              ],
-              "measurement": "rabbitmq_unmirrored_queues",
-              "query": "SELECT mean(\"value\") FROM \"rabbitmq_unmirrored_queues\" WHERE \"environment_label\" = '$environment' AND $timeFilter GROUP BY time($interval), \"hostname\" fill(previous)",
-              "rawQuery": false,
-              "refId": "A",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "value"
-                    ],
-                    "type": "field"
-                  },
-                  {
-                    "params": [],
-                    "type": "mean"
-                  }
-                ]
-              ],
-              "series": "/$server.rabbitmq.memory/",
-              "tags": [
-                {
-                  "key": "environment_label",
-                  "operator": "=",
-                  "value": "$environment"
-                }
-              ]
-            }
-          ],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "Queues not mirrored",
-          "tooltip": {
-            "shared": true,
-            "value_type": "cumulative"
-          },
-          "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "none",
-            "bytes"
-          ]
-        },
-        {
-          "aliasColors": {},
-          "bars": false,
-          "datasource": null,
-          "editable": true,
-          "error": false,
-          "fill": 0,
-          "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": 0,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -859,7 +836,6 @@
           },
           "id": 29,
           "interval": "> 60s",
-          "leftYAxisLabel": "per second",
           "legend": {
             "avg": false,
             "current": false,
@@ -878,7 +854,7 @@
           "points": false,
           "renderer": "flot",
           "seriesOverrides": [],
-          "span": 6,
+          "span": 12,
           "stack": false,
           "steppedLine": false,
           "targets": [
@@ -909,6 +885,7 @@
                 }
               ],
               "measurement": "rabbitmq_messages",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"rabbitmq_messages\" WHERE \"environment_label\" = '$environment' AND $timeFilter GROUP BY time($interval), \"hostname\" fill(previous)",
               "rawQuery": false,
               "refId": "A",
@@ -941,15 +918,30 @@
           "timeShift": null,
           "title": "Outstanding Messages",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "value_type": "individual"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "short",
-            "short"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": "per second",
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         },
         {
@@ -960,12 +952,6 @@
           "error": false,
           "fill": 0,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": 0,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": 0,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -1022,6 +1008,7 @@
                 }
               ],
               "measurement": "rabbitmq_used_memory",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"rabbitmq_used_memory\" WHERE \"environment_label\" = '$environment' AND $timeFilter GROUP BY time($interval), \"hostname\" fill(previous)",
               "rawQuery": false,
               "refId": "A",
@@ -1054,15 +1041,29 @@
           "timeShift": null,
           "title": "Used memory",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "value_type": "cumulative"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "bytes",
-            "bytes"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "bytes",
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "bytes",
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            }
           ]
         },
         {
@@ -1073,12 +1074,6 @@
           "error": false,
           "fill": 0,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": 0,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": 0,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -1135,6 +1130,7 @@
                 }
               ],
               "measurement": "rabbitmq_disk_free",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"rabbitmq_disk_free\" WHERE \"environment_label\" = '$environment' AND $timeFilter GROUP BY time($interval), \"hostname\" fill(previous)",
               "rawQuery": false,
               "refId": "A",
@@ -1167,22 +1163,37 @@
           "timeShift": null,
           "title": "Free disk",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "value_type": "cumulative"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "bytes",
-            "bytes"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "bytes",
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "bytes",
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            }
           ]
         }
       ],
+      "showTitle": false,
       "title": "RabbitMQ"
     }
   ],
-  "schemaVersion": 8,
+  "schemaVersion": 12,
   "sharedCrosshair": true,
   "style": "dark",
   "tags": [],
@@ -1193,11 +1204,12 @@
         "allFormat": "regex values",
         "current": {},
         "datasource": null,
+        "hide": 0,
         "includeAll": false,
         "name": "environment",
         "options": [],
         "query": "show tag values from cpu_idle with key = environment_label",
-        "refresh": true,
+        "refresh": 1,
         "refresh_on_load": true,
         "regex": "",
         "type": "query"
@@ -1206,11 +1218,12 @@
         "allFormat": "regex values",
         "current": {},
         "datasource": null,
+        "hide": 0,
         "includeAll": true,
         "name": "server",
         "options": [],
         "query": "show tag values from rabbitmq_consumers with key = hostname where environment_label = '$environment' ",
-        "refresh": true,
+        "refresh": 1,
         "refresh_on_load": true,
         "regex": "",
         "type": "query"
@@ -1254,5 +1267,5 @@
   },
   "timezone": "browser",
   "title": "RabbitMQ",
-  "version": 2
+  "version": 3
 }
