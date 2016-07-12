@@ -15,11 +15,12 @@
 # == Class: influxdb::install
 
 class influxdb::install (
-  $raft_nodes    = undef,
+  $raft_nodes = undef,
+  $version    = 'latest',
 ) {
 
   package { 'influxdb':
-    ensure => installed,
+    ensure => $version,
   }
 
   if $raft_nodes {
