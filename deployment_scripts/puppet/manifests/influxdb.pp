@@ -44,5 +44,6 @@ class { 'lma_monitoring_analytics::influxdb':
   base_directory => $data_directory,
   hostname       => hiera('lma::influxdb::listen_address'),
   raft_nodes     => $raft_nodes,
+  version        => '0.11.1-1',
   require        => File[$data_directory],
 }
