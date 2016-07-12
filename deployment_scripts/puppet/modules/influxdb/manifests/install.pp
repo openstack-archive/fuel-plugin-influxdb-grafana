@@ -19,7 +19,7 @@ class influxdb::install (
 ) {
 
   package { 'influxdb':
-    ensure => installed,
+    ensure => '0.11.1-1',
   }
 
   if $raft_nodes {
