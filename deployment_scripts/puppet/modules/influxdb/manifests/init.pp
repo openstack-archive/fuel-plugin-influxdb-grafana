@@ -20,12 +20,20 @@ class influxdb (
   $meta_dir   = $influxdb::params::meta_dir,
   $wal_dir    = $influxdb::params::wal_dir,
   $snapshot   = $influxdb::params::snapshot,
+  $version    = undef,
   $hostname   = undef,
   $raft_nodes = undef,
 ) inherits influxdb::params {
 
+  if $version {
+    $use_version = $version
+  } else {
+    $use_version = 'latest'
+  }
+
   class {'influxdb::install':
-    raft_nodes    => $raft_nodes,
+    raft_nodes => $raft_nodes,
+    version    => $use_version,
   }
 
   class {'influxdb::service':

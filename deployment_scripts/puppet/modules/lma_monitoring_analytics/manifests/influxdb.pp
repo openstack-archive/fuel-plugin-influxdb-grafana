@@ -18,6 +18,7 @@ class lma_monitoring_analytics::influxdb (
   $base_directory = $lma_monitoring_analytics::params::influxdb_dir,
   $hostname       = undef,
   $raft_nodes     = undef,
+  $version        = undef,
 ) inherits lma_monitoring_analytics::params {
 
   if $raft_nodes {
@@ -32,5 +33,6 @@ class lma_monitoring_analytics::influxdb (
     snapshot   => true,
     hostname   => $hostname,
     raft_nodes => $raft_nodes,
+    version    => $version,
   }
 }
