@@ -20,7 +20,15 @@ describe 'influxdb::install' do
     end
 
     describe 'with defaults' do
-        it { is_expected.to contain_package('influxdb').with_ensure('installed') }
+        it { is_expected.to contain_package('influxdb').with_ensure('latest') }
+        it { is_expected.to have_file_count(0) }
+    end
+
+    describe 'with version' do
+        let (:params) do
+            {:version => '0.1.2.3'}
+        end
+        it { is_expected.to contain_package('influxdb').with_ensure('0.1.2.3') }
         it { is_expected.to have_file_count(0) }
     end
 
@@ -28,7 +36,7 @@ describe 'influxdb::install' do
         let(:params) do
             {:raft_nodes => ['node-1', 'node-2']}
         end
-        it { is_expected.to contain_package('influxdb').with_ensure('installed') }
+        it { is_expected.to contain_package('influxdb').with_ensure('latest') }
         it { is_expected.to contain_file('/etc/default/influxdb') }
     end
 end
