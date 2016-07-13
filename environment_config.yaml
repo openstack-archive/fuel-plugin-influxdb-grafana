@@ -3,7 +3,7 @@ attributes:
   retention_period:
     value: '30'
     label: 'Retention period'
-    description: 'The number of days after which data is automatically deleted within the InfluxDB system (0 to never delete data).'
+    description: 'The number of days after which data is automatically deleted in InfluxDB (0 to never delete data).'
     weight: 5
     type: "text"
     regex: &number_validation
@@ -55,7 +55,7 @@ attributes:
   grafana_username:
     value: 'lma'
     label: 'User name'
-    description: 'The name of the Grafana admin user'
+    description: 'The name of the Grafana admin'
     weight: 70
     type: "text"
     regex:
@@ -66,7 +66,7 @@ attributes:
     value:
       generator: 'password'
     label: 'User password'
-    description: 'The password of the Grafana admin user'
+    description: 'The password of the Grafana admin'
     weight: 80
     type: "password"
     regex:
@@ -149,7 +149,7 @@ attributes:
   grafana_ssl_cert:
     value: ''
     label: 'Certificate for Grafana'
-    description: 'Certificate and private key data, concatenated into a single file.'
+    description: 'Certificate and private key concatenated into a single PEM file.'
     weight: 160
     type: "file"
     restrictions:
@@ -266,7 +266,7 @@ attributes:
   ldap_authorization_enabled:
     value: false
     label: 'Enable group-based authorization'
-    description: 'It allows to associate the users with the admin or viewer role. Otherwise all users are assigned to admin role.'
+    description: "It allows to associate users with the 'admin' or 'viewer' role. Otherwise all users are assigned to the admin role."
     weight: 250
     type: "checkbox"
     restrictions:
@@ -305,8 +305,8 @@ attributes:
 
   ldap_admin_group_dn:
     value: ''
-    label: 'Group DN mapping to the Admins role'
-    description: ''
+    label: 'The LDAP group CN'
+    description: "The group CN for the 'admin' role"
     weight: 280
     type: "text"
     regex: *not_empty_parameter
@@ -320,8 +320,8 @@ attributes:
 
   ldap_viewer_group_dn:
     value: ''
-    label: 'Group DN mapping to the Viewers role'
-    description: ''
+    label: 'The LDAP group CN'
+    description: "The group CN for the 'viewer' role"
     weight: 290
     type: "text"
     regex: *not_empty_parameter

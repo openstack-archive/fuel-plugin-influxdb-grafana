@@ -1,24 +1,21 @@
-The InfluxDB-Grafana Plugin for Fuel
-====================================
+The StackLight InfluxDB-Grafana Plugin for Fuel
+===============================================
 
-Overview
---------
-
-The InfluxDB-Grafana Plugin for Fuel is used to install and configure
+The StackLight InfluxDB-Grafana Plugin for Fuel is used to install and configure
 [InfluxDB](http://influxdb.com/) and
 [Grafana](http://grafana.org/) which collectively provide access to
-OpenStack analytics for the metrics collected and processed by the
-[LMA Collector](http://fuel-plugin-lma-collector.readthedocs.org/en/latest/index.html)
-Plugin.
+metrics analytics of Mirantis OpenStack. The metrics are collected and
+processed by the [StackLight Collector]
+(http://fuel-plugin-lma-collector.readthedocs.org/en/latest/index.html).
 
-Please check the [InfluxDB-Grafana Plugin Overview](
+Please go to the [InfluxDB-Grafana Plugin Overview](
 http://fuel-plugin-influxdb-grafana.readthedocs.org/en/latest/overview.html)
-section of the plugin documentation for additional information.
+to getting started.
 
 Release Notes
 -------------
 
-The release notes of the InfluxDB-Grafana Plugin are provided in the
+A summary description of the new features are provided in the
 [Release Notes](
 http://fuel-plugin-influxdb-grafana.readthedocs.org/en/latest/releases.html)
 section of the plugin documentation.
@@ -26,36 +23,34 @@ section of the plugin documentation.
 Requirements
 ------------
 
-The InfluxDB-Grafana Plugin requirements are defined in the [Requirements](
+The requirements are defined in the [Requirements](
 http://fuel-plugin-influxdb-grafana.readthedocs.org/en/latest/overview.html#requirements)
 section of the plugin documentation.
 
 Known issues
 ------------
 
-The LMA Toolchain's related issues are listed on [Launchpad](
+All known issues are listed on [Launchpad](
 https://bugs.launchpad.net/lma-toolchain).
 
 Limitations
 -----------
 
-The InfluxDB-Grafana Plugin limitations are described in the [Limitations](
+All known limitations are described in the [Limitations](
 http://fuel-plugin-influxdb-grafana.readthedocs.org/en/latest/overview.html#limitations)
 section of the plugin documentation.
 
 Installation
 ------------
 
-The installation instructions of the InfluxDB-Grafana Plugin are provided
-in the [Installation](
+The installation instructions are provided in the [Installation](
 http://fuel-plugin-influxdb-grafana.readthedocs.org/en/latest/installation.html)
 section of the plugin documentation.
 
 User Guide
 ----------
 
-Instructions for how to configure and use the InfluxDB-Grafana Plugin
-are provided in the [User Guide](
+Instructions for how to configure and use the InfluxDB-Grafana Plugin are provided in the [User Guide](
 http://fuel-plugin-influxdb-grafana.readthedocs.org/en/latest/user.html)
 section of the plugin documentation.
 
