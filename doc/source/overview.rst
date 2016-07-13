@@ -3,15 +3,15 @@
 Overview
 ========
 
-The **InfluxDB-Grafana Fuel Plugin** is used to install and configure
-InfluxDB and Grafana which collectively provide access to the OpenStack
-metrics analytics. InfluxDB is a powerful distributed time-series database
+The **StackLight InfluxDB-Grafana Fuel Plugin** is used to install and configure
+InfluxDB and Grafana which collectively provide access to the
+metrics analytics of Mirantis OpenStack.
+InfluxDB is a powerful distributed time-series database
 to store and search metrics time-series. The metrics analytics are used to
-visualize the time-series and the annotations produced by the LMA Collector.
-The annotations contain insightful information about the detected fault
-or anomaly that triggered a change of state for a node cluster or service
-cluster as well as textual hints about what might be the root cause of the
-fault or anomaly.
+visualize the time-series and the annotations produced by the StackLight Collector.
+The annotations contain insightful information about the faults and anomalies
+that resulted in a change of state for the clusters of nodes and services
+of the OpenStack environment.
 
 The InfluxDB-Grafana Plugin is an indispensable tool to answering
 the questions "what has changed in my OpenStack environment, when and why?".
@@ -32,7 +32,6 @@ as shown in the figure below.
 Requirements
 ------------
 
-
 +------------------------+--------------------------------------------------------------------------------------------+
 | **Requirement**        | **Version/Comment**                                                                        |
 +========================+============================================================================================+
@@ -40,7 +39,7 @@ Requirements
 |                        | system, 10GB for the logs and 30GB for the database. The installation of the               |
 |                        | plugin will fail if there is less than 55GB of disk space available on the node.           |
 +------------------------+--------------------------------------------------------------------------------------------+
-| Mirantis OpenStack     | 8.0                                                                                        |
+| Mirantis OpenStack     | 8.0, 9.0                                                                                   |
 +------------------------+--------------------------------------------------------------------------------------------+
 | Hardware configuration | The hardware configuration (RAM, CPU, disk(s)) required by this plugin depends on the size |
 |                        | of your cloud environment and other factors like the retention policy. An average          |
@@ -58,7 +57,7 @@ Limitations
 
 Currently, the size of an InfluxDB cluster the Fuel plugin can deploy is limited to three nodes. In addition to this,
 each node of the InfluxDB cluster is configured to run under the *meta* node role and the *data* node role. Therefore,
-it is not possible using the Fuel plugin, to separate the nodes participating in the Raft consensus cluster from
+it is not possible to separate the nodes participating in the Raft consensus cluster from
 the nodes accessing the data replicas.
 
 Key terms, acronyms and abbreviations
@@ -67,8 +66,8 @@ Key terms, acronyms and abbreviations
 +----------------------+--------------------------------------------------------------------------------------------+
 | **Terms & acronyms** | **Definition**                                                                             |
 +======================+============================================================================================+
-| LMA Collector        | Logging, Monitoring and Alerting (LMA) Collector. A service running on each node which     |
-|                      | collects all the logs and the OpenStack notifications.                                     |
+| The Collector        | The StackLight Collector is a smart monitoring agent running on every node which collects  |
+|                      | and process the metrics of your OpenStack environment.                                     |
 +----------------------+--------------------------------------------------------------------------------------------+
 | InfluxDB             | InfluxDB is a time-series, metrics, and analytics open-source database (MIT license).      |
 |                      | It’s written in Go and has no external dependencies.                                       |
