@@ -6,6 +6,16 @@ Release Notes
 Version 0.10.0
 --------------
 
+* Changes
+
+  * Add support for LDAP(S) authentication to access Grafana.
+  * Add support for TLS encryption to access Grafana.
+    A PEM file obtained by concatenating the SSL certificate with the private key
+    of the server must be provided in the settings of the plugin to configure the
+    TLS termination.
+  * Upgrade to InfluxDB v0.11.1.
+  * Upgrade to Grafana v3.0.4.
+
 Version 0.9.0
 -------------
 

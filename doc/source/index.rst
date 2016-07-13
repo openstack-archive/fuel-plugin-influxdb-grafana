@@ -1,6 +1,6 @@
-========================================================================
-Welcome to the Mirantis OpenStack InfluxDB-Grafana Plugin Documentation!
-========================================================================
+================================================================
+Welcome to the StackLight InfluxDB-Grafana Plugin Documentation!
+================================================================
 
 User documentation
 ==================
