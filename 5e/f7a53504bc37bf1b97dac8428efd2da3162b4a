@@ -1,0 +1,9 @@
+Code-Review+2: Simon Pasquier <spasquier@mirantis.com>
+Code-Review+1: Swann Croiset <scroiset@mirantis.com>
+Workflow+1: Guillaume Thouvenin <gthouvenin@mirantis.com>
+Verified+2: Jenkins
+Submitted-by: Jenkins
+Submitted-at: Mon, 18 Jul 2016 07:39:58 +0000
+Reviewed-on: https://review.openstack.org/340896
+Project: openstack/fuel-plugin-influxdb-grafana
+Branch: refs/heads/master
