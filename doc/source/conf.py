@@ -5,7 +5,7 @@ source_suffix = '.rst'
 
 master_doc = 'index'
 
-project = u'The InfluxDB-Grafana plugin for Fuel'
+project = u'The StackLight InfluxDB-Grafana plugin for Fuel'
 copyright = u'2015, Mirantis Inc.'
 
 version = '0.10'
@@ -19,7 +19,7 @@ html_theme = 'default'
 html_static_path = ['_static']
 
 latex_documents = [
-  ('index', 'InfluxDBGrafana.tex', u'The InfluxDB-Grafana plugin for Fuel Documentation',
+  ('index', 'InfluxDBGrafana.tex', u'The StackLight InfluxDB-Grafana plugin for Fuel Documentation',
    u'Mirantis Inc.', 'manual'),
 ]
 

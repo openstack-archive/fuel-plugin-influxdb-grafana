@@ -8,21 +8,20 @@ User Guide
 Plugin configuration
 --------------------
 
-To configure the plugin, you need to follow these steps:
+To configure the **StackLight InfluxDB-Grafana Plugin**, you need to follow these steps:
 
-#. `Create a new environment <http://docs.mirantis.com/openstack/fuel/fuel-8.0/user-guide.html#launch-wizard-to-create-new-environment>`_
-   from the Fuel web user interface.
+1. `Create a new environment
+   <http://docs.openstack.org/developer/fuel-docs/userdocs/fuel-user-guide/create-environment/start-create-env.html>`_.
 
-#. Click on the **Settings** tab and select the **Other** category.
+2. Click on the *Settings* tab of the Fuel web UI and select the *Other* category.
 
-#. Scroll down through the settings until you find the **InfluxDB-Grafana Server
-   Plugin** section. You should see a page like this
+3. Scroll down through the settings until you find the **InfluxDB-Grafana Server
+   Plugin** section. You should see a page like this:
 
    .. image:: ../images/influx_grafana_settings.png
       :width: 800
-      :align: center
 
-#. Tick the **InfluxDB-Grafana Plugin** box and fill-in the required fields as indicated below.
+4. Tick the **InfluxDB-Grafana Plugin** box and fill-in the required fields as indicated below.
 
    a. Specify the number of days of retention for your data.
    b. Specify the InfluxDB admin password (called root password in the InfluxDB documentation).
@@ -30,62 +29,115 @@ To configure the plugin, you need to follow these steps:
    d. Specify the InfluxDB username and password.
    e. Specify the Grafana username and password.
 
-#. With the introduction of Grafana 2.6.0, the plugin now uses a MySQL database
-   to store its configuration such as the dashboard templates.
+5. Since the introduction of Grafana 2.6.0, the plugin now uses a MySQL database
+   to store its configuration data such as the dashboard templates.
 
    a. Select **Local MySQL** if you want to create the Grafana database using the MySQL server
       of the OpenStack control-plane. Otherwise, select **Remote server** and specify
-      the fully qualified name or IP address of the MySQL server you want to use. 
+      the fully qualified name or IP address of the MySQL server you want to use.
    b. Then, specify the MySQL database name, username and password that will be used
       to access that database.
 
-#. Scroll down to the bottom of the page and click the **Save Settings** button when
-   you are done with the settings. 
+6. Tick the *Enable TLS for Grafana* box if you want to encrypt your
+   Grafana credentials (username, password). Then, fill-in the required
+   fields as indicated below.
 
-#. Assign the *InfluxDB_Grafana* role to either one node (no HA) or three nodes if
-   you want to run the InfluxDB and Grafana servers in an HA cluster.
-   Note that installing the InfluxDB and Grafana servers on more than three nodes is currently
-   not possible. Similarly, installing the InfluxDB and Grafana servers on two nodes
-   is not recommended to avoid split-brain situations in the Raft consensus of 
-   the InfluxDB cluster as well as the *Pacemaker* cluster which is responsible of
-   the VIP address failover.
-   To be also noted, it is possible to add or remove a node
-   with the *InfluxDB_Grafana* role in the cluster after deployment.
+   .. image:: ../images/tls_settings.png
+      :width: 800
+
+   a. Specify the DNS name of the Grafana server. This parameter is used
+      to create a link in the Fuel dashboard to the Grafana server.
+   #. Specify the location of a PEM file that contains the certificate
+      and the private key of the Grafana server that will be used in TLS handchecks
+      with the client.
+
+7. Tick the *Use LDAP for Grafana authentication* box if you want to authenticate
+   via LDAP to Grafana. Then, fill-in the required fields as indicated below.
+
+   .. image:: ../images/ldap_auth.png
+      :width: 800
+
+   a. Select the *LDAPS* button if you want to enable LDAP authentication
+      over SSL.
+   #. Specify one or several LDAP server addresses separated by a space. Those
+      addresses must be accessible from the node where Grafana is installed.
+      Note that addresses external to the *management network* are not routable
+      by default (see the note below).
+   #. Specify the LDAP server port number or leave it empty to use the defaults.
+   #. Specify the *Bind DN* of a user who has search priviliges on the LDAP server.
+   #. Specify the password of the user identified by the *Bind DN* above.
+   #. Specify the *Base DN* in the Directory Information Tree (DIT) from where
+      to search for users.
+   #. Specify a valid user search filter (ex. (uid=%s)).
+      The result of the search should return a unique user entry.
+   #. Specify a valid search filter to search for users.
+      Example ``(uid=%s)``
+
+   You can further restrict access to Grafana to those users who
+   are member of a specific LDAP group.
+
+   a. Tick the *Enable group-based authorization*.
+   #. Specify the LDAP group *Base DN* in the DIT from where to search
+      for groups.
+   #. Specify the LDAP group search filter.
+      Example ``(&(objectClass=posixGroup)(memberUid=%s))``
+   #. Specify the CN of the LDAP group that will be mapped to the *admin role*
+   #. Specify the CN of the LDAP group that will be mapped to the *viewer role*
+
+   Users who have the *admin role* can modify the Grafana dashboards
+   or create new ones. Users who have the *viewer role* can only
+   visualise the Grafana dashboards.
+
+7. `Configure your environment
+   <http://docs.openstack.org/developer/fuel-docs/userdocs/fuel-user-guide/configure-environment.html>`_.
+
+   .. note:: By default, StackLight is configured to use the *management network*,
+      of the so-called `Default Node Network Group
+      <http://docs.openstack.org/developer/fuel-docs/userdocs/fuel-user-guide/configure-environment/network-settings.html>`_.
+      While this default setup may be appropriate for small deployments or
+      evaluation purposes, it is recommended not to use this network
+      for StackLight in production. It is instead recommended to create a network
+      dedicated to StackLight using the `networking templates
+      <https://docs.mirantis.com/openstack/fuel/fuel-8.0/operations.html#using-networking-templates>`_
+      capability of Fuel. Using a dedicated network for StackLight will
+      improve performances and reduce the monitoring footprint on the
+      control-plane. It will also facilitate access to the Gafana UI
+      after deployment as the *management network* is not routable.
+
+8. Click the *Nodes* tab and assign the *InfluxDB_Grafana* role
+   to the node(s) where you want to install the plugin.
+
+   You can see in the example below that the *InfluxDB_Grafana*
+   role is assigned to three nodes along side with the
+   *Alerting_Infrastructure* and the *Elasticsearch_Kibana* roles.
+   Here, the three plugins of the LMA toolchain backend servers are
+   installed on the same nodes. You can assign the *InfluxDB_Grafana*
+   role to either one node (standalone install) or three nodes for HA.
 
    .. image:: ../images/influx_grafana_role.png
       :width: 800
-      :align: center
 
-   .. note:: You can see in the example above that the *InfluxDB_Grafana* role is assigned to
-      three different nodes along with the *Infrastructure_Alerting* role and the *Elasticsearch_Kibana*
-      role. This means that the three plugins of the LMA toolchain can be installed on the same nodes. 
+   .. note:: Installing the InfluxDB server on more than three nodes
+      is currently not possible using the Fuel plugin.
+      Similarly, installing the InfluxDB server on two nodes
+      is not recommended to avoid split-brain situations in the Raft
+      consensus of the InfluxDB cluster as well as the *Pacemaker* cluster
+      which is responsible of the VIP address failover.
+      To be also noted that it is possible to add or remove nodes
+      with the *InfluxDB_Grafana* role in the cluster after deployment.
 
-#. Click on **Apply Changes**
+9. `Adjust the disk partitioning if necessary
+   <http://docs.openstack.org/developer/fuel-docs/userdocs/fuel-user-guide/configure-environment/customize-partitions.html>`_.
 
-#. Adjust the disk configuration for your plugin if necessary (see the `Fuel User Guide
-   <http://docs.mirantis.com/openstack/fuel/fuel-8.0/user-guide.html#disk-partitioning>`_
-   for details). By default, the InfluxDB-Grafana Plugin allocates:
+   By default, the InfluxDB-Grafana Plugin allocates:
 
-   - 20% of the first available disk for the operating system by honoring a range of 15GB minimum to 50GB maximum.
-   - 10GB for */var/log*.
-   - At least 30 GB for the InfluxDB database in */var/lib/influxdb*.
+     * 20% of the first available disk for the operating system by honoring
+       a range of 15GB minimum to 50GB maximum.
+     * 10GB for */var/log*.
+     * At least 30 GB for the InfluxDB database in */var/lib/influxdb*.
 
-#. `Configure your environment <http://docs.mirantis.com/openstack/fuel/fuel-8.0/user-guide.html#configure-your-environment>`_
-   as needed.
-
-#. `Verify the networks <http://docs.mirantis.com/openstack/fuel/fuel-8.0/user-guide.html#verify-networks>`_.
-
-#. And finally, `deploy <http://docs.mirantis.com/openstack/fuel/fuel-8.0/user-guide.html#deploy-changes>`_ your changes.
-
-
-.. note:: By default, the InfluxDB/Grafana cluster is deployed on the Fuel
-   management network. If this behavior doesn't meet your needs, you can
-   leverage the `network templates
-   <https://docs.mirantis.com/openstack/fuel/fuel-8.0/operations.html#using-networking-templates>`_
-   to use a different network instead. Please refer to the
-   `Elasticsearch/Kibana plugin
-   <http://fuel-plugin-elasticsearch-kibana.readthedocs.io/>`_ for more
-   information.
+10. `Deploy your environment
+    <http://docs.openstack.org/developer/fuel-docs/userdocs/fuel-user-guide/deploy-environment.html>`_.
 
 .. _plugin_install_verification:
 
@@ -95,12 +147,11 @@ Plugin verification
 Be aware that depending on the number of nodes and deployment setup,
 deploying a Mirantis OpenStack environment can typically take anything
 from 30 minutes to several hours. But once your deployment is complete,
-you should see a notification message indicating that you deployment is complete
-as in the figure below.
+you should see a notification message indicating that you deployment
+successfully completed as in the figure below.
 
 .. image:: ../images/deployment_notification.png
    :width: 800
-   :align: center
 
 Verifying InfluxDB
 ~~~~~~~~~~~~~~~~~~
@@ -128,7 +179,7 @@ Here is how to proceed.
    This tells you that the VIP address of your InfluxDB cluster is *10.109.1.4*.
 
 #. With that VIP address type the command::
-   
+
      root@node-1:~# /usr/bin/influx -database lma -password lmapass \
      --username root -host 10.109.1.4 -port 8086
      Visit https://enterprise.influxdata.com to register for updates,
@@ -152,7 +203,7 @@ Here is how to proceed.
      1       node-1:8086     node-1:8088
      3       node-2:8086     node-2:8088
      5       node-3:8086     node-3:8088
-     
+
      name: meta_nodes
      ----------------
      id      http_addr       tcp_addr
@@ -167,30 +218,19 @@ Here is how to proceed.
 Verifying Grafana
 ~~~~~~~~~~~~~~~~~
 
-From the Fuel web UI **Dashboard** view, click on the **Grafana** link as shown in the figure below.
-
-.. image:: ../images/grafana_link.png
-   :width: 800
-   :align: center
-
+From the Fuel dDashboard, click on the **Grafana** link (or enter the IP address
+and port number if your DNS is not setup).
 The first time you access Grafana, you are requested to
-authenticate using the credentials you defined in the plugin's settings.
+authenticate using your credentials.
 
 .. image:: ../images/grafana_login.png
    :width: 800
-   :align: center
 
-Once you have authenticated, you should be automatically
-redirected to the **Home Page** from where you can select a dashboard as
-shown below.
+Then you should be redirected to the *Grafana Home Page*
+from where you can select a dashboard as shown below.
 
 .. image:: ../images/grafana_home.png
-   :align: center
    :width: 800
-
-.. note:: Be aware that by default, Grafana is attached to the *management network*.
-   Your desktop machine must have access to the OpenStack environment's
-   *management network* you just created, to get access to the Grafana dashboard.
 
 Exploring your time-series with Grafana
 ---------------------------------------
@@ -198,7 +238,7 @@ Exploring your time-series with Grafana
 The InfluxDB-Grafana Plugin comes with a collection of predefined
 dashboards you can use to visualize the time-series  stored in InfluxDB.
 
-Please check the LMA Collector documentation for a complete list of all the 
+Please check the LMA Collector documentation for a complete list of all the
 `metrics time-series <http://fuel-plugin-lma-collector.readthedocs.org/en/latest/appendix_b.html>`_
 that are collected and stored in InfluxDB.
 
@@ -208,29 +248,28 @@ The Main Dashboard
 We suggest you start with the **Main Dashboard**, as shown
 below, as an entry to the other dashboards.
 The **Main Dashboard** provides a single pane of glass from where you can visualize the
-overall health state of your OpenStack services such as Nova and Cinder
+overall health status of your OpenStack services such as Nova and Cinder
 but also HAProxy, MySQL and RabbitMQ to name a few..
 
 .. image:: ../images/grafana_main.png
-   :align: center
    :width: 800
 
 As you can see, the **Main Dashboard** (as most dashboards) provides
 a drop down menu list in the upper left corner of the window
 from where you can pick a particular metric dimension such as
-the *controller name* or the *device name* you want to select. 
+the *controller name* or the *device name* you want to select.
 
 In the example above, the system metrics of *node-48* are
 being displayed in the dashboard.
 
 Within the **OpenStack Services** row, each of the services
-represented can be assigned five different states.
+represented can be assigned five different status.
 
-.. note:: The precise determination of a service health state depends
+.. note:: The precise determination of a service health status depends
    on the correlation policies implemented for that service by a `Global Status Evaluation (GSE)
    plugin <http://fuel-plugin-lma-collector.readthedocs.org/en/latest/alarms.html#cluster-policies>`_.
 
-The meaning associated with a service health state is the following:
+The meaning associated with a service health status is the following:
 
 - **Down**: One or several primary functions of a service
   cluster has failed. For example,
@@ -260,7 +299,7 @@ You can select a specific controller using the
 controller's drop down list in the left corner of the toolbar.
 
 The "Ceph" row provides an overview of the resources usage
-and current health state of the Ceph cluster when it is deployed
+and current health status of the Ceph cluster when it is deployed
 in the OpenStack environment.
 
 The **Main Dashboard** is also an entry point to access more detailed
@@ -269,7 +308,6 @@ For example, if you click on the *Nova box*, the **Nova
 Dashboard** is displayed.
 
 .. image:: ../images/grafana_nova.png
-   :align: center
    :width: 800
 
 The Nova Dashboard
@@ -279,15 +317,15 @@ The **Nova Dashboard** provides a detailed view of the
 Nova service's related metrics.
 
 The **Service Status** row provides information about the Nova service
-cluster health state as a whole including the state of the API frontend
+cluster health status as a whole including the status of the API frontend
 (the HAProxy public VIP), a counter of HTTP 5xx errors,
 the HTTP requests response time and status code.
 
-The **Nova API** row provides information about the current health state of
+The **Nova API** row provides information about the current health status of
 the API backends (nova-api, ec2-api, ...).
 
 The **Nova Services** row provides information about the current and
-historical state of the Nova *workers*.
+historical status of the Nova *workers*.
 
 The **Instances** row provides information about the number of active
 instances in error and instances creation time statistics.
@@ -314,7 +352,7 @@ menu list.
 With LMA 0.9, we have introduced two new dashboards.
 
 #. The **Elasticsearch Cluster Dashboard** provides information about
-   the overall health state of the Elasticsearch cluster including
+   the overall health status of the Elasticsearch cluster including
    the state of the shards, the number of pending tasks and various resources
    usage metrics.
 
@@ -334,10 +372,9 @@ example below, the metrics for the instance id *ba844a75-b9db-4c2f-9cb9-0b083fe0
 running on *node-4* are displayed.
 
 .. image:: ../images/grafana_hypervisor.png
-   :align: center
    :width: 800
 
-Check the LMA Collector documentation for additional information about the 
+Check the LMA Collector documentation for additional information about the
 `*libvirt* metrics <http://fuel-plugin-lma-collector.readthedocs.org/en/latest/appendix_b.html#libvirt>`_
 that are displayed in the **Hypervisor Dashboard**.
 
@@ -364,30 +401,29 @@ the system makes a distinction between what is estimated as a
 direct root cause versus what is estimated as an indirect
 root cause. This is internally represented in a dependency graph.
 There are first degree dependencies used to describe situations
-whereby the health state of an entity
-strictly depends on the health state of another entity. For
+whereby the health status of an entity
+strictly depends on the health status of another entity. For
 example Nova as a service has first degree dependencies
 with the nova-api endpoints and the nova-scheduler workers. But
 there are also second degree dependencies whereby the health
-state of an entity doesn't strictly depends on the health state
+status of an entity doesn't strictly depends on the health status
 of another entity, although it might, depending on other operations
 being performed. For example, by default we declared that Nova
 has a second degree dependency with Neutron. As a result, the
-health state of Nova will not be directly impacted by the health
-state of Neutron but the annotation will provide
+health status of Nova will not be directly impacted by the health
+status of Neutron but the annotation will provide
 a root cause analysis hint. Let's assume a situation
-where Nova has changed from *okay* to *critical* state (because of
-5xx HTTP errors) and that Neutron has been in *down* state for a while.
+where Nova has changed from *okay* to *critical* status (because of
+5xx HTTP errors) and that Neutron has been in *down* status for a while.
 In this case, the Nova dashboard will display an annotation showing that
-Nova has changed to a *warning* state because the system has detected
+Nova has changed to a *warning* status because the system has detected
 5xx errors and that it may be due to the fact that Neutron is *down*.
 An example of what an annotation looks like is shown below.
 
 .. image:: ../images/grafana_nova_annot.png
-   :align: center
    :width: 800
 
-This annotation shows that the health state of Nova is *down*
+This annotation shows that the health status of Nova is *down*
 because there is no *nova-api* service backend (viewed from HAProxy)
 that is *up*.
 
@@ -395,7 +431,7 @@ Hiding nodes from dashboards
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 When you remove a node from the environment, it is still displayed in
-the "server" and "controller" drop-down lists. To hide it from the list
+the 'server' and 'controller' drop-down lists. To hide it from the list
 you need to edit the associated InfluxDB query in the *templating* section.
 For example, if you want to remove *node-1*, you need to add the following
 condition to the *where* clause::
@@ -404,7 +440,6 @@ condition to the *where* clause::
 
 
 .. image:: ../images/remove_controllers_from_templating.png
-   :align: center
 
 If you want to hide more than one node you can add more conditions like this::
 
@@ -441,7 +476,7 @@ If you get no data in Grafana, follow these troubleshooting tips.
 
 #. Check that the InfluxDB service is started on all nodes of the cluster::
 
-     root@node-1:~# service influxdb status 
+     root@node-1:~# service influxdb status
      influxdb Process is running [ OK ]
 
 #. If not, (re)start it::
