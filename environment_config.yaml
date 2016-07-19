@@ -38,7 +38,7 @@ attributes:
     weight: 50
     type: "text"
     regex:
-      source: '\S'
+      source: '^((?!root$)\S)'
       error: "You must provide a username"
 
   influxdb_userpass:
