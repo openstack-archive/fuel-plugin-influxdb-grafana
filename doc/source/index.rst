@@ -1,21 +1,37 @@
-================================================================
-Welcome to the StackLight InfluxDB-Grafana Plugin Documentation!
-================================================================
+=========================================================================
+Welcome to the StackLight InfluxDB-Grafana plugin for Fuel documentation!
+=========================================================================
 
-User documentation
-==================
+Overview
+~~~~~~~~
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
 
-   overview
-   releases
-   installation
-   user
+   intro
+   definitions
+   requirements
+   limitations
+   release_notes
    licenses
-   appendix
+   references
 
-Indices and Tables
-==================
+Installing and configuring StackLight InfluxDB-Grafana plugin
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* :ref:`search`
+.. toctree::
+   :maxdepth: 1
+
+   install_intro
+   install
+   configure_plugin
+   verification
+
+Using StackLight InfluxDB-Grafana plugin
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. toctree::
+   :maxdepth: 1
+
+   usage
+   troubleshooting
