@@ -6,7 +6,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 project = u'The StackLight InfluxDB-Grafana plugin for Fuel'
-copyright = u'2015, Mirantis Inc.'
+copyright = u'2016, Mirantis Inc.'
 
 version = '0.10'
 release = '0.10.0'

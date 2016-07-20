@@ -1,10 +1,10 @@
-.. _releases:
+.. _release_notes:
 
-Release Notes
-=============
+Release notes
+-------------
 
-Version 0.10.0
---------------
+0.10.0
+++++++
 
 * Changes
 
@@ -16,8 +16,8 @@ Version 0.10.0
   * Upgrade to InfluxDB v0.11.1.
   * Upgrade to Grafana v3.0.4.
 
-Version 0.9.0
--------------
+0.9.0
++++++
 
 - A new dashboard for hypervisor metrics.
 - A new dashboard for InfluxDB cluster.
@@ -27,8 +27,8 @@ Version 0.9.0
 - Add support for InfluxDB clustering (beta state).
 - Use MySQL as Grafana backend to support HA.
 
-Version 0.8.0
--------------
+0.8.0
++++++
 
 - Add support for the "influxdb_grafana" Fuel Plugin role instead of
   the "base-os" role which had several limitations.
@@ -38,7 +38,7 @@ Version 0.8.0
 - Several dashboard visualisation improvements.
 - A new self-monitoring dashboard.
 
-Version 0.7.0
--------------
+0.7.0
++++++
 
 - Initial release of the plugin. This is a beta version.
