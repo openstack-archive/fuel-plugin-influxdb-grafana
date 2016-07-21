@@ -22,7 +22,6 @@ Installing and configuring StackLight InfluxDB-Grafana plugin
 .. toctree::
    :maxdepth: 1
 
-   install_intro
    install
    configure_plugin
    verification
