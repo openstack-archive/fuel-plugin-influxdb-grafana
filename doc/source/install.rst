@@ -1,10 +1,7 @@
 .. _user_installation:
 
-Installation Guide
-==================
-
-InfluxDB-Grafana Fuel Plugin installation using the RPM file of the Fuel Plugins Catalog
-----------------------------------------------------------------------------------------
+Install using the RPM file of the Fuel plugins catalog
+------------------------------------------------------
 
 To install the StackLight InfluxDB-Grafana Fuel Plugin using the RPM file of the Fuel Plugins
 Catalog, you need to follow these steps:
@@ -30,8 +27,8 @@ Catalog, you need to follow these steps:
     ---|----------------------|----------|----------------
     1  | influxdb_grafana     | 0.10.0   | 4.0.0
 
-StackLight InfluxDB-Grafana Fuel Plugin installtion from source
----------------------------------------------------------------
+Install from source
+-------------------
 
 Alternatively, you may want to build the RPM file of the plugin from source if,
 for example, you want to test the latest features of the master branch or customize the plugin.
@@ -79,14 +76,3 @@ node so that you won't have to copy that file later on.
 7. Now that you have created the RPM file, you can install the plugin using the `fuel plugins --install` command::
 
     [root@fuel ~] fuel plugins --install ./fuel-plugin-influxdb-grafana/*.noarch.rpm
-
-StackLight InfluxDB-Grafana Fuel plugin software components
------------------------------------------------------------
-
-+----------------+-------------------------------------+
-| Components     | Version                             |
-+================+=====================================+
-| InfluxDB       | v0.11.1 for Ubuntu (64-bit)         |
-+----------------+-------------------------------------+
-| Grafana        | v3.0.4 for Ubuntu (64-bit)          |
-+----------------+-------------------------------------+
