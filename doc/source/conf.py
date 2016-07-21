@@ -19,7 +19,7 @@ html_theme = 'default'
 html_static_path = ['_static']
 
 latex_documents = [
-  ('index', 'InfluxDBGrafana.tex', u'The StackLight InfluxDB-Grafana plugin for Fuel Documentation',
+  ('index', 'InfluxDBGrafana.tex', u'The StackLight InfluxDB-Grafana plugin for Fuel documentation',
    u'Mirantis Inc.', 'manual'),
 ]
 

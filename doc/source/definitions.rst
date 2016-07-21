@@ -3,8 +3,8 @@
 Key terms
 ---------
 
-The table below lists the key terms and acronyms that are used
-in this document.
+The table below lists the key terms and acronyms that are used in this
+document.
 
 +---------------------+-------------------------------------------------------+
 | **Terms & acronyms**| **Definition**                                        |
@@ -19,11 +19,11 @@ in this document.
 |                     | InfluxDB is targeted at use cases for DevOps, metrics,|
 |                     | sensor data, and real-time analytics.                 | 
 +---------------------+-------------------------------------------------------+
-| Grafana             | Grafana is an Apache 2.0 licensed general purpose     |
-|                     | dashboard and graph composer. It is focused on        |
-|                     | providing rich ways to visualize metrics time-series, |
-|                     | mainly though graphs but supports other ways to       |
-|                     | visualize data through a pluggable panel architecture.|
+| Grafana             | Grafana is a general-purpose dashboard and graph      |
+|                     | composer. It is focused on providing rich ways to     |
+|                     | visualize metrics time-series mainly through graphs   |
+|                     | but supports other ways to visualize data through a   |
+|                     | pluggable panel architecture.                         |
 |                     |                                                       |
 |                     | It has rich support for Graphite, InfluxDB, and       |
 |                     | OpenTSDB and also supports other data sources through |
