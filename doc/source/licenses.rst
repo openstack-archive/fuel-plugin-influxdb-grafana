@@ -1,13 +1,17 @@
 .. _licenses:
 
+.. raw:: latex
+
+   \pagebreak
+
 Licenses
 --------
 
-Third Party Components
+Third-party components
 ++++++++++++++++++++++
 
 +----------+-----------------------+-----------+
-| Name     | Project Web Site      | License   |
+| Name     | Project website       | License   |
 +==========+=======================+===========+
 | InfluxDB | https://influxdb.com/ | MIT       |
 +----------+-----------------------+-----------+
@@ -18,13 +22,13 @@ Puppet modules
 ++++++++++++++
 
 +---------+--------------------------------------------------+-----------+
-| Name    | Project Web Site                                 | License   |
+| Name    | Project website                                  | License   |
 +=========+==================================================+===========+
-| Apt     | https://github.com/puppetlabs/puppetlabs-apt     | Apache V2 |
+| Apt     | https://github.com/puppetlabs/puppetlabs-apt     | Apache v2 |
 +---------+--------------------------------------------------+-----------+
-| Concat  | https://github.com/puppetlabs/puppetlabs-concat  | Apache V2 |
+| Concat  | https://github.com/puppetlabs/puppetlabs-concat  | Apache v2 |
 +---------+--------------------------------------------------+-----------+
-| Stdlib  | https://github.com/puppetlabs/puppetlabs-stdlib  | Apache V2 |
+| Stdlib  | https://github.com/puppetlabs/puppetlabs-stdlib  | Apache v2 |
 +---------+--------------------------------------------------+-----------+
 | IniFile | https://github.com/puppetlabs/puppetlabs-inifile | Apache v2 |
 +---------+--------------------------------------------------+-----------+
