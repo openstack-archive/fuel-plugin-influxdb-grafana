@@ -20,7 +20,7 @@ InfluxDB cluster VIP address:
 #. On the Fuel Master node, find the IP address of a node where the InfluxDB
    server is installed using the :command:`fuel nodes` command. For example:
 
-   .. code-block::
+   .. code-block:: console
 
       [root@fuel ~]# fuel nodes
       id | status   | name             | cluster | ip         | mac | roles            |
