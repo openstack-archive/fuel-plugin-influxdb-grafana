@@ -21,12 +21,11 @@ prepare_network_config($network_scheme)
 
 $influxdb_grafana = hiera('influxdb_grafana')
 $hiera_file = '/etc/hiera/plugins/influxdb_grafana.yaml'
-$listen_address = get_network_role_property('influxdb_vip', 'ipaddr')
-$vip_name = 'influxdb'
-if ! $network_metadata['vips'][$vip_name] {
+$influxdb_listen_address = get_network_role_property('influxdb_vip', 'ipaddr')
+if ! $network_metadata['vips']['influxdb'] {
   fail('InfluxDB VIP is not defined')
 }
-$influxdb_vip = $network_metadata['vips'][$vip_name]['ipaddr']
+$influxdb_vip = $network_metadata['vips']['influxdb']['ipaddr']
 
 $influxdb_leader = get_nodes_hash_by_roles($network_metadata, ['primary-influxdb_grafana'])
 $leader_ip_addresses = values(get_node_to_ipaddr_map_by_network_role($influxdb_leader, 'influxdb_vip'))
@@ -34,6 +33,17 @@ $leader_ip_address = $leader_ip_addresses[0]
 
 $influxdb_others = get_nodes_hash_by_roles($network_metadata, ['influxdb_grafana'])
 $others_ip_addresses = sort(values(get_node_to_ipaddr_map_by_network_role($influxdb_others, 'influxdb_vip')))
+
+# For security reasons (eg not exposing Grafana on the public network), only
+# the Grafana VIP should listen on the 'grafana' network and the Grafana
+# services themselves should listen on the 'influxdb_vip' network which is an
+# equivalent of the management network for OpenStack.
+$grafana_listen_address = $influxdb_listen_address
+$grafana_ip_addresses = concat([$leader_ip_address], $others_ip_addresses)
+if ! $network_metadata['vips']['grafana'] {
+  fail('Grafana VIP is not defined')
+}
+$grafana_vip = $network_metadata['vips']['grafana']['ipaddr']
 
 $influxdb_admin_password = $influxdb_grafana['influxdb_rootpass']
 $influxdb_username = $influxdb_grafana['influxdb_username']
@@ -103,7 +113,7 @@ if ! $influxdb_grafana['ldap_server_port'] {
 $calculated_content = inline_template('
 ---
 lma::influxdb::data_dir: "/var/lib/influxdb"
-lma::influxdb::listen_address: "<%= @listen_address %>"
+lma::influxdb::listen_address: "<%= @influxdb_listen_address %>"
 lma::influxdb::influxdb_port: 8086
 lma::influxdb::grafana_port: 8000
 <% if @tls_enabled -%>
@@ -132,6 +142,13 @@ lma::influxdb::admin_password: <%= @influxdb_admin_password %>
 lma::influxdb::username: <%= @influxdb_username %>
 lma::influxdb::password: <%= @influxdb_password %>
 lma::influxdb::dbname: <%= @influxdb_dbname %>
+
+lma::grafana::listen_address: "<%= @grafana_listen_address %>"
+lma::grafana::vip: <%= @grafana_vip %>
+lma::grafana::nodes:
+<% @grafana_ip_addresses.each do |x| -%>
+    - "<%= x %>"
+<% end -%>
 
 lma::grafana::mysql::host: <%= @host %>
 lma::grafana::mysql::mode: <%= @db_mode %>
