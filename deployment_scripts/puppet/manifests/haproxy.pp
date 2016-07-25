@@ -14,9 +14,11 @@
 
 notice('fuel-plugin-influxdb-grafana: haproxy.pp')
 
-$nodes_ips = hiera('lma::influxdb::raft_nodes')
-$nodes_names = prefix(range(1, size($nodes_ips)), 'server_')
+$influxdb_nodes_ips = hiera('lma::influxdb::raft_nodes')
+$influxdb_nodes_names = prefix(range(1, size($influxdb_nodes_ips)), 'server_')
 $influxdb_port = hiera('lma::influxdb::influxdb_port')
+$grafana_nodes_ips = hiera('lma::grafana::nodes')
+$grafana_nodes_names = prefix(range(1, size($grafana_nodes_ips)), 'server_')
 $grafana_port  = hiera('lma::influxdb::grafana_port')
 $grafana_frontend_port = hiera('lma::influxdb::grafana_frontend_port')
 $influxdb_grafana = hiera_hash('influxdb_grafana')
@@ -24,17 +26,17 @@ $influxdb_grafana = hiera_hash('influxdb_grafana')
 Openstack::Ha::Haproxy_service {
   balancermember_options => 'check',
   internal               => true,
-  internal_virtual_ip    => hiera('lma::influxdb::vip'),
   public                 => false,
   public_virtual_ip      => undef,
-  ipaddresses            => $nodes_ips,
-  server_names           => $nodes_names,
 }
 
 openstack::ha::haproxy_service { 'influxdb':
   order                  => '800',
+  internal_virtual_ip    => hiera('lma::influxdb::vip'),
   listen_port            => $influxdb_port,
   balancermember_port    => $influxdb_port,
+  ipaddresses            => $influxdb_nodes_ips,
+  server_names           => $influxdb_nodes_names,
   haproxy_config_options => {
     'option'     => ['httpchk GET /ping HTTP/1.1', 'httplog', 'dontlog-normal'],
     'http-check' => 'expect status 204',
@@ -51,10 +53,13 @@ $grafana_haproxy_service = hiera('lma::grafana::haproxy_service')
 if hiera('lma::grafana::tls::enabled') {
   openstack::ha::haproxy_service { $grafana_haproxy_service:
     order                  => '801',
+    internal_virtual_ip    => hiera('lma::grafana::vip'),
     internal_ssl           => true,
     internal_ssl_path      => hiera('lma::grafana::tls::cert_file_path'),
     listen_port            => $grafana_frontend_port,
     balancermember_port    => $grafana_port,
+    ipaddresses            => $grafana_nodes_ips,
+    server_names           => $grafana_nodes_names,
     haproxy_config_options => {
       'option'  => ['httplog', 'dontlog-normal'],
       'balance' => 'source',
@@ -64,8 +69,11 @@ if hiera('lma::grafana::tls::enabled') {
 } else {
   openstack::ha::haproxy_service { $grafana_haproxy_service:
     order                  => '801',
+    internal_virtual_ip    => hiera('lma::grafana::vip'),
     listen_port            => $grafana_frontend_port,
     balancermember_port    => $grafana_port,
+    ipaddresses            => $grafana_nodes_ips,
+    server_names           => $grafana_nodes_names,
     haproxy_config_options => {
       'option'  => ['httplog', 'dontlog-normal'],
       'balance' => 'source',
