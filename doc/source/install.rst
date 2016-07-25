@@ -38,7 +38,7 @@ the Fuel plugins catalog:**
 
    .. code-block:: console
 
-      [root@home ~]# scp influxdb_grafana-0.10-0.10.0-1.noarch.rpm \
+      [root@home ~]# scp influxdb_grafana-1.0-1.0.0-1.noarch.rpm \
       root@<Fuel Master node IP address>:
 
 #. Install the plugin using the `Fuel Plugins CLI
@@ -46,16 +46,16 @@ the Fuel plugins catalog:**
 
    .. code-block:: console
 
-      [root@fuel ~]# fuel plugins --install influxdb_grafana-0.10-0.10.0-1.noarch.rpm
+      [root@fuel ~]# fuel plugins --install influxdb_grafana-1.0-1.0.0-1.noarch.rpm
 
 #. Verify that the plugin is installed correctly:
 
    .. code-block:: console
 
       [root@fuel ~]# fuel plugins --list
-      id | name                 | version  | package_version
-      ---|----------------------|----------|----------------
-      1  | influxdb_grafana     | 0.10.0   | 4.0.0
+      id | name                 | version | package_version
+      ---|----------------------|---------|----------------
+      1  | influxdb_grafana     | 1.0.0   | 4.0.0
 
 Install from source
 -------------------
