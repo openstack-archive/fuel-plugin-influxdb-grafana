@@ -10,6 +10,7 @@
     - logging
     - netconfig
     - hosts
+    - dns-client
     - cluster-haproxy
   required_for: [deploy_end]
   requires: [deploy_start]
