@@ -11,6 +11,7 @@
     - netconfig
     - hosts
     - dns-client
+    - ntp-client
     - cluster-haproxy
   required_for: [deploy_end]
   requires: [deploy_start]
