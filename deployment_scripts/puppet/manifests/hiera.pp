@@ -14,6 +14,8 @@
 
 notice('fuel-plugin-influxdb-grafana: hiera.pp')
 
+$fuel_version = 0 + hiera('fuel_version')
+
 # Initialize network-related variables
 $network_scheme   = hiera_hash('network_scheme')
 $network_metadata = hiera_hash('network_metadata')
@@ -172,4 +174,8 @@ lma::grafana::ldap::viewer_group_dn: <%= @ldap_viewer_group_dn %>
 file { $hiera_file:
   ensure  => file,
   content => $calculated_content,
+}
+
+if $fuel_version >= 9.0 {
+  class { '::osnailyfacter::netconfig::hiera_default_route' :}
 }
