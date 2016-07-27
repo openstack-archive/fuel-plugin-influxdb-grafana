@@ -13,6 +13,7 @@
     - netconfig
     - hosts
     - dns-client
+    - ntp-client
     - influxdb-hiera
     - grafana-validate-certificate
     - influxdb-firewall
@@ -41,6 +42,7 @@
     - netconfig
     - hosts
     - dns-client
+    - ntp-client
     - influxdb-hiera
     - influxdb-firewall
     - influxdb-cluster
