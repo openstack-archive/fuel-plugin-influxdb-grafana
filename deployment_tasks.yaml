@@ -12,6 +12,7 @@
     - logging
     - netconfig
     - hosts
+    - dns-client
     - influxdb-hiera
     - grafana-validate-certificate
     - influxdb-firewall
@@ -39,6 +40,7 @@
     - logging
     - netconfig
     - hosts
+    - dns-client
     - influxdb-hiera
     - influxdb-firewall
     - influxdb-cluster
