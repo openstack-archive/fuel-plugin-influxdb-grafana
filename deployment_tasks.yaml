@@ -10,7 +10,7 @@
     - globals
     - tools
     - logging
-    - netconfig
+    - influxdb-netconfig
     - hosts
     - influxdb-hiera
     - grafana-validate-certificate
@@ -37,7 +37,7 @@
     - globals
     - tools
     - logging
-    - netconfig
+    - influxdb-netconfig
     - hosts
     - influxdb-hiera
     - influxdb-firewall
@@ -68,6 +68,23 @@
   reexecute_on:
     - deploy_changes
 
+# We cannot use the legacy 'netconfig' task because it won't create the proper
+# dependency on the virtual management router task.
+- id: influxdb-netconfig
+  type: puppet
+  version: 2.0.0
+  requires: [influxdb-hiera, virtual_ips]
+  required_for: [deploy_end, hosts]
+  cross-depends:
+    - name: virtual_ips
+      role: [primary-controller, controller]
+  parameters:
+    puppet_manifest: "/etc/puppet/modules/osnailyfacter/modular/netconfig/netconfig.pp"
+    puppet_modules: /etc/puppet/modules
+    timeout: 600
+  reexecute_on:
+    - deploy_changes
+
 - id: grafana-validate-certificate
   type: puppet
   version: 2.0.0
@@ -84,7 +101,7 @@
 - id: influxdb-firewall
   type: puppet
   version: 2.0.0
-  requires: [netconfig]
+  requires: [influxdb-netconfig]
   required_for: [deploy_end]
   parameters:
     puppet_manifest: "puppet/manifests/firewall.pp"
