@@ -78,7 +78,7 @@ if $tls_enabled {
 }
 
 $ldap_enabled               = $influxdb_grafana['ldap_enabled']
-$ldap_protocol              = $influxdb_grafana['ldap_protocol']
+$ldap_protocol              = $influxdb_grafana['ldap_protocol_for_grafana']
 $ldap_servers               = $influxdb_grafana['ldap_servers']
 $ldap_bind_dn               = $influxdb_grafana['ldap_bind_dn']
 $ldap_bind_password         = $influxdb_grafana['ldap_bind_password']
