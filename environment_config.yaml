@@ -165,7 +165,7 @@ attributes:
     weight: 170
     type: "checkbox"
 
-  ldap_protocol:
+  ldap_protocol_for_grafana:
     type: "radio"
     value: 'ldap'
     weight: 180
