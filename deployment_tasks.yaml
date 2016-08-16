@@ -72,7 +72,7 @@
 - id: influxdb-netconfig
   type: puppet
   version: 2.0.0
-  requires: [influxdb-hiera, virtual_ips]
+  requires: [influxdb-hiera, tools]
   required_for: [deploy_end, hosts]
   cross-depends:
     - name: virtual_ips
