@@ -77,7 +77,7 @@
               "groupby_field": "",
               "interval": "",
               "measurement": "cluster_status",
-              "query": "SELECT last(\"value\") FROM \"cluster_status\" WHERE \"cluster_name\" = 'haproxy' AND $timeFilter GROUP BY time($interval)",
+              "query": "SELECT last(\"value\") FROM \"cluster_status\" WHERE \"cluster_name\" = 'haproxy-openstack' AND $timeFilter GROUP BY time($interval)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
