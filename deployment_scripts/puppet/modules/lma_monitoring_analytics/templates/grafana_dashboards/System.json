@@ -3350,7 +3350,7 @@
           },
           "id": 25,
           "interval": ">60s",
-          "leftYAxisLabel": "per second",
+          "leftYAxisLabel": "bytes/sec",
           "legend": {
             "avg": false,
             "current": false,
@@ -3470,7 +3470,7 @@
           ],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Swap page operations",
+          "title": "Swap I/O",
           "tooltip": {
             "shared": true,
             "value_type": "cumulative"
@@ -3479,7 +3479,7 @@
           "x-axis": true,
           "y-axis": true,
           "y_formats": [
-            "short",
+            "bytes",
             "short"
           ]
         }
