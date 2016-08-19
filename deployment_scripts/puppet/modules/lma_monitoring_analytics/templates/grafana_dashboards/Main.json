@@ -102,7 +102,6 @@
                   }
                 ]
               ],
-              "series": "merge(/openstack.cinder.status/)",
               "tags": [
                 {
                   "key": "environment_label",
@@ -243,7 +242,6 @@
                   }
                 ]
               ],
-              "series": "merge(/openstack.keystone.status/)",
               "tags": [
                 {
                   "key": "environment_label",
@@ -384,7 +382,6 @@
                   }
                 ]
               ],
-              "series": "merge(/openstack.glance.status/)",
               "tags": [
                 {
                   "key": "environment_label",
@@ -525,7 +522,6 @@
                   }
                 ]
               ],
-              "series": "merge(/openstack.heat.status/)",
               "tags": [
                 {
                   "key": "environment_label",
@@ -666,7 +662,6 @@
                   }
                 ]
               ],
-              "series": "merge(/openstack.neutron.status/)",
               "tags": [
                 {
                   "key": "environment_label",
@@ -807,7 +802,6 @@
                   }
                 ]
               ],
-              "series": "merge(/openstack.nova.status/)",
               "tags": [
                 {
                   "key": "environment_label",
@@ -958,7 +952,6 @@
                   }
                 ]
               ],
-              "series": "merge(/\\.rabbitmq.status$/)",
               "tags": [
                 {
                   "key": "environment_label",
@@ -1097,7 +1090,6 @@
                   }
                 ]
               ],
-              "series": "merge(/mysql.status$/)",
               "tags": [
                 {
                   "key": "environment_label",
@@ -1237,7 +1229,6 @@
                   }
                 ]
               ],
-              "series": "merge(/mysql.status$/)",
               "tags": [
                 {
                   "key": "environment_label",
@@ -1377,7 +1368,6 @@
                   }
                 ]
               ],
-              "series": "merge(/mysql.status$/)",
               "tags": [
                 {
                   "key": "environment_label",
@@ -1517,7 +1507,6 @@
                   }
                 ]
               ],
-              "series": "merge(/mysql.status$/)",
               "tags": [
                 {
                   "key": "environment_label",
@@ -1656,7 +1645,6 @@
                   }
                 ]
               ],
-              "series": "merge(/.*.openstack.nova.total_free_vcpus/)",
               "tags": [
                 {
                   "key": "environment_label",
@@ -1705,7 +1693,6 @@
                   }
                 ]
               ],
-              "series": "merge(/.*.openstack.nova.total_used_vcpus/)",
               "tags": [
                 {
                   "key": "environment_label",
@@ -1821,7 +1808,6 @@
                   }
                 ]
               ],
-              "series": "$server.openstack.nova.free_ram",
               "tags": [
                 {
                   "key": "environment_label",
@@ -1870,7 +1856,6 @@
                   }
                 ]
               ],
-              "series": "$server.openstack.nova.used_ram",
               "tags": [
                 {
                   "key": "environment_label",
@@ -1987,7 +1972,6 @@
                   }
                 ]
               ],
-              "series": "$server.openstack.nova.free_disk",
               "tags": [
                 {
                   "key": "environment_label",
@@ -2036,7 +2020,6 @@
                   }
                 ]
               ],
-              "series": "$server.openstack.nova.used_disk",
               "tags": [
                 {
                   "key": "environment_label",
@@ -2161,7 +2144,6 @@
                   }
                 ]
               ],
-              "series": "merge(/$server.cpu.\\d+.user/)",
               "tags": [
                 {
                   "key": "hostname",
@@ -2209,7 +2191,6 @@
                   }
                 ]
               ],
-              "series": "merge(/$server.cpu.\\d+.idle/)",
               "tags": [
                 {
                   "key": "hostname",
@@ -2258,7 +2239,6 @@
                   }
                 ]
               ],
-              "series": "merge(/$server.cpu.\\d+.interrupt/)",
               "tags": [
                 {
                   "key": "hostname",
@@ -2307,7 +2287,6 @@
                   }
                 ]
               ],
-              "series": "merge(/$server.cpu.\\d+.nice/)",
               "tags": [
                 {
                   "key": "hostname",
@@ -2356,7 +2335,6 @@
                   }
                 ]
               ],
-              "series": "merge(/$server.cpu.\\d+.system/)",
               "tags": [
                 {
                   "key": "hostname",
@@ -2405,7 +2383,6 @@
                   }
                 ]
               ],
-              "series": "merge(/$server.cpu.\\d+.steal/)",
               "tags": [
                 {
                   "key": "hostname",
@@ -2454,7 +2431,6 @@
                   }
                 ]
               ],
-              "series": "merge(/$server.cpu.\\d+.wait/)",
               "tags": [
                 {
                   "key": "hostname",
@@ -2580,7 +2556,6 @@
                   }
                 ]
               ],
-              "series": "$controller.memory.used",
               "tags": [
                 {
                   "key": "hostname",
@@ -2630,7 +2605,6 @@
                   }
                 ]
               ],
-              "series": "$controller.memory.buffered",
               "tags": [
                 {
                   "key": "hostname",
@@ -2680,7 +2654,6 @@
                   }
                 ]
               ],
-              "series": "$controller.memory.cached",
               "tags": [
                 {
                   "key": "hostname",
@@ -2730,7 +2703,6 @@
                   }
                 ]
               ],
-              "series": "$controller.memory.free",
               "tags": [
                 {
                   "key": "hostname",
@@ -2849,7 +2821,6 @@
                   }
                 ]
               ],
-              "series": "select last(100.0*avail.value/(used.value + free.value)) from \"$server.fs.$mount.space.free\" as free inner join \"$server.fs.$mount.space.used\" as used where $timeFilter group by time($interval) order asc",
               "tags": [
                 {
                   "key": "hostname",
@@ -2970,7 +2941,6 @@
                   }
                 ]
               ],
-              "series": "merge(/ceph.cluster-ceph.health/)",
               "tags": [
                 {
                   "key": "environment_label",
@@ -3087,7 +3057,6 @@
                   }
                 ]
               ],
-              "series": "",
               "tags": [
                 {
                   "key": "environment_label",
@@ -3187,7 +3156,6 @@
                   }
                 ]
               ],
-              "series": "merge(/$controller.ceph.cluster-ceph.pool.*.objects/)",
               "tags": [
                 {
                   "key": "environment_label",
@@ -3287,7 +3255,6 @@
                   }
                 ]
               ],
-              "series": "/$controller.ceph.cluster-ceph.osd.up/",
               "tags": [
                 {
                   "key": "environment_label",
@@ -3387,7 +3354,6 @@
                   }
                 ]
               ],
-              "series": "/$controller.ceph.cluster-ceph.osd.down/",
               "tags": [
                 {
                   "key": "environment_label",

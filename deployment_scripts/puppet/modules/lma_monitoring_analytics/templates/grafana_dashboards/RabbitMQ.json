@@ -109,7 +109,6 @@
                   }
                 ]
               ],
-              "series": "merge(/openstack.cinder.status/)",
               "tags": [
                 {
                   "key": "environment_label",
@@ -240,7 +239,6 @@
                   }
                 ]
               ],
-              "series": "merge(/$server.rabbitmq.running_nodes/)",
               "tags": [
                 {
                   "key": "hostname",
@@ -347,7 +345,6 @@
                   }
                 ]
               ],
-              "series": "merge(/$server.rabbitmq.connections/)",
               "tags": [
                 {
                   "key": "hostname",
@@ -454,7 +451,6 @@
                   }
                 ]
               ],
-              "series": "merge(/$server.rabbitmq.queues/)",
               "tags": [
                 {
                   "key": "hostname",
@@ -580,7 +576,6 @@
                   }
                 ]
               ],
-              "series": "merge(/$server.rabbitmq.consumers/)",
               "tags": [
                 {
                   "key": "hostname",
@@ -686,7 +681,6 @@
                   }
                 ]
               ],
-              "series": "merge(/$server.rabbitmq.exchanges/)",
               "tags": [
                 {
                   "key": "hostname",
@@ -792,7 +786,6 @@
                   }
                 ]
               ],
-              "series": "merge(/$server.rabbitmq.exchanges/)",
               "tags": [
                 {
                   "key": "hostname",
@@ -904,7 +897,6 @@
                   }
                 ]
               ],
-              "series": "/$server.rabbitmq.messages/",
               "tags": [
                 {
                   "key": "environment_label",
@@ -1027,7 +1019,6 @@
                   }
                 ]
               ],
-              "series": "/$server.rabbitmq.memory/",
               "tags": [
                 {
                   "key": "environment_label",
@@ -1149,7 +1140,6 @@
                   }
                 ]
               ],
-              "series": "/$server.rabbitmq.memory/",
               "tags": [
                 {
                   "key": "environment_label",

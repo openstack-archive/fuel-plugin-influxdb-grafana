@@ -110,7 +110,6 @@
                   }
                 ]
               ],
-              "series": "merge(/openstack.cinder.status/)",
               "tags": [
                 {
                   "key": "environment_label",
@@ -239,7 +238,6 @@
                   }
                 ]
               ],
-              "series": "merge(/$server.openstack.cinder.http.*.5\\d\\d/)",
               "tags": [
                 {
                   "key": "hostname",
@@ -349,7 +347,6 @@
                   }
                 ]
               ],
-              "series": "merge(/$server.openstack.cinder.http.GET.*/)",
               "tags": [
                 {
                   "key": "hostname",
@@ -406,7 +403,6 @@
                   }
                 ]
               ],
-              "series": "merge(/$server.openstack.cinder.http.POST.*/)",
               "tags": [
                 {
                   "key": "hostname",
@@ -457,7 +453,6 @@
                   }
                 ]
               ],
-              "series": "merge(/$server.openstack.cinder.http.PUT.*/)",
               "tags": [
                 {
                   "key": "hostname",
@@ -514,7 +509,6 @@
                   }
                 ]
               ],
-              "series": "merge(/$server.openstack.cinder.http.DELETE.*/)",
               "tags": [
                 {
                   "key": "hostname",
@@ -637,7 +631,6 @@
                   }
                 ]
               ],
-              "series": "merge(/openstack.cinder.check_api/)",
               "tags": [
                 {
                   "key": "environment_label",
@@ -758,7 +751,6 @@
                   }
                 ]
               ],
-              "series": "merge(/$server.openstack.cinder.http.*.2\\d\\d/)",
               "tags": [
                 {
                   "key": "hostname",
@@ -809,7 +801,6 @@
                   }
                 ]
               ],
-              "series": "merge(/$server.openstack.cinder.http.*.1\\d\\d/)",
               "tags": [
                 {
                   "key": "hostname",
@@ -860,7 +851,6 @@
                   }
                 ]
               ],
-              "series": "merge(/$server.openstack.cinder.http.*.3\\d\\d/)",
               "tags": [
                 {
                   "key": "hostname",
@@ -911,7 +901,6 @@
                   }
                 ]
               ],
-              "series": "merge(/$server.openstack.cinder.http.*.4\\d\\d/)",
               "tags": [
                 {
                   "key": "hostname",
@@ -962,7 +951,6 @@
                   }
                 ]
               ],
-              "series": "merge(/$server.openstack.cinder.http.*.5\\d\\d/)",
               "tags": [
                 {
                   "key": "hostname",
@@ -1105,7 +1093,6 @@
                   }
                 ]
               ],
-              "series": "merge(/haproxy.backend.keystone-public-api.servers.up/)",
               "tags": [
                 {
                   "key": "environment_label",
@@ -1214,7 +1201,6 @@
                   }
                 ]
               ],
-              "series": "merge(/haproxy.backend.keystone-admin-api.servers.up/)",
               "tags": [
                 {
                   "key": "environment_label",
@@ -1347,7 +1333,6 @@
                   }
                 ]
               ],
-              "series": "merge(/haproxy.backend.keystone-public-api.servers.down/)",
               "tags": [
                 {
                   "key": "environment_label",
@@ -1456,7 +1441,6 @@
                   }
                 ]
               ],
-              "series": "merge(/haproxy.backend.keystone-admin-api.servers.down/)",
               "tags": [
                 {
                   "key": "environment_label",
@@ -1586,7 +1570,6 @@
                   }
                 ]
               ],
-              "series": "merge(/openstack.keystone.users.enabled/)",
               "tags": [
                 {
                   "key": "environment_label",
@@ -1685,7 +1668,6 @@
                   }
                 ]
               ],
-              "series": "merge(/openstack.keystone.users.enabled/)",
               "tags": [
                 {
                   "key": "environment_label",
@@ -1807,7 +1789,6 @@
                   }
                 ]
               ],
-              "series": "merge(/openstack.keystone.tenants.enabled/)",
               "tags": [
                 {
                   "key": "environment_label",
@@ -1912,7 +1893,6 @@
                   }
                 ]
               ],
-              "series": "merge(/openstack.keystone.tenants.enabled/)",
               "tags": [
                 {
                   "key": "environment_label",
