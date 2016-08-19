@@ -22,12 +22,6 @@
           "error": false,
           "fill": 0,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": 100,
-            "leftMin": null,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -84,6 +78,7 @@
                 }
               ],
               "measurement": "cpu_user",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"cpu_user\" WHERE \"hostname\" = '$hostname' AND $timeFilter GROUP BY time($interval) fill(previous)",
               "rawQuery": false,
               "refId": "A",
@@ -138,6 +133,7 @@
                 }
               ],
               "measurement": "cpu_idle",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"cpu_idle\" WHERE \"hostname\" = '$hostname' AND $timeFilter GROUP BY time($interval) fill(previous)",
               "rawQuery": false,
               "refId": "B",
@@ -193,6 +189,7 @@
                 }
               ],
               "measurement": "cpu_interrupt",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"cpu_interrupt\" WHERE \"hostname\" = '$hostname' AND $timeFilter GROUP BY time($interval) fill(previous)",
               "rawQuery": false,
               "refId": "C",
@@ -248,6 +245,7 @@
                 }
               ],
               "measurement": "cpu_nice",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"cpu_nice\" WHERE \"hostname\" = '$hostname' AND $timeFilter GROUP BY time($interval) fill(previous)",
               "rawQuery": false,
               "refId": "D",
@@ -303,6 +301,7 @@
                 }
               ],
               "measurement": "cpu_system",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"cpu_system\" WHERE \"hostname\" = '$hostname' AND $timeFilter GROUP BY time($interval) fill(previous)",
               "rawQuery": false,
               "refId": "E",
@@ -358,6 +357,7 @@
                 }
               ],
               "measurement": "cpu_steal",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"cpu_steal\" WHERE \"hostname\" = '$hostname' AND $timeFilter GROUP BY time($interval) fill(previous)",
               "rawQuery": false,
               "refId": "F",
@@ -413,6 +413,7 @@
                 }
               ],
               "measurement": "cpu_wait",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"cpu_wait\" WHERE \"hostname\" = '$hostname' AND $timeFilter GROUP BY time($interval) fill(previous)",
               "rawQuery": false,
               "refId": "G",
@@ -446,15 +447,29 @@
           "timeShift": null,
           "title": "CPU",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "value_type": "cumulative"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "percent",
-            "short"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "percent",
+              "logBase": 1,
+              "max": 100,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         },
         {
@@ -467,14 +482,8 @@
           "datasource": null,
           "fill": 1,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": 0,
             "max": null,
             "min": null,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -483,7 +492,6 @@
           "id": 9,
           "interactive": true,
           "interval": ">60s",
-          "leftYAxisLabel": "",
           "legend": {
             "avg": false,
             "current": false,
@@ -539,6 +547,7 @@
               ],
               "interval": "",
               "measurement": "memory_used",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"memory_used\" WHERE \"hostname\" = '$hostname' AND $timeFilter GROUP BY time($interval) fill(previous)",
               "rawQuery": false,
               "refId": "A",
@@ -595,6 +604,7 @@
               ],
               "interval": "",
               "measurement": "memory_buffered",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"memory_buffered\" WHERE \"hostname\" = '$hostname' AND $timeFilter GROUP BY time($interval) fill(previous)",
               "rawQuery": false,
               "refId": "B",
@@ -651,6 +661,7 @@
               ],
               "interval": "",
               "measurement": "memory_cached",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"memory_cached\" WHERE \"hostname\" = '$hostname' AND $timeFilter GROUP BY time($interval) fill(previous)",
               "rawQuery": false,
               "refId": "C",
@@ -707,6 +718,7 @@
               ],
               "interval": "",
               "measurement": "memory_free",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"memory_free\" WHERE \"hostname\" = '$hostname' AND $timeFilter GROUP BY time($interval) fill(previous)",
               "rawQuery": false,
               "refId": "D",
@@ -741,16 +753,31 @@
           "timezone": "browser",
           "title": "Memory",
           "tooltip": {
+            "msResolution": false,
             "query_as_alias": true,
             "shared": true,
             "value_type": "individual"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "bytes",
-            "short"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "bytes",
+              "label": "",
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         },
         {
@@ -766,6 +793,13 @@
           "editable": true,
           "error": false,
           "format": "percent",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "id": 10,
           "interval": ">60s",
           "links": [],
@@ -810,6 +844,7 @@
                 }
               ],
               "measurement": "fs_space_percent_free",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"fs_space_percent_free\" WHERE \"hostname\" = '$hostname' AND \"fs\" = '/var/lib/nova' AND $timeFilter GROUP BY time($interval) fill(previous)",
               "rawQuery": false,
               "refId": "A",
@@ -844,7 +879,7 @@
               ]
             }
           ],
-          "thresholds": "5,10,15",
+          "thresholds": "10,15",
           "title": "Available ephemeral storage",
           "type": "singlestat",
           "valueFontSize": "80%",
@@ -879,6 +914,13 @@
           "editable": true,
           "error": false,
           "format": "none",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "id": 11,
           "interval": "> 60s",
           "isNew": true,
@@ -915,6 +957,7 @@
                 }
               ],
               "measurement": "openstack_nova_running_instances",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"openstack_nova_running_instances\" WHERE \"hostname\" = '$hostname' AND $timeFilter GROUP BY time($interval) fill(previous)",
               "rawQuery": false,
               "refId": "A",
@@ -963,12 +1006,6 @@
           "error": false,
           "fill": 0,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": 0,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -1016,6 +1053,7 @@
                 }
               ],
               "measurement": "openstack_nova_free_vcpus",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"openstack_nova_free_vcpus\" WHERE \"hostname\" =~ /$hostname$/ AND $timeFilter GROUP BY time($interval) fill(previous)",
               "rawQuery": false,
               "refId": "B",
@@ -1060,6 +1098,7 @@
                 }
               ],
               "measurement": "openstack_nova_used_vcpus",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"openstack_nova_used_vcpus\" WHERE \"hostname\" =~ /$hostname$/ AND $timeFilter GROUP BY time($interval) fill(previous)",
               "rawQuery": false,
               "refId": "A",
@@ -1091,15 +1130,29 @@
           "timeShift": null,
           "title": "Virtual CPUs",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "value_type": "cumulative"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "short",
-            "short"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         },
         {
@@ -1110,12 +1163,6 @@
           "error": false,
           "fill": 0,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": 0,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -1163,6 +1210,7 @@
                 }
               ],
               "measurement": "openstack_nova_free_ram",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"openstack_nova_free_ram\" WHERE \"hostname\" =~ /$hostname$/ AND $timeFilter GROUP BY time($interval) fill(previous)",
               "rawQuery": false,
               "refId": "B",
@@ -1207,6 +1255,7 @@
                 }
               ],
               "measurement": "openstack_nova_used_ram",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"openstack_nova_used_ram\" WHERE \"hostname\" =~ /$hostname$/ AND $timeFilter GROUP BY time($interval) fill(previous)",
               "rawQuery": false,
               "refId": "A",
@@ -1238,15 +1287,29 @@
           "timeShift": null,
           "title": "Virtual RAM",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "value_type": "cumulative"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "mbytes",
-            "mbytes"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "mbytes",
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "mbytes",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         },
         {
@@ -1257,12 +1320,6 @@
           "error": false,
           "fill": 0,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": 0,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -1310,6 +1367,7 @@
                 }
               ],
               "measurement": "openstack_nova_free_disk",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"openstack_nova_free_disk\" WHERE \"hostname\" =~ /$hostname$/ AND $timeFilter GROUP BY time($interval) fill(previous)",
               "rawQuery": false,
               "refId": "B",
@@ -1354,6 +1412,7 @@
                 }
               ],
               "measurement": "openstack_nova_used_disk",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"openstack_nova_used_disk\" WHERE \"hostname\" =~ /$hostname$/ AND $timeFilter GROUP BY time($interval) fill(previous)",
               "rawQuery": false,
               "refId": "A",
@@ -1385,15 +1444,29 @@
           "timeShift": null,
           "title": "Virtual Disk",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "value_type": "cumulative"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "gbytes",
-            "gbytes"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "gbytes",
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "gbytes",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         }
       ],
@@ -1413,12 +1486,6 @@
           "error": false,
           "fill": 1,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": 100,
-            "leftMin": 0,
-            "rightLogBase": 1,
-            "rightMax": 100,
-            "rightMin": 0,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -1426,7 +1493,6 @@
           },
           "id": 1,
           "interval": ">60s",
-          "leftYAxisLabel": "%",
           "legend": {
             "avg": false,
             "current": false,
@@ -1444,7 +1510,6 @@
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
-          "rightYAxisLabel": "%",
           "seriesOverrides": [
             {
               "alias": "/virt_vcpu_time/",
@@ -1474,6 +1539,7 @@
                 }
               ],
               "measurement": "virt_cpu_time",
+              "policy": "default",
               "query": "SELECT mean(\"value\") /10000000 FROM \"virt_cpu_time\" WHERE \"hostname\" =~ /$hostname$/ AND \"instance_id\" =~ /$instance_id$/ AND $timeFilter GROUP BY time($interval) fill(none)",
               "rawQuery": false,
               "refId": "A",
@@ -1536,6 +1602,7 @@
                 }
               ],
               "measurement": "virt_vcpu_time",
+              "policy": "default",
               "query": "SELECT mean(\"value\") /10000000 FROM \"virt_vcpu_time\" WHERE \"hostname\" =~ /$hostname$/ AND \"instance_id\" =~ /$instance_id$/ AND $timeFilter GROUP BY time($interval), \"vcpu_number\" fill(none)",
               "rawQuery": false,
               "refId": "B",
@@ -1579,15 +1646,31 @@
           "timeShift": null,
           "title": "CPU",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "value_type": "cumulative"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "short",
-            "short"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": "%",
+              "logBase": 1,
+              "max": 100,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": "%",
+              "logBase": 1,
+              "max": 100,
+              "min": 0,
+              "show": true
+            }
           ]
         },
         {
@@ -1598,12 +1681,6 @@
           "error": false,
           "fill": 1,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": 0,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": 0,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -1611,7 +1688,6 @@
           },
           "id": 2,
           "interval": ">60s",
-          "leftYAxisLabel": "",
           "legend": {
             "avg": false,
             "current": false,
@@ -1629,7 +1705,6 @@
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
-          "rightYAxisLabel": "",
           "seriesOverrides": [],
           "span": 6,
           "stack": false,
@@ -1653,6 +1728,7 @@
                 }
               ],
               "measurement": "virt_memory_total",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"virt_memory_total\" WHERE \"hostname\" =~ /$hostname$/ AND \"instance_id\" =~ /$instance_id$/ AND $timeFilter GROUP BY time($interval) fill(none)",
               "rawQuery": false,
               "refId": "A",
@@ -1690,15 +1766,31 @@
           "timeShift": null,
           "title": "Memory",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "value_type": "cumulative"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "bytes",
-            "short"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "bytes",
+              "label": "",
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": "",
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            }
           ]
         },
         {
@@ -1709,12 +1801,6 @@
           "error": false,
           "fill": 1,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": 0,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -1762,6 +1848,7 @@
                 }
               ],
               "measurement": "virt_disk_octets_read",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"virt_disk_octets_read\" WHERE \"hostname\" =~ /$hostname$/ AND \"instance_id\" =~ /$instance_id$/ AND \"device\" =~ /$disk$/ AND $timeFilter GROUP BY time($interval) fill(none)",
               "rawQuery": false,
               "refId": "A",
@@ -1818,6 +1905,7 @@
                 }
               ],
               "measurement": "virt_disk_octets_write",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"virt_disk_octets_write\" WHERE \"hostname\" =~ /$hostname$/ AND \"instance_id\" =~ /$instance_id$/ AND \"device\" =~ /$disk$/ AND $timeFilter GROUP BY time($interval) fill(none)",
               "rawQuery": false,
               "refId": "B",
@@ -1861,15 +1949,29 @@
           "timeShift": null,
           "title": "Disk I/O",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "value_type": "cumulative"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "Bps",
-            "short"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "Bps",
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         },
         {
@@ -1880,12 +1982,6 @@
           "error": false,
           "fill": 1,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": 0,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -1933,6 +2029,7 @@
                 }
               ],
               "measurement": "virt_if_octets_rx",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"virt_if_octets_rx\" WHERE \"hostname\" =~ /$hostname$/ AND \"instance_id\" =~ /$instance_id$/ AND \"interface\" =~ /$interface$/ AND $timeFilter GROUP BY time($interval) fill(none)",
               "rawQuery": false,
               "refId": "A",
@@ -1989,6 +2086,7 @@
                 }
               ],
               "measurement": "virt_if_octets_tx",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"virt_if_octets_tx\" WHERE \"hostname\" =~ /$hostname$/ AND \"instance_id\" =~ /$instance_id$/ AND \"interface\" =~ /$interface$/ AND $timeFilter GROUP BY time($interval) fill(none)",
               "rawQuery": false,
               "refId": "B",
@@ -2032,15 +2130,29 @@
           "timeShift": null,
           "title": "Network I/O",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "value_type": "cumulative"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "Bps",
-            "short"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "Bps",
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         }
       ],
@@ -2048,7 +2160,7 @@
       "title": "Virtual instance"
     }
   ],
-  "schemaVersion": 8,
+  "schemaVersion": 12,
   "sharedCrosshair": true,
   "style": "dark",
   "tags": [],
@@ -2058,11 +2170,12 @@
         "allFormat": "regex values",
         "current": {},
         "datasource": null,
+        "hide": 0,
         "includeAll": false,
         "name": "environment",
         "options": [],
         "query": "show tag values from cpu_idle with key = environment_label",
-        "refresh": true,
+        "refresh": 1,
         "refresh_on_load": true,
         "regex": "",
         "type": "query"
@@ -2071,13 +2184,14 @@
         "allFormat": "glob",
         "current": {},
         "datasource": null,
+        "hide": 0,
         "includeAll": false,
         "multi": false,
         "multiFormat": "glob",
         "name": "hostname",
         "options": [],
         "query": "show tag values from openstack_nova_running_instances with key = hostname where environment_label = '$environment'",
-        "refresh": true,
+        "refresh": 1,
         "refresh_on_load": true,
         "regex": "",
         "type": "query"
@@ -2086,13 +2200,14 @@
         "allFormat": "glob",
         "current": {},
         "datasource": null,
+        "hide": 0,
         "includeAll": false,
         "multi": false,
         "multiFormat": "glob",
         "name": "instance_id",
         "options": [],
         "query": "show tag values from virt_cpu_time with key = instance_id where hostname = '$hostname' and environment_label = '$environment'",
-        "refresh": true,
+        "refresh": 1,
         "refresh_on_load": true,
         "type": "query"
       },
@@ -2100,13 +2215,14 @@
         "allFormat": "glob",
         "current": {},
         "datasource": null,
+        "hide": 0,
         "includeAll": false,
         "multi": false,
         "multiFormat": "glob",
         "name": "disk",
         "options": [],
         "query": "show tag values from virt_disk_octets_read with key = device where hostname = '$hostname' and instance_id = '$instance_id' and environment_label = '$environment'",
-        "refresh": true,
+        "refresh": 1,
         "refresh_on_load": true,
         "regex": "",
         "type": "query"
@@ -2115,13 +2231,14 @@
         "allFormat": "glob",
         "current": {},
         "datasource": null,
+        "hide": 0,
         "includeAll": false,
         "multi": false,
         "multiFormat": "glob",
         "name": "interface",
         "options": [],
         "query": "show tag values from virt_if_octets_rx with key = interface where hostname = '$hostname' and instance_id = '$instance_id' and environment_label = '$environment'",
-        "refresh": true,
+        "refresh": 1,
         "refresh_on_load": true,
         "type": "query"
       }

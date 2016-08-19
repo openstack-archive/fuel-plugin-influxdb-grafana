@@ -42,6 +42,13 @@
           "editable": true,
           "error": false,
           "format": "none",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "id": 23,
           "interval": "> 60s",
           "links": [],
@@ -77,6 +84,7 @@
               "groupby_field": "",
               "interval": "",
               "measurement": "cluster_status",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"cluster_status\" WHERE \"cluster_name\" = 'haproxy-openstack' AND $timeFilter GROUP BY time($interval)",
               "rawQuery": false,
               "refId": "A",
@@ -110,7 +118,7 @@
               ]
             }
           ],
-          "thresholds": "0,1,3",
+          "thresholds": "1,3",
           "title": "",
           "type": "singlestat",
           "valueFontSize": "80%",
@@ -161,6 +169,13 @@
           "editable": true,
           "error": false,
           "format": "none",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "id": 1,
           "interval": ">60s",
           "links": [],
@@ -193,6 +208,7 @@
                 }
               ],
               "measurement": "pacemaker_local_resource_active",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"pacemaker_local_resource_active\" WHERE \"hostname\" =~ /$server/ AND \"resource\" = 'vip__public' AND $timeFilter GROUP BY time($interval)",
               "rawQuery": false,
               "refId": "A",
@@ -225,7 +241,7 @@
               ]
             }
           ],
-          "thresholds": "0,0,1",
+          "thresholds": "0,1",
           "title": "Public VIP",
           "type": "singlestat",
           "valueFontSize": "50%",
@@ -261,6 +277,13 @@
           "editable": true,
           "error": false,
           "format": "none",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "id": 19,
           "interval": ">60s",
           "links": [],
@@ -293,6 +316,7 @@
                 }
               ],
               "measurement": "pacemaker_local_resource_active",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"pacemaker_local_resource_active\" WHERE \"hostname\" =~ /$server/ AND \"resource\" = 'vip__management' AND $timeFilter GROUP BY time($interval)",
               "rawQuery": false,
               "refId": "A",
@@ -325,7 +349,7 @@
               ]
             }
           ],
-          "thresholds": "0,0,1",
+          "thresholds": "0,1",
           "title": "Management VIP",
           "type": "singlestat",
           "valueFontSize": "50%",
@@ -361,6 +385,13 @@
           "editable": true,
           "error": false,
           "format": "none",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "id": 16,
           "interval": ">60s",
           "links": [],
@@ -393,6 +424,7 @@
                 }
               ],
               "measurement": "haproxy_backend_status",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"haproxy_backend_status\" WHERE \"hostname\" =~ /$server/ AND $timeFilter GROUP BY time($interval)",
               "rawQuery": false,
               "refId": "A",
@@ -420,7 +452,7 @@
               ]
             }
           ],
-          "thresholds": "0,0,1",
+          "thresholds": "0,1",
           "title": "Backend status ($service)",
           "type": "singlestat",
           "valueFontSize": "50%",
@@ -468,6 +500,13 @@
           "editable": true,
           "error": false,
           "format": "s",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "id": 11,
           "interval": ">60s",
           "links": [],
@@ -500,6 +539,7 @@
               ],
               "interval": "",
               "measurement": "haproxy_uptime",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"haproxy_uptime\" WHERE \"hostname\" =~ /$server/ AND $timeFilter GROUP BY time($interval)",
               "rawQuery": false,
               "refId": "A",
@@ -548,12 +588,6 @@
           "error": false,
           "fill": 0,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": null,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -603,6 +637,7 @@
                 }
               ],
               "measurement": "haproxy_connections",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"haproxy_connections\" WHERE \"hostname\" =~ /$server/ AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
@@ -650,6 +685,7 @@
               ],
               "hide": false,
               "measurement": "haproxy_pipes_free",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"haproxy_pipes_free\" WHERE \"hostname\" =~ /$server/ AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "B",
@@ -699,6 +735,7 @@
               "hide": false,
               "interval": "",
               "measurement": "haproxy_pipes_used",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"haproxy_pipes_used\" WHERE \"hostname\" =~ /$server/ AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "C",
@@ -747,6 +784,7 @@
               ],
               "interval": "",
               "measurement": "haproxy_tasks",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"haproxy_tasks\" WHERE \"hostname\" =~ /$server/ AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "D",
@@ -779,15 +817,29 @@
           "timeShift": null,
           "title": "Server statistics",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "value_type": "cumulative"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "short",
-            "short"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         }
       ],
@@ -809,12 +861,6 @@
           "error": false,
           "fill": 0,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": 0,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -860,6 +906,7 @@
               ],
               "interval": "",
               "measurement": "haproxy_frontend_bytes_in",
+              "policy": "default",
               "query": "SELECT derivative(first(value),1s) FROM \"haproxy_frontend_bytes_in\" WHERE \"hostname\" =~ /$server/ AND \"frontend\" =~ /$service/ AND $timeFilter AND \"environment_label\" = '$environment'GROUP BY time($interval) fill(0)",
               "rawQuery": true,
               "refId": "A",
@@ -910,6 +957,7 @@
               "hide": false,
               "interval": "",
               "measurement": "haproxy_frontend_bytes_out",
+              "policy": "default",
               "query": "SELECT derivative(first(value),1s) FROM \"haproxy_frontend_bytes_out\" WHERE \"hostname\" =~ /$server/ AND \"frontend\" =~ /$service/ AND $timeFilter AND \"environment_label\" = '$environment'GROUP BY time($interval) fill(0)",
               "rawQuery": true,
               "refId": "B",
@@ -948,15 +996,29 @@
           "timeShift": null,
           "title": "Network I/O",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "value_type": "cumulative"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "Bps",
-            "bytes"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "Bps",
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "bytes",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         },
         {
@@ -967,12 +1029,6 @@
           "error": false,
           "fill": 0,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": 0,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -980,7 +1036,6 @@
           },
           "id": 17,
           "interval": ">60s",
-          "leftYAxisLabel": "per second",
           "legend": {
             "alignAsTable": false,
             "avg": false,
@@ -1020,6 +1075,7 @@
               ],
               "interval": "",
               "measurement": "haproxy_frontend_response_1xx",
+              "policy": "default",
               "query": "SELECT derivative(first(value),1s) FROM \"haproxy_frontend_response_1xx\" WHERE \"hostname\" =~ /$server/ AND \"frontend\" =~ /$service/ AND $timeFilter AND \"environment_label\" = '$environment'GROUP BY time($interval) fill(0)",
               "rawQuery": true,
               "refId": "A",
@@ -1068,6 +1124,7 @@
                 }
               ],
               "measurement": "haproxy_frontend_response_2xx",
+              "policy": "default",
               "query": "SELECT derivative(first(value),1s) FROM \"haproxy_frontend_response_2xx\" WHERE \"hostname\" =~ /$server/ AND \"frontend\" =~ /$service/ AND $timeFilter AND \"environment_label\" = '$environment'GROUP BY time($interval) fill(0)",
               "rawQuery": true,
               "refId": "B",
@@ -1116,6 +1173,7 @@
                 }
               ],
               "measurement": "haproxy_frontend_response_3xx",
+              "policy": "default",
               "query": "SELECT derivative(first(value),1s) FROM \"haproxy_frontend_response_3xx\" WHERE \"hostname\" =~ /$server/ AND \"frontend\" =~ /$service/ AND $timeFilter AND \"environment_label\" = '$environment'GROUP BY time($interval) fill(0)",
               "rawQuery": true,
               "refId": "C",
@@ -1164,6 +1222,7 @@
                 }
               ],
               "measurement": "haproxy_frontend_response_4xx",
+              "policy": "default",
               "query": "SELECT derivative(first(value),1s) FROM \"haproxy_frontend_response_4xx\" WHERE \"hostname\" =~ /$server/ AND \"frontend\" =~ /$service/ AND $timeFilter AND \"environment_label\" = '$environment'GROUP BY time($interval)",
               "rawQuery": true,
               "refId": "D",
@@ -1212,6 +1271,7 @@
                 }
               ],
               "measurement": "haproxy_frontend_response_5xx",
+              "policy": "default",
               "query": "SELECT derivative(first(value),1s)  FROM \"haproxy_frontend_response_5xx\" WHERE \"hostname\" =~ /$server/ AND \"frontend\" =~ /$service/ AND $timeFilter AND \"environment_label\" = '$environment'GROUP BY time($interval) fill(0)",
               "rawQuery": true,
               "refId": "E",
@@ -1260,6 +1320,7 @@
                 }
               ],
               "measurement": "haproxy_frontend_response_other",
+              "policy": "default",
               "query": "SELECT derivative(first(value),1s) FROM \"haproxy_frontend_response_other\" WHERE \"hostname\" =~ /$server/ AND \"frontend\" =~ /$service/ AND $timeFilter AND \"environment_label\" = '$environment'GROUP BY time($interval) fill(0)",
               "rawQuery": true,
               "refId": "F",
@@ -1298,15 +1359,30 @@
           "timeShift": null,
           "title": "HTTP responses",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "value_type": "cumulative"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "short",
-            "none"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": "per second",
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "none",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         },
         {
@@ -1317,12 +1393,6 @@
           "error": false,
           "fill": 0,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": 0,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -1330,7 +1400,6 @@
           },
           "id": 4,
           "interval": ">60s",
-          "leftYAxisLabel": "sessions",
           "legend": {
             "avg": false,
             "current": false,
@@ -1374,6 +1443,7 @@
               ],
               "hide": false,
               "measurement": "haproxy_frontend_session_current",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"haproxy_frontend_session_current\" WHERE \"hostname\" =~ /$server/ AND \"frontend\" =~ /$service/ AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "A",
@@ -1427,6 +1497,7 @@
               "hide": false,
               "interval": "",
               "measurement": "haproxy_frontend_session_current",
+              "policy": "default",
               "query": "SELECT max(\"value\") FROM \"haproxy_frontend_session_current\" WHERE \"hostname\" =~ /$server/ AND \"frontend\" =~ /$service/ AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "B",
@@ -1479,6 +1550,7 @@
               ],
               "interval": "",
               "measurement": "haproxy_frontend_session_current",
+              "policy": "default",
               "query": "SELECT min(\"value\") FROM \"haproxy_frontend_session_current\" WHERE \"hostname\" =~ /$server/ AND \"frontend\" =~ /$service/ AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "C",
@@ -1515,15 +1587,30 @@
           "timeShift": null,
           "title": "Sessions",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "value_type": "individual"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "short",
-            "short"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": "sessions",
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         },
         {
@@ -1534,12 +1621,6 @@
           "error": false,
           "fill": 0,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": 0,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -1547,7 +1628,6 @@
           },
           "id": 18,
           "interval": ">60s",
-          "leftYAxisLabel": "per second",
           "legend": {
             "avg": false,
             "current": false,
@@ -1585,6 +1665,7 @@
                 }
               ],
               "measurement": "haproxy_frontend_error_requests",
+              "policy": "default",
               "query": "SELECT derivative(first(value),1s) FROM \"haproxy_frontend_error_requests\" WHERE \"hostname\" =~ /$server/ AND \"frontend\" =~ /$service/ AND $timeFilter AND \"environment_label\" = '$environment'GROUP BY time($interval) fill(0)",
               "rawQuery": true,
               "refId": "A",
@@ -1633,6 +1714,7 @@
                 }
               ],
               "measurement": "haproxy_frontend_denied_requests",
+              "policy": "default",
               "query": "SELECT derivative(first(value),1s) FROM \"haproxy_frontend_denied_requests\" WHERE \"hostname\" =~ /$server/ AND \"frontend\" =~ /$service/ AND $timeFilter AND \"environment_label\" = '$environment'GROUP BY time($interval) fill(0)",
               "rawQuery": true,
               "refId": "B",
@@ -1682,6 +1764,7 @@
                 }
               ],
               "measurement": "haproxy_frontend_denied_responses",
+              "policy": "default",
               "query": "SELECT derivative(first(value),1s) FROM \"haproxy_frontend_denied_responses\" WHERE \"hostname\" =~ /$server/ AND \"frontend\" =~ /$service/ AND $timeFilter AND \"environment_label\" = '$environment'GROUP BY time($interval) fill(0)",
               "rawQuery": true,
               "refId": "C",
@@ -1721,15 +1804,30 @@
           "timeShift": null,
           "title": "Errors",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "value_type": "cumulative"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "short",
-            "short"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": "per second",
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         }
       ],
@@ -1751,12 +1849,6 @@
           "error": false,
           "fill": 0,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": 0,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -1802,6 +1894,7 @@
               ],
               "interval": "",
               "measurement": "haproxy_backend_bytes_in",
+              "policy": "default",
               "query": "SELECT derivative(first(value),1s) FROM \"haproxy_backend_bytes_in\" WHERE \"hostname\" =~ /$server/ AND \"backend\" =~ /$service/ AND $timeFilter AND \"environment_label\" = '$environment'GROUP BY time($interval) fill(0)",
               "rawQuery": true,
               "refId": "A",
@@ -1852,6 +1945,7 @@
               "hide": false,
               "interval": "",
               "measurement": "haproxy_backend_bytes_out",
+              "policy": "default",
               "query": "SELECT derivative(first(value),1s) FROM \"haproxy_backend_bytes_out\" WHERE \"hostname\" =~ /$server/ AND \"backend\" =~ /$service/ AND $timeFilter AND \"environment_label\" = '$environment'GROUP BY time($interval)",
               "rawQuery": true,
               "refId": "B",
@@ -1890,15 +1984,29 @@
           "timeShift": null,
           "title": "Network I/O",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "value_type": "cumulative"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "Bps",
-            "bytes"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "Bps",
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "bytes",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         },
         {
@@ -1909,12 +2017,6 @@
           "error": false,
           "fill": 0,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": 0,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -1922,7 +2024,6 @@
           },
           "id": 20,
           "interval": ">60s",
-          "leftYAxisLabel": "per second",
           "legend": {
             "alignAsTable": false,
             "avg": false,
@@ -1962,6 +2063,7 @@
               ],
               "interval": "",
               "measurement": "haproxy_backend_response_1xx",
+              "policy": "default",
               "query": "SELECT derivative(first(value),1s) FROM \"haproxy_backend_response_1xx\" WHERE \"hostname\" =~ /$server/ AND \"backend\" =~ /$service/ AND $timeFilter AND \"environment_label\" = '$environment'GROUP BY time($interval) fill(0)",
               "rawQuery": true,
               "refId": "A",
@@ -2010,6 +2112,7 @@
                 }
               ],
               "measurement": "haproxy_backend_response_2xx",
+              "policy": "default",
               "query": "SELECT derivative(first(value),1s) FROM \"haproxy_backend_response_2xx\" WHERE \"hostname\" =~ /$server/ AND \"backend\" =~ /$service/ AND $timeFilter AND \"environment_label\" = '$environment'GROUP BY time($interval) fill(0)",
               "rawQuery": true,
               "refId": "B",
@@ -2058,6 +2161,7 @@
                 }
               ],
               "measurement": "haproxy_backend_response_3xx",
+              "policy": "default",
               "query": "SELECT derivative(first(value),1s) FROM \"haproxy_backend_response_3xx\" WHERE \"hostname\" =~ /$server/ AND \"backend\" =~ /$service/ AND $timeFilter AND \"environment_label\" = '$environment'GROUP BY time($interval) fill(0)",
               "rawQuery": true,
               "refId": "C",
@@ -2106,6 +2210,7 @@
                 }
               ],
               "measurement": "haproxy_backend_response_4xx",
+              "policy": "default",
               "query": "SELECT derivative(first(value),1s) FROM \"haproxy_backend_response_4xx\" WHERE \"hostname\" =~ /$server/ AND \"backend\" =~ /$service/ AND $timeFilter AND \"environment_label\" = '$environment'GROUP BY time($interval) fill(0)",
               "rawQuery": true,
               "refId": "D",
@@ -2154,6 +2259,7 @@
                 }
               ],
               "measurement": "haproxy_backend_response_5xx",
+              "policy": "default",
               "query": "SELECT derivative(first(value),1s) FROM \"haproxy_backend_response_5xx\" WHERE \"hostname\" =~ /$server/ AND \"backend\" =~ /$service/ AND $timeFilter AND \"environment_label\" = '$environment'GROUP BY time($interval) fill(0)",
               "rawQuery": true,
               "refId": "E",
@@ -2202,6 +2308,7 @@
                 }
               ],
               "measurement": "haproxy_backend_response_other",
+              "policy": "default",
               "query": "SELECT derivative(first(value),1s) FROM \"haproxy_backend_response_other\" WHERE \"hostname\" =~ /$server/ AND \"backend\" =~ /$service/ AND $timeFilter AND \"environment_label\" = '$environment'GROUP BY time($interval) fill(0)",
               "rawQuery": true,
               "refId": "F",
@@ -2240,15 +2347,30 @@
           "timeShift": null,
           "title": "HTTP responses",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "value_type": "cumulative"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "short",
-            "none"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": "per second",
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "none",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         },
         {
@@ -2259,12 +2381,6 @@
           "error": false,
           "fill": 0,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": 0,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -2272,7 +2388,6 @@
           },
           "id": 21,
           "interval": ">60s",
-          "leftYAxisLabel": "sessions",
           "legend": {
             "avg": false,
             "current": false,
@@ -2316,6 +2431,7 @@
               ],
               "hide": false,
               "measurement": "haproxy_backend_session_current",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"haproxy_backend_session_current\" WHERE \"hostname\" =~ /$server/ AND \"backend\" =~ /$service/ AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "A",
@@ -2369,6 +2485,7 @@
               "hide": false,
               "interval": "",
               "measurement": "haproxy_backend_session_current",
+              "policy": "default",
               "query": "SELECT max(\"value\") FROM \"haproxy_backend_session_current\" WHERE \"hostname\" =~ /$server/ AND \"backend\" =~ /$service/ AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "B",
@@ -2421,6 +2538,7 @@
               ],
               "interval": "",
               "measurement": "haproxy_backend_session_current",
+              "policy": "default",
               "query": "SELECT min(\"value\") FROM \"haproxy_backend_session_current\" WHERE \"hostname\" =~ /$server/ AND \"backend\" =~ /$service/ AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "C",
@@ -2457,15 +2575,30 @@
           "timeShift": null,
           "title": "Sessions",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "value_type": "individual"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "short",
-            "short"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": "sessions",
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         },
         {
@@ -2476,12 +2609,6 @@
           "error": false,
           "fill": 0,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": 0,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -2489,7 +2616,6 @@
           },
           "id": 14,
           "interval": ">60s",
-          "leftYAxisLabel": "per second",
           "legend": {
             "avg": false,
             "current": false,
@@ -2525,6 +2651,7 @@
                 }
               ],
               "measurement": "haproxy_backend_error_connection",
+              "policy": "default",
               "query": "SELECT derivative(first(value),1s) FROM \"haproxy_backend_error_connection\" WHERE \"hostname\" =~ /$server/ AND \"backend\" =~ /$service/ AND $timeFilter AND \"environment_label\" = '$environment'GROUP BY time($interval) fill(0)",
               "rawQuery": true,
               "refId": "A",
@@ -2571,6 +2698,7 @@
                 }
               ],
               "measurement": "haproxy_backend_error_responses",
+              "policy": "default",
               "query": "SELECT derivative(first(value),1s) FROM \"haproxy_backend_error_responses\" WHERE \"hostname\" =~ /$server/ AND \"backend\" =~ /$service/ AND $timeFilter AND \"environment_label\" = '$environment'GROUP BY time($interval) fill(0)",
               "rawQuery": true,
               "refId": "B",
@@ -2620,6 +2748,7 @@
               ],
               "interval": "",
               "measurement": "haproxy_backend_denied_requests",
+              "policy": "default",
               "query": "SELECT derivative(first(value),1s) FROM \"haproxy_backend_denied_requests\" WHERE \"hostname\" =~ /$server/ AND \"backend\" =~ /$service/ AND $timeFilter AND \"environment_label\" = '$environment'GROUP BY time($interval) fill(0)",
               "rawQuery": true,
               "refId": "C",
@@ -2670,6 +2799,7 @@
               ],
               "interval": "",
               "measurement": "haproxy_backend_denied_responses",
+              "policy": "default",
               "query": "SELECT derivative(first(value),1s) FROM \"haproxy_backend_denied_responses\" WHERE \"hostname\" =~ /$server/ AND \"backend\" =~ /$service/ AND $timeFilter AND \"environment_label\" = '$environment'GROUP BY time($interval) fill(0)",
               "rawQuery": true,
               "refId": "D",
@@ -2709,15 +2839,30 @@
           "timeShift": null,
           "title": "Errors",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "value_type": "cumulative"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "short",
-            "short"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": "per second",
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         }
       ],
@@ -2725,7 +2870,7 @@
       "title": "Backend"
     }
   ],
-  "schemaVersion": 8,
+  "schemaVersion": 12,
   "sharedCrosshair": true,
   "style": "dark",
   "tags": [],
@@ -2736,11 +2881,12 @@
         "allFormat": "regex values",
         "current": {},
         "datasource": null,
+        "hide": 0,
         "includeAll": false,
         "name": "environment",
         "options": [],
         "query": "show tag values from cpu_idle with key = environment_label",
-        "refresh": true,
+        "refresh": 1,
         "refresh_on_load": true,
         "regex": "",
         "type": "query"
@@ -2749,11 +2895,12 @@
         "allFormat": "regex values",
         "current": {},
         "datasource": null,
+        "hide": 0,
         "includeAll": false,
         "name": "server",
         "options": [],
         "query": "show tag values from pacemaker_local_resource_active with key = hostname where environment_label = '$environment' ",
-        "refresh": true,
+        "refresh": 1,
         "refresh_on_load": true,
         "regex": "",
         "type": "query"
@@ -2762,11 +2909,12 @@
         "allFormat": "glob",
         "current": {},
         "datasource": null,
+        "hide": 0,
         "includeAll": false,
         "name": "service",
         "options": [],
         "query": "show tag values from haproxy_backend_servers with key = backend where hostname = '$server' and environment_label = '$environment'",
-        "refresh": true,
+        "refresh": 1,
         "refresh_on_load": true,
         "regex": "",
         "type": "query"
@@ -2810,5 +2958,5 @@
   },
   "timezone": "browser",
   "title": "HAProxy",
-  "version": 3
+  "version": 2
 }

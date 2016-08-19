@@ -27,6 +27,13 @@
           "editable": true,
           "error": false,
           "format": "none",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "id": 1,
           "interval": "> 60s",
           "links": [
@@ -76,6 +83,7 @@
               "groupby_field": "",
               "interval": "",
               "measurement": "cluster_status",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"cluster_status\" WHERE \"cluster_name\" = 'cinder' AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
@@ -109,7 +117,7 @@
               ]
             }
           ],
-          "thresholds": "0,1,3",
+          "thresholds": "1,3",
           "title": "Cinder",
           "type": "singlestat",
           "valueFontSize": "50%",
@@ -160,6 +168,13 @@
           "editable": true,
           "error": false,
           "format": "none",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "id": 2,
           "interval": "> 60s",
           "links": [
@@ -209,6 +224,7 @@
               "groupby_field": "",
               "interval": "",
               "measurement": "cluster_status",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"cluster_status\" WHERE \"cluster_name\" = 'keystone' AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
@@ -242,7 +258,7 @@
               ]
             }
           ],
-          "thresholds": "0,1,3",
+          "thresholds": "1,3",
           "title": "Keystone",
           "type": "singlestat",
           "valueFontSize": "50%",
@@ -293,6 +309,13 @@
           "editable": true,
           "error": false,
           "format": "none",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "id": 3,
           "interval": "> 60s",
           "links": [
@@ -342,6 +365,7 @@
               "groupby_field": "",
               "interval": "",
               "measurement": "cluster_status",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"cluster_status\" WHERE \"cluster_name\" = 'glance' AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
@@ -375,7 +399,7 @@
               ]
             }
           ],
-          "thresholds": "0,1,3",
+          "thresholds": "1,3",
           "title": "Glance",
           "type": "singlestat",
           "valueFontSize": "50%",
@@ -426,6 +450,13 @@
           "editable": true,
           "error": false,
           "format": "none",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "id": 4,
           "interval": "> 60s",
           "links": [
@@ -475,6 +506,7 @@
               "groupby_field": "",
               "interval": "",
               "measurement": "cluster_status",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"cluster_status\" WHERE \"cluster_name\" = 'heat' AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
@@ -508,7 +540,7 @@
               ]
             }
           ],
-          "thresholds": "0,1,3",
+          "thresholds": "1,3",
           "title": "Heat",
           "type": "singlestat",
           "valueFontSize": "50%",
@@ -559,6 +591,13 @@
           "editable": true,
           "error": false,
           "format": "none",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "id": 23,
           "interval": "> 60s",
           "links": [
@@ -608,6 +647,7 @@
               "groupby_field": "",
               "interval": "",
               "measurement": "cluster_status",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"cluster_status\" WHERE \"cluster_name\" = 'neutron' AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
@@ -641,7 +681,7 @@
               ]
             }
           ],
-          "thresholds": "0,1,3",
+          "thresholds": "1,3",
           "title": "Neutron",
           "type": "singlestat",
           "valueFontSize": "50%",
@@ -692,6 +732,13 @@
           "editable": true,
           "error": false,
           "format": "none",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "id": 5,
           "interval": "> 60s",
           "links": [
@@ -741,6 +788,7 @@
               "groupby_field": "",
               "interval": "",
               "measurement": "cluster_status",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"cluster_status\" WHERE \"cluster_name\" = 'nova' AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
@@ -774,7 +822,7 @@
               ]
             }
           ],
-          "thresholds": "0,1,3",
+          "thresholds": "1,3",
           "title": "Nova",
           "type": "singlestat",
           "valueFontSize": "50%",
@@ -837,6 +885,13 @@
           "editable": true,
           "error": false,
           "format": "short",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "id": 16,
           "interval": ">60s",
           "links": [
@@ -884,6 +939,7 @@
               "groupByTags": [],
               "interval": "",
               "measurement": "cluster_status",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"cluster_status\" WHERE \"cluster_name\" = 'rabbitmq' AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
@@ -917,7 +973,7 @@
               ]
             }
           ],
-          "thresholds": "0,1,3",
+          "thresholds": "1,3",
           "title": "RabbitMQ",
           "type": "singlestat",
           "valueFontSize": "50%",
@@ -968,6 +1024,13 @@
           "editable": true,
           "error": false,
           "format": "short",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "id": 15,
           "interval": ">60s",
           "links": [
@@ -1015,6 +1078,7 @@
               "groupByTags": [],
               "interval": "",
               "measurement": "cluster_status",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"cluster_status\" WHERE \"cluster_name\" = 'mysql' AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
@@ -1048,7 +1112,7 @@
               ]
             }
           ],
-          "thresholds": "0,1,3",
+          "thresholds": "1,3",
           "title": "MySQL",
           "type": "singlestat",
           "valueFontSize": "50%",
@@ -1099,6 +1163,13 @@
           "editable": true,
           "error": false,
           "format": "short",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "id": 18,
           "interval": ">60s",
           "links": [
@@ -1147,6 +1218,7 @@
               "groupByTags": [],
               "interval": "",
               "measurement": "cluster_status",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"cluster_status\" WHERE \"cluster_name\" = 'apache' AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
@@ -1180,7 +1252,7 @@
               ]
             }
           ],
-          "thresholds": "0,1,3",
+          "thresholds": "1,3",
           "title": "Apache",
           "type": "singlestat",
           "valueFontSize": "50%",
@@ -1231,6 +1303,13 @@
           "editable": true,
           "error": false,
           "format": "short",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "id": 10,
           "interval": ">60s",
           "links": [
@@ -1279,6 +1358,7 @@
               "groupByTags": [],
               "interval": "",
               "measurement": "cluster_status",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"cluster_status\" WHERE \"cluster_name\" = 'haproxy-openstack' AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
@@ -1312,7 +1392,7 @@
               ]
             }
           ],
-          "thresholds": "0,1,3",
+          "thresholds": "1,3",
           "title": "haproxy",
           "type": "singlestat",
           "valueFontSize": "50%",
@@ -1363,6 +1443,13 @@
           "editable": true,
           "error": false,
           "format": "short",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "id": 17,
           "interval": ">60s",
           "links": [
@@ -1411,6 +1498,7 @@
               "groupByTags": [],
               "interval": "",
               "measurement": "cluster_status",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"cluster_status\" WHERE \"cluster_name\" = 'memcached' AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
@@ -1444,7 +1532,7 @@
               ]
             }
           ],
-          "thresholds": "0,1,3",
+          "thresholds": "1,3",
           "title": "memcached",
           "type": "singlestat",
           "valueFontSize": "50%",
@@ -1499,12 +1587,6 @@
           "error": false,
           "fill": 0,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": 0,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -1555,6 +1637,7 @@
               ],
               "groupByTags": [],
               "measurement": "openstack_nova_total_free_vcpus",
+              "policy": "default",
               "query": "SELECT min(\"value\") FROM \"openstack_nova_total_free_vcpus\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "A",
@@ -1603,6 +1686,7 @@
               ],
               "groupByTags": [],
               "measurement": "openstack_nova_total_used_vcpus",
+              "policy": "default",
               "query": "SELECT max(\"value\") FROM \"openstack_nova_total_used_vcpus\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "B",
@@ -1635,15 +1719,29 @@
           "timeShift": null,
           "title": "Number of VCPUs",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "value_type": "cumulative"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "short",
-            "short"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         },
         {
@@ -1654,12 +1752,6 @@
           "error": false,
           "fill": 0,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": 0,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -1667,7 +1759,6 @@
           },
           "id": 12,
           "interval": "> 60s",
-          "leftYAxisLabel": "",
           "legend": {
             "avg": false,
             "current": false,
@@ -1711,6 +1802,7 @@
               ],
               "groupByTags": [],
               "measurement": "openstack_nova_total_free_ram",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"openstack_nova_total_free_ram\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "A",
@@ -1759,6 +1851,7 @@
               ],
               "groupByTags": [],
               "measurement": "openstack_nova_total_used_ram",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"openstack_nova_total_used_ram\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "B",
@@ -1791,15 +1884,30 @@
           "timeShift": null,
           "title": "RAM",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "value_type": "cumulative"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "mbytes",
-            "short"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "mbytes",
+              "label": "",
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         },
         {
@@ -1810,12 +1918,6 @@
           "error": false,
           "fill": 0,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": 0,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -1866,6 +1968,7 @@
               ],
               "groupByTags": [],
               "measurement": "openstack_nova_total_free_disk",
+              "policy": "default",
               "query": "SELECT min(\"value\") FROM \"openstack_nova_total_free_disk\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "A",
@@ -1914,6 +2017,7 @@
               ],
               "groupByTags": [],
               "measurement": "openstack_nova_total_used_disk",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"openstack_nova_total_used_disk\" WHERE $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "B",
@@ -1946,15 +2050,29 @@
           "timeShift": null,
           "title": "Disk",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "value_type": "cumulative"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "gbytes",
-            "short"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "gbytes",
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         }
       ],
@@ -1974,12 +2092,6 @@
           "error": false,
           "fill": 0,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": 100,
-            "leftMin": null,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -2030,6 +2142,7 @@
               ],
               "groupByTags": [],
               "measurement": "cpu_user",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"cpu_user\" WHERE \"hostname\" = '$controller' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "A",
@@ -2077,6 +2190,7 @@
               ],
               "groupByTags": [],
               "measurement": "cpu_idle",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"cpu_idle\" WHERE \"hostname\" = '$controller' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "B",
@@ -2125,6 +2239,7 @@
               ],
               "groupByTags": [],
               "measurement": "cpu_interrupt",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"cpu_interrupt\" WHERE \"hostname\" = '$controller' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "C",
@@ -2173,6 +2288,7 @@
               ],
               "groupByTags": [],
               "measurement": "cpu_nice",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"cpu_nice\" WHERE \"hostname\" = '$controller' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "D",
@@ -2221,6 +2337,7 @@
               ],
               "groupByTags": [],
               "measurement": "cpu_system",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"cpu_system\" WHERE \"hostname\" = '$controller' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "E",
@@ -2269,6 +2386,7 @@
               ],
               "groupByTags": [],
               "measurement": "cpu_steal",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"cpu_steal\" WHERE \"hostname\" = '$controller' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "F",
@@ -2317,6 +2435,7 @@
               ],
               "groupByTags": [],
               "measurement": "cpu_wait",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"cpu_wait\" WHERE \"hostname\" = '$controller' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "G",
@@ -2349,15 +2468,29 @@
           "timeShift": null,
           "title": "CPU on $controller",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "value_type": "cumulative"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "percent",
-            "short"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "percent",
+              "logBase": 1,
+              "max": 100,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         },
         {
@@ -2369,14 +2502,8 @@
           "datasource": null,
           "fill": 1,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": 0,
             "max": null,
             "min": null,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -2385,7 +2512,6 @@
           "id": 21,
           "interactive": true,
           "interval": ">60s",
-          "leftYAxisLabel": "",
           "legend": {
             "avg": false,
             "current": false,
@@ -2435,6 +2561,7 @@
               "groupByTags": [],
               "interval": "",
               "measurement": "memory_used",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"memory_used\" WHERE \"hostname\" = '$controller' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "A",
@@ -2484,6 +2611,7 @@
               "groupByTags": [],
               "interval": "",
               "measurement": "memory_buffered",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"memory_buffered\" WHERE \"hostname\" = '$controller' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "B",
@@ -2533,6 +2661,7 @@
               "groupByTags": [],
               "interval": "",
               "measurement": "memory_cached",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"memory_cached\" WHERE \"hostname\" = '$controller' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "C",
@@ -2582,6 +2711,7 @@
               "groupByTags": [],
               "interval": "",
               "measurement": "memory_free",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"memory_free\" WHERE \"hostname\" = '$controller' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "D",
@@ -2615,16 +2745,31 @@
           "timezone": "browser",
           "title": "Memory on $controller",
           "tooltip": {
+            "msResolution": false,
             "query_as_alias": true,
             "shared": true,
             "value_type": "individual"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "bytes",
-            "short"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "bytes",
+              "label": "",
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         },
         {
@@ -2640,6 +2785,13 @@
           "editable": true,
           "error": false,
           "format": "percent",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "id": 22,
           "interval": ">60s",
           "links": [],
@@ -2678,6 +2830,7 @@
               ],
               "groupByTags": [],
               "measurement": "fs_space_percent_free",
+              "policy": "default",
               "query": "SELECT last(value) FROM \"fs_space_percent_free\" WHERE \"hostname\" = '$controller' AND \"fs\" = '/' AND $timeFilter AND \"environment_label\" = '$environment'GROUP BY time($interval)",
               "rawQuery": true,
               "refId": "A",
@@ -2710,7 +2863,7 @@
               ]
             }
           ],
-          "thresholds": "5,10,15",
+          "thresholds": "10,15",
           "title": "Disk space on $controller",
           "type": "singlestat",
           "valueFontSize": "80%",
@@ -2745,6 +2898,13 @@
           "editable": true,
           "error": false,
           "format": "none",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "id": 8,
           "interval": ">60s",
           "links": [
@@ -2791,6 +2951,7 @@
               ],
               "groupByTags": [],
               "measurement": "ceph_health",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"ceph_health\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
@@ -2819,7 +2980,7 @@
               ]
             }
           ],
-          "thresholds": "1,2,3",
+          "thresholds": "2,3",
           "title": "Cluster",
           "type": "singlestat",
           "valueFontSize": "80%",
@@ -2860,6 +3021,13 @@
           "editable": true,
           "error": false,
           "format": "percent",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "id": 9,
           "interval": ">60s",
           "links": [],
@@ -2900,6 +3068,7 @@
               "groupByTags": [],
               "interval": "",
               "measurement": "ceph_pool_total_percent_free",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"ceph_pool_total_percent_free\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
@@ -2954,6 +3123,13 @@
           "editable": true,
           "error": false,
           "format": "short",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "id": 26,
           "interval": ">60s",
           "links": [],
@@ -2992,6 +3168,7 @@
               ],
               "groupByTags": [],
               "measurement": "ceph_objects_count",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"ceph_objects_count\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
@@ -3046,6 +3223,13 @@
           "editable": true,
           "error": false,
           "format": "none",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "id": 24,
           "interval": ">60s",
           "links": [],
@@ -3084,6 +3268,7 @@
               ],
               "groupByTags": [],
               "measurement": "ceph_osd_count_up",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"ceph_osd_count_up\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
@@ -3138,6 +3323,13 @@
           "editable": true,
           "error": false,
           "format": "none",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "id": 25,
           "interval": ">60s",
           "links": [],
@@ -3176,6 +3368,7 @@
               ],
               "groupByTags": [],
               "measurement": "ceph_osd_count_down",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"ceph_osd_count_down\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
@@ -3222,7 +3415,7 @@
       "title": "Ceph"
     }
   ],
-  "schemaVersion": 8,
+  "schemaVersion": 12,
   "sharedCrosshair": true,
   "style": "dark",
   "tags": [],
@@ -3233,11 +3426,12 @@
         "allFormat": "regex values",
         "current": {},
         "datasource": null,
+        "hide": 0,
         "includeAll": false,
         "name": "environment",
         "options": [],
         "query": "show tag values from cpu_idle with key = environment_label",
-        "refresh": true,
+        "refresh": 1,
         "refresh_on_load": true,
         "regex": "",
         "type": "query"
@@ -3246,11 +3440,12 @@
         "allFormat": "regex values",
         "current": {},
         "datasource": null,
+        "hide": 0,
         "includeAll": false,
         "name": "controller",
         "options": [],
         "query": "show tag values from pacemaker_local_resource_active with key = hostname where environment_label = '$environment'",
-        "refresh": true,
+        "refresh": 1,
         "refresh_on_load": true,
         "regex": "",
         "type": "query"
@@ -3294,5 +3489,5 @@
   },
   "timezone": "browser",
   "title": "Main",
-  "version": 3
+  "version": 2
 }

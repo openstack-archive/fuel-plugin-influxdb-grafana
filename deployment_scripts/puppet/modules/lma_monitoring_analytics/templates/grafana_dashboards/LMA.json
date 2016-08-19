@@ -4,7 +4,7 @@
   },
   "editable": true,
   "hideControls": false,
-  "id": 6,
+  "id": null,
   "links": [],
   "originalTitle": "LMA self-monitoring",
   "refresh": "1m",
@@ -27,6 +27,13 @@
           "editable": true,
           "error": false,
           "format": "none",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "id": 2,
           "interval": "> 60s",
           "links": [],
@@ -58,6 +65,7 @@
                 }
               ],
               "measurement": "lma_components_threads",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"lma_components_threads\" WHERE \"hostname\" = '$node' AND \"service\" = 'hekad' AND $timeFilter GROUP BY time($interval)",
               "rawQuery": false,
               "refId": "A",
@@ -110,12 +118,6 @@
           "error": false,
           "fill": 0,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": 0,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -166,6 +168,7 @@
                 }
               ],
               "measurement": "lma_components_memory_rss",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"lma_components_memory_rss\" WHERE \"hostname\" = '$node' AND \"service\" = 'hekad' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "A",
@@ -201,15 +204,29 @@
           "timeShift": null,
           "title": "Resident Set Size",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "value_type": "cumulative"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "bytes",
-            "short"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "bytes",
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         },
         {
@@ -220,12 +237,6 @@
           "error": false,
           "fill": 0,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": 0,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -233,7 +244,6 @@
           },
           "id": 3,
           "interval": "> 60s",
-          "leftYAxisLabel": "bytes/sec",
           "legend": {
             "alignAsTable": false,
             "avg": false,
@@ -277,6 +287,7 @@
                 }
               ],
               "measurement": "lma_components_disk_bytes_read",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"lma_components_disk_bytes_read\" WHERE \"hostname\" = '$node' AND \"service\" = 'hekad' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "A",
@@ -327,6 +338,7 @@
                 }
               ],
               "measurement": "lma_components_disk_bytes_write",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"lma_components_disk_bytes_write\" WHERE \"hostname\" = '$node' AND \"service\" = 'hekad' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "B",
@@ -362,15 +374,30 @@
           "timeShift": null,
           "title": "Disk I/O",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "value_type": "cumulative"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "bytes",
-            "short"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "bytes",
+              "label": "bytes/sec",
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         },
         {
@@ -381,12 +408,6 @@
           "error": false,
           "fill": 1,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": 0,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -436,6 +457,7 @@
                 }
               ],
               "measurement": "lma_components_cputime_syst",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"lma_components_cputime_syst\" WHERE \"hostname\" = '$node' AND \"service\" = 'hekad' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "A",
@@ -486,6 +508,7 @@
                 }
               ],
               "measurement": "lma_components_cputime_user",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"lma_components_cputime_user\" WHERE \"hostname\" = '$node' AND \"service\" = 'hekad' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "B",
@@ -521,15 +544,29 @@
           "timeShift": null,
           "title": "CPU usage",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "value_type": "individual"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "percent",
-            "short"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "percent",
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         }
       ],
@@ -549,12 +586,6 @@
           "error": false,
           "fill": 0,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": 0,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -562,7 +593,6 @@
           },
           "id": 60,
           "interval": "> 60s",
-          "leftYAxisLabel": "per second",
           "legend": {
             "alignAsTable": false,
             "avg": false,
@@ -652,11 +682,25 @@
             "value_type": "cumulative"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "none",
-            "short"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "none",
+              "label": "per second",
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         },
         {
@@ -667,12 +711,6 @@
           "error": false,
           "fill": 0,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": null,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -680,7 +718,6 @@
           },
           "id": 61,
           "interval": "> 60s",
-          "leftYAxisLabel": "per message",
           "legend": {
             "avg": false,
             "current": false,
@@ -770,11 +807,25 @@
             "value_type": "cumulative"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "ns",
-            "short"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "ns",
+              "label": "per message",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         },
         {
@@ -785,12 +836,6 @@
           "error": false,
           "fill": 0,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": 0,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -798,7 +843,6 @@
           },
           "id": 62,
           "interval": "> 60s",
-          "leftYAxisLabel": "per second",
           "legend": {
             "alignAsTable": false,
             "avg": false,
@@ -892,11 +936,25 @@
             "value_type": "cumulative"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "bytes",
-            "short"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "bytes",
+              "label": "per second",
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         }
       ],
@@ -916,12 +974,6 @@
           "error": false,
           "fill": 0,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": 0,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -929,7 +981,6 @@
           },
           "id": 63,
           "interval": "> 60s",
-          "leftYAxisLabel": "per second",
           "legend": {
             "avg": false,
             "current": false,
@@ -1015,11 +1066,25 @@
             "value_type": "cumulative"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "none",
-            "short"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "none",
+              "label": "per second",
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         },
         {
@@ -1030,12 +1095,6 @@
           "error": false,
           "fill": 0,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": null,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -1043,7 +1102,6 @@
           },
           "id": 64,
           "interval": "> 60s",
-          "leftYAxisLabel": "per message",
           "legend": {
             "avg": false,
             "current": false,
@@ -1133,11 +1191,25 @@
             "value_type": "cumulative"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "ns",
-            "short"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "ns",
+              "label": "per message",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         },
         {
@@ -1148,12 +1220,6 @@
           "error": false,
           "fill": 0,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": 0,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -1161,7 +1227,6 @@
           },
           "id": 65,
           "interval": "> 60s",
-          "leftYAxisLabel": "per second",
           "legend": {
             "alignAsTable": false,
             "avg": false,
@@ -1255,11 +1320,25 @@
             "value_type": "cumulative"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "bytes",
-            "short"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "bytes",
+              "label": "per second",
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         },
         {
@@ -1270,12 +1349,6 @@
           "error": false,
           "fill": 0,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": 0,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -1283,7 +1356,6 @@
           },
           "id": 66,
           "interval": "> 60s",
-          "leftYAxisLabel": "per second",
           "legend": {
             "alignAsTable": false,
             "avg": false,
@@ -1373,11 +1445,25 @@
             "value_type": "cumulative"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "none",
-            "short"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "none",
+              "label": "per second",
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         },
         {
@@ -1388,12 +1474,6 @@
           "error": false,
           "fill": 0,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": 0,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -1401,7 +1481,6 @@
           },
           "id": 67,
           "interval": "> 60s",
-          "leftYAxisLabel": "per message",
           "legend": {
             "avg": false,
             "current": false,
@@ -1491,11 +1570,25 @@
             "value_type": "cumulative"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "ns",
-            "short"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "ns",
+              "label": "per message",
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         }
       ],
@@ -1520,6 +1613,13 @@
           "editable": true,
           "error": false,
           "format": "none",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "id": 42,
           "interval": "> 60s",
           "links": [],
@@ -1551,6 +1651,7 @@
                 }
               ],
               "measurement": "lma_components_threads",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"lma_components_threads\" WHERE \"hostname\" = '$node' AND \"service\" = 'collectd' AND $timeFilter GROUP BY time($interval)",
               "rawQuery": false,
               "refId": "A",
@@ -1603,12 +1704,6 @@
           "error": false,
           "fill": 0,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": 0,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -1659,6 +1754,7 @@
                 }
               ],
               "measurement": "lma_components_memory_rss",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"lma_components_memory_rss\" WHERE \"hostname\" = '$node' AND \"service\" = 'collectd' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "A",
@@ -1694,15 +1790,29 @@
           "timeShift": null,
           "title": "Resident Set Size",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "value_type": "cumulative"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "bytes",
-            "short"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "bytes",
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         },
         {
@@ -1713,12 +1823,6 @@
           "error": false,
           "fill": 0,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": 0,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -1726,7 +1830,6 @@
           },
           "id": 44,
           "interval": "> 60s",
-          "leftYAxisLabel": "bytes/sec",
           "legend": {
             "alignAsTable": false,
             "avg": false,
@@ -1770,6 +1873,7 @@
                 }
               ],
               "measurement": "lma_components_disk_bytes_read",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"lma_components_disk_bytes_read\" WHERE \"hostname\" = '$node' AND \"service\" = 'collectd' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "A",
@@ -1820,6 +1924,7 @@
                 }
               ],
               "measurement": "lma_components_disk_bytes_write",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"lma_components_disk_bytes_write\" WHERE \"hostname\" = '$node' AND \"service\" = 'collectd' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "B",
@@ -1855,15 +1960,30 @@
           "timeShift": null,
           "title": "Disk I/O",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "value_type": "cumulative"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "bytes",
-            "short"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "bytes",
+              "label": "bytes/sec",
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         },
         {
@@ -1874,12 +1994,6 @@
           "error": false,
           "fill": 1,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": 0,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -1929,6 +2043,7 @@
                 }
               ],
               "measurement": "lma_components_cputime_syst",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"lma_components_cputime_syst\" WHERE \"hostname\" = '$node' AND \"service\" = 'collectd' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "A",
@@ -1979,6 +2094,7 @@
                 }
               ],
               "measurement": "lma_components_cputime_user",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"lma_components_cputime_user\" WHERE \"hostname\" = '$node' AND \"service\" = 'collectd' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "B",
@@ -2014,15 +2130,29 @@
           "timeShift": null,
           "title": "CPU usage",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "value_type": "individual"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "percent",
-            "short"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "percent",
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         }
       ],
@@ -2030,7 +2160,7 @@
       "title": "Collectd"
     }
   ],
-  "schemaVersion": 8,
+  "schemaVersion": 12,
   "sharedCrosshair": true,
   "style": "dark",
   "tags": [],
@@ -2041,11 +2171,12 @@
         "allFormat": "regex values",
         "current": {},
         "datasource": null,
+        "hide": 0,
         "includeAll": false,
         "name": "environment",
         "options": [],
         "query": "show tag values from cpu_idle with key = environment_label",
-        "refresh": true,
+        "refresh": 1,
         "refresh_on_load": true,
         "regex": "",
         "type": "query"
@@ -2054,11 +2185,12 @@
         "allFormat": "glob",
         "current": {},
         "datasource": null,
+        "hide": 0,
         "includeAll": false,
         "name": "node",
         "options": [],
         "query": "show tag values from lma_components_threads with key = \"hostname\" where environment_label = '$environment'",
-        "refresh": true,
+        "refresh": 1,
         "refresh_on_load": true,
         "regex": "",
         "type": "query"
@@ -2102,5 +2234,5 @@
   },
   "timezone": "browser",
   "title": "LMA self-monitoring",
-  "version": 4
+  "version": 2
 }

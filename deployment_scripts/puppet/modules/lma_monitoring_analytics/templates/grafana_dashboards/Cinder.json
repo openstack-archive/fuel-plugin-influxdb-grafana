@@ -42,6 +42,13 @@
           "editable": true,
           "error": false,
           "format": "none",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "id": 6,
           "interval": "> 60s",
           "links": [],
@@ -77,6 +84,7 @@
               "groupby_field": "",
               "interval": "",
               "measurement": "cluster_status",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"cluster_status\" WHERE \"environment_label\" = '$environment' AND \"cluster_name\" = 'cinder' AND $timeFilter GROUP BY time($interval)",
               "rawQuery": false,
               "refId": "A",
@@ -110,7 +118,7 @@
               ]
             }
           ],
-          "thresholds": "0,1,3",
+          "thresholds": "1,3",
           "title": "",
           "type": "singlestat",
           "valueFontSize": "80%",
@@ -161,6 +169,13 @@
           "editable": true,
           "error": false,
           "format": "none",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "id": 13,
           "interval": "> 60s",
           "links": [],
@@ -202,6 +217,7 @@
               "groupby_field": "",
               "interval": "",
               "measurement": "openstack_cinder_http_response_times",
+              "policy": "default",
               "query": "SELECT sum(\"count\") FROM \"openstack_cinder_http_response_times\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" = '5xx' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "A",
@@ -236,7 +252,7 @@
               ]
             }
           ],
-          "thresholds": "0,0,1",
+          "thresholds": "0,1",
           "title": "HTTP 5xx errors",
           "type": "singlestat",
           "valueFontSize": "80%",
@@ -257,12 +273,6 @@
           "error": false,
           "fill": 0,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": 0,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": 0,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -314,6 +324,7 @@
               ],
               "interval": "",
               "measurement": "openstack_cinder_http_response_times",
+              "policy": "default",
               "query": "SELECT max(\"upper_90\") FROM \"openstack_cinder_http_response_times\" WHERE \"hostname\" =~ /$server/ AND \"http_method\" = 'GET' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "A",
@@ -368,6 +379,7 @@
               ],
               "interval": "",
               "measurement": "openstack_cinder_http_response_times",
+              "policy": "default",
               "query": "SELECT max(\"upper_90\") FROM \"openstack_cinder_http_response_times\" WHERE \"hostname\" =~ /$server/ AND \"http_method\" = 'POST' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "B",
@@ -422,6 +434,7 @@
               ],
               "interval": "",
               "measurement": "openstack_cinder_http_response_times",
+              "policy": "default",
               "query": "SELECT max(\"upper_90\") FROM \"openstack_cinder_http_response_times\" WHERE \"hostname\" =~ /$server/ AND \"http_method\" = 'PUT' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "C",
@@ -476,6 +489,7 @@
               ],
               "interval": "",
               "measurement": "openstack_cinder_http_response_times",
+              "policy": "default",
               "query": "SELECT max(\"upper_90\") FROM \"openstack_cinder_http_response_times\" WHERE \"hostname\" =~ /$server/ AND \"http_method\" = 'DELETE' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "D",
@@ -514,15 +528,29 @@
           "timeShift": null,
           "title": "HTTP response time on $server",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "value_type": "cumulative"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "s",
-            "short"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "s",
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            }
           ]
         },
         {
@@ -533,12 +561,6 @@
           "error": false,
           "fill": 1,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": 1,
-            "leftMin": 0,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -547,7 +569,6 @@
           },
           "id": 9,
           "interval": "> 60s",
-          "leftYAxisLabel": "",
           "legend": {
             "avg": false,
             "current": false,
@@ -590,6 +611,7 @@
                 }
               ],
               "measurement": "openstack_check_api",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"openstack_check_api\" WHERE \"environment_label\" = '$environment' AND \"service\" = 'cinder-api' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "A",
@@ -627,15 +649,30 @@
           "timeShift": null,
           "title": "API Availability",
           "tooltip": {
+            "msResolution": false,
             "shared": false,
             "value_type": "cumulative"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": false,
-          "y_formats": [
-            "none",
-            "short"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "none",
+              "label": "",
+              "logBase": 1,
+              "max": 1,
+              "min": 0,
+              "show": false
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": false
+            }
           ]
         },
         {
@@ -646,12 +683,6 @@
           "error": false,
           "fill": 0,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": 0,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -706,6 +737,7 @@
               ],
               "interval": "",
               "measurement": "openstack_cinder_http_response_times",
+              "policy": "default",
               "query": "SELECT sum(\"count\") FROM \"openstack_cinder_http_response_times\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" = '2xx' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "A",
@@ -761,6 +793,7 @@
               "hide": false,
               "interval": "",
               "measurement": "openstack_cinder_http_response_times",
+              "policy": "default",
               "query": "SELECT sum(\"count\") FROM \"openstack_cinder_http_response_times\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" = '1xx' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "B",
@@ -816,6 +849,7 @@
               "hide": false,
               "interval": "",
               "measurement": "openstack_cinder_http_response_times",
+              "policy": "default",
               "query": "SELECT sum(\"count\") FROM \"openstack_cinder_http_response_times\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" = '3xx' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "C",
@@ -871,6 +905,7 @@
               "hide": false,
               "interval": "",
               "measurement": "openstack_cinder_http_response_times",
+              "policy": "default",
               "query": "SELECT sum(\"count\") FROM \"openstack_cinder_http_response_times\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" = '4xx' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "D",
@@ -926,6 +961,7 @@
               "hide": false,
               "interval": "",
               "measurement": "openstack_cinder_http_response_times",
+              "policy": "default",
               "query": "SELECT sum(\"count\") FROM \"openstack_cinder_http_response_times\" WHERE \"hostname\" =~ /$server/ AND \"http_status\" = '5xx' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "E",
@@ -964,15 +1000,29 @@
           "timeShift": null,
           "title": "Number of HTTP responses on $server",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "value_type": "individual"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "short",
-            "short"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         }
       ],
@@ -1009,6 +1059,13 @@
           "editable": true,
           "error": false,
           "format": "none",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "id": 48,
           "interval": ">60s",
           "links": [],
@@ -1040,6 +1097,7 @@
                 }
               ],
               "measurement": "haproxy_backend_servers",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"haproxy_backend_servers\" WHERE \"environment_label\" = '$environment' AND \"backend\" = 'cinder-api' AND \"state\" = 'up' AND $timeFilter GROUP BY time($interval)",
               "rawQuery": false,
               "refId": "A",
@@ -1077,7 +1135,7 @@
               ]
             }
           ],
-          "thresholds": "0,1,1",
+          "thresholds": "1,1",
           "title": "Cinder",
           "type": "singlestat",
           "valueFontSize": "80%",
@@ -1127,6 +1185,13 @@
           "editable": true,
           "error": false,
           "format": "none",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "id": 50,
           "interval": "> 60s",
           "links": [],
@@ -1158,6 +1223,7 @@
                 }
               ],
               "measurement": "haproxy_backend_servers",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"haproxy_backend_servers\" WHERE \"environment_label\" = '$environment' AND \"backend\" = 'cinder-api' AND \"state\" = 'down' AND $timeFilter GROUP BY time($interval)",
               "rawQuery": false,
               "refId": "A",
@@ -1195,7 +1261,7 @@
               ]
             }
           ],
-          "thresholds": "0,0,1",
+          "thresholds": "0,1",
           "title": "",
           "type": "singlestat",
           "valueFontSize": "80%",
@@ -1254,6 +1320,13 @@
           "editable": true,
           "error": false,
           "format": "none",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "id": 60,
           "interval": "> 60s",
           "links": [],
@@ -1292,6 +1365,7 @@
                 }
               ],
               "measurement": "openstack_cinder_services",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"openstack_cinder_services\" WHERE \"environment_label\" = '$environment' AND \"service\" = 'scheduler' AND \"state\" = 'disabled' AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
@@ -1331,7 +1405,7 @@
               ]
             }
           ],
-          "thresholds": "0,1,1",
+          "thresholds": "1,1",
           "title": "Disabled",
           "type": "singlestat",
           "valueFontSize": "80%",
@@ -1357,6 +1431,13 @@
           "editable": true,
           "error": false,
           "format": "none",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "id": 61,
           "interval": "> 60s",
           "links": [],
@@ -1395,6 +1476,7 @@
                 }
               ],
               "measurement": "openstack_cinder_services",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"openstack_cinder_services\" WHERE \"environment_label\" = '$environment' AND \"service\" = 'scheduler' AND \"state\" = 'up' AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
@@ -1434,7 +1516,7 @@
               ]
             }
           ],
-          "thresholds": "0,1,1",
+          "thresholds": "1,1",
           "title": "Up",
           "type": "singlestat",
           "valueFontSize": "80%",
@@ -1460,6 +1542,13 @@
           "editable": true,
           "error": false,
           "format": "none",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "id": 62,
           "interval": "> 60s",
           "links": [],
@@ -1498,6 +1587,7 @@
                 }
               ],
               "measurement": "openstack_cinder_services",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"openstack_cinder_services\" WHERE \"environment_label\" = '$environment' AND \"service\" = 'scheduler' AND \"state\" = 'down' AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
@@ -1537,7 +1627,7 @@
               ]
             }
           ],
-          "thresholds": "0,1,1",
+          "thresholds": "1,1",
           "title": "Down",
           "type": "singlestat",
           "valueFontSize": "80%",
@@ -1607,6 +1697,7 @@
                 }
               ],
               "measurement": "openstack_cinder_service",
+              "policy": "default",
               "query": "SELECT state, last(value) FROM \"openstack_cinder_service\" WHERE $timeFilter AND \"environment_label\" = '$environment'and service = 'scheduler' GROUP BY time($interval), hostname",
               "rawQuery": true,
               "refId": "A",
@@ -1659,6 +1750,13 @@
           "editable": true,
           "error": false,
           "format": "none",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "id": 65,
           "interval": "> 60s",
           "links": [],
@@ -1697,6 +1795,7 @@
                 }
               ],
               "measurement": "openstack_cinder_services",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"openstack_cinder_services\" WHERE \"environment_label\" = '$environment' AND \"service\" = 'scheduler' AND \"state\" = 'disabled' AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
@@ -1736,7 +1835,7 @@
               ]
             }
           ],
-          "thresholds": "0,1,1",
+          "thresholds": "1,1",
           "title": "",
           "type": "singlestat",
           "valueFontSize": "80%",
@@ -1762,6 +1861,13 @@
           "editable": true,
           "error": false,
           "format": "none",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "id": 66,
           "interval": "> 60s",
           "links": [],
@@ -1800,6 +1906,7 @@
                 }
               ],
               "measurement": "openstack_cinder_services",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"openstack_cinder_services\" WHERE \"environment_label\" = '$environment' AND \"service\" = 'volume' AND \"state\" = 'up' AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
@@ -1839,7 +1946,7 @@
               ]
             }
           ],
-          "thresholds": "0,1,1",
+          "thresholds": "1,1",
           "title": "",
           "type": "singlestat",
           "valueFontSize": "80%",
@@ -1865,6 +1972,13 @@
           "editable": true,
           "error": false,
           "format": "none",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "id": 67,
           "interval": "> 60s",
           "links": [],
@@ -1903,6 +2017,7 @@
                 }
               ],
               "measurement": "openstack_cinder_services",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"openstack_cinder_services\" WHERE \"environment_label\" = '$environment' AND \"service\" = 'volume' AND \"state\" = 'down' AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
@@ -1942,7 +2057,7 @@
               ]
             }
           ],
-          "thresholds": "0,1,1",
+          "thresholds": "1,1",
           "title": "",
           "type": "singlestat",
           "valueFontSize": "80%",
@@ -2012,6 +2127,7 @@
                 }
               ],
               "measurement": "openstack_cinder_service",
+              "policy": "default",
               "query": "SELECT state, last(value) FROM \"openstack_cinder_service\" WHERE $timeFilter AND \"environment_label\" = '$environment'and service = 'volume' GROUP BY time($interval), hostname",
               "rawQuery": true,
               "refId": "A",
@@ -2064,6 +2180,13 @@
           "editable": true,
           "error": false,
           "format": "none",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "id": 70,
           "interval": "> 60s",
           "links": [],
@@ -2102,6 +2225,7 @@
                 }
               ],
               "measurement": "openstack_cinder_services",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"openstack_cinder_services\" WHERE \"environment_label\" = '$environment' AND \"service\" = 'backup' AND \"state\" = 'disabled' AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
@@ -2141,7 +2265,7 @@
               ]
             }
           ],
-          "thresholds": "0,1,1",
+          "thresholds": "1,1",
           "title": "",
           "type": "singlestat",
           "valueFontSize": "80%",
@@ -2167,6 +2291,13 @@
           "editable": true,
           "error": false,
           "format": "none",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "id": 71,
           "interval": "> 60s",
           "links": [],
@@ -2205,6 +2336,7 @@
                 }
               ],
               "measurement": "openstack_cinder_services",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"openstack_cinder_services\" WHERE \"environment_label\" = '$environment' AND \"service\" = 'backup' AND \"state\" = 'up' AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
@@ -2244,7 +2376,7 @@
               ]
             }
           ],
-          "thresholds": "0,1,1",
+          "thresholds": "1,1",
           "title": "",
           "type": "singlestat",
           "valueFontSize": "80%",
@@ -2270,6 +2402,13 @@
           "editable": true,
           "error": false,
           "format": "none",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "id": 72,
           "interval": "> 60s",
           "links": [],
@@ -2308,6 +2447,7 @@
                 }
               ],
               "measurement": "openstack_cinder_services",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"openstack_cinder_services\" WHERE \"environment_label\" = '$environment' AND \"service\" = 'backup' AND \"state\" = 'down' AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
@@ -2347,7 +2487,7 @@
               ]
             }
           ],
-          "thresholds": "0,1,1",
+          "thresholds": "1,1",
           "title": "",
           "type": "singlestat",
           "valueFontSize": "80%",
@@ -2417,6 +2557,7 @@
                 }
               ],
               "measurement": "openstack_cinder_service",
+              "policy": "default",
               "query": "SELECT state, last(value) FROM \"openstack_cinder_service\" WHERE $timeFilter AND \"environment_label\" = '$environment'and service = 'backup' GROUP BY time($interval), hostname",
               "rawQuery": true,
               "refId": "A",
@@ -2466,6 +2607,13 @@
           "editable": true,
           "error": false,
           "format": "none",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "id": 12,
           "interval": "> 60s",
           "links": [],
@@ -2497,6 +2645,7 @@
                 }
               ],
               "measurement": "openstack_cinder_volumes",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"openstack_cinder_volumes\" WHERE \"environment_label\" = '$environment' AND \"state\" = 'available' AND $timeFilter GROUP BY time($interval)",
               "rawQuery": false,
               "refId": "A",
@@ -2556,6 +2705,13 @@
           "editable": true,
           "error": false,
           "format": "none",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "id": 21,
           "interval": "> 60s",
           "links": [],
@@ -2588,6 +2744,7 @@
                 }
               ],
               "measurement": "openstack_cinder_volumes",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"openstack_cinder_volumes\" WHERE \"environment_label\" = '$environment' AND \"state\" = 'in-use' AND $timeFilter GROUP BY time($interval)",
               "rawQuery": false,
               "refId": "A",
@@ -2647,6 +2804,13 @@
           "editable": true,
           "error": false,
           "format": "none",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "id": 16,
           "interval": "> 60s",
           "links": [],
@@ -2679,6 +2843,7 @@
                 }
               ],
               "measurement": "openstack_cinder_volumes",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"openstack_cinder_volumes\" WHERE \"environment_label\" = '$environment' AND \"state\" = 'error' AND $timeFilter GROUP BY time($interval)",
               "rawQuery": false,
               "refId": "A",
@@ -2733,12 +2898,6 @@
           "error": false,
           "fill": 0,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": 0,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -2789,6 +2948,7 @@
               ],
               "hide": false,
               "measurement": "openstack_cinder_volumes",
+              "policy": "default",
               "query": "SELECT max(\"value\") FROM \"openstack_cinder_volumes\" WHERE \"environment_label\" = '$environment' AND \"state\" = 'available' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "A",
@@ -2840,6 +3000,7 @@
                 }
               ],
               "measurement": "openstack_cinder_volumes",
+              "policy": "default",
               "query": "SELECT max(\"value\") FROM \"openstack_cinder_volumes\" WHERE \"environment_label\" = '$environment' AND \"state\" = 'in-use' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "B",
@@ -2893,6 +3054,7 @@
               ],
               "hide": false,
               "measurement": "openstack_cinder_volumes",
+              "policy": "default",
               "query": "SELECT max(\"value\") FROM \"openstack_cinder_volumes\" WHERE \"environment_label\" = '$environment' AND \"state\" = 'error' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "C",
@@ -2930,15 +3092,29 @@
           "timeShift": null,
           "title": "Volumes",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "value_type": "cumulative"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "short",
-            "short"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         },
         {
@@ -2954,6 +3130,13 @@
           "editable": true,
           "error": false,
           "format": "bytes",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "id": 23,
           "interval": "> 60s",
           "links": [],
@@ -2985,6 +3168,7 @@
                 }
               ],
               "measurement": "openstack_cinder_volumes_size",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"openstack_cinder_volumes_size\" WHERE \"environment_label\" = '$environment' AND \"state\" = 'available' AND $timeFilter GROUP BY time($interval)",
               "rawQuery": false,
               "refId": "A",
@@ -3043,6 +3227,13 @@
           "editable": true,
           "error": false,
           "format": "bytes",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "id": 24,
           "interval": "> 60s",
           "links": [],
@@ -3075,6 +3266,7 @@
                 }
               ],
               "measurement": "openstack_cinder_volumes_size",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"openstack_cinder_volumes_size\" WHERE \"environment_label\" = '$environment' AND \"state\" = 'in-use' AND $timeFilter GROUP BY time($interval)",
               "rawQuery": false,
               "refId": "A",
@@ -3133,6 +3325,13 @@
           "editable": true,
           "error": false,
           "format": "bytes",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "id": 25,
           "interval": "> 60s",
           "links": [],
@@ -3165,6 +3364,7 @@
                 }
               ],
               "measurement": "openstack_cinder_volumes_size",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"openstack_cinder_volumes_size\" WHERE \"environment_label\" = '$environment' AND \"state\" = 'error' AND $timeFilter GROUP BY time($interval)",
               "rawQuery": false,
               "refId": "A",
@@ -3218,12 +3418,6 @@
           "error": false,
           "fill": 0,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": 0,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -3273,6 +3467,7 @@
                 }
               ],
               "measurement": "openstack_cinder_volumes_size",
+              "policy": "default",
               "query": "SELECT max(\"value\") FROM \"openstack_cinder_volumes_size\" WHERE \"environment_label\" = '$environment' AND \"state\" = 'available' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "A",
@@ -3325,6 +3520,7 @@
                 }
               ],
               "measurement": "openstack_cinder_volumes_size",
+              "policy": "default",
               "query": "SELECT max(\"value\") FROM \"openstack_cinder_volumes_size\" WHERE \"environment_label\" = '$environment' AND \"state\" = 'in-use' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "B",
@@ -3377,6 +3573,7 @@
                 }
               ],
               "measurement": "openstack_cinder_volumes_size",
+              "policy": "default",
               "query": "SELECT max(\"value\") FROM \"openstack_cinder_volumes_size\" WHERE \"environment_label\" = '$environment' AND \"state\" = 'error' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "C",
@@ -3414,15 +3611,29 @@
           "timeShift": null,
           "title": "Volumes size",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "value_type": "cumulative"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "bytes",
-            "none"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "bytes",
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "none",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         },
         {
@@ -3438,6 +3649,13 @@
           "editable": true,
           "error": false,
           "format": "s",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "id": 57,
           "interval": ">60s",
           "links": [],
@@ -3469,6 +3687,7 @@
                 }
               ],
               "measurement": "openstack_cinder_volume_creation_time",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"openstack_cinder_volume_creation_time\" WHERE \"environment_label\" = '$environment' AND $timeFilter GROUP BY time($interval)",
               "rawQuery": false,
               "refId": "A",
@@ -3530,12 +3749,6 @@
           "error": false,
           "fill": 0,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": 0,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -3591,6 +3804,7 @@
               "hide": false,
               "interval": "",
               "measurement": "openstack_cinder_volume_creation_time",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"openstack_cinder_volume_creation_time\" WHERE \"environment_label\" = '$environment' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "A",
@@ -3640,6 +3854,7 @@
               "hide": false,
               "interval": "",
               "measurement": "openstack_cinder_volume_creation_time",
+              "policy": "default",
               "query": "SELECT max(\"value\") FROM \"openstack_cinder_volume_creation_time\" WHERE \"environment_label\" = '$environment' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "B",
@@ -3689,6 +3904,7 @@
               "hide": false,
               "interval": "",
               "measurement": "openstack_cinder_volume_creation_time",
+              "policy": "default",
               "query": "SELECT min(\"value\") FROM \"openstack_cinder_volume_creation_time\" WHERE \"environment_label\" = '$environment' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "C",
@@ -3721,15 +3937,29 @@
           "timeShift": null,
           "title": "Creation time",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "value_type": "individual"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "s",
-            "short"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "s",
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         }
       ],
@@ -3754,6 +3984,13 @@
           "editable": true,
           "error": false,
           "format": "none",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "id": 12,
           "interval": "> 60s",
           "links": [],
@@ -3785,6 +4022,7 @@
                 }
               ],
               "measurement": "openstack_cinder_snapshots",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"openstack_cinder_snapshots\" WHERE \"environment_label\" = '$environment' AND \"state\" = 'available' AND $timeFilter GROUP BY time($interval)",
               "rawQuery": false,
               "refId": "A",
@@ -3843,6 +4081,13 @@
           "editable": true,
           "error": false,
           "format": "none",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "id": 21,
           "interval": "> 60s",
           "links": [],
@@ -3875,6 +4120,7 @@
                 }
               ],
               "measurement": "openstack_cinder_snapshots",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"openstack_cinder_snapshots\" WHERE \"environment_label\" = '$environment' AND \"state\" = 'in-use' AND $timeFilter GROUP BY time($interval)",
               "rawQuery": false,
               "refId": "A",
@@ -3933,6 +4179,13 @@
           "editable": true,
           "error": false,
           "format": "none",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "id": 16,
           "interval": "> 60s",
           "links": [],
@@ -3965,6 +4218,7 @@
                 }
               ],
               "measurement": "openstack_cinder_snapshots",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"openstack_cinder_snapshots\" WHERE \"environment_label\" = '$environment' AND \"state\" = 'error' AND $timeFilter GROUP BY time($interval)",
               "rawQuery": false,
               "refId": "A",
@@ -4019,12 +4273,6 @@
           "error": false,
           "fill": 0,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": 0,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -4075,6 +4323,7 @@
               ],
               "hide": false,
               "measurement": "openstack_cinder_snapshots",
+              "policy": "default",
               "query": "SELECT max(\"value\") FROM \"openstack_cinder_snapshots\" WHERE \"environment_label\" = '$environment' AND \"state\" = 'available' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "A",
@@ -4126,6 +4375,7 @@
                 }
               ],
               "measurement": "openstack_cinder_snapshots",
+              "policy": "default",
               "query": "SELECT max(\"value\") FROM \"openstack_cinder_snapshots\" WHERE \"environment_label\" = '$environment' AND \"state\" = 'in-use' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "B",
@@ -4179,6 +4429,7 @@
               ],
               "hide": false,
               "measurement": "openstack_cinder_snapshots",
+              "policy": "default",
               "query": "SELECT max(\"value\") FROM \"openstack_cinder_snapshots\" WHERE \"environment_label\" = '$environment' AND \"state\" = 'error' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "C",
@@ -4216,15 +4467,29 @@
           "timeShift": null,
           "title": "Snapshots",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "value_type": "cumulative"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "short",
-            "short"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         },
         {
@@ -4240,6 +4505,13 @@
           "editable": true,
           "error": false,
           "format": "bytes",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "id": 23,
           "interval": "> 60s",
           "links": [],
@@ -4271,6 +4543,7 @@
                 }
               ],
               "measurement": "openstack_cinder_snapshots_size",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"openstack_cinder_snapshots_size\" WHERE \"environment_label\" = '$environment' AND \"state\" = 'available' AND $timeFilter GROUP BY time($interval)",
               "rawQuery": false,
               "refId": "A",
@@ -4329,6 +4602,13 @@
           "editable": true,
           "error": false,
           "format": "bytes",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "id": 24,
           "interval": "> 60s",
           "links": [],
@@ -4361,6 +4641,7 @@
                 }
               ],
               "measurement": "openstack_cinder_snapshots_size",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"openstack_cinder_snapshots_size\" WHERE \"environment_label\" = '$environment' AND \"state\" = 'in-use' AND $timeFilter GROUP BY time($interval)",
               "rawQuery": false,
               "refId": "A",
@@ -4419,6 +4700,13 @@
           "editable": true,
           "error": false,
           "format": "bytes",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "id": 25,
           "interval": "> 60s",
           "links": [],
@@ -4451,6 +4739,7 @@
                 }
               ],
               "measurement": "openstack_cinder_snapshots_size",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"openstack_cinder_snapshots_size\" WHERE \"environment_label\" = '$environment' AND \"state\" = 'error' AND $timeFilter GROUP BY time($interval)",
               "rawQuery": false,
               "refId": "A",
@@ -4504,12 +4793,6 @@
           "error": false,
           "fill": 0,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": 0,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -4559,6 +4842,7 @@
                 }
               ],
               "measurement": "openstack_cinder_snapshots_size",
+              "policy": "default",
               "query": "SELECT max(\"value\") FROM \"openstack_cinder_snapshots_size\" WHERE \"environment_label\" = '$environment' AND \"state\" = 'available' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "A",
@@ -4610,6 +4894,7 @@
                 }
               ],
               "measurement": "openstack_cinder_snapshots_size",
+              "policy": "default",
               "query": "SELECT max(\"value\") FROM \"openstack_cinder_snapshots_size\" WHERE \"environment_label\" = '$environment' AND \"state\" = 'in-use' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "B",
@@ -4661,6 +4946,7 @@
                 }
               ],
               "measurement": "openstack_cinder_snapshots_size",
+              "policy": "default",
               "query": "SELECT max(\"value\") FROM \"openstack_cinder_snapshots_size\" WHERE \"environment_label\" = '$environment' AND \"state\" = 'error' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "C",
@@ -4697,15 +4983,29 @@
           "timeShift": null,
           "title": "Snapshots size",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "value_type": "cumulative"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "bytes",
-            "none"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "bytes",
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "none",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         }
       ],
@@ -4713,7 +5013,7 @@
       "title": "Snapshots"
     }
   ],
-  "schemaVersion": 8,
+  "schemaVersion": 12,
   "sharedCrosshair": true,
   "style": "dark",
   "tags": [],
@@ -4724,11 +5024,12 @@
         "allFormat": "regex values",
         "current": {},
         "datasource": null,
+        "hide": 0,
         "includeAll": false,
         "name": "environment",
         "options": [],
         "query": "show tag values from cpu_idle with key = environment_label",
-        "refresh": true,
+        "refresh": 1,
         "refresh_on_load": true,
         "regex": "",
         "type": "query"
@@ -4737,11 +5038,12 @@
         "allFormat": "regex values",
         "current": {},
         "datasource": null,
+        "hide": 0,
         "includeAll": true,
         "name": "server",
         "options": [],
         "query": "show tag values from pacemaker_local_resource_active with key = hostname where environment_label = '$environment'",
-        "refresh": true,
+        "refresh": 1,
         "refresh_on_load": true,
         "regex": "",
         "type": "query"
@@ -4785,5 +5087,5 @@
   },
   "timezone": "browser",
   "title": "Cinder",
-  "version": 12
+  "version": 2
 }

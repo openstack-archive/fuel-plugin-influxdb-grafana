@@ -42,6 +42,13 @@
           "editable": true,
           "error": false,
           "format": "none",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "id": 26,
           "interval": "> 60s",
           "links": [],
@@ -84,6 +91,7 @@
               "groupby_field": "",
               "interval": "",
               "measurement": "cluster_status",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"cluster_status\" WHERE \"environment_label\" = '$environment' AND \"cluster_name\" = 'mysql' AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
@@ -117,7 +125,7 @@
               ]
             }
           ],
-          "thresholds": "0,1,3",
+          "thresholds": "1,3",
           "title": "",
           "type": "singlestat",
           "valueFontSize": "80%",
@@ -163,12 +171,6 @@
           "error": false,
           "fill": 0,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": 0,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -176,7 +178,6 @@
           },
           "id": 23,
           "interval": ">60s",
-          "leftYAxisLabel": "",
           "legend": {
             "avg": false,
             "current": false,
@@ -220,6 +221,7 @@
               ],
               "groupByTags": [],
               "measurement": "mysql_octets_rx",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"mysql_octets_rx\" WHERE \"hostname\" =~ /$server/ AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "A",
@@ -267,6 +269,7 @@
               ],
               "groupByTags": [],
               "measurement": "mysql_octets_tx",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"mysql_octets_tx\" WHERE \"hostname\" =~ /$server/ AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "B",
@@ -298,15 +301,30 @@
           "timeShift": null,
           "title": "Network I/O",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "value_type": "cumulative"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "Bps",
-            "short"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "Bps",
+              "label": "",
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         },
         {
@@ -317,12 +335,6 @@
           "error": false,
           "fill": 0,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": 0,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -330,7 +342,6 @@
           },
           "id": 24,
           "interval": ">60s",
-          "leftYAxisLabel": "per second",
           "legend": {
             "avg": false,
             "current": false,
@@ -374,6 +385,7 @@
               ],
               "groupByTags": [],
               "measurement": "mysql_locks_immediate",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"mysql_locks_immediate\" WHERE \"environment_label\" = '$environment' AND \"hostname\" =~ /$server/ AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "A",
@@ -426,6 +438,7 @@
               ],
               "groupByTags": [],
               "measurement": "mysql_locks_waited",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"mysql_locks_waited\" WHERE \"environment_label\" = '$environment' AND \"hostname\" =~ /$server/ AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "B",
@@ -462,15 +475,30 @@
           "timeShift": null,
           "title": "Locks",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "value_type": "cumulative"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "short",
-            "short"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": "per second",
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         },
         {
@@ -481,12 +509,6 @@
           "error": false,
           "fill": 0,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": 0,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -494,7 +516,6 @@
           },
           "id": 22,
           "interval": ">60s",
-          "leftYAxisLabel": "Thread Count",
           "legend": {
             "avg": false,
             "current": false,
@@ -538,6 +559,7 @@
               ],
               "groupByTags": [],
               "measurement": "mysql_threads_cached",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"mysql_threads_cached\" WHERE \"hostname\" =~ /$server/ AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "A",
@@ -585,6 +607,7 @@
               ],
               "groupByTags": [],
               "measurement": "mysql_threads_connected",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"mysql_threads_connected\" WHERE \"hostname\" =~ /$server/ AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "B",
@@ -632,6 +655,7 @@
               ],
               "groupByTags": [],
               "measurement": "mysql_threads_running",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"mysql_threads_running\" WHERE \"hostname\" =~ /$server/ AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "C",
@@ -663,15 +687,30 @@
           "timeShift": null,
           "title": "Threads",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "value_type": "cumulative"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "short",
-            "short"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": "Thread Count",
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         },
         {
@@ -682,12 +721,6 @@
           "error": false,
           "fill": 0,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": 0,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -695,7 +728,6 @@
           },
           "id": 21,
           "interval": ">60s",
-          "leftYAxisLabel": "per second",
           "legend": {
             "avg": false,
             "current": false,
@@ -739,6 +771,7 @@
               ],
               "groupByTags": [],
               "measurement": "mysql_commands",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"mysql_commands\" WHERE \"hostname\" =~ /$server/ AND \"statement\" = 'commit' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "A",
@@ -791,6 +824,7 @@
               ],
               "groupByTags": [],
               "measurement": "mysql_commands",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"mysql_commands\" WHERE \"hostname\" =~ /$server/ AND \"statement\" = 'delete' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "B",
@@ -843,6 +877,7 @@
               ],
               "groupByTags": [],
               "measurement": "mysql_commands",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"mysql_commands\" WHERE \"hostname\" =~ /$server/ AND \"statement\" = 'insert' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "C",
@@ -895,6 +930,7 @@
               ],
               "groupByTags": [],
               "measurement": "mysql_commands",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"mysql_commands\" WHERE \"hostname\" =~ /$server/ AND \"statement\" = 'select' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "D",
@@ -947,6 +983,7 @@
               ],
               "groupByTags": [],
               "measurement": "mysql_commands",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"mysql_commands\" WHERE \"hostname\" =~ /$server/ AND \"statement\" = 'rollback' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "E",
@@ -999,6 +1036,7 @@
               ],
               "groupByTags": [],
               "measurement": "mysql_commands",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"mysql_commands\" WHERE \"hostname\" =~ /$server/ AND \"statement\" = 'update' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "F",
@@ -1035,15 +1073,30 @@
           "timeShift": null,
           "title": "Commands",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "value_type": "cumulative"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "short",
-            "short"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": "per second",
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         },
         {
@@ -1054,12 +1107,6 @@
           "error": false,
           "fill": 0,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": null,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -1067,7 +1114,6 @@
           },
           "id": 25,
           "interval": "> 60s",
-          "leftYAxisLabel": "per second",
           "legend": {
             "avg": false,
             "current": false,
@@ -1117,6 +1163,7 @@
                 }
               ],
               "measurement": "mysql_handler",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"mysql_handler\" WHERE \"hostname\" =~ /$server/ AND $timeFilter GROUP BY time($interval), \"handler\" fill(previous)",
               "rawQuery": false,
               "refId": "A",
@@ -1149,22 +1196,37 @@
           "timeShift": null,
           "title": "Handlers",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "value_type": "cumulative"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "short",
-            "short"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": "per second",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         }
       ],
       "title": "MySQL"
     }
   ],
-  "schemaVersion": 8,
+  "schemaVersion": 12,
   "sharedCrosshair": true,
   "style": "dark",
   "tags": [],
@@ -1175,11 +1237,12 @@
         "allFormat": "regex values",
         "current": {},
         "datasource": null,
+        "hide": 0,
         "includeAll": false,
         "name": "environment",
         "options": [],
         "query": "show tag values from cpu_idle with key = environment_label",
-        "refresh": true,
+        "refresh": 1,
         "refresh_on_load": true,
         "regex": "",
         "type": "query"
@@ -1188,11 +1251,12 @@
         "allFormat": "glob",
         "current": {},
         "datasource": null,
+        "hide": 0,
         "includeAll": false,
         "name": "server",
         "options": [],
         "query": "show tag values from mysql_commands with key = hostname where environment_label = '$environment' ",
-        "refresh": true,
+        "refresh": 1,
         "refresh_on_load": true,
         "regex": "",
         "type": "query"

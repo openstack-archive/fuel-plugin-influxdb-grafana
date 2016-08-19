@@ -41,6 +41,13 @@
           "editable": true,
           "error": false,
           "format": "none",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "id": 9,
           "interval": "> 60s",
           "links": [],
@@ -83,6 +90,7 @@
               "groupby_field": "",
               "interval": "",
               "measurement": "cluster_status",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"cluster_status\" WHERE \"environment_label\" = '$environment' AND \"cluster_name\" = 'memcached' AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
@@ -116,7 +124,7 @@
               ]
             }
           ],
-          "thresholds": "0,1,3",
+          "thresholds": "1,3",
           "title": "",
           "type": "singlestat",
           "valueFontSize": "80%",
@@ -162,12 +170,6 @@
           "error": false,
           "fill": 0,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": 0,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -175,7 +177,6 @@
           },
           "id": 1,
           "interval": ">1m",
-          "leftYAxisLabel": "",
           "legend": {
             "avg": false,
             "current": false,
@@ -229,6 +230,7 @@
                 }
               ],
               "measurement": "memcached_items_current",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"memcached_items_current\" WHERE \"environment_label\" = '$environment' AND $timeFilter GROUP BY time($interval), \"hostname\" fill(previous)",
               "rawQuery": false,
               "refId": "A",
@@ -261,15 +263,30 @@
           "timeShift": null,
           "title": "Items",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "value_type": "individual"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "short",
-            "short"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": "",
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         },
         {
@@ -280,12 +297,6 @@
           "error": false,
           "fill": 0,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": 0,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -342,6 +353,7 @@
                 }
               ],
               "measurement": "memcached_df_cache_used",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"memcached_df_cache_used\" WHERE \"environment_label\" = '$environment' AND $timeFilter GROUP BY time($interval), \"hostname\" fill(previous)",
               "rawQuery": false,
               "refId": "A",
@@ -374,15 +386,29 @@
           "timeShift": null,
           "title": "Cache used",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "value_type": "cumulative"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "bytes",
-            "bytes"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "bytes",
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "bytes",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         }
       ],
@@ -401,12 +427,6 @@
           "error": false,
           "fill": 0,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": 0,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -414,7 +434,6 @@
           },
           "id": 3,
           "interval": ">1m",
-          "leftYAxisLabel": "per second",
           "legend": {
             "avg": false,
             "current": false,
@@ -464,6 +483,7 @@
                 }
               ],
               "measurement": "memcached_command_get",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"memcached_command_get\" WHERE \"environment_label\" = '$environment' AND $timeFilter GROUP BY time($interval), \"hostname\" fill(previous)",
               "rawQuery": false,
               "refId": "A",
@@ -519,6 +539,7 @@
               ],
               "hide": false,
               "measurement": "memcached_command_set",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"memcached_command_set\" WHERE \"environment_label\" = '$environment' AND $timeFilter GROUP BY time($interval), \"hostname\" fill(previous)",
               "rawQuery": false,
               "refId": "B",
@@ -551,15 +572,30 @@
           "timeShift": null,
           "title": "Get/Set rates",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "value_type": "cumulative"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "short",
-            "short"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": "per second",
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         },
         {
@@ -570,12 +606,6 @@
           "error": false,
           "fill": 0,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": 0,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -632,6 +662,7 @@
                 }
               ],
               "measurement": "memcached_df_cache_free",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"memcached_df_cache_free\" WHERE \"environment_label\" = '$environment' AND $timeFilter GROUP BY time($interval), \"hostname\" fill(previous)",
               "rawQuery": false,
               "refId": "A",
@@ -664,15 +695,29 @@
           "timeShift": null,
           "title": "Cache free",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "value_type": "cumulative"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "bytes",
-            "bytes"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "bytes",
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "bytes",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         }
       ],
@@ -694,12 +739,6 @@
           "error": false,
           "fill": 0,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": 100,
-            "leftMin": 0,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -772,6 +811,7 @@
               ],
               "interval": "",
               "measurement": "memcached_percent_hitratio",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"memcached_percent_hitratio\" WHERE \"environment_label\" = '$environment' AND $timeFilter GROUP BY time($interval), \"hostname\" fill(previous)",
               "rawQuery": false,
               "refId": "A",
@@ -805,15 +845,29 @@
           "timeShift": null,
           "title": "Hits ratio",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "value_type": "cumulative"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "percent",
-            "percent"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "percent",
+              "logBase": 1,
+              "max": 100,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "percent",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         },
         {
@@ -827,12 +881,6 @@
           "error": false,
           "fill": 0,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": 0,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": 0,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -840,7 +888,6 @@
           },
           "id": 5,
           "interval": ">1m",
-          "leftYAxisLabel": "per second",
           "legend": {
             "avg": false,
             "current": false,
@@ -897,6 +944,7 @@
               "hide": false,
               "interval": "",
               "measurement": "memcached_ops_hits",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"memcached_ops_hits\" WHERE \"environment_label\" = '$environment' AND $timeFilter GROUP BY time($interval), \"hostname\" fill(previous)",
               "rawQuery": false,
               "refId": "A",
@@ -953,6 +1001,7 @@
               "hide": false,
               "interval": "",
               "measurement": "memcached_ops_misses",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"memcached_ops_misses\" WHERE \"environment_label\" = '$environment' AND $timeFilter GROUP BY time($interval), \"hostname\" fill(previous)",
               "rawQuery": false,
               "refId": "B",
@@ -1007,6 +1056,7 @@
                 }
               ],
               "measurement": "memcached_ops_evictions",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"memcached_ops_evictions\" WHERE \"environment_label\" = '$environment' AND $timeFilter GROUP BY time($interval), \"hostname\" fill(previous)",
               "rawQuery": false,
               "refId": "C",
@@ -1040,15 +1090,30 @@
           "timeShift": null,
           "title": "Cache hits stats",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "value_type": "cumulative"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "short",
-            "short"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": "per second",
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            }
           ]
         }
       ],
@@ -1067,12 +1132,6 @@
           "error": false,
           "fill": 0,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": null,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -1141,6 +1200,7 @@
               ],
               "interval": "",
               "measurement": "memcached_octets_tx",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"memcached_octets_tx\" WHERE \"environment_label\" = '$environment' AND $timeFilter GROUP BY time($interval), \"hostname\" fill(previous)",
               "rawQuery": false,
               "refId": "A",
@@ -1196,6 +1256,7 @@
               ],
               "interval": "",
               "measurement": "memcached_octets_rx",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"memcached_octets_rx\" WHERE \"environment_label\" = '$environment' AND $timeFilter GROUP BY time($interval), \"hostname\" fill(previous)",
               "rawQuery": false,
               "refId": "B",
@@ -1228,15 +1289,29 @@
           "timeShift": null,
           "title": "Network I/O",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "value_type": "cumulative"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "Bps",
-            "short"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "Bps",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         },
         {
@@ -1251,12 +1326,6 @@
           "error": false,
           "fill": 0,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": null,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -1314,6 +1383,7 @@
               ],
               "interval": "",
               "measurement": "memcached_connections_current",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"memcached_connections_current\" WHERE \"environment_label\" = '$environment' AND $timeFilter GROUP BY time($interval), \"hostname\" fill(previous)",
               "rawQuery": false,
               "refId": "A",
@@ -1346,22 +1416,36 @@
           "timeShift": null,
           "title": "Connections",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "value_type": "individual"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "short",
-            "short"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         }
       ],
       "title": "New row"
     }
   ],
-  "schemaVersion": 8,
+  "schemaVersion": 12,
   "sharedCrosshair": true,
   "style": "dark",
   "tags": [],
@@ -1371,11 +1455,12 @@
         "allFormat": "regex values",
         "current": {},
         "datasource": null,
+        "hide": 0,
         "includeAll": false,
         "name": "environment",
         "options": [],
         "query": "show tag values from cpu_idle with key = environment_label",
-        "refresh": true,
+        "refresh": 1,
         "refresh_on_load": true,
         "regex": "",
         "type": "query"
@@ -1419,5 +1504,5 @@
   },
   "timezone": "browser",
   "title": "Memcached",
-  "version": 5
+  "version": 2
 }
