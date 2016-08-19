@@ -90,7 +90,6 @@
                   }
                 ]
               ],
-              "series": "/$osd.osd.op_wip/",
               "tags": [
                 {
                   "key": "environment_label",
@@ -210,7 +209,6 @@
                   }
                 ]
               ],
-              "series": "/$osd.osd.op$/",
               "tags": [
                 {
                   "key": "cluster",
@@ -329,7 +327,6 @@
                   }
                 ]
               ],
-              "series": "/$osd.osd.op_in_bytes/",
               "tags": [
                 {
                   "key": "cluster",
@@ -379,7 +376,6 @@
                   }
                 ]
               ],
-              "series": "/$osd.osd.op_out_bytes/",
               "tags": [
                 {
                   "key": "cluster",
@@ -501,7 +497,6 @@
                   }
                 ]
               ],
-              "series": "/$osd.osd.op_latency$/",
               "tags": [
                 {
                   "key": "environment_label",
@@ -635,7 +630,6 @@
                   }
                 ]
               ],
-              "series": "/$osd.osd.op_r_out_bytes$/",
               "tags": [
                 {
                   "key": "cluster",
@@ -685,7 +679,6 @@
                   }
                 ]
               ],
-              "series": "/$osd.osd.op_r$/",
               "tags": [
                 {
                   "key": "cluster",
@@ -807,7 +800,6 @@
                   }
                 ]
               ],
-              "series": "/$osd.osd.op_r_latency$/",
               "tags": [
                 {
                   "key": "environment_label",
@@ -864,7 +856,6 @@
                   }
                 ]
               ],
-              "series": "/$osd.osd.op_r_process_latency$/",
               "tags": [
                 {
                   "key": "environment_label",
@@ -988,7 +979,6 @@
                   }
                 ]
               ],
-              "series": "/$osd.osd.op_w_in_bytes$/",
               "tags": [
                 {
                   "key": "cluster",
@@ -1037,7 +1027,6 @@
                   }
                 ]
               ],
-              "series": "/$osd.osd.op_w_in_bytes$/",
               "tags": [
                 {
                   "key": "cluster",
@@ -1086,7 +1075,6 @@
                   }
                 ]
               ],
-              "series": "/$osd.osd.op_w_in_bytes$/",
               "tags": [
                 {
                   "key": "cluster",
@@ -1208,7 +1196,6 @@
                   }
                 ]
               ],
-              "series": "/$osd.osd.op_w_latency$/",
               "tags": [
                 {
                   "key": "environment_label",
@@ -1265,7 +1252,6 @@
                   }
                 ]
               ],
-              "series": "/$osd.osd.op_w_process_latency$/",
               "tags": [
                 {
                   "key": "environment_label",
@@ -1398,7 +1384,6 @@
                   }
                 ]
               ],
-              "series": "/$osd.osd.op_rw_in_bytes$/",
               "tags": [
                 {
                   "key": "cluster",
@@ -1447,7 +1432,6 @@
                   }
                 ]
               ],
-              "series": "/$osd.osd.op_rw$/",
               "tags": [
                 {
                   "key": "cluster",
@@ -1496,7 +1480,6 @@
                   }
                 ]
               ],
-              "series": "/$osd.osd.op_rw_rlat$/",
               "tags": [
                 {
                   "key": "cluster",
@@ -1618,7 +1601,6 @@
                   }
                 ]
               ],
-              "series": "/$osd.osd.op_rw_latency$/",
               "tags": [
                 {
                   "key": "environment_label",
@@ -1675,7 +1657,6 @@
                   }
                 ]
               ],
-              "series": "/$osd.osd.op_rw_process_latency$/",
               "tags": [
                 {
                   "key": "environment_label",
@@ -1807,7 +1788,6 @@
                   }
                 ]
               ],
-              "series": "/$osd.*osd.recovery_ops/",
               "tags": [
                 {
                   "key": "environment_label",

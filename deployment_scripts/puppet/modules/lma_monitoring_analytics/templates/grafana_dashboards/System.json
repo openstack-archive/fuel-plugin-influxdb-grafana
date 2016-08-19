@@ -91,7 +91,6 @@
                   }
                 ]
               ],
-              "series": "merge(/$server.cpu.\\d+.user/)",
               "tags": [
                 {
                   "key": "hostname",
@@ -139,7 +138,6 @@
                   }
                 ]
               ],
-              "series": "merge(/$server.cpu.\\d+.idle/)",
               "tags": [
                 {
                   "key": "hostname",
@@ -188,7 +186,6 @@
                   }
                 ]
               ],
-              "series": "merge(/$server.cpu.\\d+.interrupt/)",
               "tags": [
                 {
                   "key": "hostname",
@@ -237,7 +234,6 @@
                   }
                 ]
               ],
-              "series": "merge(/$server.cpu.\\d+.nice/)",
               "tags": [
                 {
                   "key": "hostname",
@@ -286,7 +282,6 @@
                   }
                 ]
               ],
-              "series": "merge(/$server.cpu.\\d+.system/)",
               "tags": [
                 {
                   "key": "hostname",
@@ -335,7 +330,6 @@
                   }
                 ]
               ],
-              "series": "merge(/$server.cpu.\\d+.steal/)",
               "tags": [
                 {
                   "key": "hostname",
@@ -384,7 +378,6 @@
                   }
                 ]
               ],
-              "series": "merge(/$server.cpu.\\d+.wait/)",
               "tags": [
                 {
                   "key": "hostname",
@@ -510,7 +503,6 @@
                   }
                 ]
               ],
-              "series": "$server.memory.used",
               "tags": [
                 {
                   "key": "hostname",
@@ -560,7 +552,6 @@
                   }
                 ]
               ],
-              "series": "$server.memory.buffered",
               "tags": [
                 {
                   "key": "hostname",
@@ -610,7 +601,6 @@
                   }
                 ]
               ],
-              "series": "$server.memory.cached",
               "tags": [
                 {
                   "key": "hostname",
@@ -660,7 +650,6 @@
                   }
                 ]
               ],
-              "series": "$server.memory.free",
               "tags": [
                 {
                   "key": "hostname",
@@ -779,7 +768,6 @@
                   }
                 ]
               ],
-              "series": "$server.load.shortterm",
               "tags": [
                 {
                   "key": "hostname",
@@ -827,7 +815,6 @@
                   }
                 ]
               ],
-              "series": "$server.load.midterm",
               "tags": [
                 {
                   "key": "hostname",
@@ -875,7 +862,6 @@
                   }
                 ]
               ],
-              "series": "$server.load.longterm",
               "tags": [
                 {
                   "key": "hostname",
@@ -997,7 +983,6 @@
                   }
                 ]
               ],
-              "series": "$server.processes.state.blocked",
               "tags": [
                 {
                   "key": "hostname",
@@ -1050,7 +1035,6 @@
                   }
                 ]
               ],
-              "series": "$server.processes.state.paging",
               "tags": [
                 {
                   "key": "hostname",
@@ -1103,7 +1087,6 @@
                   }
                 ]
               ],
-              "series": "$server.processes.state.paging",
               "tags": [
                 {
                   "key": "hostname",
@@ -1156,7 +1139,6 @@
                   }
                 ]
               ],
-              "series": "$server.processes.state.paging",
               "tags": [
                 {
                   "key": "hostname",
@@ -1209,7 +1191,6 @@
                   }
                 ]
               ],
-              "series": "$server.processes.state.paging",
               "tags": [
                 {
                   "key": "hostname",
@@ -1262,7 +1243,6 @@
                   }
                 ]
               ],
-              "series": "$server.processes.state.paging",
               "tags": [
                 {
                   "key": "hostname",
@@ -1382,7 +1362,6 @@
                   }
                 ]
               ],
-              "series": "$server.processes.fork_rate",
               "tags": [
                 {
                   "key": "hostname",
@@ -1498,7 +1477,6 @@
                   }
                 ]
               ],
-              "series": "$server.users",
               "tags": [
                 {
                   "key": "hostname",
@@ -1606,7 +1584,6 @@
                   }
                 ]
               ],
-              "series": "select last(100.0*avail.value/(used.value + free.value)) from \"$server.fs.$mount.space.free\" as free inner join \"$server.fs.$mount.space.used\" as used where $timeFilter group by time($interval) order asc",
               "tags": [
                 {
                   "key": "hostname",
@@ -1720,7 +1697,6 @@
                   }
                 ]
               ],
-              "series": "$server.fs.$mount.space.used",
               "tags": [
                 {
                   "key": "hostname",
@@ -1775,7 +1751,6 @@
                   }
                 ]
               ],
-              "series": "$server.fs.$mount.space.reserved",
               "tags": [
                 {
                   "key": "hostname",
@@ -1830,7 +1805,6 @@
                   }
                 ]
               ],
-              "series": "$server.fs.$mount.space.free",
               "tags": [
                 {
                   "key": "hostname",
@@ -1954,7 +1928,6 @@
                   }
                 ]
               ],
-              "series": "select last(100.0*avail.value/(used.value + free.value)) from \"$server.fs.$mount.space.free\" as free inner join \"$server.fs.$mount.space.used\" as used where $timeFilter group by time($interval) order asc",
               "tags": [
                 {
                   "key": "hostname",
@@ -2068,7 +2041,6 @@
                   }
                 ]
               ],
-              "series": "$server.fs.$mount.inodes.used",
               "tags": [
                 {
                   "key": "hostname",
@@ -2123,7 +2095,6 @@
                   }
                 ]
               ],
-              "series": "$server.fs.$mount.inodes.reserved",
               "tags": [
                 {
                   "key": "hostname",
@@ -2178,7 +2149,6 @@
                   }
                 ]
               ],
-              "series": "$server.fs.$mount.inodes.free",
               "tags": [
                 {
                   "key": "hostname",
@@ -2311,7 +2281,6 @@
                   }
                 ]
               ],
-              "series": "$server.disk.$disk.disk_merged.read",
               "tags": [
                 {
                   "key": "hostname",
@@ -2364,7 +2333,6 @@
                   }
                 ]
               ],
-              "series": "$server.disk.$disk.disk_merged.write",
               "tags": [
                 {
                   "key": "hostname",
@@ -2485,7 +2453,6 @@
                   }
                 ]
               ],
-              "series": "$server.disk.$disk.disk_ops.read",
               "tags": [
                 {
                   "key": "hostname",
@@ -2538,7 +2505,6 @@
                   }
                 ]
               ],
-              "series": "$server.disk.$disk.disk_ops.write",
               "tags": [
                 {
                   "key": "hostname",
@@ -2659,7 +2625,6 @@
                   }
                 ]
               ],
-              "series": "$server.disk.$disk.disk_octets.read",
               "tags": [
                 {
                   "key": "hostname",
@@ -2712,7 +2677,6 @@
                   }
                 ]
               ],
-              "series": "$server.disk.$disk.disk_octets.write",
               "tags": [
                 {
                   "key": "hostname",
@@ -2842,7 +2806,6 @@
                   }
                 ]
               ],
-              "series": "/$server.net.$interface.if_octets.rx/",
               "tags": [
                 {
                   "key": "hostname",
@@ -2895,7 +2858,6 @@
                   }
                 ]
               ],
-              "series": "/$server.net.$interface.if_octets.tx/",
               "tags": [
                 {
                   "key": "hostname",
@@ -3016,7 +2978,6 @@
                   }
                 ]
               ],
-              "series": "/$server.net.$interface.if_packets.rx/",
               "tags": [
                 {
                   "key": "hostname",
@@ -3069,7 +3030,6 @@
                   }
                 ]
               ],
-              "series": "/$server.net.$interface.if_packets.tx/",
               "tags": [
                 {
                   "key": "hostname",
@@ -3190,7 +3150,6 @@
                   }
                 ]
               ],
-              "series": "/$server.net.$interface.if_errors.rx/",
               "tags": [
                 {
                   "key": "hostname",
@@ -3243,7 +3202,6 @@
                   }
                 ]
               ],
-              "series": "/$server.net.$interface.if_errors.tx/",
               "tags": [
                 {
                   "key": "hostname",
@@ -3373,7 +3331,6 @@
                   }
                 ]
               ],
-              "series": "$server.swap.used",
               "tags": [
                 {
                   "key": "hostname",
@@ -3421,7 +3378,6 @@
                   }
                 ]
               ],
-              "series": "$server.swap.cached",
               "tags": [
                 {
                   "key": "hostname",
@@ -3469,7 +3425,6 @@
                   }
                 ]
               ],
-              "series": "$server.swap.free",
               "tags": [
                 {
                   "key": "hostname",
@@ -3584,7 +3539,6 @@
                   }
                 ]
               ],
-              "series": "$server.swap_io.out",
               "tags": [
                 {
                   "key": "hostname",
@@ -3633,7 +3587,6 @@
                   }
                 ]
               ],
-              "series": "$server.swap_io.in",
               "tags": [
                 {
                   "key": "hostname",

@@ -110,7 +110,6 @@
                   }
                 ]
               ],
-              "series": "merge(/openstack.cinder.status/)",
               "tags": [
                 {
                   "key": "environment_label",
@@ -243,7 +242,6 @@
                   }
                 ]
               ],
-              "series": "merge(/$server.openstack.cinder.http.*.5\\d\\d/)",
               "tags": [
                 {
                   "key": "hostname",
@@ -352,7 +350,6 @@
                   }
                 ]
               ],
-              "series": "merge(/$server.openstack.cinder.http.GET.*/)",
               "tags": [
                 {
                   "key": "hostname",
@@ -409,7 +406,6 @@
                   }
                 ]
               ],
-              "series": "merge(/$server.openstack.cinder.http.POST.*/)",
               "tags": [
                 {
                   "key": "hostname",
@@ -466,7 +462,6 @@
                   }
                 ]
               ],
-              "series": "merge(/$server.openstack.cinder.http.PUT.*/)",
               "tags": [
                 {
                   "key": "hostname",
@@ -523,7 +518,6 @@
                   }
                 ]
               ],
-              "series": "merge(/$server.openstack.cinder.http.DELETE.*/)",
               "tags": [
                 {
                   "key": "hostname",
@@ -646,7 +640,6 @@
                   }
                 ]
               ],
-              "series": "merge(/openstack.cinder.check_api/)",
               "tags": [
                 {
                   "key": "environment_label",
@@ -773,7 +766,6 @@
                   }
                 ]
               ],
-              "series": "merge(/$server.openstack.cinder.http.*.2\\d\\d/)",
               "tags": [
                 {
                   "key": "hostname",
@@ -830,7 +822,6 @@
                   }
                 ]
               ],
-              "series": "merge(/$server.openstack.cinder.http.*.1\\d\\d/)",
               "tags": [
                 {
                   "key": "hostname",
@@ -887,7 +878,6 @@
                   }
                 ]
               ],
-              "series": "merge(/$server.openstack.cinder.http.*.3\\d\\d/)",
               "tags": [
                 {
                   "key": "hostname",
@@ -944,7 +934,6 @@
                   }
                 ]
               ],
-              "series": "merge(/$server.openstack.cinder.http.*.4\\d\\d/)",
               "tags": [
                 {
                   "key": "hostname",
@@ -1001,7 +990,6 @@
                   }
                 ]
               ],
-              "series": "merge(/$server.openstack.cinder.http.*.5\\d\\d/)",
               "tags": [
                 {
                   "key": "hostname",
@@ -1145,7 +1133,6 @@
                   }
                 ]
               ],
-              "series": "merge(/haproxy.backend.nova-api.servers.up/)",
               "tags": [
                 {
                   "key": "environment_label",
@@ -1255,7 +1242,6 @@
                   }
                 ]
               ],
-              "series": "merge(/haproxy.backend.nova-metadata-api.servers.up/)",
               "tags": [
                 {
                   "key": "environment_label",
@@ -1365,7 +1351,6 @@
                   }
                 ]
               ],
-              "series": "merge(/haproxy.backend.nova-novncproxy-websocket.servers.up/)",
               "tags": [
                 {
                   "key": "environment_label",
@@ -1499,7 +1484,6 @@
                   }
                 ]
               ],
-              "series": "merge(/haproxy.backend.nova-api.servers.down/)",
               "tags": [
                 {
                   "key": "environment_label",
@@ -1609,7 +1593,6 @@
                   }
                 ]
               ],
-              "series": "merge(/haproxy.backend.nova-metadata-api.servers.down/)",
               "tags": [
                 {
                   "key": "environment_label",
@@ -1719,7 +1702,6 @@
                   }
                 ]
               ],
-              "series": "merge(/haproxy.backend.nova-novncproxy-websocket.servers.down/)",
               "tags": [
                 {
                   "key": "environment_label",
@@ -1862,7 +1844,6 @@
                   }
                 ]
               ],
-              "series": "merge(/openstack.nova.services.compute.disabled/)",
               "tags": [
                 {
                   "key": "environment_label",
@@ -1974,7 +1955,6 @@
                   }
                 ]
               ],
-              "series": "merge(/openstack.nova.services.compute.up/)",
               "tags": [
                 {
                   "key": "environment_label",
@@ -2086,7 +2066,6 @@
                   }
                 ]
               ],
-              "series": "merge(/openstack.nova.services.compute.down/)",
               "tags": [
                 {
                   "key": "environment_label",
@@ -2295,7 +2274,6 @@
                   }
                 ]
               ],
-              "series": "merge(/openstack.nova.services.scheduler.disabled/)",
               "tags": [
                 {
                   "key": "environment_label",
@@ -2407,7 +2385,6 @@
                   }
                 ]
               ],
-              "series": "merge(/openstack.nova.services.scheduler.up/)",
               "tags": [
                 {
                   "key": "environment_label",
@@ -2519,7 +2496,6 @@
                   }
                 ]
               ],
-              "series": "merge(/openstack.nova.services.scheduler.down/)",
               "tags": [
                 {
                   "key": "environment_label",
@@ -2728,7 +2704,6 @@
                   }
                 ]
               ],
-              "series": "merge(/openstack.nova.services.scheduler.disabled/)",
               "tags": [
                 {
                   "key": "environment_label",
@@ -2840,7 +2815,6 @@
                   }
                 ]
               ],
-              "series": "merge(/openstack.nova.services.scheduler.up/)",
               "tags": [
                 {
                   "key": "environment_label",
@@ -2952,7 +2926,6 @@
                   }
                 ]
               ],
-              "series": "merge(/openstack.nova.services.scheduler.down/)",
               "tags": [
                 {
                   "key": "environment_label",
@@ -3161,7 +3134,6 @@
                   }
                 ]
               ],
-              "series": "merge(/openstack.nova.services.scheduler.disabled/)",
               "tags": [
                 {
                   "key": "environment_label",
@@ -3273,7 +3245,6 @@
                   }
                 ]
               ],
-              "series": "merge(/openstack.nova.services.scheduler.up/)",
               "tags": [
                 {
                   "key": "environment_label",
@@ -3385,7 +3356,6 @@
                   }
                 ]
               ],
-              "series": "merge(/openstack.nova.services.scheduler.down/)",
               "tags": [
                 {
                   "key": "environment_label",
@@ -3594,7 +3564,6 @@
                   }
                 ]
               ],
-              "series": "merge(/openstack.nova.services.scheduler.disabled/)",
               "tags": [
                 {
                   "key": "environment_label",
@@ -3706,7 +3675,6 @@
                   }
                 ]
               ],
-              "series": "merge(/openstack.nova.services.scheduler.up/)",
               "tags": [
                 {
                   "key": "environment_label",
@@ -3818,7 +3786,6 @@
                   }
                 ]
               ],
-              "series": "merge(/openstack.nova.services.scheduler.down/)",
               "tags": [
                 {
                   "key": "environment_label",
@@ -4024,7 +3991,6 @@
                   }
                 ]
               ],
-              "series": "merge(/openstack.nova.instances.active/)",
               "tags": [
                 {
                   "key": "environment_label",
@@ -4129,7 +4095,6 @@
                   }
                 ]
               ],
-              "series": "merge(/openstack.nova.instances.active/)",
               "tags": [
                 {
                   "key": "environment_label",
@@ -4251,7 +4216,6 @@
                   }
                 ]
               ],
-              "series": "merge(/openstack.nova.instances.error/)",
               "tags": [
                 {
                   "key": "environment_label",
@@ -4355,7 +4319,6 @@
                   }
                 ]
               ],
-              "series": "merge(/openstack.nova.instances.error/)",
               "tags": [
                 {
                   "key": "environment_label",
@@ -4477,7 +4440,6 @@
                   }
                 ]
               ],
-              "series": "merge(/openstack.nova.instance_creation_time/)",
               "tags": [
                 {
                   "key": "environment_label",
@@ -4580,7 +4542,6 @@
                   }
                 ]
               ],
-              "series": "merge(/openstack.nova.instance_creation_time/)",
               "tags": [
                 {
                   "key": "environment_label",
@@ -4630,7 +4591,6 @@
                   }
                 ]
               ],
-              "series": "merge(/openstack.nova.instance_creation_time/)",
               "tags": [
                 {
                   "key": "environment_label",
@@ -4680,7 +4640,6 @@
                   }
                 ]
               ],
-              "series": "merge(/openstack.nova.instance_creation_time/)",
               "tags": [
                 {
                   "key": "environment_label",
@@ -4819,7 +4778,6 @@
                   }
                 ]
               ],
-              "series": "merge(/openstack.nova.total_used_vcpus/)",
               "tags": [
                 {
                   "key": "environment_label",
@@ -4920,7 +4878,6 @@
                   }
                 ]
               ],
-              "series": "merge(/openstack.nova.total_used_disk/)",
               "tags": [
                 {
                   "key": "environment_label",
@@ -5021,7 +4978,6 @@
                   }
                 ]
               ],
-              "series": "merge(/openstack.nova.total_used_ram/)",
               "tags": [
                 {
                   "key": "environment_label",
@@ -5146,7 +5102,6 @@
                   }
                 ]
               ],
-              "series": "merge(/openstack.nova.total_free_vcpus/)",
               "tags": [
                 {
                   "key": "environment_label",
@@ -5247,7 +5202,6 @@
                   }
                 ]
               ],
-              "series": "merge(/openstack.nova.total_free_disk/)",
               "tags": [
                 {
                   "key": "environment_label",
@@ -5348,7 +5302,6 @@
                   }
                 ]
               ],
-              "series": "merge(/openstack.nova.total_free_ram/)",
               "tags": [
                 {
                   "key": "environment_label",
