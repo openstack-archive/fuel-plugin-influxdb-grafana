@@ -41,6 +41,13 @@
           "editable": true,
           "error": false,
           "format": "none",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "id": 59,
           "interval": "> 60s",
           "links": [],
@@ -76,6 +83,7 @@
               "groupby_field": "",
               "interval": "",
               "measurement": "cluster_status",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"cluster_status\" WHERE \"cluster_name\" = 'elasticsearch' AND $timeFilter GROUP BY time($interval)",
               "rawQuery": false,
               "refId": "A",
@@ -108,7 +116,7 @@
               ]
             }
           ],
-          "thresholds": "0,1,3",
+          "thresholds": "1,3",
           "title": "",
           "type": "singlestat",
           "valueFontSize": "80%",
@@ -159,6 +167,13 @@
           "editable": true,
           "error": false,
           "format": "none",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "hideTimeOverride": false,
           "id": 61,
           "interval": ">60s",
@@ -190,6 +205,7 @@
                 }
               ],
               "measurement": "elasticsearch_cluster_number_of_nodes",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"elasticsearch_cluster_number_of_nodes\" WHERE $timeFilter GROUP BY time($interval)",
               "rawQuery": false,
               "refId": "A",
@@ -240,12 +256,6 @@
           "error": false,
           "fill": 0,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": 0,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -253,7 +263,6 @@
           },
           "id": 60,
           "interval": ">60s",
-          "leftYAxisLabel": "shards",
           "legend": {
             "avg": false,
             "current": false,
@@ -288,6 +297,7 @@
                 }
               ],
               "measurement": "elasticsearch_cluster_active_primary_shards",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"elasticsearch_cluster_active_primary_shards\" WHERE $timeFilter GROUP BY time($interval)",
               "rawQuery": false,
               "refId": "A",
@@ -326,6 +336,7 @@
                 }
               ],
               "measurement": "elasticsearch_cluster_active_shards",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"elasticsearch_cluster_active_shards\" WHERE $timeFilter GROUP BY time($interval)",
               "rawQuery": false,
               "refId": "B",
@@ -364,6 +375,7 @@
                 }
               ],
               "measurement": "elasticsearch_cluster_relocating_shards",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"elasticsearch_cluster_relocating_shards\" WHERE $timeFilter GROUP BY time($interval)",
               "rawQuery": false,
               "refId": "C",
@@ -402,6 +414,7 @@
                 }
               ],
               "measurement": "elasticsearch_cluster_unassigned_shards",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"elasticsearch_cluster_unassigned_shards\" WHERE $timeFilter GROUP BY time($interval)",
               "rawQuery": false,
               "refId": "E",
@@ -440,6 +453,7 @@
                 }
               ],
               "measurement": "elasticsearch_cluster_initializing_shards",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"elasticsearch_cluster_initializing_shards\" WHERE $timeFilter GROUP BY time($interval)",
               "rawQuery": false,
               "refId": "D",
@@ -471,15 +485,30 @@
           "timeShift": null,
           "title": "Shards",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "value_type": "cumulative"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "short",
-            "short"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": "shards",
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         },
         {
@@ -490,12 +519,6 @@
           "error": false,
           "fill": 0,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": 0,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": 10,
@@ -503,7 +526,6 @@
           },
           "id": 62,
           "interval": ">60s",
-          "leftYAxisLabel": "tasks",
           "legend": {
             "avg": false,
             "current": false,
@@ -539,6 +561,7 @@
                 }
               ],
               "measurement": "elasticsearch_cluster_number_of_pending_tasks",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"elasticsearch_cluster_number_of_pending_tasks\" WHERE $timeFilter GROUP BY time($interval)",
               "rawQuery": false,
               "refId": "A",
@@ -570,15 +593,30 @@
           "timeShift": null,
           "title": "Pending tasks",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "value_type": "cumulative"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "short",
-            "short"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": "tasks",
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         }
       ],
@@ -603,6 +641,13 @@
           "editable": true,
           "error": false,
           "format": "none",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "id": 32,
           "interval": "> 60s",
           "links": [],
@@ -634,6 +679,7 @@
                 }
               ],
               "measurement": "lma_components_threads",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"lma_components_threads\" WHERE \"service\" = 'elasticsearch' AND \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval)",
               "rawQuery": false,
               "refId": "A",
@@ -688,12 +734,6 @@
           "error": false,
           "fill": 0,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": 0,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -744,6 +784,7 @@
                 }
               ],
               "measurement": "lma_components_memory_rss",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"lma_components_memory_rss\" WHERE \"service\" = 'elasticsearch' AND \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(previous)",
               "rawQuery": false,
               "refId": "A",
@@ -781,15 +822,29 @@
           "timeShift": null,
           "title": "Resident Set Size",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "value_type": "cumulative"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "bytes",
-            "short"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "bytes",
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         },
         {
@@ -800,12 +855,6 @@
           "error": false,
           "fill": 0,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": 0,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -813,7 +862,6 @@
           },
           "id": 33,
           "interval": "> 60s",
-          "leftYAxisLabel": "bytes/sec",
           "legend": {
             "alignAsTable": false,
             "avg": false,
@@ -857,6 +905,7 @@
                 }
               ],
               "measurement": "lma_components_disk_bytes_read",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"lma_components_disk_bytes_read\" WHERE \"service\" = 'elasticsearch' AND \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "A",
@@ -909,6 +958,7 @@
                 }
               ],
               "measurement": "lma_components_disk_bytes_write",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"lma_components_disk_bytes_write\" WHERE \"service\" = 'elasticsearch' AND \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "B",
@@ -946,15 +996,30 @@
           "timeShift": null,
           "title": "Disk I/O",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "value_type": "cumulative"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "bytes",
-            "short"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "bytes",
+              "label": "bytes/sec",
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         },
         {
@@ -965,12 +1030,6 @@
           "error": false,
           "fill": 1,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": 0,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -1020,6 +1079,7 @@
                 }
               ],
               "measurement": "lma_components_cputime_syst",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"lma_components_cputime_syst\" WHERE \"service\" = 'elasticsearch' AND \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "A",
@@ -1072,6 +1132,7 @@
                 }
               ],
               "measurement": "lma_components_cputime_user",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"lma_components_cputime_user\" WHERE \"service\" = 'elasticsearch' AND \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "B",
@@ -1109,15 +1170,29 @@
           "timeShift": null,
           "title": "CPU usage",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "value_type": "individual"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "percent",
-            "short"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "percent",
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         },
         {
@@ -1133,6 +1208,13 @@
           "editable": true,
           "error": false,
           "format": "percent",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "id": 58,
           "interval": null,
           "links": [],
@@ -1162,6 +1244,7 @@
                 }
               ],
               "measurement": "fs_space_percent_free",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"fs_space_percent_free\" WHERE \"fs\" = '/opt/es/data' AND \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval)",
               "rawQuery": false,
               "refId": "A",
@@ -1216,12 +1299,6 @@
           "error": false,
           "fill": 1,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": 0,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -1270,6 +1347,7 @@
                 }
               ],
               "measurement": "fs_space_free",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"fs_space_free\" WHERE \"fs\" = '/opt/es/data' AND \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "A",
@@ -1320,6 +1398,7 @@
                 }
               ],
               "measurement": "fs_space_used",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"fs_space_used\" WHERE \"fs\" = '/opt/es/data' AND \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "B",
@@ -1370,6 +1449,7 @@
                 }
               ],
               "measurement": "fs_space_percent_reserved",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"fs_space_percent_reserved\" WHERE \"fs\" = '/opt/es/data' AND \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "C",
@@ -1407,15 +1487,29 @@
           "timeShift": null,
           "title": "Disk usage on /opt/es/data",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "value_type": "cumulative"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "bytes",
-            "short"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "bytes",
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         }
       ],
@@ -1423,7 +1517,7 @@
       "title": "Instance $server"
     }
   ],
-  "schemaVersion": 8,
+  "schemaVersion": 12,
   "sharedCrosshair": true,
   "style": "dark",
   "tags": [],
@@ -1434,11 +1528,12 @@
         "allFormat": "regex values",
         "current": {},
         "datasource": null,
+        "hide": 0,
         "includeAll": false,
         "name": "environment",
         "options": [],
         "query": "show tag values from cpu_idle with key = environment_label",
-        "refresh": true,
+        "refresh": 1,
         "refresh_on_load": true,
         "regex": "",
         "type": "query"
@@ -1447,11 +1542,12 @@
         "allFormat": "glob",
         "current": {},
         "datasource": null,
+        "hide": 0,
         "includeAll": false,
         "name": "server",
         "options": [],
         "query": "show tag values from elasticsearch_cluster_health with key = \"hostname\" where environment_label = '$environment'",
-        "refresh": true,
+        "refresh": 1,
         "refresh_on_load": true,
         "regex": "",
         "type": "query"
@@ -1495,5 +1591,5 @@
   },
   "timezone": "browser",
   "title": "Elasticsearch",
-  "version": 13
+  "version": 2
 }

@@ -41,6 +41,13 @@
           "editable": true,
           "error": false,
           "format": "none",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "id": 11,
           "interval": "> 60s",
           "links": [],
@@ -83,6 +90,7 @@
               "groupby_field": "",
               "interval": "",
               "measurement": "cluster_status",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"cluster_status\" WHERE \"cluster_name\" = 'apache' AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
@@ -116,7 +124,7 @@
               ]
             }
           ],
-          "thresholds": "0,1,3",
+          "thresholds": "1,3",
           "title": "",
           "type": "singlestat",
           "valueFontSize": "80%",
@@ -162,12 +170,6 @@
           "error": false,
           "fill": 1,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": 0,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -175,7 +177,6 @@
           },
           "id": 9,
           "interval": "> 60s",
-          "leftYAxisLabel": "per second",
           "legend": {
             "avg": false,
             "current": false,
@@ -218,6 +219,7 @@
               ],
               "groupByTags": [],
               "measurement": "apache_requests",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"apache_requests\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "A",
@@ -249,15 +251,30 @@
           "timeShift": null,
           "title": "Number of requests",
           "tooltip": {
+            "msResolution": false,
             "shared": false,
             "value_type": "cumulative"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "short",
-            "short"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": "per second",
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         },
         {
@@ -268,12 +285,6 @@
           "error": false,
           "fill": 1,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": 0,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -281,7 +292,6 @@
           },
           "id": 8,
           "interval": "> 60s",
-          "leftYAxisLabel": "Bytes/s",
           "legend": {
             "avg": false,
             "current": false,
@@ -324,6 +334,7 @@
               ],
               "groupByTags": [],
               "measurement": "apache_bytes",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"apache_bytes\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "A",
@@ -355,15 +366,30 @@
           "timeShift": null,
           "title": "Bytes/s transmitted",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "value_type": "cumulative"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "bytes",
-            "short"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "bytes",
+              "label": "Bytes/s",
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         },
         {
@@ -374,12 +400,6 @@
           "error": false,
           "fill": 1,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": 0,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -429,6 +449,7 @@
               ],
               "groupByTags": [],
               "measurement": "apache_connections",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"apache_connections\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "A",
@@ -460,15 +481,29 @@
           "timeShift": null,
           "title": "Number of connections",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "value_type": "cumulative"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "short",
-            "short"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         },
         {
@@ -484,6 +519,13 @@
           "editable": true,
           "error": false,
           "format": "none",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "id": 6,
           "interval": "> 60s",
           "links": [],
@@ -522,6 +564,7 @@
               ],
               "groupByTags": [],
               "measurement": "apache_connections",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"apache_connections\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
@@ -571,12 +614,6 @@
           "error": false,
           "fill": 1,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": 0,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -629,6 +666,7 @@
               ],
               "groupByTags": [],
               "measurement": "/apache_workers/",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM /apache_workers/ WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(0)",
               "rawQuery": false,
               "refId": "A",
@@ -660,16 +698,30 @@
           "timeShift": null,
           "title": "Workers states",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "value_type": "individual"
           },
           "transparent": false,
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "short",
-            "short"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         },
         {
@@ -685,6 +737,13 @@
           "editable": true,
           "error": false,
           "format": "none",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "id": 4,
           "interval": "> 60s",
           "links": [],
@@ -723,6 +782,7 @@
               ],
               "groupByTags": [],
               "measurement": "apache_idle_workers",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"apache_idle_workers\" WHERE \"hostname\" = '$server' AND $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
@@ -767,7 +827,7 @@
       "title": "Metrics"
     }
   ],
-  "schemaVersion": 8,
+  "schemaVersion": 12,
   "sharedCrosshair": true,
   "style": "dark",
   "tags": [],
@@ -778,11 +838,12 @@
         "allFormat": "regex values",
         "current": {},
         "datasource": null,
+        "hide": 0,
         "includeAll": false,
         "name": "environment",
         "options": [],
         "query": "show tag values from cpu_idle with key = environment_label",
-        "refresh": true,
+        "refresh": 1,
         "refresh_on_load": true,
         "regex": "",
         "type": "query"
@@ -791,11 +852,12 @@
         "allFormat": "glob",
         "current": {},
         "datasource": null,
+        "hide": 0,
         "includeAll": false,
         "name": "server",
         "options": [],
         "query": "show tag values from apache_requests with key = hostname where environment_label = '$environment'",
-        "refresh": true,
+        "refresh": 1,
         "refresh_on_load": true,
         "regex": "",
         "type": "query"
@@ -839,5 +901,5 @@
   },
   "timezone": "browser",
   "title": "Apache",
-  "version": 3
+  "version": 2
 }
