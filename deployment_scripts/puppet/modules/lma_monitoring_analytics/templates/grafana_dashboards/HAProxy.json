@@ -103,7 +103,6 @@
                   }
                 ]
               ],
-              "series": "merge(/openstack.cinder.status/)",
               "tags": [
                 {
                   "key": "environment_label",
@@ -227,7 +226,6 @@
                   }
                 ]
               ],
-              "series": "/$controller.pacemaker.resource.vip__public.active$/",
               "tags": [
                 {
                   "key": "hostname",
@@ -335,7 +333,6 @@
                   }
                 ]
               ],
-              "series": "/$controller.pacemaker.resource.vip__public.active$/",
               "tags": [
                 {
                   "key": "hostname",
@@ -443,7 +440,6 @@
                   }
                 ]
               ],
-              "series": "/$controller.haproxy.backend.$service.status/",
               "tags": [
                 {
                   "key": "hostname",
@@ -558,7 +554,6 @@
                   }
                 ]
               ],
-              "series": "/$controller.haproxy.uptime_seconds/",
               "tags": [
                 {
                   "key": "hostname",
@@ -656,7 +651,6 @@
                   }
                 ]
               ],
-              "series": "$controller.haproxy.connections",
               "tags": [
                 {
                   "key": "hostname",
@@ -704,7 +698,6 @@
                   }
                 ]
               ],
-              "series": "$controller.haproxy.pipes_free",
               "tags": [
                 {
                   "key": "hostname",
@@ -754,7 +747,6 @@
                   }
                 ]
               ],
-              "series": "$controller.haproxy.pipes_used",
               "tags": [
                 {
                   "key": "hostname",
@@ -803,7 +795,6 @@
                   }
                 ]
               ],
-              "series": "$controller.haproxy.tasks",
               "tags": [
                 {
                   "key": "hostname",
@@ -925,7 +916,6 @@
                   }
                 ]
               ],
-              "series": "merge(/haproxy.$frontback.$service.bytes_in/)",
               "tags": [
                 {
                   "key": "hostname",
@@ -976,7 +966,6 @@
                   }
                 ]
               ],
-              "series": "merge(/haproxy.$frontback.$service.bytes_out/)",
               "tags": [
                 {
                   "key": "hostname",
@@ -1094,7 +1083,6 @@
                   }
                 ]
               ],
-              "series": "$controller.haproxy.$frontback.$service.response_1xx",
               "tags": [
                 {
                   "key": "hostname",
@@ -1143,7 +1131,6 @@
                   }
                 ]
               ],
-              "series": "$controller.haproxy.$frontback.$service.response_2xx",
               "tags": [
                 {
                   "key": "hostname",
@@ -1192,7 +1179,6 @@
                   }
                 ]
               ],
-              "series": "$controller.haproxy.$frontback.$service.response_3xx",
               "tags": [
                 {
                   "key": "hostname",
@@ -1241,7 +1227,6 @@
                   }
                 ]
               ],
-              "series": "$controller.haproxy.$frontback.$service.response_4xx",
               "tags": [
                 {
                   "key": "hostname",
@@ -1290,7 +1275,6 @@
                   }
                 ]
               ],
-              "series": "$controller.haproxy.$frontback.$service.response_5xx",
               "tags": [
                 {
                   "key": "hostname",
@@ -1339,7 +1323,6 @@
                   }
                 ]
               ],
-              "series": "$controller.haproxy.$frontback.$service.response_other",
               "tags": [
                 {
                   "key": "hostname",
@@ -1462,7 +1445,6 @@
                   }
                 ]
               ],
-              "series": "$controller.haproxy.$frontback.$service.session_current",
               "tags": [
                 {
                   "key": "hostname",
@@ -1516,7 +1498,6 @@
                   }
                 ]
               ],
-              "series": "$controller.haproxy.$frontback.$service.session_current",
               "tags": [
                 {
                   "key": "hostname",
@@ -1569,7 +1550,6 @@
                   }
                 ]
               ],
-              "series": "$controller.haproxy.$frontback.$service.session_current",
               "tags": [
                 {
                   "key": "hostname",
@@ -1684,7 +1664,6 @@
                   }
                 ]
               ],
-              "series": "/$controller.haproxy.$frontback.$service.error_/",
               "tags": [
                 {
                   "key": "hostname",
@@ -1733,7 +1712,6 @@
                   }
                 ]
               ],
-              "series": "/$controller.haproxy.$frontback.$service.denied_/",
               "tags": [
                 {
                   "key": "hostname",
@@ -1783,7 +1761,6 @@
                   }
                 ]
               ],
-              "series": "/$controller.haproxy.$frontback.$service.denied_/",
               "tags": [
                 {
                   "key": "hostname",
@@ -1913,7 +1890,6 @@
                   }
                 ]
               ],
-              "series": "merge(/haproxy.$frontback.$service.bytes_in/)",
               "tags": [
                 {
                   "key": "hostname",
@@ -1964,7 +1940,6 @@
                   }
                 ]
               ],
-              "series": "merge(/haproxy.$frontback.$service.bytes_out/)",
               "tags": [
                 {
                   "key": "hostname",
@@ -2082,7 +2057,6 @@
                   }
                 ]
               ],
-              "series": "$controller.haproxy.$frontback.$service.response_1xx",
               "tags": [
                 {
                   "key": "hostname",
@@ -2131,7 +2105,6 @@
                   }
                 ]
               ],
-              "series": "$controller.haproxy.$frontback.$service.response_2xx",
               "tags": [
                 {
                   "key": "hostname",
@@ -2180,7 +2153,6 @@
                   }
                 ]
               ],
-              "series": "$controller.haproxy.$frontback.$service.response_3xx",
               "tags": [
                 {
                   "key": "hostname",
@@ -2229,7 +2201,6 @@
                   }
                 ]
               ],
-              "series": "$controller.haproxy.$frontback.$service.response_4xx",
               "tags": [
                 {
                   "key": "hostname",
@@ -2278,7 +2249,6 @@
                   }
                 ]
               ],
-              "series": "$controller.haproxy.$frontback.$service.response_5xx",
               "tags": [
                 {
                   "key": "hostname",
@@ -2327,7 +2297,6 @@
                   }
                 ]
               ],
-              "series": "$controller.haproxy.$frontback.$service.response_other",
               "tags": [
                 {
                   "key": "hostname",
@@ -2450,7 +2419,6 @@
                   }
                 ]
               ],
-              "series": "$controller.haproxy.$frontback.$service.session_current",
               "tags": [
                 {
                   "key": "hostname",
@@ -2504,7 +2472,6 @@
                   }
                 ]
               ],
-              "series": "$controller.haproxy.$frontback.$service.session_current",
               "tags": [
                 {
                   "key": "hostname",
@@ -2557,7 +2524,6 @@
                   }
                 ]
               ],
-              "series": "$controller.haproxy.$frontback.$service.session_current",
               "tags": [
                 {
                   "key": "hostname",
@@ -2767,7 +2733,6 @@
                   }
                 ]
               ],
-              "series": "/$controller.haproxy.backend.*.denied_/",
               "tags": [
                 {
                   "key": "hostname",
@@ -2818,7 +2783,6 @@
                   }
                 ]
               ],
-              "series": "/$controller.haproxy.backend.*.denied_/",
               "tags": [
                 {
                   "key": "hostname",
