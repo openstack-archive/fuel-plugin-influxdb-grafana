@@ -3567,11 +3567,13 @@
                 },
                 {
                   "key": "owner",
+                  "operator": "=",
                   "value": "compute"
                 },
                 {
                   "condition": "AND",
                   "key": "state",
+                  "operator": "=",
                   "value": "active"
                 }
               ]
@@ -3639,6 +3641,12 @@
                     "$interval"
                   ],
                   "type": "time"
+                },
+                {
+                  "params": [
+                    "owner"
+                  ],
+                  "type": "tag"
                 },
                 {
                   "params": [
@@ -3865,6 +3873,12 @@
                 },
                 {
                   "params": [
+                    "state"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
                     "0"
                   ],
                   "type": "fill"
@@ -4083,6 +4097,12 @@
                     "$interval"
                   ],
                   "type": "time"
+                },
+                {
+                  "params": [
+                    "state"
+                  ],
+                  "type": "tag"
                 },
                 {
                   "params": [
