@@ -473,16 +473,87 @@
           "valueName": "current"
         },
         {
-          "content": "",
+          "columns": [],
           "editable": true,
           "error": false,
-          "id": 24,
+          "fontSize": "100%",
+          "id": 25,
+          "interval": ">60s",
+          "isNew": true,
           "links": [],
-          "mode": "markdown",
+          "pageSize": null,
+          "scroll": true,
+          "showHeader": true,
+          "sort": {
+            "col": 0,
+            "desc": true
+          },
           "span": 4,
-          "style": {},
-          "title": "",
-          "type": "text"
+          "styles": [
+            {
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "pattern": "Time",
+              "type": "date"
+            },
+            {
+              "colorMode": "value",
+              "colors": [
+                "rgba(245, 54, 54, 0.9)",
+                "rgb(227, 3, 3)",
+                "rgba(50, 172, 45, 0.97)"
+              ],
+              "decimals": 1,
+              "pattern": "last",
+              "thresholds": [
+                "0",
+                "1"
+              ],
+              "type": "number",
+              "unit": "short"
+            }
+          ],
+          "targets": [
+            {
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "policy": "default",
+              "query": "SELECT  state, last(\"value\") FROM \"haproxy_backend_server\" WHERE \"backend\" =~ /^$service$/  AND $timeFilter GROUP BY time($interval),hostname fill(none)",
+              "rawQuery": true,
+              "refId": "A",
+              "resultFormat": "table",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": []
+            }
+          ],
+          "title": "History for $service servers",
+          "transform": "table",
+          "type": "table"
         },
         {
           "cacheTimeout": null,
@@ -833,6 +904,18 @@
               "show": true
             }
           ]
+        },
+        {
+          "content": "",
+          "editable": true,
+          "error": false,
+          "id": 24,
+          "links": [],
+          "mode": "markdown",
+          "span": 4,
+          "style": {},
+          "title": "",
+          "type": "text"
         }
       ],
       "showTitle": true,
@@ -2923,5 +3006,5 @@
   },
   "timezone": "browser",
   "title": "HAProxy",
-  "version": 2
+  "version": 3
 }
