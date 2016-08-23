@@ -110,9 +110,10 @@
                   "value": "$environment"
                 },
                 {
+                  "condition": "AND",
                   "key": "cluster_name",
                   "operator": "=",
-                  "value": "haproxy"
+                  "value": "haproxy-openstack"
                 }
               ]
             }
