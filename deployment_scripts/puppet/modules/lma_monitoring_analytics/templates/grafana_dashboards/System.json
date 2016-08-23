@@ -3598,7 +3598,7 @@
           ],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Swap page operations",
+          "title": "Swap I/O",
           "tooltip": {
             "msResolution": false,
             "shared": true,
@@ -3611,7 +3611,7 @@
           "yaxes": [
             {
               "format": "Bps",
-              "label": "per second",
+              "label": "",
               "logBase": 1,
               "max": null,
               "min": 0,
@@ -3622,7 +3622,7 @@
               "logBase": 1,
               "max": null,
               "min": null,
-              "show": true
+              "show": false
             }
           ]
         }
