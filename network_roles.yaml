@@ -12,10 +12,8 @@
            - "influxdb_grafana"
            - "primary-influxdb_grafana"
 # Network and virtual IP address for the Grafana service
-# TODO(pasquier-s): expose the Grafana service on this virtual IP address
-# instead of influxdb
 - id: "grafana"
-  default_mapping: "management"
+  default_mapping: "public"
   properties:
     subnet: true
     gateway: false
