@@ -1,0 +1,8 @@
+Code-Review+2: Patrick Petit <ppetit@mirantis.com>
+Workflow+1: Patrick Petit <ppetit@mirantis.com>
+Verified+2: Jenkins
+Submitted-by: Jenkins
+Submitted-at: Fri, 02 Sep 2016 18:03:25 +0000
+Reviewed-on: https://review.openstack.org/364755
+Project: openstack/fuel-plugin-influxdb-grafana
+Branch: refs/heads/master
