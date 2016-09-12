@@ -16,7 +16,9 @@ Requirements
 | Hardware configuration| The hardware configuration (RAM, CPU, disk(s)) required by this plugin |
 |                       | depends on the size of your cloud environment and other factors like   |
 |                       | the retention policy. An average setup would require a quad-core       |
-|                       | server with 8 GB of RAM and access to a 500-1000 IOPS disk.            |
+|                       | server with 8 GB of RAM and access to a 500-1000 IOPS disk. For        |
+|                       | sizeable production deployments it is strongly recommended to use a    |
+|                       | disk capable of 1000+ IOPS like an SSD.                                |
 |                       | See the `InfluxDB Hardware Sizing Guide                                |
 |                       | <https://docs.influxdata.com/influxdb/v0.10/guides/hardware_sizing/>`_ |
 |                       | for additional sizing information.                                     |
