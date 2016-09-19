@@ -23,7 +23,7 @@ If Grafana contains no data, use the following troubleshooting tips:
 
       HTTP/1.1 204 No Content
       Request-Id: cdc3c545-d19d-11e5-b457-000000000000
-      X-Influxdb-Version: 0.10.0
+      X-Influxdb-Version: 0.11.1
       Date: Fri, 12 Feb 2016 15:32:19 GMT
 
 #. Verify that InfluxDB cluster VIP address is up and running:

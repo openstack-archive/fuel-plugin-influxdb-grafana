@@ -49,8 +49,8 @@ InfluxDB cluster VIP address:
       --username root -host 10.109.1.4 -port 8086
       Visit https://enterprise.influxdata.com to register for updates,
       InfluxDB server management, and monitoring.
-      Connected to http://10.109.1.4:8086 version 0.10.0
-      InfluxDB shell 0.10.0
+      Connected to http://10.109.1.4:8086 version 0.11.1
+      InfluxDB shell 0.11.1
       >
 
    The example above shows that executing ``/usr/bin/influx`` starts an
