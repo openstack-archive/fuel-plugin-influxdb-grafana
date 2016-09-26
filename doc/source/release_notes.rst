@@ -3,6 +3,14 @@
 Release notes
 -------------
 
+Version 0.10.2
+++++++++++++++
+
+The StackLight InfluxDB-Grafana plugin 0.10.2 contains the following updates:
+
+* Updated the documentation to emphasize the need to use fast disks like an
+  SSD.
+
 Version 0.10.1
 ++++++++++++++
 
