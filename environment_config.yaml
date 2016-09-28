@@ -52,6 +52,13 @@ attributes:
       source: '^[\S]{4,}$'
       error: "You must provide a password with at least 4 characters"
 
+  influxdb_in_memory_wal:
+    value: false
+    label: 'Store WAL files in memory'
+    description: 'Store the Write-Ahead-Log (WAL) files in memory instead of disk. This will speed up the write performances but data may be lost in case of server crash.'
+    weight: 61
+    type: "checkbox"
+
   grafana_username:
     value: 'lma'
     label: 'User name'
