@@ -16,6 +16,7 @@
 
 class lma_monitoring_analytics::influxdb (
   $base_directory = $lma_monitoring_analytics::params::influxdb_dir,
+  $wal_dir        = undef,
   $hostname       = undef,
   $raft_nodes     = undef,
   $version        = undef,
@@ -25,11 +26,17 @@ class lma_monitoring_analytics::influxdb (
     validate_array($raft_nodes)
   }
 
+  if $wal_dir {
+    $_wal_dir = $wal_dir
+  } else {
+    $_wal_dir = "${base_directory}/wal"
+  }
+
   class { '::influxdb':
     data_dir   => "${base_directory}/data",
     meta_dir   => "${base_directory}/meta",
     hh_dir     => "${base_directory}/hh",
-    wal_dir    => "${base_directory}/wal",
+    wal_dir    => $_wal_dir,
     snapshot   => true,
     hostname   => $hostname,
     raft_nodes => $raft_nodes,
