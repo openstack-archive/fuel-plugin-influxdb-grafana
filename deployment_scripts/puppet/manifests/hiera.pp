@@ -53,6 +53,11 @@ $influxdb_password = $influxdb_grafana['influxdb_userpass']
 $influxdb_dbname   = $influxdb_grafana['influxdb_dbname']
 
 $retention_period = $influxdb_grafana['retention_period']
+if $influxdb_grafana['influxdb_in_memory_wal'] {
+  $influxdb_wal_storage = 'memory'
+} else {
+  $influxdb_wal_storage = 'disk'
+}
 
 # Parameters related to MySQL
 $host = $influxdb_grafana['mysql_host']
@@ -138,6 +143,10 @@ lma::corosync_roles:
 # from 1 or 2 nodes to 3 nodes.
 lma::influxdb::replication_factor: 3
 lma::influxdb::retention_period: <%= @retention_period %>
+lma::influxdb::wal::storage: <%= @influxdb_wal_storage %>
+<% if @influxdb_wal_storage == "memory" -%>
+lma::influxdb::wal::size: <%= 128 * 1024 * 1024 %>
+<% end -%>
 
 lma::influxdb::admin_username: "root"
 lma::influxdb::admin_password: <%= @influxdb_admin_password %>
