@@ -135,7 +135,7 @@ lma::corosync_roles:
 lma::influxdb::replication_factor: 3
 lma::influxdb::retention_period: <%= @retention_period %>
 lma::influxdb::wal::storage: <%= @influxdb_wal_storage %>
-lma::influxdb::wal::size: <%= @influxdb_wal_size %>
+lma::influxdb::wal::size: <%= @influxdb_wal_size.to_i %>
 
 lma::influxdb::admin_username: "root"
 lma::influxdb::admin_password: <%= @influxdb_admin_password %>
