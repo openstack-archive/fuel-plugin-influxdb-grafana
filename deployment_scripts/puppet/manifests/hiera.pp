@@ -44,7 +44,7 @@ $retention_period = $influxdb_grafana['retention_period']
 if $influxdb_grafana['influxdb_in_memory_wal'] {
   $influxdb_wal_storage = 'memory'
   # Allocate 10% of the total RAM for the WAL partition (but no more than 4GB)
-  $influxdb_wal_size = min(4 * 1024 * 1024 * 1024, $::memorysize_mb * 1024 * 0.1)
+  $influxdb_wal_size = min(4 * 1024 * 1024 * 1024, $::memorysize_mb * 1024 * 1024 * 0.1)
 } else {
   $influxdb_wal_storage = 'disk'
   $influxdb_wal_size = 0
