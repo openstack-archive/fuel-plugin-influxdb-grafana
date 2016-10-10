@@ -8,6 +8,8 @@ Version 0.10.2
 
 The StackLight InfluxDB-Grafana plugin 0.10.2 contains the following updates:
 
+* Add an option to store the InfluxDB WAL in memory. This option is disabled
+  by default.
 * Updated the documentation to emphasize the need to use fast disks like an
   SSD.
 
