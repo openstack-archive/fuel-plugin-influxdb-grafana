@@ -1,0 +1,8 @@
+Code-Review+2: Eric Lemoine <elemoine@mirantis.com>
+Workflow+1: Simon Pasquier <spasquier@mirantis.com>
+Verified+2: Jenkins
+Submitted-by: Jenkins
+Submitted-at: Mon, 10 Oct 2016 15:23:12 +0000
+Reviewed-on: https://review.openstack.org/384420
+Project: openstack/fuel-plugin-influxdb-grafana
+Branch: refs/heads/stable/0.10
