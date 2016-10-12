@@ -250,7 +250,11 @@
   # We use upload_nodes_info as an anchor to order the post-deployment tasks executed
   # by this plugin and the LMA collector plugin. The dependency chain is:
   # influxdb-configuration -> upload_nodes_info -> (LMA collector tasks)
+  # Note that it is only required for MOS 8 that doesn't support task-based deployment
   required_for: [post_deployment_end, upload_nodes_info]
+  cross-depended-by:
+    - name: lma-configure-apt
+      role: /.*/
   parameters:
     puppet_manifest: "puppet/manifests/influxdb_configuration.pp"
     puppet_modules: puppet/modules:/etc/puppet/modules
