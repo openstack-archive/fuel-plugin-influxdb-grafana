@@ -6,6 +6,17 @@ Release notes
 Version 1.0.0
 +++++++++++++
 
+The StackLight InfluxDB-Grafana plugin 1.0.0 contains the following updates:
+
+* Add an option to store the InfluxDB WAL in memory. This option is disabled
+  by default.
+* Updated the documentation to emphasize the need to use fast disks like an
+  SSD.
+* Added support for wildcard SSL certificates. See
+  `#1608665 <https://bugs.launchpad.net/lma-toolchain/+bug/1608665>`_.
+* Fixed the UI issue with the LDAP protocol radio button. See
+  `#1599778 <https://bugs.launchpad.net/lma-toolchain/+bug/1599778>`_.
+
 Version 0.10.0
 ++++++++++++++
 
