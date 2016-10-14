@@ -19,7 +19,7 @@ Plugin configuration
    :guilabel:`The InfluxDB-Grafana Server Plugin` section. You should see a
    page like this:
 
-   .. image:: ../images/influx_grafana_settings.png
+   .. image:: ../images/influx_main_settings.png
       :width: 450pt
 
 #. Select :guilabel:`The InfluxDB-Grafana Server Plugin` and fill in the
@@ -30,10 +30,15 @@ Plugin configuration
       documentation.
    #. Specify the database name (the default is ``lma``).
    #. Specify the InfluxDB username and password.
+   #. You can use the temporary file storage to store Write-Ahead-Log files in
+      memory instead of disk. This improve performance but data can be lost.
    #. Specify the Grafana username and password.
 
 #. The plugin uses a MySQL database to store its configuration data, such as
    the dashboard templates.
+
+   .. image:: ../images/influx_mysql_settings.png
+      :width: 450pt
 
    a. Select :guilabel:`Local MySQL` if you want to create the Grafana
       database using the MySQL server of the OpenStack control plane.
@@ -46,7 +51,7 @@ Plugin configuration
    Grafana credentials (username, password). Then, fill in the required
    fields as indicated below.
 
-   .. image:: ../images/tls_settings.png
+   .. image:: ../images/influx_tls_settings.png
       :width: 450pt
 
    a. Specify the DNS name of the Grafana server. This parameter is used to
@@ -59,7 +64,7 @@ Plugin configuration
    authenticate to Grafana through LDAP. Then, fill in the required fields as
    indicated below.
 
-   .. image:: ../images/ldap_auth.png
+   .. image:: ../images/influx_ldap_settings.png
       :width: 450pt
 
    a. Select :guilabel:`LDAPS` if you want to enable LDAP authentication over

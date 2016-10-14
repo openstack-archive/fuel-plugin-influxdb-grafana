@@ -11,7 +11,7 @@ Requirements
 |                       | Therefore, the installation of the plugin will fail if there is less   |
 |                       | than 55 GB of disk space available on the node.                        |
 +-----------------------+------------------------------------------------------------------------+
-| Mirantis OpenStack    | 8.0, 9.0                                                               |
+| Mirantis OpenStack    | 8.0, 9.0, 9.1                                                          |
 +-----------------------+------------------------------------------------------------------------+
 | Hardware configuration| The hardware configuration (RAM, CPU, disk(s)) required by this plugin |
 |                       | depends on the size of your cloud environment and other factors like   |
