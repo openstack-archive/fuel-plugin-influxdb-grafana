@@ -1,9 +1,5 @@
 .. _licenses:
 
-.. raw:: latex
-
-   \pagebreak
-
 Licenses
 --------
 
