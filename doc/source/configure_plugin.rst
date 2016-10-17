@@ -16,22 +16,22 @@ Plugin configuration
    :guilabel:`Other` category.
 
 #. Scroll down through the settings until you find
-   :guilabel:`The InfluxDB-Grafana Server Plugin` section. You should see a
-   page like this:
+   :guilabel:`The StackLight InfluxDB-Grafana Server Plugin` section:
 
    .. image:: ../images/influx_main_settings.png
       :width: 450pt
 
-#. Select :guilabel:`The InfluxDB-Grafana Server Plugin` and fill in the
-   required fields as indicated below.
+#. Select :guilabel:`The StackLight InfluxDB-Grafana Server Plugin` and fill
+   in the required fields as indicated below.
 
    a. Specify the number of days of retention for your data.
    #. Specify the InfluxDB admin password (called root password in the InfluxDB
-      documentation.
+      documentation).
    #. Specify the database name (the default is ``lma``).
    #. Specify the InfluxDB username and password.
-   #. You can use the temporary file storage to store Write-Ahead-Log files in
-      memory instead of disk. This improve performance but data can be lost.
+   #. To store the Write-Ahead-Log files in a temporary file storage instead
+      of the disk, select :guilabel:`Store WAL files in memory`. This will
+      improve performance but the data can be lost.
    #. Specify the Grafana username and password.
 
 #. The plugin uses a MySQL database to store its configuration data, such as

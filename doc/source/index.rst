@@ -16,8 +16,8 @@ Overview
    licenses
    references
 
-Installing and configuring StackLight InfluxDB-Grafana plugin
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Installing and configuring the StackLight InfluxDB-Grafana plugin
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. toctree::
    :maxdepth: 1
@@ -26,8 +26,8 @@ Installing and configuring StackLight InfluxDB-Grafana plugin
    configure_plugin
    verification
 
-Using StackLight InfluxDB-Grafana plugin
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Using StackLight the InfluxDB-Grafana plugin
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. toctree::
    :maxdepth: 1

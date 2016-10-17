@@ -118,9 +118,17 @@ that file later on.
 
 **To install the plugin:**
 
-Now that you have created the RPM file, install the plugin using the
-:command:`fuel plugins --install` command:
+#. Once you have created the RPM file, install the plugin:
 
-.. code-block:: console
+   .. code-block:: console
 
-   [root@fuel ~] fuel plugins --install ./fuel-plugin-influxdb-grafana/*.noarch.rpm
+      [root@fuel ~] fuel plugins --install ./fuel-plugin-influxdb-grafana/*.noarch.rpm
+
+#. Verify that the plugin is installed correctly:
+
+   .. code-block:: console
+
+      [root@fuel ~]# fuel plugins --list
+      id | name                 | version | package_version
+      ---|----------------------|---------|----------------
+      1  | influxdb_grafana     | 1.0.0   | 4.0.0
