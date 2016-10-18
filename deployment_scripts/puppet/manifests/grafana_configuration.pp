@@ -22,9 +22,9 @@ $influxdb_port = hiera('lma::influxdb::influxdb_port')
 $grafana_link_created_file = '/var/cache/grafana_link_created'
 
 $admin_username = hiera('lma::grafana::mysql::admin_username')
-$admin_password = hiera('lma::grafana::mysql::admin_password')
+$admin_password = rstrip(hiera('lma::grafana::mysql::admin_password'))
 $influxdb_username = hiera('lma::influxdb::username')
-$influxdb_password = hiera('lma::influxdb::password')
+$influxdb_password = rstrip(hiera('lma::influxdb::password'))
 $influxdb_database = hiera('lma::influxdb::dbname')
 
 $lma_collector = hiera_hash('lma_collector', {})
