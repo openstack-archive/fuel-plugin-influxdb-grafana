@@ -337,11 +337,13 @@
               "tags": [
                 {
                   "key": "hostname",
+                  "operator": "=~",
                   "value": "/$server/"
                 },
                 {
                   "condition": "AND",
                   "key": "resource",
+                  "operator": "=",
                   "value": "vip__management"
                 }
               ]
@@ -419,6 +421,12 @@
                     "auto"
                   ],
                   "type": "time"
+                },
+                {
+                  "params": [
+                    "previous"
+                  ],
+                  "type": "fill"
                 }
               ],
               "measurement": "haproxy_backend_status",
@@ -444,7 +452,14 @@
               "tags": [
                 {
                   "key": "hostname",
+                  "operator": "=~",
                   "value": "/$server/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "backend",
+                  "operator": "=~",
+                  "value": "/^$service$/"
                 }
               ]
             }
@@ -3006,5 +3021,5 @@
   },
   "timezone": "browser",
   "title": "HAProxy",
-  "version": 3
+  "version": 4
 }
