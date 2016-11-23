@@ -337,11 +337,13 @@
               "tags": [
                 {
                   "key": "hostname",
+                  "operator": "=~",
                   "value": "/$server/"
                 },
                 {
                   "condition": "AND",
                   "key": "resource",
+                  "operator": "=",
                   "value": "vip__management"
                 }
               ]
@@ -391,7 +393,7 @@
             "thresholdMarkers": true
           },
           "id": 16,
-          "interval": ">60s",
+          "interval": "",
           "links": [],
           "maxDataPoints": 100,
           "nullPointMode": "null as zero",
@@ -413,17 +415,11 @@
               "dsType": "influxdb",
               "fill": "",
               "function": "last",
-              "groupBy": [
-                {
-                  "params": [
-                    "auto"
-                  ],
-                  "type": "time"
-                }
-              ],
+              "groupBy": [],
+              "hide": false,
               "measurement": "haproxy_backend_status",
               "policy": "default",
-              "query": "SELECT last(\"value\") FROM \"haproxy_backend_status\" WHERE \"hostname\" =~ /$server/ AND $timeFilter GROUP BY time($interval)",
+              "query": "SELECT \"value\" FROM \"haproxy_backend_status\" WHERE \"hostname\" =~ /$server/ AND \"backend\" =~ /^$service$/ AND $timeFilter",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -444,7 +440,14 @@
               "tags": [
                 {
                   "key": "hostname",
+                  "operator": "=~",
                   "value": "/$server/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "backend",
+                  "operator": "=~",
+                  "value": "/^$service$/"
                 }
               ]
             }
@@ -3006,5 +3009,5 @@
   },
   "timezone": "browser",
   "title": "HAProxy",
-  "version": 3
+  "version": 4
 }
