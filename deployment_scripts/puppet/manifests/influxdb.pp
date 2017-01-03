@@ -25,6 +25,16 @@ if hiera('lma::influxdb::raft_leader') {
     $raft_nodes = hiera('lma::influxdb::raft_nodes')
 }
 
+if $::operatingsystem == 'Ubuntu' and $::operatingsystemrelease == '14.04' {
+  # This is required to install the InfluxDB package on Trusty machines that
+  # have systemd installed
+  # See https://bugs.launchpad.net/lma-toolchain/+bug/1652640 for details
+  package { 'systemd-shim':
+    ensure => present,
+    before => Class['lma_monitoring_analytics::influxdb']
+  }
+}
+
 user { 'influxdb':
   ensure => present,
   system => true,
