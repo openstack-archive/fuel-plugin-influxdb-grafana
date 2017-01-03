@@ -13,6 +13,7 @@ FIREWALL_TARBALL_URL="https://forgeapi.puppetlabs.com/v3/files/puppetlabs-firewa
 
 download_package https://s3.amazonaws.com/influxdb/influxdb_0.11.1-1_amd64.deb
 download_package https://grafanarel.s3.amazonaws.com/builds/grafana_3.0.4-1464167696_amd64.deb
+download_package http://mirrors.kernel.org/ubuntu/pool/main/s/systemd-shim/systemd-shim_6-2bzr1_amd64.deb
 
 # Download Puppet modules
 download_puppet_module "grafana" "$GRAFANA_TARBALL_URL"
