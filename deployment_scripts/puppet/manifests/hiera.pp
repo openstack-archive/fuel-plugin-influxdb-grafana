@@ -162,7 +162,8 @@ lma::influxdb::wal::size: <%= @influxdb_wal_size.to_i %>
 lma::influxdb::admin_username: "root"
 lma::influxdb::admin_password: >-
     <%= @influxdb_admin_password %>
-lma::influxdb::username: <%= @influxdb_username %>
+lma::influxdb::username: >-
+  <%= @influxdb_username %>
 # InfluxDB password must be a string representation, see bug/1634461
 lma::influxdb::password: >-
     <%= @influxdb_password %>
@@ -178,11 +179,13 @@ lma::grafana::nodes:
 lma::grafana::mysql::host: <%= @host %>
 lma::grafana::mysql::mode: <%= @db_mode %>
 lma::grafana::mysql::dbname: <%= @db_name %>
-lma::grafana::mysql::username: <%= @db_username %>
+lma::grafana::mysql::username: >-
+  <%= @db_username %>
 # MySQL password must be a string representation, see bug/1596438
 lma::grafana::mysql::password: >-
     <%= @db_password %>
-lma::grafana::mysql::admin_username: <%= @admin_username %>
+lma::grafana::mysql::admin_username: >-
+  <%= @admin_username %>
 lma::grafana::mysql::admin_password: >-
     <%= @admin_password %>
 
@@ -199,16 +202,23 @@ lma::grafana::ldap::authorization_enabled: <%= @ldap_authorization_enabled %>
 lma::grafana::ldap::servers: <%= @ldap_servers %>
 lma::grafana::ldap::protocol: <%= @ldap_protocol %>
 lma::grafana::ldap::port: <%= @ldap_port %>
-lma::grafana::ldap::bind_dn: <%= @ldap_bind_dn %>
+lma::grafana::ldap::bind_dn: >-
+  <%= @ldap_bind_dn %>
 lma::grafana::ldap::bind_password: >-
     <%= @ldap_bind_password %>
-lma::grafana::ldap::user_search_base_dns: <%= @ldap_user_search_base_dns %>
-lma::grafana::ldap::user_search_filter: <%= @ldap_user_search_filter %>
-lma::grafana::ldap::group_search_base_dns: <%= @ldap_group_search_base_dns %>
-lma::grafana::ldap::group_search_filter: <%= @ldap_group_search_filter %>
+lma::grafana::ldap::user_search_base_dns: >-
+  <%= @ldap_user_search_base_dns %>
+lma::grafana::ldap::user_search_filter: >-
+  <%= @ldap_user_search_filter %>
+lma::grafana::ldap::group_search_base_dns: >-
+  <%= @ldap_group_search_base_dns %>
+lma::grafana::ldap::group_search_filter: >-
+  <%= @ldap_group_search_filter %>
 <% if @ldap_authorization_enabled -%>
-lma::grafana::ldap::admin_group_dn: <%= @ldap_admin_group_dn %>
-lma::grafana::ldap::viewer_group_dn: <%= @ldap_viewer_group_dn %>
+lma::grafana::ldap::admin_group_dn: >-
+  <%= @ldap_admin_group_dn %>
+lma::grafana::ldap::viewer_group_dn: >-
+  <%= @ldap_viewer_group_dn %>
 <% end -%>
 <% end -%>
 ')
