@@ -21,9 +21,9 @@ $local_port = hiera('lma::influxdb::influxdb_port')
 $influxdb_url = "http://${local_address}:${local_port}"
 
 $admin_user = hiera('lma::influxdb::admin_username')
-$admin_password = rstrip(hiera('lma::influxdb::admin_password'))
+$admin_password = hiera('lma::influxdb::admin_password')
 $username = hiera('lma::influxdb::username')
-$password = rstrip(hiera('lma::influxdb::password'))
+$password = hiera('lma::influxdb::password')
 $retention_period = hiera('lma::influxdb::retention_period')
 $replication_factor = hiera('lma::influxdb::replication_factor')
 
