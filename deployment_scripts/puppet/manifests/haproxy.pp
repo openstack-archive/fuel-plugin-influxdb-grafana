@@ -37,8 +37,9 @@ openstack::ha::haproxy_service { 'influxdb':
   balancermember_port    => $influxdb_port,
   ipaddresses            => $influxdb_nodes_ips,
   server_names           => $influxdb_nodes_names,
+  define_backups         => true,
   haproxy_config_options => {
-    'option'     => ['httpchk GET /ping HTTP/1.1', 'httplog', 'dontlog-normal'],
+    'option'     => ['httpchk GET /ping', 'httplog', 'dontlog-normal'],
     'http-check' => 'expect status 204',
     'balance'    => 'roundrobin',
     'mode'       => 'http',

@@ -18,7 +18,7 @@
     - influxdb-cluster-haproxy
     - influxdb-vip
     - influxdb-haproxy
-    - primary-influxdb-installation
+    - influxdb-installation
   requires: [deploy_start]
   required_for: [deploy_end]
   parameters:
@@ -37,7 +37,6 @@
     - tools
     - logging
     - influxdb-netconfig
-    - hosts
     - influxdb-hiera
     - influxdb-firewall
     - influxdb-cluster
@@ -163,27 +162,11 @@
   reexecute_on:
     - deploy_changes
 
-- id: primary-influxdb-installation
+- id: influxdb-installation
   type: puppet
   version: 2.0.0
   requires: [influxdb-haproxy]
   required_for: [deploy_end]
-  parameters:
-    puppet_manifest: "puppet/manifests/influxdb.pp"
-    puppet_modules: puppet/modules:/etc/puppet/modules
-    timeout: 600
-
-- id: influxdb-installation
-  type: puppet
-  version: 2.0.0
-  requires: [influxdb-haproxy, primary-influxdb-installation]
-  required_for: [deploy_end]
-  # The cross-depends parameter is required because the installation on the
-  # secondary nodes should only happen once the InfluxDB service has been
-  # started on the primary.
-  cross-depends:
-    - name: primary-influxdb-installation
-      role: [primary-influxdb_grafana]
   parameters:
     puppet_manifest: "puppet/manifests/influxdb.pp"
     puppet_modules: puppet/modules:/etc/puppet/modules
@@ -245,7 +228,7 @@
 - id: influxdb-configuration
   type: puppet
   version: 2.0.0
-  role: [primary-influxdb_grafana]
+  role: [primary-influxdb_grafana, influxdb_grafana]
   requires: [post_deployment_start]
   # We use upload_nodes_info as an anchor to order the post-deployment tasks executed
   # by this plugin and the LMA collector plugin. The dependency chain is:
