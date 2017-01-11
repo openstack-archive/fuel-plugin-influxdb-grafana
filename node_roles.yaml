@@ -6,7 +6,7 @@ influxdb_grafana:
   public_ip_required: true
   weight: 100
   limits:
-    max: 3
+    max: 1
   conflicts:
     - controller
     - compute
