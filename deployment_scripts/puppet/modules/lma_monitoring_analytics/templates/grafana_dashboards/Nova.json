@@ -4814,14 +4814,41 @@
       "height": "250px",
       "panels": [
         {
-          "content": "<br />\n<br />\n<br />\n<br />\n<br />\n<h3 align=\"center\">Used</h3>",
+          "content": "<h3 align=\"center\">Virtual CPUs</h3>",
           "editable": true,
           "error": false,
+          "height": "10px",
           "id": 34,
           "links": [],
           "mode": "html",
-          "span": 2,
+          "span": 4,
           "style": {},
+          "title": "",
+          "type": "text"
+        },
+        {
+          "content": "<h3 align=\"center\">Virtual Disks</h3>",
+          "editable": true,
+          "error": false,
+          "height": "10px",
+          "id": 38,
+          "links": [],
+          "mode": "html",
+          "span": 4,
+          "style": {},
+          "title": "",
+          "type": "text"
+        },
+        {
+          "content": "<h3 align=\"center\">Virtual RAM</h3>",
+          "editable": true,
+          "error": false,
+          "height": "10px",
+          "id": 104,
+          "isNew": true,
+          "links": [],
+          "mode": "html",
+          "span": 4,
           "title": "",
           "type": "text"
         },
@@ -4855,7 +4882,7 @@
           "postfixFontSize": "50%",
           "prefix": "",
           "prefixFontSize": "50%",
-          "span": 2,
+          "span": 4,
           "sparkline": {
             "fillColor": "rgba(31, 118, 189, 0.18)",
             "full": false,
@@ -4913,7 +4940,7 @@
             }
           ],
           "thresholds": "",
-          "title": "Virtual CPU",
+          "title": "Used",
           "type": "singlestat",
           "valueFontSize": "80%",
           "valueMaps": [
@@ -4935,6 +4962,7 @@
             "rgba(50, 172, 45, 0.97)"
           ],
           "datasource": null,
+          "decimals": 2,
           "editable": true,
           "error": false,
           "format": "gbytes",
@@ -4955,7 +4983,7 @@
           "postfixFontSize": "80%",
           "prefix": "",
           "prefixFontSize": "50%",
-          "span": 2,
+          "span": 4,
           "sparkline": {
             "fillColor": "rgba(31, 118, 189, 0.18)",
             "full": false,
@@ -5013,7 +5041,7 @@
             }
           ],
           "thresholds": "",
-          "title": "Virtual Disks",
+          "title": "Used",
           "type": "singlestat",
           "valueFontSize": "80%",
           "valueMaps": [
@@ -5035,6 +5063,7 @@
             "rgba(50, 172, 45, 0.97)"
           ],
           "datasource": null,
+          "decimals": 2,
           "editable": true,
           "error": false,
           "format": "mbytes",
@@ -5055,7 +5084,7 @@
           "postfixFontSize": "80%",
           "prefix": "",
           "prefixFontSize": "50%",
-          "span": 2,
+          "span": 4,
           "sparkline": {
             "fillColor": "rgba(31, 118, 189, 0.18)",
             "full": false,
@@ -5113,7 +5142,7 @@
             }
           ],
           "thresholds": "",
-          "title": "Virtual RAM",
+          "title": "Used",
           "type": "singlestat",
           "valueFontSize": "80%",
           "valueMaps": [
@@ -5124,30 +5153,6 @@
             }
           ],
           "valueName": "current"
-        },
-        {
-          "content": "",
-          "editable": true,
-          "error": false,
-          "id": 66,
-          "links": [],
-          "mode": "markdown",
-          "span": 4,
-          "style": {},
-          "title": "",
-          "type": "text"
-        },
-        {
-          "content": "<br />\n<br />\n<br />\n<br />\n<br />\n<h3 align=\"center\">Available</h3>",
-          "editable": true,
-          "error": false,
-          "id": 38,
-          "links": [],
-          "mode": "html",
-          "span": 2,
-          "style": {},
-          "title": "",
-          "type": "text"
         },
         {
           "cacheTimeout": null,
@@ -5179,7 +5184,7 @@
           "postfixFontSize": "50%",
           "prefix": "",
           "prefixFontSize": "50%",
-          "span": 2,
+          "span": 4,
           "sparkline": {
             "fillColor": "rgba(31, 118, 189, 0.18)",
             "full": false,
@@ -5237,7 +5242,7 @@
             }
           ],
           "thresholds": "",
-          "title": "",
+          "title": "Free",
           "type": "singlestat",
           "valueFontSize": "80%",
           "valueMaps": [
@@ -5259,6 +5264,7 @@
             "rgba(50, 172, 45, 0.97)"
           ],
           "datasource": null,
+          "decimals": 2,
           "editable": true,
           "error": false,
           "format": "gbytes",
@@ -5279,7 +5285,7 @@
           "postfixFontSize": "80%",
           "prefix": "",
           "prefixFontSize": "50%",
-          "span": 2,
+          "span": 4,
           "sparkline": {
             "fillColor": "rgba(31, 118, 189, 0.18)",
             "full": false,
@@ -5337,7 +5343,7 @@
             }
           ],
           "thresholds": "",
-          "title": "",
+          "title": "Free",
           "type": "singlestat",
           "valueFontSize": "80%",
           "valueMaps": [
@@ -5359,6 +5365,7 @@
             "rgba(50, 172, 45, 0.97)"
           ],
           "datasource": null,
+          "decimals": 2,
           "editable": true,
           "error": false,
           "format": "mbytes",
@@ -5379,7 +5386,7 @@
           "postfixFontSize": "80%",
           "prefix": "",
           "prefixFontSize": "50%",
-          "span": 2,
+          "span": 4,
           "sparkline": {
             "fillColor": "rgba(31, 118, 189, 0.18)",
             "full": false,
@@ -5437,7 +5444,7 @@
             }
           ],
           "thresholds": "",
-          "title": "",
+          "title": "Free",
           "type": "singlestat",
           "valueFontSize": "80%",
           "valueMaps": [
@@ -5448,22 +5455,743 @@
             }
           ],
           "valueName": "current"
-        },
-        {
-          "content": "",
-          "editable": true,
-          "error": false,
-          "id": 67,
-          "links": [],
-          "mode": "markdown",
-          "span": 4,
-          "style": {},
-          "title": "",
-          "type": "text"
         }
       ],
       "showTitle": true,
       "title": "Resources"
+    },
+    {
+      "collapse": false,
+      "editable": true,
+      "height": "250px",
+      "panels": [
+        {
+          "aliasColors": {},
+          "bars": false,
+          "datasource": null,
+          "editable": true,
+          "error": false,
+          "fill": 1,
+          "grid": {
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 105,
+          "interval": ">60s",
+          "isNew": true,
+          "legend": {
+            "alignAsTable": true,
+            "avg": false,
+            "current": true,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 4,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "$tag_aggregate",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "aggregate"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "openstack_nova_aggregate_free_vcpus",
+              "policy": "default",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=~",
+                  "value": "/^$environment$/"
+                }
+              ]
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Free VCPUs",
+          "tooltip": {
+            "msResolution": false,
+            "shared": true,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "datasource": null,
+          "decimals": 2,
+          "editable": true,
+          "error": false,
+          "fill": 1,
+          "grid": {
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 106,
+          "interval": ">60s",
+          "isNew": true,
+          "legend": {
+            "alignAsTable": true,
+            "avg": false,
+            "current": true,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 4,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "$tag_aggregate",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "aggregate"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "openstack_nova_aggregate_free_disk",
+              "policy": "default",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=~",
+                  "value": "/^$environment$/"
+                }
+              ]
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Free Disk Space",
+          "tooltip": {
+            "msResolution": false,
+            "shared": true,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "gbytes",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "datasource": null,
+          "decimals": 2,
+          "editable": true,
+          "error": false,
+          "fill": 1,
+          "grid": {
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 107,
+          "interval": ">60s",
+          "isNew": true,
+          "legend": {
+            "alignAsTable": true,
+            "avg": false,
+            "current": true,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 4,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "$tag_aggregate",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "aggregate"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "openstack_nova_aggregate_free_ram",
+              "policy": "default",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=~",
+                  "value": "/^$environment$/"
+                }
+              ]
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Free RAM",
+          "tooltip": {
+            "msResolution": false,
+            "shared": true,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "mbytes",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "datasource": null,
+          "editable": true,
+          "error": false,
+          "fill": 1,
+          "grid": {
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 108,
+          "interval": ">60s",
+          "isNew": true,
+          "legend": {
+            "alignAsTable": true,
+            "avg": false,
+            "current": true,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 4,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "$tag_aggregate",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "aggregate"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "openstack_nova_aggregate_used_vcpus",
+              "policy": "default",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=~",
+                  "value": "/^$environment$/"
+                }
+              ]
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Used VCPUs",
+          "tooltip": {
+            "msResolution": false,
+            "shared": true,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "datasource": null,
+          "decimals": 2,
+          "editable": true,
+          "error": false,
+          "fill": 1,
+          "grid": {
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 109,
+          "interval": ">60s",
+          "isNew": true,
+          "legend": {
+            "alignAsTable": true,
+            "avg": false,
+            "current": true,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 4,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "$tag_aggregate",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "aggregate"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "openstack_nova_aggregate_used_disk",
+              "policy": "default",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=~",
+                  "value": "/^$environment$/"
+                }
+              ]
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Used Disk Space",
+          "tooltip": {
+            "msResolution": false,
+            "shared": true,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "gbytes",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "datasource": null,
+          "decimals": 2,
+          "editable": true,
+          "error": false,
+          "fill": 1,
+          "grid": {
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 110,
+          "interval": ">60s",
+          "isNew": true,
+          "legend": {
+            "alignAsTable": true,
+            "avg": false,
+            "current": true,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 4,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "$tag_aggregate",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "aggregate"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "openstack_nova_aggregate_used_ram",
+              "policy": "default",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=~",
+                  "value": "/^$environment$/"
+                }
+              ]
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Used RAM",
+          "tooltip": {
+            "msResolution": false,
+            "shared": true,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "mbytes",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
+        }
+      ],
+      "showTitle": true,
+      "title": "Resources per Aggregates"
     }
   ],
   "schemaVersion": 12,
@@ -5540,5 +6268,5 @@
   },
   "timezone": "browser",
   "title": "Nova",
-  "version": 3
+  "version": 4
 }
