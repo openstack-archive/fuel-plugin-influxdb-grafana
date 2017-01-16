@@ -1880,6 +1880,220 @@
       "height": "250px",
       "panels": [
         {
+          "content": "<br />\n<h3 align=\"center\"> Used RAM </h3>",
+          "editable": true,
+          "error": false,
+          "id": 100,
+          "links": [],
+          "mode": "html",
+          "span": 2,
+          "style": {},
+          "title": "",
+          "type": "text"
+        },
+        {
+          "columns": [],
+          "editable": true,
+          "error": false,
+          "fontSize": "100%",
+          "hideTimeOverride": false,
+          "id": 101,
+          "interval": ">60s",
+          "isNew": true,
+          "links": [],
+          "pageSize": null,
+          "scroll": true,
+          "showHeader": true,
+          "sort": {
+            "col": 0,
+            "desc": true
+          },
+          "span": 10,
+          "styles": [
+            {
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "pattern": "Time",
+              "type": "date"
+            },
+            {
+              "colorMode": null,
+              "colors": [
+                "rgba(245, 54, 54, 0.9)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(50, 172, 45, 0.97)"
+              ],
+              "decimals": 2,
+              "pattern": "/.*/",
+              "thresholds": [],
+              "type": "string",
+              "unit": "short"
+            }
+          ],
+          "targets": [
+            {
+              "alias": "",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "aggregate"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "none"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "openstack_nova_aggregate_used_ram",
+              "policy": "default",
+              "query": "SELECT last(\"value\") FROM \"openstack_nova_aggregate_used_ram\" WHERE $timeFilter GROUP BY time($interval), \"aggregate\" fill(previous)",
+              "rawQuery": false,
+              "refId": "A",
+              "resultFormat": "table",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  }
+                ]
+              ],
+              "tags": []
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "History",
+          "transform": "table",
+          "type": "table"
+        },
+        {
+          "content": "<br />\n<h3 align=\"center\"> Free RAM </h3>",
+          "editable": true,
+          "error": false,
+          "id": 102,
+          "links": [],
+          "mode": "html",
+          "span": 2,
+          "style": {},
+          "title": "",
+          "type": "text"
+        },
+        {
+          "columns": [],
+          "editable": true,
+          "error": false,
+          "fontSize": "100%",
+          "hideTimeOverride": false,
+          "id": 103,
+          "interval": ">60s",
+          "isNew": true,
+          "links": [],
+          "pageSize": null,
+          "scroll": true,
+          "showHeader": true,
+          "sort": {
+            "col": 0,
+            "desc": true
+          },
+          "span": 10,
+          "styles": [
+            {
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "pattern": "Time",
+              "type": "date"
+            },
+            {
+              "colorMode": null,
+              "colors": [
+                "rgba(245, 54, 54, 0.9)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(50, 172, 45, 0.97)"
+              ],
+              "decimals": 2,
+              "pattern": "/.*/",
+              "thresholds": [],
+              "type": "string",
+              "unit": "short"
+            }
+          ],
+          "targets": [
+            {
+              "alias": "",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "aggregate"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "none"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "openstack_nova_aggregate_free_ram",
+              "query": "SELECT last(value) FROM \"openstack_nova_aggregate_free_ram\" WHERE $timeFilter AND \"environment_label\" = '$environment' GROUP BY time($interval), aggregate",
+              "rawQuery": false,
+              "refId": "A",
+              "resultFormat": "table",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  }
+                ]
+              ],
+              "tags": []
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "History",
+          "transform": "table",
+          "type": "table"
+        }
+      ],
+      "showTitle": true,
+      "title": "Nova Aggregates"
+    },
+    {
+      "collapse": false,
+      "editable": true,
+      "height": "250px",
+      "panels": [
+        {
           "content": "<br />\n<h3 align=\"center\"> Compute nodes </h3>",
           "editable": true,
           "error": false,
@@ -5540,5 +5754,5 @@
   },
   "timezone": "browser",
   "title": "Nova",
-  "version": 3
+  "version": 4
 }
