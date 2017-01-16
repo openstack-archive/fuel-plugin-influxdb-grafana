@@ -14,6 +14,16 @@
 
 notice('fuel-plugin-influxdb-grafana: hiera.pp')
 
+if $::operatingsystem == 'Ubuntu' and $::operatingsystemrelease == '14.04' {
+  # This is required to install the InfluxDB package on Trusty machines that
+  # have systemd installed. The systemctl-shim package will force the removal
+  # of the systemd package.
+  # See https://bugs.launchpad.net/lma-toolchain/+bug/1652640 for details
+  package { 'systemd-shim':
+    ensure => present,
+  }
+}
+
 $fuel_version = 0 + hiera('fuel_version')
 
 # Initialize network-related variables
