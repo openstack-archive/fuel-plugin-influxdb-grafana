@@ -3,6 +3,14 @@
 Release notes
 -------------
 
+Version 0.10.3
+++++++++++++++
+
+The StackLight InfluxDB-Grafana plugin 0.10.3 contains the following updates:
+
+* Fix installation of the InfluxDB package for 9.x environments. See
+  `#1652640 <https://bugs.launchpad.net/lma-toolchain/+bug/1652640>`_.
+
 Version 0.10.2
 ++++++++++++++
 

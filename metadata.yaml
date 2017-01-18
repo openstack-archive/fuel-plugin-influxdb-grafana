@@ -3,7 +3,7 @@ name: influxdb_grafana
 # Human-readable name for your plugin
 title: The StackLight InfluxDB-Grafana Server Plugin
 # Plugin version
-version: '0.10.2'
+version: '0.10.3'
 # Description
 description: Deploy the InfluxDB and Grafana servers.
 # Required fuel version
