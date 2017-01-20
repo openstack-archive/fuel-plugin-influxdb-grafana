@@ -15,9 +15,9 @@ InfluxDB-Grafana plugin:
 +----------------+-------------------------------------+
 | Components     | Version                             |
 +================+=====================================+
-| InfluxDB       | v0.11.1 for Ubuntu (64-bit)         |
+| InfluxDB       | v1.1 for Ubuntu (64-bit)            |
 +----------------+-------------------------------------+
-| Grafana        | v3.0.4 for Ubuntu (64-bit)          |
+| Grafana        | v4.1.1 for Ubuntu (64-bit)          |
 +----------------+-------------------------------------+
 
 Install using the RPM file of the Fuel plugins catalog
