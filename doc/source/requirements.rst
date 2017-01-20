@@ -22,7 +22,7 @@ The StackLight InfluxDB-Grafana plugin 1.0.0 has the following requirements:
 |                       | sizeable production deployments it is strongly recommended to use a    |
 |                       | disk capable of 1000+ IOPS like an SSD.                                |
 |                       | See the `InfluxDB Hardware Sizing Guide                                |
-|                       | <https://docs.influxdata.com/influxdb/v0.10/guides/hardware_sizing/>`_ |
+|                       | <https://docs.influxdata.com/influxdb/v1.1/guides/hardware_sizing/>`_  |
 |                       | for additional sizing information.                                     |
 |                       |                                                                        |
 |                       | It is highly recommended that you use a dedicated disk for your data   |
