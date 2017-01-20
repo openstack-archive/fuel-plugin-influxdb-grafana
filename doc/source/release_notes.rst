@@ -6,16 +6,33 @@ Release notes
 Version 1.0.0
 +++++++++++++
 
-The StackLight InfluxDB-Grafana plugin 1.0.0 contains the following updates:
+Breaking changes
+''''''''''''''''
 
+Remove the InfluxDB clustering and upgrade to InfluxDB 1.1.
+InfluxDB is now deployed and configured on each node but only one instance
+receives datapoints at a time while other nodes are used for failover.
+
+Features
+''''''''
+
+* Upgrade to Grafana 4.1.1
 * Added an option to store the InfluxDB WAL in memory. This option is disabled
   by default.
+
+Fixes
+'''''
+
 * Updated the documentation to emphasize the need to use fast disks, such as
   SSDs.
 * Added support for wildcard SSL certificates. See
   `#1608665 <https://bugs.launchpad.net/lma-toolchain/+bug/1608665>`_.
 * Fixed the UI issue with the LDAP protocol radio button. See
   `#1599778 <https://bugs.launchpad.net/lma-toolchain/+bug/1599778>`_.
+* Fix InfluxDB install when systemd is present.
+  See `#1652640 <https://bugs.launchpad.net/lma-toolchain/+bug/1652640>`_.
+* Prevent co-installation with the Contrail plugin.
+  See `#1646550 <https://bugs.launchpad.net/lma-toolchain/+bug/1646550>`_.
 
 Version 0.10.0
 ++++++++++++++
