@@ -19,7 +19,7 @@ $master_ip = hiera('master_ip')
 $influxdb_vip = hiera('lma::influxdb::vip')
 $grafana_vip = hiera('lma::grafana::vip')
 $influxdb_port = hiera('lma::influxdb::influxdb_port')
-$grafana_link_created_file = '/var/cache/grafana_link_created'
+$grafana_link_created_file = '/var/cache/grafana_link_created_up_1.x'
 
 $admin_username = hiera('lma::grafana::mysql::admin_username')
 $admin_password = rstrip(hiera('lma::grafana::mysql::admin_password'))
