@@ -16,14 +16,15 @@ notice('fuel-plugin-influxdb-grafana: grafana_configuration.pp')
 
 $deployment_id = hiera('deployment_id')
 $master_ip = hiera('master_ip')
-$vip = hiera('lma::influxdb::vip')
+$influxdb_vip = hiera('lma::influxdb::vip')
+$grafana_vip = hiera('lma::grafana::vip')
 $influxdb_port = hiera('lma::influxdb::influxdb_port')
 $grafana_link_created_file = '/var/cache/grafana_link_created'
 
 $admin_username = hiera('lma::grafana::mysql::admin_username')
-$admin_password = hiera('lma::grafana::mysql::admin_password')
+$admin_password = rstrip(hiera('lma::grafana::mysql::admin_password'))
 $influxdb_username = hiera('lma::influxdb::username')
-$influxdb_password = hiera('lma::influxdb::password')
+$influxdb_password = rstrip(hiera('lma::influxdb::password'))
 $influxdb_database = hiera('lma::influxdb::dbname')
 
 $lma_collector = hiera_hash('lma_collector', {})
@@ -43,24 +44,24 @@ if hiera('lma::grafana::tls::enabled') {
   $protocol = 'https'
   $grafana_hostname = hiera('lma::grafana::tls::hostname')
   $grafana_link_data = "{\"title\":\"Grafana\",\
-  \"description\":\"Dashboard for visualizing metrics (${grafana_hostname}: ${protocol}://${vip})\",\
+  \"description\":\"Dashboard for visualizing metrics (${grafana_hostname}: ${protocol}://${grafana_vip})\",\
   \"url\":\"${protocol}://${grafana_hostname}/\"}"
 } else {
   $protocol = 'http'
   $grafana_link_data = "{\"title\":\"Grafana\",\
   \"description\":\"Dashboard for visualizing metrics\",\
-  \"url\":\"${protocol}://${vip}\"}"
+  \"url\":\"${protocol}://${grafana_vip}\"}"
 }
 
 grafana_datasource { 'lma':
   ensure           => present,
-  url              => "http://${vip}:${influxdb_port}",
+  url              => "http://${influxdb_vip}:${influxdb_port}",
   user             => $influxdb_username,
   password         => $influxdb_password,
   database         => $influxdb_database,
   access_mode      => 'proxy',
   is_default       => true,
-  grafana_url      => "${protocol}://${vip}",
+  grafana_url      => "${protocol}://${grafana_vip}",
   grafana_user     => $admin_username,
   grafana_password => $admin_password,
 }
@@ -69,7 +70,7 @@ class {'lma_monitoring_analytics::grafana_dashboards':
   admin_username       => $admin_username,
   admin_password       => $admin_password,
   protocol             => $protocol,
-  host                 => $vip,
+  host                 => $grafana_vip,
   port                 => hiera('lma::influxdb::grafana_frontend_port'),
   import_elasticsearch => $import_elasticsearch,
   import_influxdb      => $import_influxdb,
