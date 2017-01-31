@@ -34,31 +34,31 @@ firewall { '002 accept related established rules':
 }
 
 firewall { '020 ssh':
-  port   => 22,
+  dport  => 22,
   proto  => 'tcp',
   action => 'accept',
 }
 
 firewall { '113 corosync-input':
-  port   => 5404,
+  dport  => 5404,
   proto  => 'udp',
   action => 'accept',
 }
 
 firewall { '114 corosync-output':
-  port   => 5405,
+  sport  => 5405,
   proto  => 'udp',
   action => 'accept',
 }
 
 firewall { '200 influxdb':
-  port   => [8083, hiera('lma::influxdb::influxdb_port'), 8088, 8091],
+  dport  => [8083, hiera('lma::influxdb::influxdb_port'), 8088, 8091],
   proto  => 'tcp',
   action => 'accept',
 }
 
 firewall { '201 grafana':
-  port   => hiera('lma::influxdb::grafana_port'),
+  dport  => hiera('lma::influxdb::grafana_port'),
   proto  => 'tcp',
   action => 'accept',
 }
