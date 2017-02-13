@@ -40,14 +40,15 @@ host=<%= @db_vip %>
       notify  => Exec['remove_db_options_file'],
     }
 
-    if $is_mysql_server {
-      # The detach_database plugin installs a mysql-client-X.Y that may not be
-      # compatible with the mysql-client meta-package that is installed by
-      # mysql Puppet module. To avoid this issue we use the client that is
-      # installed by the detach_database plugin.
-      class { '::mysql::client':
-        package_manage => false,
-      }
+    package { 'ubuntu-mysql-client':
+      ensure => absent,
+      name   => 'mysql-client',
+    }
+
+    # MOS uses its own mysql-client package
+    class { '::mysql::client':
+      package_name => 'mysql-client-5.6',
+      requires     => Package['ubuntu-mysql-client'],
     }
 
     mysql::db { $db_name:
