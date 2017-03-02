@@ -17,15 +17,15 @@
     ]
   },
   "editable": true,
+  "gnetId": null,
+  "graphTooltip": 1,
   "hideControls": false,
   "id": null,
   "links": [],
-  "originalTitle": "Ceph",
   "refresh": "1m",
   "rows": [
     {
       "collapse": false,
-      "editable": true,
       "height": "250px",
       "panels": [
         {
@@ -51,6 +51,17 @@
           "id": 8,
           "interval": ">60s",
           "links": [],
+          "mappingType": 1,
+          "mappingTypes": [
+            {
+              "name": "value to text",
+              "value": 1
+            },
+            {
+              "name": "range to text",
+              "value": 2
+            }
+          ],
           "maxDataPoints": 100,
           "nullPointMode": "connected",
           "nullText": null,
@@ -58,6 +69,13 @@
           "postfixFontSize": "50%",
           "prefix": "",
           "prefixFontSize": "50%",
+          "rangeMaps": [
+            {
+              "from": "null",
+              "text": "N/A",
+              "to": "null"
+            }
+          ],
           "span": 2,
           "sparkline": {
             "fillColor": "rgba(31, 118, 189, 0.18)",
@@ -105,12 +123,7 @@
                   }
                 ]
               ],
-              "tags": [
-                {
-                  "key": "hostname",
-                  "value": "/$mon/"
-                }
-              ]
+              "tags": []
             }
           ],
           "thresholds": "2,3",
@@ -164,6 +177,17 @@
           "id": 10,
           "interval": ">60s",
           "links": [],
+          "mappingType": 1,
+          "mappingTypes": [
+            {
+              "name": "value to text",
+              "value": 1
+            },
+            {
+              "name": "range to text",
+              "value": 2
+            }
+          ],
           "maxDataPoints": 100,
           "nullPointMode": "connected",
           "nullText": null,
@@ -171,6 +195,13 @@
           "postfixFontSize": "50%",
           "prefix": "",
           "prefixFontSize": "50%",
+          "rangeMaps": [
+            {
+              "from": "null",
+              "text": "N/A",
+              "to": "null"
+            }
+          ],
           "span": 2,
           "sparkline": {
             "fillColor": "rgba(31, 118, 189, 0.18)",
@@ -263,6 +294,17 @@
           "id": 9,
           "interval": ">60s",
           "links": [],
+          "mappingType": 1,
+          "mappingTypes": [
+            {
+              "name": "value to text",
+              "value": 1
+            },
+            {
+              "name": "range to text",
+              "value": 2
+            }
+          ],
           "maxDataPoints": 100,
           "nullPointMode": "connected",
           "nullText": null,
@@ -270,6 +312,13 @@
           "postfixFontSize": "50%",
           "prefix": "",
           "prefixFontSize": "50%",
+          "rangeMaps": [
+            {
+              "from": "null",
+              "text": "N/A",
+              "to": "null"
+            }
+          ],
           "span": 2,
           "sparkline": {
             "fillColor": "rgba(31, 118, 189, 0.18)",
@@ -362,6 +411,17 @@
           "id": 32,
           "interval": ">60s",
           "links": [],
+          "mappingType": 1,
+          "mappingTypes": [
+            {
+              "name": "value to text",
+              "value": 1
+            },
+            {
+              "name": "range to text",
+              "value": 2
+            }
+          ],
           "maxDataPoints": 100,
           "nullPointMode": "connected",
           "nullText": null,
@@ -369,6 +429,13 @@
           "postfixFontSize": "50%",
           "prefix": "",
           "prefixFontSize": "50%",
+          "rangeMaps": [
+            {
+              "from": "null",
+              "text": "N/A",
+              "to": "null"
+            }
+          ],
           "span": 3,
           "sparkline": {
             "fillColor": "rgba(31, 118, 189, 0.18)",
@@ -464,6 +531,17 @@
           "id": 31,
           "interval": ">60s",
           "links": [],
+          "mappingType": 1,
+          "mappingTypes": [
+            {
+              "name": "value to text",
+              "value": 1
+            },
+            {
+              "name": "range to text",
+              "value": 2
+            }
+          ],
           "maxDataPoints": 100,
           "nullPointMode": "connected",
           "nullText": null,
@@ -471,6 +549,13 @@
           "postfixFontSize": "50%",
           "prefix": "",
           "prefixFontSize": "50%",
+          "rangeMaps": [
+            {
+              "from": "null",
+              "text": "N/A",
+              "to": "null"
+            }
+          ],
           "span": 3,
           "sparkline": {
             "fillColor": "rgba(31, 118, 189, 0.18)",
@@ -562,6 +647,17 @@
           "id": 24,
           "interval": ">60s",
           "links": [],
+          "mappingType": 1,
+          "mappingTypes": [
+            {
+              "name": "value to text",
+              "value": 1
+            },
+            {
+              "name": "range to text",
+              "value": 2
+            }
+          ],
           "maxDataPoints": 100,
           "nullPointMode": "connected",
           "nullText": null,
@@ -569,6 +665,13 @@
           "postfixFontSize": "50%",
           "prefix": "",
           "prefixFontSize": "50%",
+          "rangeMaps": [
+            {
+              "from": "null",
+              "text": "N/A",
+              "to": "null"
+            }
+          ],
           "span": 2,
           "sparkline": {
             "fillColor": "rgba(31, 118, 189, 0.18)",
@@ -644,12 +747,7 @@
           "editable": true,
           "error": false,
           "fill": 1,
-          "grid": {
-            "threshold1": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2": null,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
+          "grid": {},
           "id": 1,
           "interval": ">60s",
           "legend": {
@@ -771,17 +869,22 @@
               ]
             }
           ],
+          "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
           "title": "Storage (total)",
           "tooltip": {
             "msResolution": false,
             "shared": true,
+            "sort": 0,
             "value_type": "individual"
           },
           "type": "graph",
           "xaxis": {
-            "show": true
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
           },
           "yaxes": [
             {
@@ -808,12 +911,7 @@
           "editable": true,
           "error": false,
           "fill": 0,
-          "grid": {
-            "threshold1": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2": null,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
+          "grid": {},
           "id": 12,
           "interval": ">60s",
           "legend": {
@@ -891,27 +989,26 @@
                   "key": "cluster",
                   "operator": "=~",
                   "value": "/$cluster/"
-                },
-                {
-                  "condition": "AND",
-                  "key": "hostname",
-                  "operator": "=~",
-                  "value": "/$mon/"
                 }
               ]
             }
           ],
+          "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
           "title": "Placement Groups by state",
           "tooltip": {
             "msResolution": false,
             "shared": true,
+            "sort": 0,
             "value_type": "cumulative"
           },
           "type": "graph",
           "xaxis": {
-            "show": true
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
           },
           "yaxes": [
             {
@@ -932,12 +1029,15 @@
           ]
         }
       ],
+      "repeat": null,
+      "repeatIteration": null,
+      "repeatRowId": null,
       "showTitle": true,
-      "title": "Cluster"
+      "title": "Cluster",
+      "titleSize": "h6"
     },
     {
       "collapse": false,
-      "editable": true,
       "height": "250px",
       "panels": [
         {
@@ -963,6 +1063,17 @@
           "id": 4,
           "interval": ">60s",
           "links": [],
+          "mappingType": 1,
+          "mappingTypes": [
+            {
+              "name": "value to text",
+              "value": 1
+            },
+            {
+              "name": "range to text",
+              "value": 2
+            }
+          ],
           "maxDataPoints": 100,
           "nullPointMode": "connected",
           "nullText": null,
@@ -970,6 +1081,13 @@
           "postfixFontSize": "50%",
           "prefix": "",
           "prefixFontSize": "50%",
+          "rangeMaps": [
+            {
+              "from": "null",
+              "text": "N/A",
+              "to": "null"
+            }
+          ],
           "span": 2,
           "sparkline": {
             "fillColor": "rgba(31, 118, 189, 0.18)",
@@ -1020,12 +1138,8 @@
               "tags": [
                 {
                   "key": "cluster",
+                  "operator": "=~",
                   "value": "/$cluster/"
-                },
-                {
-                  "condition": "AND",
-                  "key": "hostname",
-                  "value": "/$mon/"
                 }
               ]
             }
@@ -1050,13 +1164,7 @@
           "editable": true,
           "error": false,
           "fill": 0,
-          "grid": {
-            "threshold1": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2": null,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)",
-            "thresholdLine": false
-          },
+          "grid": {},
           "id": 3,
           "interval": ">1m",
           "legend": {
@@ -1127,16 +1235,19 @@
               "tags": [
                 {
                   "key": "pool",
+                  "operator": "=~",
                   "value": "/$pool/"
                 },
                 {
                   "condition": "AND",
                   "key": "cluster",
+                  "operator": "=~",
                   "value": "/$cluster/"
                 },
                 {
                   "condition": "AND",
                   "key": "hostname",
+                  "operator": "=~",
                   "value": "/$mon/"
                 }
               ]
@@ -1184,32 +1295,40 @@
               "tags": [
                 {
                   "key": "cluster",
+                  "operator": "=~",
                   "value": "/$cluster/"
                 },
                 {
                   "condition": "AND",
                   "key": "hostname",
+                  "operator": "=~",
                   "value": "/$mon/"
                 },
                 {
                   "condition": "AND",
                   "key": "cluster",
+                  "operator": "=~",
                   "value": "/$cluster/"
                 }
               ]
             }
           ],
+          "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
           "title": "Storage ($pool)",
           "tooltip": {
             "msResolution": false,
             "shared": true,
+            "sort": 0,
             "value_type": "cumulative"
           },
           "type": "graph",
           "xaxis": {
-            "show": true
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
           },
           "yaxes": [
             {
@@ -1236,12 +1355,7 @@
           "editable": true,
           "error": false,
           "fill": 0,
-          "grid": {
-            "threshold1": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2": null,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
+          "grid": {},
           "id": 7,
           "interval": ">60s",
           "legend": {
@@ -1309,32 +1423,34 @@
               "tags": [
                 {
                   "key": "cluster",
+                  "operator": "=~",
                   "value": "/$cluster/"
                 },
                 {
                   "condition": "AND",
-                  "key": "hostname",
-                  "value": "/$mon/"
-                },
-                {
-                  "condition": "AND",
                   "key": "pool",
+                  "operator": "=~",
                   "value": "/$pool/"
                 }
               ]
             }
           ],
+          "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
           "title": "Number of objects ($pool)",
           "tooltip": {
             "msResolution": false,
             "shared": true,
+            "sort": 0,
             "value_type": "cumulative"
           },
           "type": "graph",
           "xaxis": {
-            "show": true
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
           },
           "yaxes": [
             {
@@ -1390,6 +1506,17 @@
           "id": 15,
           "interval": ">60s",
           "links": [],
+          "mappingType": 1,
+          "mappingTypes": [
+            {
+              "name": "value to text",
+              "value": 1
+            },
+            {
+              "name": "range to text",
+              "value": 2
+            }
+          ],
           "maxDataPoints": 100,
           "nullPointMode": "connected",
           "nullText": null,
@@ -1397,6 +1524,13 @@
           "postfixFontSize": "50%",
           "prefix": "",
           "prefixFontSize": "50%",
+          "rangeMaps": [
+            {
+              "from": "null",
+              "text": "N/A",
+              "to": "null"
+            }
+          ],
           "span": 2,
           "sparkline": {
             "fillColor": "rgba(31, 118, 189, 0.18)",
@@ -1447,16 +1581,13 @@
               "tags": [
                 {
                   "key": "cluster",
+                  "operator": "=~",
                   "value": "/$cluster/"
                 },
                 {
                   "condition": "AND",
-                  "key": "hostname",
-                  "value": "/$mon/"
-                },
-                {
-                  "condition": "AND",
                   "key": "pool",
+                  "operator": "=~",
                   "value": "/$pool/"
                 }
               ]
@@ -1482,12 +1613,7 @@
           "editable": true,
           "error": false,
           "fill": 0,
-          "grid": {
-            "threshold1": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2": null,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
+          "grid": {},
           "id": 5,
           "interval": ">60s",
           "legend": {
@@ -1564,16 +1690,13 @@
               "tags": [
                 {
                   "key": "cluster",
+                  "operator": "=~",
                   "value": "/$cluster/"
                 },
                 {
                   "condition": "AND",
-                  "key": "hostname",
-                  "value": "/$mon/"
-                },
-                {
-                  "condition": "AND",
                   "key": "pool",
+                  "operator": "=~",
                   "value": "/$pool/"
                 }
               ]
@@ -1621,32 +1744,40 @@
               "tags": [
                 {
                   "key": "cluster",
+                  "operator": "=~",
                   "value": "/$cluster/"
                 },
                 {
                   "condition": "AND",
                   "key": "hostname",
+                  "operator": "=~",
                   "value": "/$mon/"
                 },
                 {
                   "condition": "AND",
                   "key": "pool",
+                  "operator": "=~",
                   "value": "/$pool/"
                 }
               ]
             }
           ],
+          "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
           "title": "I/O ($pool)",
           "tooltip": {
             "msResolution": false,
             "shared": true,
+            "sort": 0,
             "value_type": "cumulative"
           },
           "type": "graph",
           "xaxis": {
-            "show": true
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
           },
           "yaxes": [
             {
@@ -1673,12 +1804,7 @@
           "editable": true,
           "error": false,
           "fill": 0,
-          "grid": {
-            "threshold1": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2": null,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
+          "grid": {},
           "id": 6,
           "interval": ">60s",
           "legend": {
@@ -1747,32 +1873,34 @@
               "tags": [
                 {
                   "key": "pool",
+                  "operator": "=~",
                   "value": "/$pool/"
                 },
                 {
                   "condition": "AND",
                   "key": "cluster",
+                  "operator": "=~",
                   "value": "/$cluster/"
-                },
-                {
-                  "condition": "AND",
-                  "key": "hostname",
-                  "value": "/$mon/"
                 }
               ]
             }
           ],
+          "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
           "title": "Operations ($pool)",
           "tooltip": {
             "msResolution": false,
             "shared": true,
+            "sort": 0,
             "value_type": "cumulative"
           },
           "type": "graph",
           "xaxis": {
-            "show": true
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
           },
           "yaxes": [
             {
@@ -1828,6 +1956,17 @@
           "id": 17,
           "interval": ">60s",
           "links": [],
+          "mappingType": 1,
+          "mappingTypes": [
+            {
+              "name": "value to text",
+              "value": 1
+            },
+            {
+              "name": "range to text",
+              "value": 2
+            }
+          ],
           "maxDataPoints": 100,
           "nullPointMode": "connected",
           "nullText": null,
@@ -1835,6 +1974,13 @@
           "postfixFontSize": "50%",
           "prefix": "",
           "prefixFontSize": "50%",
+          "rangeMaps": [
+            {
+              "from": "null",
+              "text": "N/A",
+              "to": "null"
+            }
+          ],
           "span": 2,
           "sparkline": {
             "fillColor": "rgba(31, 118, 189, 0.18)",
@@ -1885,16 +2031,13 @@
               "tags": [
                 {
                   "key": "cluster",
+                  "operator": "=~",
                   "value": "/$cluster/"
                 },
                 {
                   "condition": "AND",
-                  "key": "hostname",
-                  "value": "/$mon/"
-                },
-                {
-                  "condition": "AND",
                   "key": "pool",
+                  "operator": "=~",
                   "value": "/$pool/"
                 }
               ]
@@ -1920,12 +2063,7 @@
           "editable": true,
           "error": false,
           "fill": 0,
-          "grid": {
-            "threshold1": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2": null,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
+          "grid": {},
           "id": 18,
           "interval": ">60s",
           "legend": {
@@ -1993,32 +2131,34 @@
               "tags": [
                 {
                   "key": "cluster",
+                  "operator": "=~",
                   "value": "/$cluster/"
                 },
                 {
                   "condition": "AND",
-                  "key": "hostname",
-                  "value": "/$mon/"
-                },
-                {
-                  "condition": "AND",
                   "key": "pool",
+                  "operator": "=~",
                   "value": "/$pool/"
                 }
               ]
             }
           ],
+          "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
           "title": "Number of PGs ($pool)",
           "tooltip": {
             "msResolution": false,
             "shared": true,
+            "sort": 0,
             "value_type": "cumulative"
           },
           "type": "graph",
           "xaxis": {
-            "show": true
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
           },
           "yaxes": [
             {
@@ -2038,12 +2178,15 @@
           ]
         }
       ],
+      "repeat": null,
+      "repeatIteration": null,
+      "repeatRowId": null,
       "showTitle": true,
-      "title": "Pools"
+      "title": "Pools",
+      "titleSize": "h6"
     },
     {
       "collapse": false,
-      "editable": true,
       "height": "250px",
       "panels": [
         {
@@ -2069,6 +2212,17 @@
           "id": 13,
           "interval": ">60s",
           "links": [],
+          "mappingType": 1,
+          "mappingTypes": [
+            {
+              "name": "value to text",
+              "value": 1
+            },
+            {
+              "name": "range to text",
+              "value": 2
+            }
+          ],
           "maxDataPoints": 100,
           "nullPointMode": "connected",
           "nullText": null,
@@ -2076,6 +2230,13 @@
           "postfixFontSize": "50%",
           "prefix": "",
           "prefixFontSize": "50%",
+          "rangeMaps": [
+            {
+              "from": "null",
+              "text": "N/A",
+              "to": "null"
+            }
+          ],
           "span": 1,
           "sparkline": {
             "fillColor": "rgba(31, 118, 189, 0.18)",
@@ -2126,12 +2287,8 @@
               "tags": [
                 {
                   "key": "cluster",
+                  "operator": "=~",
                   "value": "/$cluster/"
-                },
-                {
-                  "condition": "AND",
-                  "key": "hostname",
-                  "value": "/$mon/"
                 }
               ]
             }
@@ -2172,6 +2329,17 @@
           "id": 14,
           "interval": ">60s",
           "links": [],
+          "mappingType": 1,
+          "mappingTypes": [
+            {
+              "name": "value to text",
+              "value": 1
+            },
+            {
+              "name": "range to text",
+              "value": 2
+            }
+          ],
           "maxDataPoints": 100,
           "nullPointMode": "connected",
           "nullText": null,
@@ -2179,6 +2347,13 @@
           "postfixFontSize": "50%",
           "prefix": "",
           "prefixFontSize": "50%",
+          "rangeMaps": [
+            {
+              "from": "null",
+              "text": "N/A",
+              "to": "null"
+            }
+          ],
           "span": 1,
           "sparkline": {
             "fillColor": "rgba(31, 118, 189, 0.18)",
@@ -2229,12 +2404,8 @@
               "tags": [
                 {
                   "key": "cluster",
+                  "operator": "=~",
                   "value": "/$cluster/"
-                },
-                {
-                  "condition": "AND",
-                  "key": "hostname",
-                  "value": "/$mon/"
                 }
               ]
             }
@@ -2260,12 +2431,7 @@
           "editable": true,
           "error": false,
           "fill": 0,
-          "grid": {
-            "threshold1": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2": null,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
+          "grid": {},
           "id": 11,
           "interval": ">60s",
           "legend": {
@@ -2333,12 +2499,8 @@
               "tags": [
                 {
                   "key": "cluster",
+                  "operator": "=~",
                   "value": "/$cluster/"
-                },
-                {
-                  "condition": "AND",
-                  "key": "hostname",
-                  "value": "/$mon/"
                 }
               ]
             },
@@ -2385,12 +2547,8 @@
               "tags": [
                 {
                   "key": "cluster",
+                  "operator": "=~",
                   "value": "/$cluster/"
-                },
-                {
-                  "condition": "AND",
-                  "key": "hostname",
-                  "value": "/$mon/"
                 }
               ]
             },
@@ -2437,12 +2595,8 @@
               "tags": [
                 {
                   "key": "cluster",
+                  "operator": "=~",
                   "value": "/$cluster/"
-                },
-                {
-                  "condition": "AND",
-                  "key": "hostname",
-                  "value": "/$mon/"
                 }
               ]
             },
@@ -2489,27 +2643,28 @@
               "tags": [
                 {
                   "key": "cluster",
+                  "operator": "=~",
                   "value": "/$cluster/"
-                },
-                {
-                  "condition": "AND",
-                  "key": "hostname",
-                  "value": "/$mon/"
                 }
               ]
             }
           ],
+          "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
           "title": "OSD Daemons states",
           "tooltip": {
             "msResolution": false,
             "shared": true,
+            "sort": 0,
             "value_type": "individual"
           },
           "type": "graph",
           "xaxis": {
-            "show": true
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
           },
           "yaxes": [
             {
@@ -2535,12 +2690,7 @@
           "editable": true,
           "error": false,
           "fill": 0,
-          "grid": {
-            "threshold1": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2": null,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
+          "grid": {},
           "id": 27,
           "interval": ">60s",
           "legend": {
@@ -2674,17 +2824,22 @@
               ]
             }
           ],
+          "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
           "title": "Storage osd-$osd",
           "tooltip": {
             "msResolution": false,
             "shared": true,
+            "sort": 0,
             "value_type": "cumulative"
           },
           "type": "graph",
           "xaxis": {
-            "show": true
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
           },
           "yaxes": [
             {
@@ -2710,12 +2865,7 @@
           "editable": true,
           "error": false,
           "fill": 0,
-          "grid": {
-            "threshold1": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2": null,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
+          "grid": {},
           "id": 25,
           "interval": ">60s",
           "legend": {
@@ -2783,32 +2933,34 @@
               "tags": [
                 {
                   "key": "cluster",
+                  "operator": "=~",
                   "value": "/$cluster/"
                 },
                 {
                   "condition": "AND",
-                  "key": "hostname",
-                  "value": "/$mon/"
-                },
-                {
-                  "condition": "AND",
                   "key": "osd",
+                  "operator": "=~",
                   "value": "/$osd/"
                 }
               ]
             }
           ],
+          "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
           "title": "Apply Latency osd-$osd",
           "tooltip": {
             "msResolution": false,
             "shared": true,
+            "sort": 0,
             "value_type": "cumulative"
           },
           "type": "graph",
           "xaxis": {
-            "show": true
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
           },
           "yaxes": [
             {
@@ -2834,12 +2986,7 @@
           "editable": true,
           "error": false,
           "fill": 0,
-          "grid": {
-            "threshold1": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2": null,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
+          "grid": {},
           "id": 26,
           "interval": ">60s",
           "legend": {
@@ -2907,32 +3054,34 @@
               "tags": [
                 {
                   "key": "cluster",
+                  "operator": "=~",
                   "value": "/$cluster/"
                 },
                 {
                   "condition": "AND",
-                  "key": "hostname",
-                  "value": "/$mon/"
-                },
-                {
-                  "condition": "AND",
                   "key": "osd",
+                  "operator": "=~",
                   "value": "/$osd/"
                 }
               ]
             }
           ],
+          "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
           "title": "Commit Latency osd-$osd",
           "tooltip": {
             "msResolution": false,
             "shared": true,
+            "sort": 0,
             "value_type": "cumulative"
           },
           "type": "graph",
           "xaxis": {
-            "show": true
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
           },
           "yaxes": [
             {
@@ -2952,18 +3101,26 @@
           ]
         }
       ],
+      "repeat": null,
+      "repeatIteration": null,
+      "repeatRowId": null,
       "showTitle": true,
-      "title": "OSD Daemons"
+      "title": "OSD Daemons",
+      "titleSize": "h6"
     },
     {
       "collapse": false,
-      "editable": true,
       "height": "250px",
       "panels": [],
-      "title": "New row"
+      "repeat": null,
+      "repeatIteration": null,
+      "repeatRowId": null,
+      "showTitle": false,
+      "title": "New row",
+      "titleSize": "h6"
     }
   ],
-  "schemaVersion": 12,
+  "schemaVersion": 14,
   "sharedCrosshair": true,
   "style": "dark",
   "tags": [],
@@ -2972,73 +3129,113 @@
     "list": [
       {
         "allFormat": "regex values",
+        "allValue": null,
         "current": {},
         "datasource": null,
         "hide": 0,
         "includeAll": false,
+        "label": null,
+        "multi": false,
         "name": "environment",
         "options": [],
         "query": "show tag values from cpu_idle with key = environment_label",
         "refresh": 1,
         "refresh_on_load": true,
         "regex": "",
-        "type": "query"
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
       },
       {
         "allFormat": "glob",
+        "allValue": null,
         "current": {},
         "datasource": null,
         "hide": 0,
         "includeAll": false,
+        "label": null,
+        "multi": false,
         "name": "mon",
         "options": [],
         "query": "show tag values from ceph_health with key = hostname where environment_label = '$environment'",
         "refresh": 1,
         "refresh_on_load": true,
         "regex": "",
-        "type": "query"
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
       },
       {
         "allFormat": "glob",
+        "allValue": null,
         "current": {},
         "datasource": null,
         "hide": 0,
         "includeAll": false,
+        "label": null,
+        "multi": false,
         "name": "cluster",
         "options": [],
         "query": "show tag values from ceph_health with key = cluster where environment_label = '$environment'",
         "refresh": 1,
         "refresh_on_load": true,
         "regex": "",
-        "type": "query"
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
       },
       {
         "allFormat": "regex wildcard",
+        "allValue": null,
         "current": {},
         "datasource": null,
         "hide": 0,
         "includeAll": false,
+        "label": null,
+        "multi": false,
         "name": "pool",
         "options": [],
         "query": "show tag values from ceph_pool_size with key = pool where environment_label = '$environment'",
         "refresh": 1,
         "refresh_on_load": true,
         "regex": "/^[^.]/",
-        "type": "query"
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
       },
       {
         "allFormat": "wildcard",
+        "allValue": null,
         "current": {},
         "datasource": null,
         "hide": 0,
         "includeAll": false,
+        "label": null,
+        "multi": false,
         "name": "osd",
         "options": [],
         "query": "show tag values from ceph_osd_space_total with key = osd where environment_label = '$environment'",
         "refresh": 1,
         "refresh_on_load": true,
         "regex": "",
-        "type": "query"
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
       }
     ]
   },
@@ -3079,5 +3276,5 @@
   },
   "timezone": "browser",
   "title": "Ceph",
-  "version": 2
+  "version": 3
 }
