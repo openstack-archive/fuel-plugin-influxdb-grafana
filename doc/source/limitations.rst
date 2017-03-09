@@ -5,8 +5,7 @@ Limitations
 
 The StackLight InfluxDB-Grafana plugin 1.1.0 has the following limitation:
 
-* The size of an InfluxDB cluster the Fuel plugin can deploy is limited to
-  three nodes. Additionally, each node of the InfluxDB cluster is configured to
-  run under the *meta* node role and the *data* node role. Therefore, it is not
-  possible to separate the nodes participating in the Raft consensus cluster
-  from the nodes accessing the data replicas.
+* InfluxDB isn't deployed in cluster mode because it is only supported by the
+  commercial version of InfluxDB. Instead it is deployed in standalone mode on
+  each node and only one instance receives the datapoints at a given time and
+  the other nodes will be used as failover in case the first node dies.
