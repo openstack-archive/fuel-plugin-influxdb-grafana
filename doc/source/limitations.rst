@@ -3,7 +3,7 @@
 Limitations
 -----------
 
-The StackLight InfluxDB-Grafana plugin 1.0.0 has the following limitation:
+The StackLight InfluxDB-Grafana plugin 1.0.1 has the following limitation:
 
 * The size of an InfluxDB cluster the Fuel plugin can deploy is limited to
   three nodes. Additionally, each node of the InfluxDB cluster is configured to

@@ -3,7 +3,7 @@
 Requirements
 ------------
 
-The StackLight InfluxDB-Grafana plugin 1.0.0 has the following requirements:
+The StackLight InfluxDB-Grafana plugin 1.0.1 has the following requirements:
 
 +-----------------------+------------------------------------------------------------------------+
 | **Requirement**       | **Version/Comment**                                                    |

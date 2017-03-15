@@ -3,6 +3,15 @@
 Release notes
 -------------
 
+Version 1.0.1
++++++++++++++
+
+Bug fixes
+'''''''''
+
+* Fix the Ceph dashboard.
+  `#1669415 <https://bugs.launchpad.net/lma-toolchain/+bug/1669415>`_.
+
 Version 1.0.0
 +++++++++++++
 
