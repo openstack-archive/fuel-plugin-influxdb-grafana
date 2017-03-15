@@ -9,7 +9,7 @@ project = u'The StackLight InfluxDB-Grafana Plugin for Fuel'
 copyright = u'2016, Mirantis Inc.'
 
 version = '1.0'
-release = '1.0.0'
+release = '1.0.1'
 
 exclude_patterns = []
 
