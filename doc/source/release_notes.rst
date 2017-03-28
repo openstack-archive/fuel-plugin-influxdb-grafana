@@ -11,6 +11,8 @@ Bug fixes
 
 * Fix the Ceph dashboard.
   `#1669415 <https://bugs.launchpad.net/lma-toolchain/+bug/1669415>`_.
+* Disable SSLv3 for Grafana.
+  `#1667356 <https://bugs.launchpad.net/lma-toolchain/+bug/1667356>`_.
 
 Version 1.0.0
 +++++++++++++
