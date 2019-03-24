@@ -4,7 +4,7 @@
     "author": "Guillaume Thouvenin <gthouvenin@mirantis.com>",
     "summary": "Provides Grafana for InfluxDB for LMA monitoring analytics",
     "license": "Apache-2.0",
-    "source": "git://git.openstack.org/cgit/stackforge/fuel-plugin-influxdb-grafana.git",
+    "source": "https://git.openstack.org/cgit/stackforge/fuel-plugin-influxdb-grafana.git",
     "project_page": "none",
     "issues_url": "none",
     "operatingsystem_support": [
