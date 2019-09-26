@@ -1,1 +1,0 @@
-INFLUXD_OPTS="-join <%= @raft_nodes.collect{|x| "#{x}:8091"}.join(',') %>"
